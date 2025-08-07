@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day7: カプセル化・継承詳細 - ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day6_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day8_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month1.html" class="hover:text-blue-600">1ヶ月目: Java基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week2.html" class="hover:text-blue-600">2週目: オブジェクト指向プログラミング</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">7日目: カプセル化・継承詳細</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day7.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <!-- Header -->
+    <header class="bg-blue-800 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <h1 class="text-4xl font-bold mb-2"><i class="fas fa-shield-alt mr-3"></i>Day7: カプセル化・継承詳細</h1>
+            <p class="text-blue-200 text-xl">アクセス修飾子・コンストラクタ・thisキーワード</p>
+            <div class="mt-4 text-sm text-blue-200">
+                <p><i class="fas fa-clock mr-2"></i>所要時間: 4時間 | <i class="fas fa-users mr-2"></i>対象: プログラム初級者～中級者 | <i class="fas fa-certificate mr-2"></i>JavaSilver17試験対応</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- 学習目標 -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">
+                <i class="fas fa-target mr-2"></i>📋 本日の学習目標
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-bold text-blue-600 mb-4">🎯 知識目標</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span><strong>アクセス修飾子</strong>の使い分けができるようになる</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span><strong>コンストラクタの継承関係</strong>を理解できるようになる</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span><strong>thisキーワード</strong>を適切に使用できるようになる</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span><strong>カプセル化の実装</strong>ができるようになる</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-green-600 mb-4">💡 実務スキル</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>安全なクラス設計ができるようになる</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>適切な継承関係を構築できるようになる</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>保守性の高いコードが書けるようになる</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-3"></i>
+                            <span>JavaSilver試験の関連問題が解けるようになる</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 重要ポイント -->
+        <section class="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-4">
+                <i class="fas fa-lightbulb mr-2"></i>重要ポイント
+            </h2>
+            <p class="text-yellow-700 text-lg">
+                カプセル化（データ隠蔽）と継承は<strong>オブジェクト指向の核心概念</strong>です。
+                適切なアクセス制御により、安全で保守性の高いソフトウェアを構築できます。
+                JavaSilver試験でも頻出であり、実務では設計の質を大きく左右します。
+            </p>
+        </section>
+
+        <!-- 1. アクセス修飾子 -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">
+                <i class="fas fa-lock mr-2"></i>1. アクセス修飾子（Access Modifiers）
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-blue-600 mb-4">🔐 アクセス修飾子とは</h3>
+                <p class="text-gray-700 text-lg mb-4">
+                    アクセス修飾子（アクセス制御子）は、クラスのメンバー（フィールドやメソッド）に対する
+                    <strong>「誰がアクセスできるか」を制御する仕組み</strong>です。
+                    これは金庫の鍵のように、大切な情報を適切に保護するために使用されます。
+                </p>
+            </div>
+
+            <!-- アクセス修飾子詳細表 -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-green-600 mb-4">📊 アクセス修飾子詳細比較表</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full bg-white border border-gray-300 rounded-lg shadow">
+                        <thead class="bg-blue-600 text-white">
+                            <tr>
+                                <th class="p-4 text-left">修飾子</th>
+                                <th class="p-4 text-left">アクセス範囲</th>
+                                <th class="p-4 text-left">具体的な意味</th>
+                                <th class="p-4 text-left">実用例</th>
+                                <th class="p-4 text-left">使用場面</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-4 font-bold text-red-600">private</td>
+                                <td class="p-4">同一クラス内のみ</td>
+                                <td class="p-4">金庫の中身のように、外部から直接見ることはできない</td>
+                                <td class="p-4">銀行口座の残高フィールド、パスワード</td>
+                                <td class="p-4">機密データ、内部処理用メソッド</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50 bg-gray-50">
+                                <td class="p-4 font-bold text-yellow-600">（デフォルト）</td>
+                                <td class="p-4">同一パッケージ内</td>
+                                <td class="p-4">同じ部署の人だけがアクセス可能</td>
+                                <td class="p-4">パッケージ内の共通ユーティリティ</td>
+                                <td class="p-4">パッケージ内での共有</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-4 font-bold text-orange-600">protected</td>
+                                <td class="p-4">継承クラス + 同一パッケージ</td>
+                                <td class="p-4">家族（継承関係）には公開される家族の秘密</td>
+                                <td class="p-4">親クラスの共通メソッド、テンプレート</td>
+                                <td class="p-4">継承での拡張を想定</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50 bg-gray-50">
+                                <td class="p-4 font-bold text-green-600">public</td>
+                                <td class="p-4">どこからでも</td>
+                                <td class="p-4">図書館の本のように、誰でも利用可能</td>
+                                <td class="p-4">API公開メソッド、getter/setter</td>
+                                <td class="p-4">外部に公開するインターフェース</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 実践例 -->
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-purple-600 mb-4">💻 実践例：銀行口座クラス</h3>
+                <pre class="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto"><code class="language-java">public class BankAccount {
+    // private: 口座残高は外部から直接変更できない（金庫の中身）
+    private double balance;
+    
+    // private: 口座番号も外部から変更不可
+    private String accountNumber;
+    
+    // protected: 継承クラス（特別口座など）からは利用可能
+    protected String accountType;
+    
+    // public: 外部からアクセス可能なメソッド（窓口業務）
+    public double getBalance() {
+        return balance;  // 残高照会は可能
+    }
+    
+    // public: 入金メソッド（安全な操作のみ公開）
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;  // 内部でのみ残高変更
+        }
+    }
+    
+    // private: 内部処理用（外部からは呼び出せない）
+    private boolean validateTransaction(double amount) {
+        return amount > 0 && balance >= amount;
+    }
+}</code></pre>
+            </div>
+
+            <!-- 講師向け指導ポイント -->
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6">
+                <h4 class="text-lg font-bold text-blue-700 mb-2">👨‍🏫 講師向け指導ポイント</h4>
+                <ul class="space-y-2 text-blue-600">
+                    <li><strong>なぜprivateにするのか：</strong>「残高を直接変更されたら困るから」という理由を強調</li>
+                    <li><strong>比喩の活用：</strong>「金庫」「家族の秘密」「図書館」など身近な例で説明</li>
+                    <li><strong>段階的理解：</strong>まずprivateとpublicから始め、徐々にprotectedを追加</li>
+                    <li><strong>実習重視：</strong>実際にアクセス制限を破ろうとしてエラーを体験させる</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 2. コンストラクタと継承 -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-green-500 pb-2">
+                <i class="fas fa-building mr-2"></i>2. コンストラクタと継承の詳細
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-green-600 mb-4">🏗️ コンストラクタ呼び出し順序</h3>
+                <p class="text-gray-700 text-lg mb-4">
+                    継承関係にあるクラスでは、コンストラクタは<strong>「親クラス → 子クラス」の順序</strong>で呼び出されます。
+                    これは建物を建てる時に「基礎 → 1階 → 2階」の順序で作るのと同じです。
+                </p>
+            </div>
+
+            <!-- コンストラクタ呼び出し順序図 -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-purple-600 mb-4">📈 コンストラクタ呼び出し順序図</h3>
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex flex-col items-center space-y-4">
+                        <!-- 手順1 -->
+                        <div class="bg-blue-500 text-white p-4 rounded-lg w-64 text-center">
+                            <div class="text-2xl font-bold mb-2">①</div>
+                            <div>Vehicleクラス</div>
+                            <div class="text-sm">（親クラス）</div>
+                        </div>
+                        
+                        <i class="fas fa-arrow-down text-3xl text-blue-500"></i>
+                        
+                        <!-- 手順2 -->
+                        <div class="bg-green-500 text-white p-4 rounded-lg w-64 text-center">
+                            <div class="text-2xl font-bold mb-2">②</div>
+                            <div>Carクラス</div>
+                            <div class="text-sm">（子クラス）</div>
+                        </div>
+                        
+                        <i class="fas fa-arrow-down text-3xl text-green-500"></i>
+                        
+                        <!-- 手順3 -->
+                        <div class="bg-purple-500 text-white p-4 rounded-lg w-64 text-center">
+                            <div class="text-2xl font-bold mb-2">③</div>
+                            <div>SportsCarクラス</div>
+                            <div class="text-sm">（孫クラス）</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 bg-white p-4 rounded border">
+                        <h4 class="font-bold text-gray-700 mb-2">実行順序の詳細：</h4>
+                        <ol class="list-decimal list-inside space-y-1 text-gray-600">
+                            <li>SportsCarのコンストラクタが呼ばれる</li>
+                            <li>最初にsuper()でCarのコンストラクタを呼び出す</li>
+                            <li>Carのコンストラクタ内でsuper()によりVehicleのコンストラクタを呼び出す</li>
+                            <li>Vehicleのコンストラクタが実行される</li>
+                            <li>Carのコンストラクタが実行される</li>
+                            <li>最後にSportsCarのコンストラクタが実行される</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 実践例 -->
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-orange-600 mb-4">💻 実践例：Vehicle継承チェーン</h3>
+                <pre class="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto"><code class="language-java">// ① 親クラス
+class Vehicle {
+    protected String brand;
+    
+    public Vehicle(String brand) {
+        this.brand = brand;
+        System.out.println("①Vehicle コンストラクタ実行: " + brand);
+    }
+}
+
+// ② 子クラス
+class Car extends Vehicle {
+    protected int doors;
+    
+    public Car(String brand, int doors) {
+        super(brand);  // ← 必ず最初の行で親のコンストラクタを呼び出し
+        this.doors = doors;
+        System.out.println("②Car コンストラクタ実行: " + doors + "ドア");
+    }
+}
+
+// ③ 孫クラス
+class SportsCar extends Car {
+    private boolean turbo;
+    
+    public SportsCar(String brand, boolean turbo) {
+        super(brand, 2);  // ← スポーツカーは2ドア固定
+        this.turbo = turbo;
+        System.out.println("③SportsCar コンストラクタ実行: ターボ" + turbo);
+    }
+}
+
+// 実行例
+SportsCar myCar = new SportsCar("Ferrari", true);
+// 出力:
+// ①Vehicle コンストラクタ実行: Ferrari
+// ②Car コンストラクタ実行: 2ドア  
+// ③SportsCar コンストラクタ実行: ターボtrue</code></pre>
+            </div>
+
+            <!-- super()の重要なルール -->
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+                <h4 class="text-lg font-bold text-red-700 mb-2">⚠️ super()の重要なルール</h4>
+                <ul class="space-y-2 text-red-600">
+                    <li><strong>1. 最初の行で呼び出し：</strong>super()は必ずコンストラクタの最初の行に記述</li>
+                    <li><strong>2. 自動挿入：</strong>super()を書かない場合、コンパイラが自動的にsuper()を挿入</li>
+                    <li><strong>3. 引数つきsuper()：</strong>親クラスに引数なしコンストラクタがない場合は必須</li>
+                    <li><strong>4. this()との併用不可：</strong>this()とsuper()は同時に使用できない</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 3. thisキーワード -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-purple-500 pb-2">
+                <i class="fas fa-finger-point mr-2"></i>3. thisキーワードの詳細活用
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-purple-600 mb-4">🎯 thisキーワードとは</h3>
+                <p class="text-gray-700 text-lg mb-4">
+                    thisキーワードは<strong>「現在のオブジェクト自身」を指す参照</strong>です。
+                    鏡を見て自分を指差すように、オブジェクトが自分自身を参照するために使用されます。
+                </p>
+            </div>
+
+            <!-- thisの使用場面表 -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-blue-600 mb-4">📋 thisキーワード使用場面詳細表</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full bg-white border border-gray-300 rounded-lg shadow">
+                        <thead class="bg-purple-600 text-white">
+                            <tr>
+                                <th class="p-4 text-left">使用場面</th>
+                                <th class="p-4 text-left">記述方法</th>
+                                <th class="p-4 text-left">理由・目的</th>
+                                <th class="p-4 text-left">実用例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-4 font-bold">フィールドと引数の区別</td>
+                                <td class="p-4"><code>this.name = name;</code></td>
+                                <td class="p-4">同名のフィールドと引数を区別するため</td>
+                                <td class="p-4">setter メソッド、コンストラクタ</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50 bg-gray-50">
+                                <td class="p-4 font-bold">他のコンストラクタ呼び出し</td>
+                                <td class="p-4"><code>this(defaultValue);</code></td>
+                                <td class="p-4">同一クラス内の別のコンストラクタを呼び出し</td>
+                                <td class="p-4">オーバーロードされたコンストラクタ</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-4 font-bold">メソッドチェーン</td>
+                                <td class="p-4"><code>return this;</code></td>
+                                <td class="p-4">連続したメソッド呼び出しを可能にする</td>
+                                <td class="p-4">Builder パターン、流れるような API</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50 bg-gray-50">
+                                <td class="p-4 font-bold">自分自身の参照渡し</td>
+                                <td class="p-4"><code>callback.notify(this);</code></td>
+                                <td class="p-4">他のオブジェクトに自分自身を渡す</td>
+                                <td class="p-4">イベント処理、コールバック</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 実践例 -->
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-green-600 mb-4">💻 実践例：thisキーワードの活用</h3>
+                <pre class="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto"><code class="language-java">public class Student {
+    private String name;
+    private int age;
+    private String grade;
+    
+    // ① フィールドと引数の区別
+    public Student(String name, int age) {
+        this.name = name;  // this.name（フィールド）= name（引数）
+        this.age = age;    // this.age（フィールド）= age（引数）
+    }
+    
+    // ② 他のコンストラクタ呼び出し
+    public Student(String name) {
+        this(name, 0);  // 上記のコンストラクタを呼び出し
+    }
+    
+    // ③ setter でのthis使用
+    public Student setGrade(String grade) {
+        this.grade = grade;
+        return this;  // 自分自身を返す（メソッドチェーン）
+    }
+    
+    public Student setAge(int age) {
+        this.age = age;
+        return this;  // 自分自身を返す
+    }
+    
+    // ④ メソッドチェーンの利用例
+    public static void main(String[] args) {
+        Student student = new Student("田中太郎")
+            .setAge(20)      // thisが返されるので続けて呼び出し可能
+            .setGrade("A");  // さらに続けて呼び出し可能
+        
+        System.out.println(student.name + " (" + student.age + "歳) 成績:" + student.grade);
+    }
+}</code></pre>
+            </div>
+
+            <!-- よくある間違い -->
+            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6">
+                <h4 class="text-lg font-bold text-yellow-700 mb-2">⚠️ よくある間違いと対策</h4>
+                <div class="space-y-4">
+                    <div class="bg-white p-3 rounded">
+                        <h5 class="font-bold text-red-600">❌ 間違い：this を付け忘れ</h5>
+                        <pre class="bg-red-50 p-2 rounded mt-2"><code>public void setName(String name) {
+    name = name;  // ← これは引数 = 引数 になってしまう
+}</code></pre>
+                        <h5 class="font-bold text-green-600 mt-2">✅ 正解：this で明示的に指定</h5>
+                        <pre class="bg-green-50 p-2 rounded mt-2"><code>public void setName(String name) {
+    this.name = name;  // ← フィールド = 引数
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. カプセル化の実践 -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-red-500 pb-2">
+                <i class="fas fa-capsules mr-2"></i>4. カプセル化（Encapsulation）の実践
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-red-600 mb-4">🏆 カプセル化とは</h3>
+                <p class="text-gray-700 text-lg mb-4">
+                    カプセル化（データ隠蔽）は<strong>「データと処理を一体化し、外部から直接アクセスできないよう隠蔽する仕組み」</strong>です。
+                    薬のカプセルのように、中身（データ）を保護し、安全な方法（メソッド）でのみアクセスを許可します。
+                </p>
+            </div>
+
+            <!-- カプセル化のメリット表 -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-blue-600 mb-4">📊 カプセル化のメリット詳細表</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full bg-white border border-gray-300 rounded-lg shadow">
+                        <thead class="bg-red-600 text-white">
+                            <tr>
+                                <th class="p-4 text-left">メリット</th>
+                                <th class="p-4 text-left">説明</th>
+                                <th class="p-4 text-left">具体例</th>
+                                <th class="p-4 text-left">実務での効果</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-4 font-bold text-blue-600">データ保護</td>
+                                <td class="p-4">不正な値の設定を防ぐ</td>
+                                <td class="p-4">年齢に負の値を設定することを防ぐ</td>
+                                <td class="p-4">バグの早期発見、データ整合性確保</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50 bg-gray-50">
+                                <td class="p-4 font-bold text-green-600">内部実装の隠蔽</td>
+                                <td class="p-4">内部の処理方法を変更しても外部に影響しない</td>
+                                <td class="p-4">配列からListに実装を変更</td>
+                                <td class="p-4">メンテナンス性向上、影響範囲限定</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-4 font-bold text-purple-600">アクセス制御</td>
+                                <td class="p-4">必要な機能のみを公開</td>
+                                <td class="p-4">残高照会は可能、直接変更は不可</td>
+                                <td class="p-4">セキュリティ向上、誤用防止</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50 bg-gray-50">
+                                <td class="p-4 font-bold text-orange-600">検証・ログ</td>
+                                <td class="p-4">値の設定時に検証やログ出力が可能</td>
+                                <td class="p-4">パスワード設定時の強度チェック</td>
+                                <td class="p-4">品質向上、トラブルシューティング</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 実践例 -->
+            <div class="mb-6">
+                <h3 class="text-2xl font-bold text-purple-600 mb-4">💻 実践例：完全なカプセル化の実装</h3>
+                <pre class="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto"><code class="language-java">public class Employee {
+    // private フィールド（外部から直接アクセス不可）
+    private String name;
+    private int age;
+    private double salary;
+    private String department;
+    
+    // コンストラクタ
+    public Employee(String name, int age, double salary, String department) {
+        setName(name);        // setter を使って検証
+        setAge(age);          // setter を使って検証
+        setSalary(salary);    // setter を使って検証
+        this.department = department;
+    }
+    
+    // getter: 読み取り専用アクセス
+    public String getName() {
+        return name;
+    }
+    
+    public int getAge() {
+        return age;
+    }
+    
+    public double getSalary() {
+        // 機密情報は制限付きで公開
+        return salary * 0.8;  // 手取り概算を返す
+    }
+    
+    // setter: 検証付きの安全な設定
+    public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("名前は必須です");
+        }
+        this.name = name.trim();
+    }
+    
+    public void setAge(int age) {
+        if (age < 0 || age > 100) {
+            throw new IllegalArgumentException("年齢は0-100の範囲で設定してください");
+        }
+        this.age = age;
+    }
+    
+    public void setSalary(double salary) {
+        if (salary < 0) {
+            throw new IllegalArgumentException("給与は0以上である必要があります");
+        }
+        // ログ出力（実際の変更を記録）
+        System.out.println("給与変更: " + this.salary + " → " + salary);
+        this.salary = salary;
+    }
+    
+    // 業務メソッド（計算ロジックも隠蔽）
+    public double calculateAnnualSalary() {
+        return salary * 12;  // 内部実装の詳細は隠蔽
+    }
+    
+    public boolean isEligibleForPromotion() {
+        return age >= 25 && salary >= 300000;  // 昇進条件も内部で判定
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- 演習問題 -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-green-500 pb-2">
+                <i class="fas fa-dumbbell mr-2"></i>📝 演習問題
+            </h2>
+
+            <!-- 問題1 -->
+            <div class="mb-8 bg-blue-50 p-6 rounded-lg">
+                <h3 class="text-xl font-bold text-blue-700 mb-4">問題1: アクセス修飾子の選択</h3>
+                <p class="text-gray-700 mb-4">
+                    以下のBookクラスの各メンバーに適切なアクセス修飾子を選択し、その理由を説明してください。
+                </p>
+                <pre class="bg-white p-4 rounded border mb-4"><code>class Book {
+    _____ String title;           // 書籍タイトル
+    _____ String isbn;            // ISBN番号
+    _____ double price;           // 価格
+    _____ int publishYear;        // 出版年
+    _____ boolean isAvailable;    // 貸出可能フラグ
+    
+    _____ String getTitle() { return title; }
+    _____ void setPrice(double price) { this.price = price; }
+    _____ void validateISBN(String isbn) { /* 検証処理 */ }
+    _____ void updateAvailability() { /* 内部処理 */ }
+}</code></pre>
+                
+                <button onclick="showAnswer('answer1')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mt-4">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                
+                <div id="answer1" class="hidden mt-4 bg-green-50 border-l-4 border-green-500 p-4">
+                    <h4 class="font-bold text-green-700 mb-2">💡 回答例</h4>
+                    <pre class="bg-white p-4 rounded border mb-4"><code>class Book {
+    private String title;           // 外部から直接変更されたくない
+    private String isbn;            // 一度設定したら変更不可にすべき
+    private double price;           // 価格は慎重に管理すべき
+    protected int publishYear;      // 継承クラス（特別版など）で利用
+    private boolean isAvailable;    // 内部状態は隠蔽
+    
+    public String getTitle() { return title; }        // 外部からの読み取りは許可
+    public void setPrice(double price) { this.price = price; }  // 公開API
+    private void validateISBN(String isbn) { /* 検証処理 */ }   // 内部処理
+    private void updateAvailability() { /* 内部処理 */ }        // 内部処理
+}</code></pre>
+                    <div class="mt-4">
+                        <h5 class="font-bold text-gray-700">選択理由：</h5>
+                        <ul class="list-disc list-inside text-gray-600 space-y-1">
+                            <li><strong>private:</strong> title, isbn, price, isAvailable - 重要なデータは保護</li>
+                            <li><strong>protected:</strong> publishYear - 継承クラスでの利用を想定</li>
+                            <li><strong>public:</strong> getter/setter - 外部との公開インターフェース</li>
+                            <li><strong>private:</strong> validate系メソッド - 内部実装の詳細</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問題2 -->
+            <div class="mb-8 bg-green-50 p-6 rounded-lg">
+                <h3 class="text-xl font-bold text-green-700 mb-4">問題2: コンストラクタ呼び出し順序</h3>
+                <p class="text-gray-700 mb-4">
+                    以下のコードの実行結果を予測し、コンストラクタの呼び出し順序を説明してください。
+                </p>
+                <pre class="bg-white p-4 rounded border mb-4"><code>class Animal {
+    public Animal() {
+        System.out.println("Animal コンストラクタ");
+    }
+}
+
+class Dog extends Animal {
+    public Dog() {
+        System.out.println("Dog コンストラクタ");
+    }
+    
+    public Dog(String name) {
+        this();  // 同一クラスの別のコンストラクタを呼び出し
+        System.out.println("Dog 名前付きコンストラクタ: " + name);
+    }
+}
+
+// 実行
+Dog myDog = new Dog("ポチ");</code></pre>
+                
+                <button onclick="showAnswer('answer2')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded mt-4">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                
+                <div id="answer2" class="hidden mt-4 bg-blue-50 border-l-4 border-blue-500 p-4">
+                    <h4 class="font-bold text-blue-700 mb-2">💡 回答例</h4>
+                    <div class="bg-white p-4 rounded border mb-4">
+                        <h5 class="font-bold mb-2">実行結果：</h5>
+                        <pre>Animal コンストラクタ
+Dog コンストラクタ
+Dog 名前付きコンストラクタ: ポチ</pre>
+                    </div>
+                    <div class="mt-4">
+                        <h5 class="font-bold text-gray-700">呼び出し順序の詳細：</h5>
+                        <ol class="list-decimal list-inside text-gray-600 space-y-1">
+                            <li>Dog(String name) コンストラクタが呼ばれる</li>
+                            <li>this() により Dog() コンストラクタが呼ばれる</li>
+                            <li>Dog() 内で暗黙的に super() により Animal() が呼ばれる</li>
+                            <li>Animal コンストラクタが実行される</li>
+                            <li>Dog() コンストラクタが実行される</li>
+                            <li>最後に Dog(String name) の残り部分が実行される</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問題3 -->
+            <div class="mb-8 bg-purple-50 p-6 rounded-lg">
+                <h3 class="text-xl font-bold text-purple-700 mb-4">問題3: thisキーワードの活用</h3>
+                <p class="text-gray-700 mb-4">
+                    以下の要件を満たすPersonクラスを作成してください：
+                </p>
+                <ul class="list-disc list-inside text-gray-700 mb-4 space-y-1">
+                    <li>name, age, email の private フィールドを持つ</li>
+                    <li>全ての引数を受け取るコンストラクタと、nameのみを受け取るコンストラクタ（age=0, email=""でデフォルト設定）</li>
+                    <li>メソッドチェーンで連続して値を設定できるsetterメソッド</li>
+                    <li>適切な検証機能付き</li>
+                </ul>
+                
+                <button onclick="showAnswer('answer3')" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded mt-4">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                
+                <div id="answer3" class="hidden mt-4 bg-orange-50 border-l-4 border-orange-500 p-4">
+                    <h4 class="font-bold text-orange-700 mb-2">💡 回答例</h4>
+                    <pre class="bg-white p-4 rounded border"><code>public class Person {
+    private String name;
+    private int age;
+    private String email;
+    
+    // 全引数コンストラクタ
+    public Person(String name, int age, String email) {
+        this.name = name;
+        this.age = age;
+        this.email = email;
+    }
+    
+    // 名前のみコンストラクタ（thisで他のコンストラクタを呼び出し）
+    public Person(String name) {
+        this(name, 0, "");  // デフォルト値で全引数コンストラクタを呼び出し
+    }
+    
+    // メソッドチェーン対応setter
+    public Person setAge(int age) {
+        if (age < 0 || age > 150) {
+            throw new IllegalArgumentException("年齢は0-150の範囲で設定してください");
+        }
+        this.age = age;
+        return this;  // 自分自身を返してメソッドチェーンを可能に
+    }
+    
+    public Person setEmail(String email) {
+        if (email != null && !email.contains("@")) {
+            throw new IllegalArgumentException("有効なメールアドレスを入力してください");
+        }
+        this.email = email;
+        return this;  // 自分自身を返す
+    }
+    
+    // 利用例
+    public static void main(String[] args) {
+        Person person = new Person("田中太郎")
+            .setAge(25)
+            .setEmail("tanaka@example.com");
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 理解度クイズ -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-yellow-500 pb-2">
+                <i class="fas fa-question-circle mr-2"></i>🧠 理解度クイズ
+            </h2>
+
+            <!-- クイズ1 -->
+            <div class="mb-6 bg-yellow-50 p-6 rounded-lg">
+                <h3 class="text-lg font-bold text-yellow-700 mb-4">クイズ1: アクセス修飾子</h3>
+                <p class="text-gray-700 mb-4">
+                    protectedフィールドにアクセスできるのはどれですか？（複数選択可）
+                </p>
+                <div class="space-y-2 mb-4">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2"> A. 同一クラス内
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2"> B. 同一パッケージ内のクラス
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2"> C. 異なるパッケージの継承クラス
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2"> D. 全く関係のないクラス
+                    </label>
+                </div>
+                
+                <button onclick="showAnswer('quiz1')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                
+                <div id="quiz1" class="hidden mt-4 bg-green-50 border-l-4 border-green-500 p-4">
+                    <h4 class="font-bold text-green-700 mb-2">正解：A、B、C</h4>
+                    <p class="text-gray-700">
+                        protectedは「同一クラス内」「同一パッケージ内」「継承クラス（パッケージが異なっても可）」からアクセス可能です。
+                        全く関係のないクラス（継承関係もなく、パッケージも異なる）からはアクセスできません。
+                    </p>
+                </div>
+            </div>
+
+            <!-- クイズ2 -->
+            <div class="mb-6 bg-blue-50 p-6 rounded-lg">
+                <h3 class="text-lg font-bold text-blue-700 mb-4">クイズ2: super()の呼び出し</h3>
+                <p class="text-gray-700 mb-4">
+                    子クラスのコンストラクタでsuper()を明示的に書かなかった場合、どうなりますか？
+                </p>
+                <div class="space-y-2 mb-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz2" class="mr-2"> A. コンパイルエラーになる
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz2" class="mr-2"> B. 親クラスのコンストラクタは呼ばれない
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz2" class="mr-2"> C. コンパイラが自動的にsuper()を挿入する
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz2" class="mr-2"> D. 実行時にエラーになる
+                    </label>
+                </div>
+                
+                <button onclick="showAnswer('quiz2')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                
+                <div id="quiz2" class="hidden mt-4 bg-green-50 border-l-4 border-green-500 p-4">
+                    <h4 class="font-bold text-green-700 mb-2">正解：C</h4>
+                    <p class="text-gray-700">
+                        子クラスのコンストラクタでsuper()を明示的に書かない場合、
+                        コンパイラが自動的に引数なしのsuper()を最初の行に挿入します。
+                        ただし、親クラスに引数なしのコンストラクタが存在しない場合はコンパイルエラーになります。
+                    </p>
+                </div>
+            </div>
+
+            <!-- クイズ3 -->
+            <div class="mb-6 bg-green-50 p-6 rounded-lg">
+                <h3 class="text-lg font-bold text-green-700 mb-4">クイズ3: thisキーワード</h3>
+                <p class="text-gray-700 mb-4">
+                    以下のコードの実行結果はどうなりますか？
+                </p>
+                <pre class="bg-white p-4 rounded border mb-4"><code>class Test {
+    private String name = "クラス";
+    
+    public void method(String name) {
+        System.out.println("引数: " + name);
+        System.out.println("フィールド: " + this.name);
+        System.out.println("ローカル: " + name);
+    }
+}
+
+Test test = new Test();
+test.method("メソッド");</code></pre>
+                
+                <button onclick="showAnswer('quiz3')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                
+                <div id="quiz3" class="hidden mt-4 bg-green-50 border-l-4 border-green-500 p-4">
+                    <h4 class="font-bold text-green-700 mb-2">実行結果：</h4>
+                    <pre class="bg-white p-4 rounded border mb-2">引数: メソッド
+フィールド: クラス
+ローカル: メソッド</pre>
+                    <p class="text-gray-700">
+                        thisキーワードを使うことで、同名の引数（ローカル変数）とフィールドを明確に区別できます。
+                        this.nameはクラスのフィールドを、nameは引数（ローカル変数）を指します。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- JavaSilver試験対策 -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-indigo-500 pb-2">
+                <i class="fas fa-certificate mr-2"></i>📚 JavaSilver試験対策
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold text-indigo-600 mb-4">頻出問題パターン</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-indigo-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-indigo-700 mb-2">パターン1: アクセス修飾子の範囲</h4>
+                            <p class="text-gray-700 text-sm mb-2">どのクラスからアクセス可能かを問う問題</p>
+                            <div class="bg-white p-3 rounded border">
+                                <pre class="text-sm"><code>package com.example;
+class A {
+    protected int value;
+}
+
+package com.other;
+class B extends A {
+    void method() {
+        value = 10;  // これは可能？
+    }
+}</code></pre>
+                                <p class="text-green-600 text-sm mt-2">→ <strong>可能</strong>（異なるパッケージでも継承関係があればOK）</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-red-700 mb-2">パターン2: コンストラクタ呼び出し順序</h4>
+                            <p class="text-gray-700 text-sm mb-2">継承チェーンでのコンストラクタ実行順序</p>
+                            <div class="bg-white p-3 rounded border">
+                                <pre class="text-sm"><code>class A { A() { System.out.print("A"); } }
+class B extends A { B() { System.out.print("B"); } }
+class C extends B { C() { System.out.print("C"); } }
+
+new C();  // 出力は？</code></pre>
+                                <p class="text-green-600 text-sm mt-2">→ <strong>"ABC"</strong>（親から子の順）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold text-green-600 mb-4">試験攻略のコツ</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-green-700 mb-2">✅ 重要ポイント</h4>
+                            <ul class="space-y-2 text-gray-700 text-sm">
+                                <li><i class="fas fa-check mr-2 text-green-500"></i><strong>protected</strong>は継承関係があれば異なるパッケージでもアクセス可能</li>
+                                <li><i class="fas fa-check mr-2 text-green-500"></i><strong>super()</strong>は必ず最初の行、省略時は自動挿入</li>
+                                <li><i class="fas fa-check mr-2 text-green-500"></i><strong>this()</strong>とsuper()は同時使用不可</li>
+                                <li><i class="fas fa-check mr-2 text-green-500"></i>コンストラクタは<strong>親→子</strong>の順序で実行</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-yellow-50 p-4 rounded-lg">
+                            <h4 class="font-bold text-yellow-700 mb-2">⚠️ 頻出の引っかけ</h4>
+                            <ul class="space-y-2 text-gray-700 text-sm">
+                                <li><i class="fas fa-exclamation-triangle mr-2 text-yellow-500"></i>defaultアクセスと<strong>protected</strong>の違い</li>
+                                <li><i class="fas fa-exclamation-triangle mr-2 text-yellow-500"></i>継承関係のないクラスからのprotectedアクセス</li>
+                                <li><i class="fas fa-exclamation-triangle mr-2 text-yellow-500"></i>this()呼び出し後のsuper()呼び出し</li>
+                                <li><i class="fas fa-exclamation-triangle mr-2 text-yellow-500"></i>フィールドと引数の同名問題</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- まとめ -->
+        <section class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold mb-6">
+                <i class="fas fa-graduation-cap mr-2"></i>📋 本日のまとめ
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">✅ 習得できたスキル</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle mr-3 text-green-300 mt-1"></i>
+                            <span><strong>privateで隠蔽し、getterで安全にアクセス</strong>できるカプセル化の実装</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle mr-3 text-green-300 mt-1"></i>
+                            <span><strong>protectedは継承クラスでのみ利用可能</strong>で、API設計に有効</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle mr-3 text-green-300 mt-1"></i>
+                            <span><strong>super()で親コンストラクタを最初に呼び出す</strong>継承の仕組み</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle mr-3 text-green-300 mt-1"></i>
+                            <span><strong>thisで同名フィールドと引数を区別</strong>でき、メソッドチェーンも実現</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">🚀 実務での活用</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-star mr-3 text-yellow-300 mt-1"></i>
+                            <span>機密データ（パスワード、個人情報）の適切な保護</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star mr-3 text-yellow-300 mt-1"></i>
+                            <span>APIの公開範囲制御によるセキュリティ向上</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star mr-3 text-yellow-300 mt-1"></i>
+                            <span>継承を活用した保守性の高いクラス設計</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star mr-3 text-yellow-300 mt-1"></i>
+                            <span>メソッドチェーンによる流れるようなAPI設計</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <h3 class="text-2xl font-bold mb-4">🎯 次回予告</h3>
+                <p class="text-lg">
+                    <strong>Day8: 例外処理</strong><br>
+                    try-catch-finally、checked/unchecked例外、カスタム例外の作成など、
+                    堅牢なアプリケーション開発に必要な例外処理を詳しく学習します。
+                </p>
+            </div>
+        </section>
+
+        <!-- ナビゲーション -->
+        <nav class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-compass mr-2"></i>ナビゲーション
+            </h2>
+            <div class="flex justify-between items-center">
+                <a href="day6_lecture.html" class="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg flex items-center transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    前回: Day6 継承・ポリモーフィズム
+                </a>
+                <span class="text-gray-500 font-medium">Day7: カプセル化・継承詳細</span>
+                <a href="day8_lecture.html" class="bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-lg flex items-center transition-colors">
+                    次回: Day8 例外処理
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white p-6 text-center">
+        <div class="container mx-auto">
+            <p class="mb-2">
+                <i class="fas fa-graduation-cap mr-2"></i>
+                ITエンジニア育成カリキュラム - Day7: カプセル化・継承詳細
+            </p>
+            <p class="text-gray-400">
+                開発環境: Pleiades (Eclipse) + Amazon Corretto JDK 17
+            </p>
+            <p class="text-gray-400 mt-2">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+</main>
+
+    <!-- JavaScript -->
+    <script>
+        function showAnswer(elementId) {
+            const element = document.getElementById(elementId);
+            const button = element.previousElementSibling;
+            
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+                button.innerHTML = '<i class="fas fa-eye-slash mr-2"></i>回答を非表示';
+                button.classList.remove('bg-blue-500', 'hover:bg-blue-600', 'bg-green-500', 'hover:bg-green-600', 'bg-yellow-500', 'hover:bg-yellow-600', 'bg-purple-500', 'hover:bg-purple-600');
+                button.classList.add('bg-gray-500', 'hover:bg-gray-600');
+            } else {
+                element.classList.add('hidden');
+                button.innerHTML = '<i class="fas fa-eye mr-2"></i>回答を表示';
+                button.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+                // 元の色に戻す（簡略化のため青色に統一）
+                button.classList.add('bg-blue-500', 'hover:bg-blue-600');
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDj8P7hAEXJHhydxDYdKrAXDTQ%2FHuyxclCNeMD46a5YIJjh9iIophT8093hJp%2FLe8rvq8t8JVB8mkJPnyf5%2BXQRcAd45yFDQxa4HOCOQKwSupz6rYfSPX39Nfb68FMfsrF2Jn%2BU3Z3JwBlaMsT0PVsFDrujEL%2FBwCD41dPR1xMR0w1A5KkdL4mMpLuvd36iWJwmHFjnBUoUIbE2aKBPq4gQbdSzevJDhqeiK2BldhbPlLn9tGpXUiaEBePsCAbY6AZmvxapZH4YdCHt1nL5nLRB1LscgPPDgsQ5ZN2aDom13ns2vu00ygfjovTXGDd2qazswU%2B6L%2F8m5S1ZT%2F%2F1SKfANjgBptS8cu%2FjmHeFYB4MFo0u%2B83bk%2FHUg2t6ITXy9w%2BiUzCVUca52G0sn2xpSjDzuIWD5cWV7lBnnL9qdmWqf20%2FSqkweSlh3oosKRyK17Nf6BwMuiEVwJUElz19mONTRWaGQK6bLvv7DVXPn2o1wEpsyQP07kA2AhKUjhJvyZffIeuI3S3z9BCpKnz1ebosjx8YT10ShsojPGlxQVQhB3";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDj8P7hAEXJHhydxDYdKrAXDTQ/HuyxclCNeMD46a5YIJjh9iIophT8093hJp/Le8rvq8t8JVB8mkJPnyf5+XQRcAd45yFDQxa4HOCOQKwSupz6rYfSPX39Nfb68FMfsrF2Jn+U3Z3JwBlaMsT0PVsFDrujEL/BwCD41dPR1xMR0w1A5KkdL4mMpLuvd36iWJwmHFjnBUoUIbE2aKBPq4gQbdSzevJDhqeiK2BldhbPlLn9tGpXUiaEBePsCAbY6AZmvxapZH4YdCHt1nL5nLRB1LscgPPDgsQ5ZN2aDom13ns2vu00ygfjovTXGDd2qazswU+6L/8m5S1ZT//1SKfANjgBptS8cu/jmHeFYB4MFo0u+83bk/HUg2t6ITXy9w+iUzCVUca52G0sn2xpSjDzuIWD5cWV7lBnnL9qdmWqf20/SqkweSlh3oosKRyK17Nf6BwMuiEVwJUElz19mONTRWaGQK6bLvv7DVXPn2o1wEpsyQP07kA2AhKUjhJvyZffIeuI3S3z9BCpKnz1ebosjx8YT10ShsojPGlxQVQhB3";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム - Day54: 成果発表・ポートフォリオ・キャリア戦略</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .code-block {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .answer-content {
+            display: none;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day53_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <span class="px-3 py-1 rounded text-sm text-gray-400 cursor-not-allowed">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month3.html" class="hover:text-blue-600">3ヶ月目: Webアプリケーション開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week12.html" class="hover:text-blue-600">12週目: 総合開発</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">54日目: 成果発表・ポートフォリオ・キャリア戦略</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day54.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center mb-4">
+                <a href="day53_lecture.html" class="flex items-center text-white hover:text-blue-200 transition-colors">
+                    <i class="fas fa-chevron-left mr-2"></i>
+                    <span>Day53: アジャイル開発・スクラム</span>
+                </a>
+                <div class="text-center">
+                    <h1 class="text-3xl font-bold">ITエンジニア育成カリキュラム</h1>
+                    <p class="text-blue-100">Day54: 成果発表・ポートフォリオ・キャリア戦略</p>
+                </div>
+                <div class="flex items-center text-white">
+                    <span>最終日完了</span>
+                    <i class="fas fa-trophy ml-2"></i>
+                </div>
+            </div>
+            <div class="text-center">
+                <h2 class="text-xl font-semibold text-blue-100">プレゼンテーション・技術面接対策・キャリアプランニング</h2>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Learning Objectives -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
+                    <i class="fas fa-target mr-3 text-blue-500"></i>本日の学習目標
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-presentation mr-3 text-green-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">プレゼンテーション技法をマスターする</h4>
+                                <p class="text-gray-600">効果的なスライド作成から、聴衆を引き付ける話し方まで実践的な発表技術を習得</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-portfolio mr-3 text-blue-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">魅力的なポートフォリオを作成できる</h4>
+                                <p class="text-gray-600">技術力をアピールできるポートフォリオサイトの設計・制作・公開方法を習得</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-user-tie mr-3 text-purple-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">技術面接対策を実践できる</h4>
+                                <p class="text-gray-600">コーディング面接、技術質問、システム設計面接の対策と実践的な回答方法を習得</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-road mr-3 text-orange-500 mt-1"></i>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">キャリア戦略を策定できる</h4>
+                                <p class="text-gray-600">個人のスキル・興味に基づいた長期的なキャリアプランと継続学習戦略を策定</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommended Development Environment -->
+        <section class="mb-12">
+            <div class="bg-blue-50 rounded-lg p-6 border-l-4 border-blue-500">
+                <h3 class="text-lg font-semibold mb-4 text-blue-800">
+                    <i class="fas fa-tools mr-2"></i>推奨開発環境
+                </h3>
+                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                        <h4 class="font-semibold text-blue-700">プレゼンテーション</h4>
+                        <p>PowerPoint / Google Slides / Figma</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-blue-700">ポートフォリオ</h4>
+                        <p>React / Next.js / Vercel / Netlify</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-blue-700">面接準備</h4>
+                        <p>LeetCode / HackerRank / CodePen</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Presentation Techniques -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-green-500 pb-2">
+                    <i class="fas fa-presentation mr-3 text-green-500"></i>1. プレゼンテーション技法の完全マスター
+                </h2>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">プレゼンテーションとは？</h3>
+                    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                        <p class="text-gray-700 mb-4">
+                            <strong>初心者向け解説：</strong>プレゼンテーション（presentation：発表・提示）とは、自分のアイデアや成果を聴衆に効果的に伝える技術です。エンジニアにとっては、技術的な内容を非技術者にも分かりやすく説明する重要なスキルです。
+                        </p>
+                        <p class="text-gray-700">
+                            <strong>日常例：</strong>料理のレシピを友人に教える時、材料（データ）、手順（プロセス）、完成品（結果）を順序立てて説明するのと同じように、技術プロジェクトも論理的な構成で発表します。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">効果的なスライド設計の原則</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse border border-gray-300 bg-white">
+                            <thead class="bg-green-100">
+                                <tr>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">設計要素</th>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">基本原則（日本語説明）</th>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">実用例</th>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">避けるべきパターン</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">レイアウト</td>
+                                    <td class="border border-gray-300 px-4 py-3">1スライド1メッセージ（情報を絞り込み）</td>
+                                    <td class="border border-gray-300 px-4 py-3">「このAPIの利点は高速性です」一点集中</td>
+                                    <td class="border border-gray-300 px-4 py-3">1枚に10個の機能説明を詰め込む</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">文字サイズ</td>
+                                    <td class="border border-gray-300 px-4 py-3">24pt以上（後ろの席からも読める）</td>
+                                    <td class="border border-gray-300 px-4 py-3">タイトル36pt、本文24pt、キーワード太字</td>
+                                    <td class="border border-gray-300 px-4 py-3">細かい仕様を12ptで詰め込む</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">色彩設計</td>
+                                    <td class="border border-gray-300 px-4 py-3">3色ルール（メイン・アクセント・背景）</td>
+                                    <td class="border border-gray-300 px-4 py-3">青系メイン、オレンジ強調、白背景</td>
+                                    <td class="border border-gray-300 px-4 py-3">虹色のカラフルな文字装飾</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">視覚効果</td>
+                                    <td class="border border-gray-300 px-4 py-3">図解・アイコン活用（直感的理解）</td>
+                                    <td class="border border-gray-300 px-4 py-3">システム構成図、フローチャート、アイコン</td>
+                                    <td class="border border-gray-300 px-4 py-3">文字だけの長文スライド</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">技術プレゼンテーションの構成テンプレート</h3>
+                    <div class="bg-gray-100 p-6 rounded-lg">
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-semibold text-green-600 mb-2">1. オープニング（1-2分）</h4>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <li><strong>自己紹介：</strong>「○○大学の△△です。今回は□□システムを開発しました」</li>
+                                    <li><strong>プロジェクト概要：</strong>「このシステムは～を解決するWebアプリケーションです」</li>
+                                    <li><strong>発表の流れ：</strong>「デモ → 技術解説 → 今後の展望の順で説明します」</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-semibold text-blue-600 mb-2">2. デモンストレーション（3-4分）</h4>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <li><strong>ユーザー視点：</strong>「実際にユーザーがどう使うか見てください」</li>
+                                    <li><strong>主要機能：</strong>「ログイン → データ入力 → 結果表示の流れです」</li>
+                                    <li><strong>特徴的な機能：</strong>「この画面のリアルタイム更新が特徴です」</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-semibold text-purple-600 mb-2">3. 技術解説（4-5分）</h4>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <li><strong>技術構成：</strong>「React + Node.js + MongoDBで構築しました」</li>
+                                    <li><strong>工夫した点：</strong>「パフォーマンス向上のため○○を実装しました」</li>
+                                    <li><strong>課題と解決：</strong>「△△で困りましたが、□□で解決しました」</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-semibold text-orange-600 mb-2">4. クロージング（1-2分）</h4>
+                                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                    <li><strong>学習成果：</strong>「このプロジェクトで○○の技術を習得しました」</li>
+                                    <li><strong>今後の展望：</strong>「機能追加と性能改善を予定しています」</li>
+                                    <li><strong>質疑応答：</strong>「ご質問があればお答えします」</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">緊張対策と話し方のコツ</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-blue-700 mb-3">
+                                <i class="fas fa-heart mr-2"></i>緊張対策テクニック
+                            </h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><strong>深呼吸法：</strong>4秒吸って4秒止めて8秒で吐く</li>
+                                <li><strong>事前練習：</strong>鏡の前で3回以上リハーサル</li>
+                                <li><strong>聴衆との視線：</strong>怖ければ後ろの壁を見る</li>
+                                <li><strong>手の置き場：</strong>資料を持つか、デスクに軽く置く</li>
+                                <li><strong>完璧主義の放棄：</strong>80%できれば成功と考える</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-green-700 mb-3">
+                                <i class="fas fa-microphone mr-2"></i>効果的な話し方
+                            </h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><strong>スピード：</strong>普段の0.8倍のペースでゆっくり話す</li>
+                                <li><strong>間の取り方：</strong>重要な点の前後に1秒の間</li>
+                                <li><strong>声の高低：</strong>重要な部分は少し高く、強調する</li>
+                                <li><strong>ジェスチャー：</strong>画面を指す時は手のひら全体で</li>
+                                <li><strong>言い直し：</strong>間違えても「つまり～」で自然に修正</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Portfolio Creation -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
+                    <i class="fas fa-portfolio mr-3 text-blue-500"></i>2. 魅力的なポートフォリオ作成戦略
+                </h2>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">ポートフォリオの重要性と目的</h3>
+                    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                        <p class="text-gray-700 mb-4">
+                            <strong>初心者向け解説：</strong>ポートフォリオ（portfolio：作品集）とは、自分のスキルと実績を示すための作品集です。履歴書では表現しきれない実際の技術力とセンスを、具体的な成果物で証明する重要なツールです。
+                        </p>
+                        <p class="text-gray-700">
+                            <strong>日常例：</strong>画家が個展で作品を展示するように、エンジニアも自分が作ったWebサイトやアプリケーションを公開して、技術力と創造性をアピールします。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">ポートフォリオに含めるべき要素</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse border border-gray-300 bg-white">
+                            <thead class="bg-blue-100">
+                                <tr>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">必須要素</th>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">内容（日本語説明）</th>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">実装例</th>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">アピールポイント</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">自己紹介</td>
+                                    <td class="border border-gray-300 px-4 py-3">プロフィール写真・経歴・スキル概要</td>
+                                    <td class="border border-gray-300 px-4 py-3">「Web開発3年、フルスタック対応可能」</td>
+                                    <td class="border border-gray-300 px-4 py-3">人となりと専門性の両方をアピール</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">技術スキル</td>
+                                    <td class="border border-gray-300 px-4 py-3">使用できる言語・フレームワーク・ツール</td>
+                                    <td class="border border-gray-300 px-4 py-3">React, Node.js, MongoDB（レベル表示）</td>
+                                    <td class="border border-gray-300 px-4 py-3">具体的な技術力の可視化</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">プロジェクト作品</td>
+                                    <td class="border border-gray-300 px-4 py-3">実際に作成したWebアプリ・システム</td>
+                                    <td class="border border-gray-300 px-4 py-3">Todoアプリ、ECサイト、SNSアプリなど</td>
+                                    <td class="border border-gray-300 px-4 py-3">実装力と問題解決能力の証明</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">ソースコード</td>
+                                    <td class="border border-gray-300 px-4 py-3">GitHub等でのコード公開・解説</td>
+                                    <td class="border border-gray-300 px-4 py-3">README詳細、コメント充実、設計文書</td>
+                                    <td class="border border-gray-300 px-4 py-3">コード品質と設計思想の展示</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">学習履歴</td>
+                                    <td class="border border-gray-300 px-4 py-3">習得した技術・資格・学習過程</td>
+                                    <td class="border border-gray-300 px-4 py-3">「React習得→TypeScript導入→テスト追加」</td>
+                                    <td class="border border-gray-300 px-4 py-3">継続的な成長意欲のアピール</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">プロジェクト紹介の効果的な書き方</h3>
+                    <div class="grid md:grid-cols-1 gap-6">
+                        <div class="bg-gray-100 p-6 rounded-lg">
+                            <h4 class="font-semibold text-blue-600 mb-4">プロジェクト説明のテンプレート</h4>
+                            <div class="space-y-4">
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
+                                    <h5 class="font-semibold text-green-600 mb-2">1. プロジェクト概要（What）</h5>
+                                    <p class="text-gray-700">「○○を解決するための△△システムです。□□の機能を持ち、××な特徴があります。」</p>
+                                    <p class="text-sm text-gray-500 mt-1">例：「在庫管理を効率化するWebアプリケーションです。リアルタイム更新機能を持ち、複数店舗での同時利用が可能です。」</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                                    <h5 class="font-semibold text-blue-600 mb-2">2. 使用技術（How）</h5>
+                                    <p class="text-gray-700">「フロントエンド：○○、バックエンド：△△、データベース：□□で構築しました。」</p>
+                                    <p class="text-sm text-gray-500 mt-1">例：「フロントエンド：React + TypeScript、バックエンド：Node.js + Express、データベース：MongoDBで構築しました。」</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-purple-500">
+                                    <h5 class="font-semibold text-purple-600 mb-2">3. 工夫した点（Why）</h5>
+                                    <p class="text-gray-700">「○○の課題に対して△△のアプローチで解決しました。結果として□□が向上しました。」</p>
+                                    <p class="text-sm text-gray-500 mt-1">例：「レスポンス速度の課題に対してキャッシュ機能を実装しました。結果として表示速度が3倍向上しました。」</p>
+                                </div>
+                                <div class="bg-white p-4 rounded-lg border-l-4 border-orange-500">
+                                    <h5 class="font-semibold text-orange-600 mb-2">4. 学習成果（Learn）</h5>
+                                    <p class="text-gray-700">「このプロジェクトを通じて○○の技術を習得し、△△の重要性を学びました。」</p>
+                                    <p class="text-sm text-gray-500 mt-1">例：「このプロジェクトを通じてTypeScriptの型安全性を習得し、テスト駆動開発の重要性を学びました。」</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">ポートフォリオサイトの技術実装</h3>
+                    <div class="bg-gray-100 p-6 rounded-lg">
+                        <h4 class="font-semibold text-gray-700 mb-4">基本的なReactポートフォリオ構成</h4>
+                        <div class="code-block">
+<pre><code>// App.js - メインコンポーネント
+import React from 'react';
+import Header from './components/Header';
+import About from './components/About';
+import Skills from './components/Skills';
+import Projects from './components/Projects';
+import Contact from './components/Contact';
+import './App.css';
+
+function App() {
+  return (
+    &lt;div className="App"&gt;
+      &lt;Header /&gt;
+      &lt;About /&gt;
+      &lt;Skills /&gt;
+      &lt;Projects /&gt;
+      &lt;Contact /&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;
+
+// Projects.js - プロジェクト表示コンポーネント
+import React from 'react';
+
+const Projects = () =&gt; {
+  const projects = [
+    {
+      id: 1,
+      title: "タスク管理アプリ",
+      description: "React + Node.jsで構築したタスク管理システム",
+      technologies: ["React", "Node.js", "MongoDB"],
+      githubUrl: "https://github.com/username/task-app",
+      liveUrl: "https://task-app-demo.netlify.app",
+      image: "/images/task-app.png"
+    },
+    // 他のプロジェクト...
+  ];
+
+  return (
+    &lt;section id="projects" className="projects-section"&gt;
+      &lt;h2&gt;プロジェクト&lt;/h2&gt;
+      &lt;div className="projects-grid"&gt;
+        {projects.map(project =&gt; (
+          &lt;div key={project.id} className="project-card"&gt;
+            &lt;img src={project.image} alt={project.title} /&gt;
+            &lt;h3&gt;{project.title}&lt;/h3&gt;
+            &lt;p&gt;{project.description}&lt;/p&gt;
+            &lt;div className="technologies"&gt;
+              {project.technologies.map(tech =&gt; (
+                &lt;span key={tech} className="tech-tag"&gt;{tech}&lt;/span&gt;
+              ))}
+            &lt;/div&gt;
+            &lt;div className="project-links"&gt;
+              &lt;a href={project.githubUrl} target="_blank" rel="noopener noreferrer"&gt;
+                GitHub
+              &lt;/a&gt;
+              &lt;a href={project.liveUrl} target="_blank" rel="noopener noreferrer"&gt;
+                Live Demo
+              &lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/section&gt;
+  );
+};
+
+export default Projects;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Technical Interview Preparation -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-purple-500 pb-2">
+                    <i class="fas fa-user-tie mr-3 text-purple-500"></i>3. 技術面接対策の実践的アプローチ
+                </h2>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">技術面接の種類と対策</h3>
+                    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+                        <p class="text-gray-700 mb-4">
+                            <strong>初心者向け解説：</strong>技術面接（technical interview：技術的な面接）とは、エンジニアの技術力を直接確認するための面接です。コーディング能力、問題解決力、設計思考力を実際の課題を通じて評価されます。
+                        </p>
+                        <p class="text-gray-700">
+                            <strong>日常例：</strong>料理人の採用で「この材料で美味しい料理を作ってください」と実技テストをするように、エンジニアも「この問題をプログラムで解決してください」という実技試験を受けます。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">面接タイプ別対策表</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse border border-gray-300 bg-white">
+                            <thead class="bg-purple-100">
+                                <tr>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">面接タイプ</th>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">内容（日本語説明）</th>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">対策方法</th>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">実用例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">コーディング面接</td>
+                                    <td class="border border-gray-300 px-4 py-3">アルゴリズム問題をその場で解く</td>
+                                    <td class="border border-gray-300 px-4 py-3">LeetCode毎日1問、パターン暗記</td>
+                                    <td class="border border-gray-300 px-4 py-3">「配列から重複を除去する関数を書いて」</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">システム設計面接</td>
+                                    <td class="border border-gray-300 px-4 py-3">大規模システムの設計を議論</td>
+                                    <td class="border border-gray-300 px-4 py-3">AWS・DB設計・スケーリング学習</td>
+                                    <td class="border border-gray-300 px-4 py-3">「Twitterのようなサービスを設計して」</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">技術質問面接</td>
+                                    <td class="border border-gray-300 px-4 py-3">使用技術の詳細知識を確認</td>
+                                    <td class="border border-gray-300 px-4 py-3">技術書・公式ドキュメント精読</td>
+                                    <td class="border border-gray-300 px-4 py-3">「Reactの仮想DOMの仕組みは？」</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">ペアプログラミング</td>
+                                    <td class="border border-gray-300 px-4 py-3">面接官と一緒にコードを書く</td>
+                                    <td class="border border-gray-300 px-4 py-3">コミュニケーション・思考過程重視</td>
+                                    <td class="border border-gray-300 px-4 py-3">「一緒にこの機能を実装しましょう」</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">コーディング面接の解答テクニック</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-blue-700 mb-3">
+                                <i class="fas fa-code mr-2"></i>解答の進め方（UMPIRE法）
+                            </h4>
+                            <ol class="space-y-2 text-gray-700">
+                                <li><strong>Understand（理解）：</strong>問題を正確に理解、不明点は質問</li>
+                                <li><strong>Match（照合）：</strong>既知のパターンと照合</li>
+                                <li><strong>Plan（計画）：</strong>解法のアプローチを説明</li>
+                                <li><strong>Implement（実装）：</strong>コードを書きながら説明</li>
+                                <li><strong>Review（確認）：</strong>テストケースで検証</li>
+                                <li><strong>Evaluate（評価）：</strong>時間・空間計算量を分析</li>
+                            </ol>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-green-700 mb-3">
+                                <i class="fas fa-lightbulb mr-2"></i>よくある質問パターン
+                            </h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><strong>配列・文字列：</strong>Two Pointer、Sliding Window</li>
+                                <li><strong>ハッシュテーブル：</strong>頻度計算、重複検出</li>
+                                <li><strong>二分探索：</strong>ソート済み配列の検索</li>
+                                <li><strong>動的計画法：</strong>最適化問題、フィボナッチ</li>
+                                <li><strong>グラフ・木：</strong>BFS、DFS、ツリー操作</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">実際の面接での回答例</h3>
+                    <div class="bg-gray-100 p-6 rounded-lg">
+                        <h4 class="font-semibold text-gray-700 mb-4">例題：「配列から重複する要素を取り除く関数を実装してください」</h4>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                                <h5 class="font-semibold text-blue-600 mb-2">1. 問題理解の確認</h5>
+                                <p class="text-gray-700">「配列 [1,2,2,3,4,4,5] から [1,2,3,4,5] を返す関数でよろしいでしょうか？順序は保持しますか？」</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
+                                <h5 class="font-semibold text-green-600 mb-2">2. アプローチの説明</h5>
+                                <p class="text-gray-700">「Setを使って重複を排除する方法と、forループでチェックする方法があります。Setの方が効率的なので、そちらで実装します。」</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border-l-4 border-purple-500">
+                                <h5 class="font-semibold text-purple-600 mb-2">3. コード実装</h5>
+                                <div class="code-block">
+<pre><code>function removeDuplicates(arr) {
+    // Setを使用して重複を自動的に排除
+    return [...new Set(arr)];
+}
+
+// テストケース
+console.log(removeDuplicates([1,2,2,3,4,4,5])); // [1,2,3,4,5]
+console.log(removeDuplicates([])); // []
+console.log(removeDuplicates([1])); // [1]</code></pre>
+                                </div>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg border-l-4 border-orange-500">
+                                <h5 class="font-semibold text-orange-600 mb-2">4. 計算量の分析</h5>
+                                <p class="text-gray-700">「時間計算量：O(n)、空間計算量：O(n)です。Setの作成とスプレッド演算子でそれぞれO(n)かかります。」</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Career Strategy -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-orange-500 pb-2">
+                    <i class="fas fa-road mr-3 text-orange-500"></i>4. 戦略的キャリアプランニング
+                </h2>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">エンジニアのキャリアパスと選択肢</h3>
+                    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-500">
+                        <p class="text-gray-700 mb-4">
+                            <strong>初心者向け解説：</strong>キャリアプランニング（career planning：職業人生設計）とは、自分の能力・興味・価値観に基づいて長期的な職業目標を設定し、それを実現するための戦略を立てることです。
+                        </p>
+                        <p class="text-gray-700">
+                            <strong>日常例：</strong>旅行の計画を立てる時、目的地（キャリア目標）を決めて、経由地（中間目標）とルート（学習・経験計画）を決めるように、職業人生も戦略的に設計することが重要です。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">エンジニアのキャリアパス選択肢</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse border border-gray-300 bg-white">
+                            <thead class="bg-orange-100">
+                                <tr>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">キャリアパス</th>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">役割（日本語説明）</th>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">必要スキル</th>
+                                    <th class="border border-gray-300 px-4 py-3 text-left">向いている人</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">スペシャリスト</td>
+                                    <td class="border border-gray-300 px-4 py-3">特定技術の専門家として深く追求</td>
+                                    <td class="border border-gray-300 px-4 py-3">高度な技術力、最新技術への追従</td>
+                                    <td class="border border-gray-300 px-4 py-3">技術が好き、深く学ぶことに情熱</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">マネージャー</td>
+                                    <td class="border border-gray-300 px-4 py-3">チーム管理・プロジェクト推進責任者</td>
+                                    <td class="border border-gray-300 px-4 py-3">リーダーシップ、コミュニケーション</td>
+                                    <td class="border border-gray-300 px-4 py-3">人をまとめる、組織運営に興味</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">アーキテクト</td>
+                                    <td class="border border-gray-300 px-4 py-3">システム全体設計・技術選定責任者</td>
+                                    <td class="border border-gray-300 px-4 py-3">広範な技術知識、設計思考力</td>
+                                    <td class="border border-gray-300 px-4 py-3">全体像を描く、技術選定が得意</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">起業家・CTO</td>
+                                    <td class="border border-gray-300 px-4 py-3">技術責任者・事業創造責任者</td>
+                                    <td class="border border-gray-300 px-4 py-3">技術×ビジネス理解、実行力</td>
+                                    <td class="border border-gray-300 px-4 py-3">新しいものを作る、リスクテイク</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-4 py-3 font-semibold">フリーランス</td>
+                                    <td class="border border-gray-300 px-4 py-3">独立した技術者・プロジェクト参画</td>
+                                    <td class="border border-gray-300 px-4 py-3">営業力、自己管理力、高い技術力</td>
+                                    <td class="border border-gray-300 px-4 py-3">自由な働き方、多様な経験重視</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">5年間の段階的成長プラン</h3>
+                    <div class="space-y-6">
+                        <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                            <h4 class="font-semibold text-green-700 mb-3">
+                                <i class="fas fa-seedling mr-2"></i>1-2年目：基礎固め期
+                            </h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h5 class="font-semibold text-gray-700 mb-2">技術面の目標</h5>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• フロントエンド・バックエンドの基礎技術習得</li>
+                                        <li>• Git、データベース操作の完全理解</li>
+                                        <li>• 小規模なWebアプリケーション単独開発</li>
+                                        <li>• コードレビューで指摘事項を理解・改善</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gray-700 mb-2">ビジネス面の目標</h5>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• チーム開発での協調性を身につける</li>
+                                        <li>• 要件定義から実装までの流れを理解</li>
+                                        <li>• 先輩エンジニアからの学習姿勢</li>
+                                        <li>• 業界知識・ビジネスモデルの基礎理解</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-semibold text-blue-700 mb-3">
+                                <i class="fas fa-tree mr-2"></i>3-4年目：専門性発展期
+                            </h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h5 class="font-semibold text-gray-700 mb-2">技術面の目標</h5>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• 特定分野での専門性を深める</li>
+                                        <li>• パフォーマンス最適化・セキュリティ対応</li>
+                                        <li>• 中規模システムの設計・実装リード</li>
+                                        <li>• 新技術の調査・評価・導入提案</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gray-700 mb-2">ビジネス面の目標</h5>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• 後輩指導・メンタリング経験</li>
+                                        <li>• プロジェクト管理・スケジュール調整</li>
+                                        <li>• 顧客・他部署との直接コミュニケーション</li>
+                                        <li>• 技術選定の判断基準を持つ</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+                            <h4 class="font-semibold text-purple-700 mb-3">
+                                <i class="fas fa-rocket mr-2"></i>5年目以降：リーダーシップ期
+                            </h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h5 class="font-semibold text-gray-700 mb-2">技術面の目標</h5>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• システムアーキテクチャ設計責任者</li>
+                                        <li>• 技術戦略・ロードマップ策定参画</li>
+                                        <li>• オープンソース貢献・技術発信</li>
+                                        <li>• 複数技術領域での横断的知識</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-gray-700 mb-2">ビジネス面の目標</h5>
+                                    <ul class="text-gray-600 space-y-1">
+                                        <li>• チームリーダー・技術責任者</li>
+                                        <li>• 事業戦略への技術面での貢献</li>
+                                        <li>• 組織の技術力向上施策立案・実行</li>
+                                        <li>• 次世代エンジニアの育成責任</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">継続学習とスキルアップ戦略</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-blue-700 mb-3">
+                                <i class="fas fa-book mr-2"></i>効果的な学習方法
+                            </h4>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><strong>実践重視：</strong>学んだ技術は必ず手を動かして確認</li>
+                                <li><strong>アウトプット：</strong>ブログ、GitHub、勉強会発表</li>
+                                <li><strong>コミュニティ参加：</strong>勉強会、カンファレンス</li>
+                                <li><strong>メンター確保：</strong>相談できる先輩・同僚</li>
+                                <li><strong>目標設定：</strong>3ヶ月、1年単位での具体目標</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-green-700 mb-3">
+                                <i class="fas fa-chart-line mr-2"></i>スキル向上の優先順位
+                            </h4>
+                            <ol class="space-y-2 text-gray-700">
+                                <li><strong>1. 基礎技術の深化：</strong>現在使用している技術の深い理解</li>
+                                <li><strong>2. 関連技術の拡張：</strong>周辺技術・ツールの習得</li>
+                                <li><strong>3. ソフトスキル：</strong>コミュニケーション・問題解決</li>
+                                <li><strong>4. ビジネス理解：</strong>業界・顧客・事業モデル理解</li>
+                                <li><strong>5. 新技術トレンド：</strong>将来有望な技術の早期キャッチアップ</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exercise Section -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-indigo-500 pb-2">
+                    <i class="fas fa-dumbbell mr-3 text-indigo-500"></i>5. 演習問題
+                </h2>
+
+                <div class="space-y-8">
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-800">
+                            <i class="fas fa-presentation mr-2 text-green-500"></i>演習問題1: プレゼンテーション作成
+                        </h3>
+                        <div class="mb-4">
+                            <p class="text-gray-700 mb-4">
+                                これまでに作成したWebアプリケーション（Portfolio、Todo、ECサイトなど）の中から1つを選び、5分間のプレゼンテーションを作成してください。以下の要素を必ず含めること：
+                            </p>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
+                                <li>プロジェクト概要とデモンストレーション（2分）</li>
+                                <li>使用技術と工夫した点の説明（2分）</li>
+                                <li>学習成果と今後の改善計画（1分）</li>
+                                <li>スライドは最大8枚、24pt以上の文字サイズ</li>
+                                <li>視覚的な要素（図表、スクリーンショット）を3つ以上含める</li>
+                            </ul>
+                        </div>
+                        
+                        <button onclick="toggleAnswer('answer1')" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">
+                            <i class="fas fa-eye mr-2"></i>回答例を表示
+                        </button>
+                        
+                        <div id="answer1" class="answer-content mt-4 p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
+                            <h4 class="font-semibold text-green-700 mb-3">プレゼンテーション構成例（Todoアプリの場合）</h4>
+                            <div class="space-y-3">
+                                <div><strong>スライド1:</strong> タイトル「React Todo App - 効率的なタスク管理システム」</div>
+                                <div><strong>スライド2:</strong> プロジェクト概要「日常のタスク管理を効率化するWebアプリ」</div>
+                                <div><strong>スライド3:</strong> デモ画面「実際の操作画面のスクリーンショット」</div>
+                                <div><strong>スライド4:</strong> 技術構成「React + Node.js + MongoDB」（アーキテクチャ図）</div>
+                                <div><strong>スライド5:</strong> 特徴的機能「リアルタイム同期機能の仕組み」（フロー図）</div>
+                                <div><strong>スライド6:</strong> 工夫した点「ドラッグ&ドロップUI実装の課題と解決」</div>
+                                <div><strong>スライド7:</strong> 学習成果「状態管理とUI設計の理解が深まった」</div>
+                                <div><strong>スライド8:</strong> 今後の計画「チーム機能追加、モバイル対応予定」</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-800">
+                            <i class="fas fa-portfolio mr-2 text-blue-500"></i>演習問題2: ポートフォリオサイト設計
+                        </h3>
+                        <div class="mb-4">
+                            <p class="text-gray-700 mb-4">
+                                自分のポートフォリオサイトの詳細設計を作成してください。以下の要件を満たすサイト構成を考案すること：
+                            </p>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2 ml-4">
+                                <li>5つのメインセクション（About, Skills, Projects, Experience, Contact）</li>
+                                <li>最低3つのプロジェクト作品を掲載</li>
+                                <li>技術スキルを5段階で視覚化</li>
+                                <li>レスポンシブデザイン対応</li>
+                                <li>ダークモード/ライトモード切り替え機能</li>
+                                <li>お問い合わせフォーム（バリデーション付き）</li>
+                            </ul>
+                        </div>
+                        
+                        <button onclick="toggleAnswer('answer2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                            <i class="fas fa-eye mr-2"></i>回答例を表示
+                        </button>
+                        
+                        <div id="answer2" class="answer-content mt-4 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-semibold text-blue-700 mb-3">ポートフォリオサイト設計例</h4>
+                            <div class="space-y-4">
+                                <div class="bg-white p-3 rounded">
+                                    <strong>技術構成:</strong> Next.js + TypeScript + Tailwind CSS + Framer Motion
+                                </div>
+                                <div class="bg-white p-3 rounded">
+                                    <strong>Aboutセクション:</strong> プロフィール写真、自己紹介文、経歴タイムライン
+                                </div>
+                                <div class="bg-white p-3 rounded">
+                                    <strong>Skillsセクション:</strong> React(5/5), Node.js(4/5), MongoDB(3/5) のようなレーダーチャート表示
+                                </div>
+                                <div class="bg-white p-3 rounded">
+                                    <strong>Projectsセクション:</strong> カード形式でプロジェクト表示、フィルタリング機能（技術別）
+                                </div>
+                                <div class="bg-white p-3 rounded">
+                                    <strong>デザイン方針:</strong> ミニマル、青系統、アニメーション控えめ、可読性重視
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-purple-500 pb-2">
+                    <i class="fas fa-brain mr-3 text-purple-500"></i>6. 理解度クイズ
+                </h2>
+
+                <div class="space-y-6">
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-800">クイズ1: プレゼンテーション技法について</h3>
+                        <p class="text-gray-700 mb-4">
+                            技術プレゼンテーションで最も重要な原則はどれですか？
+                        </p>
+                        <div class="space-y-2 mb-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="q1" value="A" class="mr-2">
+                                <span>A. できるだけ多くの技術詳細を説明する</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q1" value="B" class="mr-2">
+                                <span>B. 1スライド1メッセージで聴衆の理解を優先する</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q1" value="C" class="mr-2">
+                                <span>C. 美しいデザインとアニメーションで印象を強くする</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q1" value="D" class="mr-2">
+                                <span>D. 時間内に全ての内容を早口で説明する</span>
+                            </label>
+                        </div>
+                        
+                        <button onclick="toggleAnswer('quiz1')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
+                            <i class="fas fa-check mr-2"></i>回答を表示
+                        </button>
+                        
+                        <div id="quiz1" class="answer-content mt-4 p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+                            <div class="text-purple-700">
+                                <strong>正解: B. 1スライド1メッセージで聴衆の理解を優先する</strong>
+                            </div>
+                            <p class="text-gray-700 mt-2">
+                                <strong>解説:</strong> プレゼンテーションの最も重要な目的は「聴衆に内容を理解してもらうこと」です。1スライド1メッセージの原則により、情報を整理して伝えることで、聴衆の認知負荷を減らし、理解度を向上させることができます。技術詳細の詰め込み（A）や装飾重視（C）、早口での説明（D）は、逆に理解を妨げる要因となります。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-800">クイズ2: ポートフォリオ作成について</h3>
+                        <p class="text-gray-700 mb-4">
+                            エンジニアのポートフォリオで最も重要な要素はどれですか？
+                        </p>
+                        <div class="space-y-2 mb-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="q2" value="A" class="mr-2">
+                                <span>A. 美しいデザインと洗練されたUI</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q2" value="B" class="mr-2">
+                                <span>B. 実際に動作するプロジェクトと詳細な技術解説</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q2" value="C" class="mr-2">
+                                <span>C. 多数のプログラミング言語の習得アピール</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q2" value="D" class="mr-2">
+                                <span>D. 個人的な趣味や興味の詳細な紹介</span>
+                            </label>
+                        </div>
+                        
+                        <button onclick="toggleAnswer('quiz2')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
+                            <i class="fas fa-check mr-2"></i>回答を表示
+                        </button>
+                        
+                        <div id="quiz2" class="answer-content mt-4 p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+                            <div class="text-purple-700">
+                                <strong>正解: B. 実際に動作するプロジェクトと詳細な技術解説</strong>
+                            </div>
+                            <p class="text-gray-700 mt-2">
+                                <strong>解説:</strong> エンジニアのポートフォリオでは、実際の技術力を証明することが最重要です。動作するプロジェクト（Live Demo）と技術解説により、コーディング能力、問題解決力、設計思考力を具体的に示すことができます。美しいデザイン（A）も重要ですが技術力の証明が優先、多数言語（C）より深い理解、個人趣味（D）よりも専門性のアピールが採用担当者に評価されます。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-800">クイズ3: キャリア戦略について</h3>
+                        <p class="text-gray-700 mb-4">
+                            エンジニアの長期的なキャリア成長で最も重要な要素はどれですか？
+                        </p>
+                        <div class="space-y-2 mb-4">
+                            <label class="flex items-center">
+                                <input type="radio" name="q3" value="A" class="mr-2">
+                                <span>A. 常に最新技術を追い続けること</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q3" value="B" class="mr-2">
+                                <span>B. 1つの技術分野を極めること</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q3" value="C" class="mr-2">
+                                <span>C. 継続的な学習習慣と実践を通じた成長</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q3" value="D" class="mr-2">
+                                <span>D. できるだけ多くの転職を経験すること</span>
+                            </label>
+                        </div>
+                        
+                        <button onclick="toggleAnswer('quiz3')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
+                            <i class="fas fa-check mr-2"></i>回答を表示
+                        </button>
+                        
+                        <div id="quiz3" class="answer-content mt-4 p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+                            <div class="text-purple-700">
+                                <strong>正解: C. 継続的な学習習慣と実践を通じた成長</strong>
+                            </div>
+                            <p class="text-gray-700 mt-2">
+                                <strong>解説:</strong> エンジニアのキャリア成長において最も重要なのは、継続的な学習習慣です。技術の変化が激しいIT業界では、特定の技術に固執せず（B）、表面的な最新技術追従（A）や頻繁な転職（D）よりも、基礎を深め新しい知識を実践で活かす能力が長期的な成功をもたらします。「学習→実践→振り返り→改善」のサイクルを継続することで、どんな技術変化にも対応できる適応力が身につきます。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-green-500 pb-2">
+                    <i class="fas fa-trophy mr-3 text-green-500"></i>7. まとめ
+                </h2>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">習得した重要ポイント</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500">
+                            <h4 class="font-semibold text-green-700 mb-3">
+                                <i class="fas fa-presentation mr-2"></i>プレゼンテーション技法の実践的スキル
+                            </h4>
+                            <ul class="text-gray-700 space-y-2">
+                                <li><strong>構成力：</strong>1スライド1メッセージ原則で聴衆の理解度を最大化し、技術内容を論理的に整理して伝える技術を習得</li>
+                                <li><strong>視覚設計：</strong>24pt以上の文字サイズ、3色ルール、図解活用により、後方席からも理解できる視認性の高いスライドを作成</li>
+                                <li><strong>話し方技術：</strong>0.8倍速での丁寧な説明、重要ポイントでの間の取り方、緊張対策により自信を持った発表を実現</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-semibold text-blue-700 mb-3">
+                                <i class="fas fa-portfolio mr-2"></i>戦略的ポートフォリオ構築手法
+                            </h4>
+                            <ul class="text-gray-700 space-y-2">
+                                <li><strong>技術力証明：</strong>Live Demo + ソースコード + 技術解説により、実装能力と問題解決力を具体的に提示する手法を確立</li>
+                                <li><strong>プロジェクト説明：</strong>What（概要）→ How（技術）→ Why（工夫）→ Learn（学習）の4段階で、技術的な意思決定プロセスを明確に伝達</li>
+                                <li><strong>継続的更新：</strong>スキル成長に合わせたポートフォリオ改善により、長期的な技術力向上をアピール</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500">
+                            <h4 class="font-semibold text-purple-700 mb-3">
+                                <i class="fas fa-user-tie mr-2"></i>技術面接対策の体系的アプローチ
+                            </h4>
+                            <ul class="text-gray-700 space-y-2">
+                                <li><strong>UMPIRE法活用：</strong>Understand → Match → Plan → Implement → Review → Evaluate の6段階で、コーディング面接を論理的に攻略</li>
+                                <li><strong>思考過程の言語化：</strong>面接官と問題解決プロセスを共有し、コミュニケーション能力と技術力を同時にアピール</li>
+                                <li><strong>頻出パターン対策：</strong>配列・ハッシュ・二分探索・動的計画法等の基本アルゴリズムを実装レベルで習得</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-500">
+                            <h4 class="font-semibold text-orange-700 mb-3">
+                                <i class="fas fa-road mr-2"></i>長期的キャリア戦略の設計手法
+                            </h4>
+                            <ul class="text-gray-700 space-y-2">
+                                <li><strong>5年計画策定：</strong>基礎固め期（1-2年）→専門性発展期（3-4年）→リーダーシップ期（5年以降）の段階的成長プランを策定</li>
+                                <li><strong>継続学習システム：</strong>実践重視・アウトプット・コミュニティ参加・メンター確保による自律的な学習サイクルを構築</li>
+                                <li><strong>キャリアパス選択：</strong>スペシャリスト・マネージャー・アーキテクト・起業家・フリーランスから自分に適した方向性を選択</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">実務での具体的なメリット</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-gray-700 mb-3">
+                                <i class="fas fa-briefcase mr-2 text-blue-600"></i>就職活動での競争優位性
+                            </h4>
+                            <ul class="text-gray-600 space-y-1">
+                                <li>• 技術面接通過率の大幅向上</li>
+                                <li>• ポートフォリオによる差別化</li>
+                                <li>• プレゼン力による印象向上</li>
+                                <li>• 明確なキャリアビジョンのアピール</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h4 class="font-semibold text-gray-700 mb-3">
+                                <i class="fas fa-rocket mr-2 text-green-600"></i>エンジニアとしての成長加速
+                            </h4>
+                            <ul class="text-gray-600 space-y-1">
+                                <li>• 継続的な技術力向上システム</li>
+                                <li>• 効果的な自己ブランディング</li>
+                                <li>• ネットワーク構築とメンタリング</li>
+                                <li>• 長期的な市場価値向上</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-8 rounded-lg">
+                    <h3 class="text-2xl font-bold mb-4 text-center">
+                        <i class="fas fa-graduation-cap mr-3"></i>カリキュラム完走おめでとうございます！
+                    </h3>
+                    <div class="text-center space-y-4">
+                        <p class="text-lg">
+                            54日間のITエンジニア育成カリキュラムを完走されました。<br>
+                            基礎から実践まで、現場で活躍できる技術力を身につけられました。
+                        </p>
+                        <div class="flex justify-center space-x-6 text-sm">
+                            <div class="text-center">
+                                <i class="fas fa-code text-2xl mb-2 block"></i>
+                                <div>フロントエンド<br>マスター</div>
+                            </div>
+                            <div class="text-center">
+                                <i class="fas fa-server text-2xl mb-2 block"></i>
+                                <div>バックエンド<br>マスター</div>
+                            </div>
+                            <div class="text-center">
+                                <i class="fas fa-database text-2xl mb-2 block"></i>
+                                <div>データベース<br>マスター</div>
+                            </div>
+                            <div class="text-center">
+                                <i class="fas fa-rocket text-2xl mb-2 block"></i>
+                                <div>デプロイ<br>マスター</div>
+                            </div>
+                        </div>
+                        <p class="text-lg font-semibold">
+                            あなたの技術者としての輝かしい未来をお祈りしています！
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4">
+                <h3 class="text-xl font-bold mb-2">ITエンジニア育成カリキュラム完了</h3>
+                <p class="text-gray-300">54日間の学習プログラム - Day54: 成果発表・ポートフォリオ・キャリア戦略</p>
+            </div>
+            <div class="border-t border-gray-700 pt-4">
+                <p class="text-gray-400">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAnswer(id) {
+            const element = document.getElementById(id);
+            if (element.style.display === 'none' || element.style.display === '') {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        }
+
+        function showAnswer(questionNumber) {
+            const answerId = 'answer' + questionNumber;
+            const element = document.getElementById(answerId);
+            element.style.display = element.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Smooth scrolling for anchor links
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            for (const link of links) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            }
+        });
+
+        // Enhanced interaction effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-hover');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 20px 40px rgba(0,0,0,0.1)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+                });
+            });
+        });
+    </script>
+</main>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDva82CngwfDDRZaJ84sI4WEkGTMv2ivd1sDgjGAIDL4Kz%2BmjOLKvnSd8vhpHhtz4gXZ8NkJyaxG4liZIDujR22ZWUeITm9ROvuiRr4KiAXYew0FBQCu4YcTgnKWZJYK9bwJQPWjACDuptpm%2FCfEYhl%2F6gMMQ6AJ5TzK7zPorpgBQNATSZ1YZcCiwKoJmN8EABJ2X%2FOIc3bQisPeCExF8jXS4mUOWqkDVTWwvCytAiwaQ%2BPSdBlY22xhlerSN9ATEg3EInqrcV%2FmRut5Ld9VG%2FSw4r%2BuwerPK3peoWjhCpD5CuebpR7pKzZoJDz8z7UAWN%2Ft4ygs2390dSSYlswaEbvIPA2S79FMuwie6eDcNaQWEwEoMdri9m3oJMqs5rLXdNBpzkZzOaXWWSmxKV15xj8RdyUXiPGexYuQojTdN3hbwtbWXsWojyID0npSpVqtujz4uTRpHejImE5D0jUv1uHRzi6TB3PBNK0%2FOcVgceZTQ2Pq%2Be2Yc3KM6BdorKrtiWdWsIaXhhqF0o3jAHORG4sY%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDva82CngwfDDRZaJ84sI4WEkGTMv2ivd1sDgjGAIDL4Kz+mjOLKvnSd8vhpHhtz4gXZ8NkJyaxG4liZIDujR22ZWUeITm9ROvuiRr4KiAXYew0FBQCu4YcTgnKWZJYK9bwJQPWjACDuptpm/CfEYhl/6gMMQ6AJ5TzK7zPorpgBQNATSZ1YZcCiwKoJmN8EABJ2X/OIc3bQisPeCExF8jXS4mUOWqkDVTWwvCytAiwaQ+PSdBlY22xhlerSN9ATEg3EInqrcV/mRut5Ld9VG/Sw4r+uwerPK3peoWjhCpD5CuebpR7pKzZoJDz8z7UAWN/t4ygs2390dSSYlswaEbvIPA2S79FMuwie6eDcNaQWEwEoMdri9m3oJMqs5rLXdNBpzkZzOaXWWSmxKV15xj8RdyUXiPGexYuQojTdN3hbwtbWXsWojyID0npSpVqtujz4uTRpHejImE5D0jUv1uHRzi6TB3PBNK0/OcVgceZTQ2Pq+e2Yc3KM6BdorKrtiWdWsIaXhhqF0o3jAHORG4sY=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

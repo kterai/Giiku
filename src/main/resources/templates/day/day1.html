@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 1: オリエンテーション・Java概要 | ITエンジニア育成カリキュラム</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #6c757d;
+            --accent-color: #17a2b8;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+        }
+        
+        .hero-section {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 0.5rem;
+            box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .time-slot {
+            background-color: var(--light-color);
+            border-left: 4px solid var(--primary-color);
+            margin-bottom: 1rem;
+            padding: 1rem;
+            border-radius: 0.25rem;
+        }
+        
+        .time-slot h5 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .checklist-item i {
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .footer-logo img {
+            height: 30px;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 2rem 0;
+            }
+            
+            .navbar-brand img {
+                height: 30px;
+            }
+            
+            .time-slot {
+                padding: 0.75rem;
+            }
+        }
+        
+        /* Progress tracking */
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .progress {
+            height: 1.5rem;
+            font-size: 0.75rem;
+            background-color: #e9ecef;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+        
+        /* Print styles */
+         {
+            .navbar, .sidebar, .footer-links, .btn, .nav-tabs {
+                display: none !important;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            
+            body {
+                font-size: 12pt;
+                color: #000;
+                background: #fff;
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+                page-break-after: avoid;
+            }
+            
+            img {
+                max-width: 100% !important;
+            }
+            
+            .card {
+                border: 1px solid #ddd;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script defer src="../../js/day-navigation.js"></script>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../month/month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="../month/month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../week/week1.html">第1週: Java基礎</a></li>
+                            <li><a class="dropdown-item" href="../week/week2.html">第2週: オブジェクト指向</a></li>
+                            <li><a class="dropdown-item" href="../week/week3.html">第3週: Java応用</a></li>
+                            <li><a class="dropdown-item" href="../week/week4.html">第4週: 総仕上げ</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            日別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item active" href="day1.html">Day 1: オリエンテーション</a></li>
+                            <li><a class="dropdown-item" href="day2.html">Day 2: Java基本型・変数</a></li>
+                            <li><a class="dropdown-item" href="day3.html">Day 3: 制御構文・配列</a></li>
+                            <li><a class="dropdown-item" href="day4.html">Day 4: 配列応用・アルゴリズム</a></li>
+                            <li><a class="dropdown-item" href="day5.html">Day 5: 模擬テスト</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/resources.html">学習リソース</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="../../resources/faq.html" class="btn btn-outline-primary btn-sm me-2">FAQ</a>
+                    <a href="../../resources/advanced.html" class="btn btn-primary btn-sm">応用コース</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="container mt-3">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">ホーム</a></li>
+                <li class="breadcrumb-item"><a href="../month/month1.html">第1ヶ月目</a></li>
+                <li class="breadcrumb-item"><a href="../week/week1.html">第1週</a></li>
+                <li class="breadcrumb-item active">Day 1</li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-5 fw-bold">Day 1: オリエンテーション・Java概要</h1>
+                    <p class="lead">ITエンジニア育成カリキュラムの第一歩として、Javaプログラミングの基礎を学びます</p>
+                </div>
+                <div class="col-lg-4 text-center d-none d-lg-block">
+                    <i class="bi bi-calendar-check" style="font-size: 5rem;"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container mb-3 text-end">
+        <a href="../lecture/day1_lecture.html" target="_blank" class="btn btn-warning">
+            講義スライドを開く
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- 学習目標 -->
+                <section class="mb-5">
+                    <h2 class="section-title">学習目標</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex">
+                                    <i class="bi bi-check-circle-fill me-2 text-success"></i>
+                                    <span>ITエンジニア育成カリキュラムの全体像と進め方を理解する</span>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <i class="bi bi-check-circle-fill me-2 text-success"></i>
+                                    <span>Javaプログラミング言語の歴史と特徴を理解する</span>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <i class="bi bi-check-circle-fill me-2 text-success"></i>
+                                    <span>Java開発環境（JDK, IDE）を構築する</span>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <i class="bi bi-check-circle-fill me-2 text-success"></i>
+                                    <span>Hello, World! プログラムを作成・実行できる</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 達成基準 -->
+                <section class="mb-5">
+                    <h2 class="section-title">達成基準</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex">
+                                    <i class="bi bi-trophy-fill me-2 text-warning"></i>
+                                    <span>カリキュラムの全体構成と学習目標を説明できる</span>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <i class="bi bi-trophy-fill me-2 text-warning"></i>
+                                    <span>Java SE, EE, MEの違いや、Javaの特徴を3つ以上挙げられる</span>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <i class="bi bi-trophy-fill me-2 text-warning"></i>
+                                    <span>JDK, JRE, JVMの関係性を図示できる</span>
+                                </li>
+                                <li class="list-group-item d-flex">
+                                    <i class="bi bi-trophy-fill me-2 text-warning"></i>
+                                    <span>自分のPCでJavaプログラムをコンパイル・実行できる</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 詳細スケジュール -->
+                <section class="mb-5">
+                    <h2 class="section-title">詳細スケジュール</h2>
+                    
+                    <!-- オリエンテーション -->
+                    <div class="time-slot">
+                        <h5><i class="bi bi-clock me-2"></i>10:00-10:15 オリエンテーション</h5>
+                        <p>ITエンジニア育成カリキュラムの概要説明、3ヶ月間の学習内容と目標、カリキュラムの進め方についての説明。</p>
+                        <div class="alert alert-info">
+                            <small><i class="bi bi-info-circle-fill me-1"></i>本日はカリキュラム初日です。学習の進め方や教材の使い方についても説明します。</small>
+                        </div>
+                    </div>
+
+                    <!-- 午前講義パート1 -->
+                    <div class="time-slot">
+                        <h5><i class="bi bi-clock me-2"></i>10:15-11:00 午前講義パート1: Javaの歴史と特徴</h5>
+                        <p>Javaプログラミング言語の誕生から現在までの発展の歴史、プラットフォーム独立性、オブジェクト指向、ガベージコレクションなどのJavaの主要な特徴について学習します。</p>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-book-half me-2 text-primary"></i>
+                            <span>講義資料: 「Javaプログラミング入門」第1章</span>
+                        </div>
+                    </div>
+
+                    <!-- 午前演習パート1 -->
+                    <div class="time-slot">
+                        <h5><i class="bi bi-clock me-2"></i>11:00-11:45 午前演習パート1: Java言語の特徴を理解する</h5>
+                        <p>Javaと他のプログラミング言語（C++, Python, JavaScript等）との違いを比較し、それぞれの用途や特性を理解するグループワーク。</p>
+                        <div class="card mb-3 bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title">演習問題</h6>
+                                <ol>
+                                    <li>Javaの「Write Once, Run Anywhere」の意味と仕組みを説明してください。</li>
+                                    <li>プログラミング言語を3つ挙げ、Javaとの違いを表にまとめてください。</li>
+                                    <li>Java SEとJava EEの違いと使用例を調べてください。</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 昼休憩 -->
+                    <div class="time-slot bg-light">
+                        <h5><i class="bi bi-clock me-2"></i>11:45-12:45 昼休憩</h5>
+                        <p>休憩時間です。昼食をとり、リフレッシュしましょう。</p>
+                    </div>
+
+                    <!-- 午後講義パート1 -->
+                    <div class="time-slot">
+                        <h5><i class="bi bi-clock me-2"></i>12:45-13:30 午後講義パート1: Java開発環境の構築</h5>
+                        <p>JDK (Java Development Kit)のインストール方法、統合開発環境（Eclipse, IntelliJ IDEA, Visual Studio Code）の紹介と設定方法、環境変数の設定などを学習します。</p>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-tools me-2 text-primary"></i>
+                            <span>必要なツール: AdoptOpenJDK, Eclipse IDE</span>
+                        </div>
+                    </div>
+
+                    <!-- 午後演習パート1 -->
+                    <div class="time-slot">
+                        <h5><i class="bi bi-clock me-2"></i>13:30-14:15 午後演習パート1: 開発環境のセットアップ</h5>
+                        <p>各自のPCにJDKと統合開発環境（Eclipse）をインストールし、環境変数の設定を行います。トラブルシューティングも含めて実施します。</p>
+                        <div class="alert alert-warning">
+                            <small><i class="bi bi-exclamation-triangle-fill me-1"></i>インストール中に問題が発生した場合は、すぐに質問してください。</small>
+                        </div>
+                    </div>
+
+                    <!-- 午後講義パート2 -->
+                    <div class="time-slot">
+                        <h5><i class="bi bi-clock me-2"></i>14:15-15:00 午後講義パート2: 最初のJavaプログラム</h5>
+                        <p>プログラムの基本構造、クラスとメソッド、mainメソッド、コンパイルと実行の流れなど、Javaプログラミングの基礎概念を学習します。</p>
+                        <div class="card mb-3 bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title">サンプルコード: Hello World</h6>
+                                <pre class="bg-dark text-light p-3 rounded"><code>public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 午後休憩 -->
+                    <div class="time-slot bg-light">
+                        <h5><i class="bi bi-clock me-2"></i>15:00-15:10 午後休憩</h5>
+                        <p>短い休憩時間です。リフレッシュしましょう。</p>
+                    </div>
+
+                    <!-- 午後演習パート2 -->
+                    <div class="time-slot">
+                        <h5><i class="bi bi-clock me-2"></i>15:10-15:55 午後演習パート2: Hello, World!プログラミング</h5>
+                        <p>統合開発環境を使用して最初のJavaプログラム（Hello, World!）を作成し、コンパイル・実行します。さらに簡単なプログラムの修正を行います。</p>
+                        <div class="card mb-3 bg-light">
+                            <div class="card-body">
+                                <h6 class="card-title">演習課題</h6>
+                                <ol>
+                                    <li>「Hello, World!」と表示するプログラムを作成して実行する</li>
+                                    <li>プログラムを修正して、自分の名前も表示するようにする</li>
+                                    <li>複数行の出力をするプログラムに拡張する</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 理解度チェック -->
+                    <div class="time-slot">
+                        <h5><i class="bi bi-clock me-2"></i>15:55-17:00 理解度チェック</h5>
+                        <p>本日学習した内容の理解度を確認するためのクイズと小テストを実施します。Javaの基本概念と環境構築に関する問題が出題されます。</p>
+                        <div class="alert alert-primary">
+                            <small><i class="bi bi-lightbulb-fill me-1"></i>このテストは学習の進捗を確認するためのものであり、評価のためではありません。</small>
+                        </div>
+                    </div>
+
+                    <!-- 振り返り・質疑応答 -->
+                    <div class="time-slot">
+                        <h5><i class="bi bi-clock me-2"></i>17:00-17:45 振り返り・質疑応答</h5>
+                        <p>本日の学習内容を振り返り、疑問点や不明点について質問する時間です。翌日の学習内容についての予告も行います。</p>
+                    </div>
+                </section>
+
+                <!-- Javaの概要 -->
+                <section class="mb-5">
+                    <h2 class="section-title">Javaの概要</h2>
+                    <div class="card">
+                        <div class="card-header">
+                            Javaプログラミング言語とは
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Javaの歴史</h5>
+                            <p>Javaは1995年にSun Microsystems（現在はOracleが買収）によって開発されたプログラミング言語です。当初は家電製品用の組み込み言語として開発されましたが、Webアプリケーションの普及とともに広く使われるようになりました。</p>
+                            
+                            <h5 class="card-title mt-4">Javaの特徴</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="d-flex mb-3">
+                                        <i class="bi bi-check-circle text-success fs-4 me-2"></i>
+                                        <div>
+                                            <h6>プラットフォーム独立性</h6>
+                                            <p class="small">「Write Once, Run Anywhere」の原則に基づき、JVMが動作するどのプラットフォームでも同じコードが実行可能。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex mb-3">
+                                        <i class="bi bi-check-circle text-success fs-4 me-2"></i>
+                                        <div>
+                                            <h6>オブジェクト指向</h6>
+                                            <p class="small">すべてがオブジェクトとして表現され、カプセル化、継承、ポリモーフィズムをサポート。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex mb-3">
+                                        <i class="bi bi-check-circle text-success fs-4 me-2"></i>
+                                        <div>
+                                            <h6>自動メモリ管理</h6>
+                                            <p class="small">ガベージコレクション機能により、メモリリークやダングリングポインタの問題が軽減。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex mb-3">
+                                        <i class="bi bi-check-circle text-success fs-4 me-2"></i>
+                                        <div>
+                                            <h6>堅牢性と安全性</h6>
+                                            <p class="small">強い型付け、例外処理、セキュリティマネージャによる保護。</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h5 class="card-title mt-4">Java実行環境の構成</h5>
+                            <div class="row align-items-center">
+                                <div class="col-md-6">
+                                    <ul class="list-group">
+                                        <li class="list-group-item"><strong>JDK (Java Development Kit)</strong>: Javaアプリケーションの開発に必要なツールセット</li>
+                                        <li class="list-group-item"><strong>JRE (Java Runtime Environment)</strong>: Javaアプリケーションの実行に必要な環境</li>
+                                        <li class="list-group-item"><strong>JVM (Java Virtual Machine)</strong>: バイトコードを実行する仮想マシン</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-center">
+                                        <div class="card p-3 bg-light">
+                                            <div class="border border-primary p-2 mb-2">JDK (開発キット)</div>
+                                            <div class="border border-success p-2 mb-2">JRE (実行環境)</div>
+                                            <div class="border border-danger p-2">JVM (仮想マシン)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 使用教材・リソース -->
+                <section class="mb-5">
+                    <h2 class="section-title">使用教材・リソース</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>開発ツール</h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex align-items-center">
+                                            <i class="bi bi-box me-2 text-primary"></i>
+                                            <div>
+                                                <a href="https://adoptopenjdk.net/" target="_blank">AdoptOpenJDK</a>
+                                                <p class="small text-muted mb-0">無償で利用できるJDK（Java Development Kit）</p>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex align-items-center">
+                                            <i class="bi bi-code-square me-2 text-primary"></i>
+                                            <div>
+                                                <a href="https://www.eclipse.org/downloads/" target="_blank">Eclipse IDE</a>
+                                                <p class="small text-muted mb-0">Javaプログラミング用の統合開発環境</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>参考資料</h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex align-items-center">
+                                            <i class="bi bi-book me-2 text-primary"></i>
+                                            <div>
+                                                <a href="https://docs.oracle.com/javase/tutorial/" target="_blank">Oracle Java Tutorials</a>
+                                                <p class="small text-muted mb-0">公式のJavaチュートリアル</p>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item d-flex align-items-center">
+                                            <i class="bi bi-journal-text me-2 text-primary"></i>
+                                            <div>
+                                                <a href="https://docs.oracle.com/javase/17/docs/api/" target="_blank">Java 17 API Documentation</a>
+                                                <p class="small text-muted mb-0">Java SEのAPI仕様書</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 理解度確認項目 -->
+                <section class="mb-5">
+                    <h2 class="section-title">理解度確認項目</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic" type="button" role="tab">基本レベル</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="advanced-tab" data-bs-toggle="tab" data-bs-target="#advanced" type="button" role="tab">応用レベル</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content pt-3" id="myTabContent">
+                                <div class="tab-pane fade show active" id="basic" role="tabpanel">
+                                    <div class="checklist-item">
+                                        <i class="bi bi-square"></i>
+                                        <span>Javaプログラミング言語の歴史と特徴を説明できる</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <i class="bi bi-square"></i>
+                                        <span>JDK, JRE, JVMの関係性を理解している</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <i class="bi bi-square"></i>
+                                        <span>Eclipse IDEの基本的な使い方を理解している</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <i class="bi bi-square"></i>
+                                        <span>簡単なJavaプログラムを作成・実行できる</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <i class="bi bi-square"></i>
+                                        <span>System.out.printlnの使い方を理解している</span>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="advanced" role="tabpanel">
+                                    <div class="checklist-item">
+                                        <i class="bi bi-square"></i>
+                                        <span>JavaとC++/Python等の他言語との違いを説明できる</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <i class="bi bi-square"></i>
+                                        <span>Javaのバージョン間の主な違いを説明できる</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <i class="bi bi-square"></i>
+                                        <span>コマンドラインでJavaプログラムをコンパイル・実行できる</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <i class="bi bi-square"></i>
+                                        <span>統合開発環境のデバッグ機能を使用できる</span>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <i class="bi bi-square"></i>
+                                        <span>Javaプログラムの実行時エラーを解決できる</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 次のステップ -->
+                <section class="mb-5">
+                    <h2 class="section-title">次のステップ</h2>
+                    <div class="card">
+                        <div class="card-header">次の日: Day 2 - Java基本型・変数・演算子</div>
+                        <div class="card-body">
+                            <p>明日はJavaの基本データ型、変数宣言、リテラル、型変換、演算子について学習します。プログラミングの基礎となる重要な概念を理解し、簡単なプログラムを書けるようになることが目標です。</p>
+                            <div class="alert alert-light">
+                                <h6>予習のポイント</h6>
+                                <ul class="mb-0">
+                                    <li>基本データ型（int, double, char, boolean）の概念</li>
+                                    <li>変数宣言と初期化の文法</li>
+                                    <li>算術演算子、比較演算子、論理演算子の基本</li>
+                                </ul>
+                            </div>
+                            <a href="day2.html" class="btn btn-primary mt-2">Day 2の内容を見る</a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- フィードバックフォーム -->
+                <section class="mb-5">
+                    <h2 class="section-title">フィードバック</h2>
+                    <div class="card">
+                        <div class="card-body">
+                            <p>今日の学習内容についてのフィードバックをお寄せください。</p>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="feedback" class="form-label">コメント・質問</label>
+                                    <textarea class="form-control" id="feedback" rows="3" placeholder="ここにフィードバックを入力してください"></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">理解度の自己評価</label>
+                                    <div class="d-flex align-items-center">
+                                        <span>低</span>
+                                        <input type="range" class="form-range mx-2" min="1" max="5" id="understanding">
+                                        <span>高</span>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">送信する</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- 進捗状況 -->
+                <div class="card mb-4 sticky-lg-top" style="top: 1rem; z-index: 1000;">
+                    <div class="card-header">進捗状況</div>
+                    <div class="card-body">
+                        <p>第1週: 1/5日目 (20%)</p>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20%</div>
+                        </div>
+                        <p>第1ヶ月: 1/18日目 (5.6%)</p>
+                        <div class="progress">
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 5.6%" aria-valuenow="5.6" aria-valuemin="0" aria-valuemax="100">5.6%</div>
+                        </div>
+                        <div class="chart-container mt-4">
+                            <canvas id="progressChart"></canvas>
+                        </div>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="../week/week1.html" class="btn btn-sm btn-outline-primary">週のスケジュール</a>
+                            <a href="../month/month1.html" class="btn btn-sm btn-outline-primary">月間計画を見る</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ナビゲーション -->
+                <div class="card mb-4">
+                    <div class="card-header">ナビゲーション</div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="../week/week1.html" class="btn btn-outline-secondary"><i class="bi bi-arrow-up me-1"></i>第1週に戻る</a>
+                            <a href="day2.html" class="btn btn-primary">次へ: Day 2<i class="bi bi-arrow-right ms-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 関連リソース -->
+                <div class="card mb-4">
+                    <div class="card-header">関連リソース</div>
+                    <div class="list-group list-group-flush">
+                        <a href="https://www.oracle.com/java/technologies/downloads/" class="list-group-item list-group-item-action d-flex align-items-center">
+                            <i class="bi bi-download me-2"></i>
+                            <span>Oracle JDK Download</span>
+                        </a>
+                        <a href="https://www.eclipse.org/downloads/packages/" class="list-group-item list-group-item-action d-flex align-items-center">
+                            <i class="bi bi-download me-2"></i>
+                            <span>Eclipse IDE Packages</span>
+                        </a>
+                        <a href="https://docs.oracle.com/javase/tutorial/getStarted/index.html" class="list-group-item list-group-item-action d-flex align-items-center">
+                            <i class="bi bi-book me-2"></i>
+                            <span>Getting Started with Java</span>
+                        </a>
+                        <a href="../../resources/resources.html" class="list-group-item list-group-item-action d-flex align-items-center">
+                            <i class="bi bi-collection me-2"></i>
+                            <span>すべての学習リソース</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="footer-logo">
+                        <img src="../../images/logo/apsa_logo.png" alt="APSA Logo" class="img-fluid">
+                    </div>
+                    <p class="mb-0">ITエンジニア育成カリキュラム</p>
+                    <p class="small">効率的かつ体系的なITスキル習得をサポート</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5 class="mb-3">カリキュラム</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../month/month1.html">Java Silver</a></li>
+                        <li><a href="../month/month2.html">基本情報</a></li>
+                        <li><a href="../month/month3.html">Web開発</a></li>
+                        <li><a href="../../resources/advanced.html">応用コース</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5 class="mb-3">リソース</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../resources/resources.html">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html">よくある質問</a></li>
+                        <li><a href="../../progress_and_planning.html">進捗と計画</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-3">お問い合わせ</h5>
+                    <p class="small">カリキュラムに関するご質問・ご相談は下記までご連絡ください。</p>
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-envelope-fill me-2"></i>
+                        <span>info@apsa.co.jp</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-geo-alt-fill me-2"></i>
+                        <span>東京都千代田区</span>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3 border-secondary">
+            <div class="row">
+                <div class="col text-center">
+                    <p class="small mb-0">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="../../js/lib/bootstrap.bundle.min.js"></script>
+    <script src="../../js/lib/jquery.min.js"></script>
+    <script src="../../js/lib/chart.umd.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // 進捗チャートの初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            const progressChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['完了', '今日', '残り'],
+                    datasets: [{
+                        data: [0, 20, 80],
+                        backgroundColor: [
+                            '#28a745',
+                            '#17a2b8',
+                            '#e9ecef'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.raw + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // チェックリスト機能
+            document.querySelectorAll('.checklist-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    if (icon.classList.contains('bi-square')) {
+                        icon.classList.replace('bi-square', 'bi-check-square-fill');
+                        icon.classList.add('text-success');
+                    } else {
+                        icon.classList.replace('bi-check-square-fill', 'bi-square');
+                        icon.classList.remove('text-success');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDuafad2b0TaH%2Fg8sx%2FWdQJrh%2F6270lou3CVM8I9lQWivX1CK6jvpeFXliEgc2FI2A8GF3Q0cdC5jHh3%2BF%2FlvuhcWPZwEWn9cEV7w7eHkmg8jVesAAJKPOZq2cPNjFgMmeAMPMfsjlCtabIFGv10meNU7aIsfXjuZiv7XcKCfl0bK8I3GRl%2FToA0kGaWrisL%2FnmOoVMk2ge9ZCFHFRbWkqKZ%2FqRGP0UECJEL2z%2FiDhX67z98ZPumd2s1dJVaMozjFGSZEu5tUdq2oD6ZMhkQ1zy7%2FDTlt8GTR2y72WFC8FzTKEBsFL1v7fbQh%2Bhy5f16VQKUHBI00usWh%2FJKNPd4eO%2Bug2R9M36xdKPB3xgPcQO%2BPC5q9Wl%2BKRQTGmdb%2FchPy7ZDL%2BFo8z9OKPn0kW1dcmUd81uJ39TTj4rWS83ig2jPIKKhEV%2FlqrLop4U%2Bbsx0q7S6nTeBxraHZaM9gBQriMCHNEbXmtqJgoea%2BfO%2BQOcXJ";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDuafad2b0TaH/g8sx/WdQJrh/6270lou3CVM8I9lQWivX1CK6jvpeFXliEgc2FI2A8GF3Q0cdC5jHh3+F/lvuhcWPZwEWn9cEV7w7eHkmg8jVesAAJKPOZq2cPNjFgMmeAMPMfsjlCtabIFGv10meNU7aIsfXjuZiv7XcKCfl0bK8I3GRl/ToA0kGaWrisL/nmOoVMk2ge9ZCFHFRbWkqKZ/qRGP0UECJEL2z/iDhX67z98ZPumd2s1dJVaMozjFGSZEu5tUdq2oD6ZMhkQ1zy7/DTlt8GTR2y72WFC8FzTKEBsFL1v7fbQh+hy5f16VQKUHBI00usWh/JKNPd4eO+ug2R9M36xdKPB3xgPcQO+PC5q9Wl+KRQTGmdb/chPy7ZDL+Fo8z9OKPn0kW1dcmUd81uJ39TTj4rWS83ig2jPIKKhEV/lqrLop4U+bsx0q7S6nTeBxraHZaM9gBQriMCHNEbXmtqJgoea+fO+QOcXJ";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

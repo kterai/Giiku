@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>応用コース（4ヶ月目以降） | ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .course-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        .bg-gradient-blue {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        }
+        .bg-gradient-green {
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+        }
+        .bg-gradient-purple {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+        }
+        .bg-gradient-orange {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-gray-800">ITエンジニア育成カリキュラム</h1>
+                <nav>
+                    <ul class="flex space-x-6">
+                        <li><a href="../../index.html" class="text-gray-600 hover:text-blue-600">ホーム</a></li>
+                        <li class="relative group">
+                            <a href="#" class="text-gray-600 hover:text-blue-600">月別カリキュラム</a>
+                            <div class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md hidden group-hover:block z-10">
+                                <a href="../pages/month/month1.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">第1ヶ月目: Java Silver</a>
+                                <a href="../pages/month/month2.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">第2ヶ月目: 基本情報</a>
+                                <a href="../pages/month/month3.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">第3ヶ月目: Web開発</a>
+                            </div>
+                        </li>
+                        <li><a href="resources.html" class="text-gray-600 hover:text-blue-600">学習リソース</a></li>
+                        <li><a href="faq.html" class="text-gray-600 hover:text-blue-600">FAQ</a></li>
+                        <li><a href="advanced.html" class="text-blue-600 font-medium">応用コース</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-4">応用コース（4ヶ月目以降）</h2>
+            <p class="text-xl">基礎カリキュラムを修了した後のスキルアップと専門性強化のためのプログラム</p>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-10">
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">応用コース概要</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-lg mb-4">3ヶ月間で習得した基礎技術をもとに、さらに専門性を高めるための応用コースを選択して学習します。これらのコースは、現代のIT業界で求められる専門的なスキルを身につけることを目的としています。</p>
+                <p class="text-lg mb-4">各コースは独立しており、自身のキャリア目標や興味に合わせて1つ以上を選択できます。また、複数のコースを並行して学ぶことも、順番に学ぶことも可能です。</p>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mt-4">
+                    <p class="font-medium text-blue-800">注目ポイント</p>
+                    <p class="text-blue-700">全ての応用コースで使用する教材やツールは、基礎カリキュラムと同様に無償で入手可能なものを厳選しています。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">選択できる応用コース</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- フロントエンド応用コース -->
+                <div class="course-card bg-white overflow-hidden">
+                    <div class="bg-gradient-blue text-white p-6">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-2xl font-bold">フロントエンド応用</h3>
+                            <span class="bg-white text-blue-800 text-sm font-medium px-3 py-1 rounded-full">3-4週間</span>
+                        </div>
+                        <p class="mt-2">モダンなフロントエンド開発技術を習得</p>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-lg font-bold mb-2">学習内容</h4>
+                        <ul class="mb-4 space-y-2">
+                            <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>React応用（Redux, React Router, Hooks応用）</li>
+                            <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>TypeScript実践</li>
+                            <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>モダンフロントエンド開発（Next.js）</li>
+                            <li><i class="fas fa-check-circle text-blue-500 mr-2"></i>UIフレームワーク（Material-UI, Tailwind CSS）</li>
+                        </ul>
+                        
+                        <h4 class="text-lg font-bold mb-2">目標成果物</h4>
+                        <ul class="mb-4 space-y-2">
+                            <li><i class="fas fa-trophy text-yellow-500 mr-2"></i>TypeScriptを使ったReactアプリケーション</li>
+                            <li><i class="fas fa-trophy text-yellow-500 mr-2"></i>Next.jsによるSEO対応Webサイト</li>
+                            <li><i class="fas fa-trophy text-yellow-500 mr-2"></i>モダンUIライブラリを用いたデザインシステム</li>
+                        </ul>
+                        
+                        <div class="chart-container">
+                            <canvas id="frontendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- バックエンド応用コース -->
+                <div class="course-card bg-white overflow-hidden">
+                    <div class="bg-gradient-green text-white p-6">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-2xl font-bold">バックエンド応用</h3>
+                            <span class="bg-white text-green-800 text-sm font-medium px-3 py-1 rounded-full">4-5週間</span>
+                        </div>
+                        <p class="mt-2">スケーラブルなバックエンドシステム開発</p>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-lg font-bold mb-2">学習内容</h4>
+                        <ul class="mb-4 space-y-2">
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Spring応用（Spring Cloud）</li>
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>マイクロサービスアーキテクチャ</li>
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>セキュアコーディング実践</li>
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>クラウドネイティブ開発</li>
+                        </ul>
+                        
+                        <h4 class="text-lg font-bold mb-2">目標成果物</h4>
+                        <ul class="mb-4 space-y-2">
+                            <li><i class="fas fa-trophy text-yellow-500 mr-2"></i>マイクロサービスアーキテクチャのアプリケーション</li>
+                            <li><i class="fas fa-trophy text-yellow-500 mr-2"></i>クラウドネイティブアプリケーション</li>
+                            <li><i class="fas fa-trophy text-yellow-500 mr-2"></i>高度な認証・認可API</li>
+                        </ul>
+                        
+                        <div class="chart-container">
+                            <canvas id="backendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 開発プロセス高度化コース -->
+                <div class="course-card bg-white overflow-hidden">
+                    <div class="bg-gradient-purple text-white p-6">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-2xl font-bold">開発プロセス高度化</h3>
+                            <span class="bg-white text-purple-800 text-sm font-medium px-3 py-1 rounded-full">3-4週間</span>
+                        </div>
+                        <p class="mt-2">現代の開発プロセスとDevOps手法</p>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-lg font-bold mb-2">学習内容</h4>
+                        <ul class="mb-4 space-y-2">
+                            <li><i class="fas fa-check-circle text-purple-500 mr-2"></i>Git応用（GitFlow/GitHub Flow）</li>
+                            <li><i class="fas fa-check-circle text-purple-500 mr-2"></i>CI/CD（GitHub Actions）</li>
+                            <li><i class="fas fa-check-circle text-purple-500 mr-2"></i>コンテナ化（Docker）</li>
+                            <li><i class="fas fa-check-circle text-purple-500 mr-2"></i>アジャイル開発手法</li>
+                        </ul>
+                        
+                        <h4 class="text-lg font-bold mb-2">目標成果物</h4>
+                        <ul class="mb-4 space-y-2">
+                            <li><i class="fas fa-trophy text-yellow-500 mr-2"></i>CI/CDパイプライン構築</li>
+                            <li><i class="fas fa-trophy text-yellow-500 mr-2"></i>コンテナ化されたアプリケーション</li>
+                            <li><i class="fas fa-trophy text-yellow-500 mr-2"></i>アジャイル開発プロセス定義</li>
+                        </ul>
+                        
+                        <div class="chart-container">
+                            <canvas id="devopsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ポートフォリオ開発コース -->
+                <div class="course-card bg-white overflow-hidden">
+                    <div class="bg-gradient-orange text-white p-6">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-2xl font-bold">ポートフォリオ開発</h3>
+                            <span class="bg-white text-orange-800 text-sm font-medium px-3 py-1 rounded-full">4-6週間</span>
+                        </div>
+                        <p class="mt-2">就職・転職に強いポートフォリオ作成</p>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="text-lg font-bold mb-2">学習内容</h4>
+                        <ul class="mb-4 space-y-2">
+                            <li><i class="fas fa-check-circle text-orange-500 mr-2"></i>オリジナルプロジェクト開発</li>
+                            <li><i class="fas fa-check-circle text-orange-500 mr-2"></i>GitHubポートフォリオ作成</li>
+                            <li><i class="fas fa-check-circle text-orange-500 mr-2"></i>技術面接対策</li>
+                            <li><i class="fas fa-check-circle text-orange-500 mr-2"></i>プレゼンテーションスキル</li>
+                        </ul>
+                        
+                        <h4 class="text-lg font-bold mb-2">目標成果物</h4>
+                        <ul class="mb-4 space-y-2">
+                            <li><i class="fas fa-trophy text-yellow-500 mr-2"></i>完成度の高いポートフォリオプロジェクト</li>
+                            <li><i class="fas fa-trophy text-yellow-500 mr-2"></i>技術ブログ/GitHub貢献</li>
+                            <li><i class="fas fa-trophy text-yellow-500 mr-2"></i>レジュメと自己PR資料</li>
+                        </ul>
+                        
+                        <div class="chart-container">
+                            <canvas id="portfolioChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">コース選択のガイダンス</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-lg mb-4">応用コースを選択する際には、以下の観点を考慮することをお勧めします：</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-blue-700 flex items-center mb-2">
+                            <i class="fas fa-lightbulb mr-2"></i>キャリア目標
+                        </h3>
+                        <p>将来なりたい職種（フロントエンドエンジニア、バックエンドエンジニア、フルスタックエンジニア、DevOpsエンジニアなど）に合わせてコースを選択することが大切です。</p>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-green-700 flex items-center mb-2">
+                            <i class="fas fa-heart mr-2"></i>興味のある分野
+                        </h3>
+                        <p>最も興味を持てる技術分野を選ぶことで、学習モチベーションを維持しやすくなります。技術トレンドだけでなく、自分の興味も重要な判断基準です。</p>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-purple-700 flex items-center mb-2">
+                            <i class="fas fa-briefcase mr-2"></i>市場のニーズ
+                        </h3>
+                        <p>現在の求人市場でどのようなスキルが求められているかを調査し、就職・転職に有利なスキルセットを身につけるコースを選択することも検討しましょう。</p>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-orange-700 flex items-center mb-2">
+                            <i class="fas fa-clock mr-2"></i>時間的制約
+                        </h3>
+                        <p>各コースの推奨学習期間を考慮し、自分の学習可能な時間に合わせてコースを選択または組み合わせましょう。無理なく継続できるペース設定が重要です。</p>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mt-6">
+                    <p class="font-medium text-yellow-800">アドバイス</p>
+                    <p class="text-yellow-700">迷った場合は、「ポートフォリオ開発」コースから始めることをお勧めします。学んだ技術を実際のプロジェクトに活かしながら、他のコースの要素も取り入れることができます。</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">応用コースで使用する主な学習リソース</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white p-5 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <i class="fab fa-react text-3xl text-blue-500 mr-3"></i>
+                        <h3 class="text-xl font-bold">フロントエンド</h3>
+                    </div>
+                    <ul class="space-y-2">
+                        <li><a href="https://reactjs.org/docs/getting-started.html" class="text-blue-600 hover:underline">React 公式ドキュメント</a></li>
+                        <li><a href="https://www.typescriptlang.org/docs/" class="text-blue-600 hover:underline">TypeScript Documentation</a></li>
+                        <li><a href="https://nextjs.org/learn" class="text-blue-600 hover:underline">Next.js Learn</a></li>
+                        <li><a href="https://material-ui.com/getting-started/installation/" class="text-blue-600 hover:underline">Material UI</a></li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-5 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-server text-3xl text-green-500 mr-3"></i>
+                        <h3 class="text-xl font-bold">バックエンド</h3>
+                    </div>
+                    <ul class="space-y-2">
+                        <li><a href="https://spring.io/projects/spring-cloud" class="text-blue-600 hover:underline">Spring Cloud</a></li>
+                        <li><a href="https://microservices.io/" class="text-blue-600 hover:underline">Microservices.io</a></li>
+                        <li><a href="https://owasp.org/www-project-top-ten/" class="text-blue-600 hover:underline">OWASP Top 10</a></li>
+                        <li><a href="https://12factor.net/" class="text-blue-600 hover:underline">The Twelve-Factor App</a></li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-5 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-cogs text-3xl text-purple-500 mr-3"></i>
+                        <h3 class="text-xl font-bold">DevOps</h3>
+                    </div>
+                    <ul class="space-y-2">
+                        <li><a href="https://git-scm.com/book/en/v2" class="text-blue-600 hover:underline">Pro Git Book</a></li>
+                        <li><a href="https://docs.github.com/en/actions" class="text-blue-600 hover:underline">GitHub Actions</a></li>
+                        <li><a href="https://docs.docker.com/get-started/" class="text-blue-600 hover:underline">Docker Documentation</a></li>
+                        <li><a href="https://www.atlassian.com/agile" class="text-blue-600 hover:underline">Atlassian Agile Coach</a></li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-5 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-briefcase text-3xl text-orange-500 mr-3"></i>
+                        <h3 class="text-xl font-bold">ポートフォリオ</h3>
+                    </div>
+                    <ul class="space-y-2">
+                        <li><a href="https://pages.github.com/" class="text-blue-600 hover:underline">GitHub Pages</a></li>
+                        <li><a href="https://dev.to/" class="text-blue-600 hover:underline">DEV Community</a></li>
+                        <li><a href="https://www.freecodecamp.org/" class="text-blue-600 hover:underline">freeCodeCamp</a></li>
+                        <li><a href="https://www.theodinproject.com/" class="text-blue-600 hover:underline">The Odin Project</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <a href="resources.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition">すべての学習リソースを見る</a>
+            </div>
+        </section>
+        
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">応用コース修了後のキャリアパス</h2>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-lg mb-6">応用コースを修了することで、以下のようなキャリアパスが期待できます：</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                    <div class="bg-blue-50 p-5 rounded-lg">
+                        <h3 class="text-xl font-bold text-blue-700 mb-3">フロントエンドスペシャリスト</h3>
+                        <ul class="space-y-2">
+                            <li><i class="fas fa-angle-right text-blue-500 mr-1"></i>UIエンジニア</li>
+                            <li><i class="fas fa-angle-right text-blue-500 mr-1"></i>Reactエンジニア</li>
+                            <li><i class="fas fa-angle-right text-blue-500 mr-1"></i>Webデザイナー（コーディング可）</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-green-50 p-5 rounded-lg">
+                        <h3 class="text-xl font-bold text-green-700 mb-3">バックエンドスペシャリスト</h3>
+                        <ul class="space-y-2">
+                            <li><i class="fas fa-angle-right text-green-500 mr-1"></i>JavaエンジニアII</li>
+                            <li><i class="fas fa-angle-right text-green-500 mr-1"></i>APIエンジニア</li>
+                            <li><i class="fas fa-angle-right text-green-500 mr-1"></i>クラウドエンジニア</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-purple-50 p-5 rounded-lg">
+                        <h3 class="text-xl font-bold text-purple-700 mb-3">フルスタックエンジニア</h3>
+                        <ul class="space-y-2">
+                            <li><i class="fas fa-angle-right text-purple-500 mr-1"></i>ウェブアプリケーションエンジニア</li>
+                            <li><i class="fas fa-angle-right text-purple-500 mr-1"></i>DevOpsエンジニア</li>
+                            <li><i class="fas fa-angle-right text-purple-500 mr-1"></i>スタートアップ向けエンジニア</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-5 rounded-lg mt-6">
+                    <h3 class="text-xl font-bold text-gray-700 mb-3">さらなる学習の道筋</h3>
+                    <p>応用コース修了後、さらに専門性を高めたい場合は以下の分野への探求が推奨されます：</p>
+                    <ul class="mt-3 space-y-2">
+                        <li><i class="fas fa-angle-right text-gray-500 mr-1"></i>クラウドプロバイダー認定資格（AWS、Azure、GCPなど）</li>
+                        <li><i class="fas fa-angle-right text-gray-500 mr-1"></i>AIと機械学習の基礎</li>
+                        <li><i class="fas fa-angle-right text-gray-500 mr-1"></i>モバイルアプリ開発（ReactNative, Flutter）</li>
+                        <li><i class="fas fa-angle-right text-gray-500 mr-1"></i>サーバーレスアーキテクチャ</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">お問い合わせ・次のステップ</h2>
+            
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p class="text-lg mb-6">応用コースに関するご質問や、具体的なカリキュラム内容についてのお問い合わせは、以下のフォームからお気軽にご連絡ください。</p>
+                
+                <div class="flex flex-col md:flex-row items-center justify-between bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg">
+                    <div class="mb-6 md:mb-0 md:mr-8">
+                        <h3 class="text-2xl font-bold text-blue-800 mb-2">応用コースを始める</h3>
+                        <p class="text-blue-700">自分に合ったコースを選んで、ITエンジニアとしてのキャリアをさらに一歩前進させましょう。</p>
+                    </div>
+                    <a href="#contact-form" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition">お問い合わせ</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-10 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">ITエンジニア育成カリキュラム</h3>
+                    <p class="text-gray-300">未経験から3ヶ月でITエンジニアとしての基礎を身につけ、応用コースでさらに専門性を高めるための総合的な教育プログラムです。</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">カリキュラム</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="../pages/month/month1.html" class="hover:text-blue-300">第1ヶ月目: Java Silver</a></li>
+                        <li><a href="../pages/month/month2.html" class="hover:text-blue-300">第2ヶ月目: 基本情報</a></li>
+                        <li><a href="../pages/month/month3.html" class="hover:text-blue-300">第3ヶ月目: Web開発</a></li>
+                        <li><a href="advanced.html" class="hover:text-blue-300">応用コース</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-4">リソース</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="resources.html" class="hover:text-blue-300">学習リソース</a></li>
+                        <li><a href="faq.html" class="hover:text-blue-300">よくある質問</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>&copy; 2025 ITエンジニア育成カリキュラム All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // フロントエンド応用コースのグラフ
+            const frontendCtx = document.getElementById('frontendChart').getContext('2d');
+            new Chart(frontendCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['React応用', 'TypeScript', 'Next.js', 'UIライブラリ'],
+                    datasets: [{
+                        data: [35, 25, 25, 15],
+                        backgroundColor: ['#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe'],
+                        borderColor: ['#ffffff', '#ffffff', '#ffffff', '#ffffff'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        title: {
+                            display: true,
+                            text: '学習トピック配分'
+                        }
+                    }
+                }
+            });
+            
+            // バックエンド応用コースのグラフ
+            const backendCtx = document.getElementById('backendChart').getContext('2d');
+            new Chart(backendCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Spring Cloud', 'マイクロサービス', 'セキュアコーディング', 'クラウドネイティブ'],
+                    datasets: [{
+                        data: [30, 30, 20, 20],
+                        backgroundColor: ['#10b981', '#34d399', '#6ee7b7', '#a7f3d0'],
+                        borderColor: ['#ffffff', '#ffffff', '#ffffff', '#ffffff'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        title: {
+                            display: true,
+                            text: '学習トピック配分'
+                        }
+                    }
+                }
+            });
+            
+            // 開発プロセス高度化コースのグラフ
+            const devopsCtx = document.getElementById('devopsChart').getContext('2d');
+            new Chart(devopsCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Git応用', 'CI/CD', 'Docker', 'アジャイル開発'],
+                    datasets: [{
+                        data: [20, 30, 30, 20],
+                        backgroundColor: ['#8b5cf6', '#a78bfa', '#c4b5fd', '#ddd6fe'],
+                        borderColor: ['#ffffff', '#ffffff', '#ffffff', '#ffffff'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        title: {
+                            display: true,
+                            text: '学習トピック配分'
+                        }
+                    }
+                }
+            });
+            
+            // ポートフォリオ開発コースのグラフ
+            const portfolioCtx = document.getElementById('portfolioChart').getContext('2d');
+            new Chart(portfolioCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['プロジェクト開発', 'GitHub活用', '面接対策', 'プレゼンテーション'],
+                    datasets: [{
+                        data: [50, 20, 15, 15],
+                        backgroundColor: ['#f59e0b', '#fbbf24', '#fcd34d', '#fef3c7'],
+                        borderColor: ['#ffffff', '#ffffff', '#ffffff', '#ffffff'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        title: {
+                            display: true,
+                            text: '学習トピック配分'
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDkpP4aAcKGoKvjo%2BtJnL2numOxouS3JTXNYxM5upXsr5wycumwQ6YFzbeLeV3P9T3nzFomNYU8vIQs3QLj0AJ8J2spUUIf85xXSDlTNY%2BDWEpn5XxWUfoB%2BnQ6c6vfhvWPrpDzA%2BG%2BVBlZHZM2hbZxxVaJrMdJxKKPrbdSg5LXoNHM908NioyQ3c7O275dBKh6uxqWy4D1%2FYKnbwzjsivQf1W7%2F0E5LPVjVUeDU%2B0OqI7rgRAUXPKoJUNsX1syUDlYlzBkQgB8%2FqYLj5Gw9csmGBAtTwSLkcbWpsAu5n4rD%2B8FfGrU2axWqW4o3OrYPkkvcTecgW1kPYNu6OFPcVyuwn1TrUHJmW4S2%2B7syjwnwpMDWLEV16X8q8PAFLyTQgwNhCHCSBAU%2FUVfNiVErhwGQnWUbXs3WuU%2FezMgygOfSq4I3j2qLbqSKEvCuYYJDfqAeJ5B8GuD3AvetY1pracxJAflBSBfuGMTbDDQv6nPWq";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDkpP4aAcKGoKvjo+tJnL2numOxouS3JTXNYxM5upXsr5wycumwQ6YFzbeLeV3P9T3nzFomNYU8vIQs3QLj0AJ8J2spUUIf85xXSDlTNY+DWEpn5XxWUfoB+nQ6c6vfhvWPrpDzA+G+VBlZHZM2hbZxxVaJrMdJxKKPrbdSg5LXoNHM908NioyQ3c7O275dBKh6uxqWy4D1/YKnbwzjsivQf1W7/0E5LPVjVUeDU+0OqI7rgRAUXPKoJUNsX1syUDlYlzBkQgB8/qYLj5Gw9csmGBAtTwSLkcbWpsAu5n4rD+8FfGrU2axWqW4o3OrYPkkvcTecgW1kPYNu6OFPcVyuwn1TrUHJmW4S2+7syjwnwpMDWLEV16X8q8PAFLyTQgwNhCHCSBAU/UVfNiVErhwGQnWUbXs3WuU/ezMgygOfSq4I3j2qLbqSKEvCuYYJDfqAeJ5B8GuD3AvetY1pracxJAflBSBfuGMTbDDQv6nPWq";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

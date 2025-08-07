@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day39: レスポンシブデザイン・Bootstrap完全マスター</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .code-block {
+            background-color: #1a202c;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+        }
+        .grid-demo {
+            background-color: #f7fafc;
+            border: 2px dashed #cbd5e0;
+            padding: 1rem;
+            text-align: center;
+            margin: 0.5rem 0;
+        }
+        .responsive-demo {
+            transition: all 0.3s ease;
+            border: 2px solid #e2e8f0;
+            padding: 1rem;
+            margin: 0.5rem 0;
+        }
+        @media (max-width: 768px) {
+            .responsive-demo {
+                background-color: #fed7d7;
+                border-color: #fc8181;
+            }
+        }
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .responsive-demo {
+                background-color: #fef5e7;
+                border-color: #f6ad55;
+            }
+        }
+        @media (min-width: 1025px) {
+            .responsive-demo {
+                background-color: #f0fff4;
+                border-color: #68d391;
+            }
+        }
+        .answer-hidden {
+            display: none;
+        }
+        .answer-visible {
+            display: block;
+            background-color: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day38_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day40_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month3.html" class="hover:text-blue-600">3ヶ月目: Webアプリケーション開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week9.html" class="hover:text-blue-600">9週目: フロントエンド基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">39日目: レスポンシブデザイン・Bootstrap完全マスター</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day39.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+
+    <div class="max-w-6xl mx-auto p-6">
+        
+        <!-- ヘッダー -->
+        <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-8 rounded-lg shadow-lg mb-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold mb-4">
+                    <i class="fas fa-mobile-alt mr-3"></i>
+                    Day39: レスポンシブデザイン・Bootstrap完全マスター
+                </h1>
+                <p class="text-lg opacity-90">モバイルファースト設計とBootstrapフレームワークの実践習得</p>
+                <div class="mt-4 text-sm bg-blue-800 bg-opacity-50 inline-block px-4 py-2 rounded">
+                    <i class="fas fa-calendar-day mr-2"></i>第9週第3日目 - フロントエンド基礎
+                </div>
+            </div>
+        </header>
+
+        <!-- 本日の学習目標 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-700">
+                <i class="fas fa-target mr-2"></i>本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <h3 class="text-lg font-bold mb-2 text-blue-600">レスポンシブデザインの基本原理を理解</h3>
+                    <p>フルードグリッド・メディアクエリ・フレキシブルメディアの3つの柱を実践レベルで習得</p>
+                </div>
+                <div class="border-l-4 border-green-500 pl-4">
+                    <h3 class="text-lg font-bold mb-2 text-green-600">Bootstrapグリッドシステムをマスター</h3>
+                    <p>12カラムシステムを使ったレスポンシブレイアウトの構築技術を習得</p>
+                </div>
+                <div class="border-l-4 border-purple-500 pl-4">
+                    <h3 class="text-lg font-bold mb-2 text-purple-600">モダンなUIコンポーネントを実装</h3>
+                    <p>ナビゲーション・カード・フォームなどの実用的なコンポーネント活用</p>
+                </div>
+                <div class="border-l-4 border-red-500 pl-4">
+                    <h3 class="text-lg font-bold mb-2 text-red-600">全デバイス対応サイトを作成</h3>
+                    <p>モバイルファースト設計でスマホ・タブレット・PCに対応したWebサイト構築</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 推奨開発環境 -->
+        <section class="bg-gray-100 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-gray-700">
+                <i class="fas fa-tools mr-2"></i>推奨開発環境
+            </h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-blue-600 mb-2"><i class="fas fa-code mr-2"></i>エディタ</h3>
+                    <p>Visual Studio Code + Live Server拡張機能</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-green-600 mb-2"><i class="fas fa-browser mr-2"></i>ブラウザ</h3>
+                    <p>Google Chrome + Developer Tools</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-purple-600 mb-2"><i class="fas fa-layer-group mr-2"></i>フレームワーク</h3>
+                    <p>Bootstrap 5.3 + FontAwesome 6.4</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. レスポンシブデザインの基礎理論 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-700">
+                <i class="fas fa-mobile-alt mr-2"></i>1. レスポンシブデザインの基礎理論
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-blue-600">レスポンシブデザインとは？</h3>
+                <p class="mb-4"><span class="highlight">レスポンシブデザイン（Responsive Design：応答的設計）</span>とは、ユーザーの画面サイズや向きに応じて、Webページのレイアウトが自動的に最適化される設計手法です。まるで水のように容器の形に合わせて変化するため、「流動的レイアウト」とも呼ばれます。</p>
+                
+                <div class="responsive-demo rounded-lg">
+                    <h4 class="font-bold mb-2">📱 実際の動作確認</h4>
+                    <p class="text-sm">ブラウザの幅を変更してみてください。この枠の色が変わります！</p>
+                    <ul class="text-sm mt-2">
+                        <li>• 768px以下（スマホ）: 赤色背景</li>
+                        <li>• 769px-1024px（タブレット）: オレンジ色背景</li>
+                        <li>• 1025px以上（PC）: 緑色背景</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-green-600">レスポンシブデザインの3つの柱</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="border border-blue-200 rounded-lg p-4">
+                        <h4 class="font-bold text-blue-600 mb-2">1. フルードグリッド</h4>
+                        <p class="text-sm">固定サイズではなく、パーセンテージで幅を指定する流動的なレイアウト</p>
+                        <div class="code-block mt-2 text-xs">
+                            <code>
+/* ❌ 固定レイアウト */
+.container { width: 960px; }
+
+/* ✅ フルードレイアウト */
+.container { width: 100%; max-width: 1200px; }
+                            </code>
+                        </div>
+                    </div>
+                    <div class="border border-green-200 rounded-lg p-4">
+                        <h4 class="font-bold text-green-600 mb-2">2. メディアクエリ</h4>
+                        <p class="text-sm">画面サイズに応じて異なるCSSを適用する技術</p>
+                        <div class="code-block mt-2 text-xs">
+                            <code>
+/* スマホ用 */
+@media (max-width: 768px) {
+  .column { width: 100%; }
+}
+
+/* PC用 */
+@media (min-width: 1024px) {
+  .column { width: 50%; }
+}
+                            </code>
+                        </div>
+                    </div>
+                    <div class="border border-purple-200 rounded-lg p-4">
+                        <h4 class="font-bold text-purple-600 mb-2">3. フレキシブルメディア</h4>
+                        <p class="text-sm">画像や動画を画面サイズに応じて拡縮させる技術</p>
+                        <div class="code-block mt-2 text-xs">
+                            <code>
+/* レスポンシブ画像 */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* レスポンシブ動画 */
+video {
+  width: 100%;
+  height: auto;
+}
+                            </code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-red-600">モバイルファースト設計の重要性</h3>
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                    <p class="mb-4"><span class="highlight">モバイルファースト（Mobile First）</span>とは、最初にスマートフォン向けのデザインを作成し、その後により大きな画面向けに拡張していく設計手法です。</p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-bold text-red-600 mb-2">なぜモバイルファーストなのか？</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• スマートフォンからのアクセスが全体の<strong>60%以上</strong></li>
+                                <li>• 小さい画面から設計すると<strong>本質的なコンテンツ</strong>に集中できる</li>
+                                <li>• パフォーマンスが<strong>軽量</strong>に保たれる</li>
+                                <li>• SEOで<strong>モバイルフレンドリー</strong>が重視される</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-green-600 mb-2">実装の流れ</h4>
+                            <ol class="text-sm space-y-1">
+                                <li>1. スマホ用デザイン（320px～）を作成</li>
+                                <li>2. タブレット用（768px～）に拡張</li>
+                                <li>3. PC用（1024px～）に拡張</li>
+                                <li>4. 大画面用（1200px～）に拡張</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-purple-600">主要なブレークポイント設定</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="border border-gray-300 px-4 py-2 text-left">デバイス</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">画面幅</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">メディアクエリ</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">実用例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-bold text-red-600">スマートフォン</td>
+                                <td class="border border-gray-300 px-4 py-2">～767px</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">max-width: 767px</td>
+                                <td class="border border-gray-300 px-4 py-2">1カラムレイアウト、大きなタップ領域</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-bold text-orange-600">タブレット</td>
+                                <td class="border border-gray-300 px-4 py-2">768px～1023px</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">min-width: 768px</td>
+                                <td class="border border-gray-300 px-4 py-2">2カラムレイアウト、適度な余白</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-bold text-green-600">デスクトップ</td>
+                                <td class="border border-gray-300 px-4 py-2">1024px～1199px</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">min-width: 1024px</td>
+                                <td class="border border-gray-300 px-4 py-2">3カラムレイアウト、リッチなUI</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-bold text-blue-600">大画面</td>
+                                <td class="border border-gray-300 px-4 py-2">1200px～</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">min-width: 1200px</td>
+                                <td class="border border-gray-300 px-4 py-2">最大幅制限、センタリング</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Bootstrap グリッドシステム完全習得 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-green-700">
+                <i class="fas fa-th-large mr-2"></i>2. Bootstrap グリッドシステム完全習得
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-green-600">Bootstrapとは？</h3>
+                <p class="mb-4"><span class="highlight">Bootstrap（ブートストラップ）</span>とは、TwitterやMetaなどの大手企業で使われている、レスポンシブWebサイトを効率的に構築するためのCSSフレームワークです。まるで家を建てる時の設計図のように、あらかじめ用意されたパーツを組み合わせることで、美しく機能的なWebサイトを短時間で作成できます。</p>
+                
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                        <h4 class="font-bold text-green-600 mb-2">Bootstrapのメリット</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• <strong>開発速度の向上：</strong>既製パーツで効率化</li>
+                            <li>• <strong>レスポンシブ対応：</strong>自動で全デバイス対応</li>
+                            <li>• <strong>ブラウザ互換性：</strong>クロスブラウザ対応済み</li>
+                            <li>• <strong>保守性：</strong>統一されたコーディング規約</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <h4 class="font-bold text-blue-600 mb-2">Bootstrap CDN読み込み</h4>
+                        <div class="code-block text-xs">
+                            <code>
+&lt;!-- CSS --&gt;
+&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+
+&lt;!-- JavaScript --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+                            </code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-blue-600">12カラムシステムの数学的根拠</h3>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <p class="mb-4"><span class="highlight">なぜ12なのか？</span>数字の12は、1, 2, 3, 4, 6, 12で割り切れるため、レイアウトの組み合わせが非常に豊富になります。まるでレゴブロックのように、様々なパターンでコンテンツを配置できます。</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-bold text-blue-600 mb-2">分割パターン例</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• <strong>12 ÷ 1 = 12：</strong>全幅（ヘッダー・フッター）</li>
+                                <li>• <strong>12 ÷ 2 = 6：</strong>2分割（メイン・サイドバー）</li>
+                                <li>• <strong>12 ÷ 3 = 4：</strong>3分割（商品カード一覧）</li>
+                                <li>• <strong>12 ÷ 4 = 3：</strong>4分割（機能紹介）</li>
+                                <li>• <strong>12 ÷ 6 = 2：</strong>6分割（詳細情報）</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-green-600 mb-2">実際のクラス名</h4>
+                            <div class="code-block text-xs">
+                                <code>
+&lt;!-- 全幅 --&gt;
+&lt;div class="col-12"&gt;ヘッダー&lt;/div&gt;
+
+&lt;!-- 2分割 --&gt;
+&lt;div class="col-8"&gt;メイン&lt;/div&gt;
+&lt;div class="col-4"&gt;サイドバー&lt;/div&gt;
+
+&lt;!-- 3分割 --&gt;
+&lt;div class="col-4"&gt;商品1&lt;/div&gt;
+&lt;div class="col-4"&gt;商品2&lt;/div&gt;
+&lt;div class="col-4"&gt;商品3&lt;/div&gt;
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-purple-600">ブレークポイントの使い分け実例</h3>
+                <div class="overflow-x-auto mb-4">
+                    <table class="w-full border-collapse border border-gray-300">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="border border-gray-300 px-4 py-2 text-left">接頭辞</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">画面サイズ</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">適用例</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">使用例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-red-600">col-</td>
+                                <td class="border border-gray-300 px-4 py-2">全サイズ</td>
+                                <td class="border border-gray-300 px-4 py-2">常に同じ幅</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">col-6</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-orange-600">col-sm-</td>
+                                <td class="border border-gray-300 px-4 py-2">576px以上</td>
+                                <td class="border border-gray-300 px-4 py-2">スマホ横向き～</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">col-sm-6</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-yellow-600">col-md-</td>
+                                <td class="border border-gray-300 px-4 py-2">768px以上</td>
+                                <td class="border border-gray-300 px-4 py-2">タブレット～</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">col-md-4</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-green-600">col-lg-</td>
+                                <td class="border border-gray-300 px-4 py-2">992px以上</td>
+                                <td class="border border-gray-300 px-4 py-2">デスクトップ～</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">col-lg-3</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-blue-600">col-xl-</td>
+                                <td class="border border-gray-300 px-4 py-2">1200px以上</td>
+                                <td class="border border-gray-300 px-4 py-2">大画面～</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">col-xl-2</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-purple-600">col-xxl-</td>
+                                <td class="border border-gray-300 px-4 py-2">1400px以上</td>
+                                <td class="border border-gray-300 px-4 py-2">超大画面～</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">col-xxl-1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="grid-demo bg-red-100 border-red-300">
+                        <h4 class="font-bold text-red-600 mb-2">スマホ</h4>
+                        <div class="code-block text-xs">
+                            <code>col-12</code>
+                        </div>
+                        <p class="text-xs mt-2">1列配置</p>
+                    </div>
+                    <div class="grid-demo bg-yellow-100 border-yellow-300">
+                        <h4 class="font-bold text-yellow-600 mb-2">タブレット</h4>
+                        <div class="code-block text-xs">
+                            <code>col-md-6</code>
+                        </div>
+                        <p class="text-xs mt-2">2列配置</p>
+                    </div>
+                    <div class="grid-demo bg-green-100 border-green-300">
+                        <h4 class="font-bold text-green-600 mb-2">PC</h4>
+                        <div class="code-block text-xs">
+                            <code>col-lg-4</code>
+                        </div>
+                        <p class="text-xs mt-2">3列配置</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-red-600">グリッド内グリッド（ネストグリッド）実践</h3>
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                    <p class="mb-4"><span class="highlight">ネストグリッド</span>とは、グリッドの中にさらにグリッドを配置する技術です。まるで入れ子の箱のように、細かいレイアウト調整が可能になります。</p>
+                    
+                    <div class="code-block mb-4">
+                        <code>
+&lt;div class="container-fluid"&gt;
+  &lt;div class="row"&gt;
+    &lt;!-- メインコンテンツエリア --&gt;
+    &lt;div class="col-md-8"&gt;
+      &lt;div class="row"&gt;
+        &lt;!-- ネストしたグリッド --&gt;
+        &lt;div class="col-6"&gt;記事タイトル&lt;/div&gt;
+        &lt;div class="col-6"&gt;投稿日時&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="row"&gt;
+        &lt;div class="col-12"&gt;記事本文&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- サイドバー --&gt;
+    &lt;div class="col-md-4"&gt;
+      &lt;div class="row"&gt;
+        &lt;div class="col-12"&gt;広告バナー&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="row"&gt;
+        &lt;div class="col-6"&gt;SNSボタン1&lt;/div&gt;
+        &lt;div class="col-6"&gt;SNSボタン2&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+                        </code>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-2">
+                        <div class="grid-demo bg-blue-100 border-blue-300">
+                            <h5 class="font-bold text-blue-600 text-sm">親グリッド</h5>
+                            <p class="text-xs">col-md-8 (66.7%)</p>
+                        </div>
+                        <div class="grid-demo bg-green-100 border-green-300">
+                            <h5 class="font-bold text-green-600 text-sm">子グリッド1</h5>
+                            <p class="text-xs">col-6 (50%)</p>
+                        </div>
+                        <div class="grid-demo bg-purple-100 border-purple-300">
+                            <h5 class="font-bold text-purple-600 text-sm">子グリッド2</h5>
+                            <p class="text-xs">col-6 (50%)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Bootstrap コンポーネント実践活用 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-purple-700">
+                <i class="fas fa-puzzle-piece mr-2"></i>3. Bootstrap コンポーネント実践活用
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-purple-600">ナビゲーション：Navbar vs Nav の適切な選択</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="border border-purple-200 rounded-lg p-4">
+                        <h4 class="font-bold text-purple-600 mb-2">Navbar（推奨）</h4>
+                        <p class="text-sm mb-3">サイト全体のメインナビゲーション。ブランドロゴ、メニュー、検索ボックスなどを含む包括的なヘッダー</p>
+                        <div class="code-block text-xs">
+                            <code>
+&lt;nav class="navbar navbar-expand-lg navbar-dark bg-primary"&gt;
+  &lt;div class="container"&gt;
+    &lt;a class="navbar-brand" href="#"&gt;
+      &lt;i class="fas fa-home"&gt;&lt;/i&gt; MyWebsite
+    &lt;/a&gt;
+    &lt;button class="navbar-toggler" type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav"&gt;
+      &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;div class="collapse navbar-collapse" id="navbarNav"&gt;
+      &lt;ul class="navbar-nav ms-auto"&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a class="nav-link active" href="#"&gt;ホーム&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a class="nav-link" href="#"&gt;サービス&lt;/a&gt;
+        &lt;/li&gt;
+        &lt;li class="nav-item"&gt;
+          &lt;a class="nav-link" href="#"&gt;お問い合わせ&lt;/a&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;
+                            </code>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-green-200 rounded-lg p-4">
+                        <h4 class="font-bold text-green-600 mb-2">Nav（特定用途）</h4>
+                        <p class="text-sm mb-3">タブやパンくずリストなど、特定コンテンツ内での部分的なナビゲーション</p>
+                        <div class="code-block text-xs">
+                            <code>
+&lt;!-- タブナビゲーション --&gt;
+&lt;ul class="nav nav-tabs"&gt;
+  &lt;li class="nav-item"&gt;
+    &lt;a class="nav-link active" href="#tab1"&gt;概要&lt;/a&gt;
+  &lt;/li&gt;
+  &lt;li class="nav-item"&gt;
+    &lt;a class="nav-link" href="#tab2"&gt;詳細&lt;/a&gt;
+  &lt;/li&gt;
+  &lt;li class="nav-item"&gt;
+    &lt;a class="nav-link" href="#tab3"&gt;レビュー&lt;/a&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- パンくずリスト --&gt;
+&lt;nav aria-label="breadcrumb"&gt;
+  &lt;ol class="breadcrumb"&gt;
+    &lt;li class="breadcrumb-item"&gt;&lt;a href="#"&gt;ホーム&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="breadcrumb-item"&gt;&lt;a href="#"&gt;カテゴリ&lt;/a&gt;&lt;/li&gt;
+    &lt;li class="breadcrumb-item active"&gt;商品詳細&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;
+                            </code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-blue-600">カード・モーダル：動的コンテンツへの対応</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="border border-blue-200 rounded-lg p-4">
+                        <h4 class="font-bold text-blue-600 mb-2">レスポンシブカード</h4>
+                        <div class="code-block text-xs mb-3">
+                            <code>
+&lt;div class="row"&gt;
+  &lt;div class="col-lg-4 col-md-6 col-sm-12 mb-4"&gt;
+    &lt;div class="card h-100"&gt;
+      &lt;img src="product1.jpg" class="card-img-top" alt="商品1"&gt;
+      &lt;div class="card-body d-flex flex-column"&gt;
+        &lt;h5 class="card-title"&gt;商品名&lt;/h5&gt;
+        &lt;p class="card-text flex-grow-1"&gt;商品説明が入ります...&lt;/p&gt;
+        &lt;div class="mt-auto"&gt;
+          &lt;p class="card-text"&gt;&lt;strong&gt;¥1,980&lt;/strong&gt;&lt;/p&gt;
+          &lt;a href="#" class="btn btn-primary"&gt;詳細を見る&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+                            </code>
+                        </div>
+                        <div class="text-xs bg-blue-50 p-2 rounded">
+                            <strong>ポイント：</strong>
+                            <ul class="mt-1">
+                                <li>• <code>h-100</code>で高さ統一</li>
+                                <li>• <code>flex-grow-1</code>で余白調整</li>
+                                <li>• <code>mt-auto</code>でボタン下配置</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-green-200 rounded-lg p-4">
+                        <h4 class="font-bold text-green-600 mb-2">レスポンシブモーダル</h4>
+                        <div class="code-block text-xs mb-3">
+                            <code>
+&lt;!-- モーダル起動ボタン --&gt;
+&lt;button type="button" class="btn btn-success" 
+        data-bs-toggle="modal" data-bs-target="#productModal"&gt;
+  商品詳細を見る
+&lt;/button&gt;
+
+&lt;!-- モーダル本体 --&gt;
+&lt;div class="modal fade" id="productModal"&gt;
+  &lt;div class="modal-dialog modal-lg modal-dialog-centered"&gt;
+    &lt;div class="modal-content"&gt;
+      &lt;div class="modal-header"&gt;
+        &lt;h5 class="modal-title"&gt;商品詳細&lt;/h5&gt;
+        &lt;button type="button" class="btn-close" 
+                data-bs-dismiss="modal"&gt;&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-body"&gt;
+        &lt;div class="row"&gt;
+          &lt;div class="col-md-6"&gt;
+            &lt;img src="product.jpg" class="img-fluid" alt="商品画像"&gt;
+          &lt;/div&gt;
+          &lt;div class="col-md-6"&gt;
+            &lt;h6&gt;商品の特徴&lt;/h6&gt;
+            &lt;p&gt;詳細な商品説明...&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="modal-footer"&gt;
+        &lt;button type="button" class="btn btn-secondary" 
+                data-bs-dismiss="modal"&gt;閉じる&lt;/button&gt;
+        &lt;button type="button" class="btn btn-primary"&gt;
+          カートに追加
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+                            </code>
+                        </div>
+                        <div class="text-xs bg-green-50 p-2 rounded">
+                            <strong>レスポンシブ対応：</strong>
+                            <ul class="mt-1">
+                                <li>• <code>modal-lg</code>でサイズ調整</li>
+                                <li>• <code>modal-dialog-centered</code>で中央配置</li>
+                                <li>• スマホでは自動的に全幅表示</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-red-600">フォーム：バリデーションとの連携実装</h3>
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                    <p class="mb-4">Bootstrap 5では、HTML5の標準バリデーションとカスタムバリデーションを組み合わせて、<span class="highlight">ユーザビリティの高いフォーム</span>を作成できます。</p>
+                    
+                    <div class="code-block mb-4">
+                        <code>
+&lt;form class="row g-3 needs-validation" novalidate&gt;
+  &lt;!-- 名前入力 --&gt;
+  &lt;div class="col-md-6"&gt;
+    &lt;label for="firstName" class="form-label"&gt;名前 &lt;span class="text-danger"&gt;*&lt;/span&gt;&lt;/label&gt;
+    &lt;input type="text" class="form-control" id="firstName" required&gt;
+    &lt;div class="valid-feedback"&gt;
+      正しく入力されました！
+    &lt;/div&gt;
+    &lt;div class="invalid-feedback"&gt;
+      名前を入力してください。
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- メールアドレス --&gt;
+  &lt;div class="col-md-6"&gt;
+    &lt;label for="email" class="form-label"&gt;メールアドレス &lt;span class="text-danger"&gt;*&lt;/span&gt;&lt;/label&gt;
+    &lt;div class="input-group"&gt;
+      &lt;span class="input-group-text"&gt;&lt;i class="fas fa-envelope"&gt;&lt;/i&gt;&lt;/span&gt;
+      &lt;input type="email" class="form-control" id="email" required&gt;
+      &lt;div class="invalid-feedback"&gt;
+        正しいメールアドレスを入力してください。
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- セレクトボックス --&gt;
+  &lt;div class="col-md-4"&gt;
+    &lt;label for="category" class="form-label"&gt;カテゴリ&lt;/label&gt;
+    &lt;select class="form-select" id="category" required&gt;
+      &lt;option selected disabled value=""&gt;選択してください...&lt;/option&gt;
+      &lt;option value="1"&gt;個人&lt;/option&gt;
+      &lt;option value="2"&gt;法人&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;div class="invalid-feedback"&gt;
+      カテゴリを選択してください。
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- チェックボックス --&gt;
+  &lt;div class="col-12"&gt;
+    &lt;div class="form-check"&gt;
+      &lt;input class="form-check-input" type="checkbox" id="terms" required&gt;
+      &lt;label class="form-check-label" for="terms"&gt;
+        &lt;a href="#" class="text-decoration-none"&gt;利用規約&lt;/a&gt;に同意します &lt;span class="text-danger"&gt;*&lt;/span&gt;
+      &lt;/label&gt;
+      &lt;div class="invalid-feedback"&gt;
+        利用規約に同意してください。
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- 送信ボタン --&gt;
+  &lt;div class="col-12"&gt;
+    &lt;button class="btn btn-primary" type="submit"&gt;
+      &lt;i class="fas fa-paper-plane me-2"&gt;&lt;/i&gt;送信
+    &lt;/button&gt;
+    &lt;button class="btn btn-secondary ms-2" type="reset"&gt;
+      &lt;i class="fas fa-undo me-2"&gt;&lt;/i&gt;リセット
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+// カスタムバリデーション
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    var forms = document.getElementsByClassName('needs-validation');
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+&lt;/script&gt;
+                        </code>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white p-3 rounded border">
+                            <h5 class="font-bold text-green-600 text-sm mb-2">バリデーション状態</h5>
+                            <ul class="text-xs space-y-1">
+                                <li>• <span class="text-green-600">✓ 正常：</span><code>is-valid</code></li>
+                                <li>• <span class="text-red-600">✗ エラー：</span><code>is-invalid</code></li>
+                                <li>• <span class="text-gray-600">- 未検証：</span><code>needs-validation</code></li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-3 rounded border">
+                            <h5 class="font-bold text-blue-600 text-sm mb-2">フィードバック</h5>
+                            <ul class="text-xs space-y-1">
+                                <li>• <code>valid-feedback</code>：成功メッセージ</li>
+                                <li>• <code>invalid-feedback</code>：エラーメッセージ</li>
+                                <li>• 自動表示・非表示切り替え</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-3 rounded border">
+                            <h5 class="font-bold text-purple-600 text-sm mb-2">レスポンシブ対応</h5>
+                            <ul class="text-xs space-y-1">
+                                <li>• <code>col-md-6</code>：タブレット以上で2列</li>
+                                <li>• <code>col-12</code>：スマホで1列</li>
+                                <li>• <code>g-3</code>：グリッド間隔調整</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. カスタマイズとベストプラクティス -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-red-700">
+                <i class="fas fa-palette mr-2"></i>4. カスタマイズとベストプラクティス
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-red-600">CSS変数によるBootstrap 5カスタマイゼーション</h3>
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                    <p class="mb-4">Bootstrap 5では<span class="highlight">CSS カスタムプロパティ（CSS変数）</span>を活用して、リアルタイムでテーマカラーやサイズを変更できます。JavaScriptと組み合わせれば、ダークモード切り替えなども簡単に実装できます。</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-bold text-red-600 mb-2">カスタムCSSでの上書き</h4>
+                            <div class="code-block text-xs">
+                                <code>
+:root {
+  /* Bootstrapのデフォルト色を上書き */
+  --bs-primary: #6f42c1;
+  --bs-secondary: #6c757d;
+  --bs-success: #28a745;
+  --bs-danger: #dc3545;
+  --bs-warning: #ffc107;
+  --bs-info: #17a2b8;
+  
+  /* カスタム変数の追加 */
+  --my-brand-color: #ff6b6b;
+  --my-accent-color: #4ecdc4;
+  --my-font-size: 1.1rem;
+}
+
+/* カスタム変数の使用 */
+.custom-button {
+  background-color: var(--my-brand-color);
+  color: white;
+  font-size: var(--my-font-size);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.custom-button:hover {
+  background-color: var(--my-accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+                                </code>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-blue-600 mb-2">JavaScriptでの動的変更</h4>
+                            <div class="code-block text-xs">
+                                <code>
+// ダークモード切り替え
+function toggleDarkMode() {
+  const root = document.documentElement;
+  const isDark = root.getAttribute('data-theme') === 'dark';
+  
+  if (isDark) {
+    // ライトモード
+    root.setAttribute('data-theme', 'light');
+    root.style.setProperty('--bs-body-bg', '#ffffff');
+    root.style.setProperty('--bs-body-color', '#212529');
+  } else {
+    // ダークモード
+    root.setAttribute('data-theme', 'dark');
+    root.style.setProperty('--bs-body-bg', '#212529');
+    root.style.setProperty('--bs-body-color', '#ffffff');
+  }
+}
+
+// テーマカラー変更
+function changeThemeColor(color) {
+  document.documentElement.style.setProperty('--bs-primary', color);
+  
+  // すべての.btn-primaryボタンに即座に反映
+  const primaryButtons = document.querySelectorAll('.btn-primary');
+  primaryButtons.forEach(btn => {
+    btn.style.backgroundColor = color;
+  });
+}
+
+// 使用例
+document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
+document.getElementById('colorPicker').addEventListener('change', (e) => {
+  changeThemeColor(e.target.value);
+});
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-green-600">Sassによる高度なカスタマイゼーション</h3>
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <p class="mb-4"><span class="highlight">Sass（サス）</span>を使用すると、変数のオーバーライドや独自のユーティリティクラス生成など、より高度なカスタマイゼーションが可能になります。</p>
+                    
+                    <div class="code-block mb-4">
+                        <code>
+// custom.scss
+// 1. Bootstrapの変数をインポート前にオーバーライド
+$primary: #6f42c1;
+$secondary: #6c757d;
+$font-family-sans-serif: 'Noto Sans JP', sans-serif;
+$font-size-base: 1rem;
+$line-height-base: 1.6;
+
+// ブレークポイントのカスタマイズ
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1600px  // 超大画面を1600pxに変更
+);
+
+// カスタムカラーパレットの追加
+$custom-colors: (
+  "brand": #ff6b6b,
+  "accent": #4ecdc4,
+  "neutral": #95a5a6
+);
+
+// 2. Bootstrapをインポート
+@import "node_modules/bootstrap/scss/bootstrap";
+
+// 3. カスタムスタイルの追加
+@each $color, $value in $custom-colors {
+  .text-#{$color} {
+    color: $value !important;
+  }
+  .bg-#{$color} {
+    background-color: $value !important;
+  }
+  .btn-#{$color} {
+    @include button-variant($value, $value);
+  }
+  .border-#{$color} {
+    border-color: $value !important;
+  }
+}
+
+// カスタムユーティリティクラスの生成
+$custom-spacers: (
+  6: 4rem,
+  7: 5rem,
+  8: 6rem
+);
+
+@each $prop, $abbrev in (margin: m, padding: p) {
+  @each $size, $length in $custom-spacers {
+    .#{$abbrev}-#{$size} { #{$prop}: $length !important; }
+    .#{$abbrev}t-#{$size} { #{$prop}-top: $length !important; }
+    .#{$abbrev}r-#{$size} { #{$prop}-right: $length !important; }
+    .#{$abbrev}b-#{$size} { #{$prop}-bottom: $length !important; }
+    .#{$abbrev}l-#{$size} { #{$prop}-left: $length !important; }
+    .#{$abbrev}x-#{$size} { 
+      #{$prop}-right: $length !important; 
+      #{$prop}-left: $length !important; 
+    }
+    .#{$abbrev}y-#{$size} { 
+      #{$prop}-top: $length !important; 
+      #{$prop}-bottom: $length !important; 
+    }
+  }
+}
+                        </code>
+                    </div>
+
+                    <div class="text-sm bg-green-100 p-3 rounded">
+                        <h5 class="font-bold text-green-700 mb-2">Sassコンパイル方法</h5>
+                        <div class="code-block text-xs">
+                            <code>
+# Node.js/npmでのセットアップ
+npm install -D sass bootstrap
+
+# コンパイルコマンド
+sass custom.scss:custom.css --watch
+
+# 本番ビルド（圧縮）
+sass custom.scss:custom.min.css --style compressed
+                            </code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-purple-600">パフォーマンス最適化のベストプラクティス</h3>
+                <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                    <p class="mb-4">Bootstrapは多機能ですが、<span class="highlight">不要なコンポーネントを除外</span>することで、ファイルサイズを大幅に削減できます。</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-bold text-purple-600 mb-2">必要な機能のみインポート</h4>
+                            <div class="code-block text-xs">
+                                <code>
+// minimal-bootstrap.scss
+// 必要最小限のコンポーネントのみをインポート
+
+// 1. 必須ファイル
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+// 2. レイアウト（必須）
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+
+// 3. 使用するコンポーネントのみ
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+
+// 4. 使用するユーティリティのみ
+@import "bootstrap/scss/utilities/api";
+
+// 不要なコンポーネント（コメントアウト）
+// @import "bootstrap/scss/modal";
+// @import "bootstrap/scss/tooltip";
+// @import "bootstrap/scss/popover";
+// @import "bootstrap/scss/carousel";
+// @import "bootstrap/scss/accordion";
+                                </code>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-blue-600 mb-2">CDNとカスタムの使い分け</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-xs border-collapse border border-gray-300">
+                                    <thead>
+                                        <tr class="bg-gray-100">
+                                            <th class="border border-gray-300 px-2 py-1 text-left">使用ケース</th>
+                                            <th class="border border-gray-300 px-2 py-1 text-left">推奨方法</th>
+                                            <th class="border border-gray-300 px-2 py-1 text-left">メリット</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="border border-gray-300 px-2 py-1">プロトタイプ作成</td>
+                                            <td class="border border-gray-300 px-2 py-1 font-mono">CDN</td>
+                                            <td class="border border-gray-300 px-2 py-1">高速セットアップ</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-2 py-1">標準的なサイト</td>
+                                            <td class="border border-gray-300 px-2 py-1 font-mono">CDN</td>
+                                            <td class="border border-gray-300 px-2 py-1">キャッシュ効率</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-2 py-1">カスタマイズ要</td>
+                                            <td class="border border-gray-300 px-2 py-1 font-mono">Sass</td>
+                                            <td class="border border-gray-300 px-2 py-1">完全制御</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-2 py-1">本番環境</td>
+                                            <td class="border border-gray-300 px-2 py-1 font-mono">最適化版</td>
+                                            <td class="border border-gray-300 px-2 py-1">軽量化</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <div class="mt-3 bg-blue-100 p-2 rounded">
+                                <h5 class="font-bold text-blue-700 text-sm mb-1">ファイルサイズ比較</h5>
+                                <ul class="text-xs space-y-1">
+                                    <li>• 完全版：<strong>187KB</strong>（CSS）</li>
+                                    <li>• 最小構成：<strong>45KB</strong>（CSS）</li>
+                                    <li>• 削減率：<strong>約76%</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. 実践プロジェクト開発 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-yellow-700">
+                <i class="fas fa-laptop-code mr-2"></i>5. 実践プロジェクト開発
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-yellow-600">ランディングページ：完全レスポンシブなマーケティングサイト</h3>
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <p class="mb-4">実際の<span class="highlight">マーケティングランディングページ</span>を作成しながら、Bootstrapの全機能を活用します。</p>
+                    
+                    <div class="code-block mb-4">
+                        <code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;革新的Webサービス - ランディングページ&lt;/title&gt;
+    &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+    &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;!-- ヘッダー/ナビゲーション --&gt;
+&lt;nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top"&gt;
+    &lt;div class="container"&gt;
+        &lt;a class="navbar-brand fw-bold" href="#"&gt;
+            &lt;i class="fas fa-rocket me-2"&gt;&lt;/i&gt;WebService
+        &lt;/a&gt;
+        &lt;button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"&gt;
+            &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;div class="collapse navbar-collapse" id="navbarNav"&gt;
+            &lt;ul class="navbar-nav ms-auto"&gt;
+                &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#features"&gt;機能&lt;/a&gt;&lt;/li&gt;
+                &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#pricing"&gt;料金&lt;/a&gt;&lt;/li&gt;
+                &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#contact"&gt;お問い合わせ&lt;/a&gt;&lt;/li&gt;
+                &lt;li class="nav-item"&gt;
+                    &lt;a class="btn btn-outline-light ms-2" href="#signup"&gt;今すぐ始める&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;!-- ヒーローセクション --&gt;
+&lt;section class="bg-primary text-white py-5" style="margin-top: 76px;"&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="row align-items-center min-vh-75"&gt;
+            &lt;div class="col-lg-6"&gt;
+                &lt;h1 class="display-4 fw-bold mb-4"&gt;
+                    ビジネスを&lt;span class="text-warning"&gt;加速&lt;/span&gt;させる&lt;br&gt;
+                    革新的Webサービス
+                &lt;/h1&gt;
+                &lt;p class="lead mb-4"&gt;
+                    AIとクラウドの力で、あなたのビジネスプロセスを劇的に効率化。
+                    30日間無料でお試しいただけます。
+                &lt;/p&gt;
+                &lt;div class="d-grid d-md-flex gap-3"&gt;
+                    &lt;a href="#signup" class="btn btn-warning btn-lg px-4"&gt;
+                        &lt;i class="fas fa-play me-2"&gt;&lt;/i&gt;無料で始める
+                    &lt;/a&gt;
+                    &lt;a href="#demo" class="btn btn-outline-light btn-lg px-4"&gt;
+                        &lt;i class="fas fa-video me-2"&gt;&lt;/i&gt;デモを見る
+                    &lt;/a&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col-lg-6 text-center"&gt;
+                &lt;div class="position-relative"&gt;
+                    &lt;img src="https://via.placeholder.com/500x400/ffffff/000000?text=Hero+Image" 
+                         class="img-fluid rounded shadow-lg" alt="サービス画面"&gt;
+                    &lt;div class="position-absolute top-50 start-50 translate-middle"&gt;
+                        &lt;button class="btn btn-warning btn-lg rounded-circle" style="width: 80px; height: 80px;"&gt;
+                            &lt;i class="fas fa-play fs-3"&gt;&lt;/i&gt;
+                        &lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;!-- 機能紹介セクション --&gt;
+&lt;section id="features" class="py-5"&gt;
+    &lt;div class="container"&gt;
+        &lt;div class="row"&gt;
+            &lt;div class="col-lg-8 mx-auto text-center mb-5"&gt;
+                &lt;h2 class="display-5 fw-bold mb-3"&gt;革新的な機能&lt;/h2&gt;
+                &lt;p class="lead text-muted"&gt;
+                    業界最先端の技術を駆使して、これまでにない使いやすさを実現
+                &lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="row g-4"&gt;
+            &lt;div class="col-lg-4 col-md-6"&gt;
+                &lt;div class="card h-100 border-0 shadow-sm"&gt;
+                    &lt;div class="card-body text-center p-4"&gt;
+                        &lt;div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                             style="width: 80px; height: 80px;"&gt;
+                            &lt;i class="fas fa-robot fs-2"&gt;&lt;/i&gt;
+                        &lt;/div&gt;
+                        &lt;h4 class="fw-bold mb-3"&gt;AI自動化&lt;/h4&gt;
+                        &lt;p class="text-muted"&gt;
+                            機械学習により、繰り返し作業を自動化。
+                            生産性を平均40%向上させます。
+                        &lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col-lg-4 col-md-6"&gt;
+                &lt;div class="card h-100 border-0 shadow-sm"&gt;
+                    &lt;div class="card-body text-center p-4"&gt;
+                        &lt;div class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                             style="width: 80px; height: 80px;"&gt;
+                            &lt;i class="fas fa-cloud fs-2"&gt;&lt;/i&gt;
+                        &lt;/div&gt;
+                        &lt;h4 class="fw-bold mb-3"&gt;クラウド連携&lt;/h4&gt;
+                        &lt;p class="text-muted"&gt;
+                            どこからでもアクセス可能。
+                            リアルタイム同期で、チーム作業も効率的。
+                        &lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col-lg-4 col-md-6"&gt;
+                &lt;div class="card h-100 border-0 shadow-sm"&gt;
+                    &lt;div class="card-body text-center p-4"&gt;
+                        &lt;div class="bg-warning text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3" 
+                             style="width: 80px; height: 80px;"&gt;
+                            &lt;i class="fas fa-chart-line fs-2"&gt;&lt;/i&gt;
+                        &lt;/div&gt;
+                        &lt;h4 class="fw-bold mb-3"&gt;詳細分析&lt;/h4&gt;
+                        &lt;p class="text-muted"&gt;
+                            豊富なダッシュボードで、
+                            ビジネス状況を一目で把握できます。
+                        &lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;
+
+&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                        </code>
+                    </div>
+
+                    <div class="text-sm bg-yellow-100 p-3 rounded">
+                        <h5 class="font-bold text-yellow-700 mb-2">レスポンシブのポイント</h5>
+                        <ul class="space-y-1">
+                            <li>• <strong>ナビゲーション：</strong><code>navbar-toggler</code>でモバイル対応</li>
+                            <li>• <strong>ヒーロー：</strong><code>d-grid d-md-flex</code>でボタン配置切り替え</li>
+                            <li>• <strong>カード：</strong><code>col-lg-4 col-md-6</code>で段階的レイアウト</li>
+                            <li>• <strong>高さ統一：</strong><code>h-100</code>でカードの高さ調整</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-green-600">Eコマースサイト：商品一覧・詳細ページ</h3>
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <p class="mb-4">実際の<span class="highlight">ECサイト</span>の商品一覧ページを作成し、フィルタリング機能やモーダル表示を実装します。</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-bold text-green-600 mb-2">商品一覧の実装</h4>
+                            <div class="code-block text-xs">
+                                <code>
+&lt;!-- フィルタリングナビ --&gt;
+&lt;nav class="navbar navbar-expand-md navbar-light bg-light mb-4"&gt;
+    &lt;div class="container-fluid"&gt;
+        &lt;span class="navbar-brand mb-0 h1"&gt;商品一覧&lt;/span&gt;
+        &lt;div class="d-flex"&gt;
+            &lt;select class="form-select me-2" id="categoryFilter"&gt;
+                &lt;option value=""&gt;全てのカテゴリ&lt;/option&gt;
+                &lt;option value="electronics"&gt;電化製品&lt;/option&gt;
+                &lt;option value="fashion"&gt;ファッション&lt;/option&gt;
+                &lt;option value="home"&gt;ホーム&amp;amp;キッチン&lt;/option&gt;
+            &lt;/select&gt;
+            &lt;select class="form-select" id="sortFilter"&gt;
+                &lt;option value="name"&gt;名前順&lt;/option&gt;
+                &lt;option value="price-low"&gt;価格：安い順&lt;/option&gt;
+                &lt;option value="price-high"&gt;価格：高い順&lt;/option&gt;
+                &lt;option value="rating"&gt;評価順&lt;/option&gt;
+            &lt;/select&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;!-- 商品グリッド --&gt;
+&lt;div class="container"&gt;
+    &lt;div class="row g-4" id="productGrid"&gt;
+        &lt;!-- 商品カード1 --&gt;
+        &lt;div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 product-item" data-category="electronics"&gt;
+            &lt;div class="card h-100 shadow-sm"&gt;
+                &lt;div class="position-relative"&gt;
+                    &lt;img src="https://via.placeholder.com/300x200" class="card-img-top" alt="商品1"&gt;
+                    &lt;span class="position-absolute top-0 start-0 badge bg-danger m-2"&gt;20% OFF&lt;/span&gt;
+                    &lt;div class="position-absolute top-0 end-0 m-2"&gt;
+                        &lt;button class="btn btn-outline-light btn-sm rounded-circle wishlist-btn"&gt;
+                            &lt;i class="far fa-heart"&gt;&lt;/i&gt;
+                        &lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class="card-body d-flex flex-column"&gt;
+                    &lt;h5 class="card-title"&gt;ワイヤレスイヤホン&lt;/h5&gt;
+                    &lt;p class="card-text text-muted flex-grow-1"&gt;
+                        高音質なワイヤレスイヤホン。ノイズキャンセリング機能付き。
+                    &lt;/p&gt;
+                    &lt;div class="mb-2"&gt;
+                        &lt;div class="d-flex align-items-center"&gt;
+                            &lt;div class="text-warning me-2"&gt;
+                                &lt;i class="fas fa-star"&gt;&lt;/i&gt;
+                                &lt;i class="fas fa-star"&gt;&lt;/i&gt;
+                                &lt;i class="fas fa-star"&gt;&lt;/i&gt;
+                                &lt;i class="fas fa-star"&gt;&lt;/i&gt;
+                                &lt;i class="far fa-star"&gt;&lt;/i&gt;
+                            &lt;/div&gt;
+                            &lt;small class="text-muted"&gt;(124件)&lt;/small&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="d-flex justify-content-between align-items-center"&gt;
+                        &lt;div&gt;
+                            &lt;span class="text-decoration-line-through text-muted"&gt;¥12,800&lt;/span&gt;
+                            &lt;span class="h5 text-danger mb-0 ms-2"&gt;¥9,980&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="mt-3 d-grid gap-2"&gt;
+                        &lt;button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal"&gt;
+                            &lt;i class="fas fa-eye me-2"&gt;&lt;/i&gt;詳細を見る
+                        &lt;/button&gt;
+                        &lt;button class="btn btn-outline-success"&gt;
+                            &lt;i class="fas fa-shopping-cart me-2"&gt;&lt;/i&gt;カートに追加
+                        &lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;!-- 追加の商品カード... --&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                                </code>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-blue-600 mb-2">JavaScriptでの動的制御</h4>
+                            <div class="code-block text-xs">
+                                <code>
+// 商品フィルタリング機能
+class ProductFilter {
+    constructor() {
+        this.products = document.querySelectorAll('.product-item');
+        this.categoryFilter = document.getElementById('categoryFilter');
+        this.sortFilter = document.getElementById('sortFilter');
+        this.init();
+    }
+    
+    init() {
+        this.categoryFilter.addEventListener('change', () => this.filterProducts());
+        this.sortFilter.addEventListener('change', () => this.sortProducts());
+        this.initWishlist();
+    }
+    
+    filterProducts() {
+        const selectedCategory = this.categoryFilter.value;
+        
+        this.products.forEach(product => {
+            const category = product.dataset.category;
+            if (selectedCategory === '' || category === selectedCategory) {
+                product.style.display = 'block';
+                // アニメーション付きで表示
+                product.style.opacity = '0';
+                setTimeout(() => {
+                    product.style.opacity = '1';
+                    product.style.transition = 'opacity 0.3s ease';
+                }, 100);
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
+    
+    sortProducts() {
+        const sortBy = this.sortFilter.value;
+        const container = document.getElementById('productGrid');
+        const productsArray = Array.from(this.products);
+        
+        productsArray.sort((a, b) => {
+            switch(sortBy) {
+                case 'name':
+                    return a.querySelector('.card-title').textContent.localeCompare(
+                        b.querySelector('.card-title').textContent
+                    );
+                case 'price-low':
+                    return this.getPrice(a) - this.getPrice(b);
+                case 'price-high':
+                    return this.getPrice(b) - this.getPrice(a);
+                default:
+                    return 0;
+            }
+        });
+        
+        // DOM順序を更新
+        productsArray.forEach(product => {
+            container.appendChild(product);
+        });
+    }
+    
+    getPrice(productElement) {
+        const priceText = productElement.querySelector('.h5').textContent;
+        return parseInt(priceText.replace(/[^\d]/g, ''));
+    }
+    
+    initWishlist() {
+        document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const icon = btn.querySelector('i');
+                if (icon.classList.contains('far')) {
+                    icon.classList.replace('far', 'fas');
+                    btn.classList.replace('btn-outline-light', 'btn-danger');
+                } else {
+                    icon.classList.replace('fas', 'far');
+                    btn.classList.replace('btn-danger', 'btn-outline-light');
+                }
+            });
+        });
+    }
+}
+
+// 初期化
+document.addEventListener('DOMContentLoaded', () => {
+    new ProductFilter();
+});
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 演習問題 -->
+        <section class="bg-gray-100 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-gray-700">
+                <i class="fas fa-clipboard-check mr-2"></i>演習問題
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="bg-white rounded-lg p-4 border border-gray-200">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-blue-100 text-blue-600 rounded-full p-2 flex-shrink-0">
+                            <i class="fas fa-code text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-bold text-blue-700 mb-2">演習1: レスポンシブナビゲーションの作成</h3>
+                            <p class="text-gray-700 mb-3">
+                                ブランドロゴ、メニュー項目、検索ボックス、ユーザーアイコンを含むナビゲーションバーを作成してください。スマホ表示時にはハンバーガーメニューに切り替わるようにしてください。
+                            </p>
+                            <div class="bg-blue-50 p-3 rounded text-sm">
+                                <strong>要件:</strong>
+                                <ul class="mt-2 space-y-1">
+                                    <li>• ブランドロゴは左端に配置</li>
+                                    <li>• メニュー項目: ホーム、サービス、会社概要、お問い合わせ</li>
+                                    <li>• 検索ボックスとユーザーアイコンは右端に配置</li>
+                                    <li>• 768px以下では全てハンバーガーメニューに格納</li>
+                                </ul>
+                            </div>
+                            <button class="mt-3 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors" onclick="toggleAnswer('answer1')">
+                                <i class="fas fa-eye mr-2"></i>回答例を表示
+                            </button>
+                            <div id="answer1" class="answer-hidden">
+                                <div class="code-block mt-3">
+                                    <code>
+&lt;nav class="navbar navbar-expand-md navbar-dark bg-dark"&gt;
+  &lt;div class="container"&gt;
+    &lt;a class="navbar-brand" href="#"&gt;
+      &lt;img src="logo.png" alt="Logo" width="30" height="30" class="me-2"&gt;
+      YourBrand
+    &lt;/a&gt;
+    
+    &lt;button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"&gt;
+      &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+    
+    &lt;div class="collapse navbar-collapse" id="navbarContent"&gt;
+      &lt;ul class="navbar-nav me-auto"&gt;
+        &lt;li class="nav-item"&gt;&lt;a class="nav-link active" href="#"&gt;ホーム&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#"&gt;サービス&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#"&gt;会社概要&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#"&gt;お問い合わせ&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+      
+      &lt;div class="d-flex align-items-center"&gt;
+        &lt;form class="d-flex me-3"&gt;
+          &lt;input class="form-control" type="search" placeholder="検索..." style="width: 200px;"&gt;
+          &lt;button class="btn btn-outline-light ms-2" type="submit"&gt;
+            &lt;i class="fas fa-search"&gt;&lt;/i&gt;
+          &lt;/button&gt;
+        &lt;/form&gt;
+        &lt;div class="dropdown"&gt;
+          &lt;a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"&gt;
+            &lt;i class="fas fa-user-circle fs-4"&gt;&lt;/i&gt;
+          &lt;/a&gt;
+          &lt;ul class="dropdown-menu dropdown-menu-end"&gt;
+            &lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;プロフィール&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;設定&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;hr class="dropdown-divider"&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a class="dropdown-item" href="#"&gt;ログアウト&lt;/a&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;
+                                    </code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 border border-gray-200">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-green-100 text-green-600 rounded-full p-2 flex-shrink-0">
+                            <i class="fas fa-th-large text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-bold text-green-700 mb-2">演習2: 複雑なレスポンシブレイアウト</h3>
+                            <p class="text-gray-700 mb-3">
+                                PC（3列）、タブレット（2列）、スマホ（1列）の表示に対応したブログカードレイアウトを作成してください。各カードには画像、タイトル、概要、投稿日、著者情報、読むボタンを含めてください。
+                            </p>
+                            <div class="bg-green-50 p-3 rounded text-sm">
+                                <strong>レスポンシブ要件:</strong>
+                                <ul class="mt-2 space-y-1">
+                                    <li>• 1200px以上: 3列表示（col-xl-4）</li>
+                                    <li>• 768px-1199px: 2列表示（col-md-6）</li>
+                                    <li>• 767px以下: 1列表示（col-12）</li>
+                                    <li>• 全てのカードで高さを統一</li>
+                                </ul>
+                            </div>
+                            <button class="mt-3 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors" onclick="toggleAnswer('answer2')">
+                                <i class="fas fa-eye mr-2"></i>回答例を表示
+                            </button>
+                            <div id="answer2" class="answer-hidden">
+                                <div class="code-block mt-3">
+                                    <code>
+&lt;div class="container my-5"&gt;
+  &lt;div class="row g-4"&gt;
+    &lt;!-- ブログカード1 --&gt;
+    &lt;div class="col-xl-4 col-md-6 col-12"&gt;
+      &lt;article class="card h-100 shadow-sm"&gt;
+        &lt;img src="blog1.jpg" class="card-img-top" alt="ブログ画像1" style="height: 200px; object-fit: cover;"&gt;
+        &lt;div class="card-body d-flex flex-column"&gt;
+          &lt;div class="mb-2"&gt;
+            &lt;span class="badge bg-primary"&gt;技術&lt;/span&gt;
+            &lt;span class="badge bg-secondary"&gt;Web開発&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;h5 class="card-title"&gt;レスポンシブデザインの最新トレンド&lt;/h5&gt;
+          &lt;p class="card-text flex-grow-1"&gt;
+            2024年に注目すべきレスポンシブデザインのトレンドと実装方法について詳しく解説します...
+          &lt;/p&gt;
+          &lt;div class="mt-auto"&gt;
+            &lt;div class="d-flex justify-content-between align-items-center mb-3"&gt;
+              &lt;div class="d-flex align-items-center"&gt;
+                &lt;img src="author1.jpg" class="rounded-circle me-2" width="32" height="32" alt="著者"&gt;
+                &lt;div&gt;
+                  &lt;small class="text-muted d-block"&gt;田中太郎&lt;/small&gt;
+                  &lt;small class="text-muted"&gt;2024年1月15日&lt;/small&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class="text-muted"&gt;
+                &lt;i class="fas fa-eye me-1"&gt;&lt;/i&gt;1,234
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="d-flex gap-2"&gt;
+              &lt;a href="#" class="btn btn-primary flex-fill"&gt;
+                &lt;i class="fas fa-book-open me-2"&gt;&lt;/i&gt;読む
+              &lt;/a&gt;
+              &lt;button class="btn btn-outline-secondary"&gt;
+                &lt;i class="far fa-bookmark"&gt;&lt;/i&gt;
+              &lt;/button&gt;
+              &lt;button class="btn btn-outline-secondary"&gt;
+                &lt;i class="fas fa-share-alt"&gt;&lt;/i&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- 追加のブログカード... --&gt;
+    &lt;div class="col-xl-4 col-md-6 col-12"&gt;
+      &lt;article class="card h-100 shadow-sm"&gt;
+        &lt;!-- 同様の構造 --&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="col-xl-4 col-md-6 col-12"&gt;
+      &lt;article class="card h-100 shadow-sm"&gt;
+        &lt;!-- 同様の構造 --&gt;
+      &lt;/article&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  
+  &lt;!-- ページネーション --&gt;
+  &lt;nav aria-label="ページネーション" class="mt-5"&gt;
+    &lt;ul class="pagination justify-content-center"&gt;
+      &lt;li class="page-item disabled"&gt;
+        &lt;a class="page-link" href="#"&gt;前へ&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li class="page-item active"&gt;
+        &lt;a class="page-link" href="#"&gt;1&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li class="page-item"&gt;
+        &lt;a class="page-link" href="#"&gt;2&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li class="page-item"&gt;
+        &lt;a class="page-link" href="#"&gt;3&lt;/a&gt;
+      &lt;/li&gt;
+      &lt;li class="page-item"&gt;
+        &lt;a class="page-link" href="#"&gt;次へ&lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+&lt;/div&gt;
+                                    </code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 理解度クイズ -->
+        <section class="bg-blue-50 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-700">
+                <i class="fas fa-brain mr-2"></i>理解度クイズ
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="bg-white rounded-lg p-4 border border-blue-200">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-blue-100 text-blue-600 rounded-full p-2 flex-shrink-0">
+                            <i class="fas fa-question text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-bold text-blue-700 mb-3">問題1: Bootstrapのグリッドシステムについて</h3>
+                            <p class="text-gray-700 mb-4">
+                                Bootstrapが12カラムシステムを採用している理由として最も適切なものはどれですか？
+                            </p>
+                            <div class="space-y-2">
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="radio" name="quiz1" value="a" class="text-blue-600">
+                                    <span>A. 12という数字が美しいから</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="radio" name="quiz1" value="b" class="text-blue-600">
+                                    <span>B. 12は多くの数で割り切れるため、レイアウトの組み合わせが豊富だから</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="radio" name="quiz1" value="c" class="text-blue-600">
+                                    <span>C. HTMLの仕様で決められているから</span>
+                                </label>
+                                <label class="flex items-center space-x-2 cursor-pointer">
+                                    <input type="radio" name="quiz1" value="d" class="text-blue-600">
+                                    <span>D. 古くからの慣習だから</span>
+                                </label>
+                            </div>
+                            <button class="mt-3 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors" onclick="showAnswer('quiz1', 'b', '12は1, 2, 3, 4, 6, 12で割り切れるため、1列（12÷1）、2列（6+6）、3列（4+4+4）、4列（3+3+3+3）など、様々なレイアウトパターンを簡単に作れます。この柔軟性がBootstrapの大きな特徴です。')">
+                                <i class="fas fa-check mr-2"></i>回答を表示
+                            </button>
+                            <div id="quiz1-answer" class="answer-hidden"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 border border-blue-200">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-green-100 text-green-600 rounded-full p-2 flex-shrink-0">
+                            <i class="fas fa-question text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-bold text-green-700 mb-3">問題2: モバイルファースト設計について</h3>
+                            <p class="text-gray-700 mb-4">
+                                以下のBreakpointクラスのうち、モバイルファースト設計に最も適した書き方はどれですか？
+                            </p>
+                            <div class="space-y-2">
+                                <label class="flex items-start space-x-2 cursor-pointer">
+                                    <input type="radio" name="quiz2" value="a" class="mt-1 text-green-600">
+                                    <span>A. <code class="bg-gray-100 px-1 rounded">col-lg-12 col-md-6 col-sm-4</code></span>
+                                </label>
+                                <label class="flex items-start space-x-2 cursor-pointer">
+                                    <input type="radio" name="quiz2" value="b" class="mt-1 text-green-600">
+                                    <span>B. <code class="bg-gray-100 px-1 rounded">col-12 col-sm-6 col-md-4 col-lg-3</code></span>
+                                </label>
+                                <label class="flex items-start space-x-2 cursor-pointer">
+                                    <input type="radio" name="quiz2" value="c" class="mt-1 text-green-600">
+                                    <span>C. <code class="bg-gray-100 px-1 rounded">col-3 col-md-4 col-sm-6 col-12</code></span>
+                                </label>
+                                <label class="flex items-start space-x-2 cursor-pointer">
+                                    <input type="radio" name="quiz2" value="d" class="mt-1 text-green-600">
+                                    <span>D. どれも同じ</span>
+                                </label>
+                            </div>
+                            <button class="mt-3 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors" onclick="showAnswer('quiz2', 'b', 'モバイルファーストでは、最も小さい画面（スマホ）から設計を始めます。col-12（スマホで全幅）から始まり、画面が大きくなるにつれて col-sm-6（タブレットで半分）、col-md-4（PCで1/3）、col-lg-3（大画面で1/4）のように段階的に狭くなる設計が理想的です。')">
+                                <i class="fas fa-check mr-2"></i>回答を表示
+                            </button>
+                            <div id="quiz2-answer" class="answer-hidden"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 border border-blue-200">
+                    <div class="flex items-start space-x-4">
+                        <div class="bg-purple-100 text-purple-600 rounded-full p-2 flex-shrink-0">
+                            <i class="fas fa-question text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-lg font-bold text-purple-700 mb-3">問題3: CSS変数によるカスタマイゼーション</h3>
+                            <p class="text-gray-700 mb-4">
+                                Bootstrapでダークモード切り替えを実装する際、最も効率的な方法はどれですか？
+                            </p>
+                            <div class="space-y-2">
+                                <label class="flex items-start space-x-2 cursor-pointer">
+                                    <input type="radio" name="quiz3" value="a" class="mt-1 text-purple-600">
+                                    <span>A. 全てのCSSを手動で書き直す</span>
+                                </label>
+                                <label class="flex items-start space-x-2 cursor-pointer">
+                                    <input type="radio" name="quiz3" value="b" class="mt-1 text-purple-600">
+                                    <span>B. CSS変数（--bs-body-bg等）をJavaScriptで動的に変更する</span>
+                                </label>
+                                <label class="flex items-start space-x-2 cursor-pointer">
+                                    <input type="radio" name="quiz3" value="c" class="mt-1 text-purple-600">
+                                    <span>C. ページをリロードしてテーマを切り替える</span>
+                                </label>
+                                <label class="flex items-start space-x-2 cursor-pointer">
+                                    <input type="radio" name="quiz3" value="d" class="mt-1 text-purple-600">
+                                    <span>D. 別のCSSフレームワークを使う</span>
+                                </label>
+                            </div>
+                            <button class="mt-3 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors" onclick="showAnswer('quiz3', 'b', 'Bootstrap 5のCSS変数（--bs-primary, --bs-body-bg等）をJavaScriptのsetPropertyメソッドで動的に変更することで、リアルタイムでテーマ切り替えが可能です。この方法なら、全てのBootstrapコンポーネントが自動的に新しいテーマに対応します。')">
+                                <i class="fas fa-check mr-2"></i>回答を表示
+                            </button>
+                            <div id="quiz3-answer" class="answer-hidden"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- まとめ -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-700">
+                <i class="fas fa-graduation-cap mr-2"></i>まとめ
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-indigo-600">習得した重要ポイント</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h4 class="font-bold text-blue-600 mb-2">レスポンシブデザインの基礎</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• <strong>3つの柱：</strong>フルードグリッド・メディアクエリ・フレキシブルメディアで全デバイス対応</li>
+                            <li>• <strong>モバイルファースト：</strong>小さな画面から設計することで本質的なコンテンツに集中</li>
+                            <li>• <strong>ブレークポイント：</strong>適切な切り替え点でユーザビリティを最適化</li>
+                        </ul>
+                    </div>
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <h4 class="font-bold text-green-600 mb-2">Bootstrapグリッドシステム</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• <strong>12カラム設計：</strong>柔軟なレイアウト組み合わせで効率的な開発</li>
+                            <li>• <strong>段階的表示：</strong>デバイスサイズに応じた最適なカラム数調整</li>
+                            <li>• <strong>ネストグリッド：</strong>複雑なレイアウトを細かく制御</li>
+                        </ul>
+                    </div>
+                    <div class="border-l-4 border-purple-500 pl-4">
+                        <h4 class="font-bold text-purple-600 mb-2">コンポーネント活用</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• <strong>Navbar vs Nav：</strong>用途に応じた適切なナビゲーション選択</li>
+                            <li>• <strong>カード・モーダル：</strong>動的コンテンツで魅力的なUI実現</li>
+                            <li>• <strong>フォームバリデーション：</strong>ユーザビリティとセキュリティを両立</li>
+                        </ul>
+                    </div>
+                    <div class="border-l-4 border-red-500 pl-4">
+                        <h4 class="font-bold text-red-600 mb-2">カスタマイゼーション技術</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• <strong>CSS変数：</strong>リアルタイムテーマ切り替えで動的デザイン</li>
+                            <li>• <strong>Sass活用：</strong>高度なカスタマイゼーションと効率的な開発</li>
+                            <li>• <strong>パフォーマンス最適化：</strong>必要な機能のみで軽量化実現</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold mb-3 text-green-600">実務での活用メリット</h3>
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="text-center">
+                            <div class="bg-green-100 text-green-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-clock text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-green-700 mb-2">開発効率の向上</h4>
+                            <p class="text-sm text-green-600">既製コンポーネントにより開発時間を<strong>50%以上短縮</strong>。プロトタイプから本格実装まで一貫して使用可能</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-blue-100 text-blue-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-mobile-alt text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-blue-700 mb-2">完全レスポンシブ対応</h4>
+                            <p class="text-sm text-blue-600">追加CSSなしで全デバイス対応。<strong>モバイルトラフィック60%時代</strong>に必須のユーザビリティを実現</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-purple-100 text-purple-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                                <i class="fas fa-users text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-purple-700 mb-2">チーム開発の標準化</h4>
+                            <p class="text-sm text-purple-600">統一されたデザインシステムで<strong>保守性向上</strong>。新人でも即戦力として活用可能</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+                <h3 class="text-lg font-bold text-indigo-700 mb-3">次回予告: JavaScript基礎・DOM操作・イベント処理</h3>
+                <p class="text-indigo-600 mb-3">
+                    次回は、今日作成したレスポンシブなHTMLに動的な機能を追加するJavaScriptの基礎を学習します。DOM操作やイベント処理を通じて、ユーザーとの対話性豊かなWebサイトを作成しましょう。
+                </p>
+                <div class="text-sm text-indigo-500">
+                    <strong>学習予定:</strong> JavaScript基礎構文、DOM要素の取得・操作、クリック・フォームイベント、動的コンテンツ更新、バリデーション実装
+                </div>
+            </div>
+        </section>
+
+        <!-- フッター -->
+        <footer class="text-center py-8 border-t border-gray-200 text-gray-600">
+            <p><i class="fas fa-copyright mr-2"></i>© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            <p class="mt-2 text-sm">ITエンジニア育成カリキュラム - Day39: レスポンシブデザイン・Bootstrap完全マスター</p>
+        </footer>
+        
+    </div>
+
+    <script>
+        // 回答表示機能
+        function toggleAnswer(answerId) {
+            const answerElement = document.getElementById(answerId);
+            if (answerElement.classList.contains('answer-hidden')) {
+                answerElement.classList.remove('answer-hidden');
+                answerElement.classList.add('answer-visible');
+            } else {
+                answerElement.classList.add('answer-hidden');
+                answerElement.classList.remove('answer-visible');
+            }
+        }
+
+        // クイズ回答表示機能
+        function showAnswer(quizName, correctAnswer, explanation) {
+            const answerElement = document.getElementById(quizName + '-answer');
+            const selectedAnswer = document.querySelector(`input[name="${quizName}"]:checked`);
+            
+            let resultClass = '';
+            let resultIcon = '';
+            let resultText = '';
+            
+            if (selectedAnswer) {
+                if (selectedAnswer.value === correctAnswer) {
+                    resultClass = 'bg-green-100 border-green-400 text-green-700';
+                    resultIcon = 'fas fa-check-circle text-green-600';
+                    resultText = '正解です！';
+                } else {
+                    resultClass = 'bg-red-100 border-red-400 text-red-700';
+                    resultIcon = 'fas fa-times-circle text-red-600';
+                    resultText = '不正解です。';
+                }
+            } else {
+                resultClass = 'bg-yellow-100 border-yellow-400 text-yellow-700';
+                resultIcon = 'fas fa-exclamation-triangle text-yellow-600';
+                resultText = '選択肢を選んでください。';
+            }
+            
+            answerElement.innerHTML = `
+                <div class="mt-3 p-3 border rounded ${resultClass}">
+                    <div class="flex items-center mb-2">
+                        <i class="${resultIcon} mr-2"></i>
+                        <strong>${resultText}</strong>
+                    </div>
+                    <p class="text-sm">${explanation}</p>
+                </div>
+            `;
+            answerElement.classList.remove('answer-hidden');
+            answerElement.classList.add('answer-visible');
+        }
+
+        // レスポンシブデモの更新
+        function updateResponsiveDemo() {
+            const demo = document.querySelector('.responsive-demo h4');
+            const width = window.innerWidth;
+            
+            if (width <= 768) {
+                demo.textContent = '📱 現在の表示: スマートフォン (' + width + 'px)';
+            } else if (width <= 1024) {
+                demo.textContent = '📱 現在の表示: タブレット (' + width + 'px)';
+            } else {
+                demo.textContent = '💻 現在の表示: デスクトップ (' + width + 'px)';
+            }
+        }
+
+        // ページ読み込み時とウィンドウリサイズ時にデモを更新
+        window.addEventListener('resize', updateResponsiveDemo);
+        updateResponsiveDemo();
+    </script>
+    </main>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDo83T1tcqRI9xmO%2F6p%2FJP1PtsKf%2FXYPRgwUat%2FqHULLw5mjqCzzDrGZrg12ka5rPp2hMDM3rOdnjPhnq1K9LrOxJCf2%2BLxYCHHFIiwfb%2FuTih28WKZzmf8u%2FOZmLVE8FK1TYfScUFObcgjWaRE%2B30%2B%2F7JX4yIZlPAzJoTJN5%2BatC%2FURjbeCbqts3AILV0baZBu%2FrKpVbdSaX%2B55l7B07YzkdIScdymgOyLZyJwE46kUZRFo0cbFCKiGwkCdBL0eR3ZWe%2BKzhMX0qwI775CsybSMCnUu%2FdYNK9O11FvqYC9Ys5raFZOBWTqjs7T39gVMpxvbeZ2AQrX25Ld1rmqdy7%2B96tC0vcbDIediwOn%2BTIyAENVIA2P09krEUNsSGn%2F0zHd6omxWuTMIylpOxKl5RvfWQcrRD%2BMtkcORQYpAJKL%2BX1zhHgpPCsLoVD%2Fnsvwj4INrbztCITl7%2F7jnICULAR%2B%2FRNjjaS4htDBPxfbVUChhrb66VdkdIUZrrjgEV1NCktQ%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDo83T1tcqRI9xmO/6p/JP1PtsKf/XYPRgwUat/qHULLw5mjqCzzDrGZrg12ka5rPp2hMDM3rOdnjPhnq1K9LrOxJCf2+LxYCHHFIiwfb/uTih28WKZzmf8u/OZmLVE8FK1TYfScUFObcgjWaRE+30+/7JX4yIZlPAzJoTJN5+atC/URjbeCbqts3AILV0baZBu/rKpVbdSaX+55l7B07YzkdIScdymgOyLZyJwE46kUZRFo0cbFCKiGwkCdBL0eR3ZWe+KzhMX0qwI775CsybSMCnUu/dYNK9O11FvqYC9Ys5raFZOBWTqjs7T39gVMpxvbeZ2AQrX25Ld1rmqdy7+96tC0vcbDIediwOn+TIyAENVIA2P09krEUNsSGn/0zHd6omxWuTMIylpOxKl5RvfWQcrRD+MtkcORQYpAJKL+X1zhHgpPCsLoVD/nsvwj4INrbztCITl7/7jnICULAR+/RNjjaS4htDBPxfbVUChhrb66VdkdIUZrrjgEV1NCktQ==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+</body>
+</html>

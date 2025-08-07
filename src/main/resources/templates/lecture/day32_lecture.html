@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day32: 基本情報技術者試験 直前対策② - ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .code-block {
+            background: #1a202c;
+            color: #e2e8f0;
+            font-family: 'Courier New', monospace;
+        }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <!-- メインナビゲーションバー -->
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day31_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day33_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month2.html" class="hover:text-blue-600">2ヶ月目: 基本情報</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week8.html" class="hover:text-blue-600">8週目: ストラテジ系と総合対策</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">32日目: 基本情報技術者試験 直前対策②</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day32.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32">
+    <!-- ヘッダー -->
+    <header class="gradient-bg text-white">
+        <div class="container mx-auto px-4 py-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold mb-4">
+                    <i class="fas fa-graduation-cap mr-3"></i>
+                    基本情報技術者試験 直前対策②
+                </h1>
+                <p class="text-xl opacity-90 mb-4">午後試験対策 - プログラミング・アルゴリズム・長文読解</p>
+                <div class="flex justify-center space-x-6 text-sm">
+                    <div class="bg-white bg-opacity-20 rounded-full px-4 py-2">
+                        <i class="fas fa-clock mr-2"></i>所要時間: 4時間
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-full px-4 py-2">
+                        <i class="fas fa-users mr-2"></i>対象: 受験予定者
+                    </div>
+                    <div class="bg-white bg-opacity-20 rounded-full px-4 py-2">
+                        <i class="fas fa-certificate mr-2"></i>基本情報技術者試験対応
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- 学習目標と達成基準 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-blue-200 pb-2">
+                <i class="fas fa-target mr-2 text-blue-600"></i>学習目標と達成基準
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                    <h3 class="font-bold text-blue-800 mb-3">
+                        <i class="fas fa-bullseye mr-2"></i>学習目標
+                    </h3>
+                    <ul class="space-y-2 text-blue-700 text-sm">
+                        <li>• 午後試験の出題形式と解答戦略を理解する</li>
+                        <li>• プログラミング問題の効率的な解法手順を習得する</li>
+                        <li>• アルゴリズム問題のパターン認識能力を向上させる</li>
+                        <li>• 長文読解問題の要点抽出技術を身につける</li>
+                        <li>• 時間配分と解答優先順位の判断力を養う</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                    <h3 class="font-bold text-green-800 mb-3">
+                        <i class="fas fa-check-circle mr-2"></i>達成基準
+                    </h3>
+                    <ul class="space-y-2 text-green-700 text-sm">
+                        <li>• 午後試験の各問題形式の特徴を説明できる</li>
+                        <li>• 制限時間内でプログラミング問題を解答できる</li>
+                        <li>• アルゴリズムの処理手順を正確にトレースできる</li>
+                        <li>• 長文から必要な情報を迅速に抽出できる</li>
+                        <li>• 模擬試験で合格点（60点）以上を安定して獲得できる</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ITエンジニア豆知識 -->
+        <div class="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-lightbulb mr-2 text-yellow-600"></i>ITエンジニア豆知識
+            </h2>
+            <div class="bg-white rounded-lg p-4">
+                <h3 class="text-lg font-semibold text-orange-800 mb-3">
+                    基本情報技術者試験の歴史と現在
+                </h3>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h4 class="font-semibold text-orange-700 mb-2">試験制度の変遷</h4>
+                        <ul class="space-y-1 text-orange-600">
+                            <li>• 1970年: 第二種情報処理技術者試験として開始</li>
+                            <li>• 2001年: 基本情報技術者試験に名称変更</li>
+                            <li>• 2020年: CBT（Computer Based Testing）方式導入</li>
+                            <li>• 2023年: 午後試験の出題形式が大幅変更</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-orange-700 mb-2">合格率と業界動向</h4>
+                        <ul class="space-y-1 text-orange-600">
+                            <li>• 平均合格率: 約25-30%（難関資格）</li>
+                            <li>• IT業界での認知度: 非常に高い</li>
+                            <li>• 新卒採用での評価: 技術力の指標として重視</li>
+                            <li>• 継続学習の重要性: 技術の進歩に対応</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 午後試験の概要と戦略 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-purple-200 pb-2">
+                <i class="fas fa-strategy mr-2 text-purple-600"></i>午後試験の概要と戦略
+            </h2>
+
+            <!-- 試験概要 -->
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-purple-800 mb-4">
+                    <i class="fas fa-info-circle mr-2"></i>午後試験の基本情報
+                </h3>
+                <div class="bg-purple-50 rounded-lg p-4">
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="text-center">
+                            <div class="bg-purple-600 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-2">
+                                <i class="fas fa-clock text-2xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-purple-800">試験時間</h4>
+                            <p class="text-purple-600 text-sm">150分（2時間30分）</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-purple-600 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-2">
+                                <i class="fas fa-list-alt text-2xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-purple-800">問題数</h4>
+                            <p class="text-purple-600 text-sm">大問11問（選択式）</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-purple-600 text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-2">
+                                <i class="fas fa-percentage text-2xl"></i>
+                            </div>
+                            <h4 class="font-semibold text-purple-800">合格基準</h4>
+                            <p class="text-purple-600 text-sm">60点以上（100点満点）</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 出題分野と配点 -->
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-purple-800 mb-4">
+                    <i class="fas fa-chart-pie mr-2"></i>出題分野と配点（改良版解説）
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full bg-white border rounded-lg">
+                        <thead class="bg-purple-100">
+                            <tr>
+                                <th class="p-3 text-left">分野</th>
+                                <th class="p-3 text-left">問題番号</th>
+                                <th class="p-3 text-left">配点</th>
+                                <th class="p-3 text-left">特徴</th>
+                                <th class="p-3 text-left">対策ポイント</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="bg-blue-50">
+                                <td class="p-3 font-semibold">プログラミング</td>
+                                <td class="p-3">問1</td>
+                                <td class="p-3 text-center">20点</td>
+                                <td class="p-3">必須解答、Java/Python/C選択</td>
+                                <td class="p-3">言語仕様の完全理解</td>
+                            </tr>
+                            <tr class="bg-green-50">
+                                <td class="p-3 font-semibold">情報セキュリティ</td>
+                                <td class="p-3">問2</td>
+                                <td class="p-3 text-center">20点</td>
+                                <td class="p-3">必須解答、長文読解中心</td>
+                                <td class="p-3">用語と仕組みの理解</td>
+                            </tr>
+                            <tr class="bg-yellow-50">
+                                <td class="p-3 font-semibold">データ構造・アルゴリズム</td>
+                                <td class="p-3">問3-4</td>
+                                <td class="p-3 text-center">20点×2</td>
+                                <td class="p-3">2問選択、計算・トレース問題</td>
+                                <td class="p-3">処理手順の正確な追跡</td>
+                            </tr>
+                            <tr class="bg-red-50">
+                                <td class="p-3 font-semibold">ソフトウェア設計</td>
+                                <td class="p-3">問5-7</td>
+                                <td class="p-3 text-center">20点×1</td>
+                                <td class="p-3">3問中1問選択</td>
+                                <td class="p-3">設計原則の理解</td>
+                            </tr>
+                            <tr class="bg-indigo-50">
+                                <td class="p-3 font-semibold">プロジェクトマネジメント</td>
+                                <td class="p-3">問8-11</td>
+                                <td class="p-3 text-center">20点×1</td>
+                                <td class="p-3">4問中1問選択</td>
+                                <td class="p-3">実務経験との関連付け</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 時間配分戦略 -->
+            <div class="bg-orange-50 border-l-4 border-orange-500 p-4 rounded">
+                <h3 class="font-semibold text-orange-800 mb-3">
+                    <i class="fas fa-stopwatch mr-2"></i>推奨時間配分戦略
+                </h3>
+                <div class="grid md:grid-cols-5 gap-3 text-sm">
+                    <div class="bg-white p-3 rounded text-center">
+                        <strong class="text-blue-800">問1</strong>
+                        <p class="text-blue-600">40分</p>
+                        <p class="text-xs text-gray-600">プログラミング</p>
+                    </div>
+                    <div class="bg-white p-3 rounded text-center">
+                        <strong class="text-green-800">問2</strong>
+                        <p class="text-green-600">35分</p>
+                        <p class="text-xs text-gray-600">セキュリティ</p>
+                    </div>
+                    <div class="bg-white p-3 rounded text-center">
+                        <strong class="text-yellow-800">問3-4</strong>
+                        <p class="text-yellow-600">40分</p>
+                        <p class="text-xs text-gray-600">アルゴリズム</p>
+                    </div>
+                    <div class="bg-white p-3 rounded text-center">
+                        <strong class="text-purple-800">問5-7</strong>
+                        <p class="text-purple-600">20分</p>
+                        <p class="text-xs text-gray-600">設計</p>
+                    </div>
+                    <div class="bg-white p-3 rounded text-center">
+                        <strong class="text-red-800">問8-11</strong>
+                        <p class="text-red-600">15分</p>
+                        <p class="text-xs text-gray-600">PM他</p>
+                    </div>
+                </div>
+                <p class="text-orange-700 text-sm mt-3">
+                    <strong>講師ポイント:</strong> 必須問題（問1-2）に十分な時間を確保し、選択問題は得意分野を迅速に判断して集中することが重要。
+                </p>
+            </div>
+        </div>
+
+        <!-- プログラミング問題対策 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-blue-200 pb-2">
+                <i class="fas fa-code mr-2 text-blue-600"></i>プログラミング問題対策
+            </h2>
+
+            <!-- Java対策 -->
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-blue-800 mb-4">
+                    <i class="fab fa-java mr-2"></i>Java プログラミング対策
+                </h3>
+                
+                <div class="bg-blue-50 rounded-lg p-4 mb-4">
+                    <h4 class="font-semibold text-blue-800 mb-3">頻出パターンと対策法</h4>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h5 class="font-semibold text-blue-700 mb-2">基本文法・制御構文</h5>
+                            <ul class="space-y-1 text-sm text-blue-600">
+                                <li>• for文、while文の処理回数計算</li>
+                                <li>• if-else文の条件分岐パターン</li>
+                                <li>• switch文のfall-through現象</li>
+                                <li>• 配列の初期化と要素アクセス</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-blue-700 mb-2">オブジェクト指向</h5>
+                            <ul class="space-y-1 text-sm text-blue-600">
+                                <li>• クラス定義とインスタンス生成</li>
+                                <li>• メソッドのオーバーロード・オーバーライド</li>
+                                <li>• 継承とポリモーフィズム</li>
+                                <li>• アクセス修飾子の適用範囲</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 実践例 -->
+                <div class="bg-gray-800 text-gray-100 p-4 rounded-lg mb-4">
+                    <h4 class="font-semibold text-green-400 mb-3">例題: 配列処理（よく出る形式）</h4>
+                    <pre class="text-sm overflow-x-auto"><code>public class ArrayProcessor {
+    public static void main(String[] args) {
+        int[] data = {3, 1, 4, 1, 5, 9, 2, 6};
+        int result = process(data);
+        System.out.println(result);  // この出力は？
+    }
+    
+    static int process(int[] arr) {
+        int max = arr[0];
+        int count = 0;
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] > max) {
+                max = arr[i];
+                count = i;
+            }
+        }
+        return count;  // 最大値のインデックスを返す
+    }
+}</code></pre>
+                    <div class="mt-3 bg-green-900 p-3 rounded">
+                        <p class="text-green-200 text-sm">
+                            <strong>解法ポイント:</strong> 配列を順次チェックし、最大値とそのインデックスを追跡。最終的に最大値（9）のインデックス（5）が返される。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- アルゴリズム トレース手法 -->
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-blue-800 mb-4">
+                    <i class="fas fa-search mr-2"></i>アルゴリズム トレース手法
+                </h3>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-4">
+                    <h4 class="font-semibold text-yellow-800 mb-3">段階的トレースの手順</h4>
+                    <div class="grid md:grid-cols-4 gap-3 text-sm">
+                        <div class="bg-white rounded p-3 text-center">
+                            <i class="fas fa-eye text-yellow-600 text-2xl mb-2"></i>
+                            <strong class="block text-yellow-800">1. 初期状態確認</strong>
+                            <p class="text-yellow-600 text-xs mt-1">変数の初期値<br>配列の初期状態</p>
+                        </div>
+                        <div class="bg-white rounded p-3 text-center">
+                            <i class="fas fa-step-forward text-orange-600 text-2xl mb-2"></i>
+                            <strong class="block text-orange-800">2. 一行ずつ実行</strong>
+                            <p class="text-orange-600 text-xs mt-1">条件判定<br>変数値の変化</p>
+                        </div>
+                        <div class="bg-white rounded p-3 text-center">
+                            <i class="fas fa-table text-red-600 text-2xl mb-2"></i>
+                            <strong class="block text-red-800">3. 状態記録</strong>
+                            <p class="text-red-600 text-xs mt-1">各ステップでの<br>変数値をメモ</p>
+                        </div>
+                        <div class="bg-white rounded p-3 text-center">
+                            <i class="fas fa-check text-green-600 text-2xl mb-2"></i>
+                            <strong class="block text-green-800">4. 結果確認</strong>
+                            <p class="text-green-600 text-xs mt-1">最終状態<br>出力値の確認</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- バブルソートの例 -->
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">実践例: バブルソートのトレース</h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm bg-white border rounded">
+                            <thead class="bg-blue-100">
+                                <tr>
+                                    <th class="p-2 text-left">ステップ</th>
+                                    <th class="p-2 text-left">i値</th>
+                                    <th class="p-2 text-left">j値</th>
+                                    <th class="p-2 text-left">比較対象</th>
+                                    <th class="p-2 text-left">交換</th>
+                                    <th class="p-2 text-left">配列状態</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 text-xs">
+                                <tr>
+                                    <td class="p-2">初期</td>
+                                    <td class="p-2">-</td>
+                                    <td class="p-2">-</td>
+                                    <td class="p-2">-</td>
+                                    <td class="p-2">-</td>
+                                    <td class="p-2 font-mono">[5, 2, 8, 1]</td>
+                                </tr>
+                                <tr class="bg-blue-50">
+                                    <td class="p-2">1-1</td>
+                                    <td class="p-2">0</td>
+                                    <td class="p-2">0</td>
+                                    <td class="p-2">5 vs 2</td>
+                                    <td class="p-2">Yes</td>
+                                    <td class="p-2 font-mono">[2, 5, 8, 1]</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-2">1-2</td>
+                                    <td class="p-2">0</td>
+                                    <td class="p-2">1</td>
+                                    <td class="p-2">5 vs 8</td>
+                                    <td class="p-2">No</td>
+                                    <td class="p-2 font-mono">[2, 5, 8, 1]</td>
+                                </tr>
+                                <tr class="bg-blue-50">
+                                    <td class="p-2">1-3</td>
+                                    <td class="p-2">0</td>
+                                    <td class="p-2">2</td>
+                                    <td class="p-2">8 vs 1</td>
+                                    <td class="p-2">Yes</td>
+                                    <td class="p-2 font-mono">[2, 5, 1, 8]</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="text-gray-600 text-sm mt-3">
+                        <strong>講師ポイント:</strong> トレース表を作成することで、各ステップでの変数値の変化を視覚的に把握できます。特に交換処理や条件分岐での変化に注目しましょう。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 長文読解対策 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-green-200 pb-2">
+                <i class="fas fa-book-open mr-2 text-green-600"></i>長文読解対策
+            </h2>
+
+            <!-- 読解戦略 -->
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-green-800 mb-4">
+                    <i class="fas fa-route mr-2"></i>効率的読解戦略
+                </h3>
+                
+                <div class="bg-green-50 rounded-lg p-4 mb-4">
+                    <h4 class="font-semibold text-green-800 mb-3">3段階読解法</h4>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white rounded p-4">
+                            <div class="text-center mb-3">
+                                <i class="fas fa-eye text-green-600 text-3xl"></i>
+                            </div>
+                            <h5 class="font-semibold text-green-800 text-center mb-2">第1段階: 概要把握</h5>
+                            <ul class="text-sm text-green-600 space-y-1">
+                                <li>• タイトルと章立てを確認</li>
+                                <li>• 図表に目を通す</li>
+                                <li>• 設問を先読みする</li>
+                                <li>• 全体の構成を把握</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white rounded p-4">
+                            <div class="text-center mb-3">
+                                <i class="fas fa-search text-orange-600 text-3xl"></i>
+                            </div>
+                            <h5 class="font-semibold text-orange-800 text-center mb-2">第2段階: 詳細読解</h5>
+                            <ul class="text-sm text-orange-600 space-y-1">
+                                <li>• キーワードをマーキング</li>
+                                <li>• 因果関係を整理</li>
+                                <li>• 数値データを抽出</li>
+                                <li>• 重要な概念を理解</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white rounded p-4">
+                            <div class="text-center mb-3">
+                                <i class="fas fa-bullseye text-red-600 text-3xl"></i>
+                            </div>
+                            <h5 class="font-semibold text-red-800 text-center mb-2">第3段階: 解答作成</h5>
+                            <ul class="text-sm text-red-600 space-y-1">
+                                <li>• 設問に対応する箇所を特定</li>
+                                <li>• 根拠を明確にする</li>
+                                <li>• 選択肢を絞り込む</li>
+                                <li>• 見直しと確認</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 情報セキュリティ読解のコツ -->
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-green-800 mb-4">
+                    <i class="fas fa-shield-alt mr-2"></i>情報セキュリティ読解のコツ
+                </h3>
+                
+                <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
+                    <h4 class="font-semibold text-red-800 mb-3">セキュリティ問題の特徴</h4>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <h5 class="font-semibold text-red-700 mb-2">出題パターン</h5>
+                            <ul class="space-y-1 text-red-600">
+                                <li>• 脅威の種類と対策手法</li>
+                                <li>• 暗号化技術の仕組み</li>
+                                <li>• アクセス制御の実装方法</li>
+                                <li>• インシデント対応手順</li>
+                                <li>• 法制度・ガイドライン</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-red-700 mb-2">重要キーワード</h5>
+                            <ul class="space-y-1 text-red-600">
+                                <li>• 機密性（Confidentiality）</li>
+                                <li>• 完全性（Integrity）</li>
+                                <li>• 可用性（Availability）</li>
+                                <li>• 認証（Authentication）</li>
+                                <li>• 認可（Authorization）</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 実践的読解例 -->
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">実践例: セキュリティインシデント対応</h4>
+                    <div class="bg-white border-l-4 border-blue-500 p-3 mb-3">
+                        <p class="text-sm text-gray-700">
+                            「A社では、従業員のPCがマルウェアに感染し、機密情報が外部に漏洩する可能性が判明した。CSIRT（Computer Security Incident Response Team）チームは、直ちに初動対応を開始した。まず、感染したPCをネットワークから隔離し、被害範囲の特定を行った。次に、マルウェアの種類を特定し、感染経路を調査した。調査の結果、不審なメールの添付ファイルが感染源であることが判明した。...」
+                        </p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <h5 class="font-semibold text-blue-700 mb-2">抽出すべき情報</h5>
+                            <ul class="space-y-1 text-blue-600">
+                                <li>• インシデントの種類: マルウェア感染</li>
+                                <li>• 対応組織: CSIRT</li>
+                                <li>• 初動対応: ネットワーク隔離</li>
+                                <li>• 感染経路: 不審メールの添付ファイル</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-green-700 mb-2">設問予想</h5>
+                            <ul class="space-y-1 text-green-600">
+                                <li>• 初動対応の手順は適切か？</li>
+                                <li>• 追加で必要な対応は何か？</li>
+                                <li>• 予防策として有効な方法は？</li>
+                                <li>• 関係機関への報告義務は？</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 実践演習問題 -->
+        <div class="bg-orange-50 rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-orange-200 pb-2">
+                <i class="fas fa-pencil-alt mr-2 text-orange-600"></i>実践演習問題
+            </h2>
+
+            <!-- プログラミング演習 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-orange-800 mb-4">
+                    <i class="fas fa-code mr-2"></i>プログラミング演習
+                </h3>
+
+                <div class="bg-white border rounded-lg p-4 mb-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">問題1: 配列処理（基本）</h4>
+                    <div class="bg-gray-800 text-gray-100 p-3 rounded mb-3">
+                        <pre class="text-sm"><code>public class Problem1 {
+    public static void main(String[] args) {
+        int[] numbers = {10, 5, 8, 3, 7};
+        int result = calculate(numbers);
+        System.out.println(result);
+    }
+    
+    static int calculate(int[] arr) {
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] % 2 == 1) {  // 奇数の場合
+                sum += arr[i];
+            }
+        }
+        return sum;
+    }
+}</code></pre>
+                    </div>
+                    <p class="text-gray-700 mb-3">上記のプログラムの出力結果は何か。また、その理由を説明せよ。</p>
+                    
+                    <button onclick="toggleAnswer('q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                        回答を表示/非表示
+                    </button>
+                    <div id="q1-answer" class="hidden mt-3 p-4 bg-green-50 border-l-4 border-green-500 rounded">
+                        <p class="font-semibold text-green-800 mb-2">正解: 15</p>
+                        <p class="text-green-700 text-sm">
+                            <strong>解説:</strong> 配列 {10, 5, 8, 3, 7} から奇数のみを抽出して合計します。<br>
+                            • 10 % 2 = 0 (偶数) → 加算しない<br>
+                            • 5 % 2 = 1 (奇数) → sum = 0 + 5 = 5<br>
+                            • 8 % 2 = 0 (偶数) → 加算しない<br>
+                            • 3 % 2 = 1 (奇数) → sum = 5 + 3 = 8<br>
+                            • 7 % 2 = 1 (奇数) → sum = 8 + 7 = 15<br>
+                            したがって、出力は15となります。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white border rounded-lg p-4 mb-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">問題2: 文字列処理（応用）</h4>
+                    <div class="bg-gray-800 text-gray-100 p-3 rounded mb-3">
+                        <pre class="text-sm"><code>public class Problem2 {
+    public static void main(String[] args) {
+        String text = "Hello World";
+        String result = process(text);
+        System.out.println(result);
+    }
+    
+    static String process(String str) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = str.length() - 1; i >= 0; i--) {
+            char c = str.charAt(i);
+            if (c != ' ') {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+}</code></pre>
+                    </div>
+                    <p class="text-gray-700 mb-3">このプログラムの実行結果として正しいものはどれか。</p>
+                    
+                    <button onclick="toggleAnswer('q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                        回答を表示/非表示
+                    </button>
+                    <div id="q2-answer" class="hidden mt-3 p-4 bg-green-50 border-l-4 border-green-500 rounded">
+                        <p class="font-semibold text-green-800 mb-2">正解: dlroWolleH</p>
+                        <p class="text-green-700 text-sm">
+                            <strong>解説:</strong> このプログラムは文字列を逆順にしながらスペースを除去します。<br>
+                            • "Hello World" を末尾から処理<br>
+                            • 'd', 'l', 'r', 'o', 'W', ' '(スキップ), 'o', 'l', 'l', 'e', 'H'<br>
+                            • スペースを除去して結合すると "dlroWolleH"<br>
+                            StringBuilder により効率的な文字列結合が行われています。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- アルゴリズム演習 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-orange-800 mb-4">
+                    <i class="fas fa-sitemap mr-2"></i>アルゴリズム演習
+                </h3>
+
+                <div class="bg-white border rounded-lg p-4 mb-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">問題3: 二分探索のトレース</h4>
+                    <p class="text-gray-700 mb-3">
+                        ソート済み配列 [2, 5, 8, 12, 16, 23, 38, 45, 67, 78] に対して、値 23 を二分探索で検索する。
+                        各ステップでの left, right, mid の値と比較結果を示せ。
+                    </p>
+                    
+                    <button onclick="toggleAnswer('q3')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                        回答を表示/非表示
+                    </button>
+                    <div id="q3-answer" class="hidden mt-3 p-4 bg-green-50 border-l-4 border-green-500 rounded">
+                        <div class="text-green-700 text-sm">
+                            <p class="font-semibold text-green-800 mb-2">トレース結果:</p>
+                            <div class="overflow-x-auto">
+                                <table class="w-full bg-white border rounded text-xs">
+                                    <thead class="bg-green-100">
+                                        <tr>
+                                            <th class="p-2 text-left">ステップ</th>
+                                            <th class="p-2 text-left">left</th>
+                                            <th class="p-2 text-left">right</th>
+                                            <th class="p-2 text-left">mid</th>
+                                            <th class="p-2 text-left">arr[mid]</th>
+                                            <th class="p-2 text-left">比較</th>
+                                            <th class="p-2 text-left">次のアクション</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        <tr>
+                                            <td class="p-2">1</td>
+                                            <td class="p-2">0</td>
+                                            <td class="p-2">9</td>
+                                            <td class="p-2">4</td>
+                                            <td class="p-2">16</td>
+                                            <td class="p-2">16 < 23</td>
+                                            <td class="p-2">left = mid + 1 = 5</td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="p-2">2</td>
+                                            <td class="p-2">5</td>
+                                            <td class="p-2">9</td>
+                                            <td class="p-2">7</td>
+                                            <td class="p-2">45</td>
+                                            <td class="p-2">45 > 23</td>
+                                            <td class="p-2">right = mid - 1 = 6</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-2">3</td>
+                                            <td class="p-2">5</td>
+                                            <td class="p-2">6</td>
+                                            <td class="p-2">5</td>
+                                            <td class="p-2">23</td>
+                                            <td class="p-2">23 == 23</td>
+                                            <td class="p-2">発見！ インデックス5を返す</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="mt-2"><strong>結果:</strong> 値 23 はインデックス 5 で発見されました。計算量 O(log n) で効率的に検索できています。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">問題4: スタック操作</h4>
+                    <p class="text-gray-700 mb-3">
+                        空のスタックに対して以下の操作を順番に実行する。各操作後のスタックの状態を示せ。<br>
+                        操作: push(3), push(7), pop(), push(1), push(9), pop(), pop()
+                    </p>
+                    
+                    <button onclick="toggleAnswer('q4')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                        回答を表示/非表示
+                    </button>
+                    <div id="q4-answer" class="hidden mt-3 p-4 bg-green-50 border-l-4 border-green-500 rounded">
+                        <div class="text-green-700 text-sm">
+                            <p class="font-semibold text-green-800 mb-2">スタック操作のトレース:</p>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h5 class="font-semibold mb-2">操作手順:</h5>
+                                    <ul class="space-y-1">
+                                        <li>初期状態: [ ] (空)</li>
+                                        <li>push(3): [3]</li>
+                                        <li>push(7): [3, 7]</li>
+                                        <li>pop(): [3] (7を取り出し)</li>
+                                        <li>push(1): [3, 1]</li>
+                                        <li>push(9): [3, 1, 9]</li>
+                                        <li>pop(): [3, 1] (9を取り出し)</li>
+                                        <li>pop(): [3] (1を取り出し)</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold mb-2">LIFO原則:</h5>
+                                    <p class="text-xs">スタックは Last In, First Out (LIFO) の原則に従います。最後に追加された要素が最初に取り出されます。</p>
+                                    <p class="text-xs mt-2"><strong>最終状態:</strong> [3] - 要素3が残っています。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 読解演習 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-orange-800 mb-4">
+                    <i class="fas fa-book mr-2"></i>読解演習
+                </h3>
+
+                <div class="bg-white border rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">問題5: セキュリティ読解</h4>
+                    <div class="bg-gray-50 border-l-4 border-blue-500 p-3 mb-3 text-sm">
+                        <p class="mb-2">
+                            「B社では、リモートワークの普及に伴い、VPN（Virtual Private Network）を導入してセキュアな通信環境を構築した。VPNは、公衆ネットワーク上に仮想的な専用ネットワークを構築する技術であり、暗号化により通信内容の機密性を保護する。B社が採用したIPsec VPNは、IP層での暗号化を提供し、エンドツーエンドの通信を保護する。」
+                        </p>
+                        <p>
+                            「しかし、従業員の一部が個人所有のデバイスから接続しており、セキュリティポリシーの遵守が課題となっている。そこで、デバイス認証機能を追加し、事前に登録されたデバイスのみが接続できるよう制限を設けた。さらに、多要素認証（MFA: Multi-Factor Authentication）を導入し、パスワードに加えてワンタイムパスワードによる認証を必須とした。」
+                        </p>
+                    </div>
+                    <p class="text-gray-700 mb-3">
+                        上記の文章を読んで、B社が実施したセキュリティ対策の目的と効果について説明せよ。
+                    </p>
+                    
+                    <button onclick="toggleAnswer('q5')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                        回答を表示/非表示
+                    </button>
+                    <div id="q5-answer" class="hidden mt-3 p-4 bg-green-50 border-l-4 border-green-500 rounded">
+                        <div class="text-green-700 text-sm">
+                            <p class="font-semibold text-green-800 mb-2">解答例:</p>
+                            <div class="space-y-3">
+                                <div>
+                                    <h5 class="font-semibold text-green-800">1. VPN導入の目的と効果</h5>
+                                    <ul class="ml-4 space-y-1">
+                                        <li>• <strong>目的:</strong> リモートワーク環境でのセキュアな通信確保</li>
+                                        <li>• <strong>効果:</strong> IPsecによる暗号化で通信内容の機密性を保護</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-green-800">2. デバイス認証の追加</h5>
+                                    <ul class="ml-4 space-y-1">
+                                        <li>• <strong>目的:</strong> 個人所有デバイスからの不正アクセス防止</li>
+                                        <li>• <strong>効果:</strong> 事前登録されたデバイスのみ接続許可</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-green-800">3. 多要素認証（MFA）の導入</h5>
+                                    <ul class="ml-4 space-y-1">
+                                        <li>• <strong>目的:</strong> パスワード単体認証の脆弱性補完</li>
+                                        <li>• <strong>効果:</strong> ワンタイムパスワードによる追加認証で不正ログイン防止</li>
+                                    </ul>
+                                </div>
+                                <p class="mt-3 text-xs bg-green-100 p-2 rounded">
+                                    <strong>総合効果:</strong> これらの対策により、リモートワーク環境における情報セキュリティの三要素（機密性、完全性、可用性）を包括的に保護することが可能となった。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 模擬試験 -->
+        <div class="bg-purple-50 rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-purple-200 pb-2">
+                <i class="fas fa-clipboard-check mr-2 text-purple-600"></i>模擬試験（午後試験形式）
+            </h2>
+
+            <div class="bg-red-100 border-l-4 border-red-500 p-4 mb-6">
+                <h3 class="font-bold text-red-800 mb-2">
+                    <i class="fas fa-clock mr-2"></i>試験条件
+                </h3>
+                <div class="grid md:grid-cols-3 gap-4 text-red-700 text-sm">
+                    <div>制限時間: 150分</div>
+                    <div>問題数: 11問（選択式）</div>
+                    <div>合格基準: 60点以上</div>
+                </div>
+            </div>
+
+            <!-- 問1: プログラミング（必須） -->
+            <div class="bg-white border rounded-lg p-4 mb-4">
+                <h3 class="font-semibold text-purple-800 mb-3">
+                    <i class="fas fa-code mr-2"></i>問1: プログラミング（Java）【必須解答・20点】
+                </h3>
+                <div class="bg-gray-800 text-gray-100 p-3 rounded mb-3">
+                    <pre class="text-sm"><code>public class ArrayAnalyzer {
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {1, 4, 7, 2},
+            {3, 6, 9, 5},
+            {2, 8, 1, 4}
+        };
+        int result = findMaxSum(matrix);
+        System.out.println("最大合計: " + result);
+    }
+    
+    static int findMaxSum(int[][] arr) {
+        int maxSum = Integer.MIN_VALUE;
+        
+        // 各行の合計を計算
+        for (int i = 0; i < arr.length; i++) {
+            int rowSum = 0;
+            for (int j = 0; j < arr[i].length; j++) {
+                rowSum += arr[i][j];
+            }
+            if (rowSum > maxSum) {
+                maxSum = rowSum;
+            }
+        }
+        
+        // 各列の合計を計算
+        for (int j = 0; j < arr[0].length; j++) {
+            int colSum = 0;
+            for (int i = 0; i < arr.length; i++) {
+                colSum += arr[i][j];
+            }
+            if (colSum > maxSum) {
+                maxSum = colSum;
+            }
+        }
+        
+        return maxSum;
+    }
+}</code></pre>
+                </div>
+                <div class="space-y-2 text-sm">
+                    <p><strong>設問1:</strong> このプログラムの出力結果を答えよ。</p>
+                    <p><strong>設問2:</strong> findMaxSumメソッドの処理内容を説明せよ。</p>
+                    <p><strong>設問3:</strong> 計算量を O記法で表現せよ。</p>
+                </div>
+                
+                <button onclick="toggleAnswer('mock1')" class="mt-3 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
+                    回答を表示/非表示
+                </button>
+                <div id="mock1-answer" class="hidden mt-3 p-4 bg-purple-50 border-l-4 border-purple-500 rounded">
+                    <div class="text-purple-700 text-sm space-y-3">
+                        <div>
+                            <p class="font-semibold text-purple-800">設問1の解答: 最大合計: 23</p>
+                            <p>行の合計: [14, 23, 15]、列の合計: [6, 18, 17, 11]の中で最大値は23</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-purple-800">設問2の解答:</p>
+                            <p>2次元配列の各行と各列の要素の合計を計算し、その中で最大値を求める処理</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-purple-800">設問3の解答: O(m×n)</p>
+                            <p>m=行数、n=列数。全要素を2回走査するため線形時間</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問2: 情報セキュリティ（必須） -->
+            <div class="bg-white border rounded-lg p-4 mb-4">
+                <h3 class="font-semibold text-purple-800 mb-3">
+                    <i class="fas fa-shield-alt mr-2"></i>問2: 情報セキュリティ【必須解答・20点】
+                </h3>
+                <div class="bg-gray-50 border-l-4 border-blue-500 p-3 mb-3 text-sm">
+                    <p class="mb-2">
+                        「C社では、クラウドサービスを活用したデータ管理システムを構築している。機密データの保護のため、データベース内の個人情報は AES-256 で暗号化し、暗号鍵は専用のキー管理システム（KMS: Key Management System）で管理している。また、データアクセス時には、ロールベースアクセス制御（RBAC: Role-Based Access Control）により、従業員の職務に応じた適切なアクセス権限を設定している。」
+                    </p>
+                    <p>
+                        「しかし、最近のセキュリティ監査で、以下の課題が指摘された。(1)データベースのアクセスログが十分に記録されていない、(2)暗号鍵のローテーション（定期的な更新）が実施されていない、(3)従業員の退職時にアクセス権限の削除が遅れる場合がある。これらの課題を解決するため、C社は包括的なセキュリティ対策の見直しを行うことになった。」
+                    </p>
+                </div>
+                <div class="space-y-2 text-sm">
+                    <p><strong>設問1:</strong> AES-256暗号化の特徴と、KMSを使用する利点を説明せよ。</p>
+                    <p><strong>設問2:</strong> 指摘された3つの課題それぞれについて、適切な対策を提案せよ。</p>
+                    <p><strong>設問3:</strong> RBACの仕組みとその利点について説明せよ。</p>
+                </div>
+                
+                <button onclick="toggleAnswer('mock2')" class="mt-3 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
+                    回答を表示/非表示
+                </button>
+                <div id="mock2-answer" class="hidden mt-3 p-4 bg-purple-50 border-l-4 border-purple-500 rounded">
+                    <div class="text-purple-700 text-sm space-y-3">
+                        <div>
+                            <p class="font-semibold text-purple-800">設問1の解答:</p>
+                            <ul class="ml-4 space-y-1">
+                                <li>• AES-256: 256ビット鍵長の共通鍵暗号、高い安全性を提供</li>
+                                <li>• KMS利点: 暗号鍵の集中管理、アクセス制御、監査ログ記録</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-purple-800">設問2の解答:</p>
+                            <ul class="ml-4 space-y-1">
+                                <li>• (1) SIEM導入によるリアルタイムログ監視、アクセス記録の詳細化</li>
+                                <li>• (2) 自動化された暗号鍵ローテーションスケジュールの実装</li>
+                                <li>• (3) IDライフサイクル管理システムの導入、自動的な権限削除</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-purple-800">設問3の解答:</p>
+                            <p>RBACは職務に基づく役割（ロール）に権限を割り当て、ユーザーは役割を通じて権限を取得する仕組み。最小権限の原則を実現し、管理効率を向上させる。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 選択問題の案内 -->
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <h3 class="font-semibold text-yellow-800 mb-3">
+                    <i class="fas fa-info-circle mr-2"></i>選択問題について
+                </h3>
+                <p class="text-yellow-700 text-sm mb-3">
+                    実際の試験では、問3以降で以下のような選択問題が出題されます。各分野から1〜2問選択して解答してください。
+                </p>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h4 class="font-semibold text-yellow-800">問3-4: データ構造・アルゴリズム（2問選択）</h4>
+                        <ul class="text-yellow-600 ml-4 space-y-1">
+                            <li>• ソートアルゴリズムの比較</li>
+                            <li>• 木構造の探索・操作</li>
+                            <li>• グラフアルゴリズム</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-yellow-800">問5-11: その他選択分野（2問選択）</h4>
+                        <ul class="text-yellow-600 ml-4 space-y-1">
+                            <li>• ソフトウェア設計（問5-7から1問）</li>
+                            <li>• プロジェクトマネジメント（問8-11から1問）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 本日のまとめ -->
+        <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-blue-200 pb-2">
+                <i class="fas fa-summary mr-2 text-blue-600"></i>本日のまとめ
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg p-4">
+                    <h3 class="font-semibold text-blue-800 mb-3">
+                        <i class="fas fa-check-circle mr-2"></i>習得した内容
+                    </h3>
+                    <ul class="space-y-2 text-blue-700 text-sm">
+                        <li>• 午後試験の出題形式と時間配分戦略</li>
+                        <li>• プログラミング問題の効率的解法手順</li>
+                        <li>• アルゴリズムトレースの実践手法</li>
+                        <li>• 長文読解における要点抽出技術</li>
+                        <li>• セキュリティ問題の攻略法</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-lg p-4">
+                    <h3 class="font-semibold text-purple-800 mb-3">
+                        <i class="fas fa-lightbulb mr-2"></i>重要ポイント
+                    </h3>
+                    <ul class="space-y-2 text-purple-700 text-sm">
+                        <li>• 必須問題（問1-2）の確実な得点が合格の鍵</li>
+                        <li>• プログラムトレースは丁寧に段階的に実行</li>
+                        <li>• 長文では設問を先読みして効率的に情報抽出</li>
+                        <li>• 時間配分を意識した解答戦略が重要</li>
+                        <li>• 模擬試験での実践練習が不可欠</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-6 bg-green-100 border-l-4 border-green-500 p-4 rounded">
+                <h3 class="font-semibold text-green-800 mb-2">
+                    <i class="fas fa-trophy mr-2"></i>試験本番への準備
+                </h3>
+                <p class="text-green-700 text-sm">
+                    本日学習した解答戦略とテクニックを活用し、明日の模擬試験で実践してください。
+                    特に時間配分と必須問題での確実な得点を意識した演習を重ねることが、
+                    基本情報技術者試験合格への近道となります。
+                </p>
+            </div>
+        </div>
+
+        <!-- 次回予告 -->
+        <div class="bg-gray-800 text-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-calendar-alt mr-2 text-blue-400"></i>次回予告
+            </h2>
+            <div class="bg-gray-700 rounded-lg p-4">
+                <h3 class="text-xl font-semibold text-blue-300 mb-2">Day33: 基本情報技術者試験 模擬試験（午前）</h3>
+                <p class="text-gray-300 mb-3">
+                    明日は午前試験形式の本格的な模擬試験を実施します。本日学習した内容の定着度を確認し、
+                    弱点分野の特定と補強を行います。
+                </p>
+                <div class="flex items-center text-blue-400">
+                    <i class="fas fa-clock mr-2"></i>
+                    <span>午前試験（150分）+ 解説・復習</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            <p class="text-sm text-gray-400 mt-2">ITエンジニア育成カリキュラム - Day32: 基本情報技術者試験 直前対策②</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleAnswer(questionId) {
+            const element = document.getElementById(questionId + '-answer');
+            const button = event.target;
+            
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+                element.classList.add('animate-fade-in');
+                button.textContent = '回答を非表示';
+                button.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                button.classList.add('bg-red-500', 'hover:bg-red-600');
+            } else {
+                element.classList.add('hidden');
+                button.textContent = '回答を表示/非表示';
+                button.classList.remove('bg-red-500', 'hover:bg-red-600');
+                button.classList.add('bg-blue-500', 'hover:bg-blue-600');
+            }
+        }
+
+        // 全問題の回答を一括表示/非表示
+        function toggleAllAnswers() {
+            const answers = document.querySelectorAll('[id$="-answer"]');
+            const buttons = document.querySelectorAll('button[onclick^="toggleAnswer"]');
+            let allVisible = true;
+            
+            answers.forEach(answer => {
+                if (answer.classList.contains('hidden')) {
+                    allVisible = false;
+                }
+            });
+            
+            answers.forEach(answer => {
+                if (allVisible) {
+                    answer.classList.add('hidden');
+                } else {
+                    answer.classList.remove('hidden');
+                    answer.classList.add('animate-fade-in');
+                }
+            });
+            
+            buttons.forEach(button => {
+                if (allVisible) {
+                    button.textContent = '回答を表示/非表示';
+                    button.classList.remove('bg-red-500', 'hover:bg-red-600');
+                    button.classList.add('bg-blue-500', 'hover:bg-blue-600');
+                } else {
+                    button.textContent = '回答を非表示';
+                    button.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                    button.classList.add('bg-red-500', 'hover:bg-red-600');
+                }
+            });
+        }
+
+        // スムーズスクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ホバーエフェクト
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.hover-lift');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px)';
+                    this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDi0vyRlog9AKf5Wxmk3MjSVaBfcC9Cda5PBfwoSgY8zKm5gAK7ukol0b202OZbjwShiDkSqdcDGSZbjYEQ%2BSmCzXnViTQI09qChd1rOoOgyY8bHugfJGAE2oWWetPFOoXIXO8wiPGMezCq4DSDSkRF%2Bk0%2Fk4Y1B3j49wc3KvO4Jr5KaZeJe5tYFdodGycLRvlyo2TfwTPTlTmcoj4DR1jG5c9J%2Fq1L4bRnHhb%2BUr4hReY%2B7GXu3Rqo%2FDe%2BWf3tm%2F%2BfOSHoN5wqLqen5P5IqcXvkW8nRnBM3SiaokwS3P0Ion4BOCXFfnprIRBn8gERLXzUx33fPg7WrZNQE2vyD8icbH23VVeCqDI5pujp6pJq18BWEmAt%2BV6lIlEbDltH4ix2ETPni5gcx7LUDreKgeFO1ME8oEmsikaOR8iuhSrFW7Svq%2BLIuupBLRhNd9Dvhr2dootadn4FdmSeHs%2F59lSTRHdv8ON9PWIgrCoFau%2Fwnxt2%2BC45w4NbZ26L0a2k2d3HkxBHXIBV9tdGR%2FjDOJzY4%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDi0vyRlog9AKf5Wxmk3MjSVaBfcC9Cda5PBfwoSgY8zKm5gAK7ukol0b202OZbjwShiDkSqdcDGSZbjYEQ+SmCzXnViTQI09qChd1rOoOgyY8bHugfJGAE2oWWetPFOoXIXO8wiPGMezCq4DSDSkRF+k0/k4Y1B3j49wc3KvO4Jr5KaZeJe5tYFdodGycLRvlyo2TfwTPTlTmcoj4DR1jG5c9J/q1L4bRnHhb+Ur4hReY+7GXu3Rqo/De+Wf3tm/+fOSHoN5wqLqen5P5IqcXvkW8nRnBM3SiaokwS3P0Ion4BOCXFfnprIRBn8gERLXzUx33fPg7WrZNQE2vyD8icbH23VVeCqDI5pujp6pJq18BWEmAt+V6lIlEbDltH4ix2ETPni5gcx7LUDreKgeFO1ME8oEmsikaOR8iuhSrFW7Svq+LIuupBLRhNd9Dvhr2dootadn4FdmSeHs/59lSTRHdv8ON9PWIgrCoFau/wnxt2+C45w4NbZ26L0a2k2d3HkxBHXIBV9tdGR/jDOJzY4=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

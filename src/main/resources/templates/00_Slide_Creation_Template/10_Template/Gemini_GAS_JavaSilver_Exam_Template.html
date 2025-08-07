@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini用 Java Silver模擬試験GAS作成プロンプト</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        .code-block {
+            background-color: #f5f5f5;
+            border-left: 4px solid #3b82f6;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+        .prompt-section {
+            border-left: 4px solid #4f46e5;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .section-title {
+            border-bottom: 2px solid #4f46e5;
+            padding-bottom: 0.5rem;
+        }
+        .explanation {
+            background-color: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 0.75rem;
+        }
+        .attention {
+            background-color: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 0.75rem;
+        }
+        .example {
+            background-color: #f0fdf4;
+            border-left: 4px solid #22c55e;
+            padding: 0.75rem;
+        }
+         {
+            body {
+                background-color: white;
+            }
+            .page-break {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body class="p-8 max-w-5xl mx-auto">
+    <header class="mb-10">
+        <h1 class="text-3xl font-bold text-center text-indigo-800 mb-4">Gemini用 Java Silver模擬試験GAS作成プロンプト</h1>
+        <p class="text-center text-gray-600 mb-4">Google Apps Script (GAS)を使用してJava Silver模擬試験のGoogle FormとSpreadsheetを自動生成するためのプロンプト</p>
+        <div class="border-t-2 border-b-2 border-gray-200 py-4 my-4">
+            <p class="text-gray-700 text-center">作成日: 2025年7月29日</p>
+        </div>
+    </header>
+
+    <section class="mb-10 bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-indigo-700 section-title mb-4">依頼内容</h2>
+        <div class="prompt-section">
+            <p class="mb-4">
+                Java Silver模擬試験のGoogle FormとGoogle Spreadsheetを自動生成するためのGoogle Apps Script（GAS）コードを作成してください。このスクリプトは、実行すると指定した要件に沿ったGoogle Formを作成し、回答データを格納・分析するためのスプレッドシートも自動的にセットアップするものです。
+            </p>
+        </div>
+    </section>
+
+    <section class="mb-10 bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-indigo-700 section-title mb-4">スクリプトの主な機能要件</h2>
+        <div class="prompt-section">
+            <h3 class="text-xl font-semibold text-indigo-600 mb-3">1. メイン機能</h3>
+            <ul class="list-disc ml-6 mb-4">
+                <li>Java Silver模擬試験用のGoogle Formを自動生成</li>
+                <li>回答結果を保存・分析するためのスプレッドシートを自動作成</li>
+                <li>フォームとスプレッドシートを連携させる</li>
+                <li>カテゴリ別の分析機能をスプレッドシートに実装</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-indigo-600 mb-3">2. Google Formの詳細仕様</h3>
+            <ul class="list-disc ml-6 mb-4">
+                <li>試験名：「Java Silver模擬テスト①」</li>
+                <li>問題数：50問（選択式）</li>
+                <li>試験時間：75分（タイマー設定）</li>
+                <li>配点：1問2点（合計100点満点）</li>
+                <li>合格ライン：70点以上</li>
+                <li>テーマ：プロフェッショナルなブルーベースのテーマ</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-indigo-600 mb-3">3. 受験者情報の収集</h3>
+            <ul class="list-disc ml-6 mb-4">
+                <li>受験者の名前（必須）</li>
+                <li>メールアドレス（必須）</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-indigo-600 mb-3">4. 問題構成（カテゴリ別）</h3>
+            <ul class="list-disc ml-6 mb-4">
+                <li>基本構文と変数の宣言：10問</li>
+                <li>基本データ型と参照型：10問</li>
+                <li>演算子と式の評価：10問</li>
+                <li>制御構文（if-else, switch, for, while）：10問</li>
+                <li>配列の宣言と操作：10問</li>
+                <li>難易度分布：基本35問、中級10問、難問5問（難問にはマーキング）</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-indigo-600 mb-3">5. スプレッドシートの構成</h3>
+            <ul class="list-disc ml-6 mb-4">
+                <li>メインシート：全回答データ（採点結果含む）</li>
+                <li>分析シート：合否状況、平均点、最高点、最低点</li>
+                <li>カテゴリ別分析：各カテゴリごとの正答率分析</li>
+                <li>問題別分析：問題ごとの正答率、難易度評価</li>
+                <li>個人成績表：個別受験者の成績レポート</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="mb-10 bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-indigo-700 section-title mb-4">スクリプトに含める問題例</h2>
+        <div class="prompt-section">
+            <p class="mb-4">
+                以下は各カテゴリの問題例です。これらの形式に沿って50問分の問題をスクリプトに含めてください。
+                各問題には問題文、選択肢（A～E）、正解、解説を含めてください。
+            </p>
+
+            <div class="example p-4 mb-4 rounded-md">
+                <h4 class="font-bold mb-2">【基本構文と変数の宣言】問題例：</h4>
+                <p><strong>問題：</strong>次のうち、有効な変数名はどれですか？</p>
+                <p>A. 123abc</p>
+                <p>B. _value</p>
+                <p>C. public</p>
+                <p>D. class</p>
+                <p>E. break-point</p>
+                <p><strong>正解：</strong>B</p>
+                <p><strong>解説：</strong>変数名は文字、ドル記号($)、アンダースコア(_)で始まる必要があります。数字で始めることはできず、予約語（public, class, breakなど）は使用できません。また、ハイフン(-)も変数名に使用できません。</p>
+            </div>
+
+            <div class="example p-4 mb-4 rounded-md">
+                <h4 class="font-bold mb-2">【基本データ型と参照型】問題例：</h4>
+                <p><strong>問題：</strong>次のうちプリミティブ型ではないものはどれですか？</p>
+                <p>A. int</p>
+                <p>B. boolean</p>
+                <p>C. String</p>
+                <p>D. char</p>
+                <p>E. float</p>
+                <p><strong>正解：</strong>C</p>
+                <p><strong>解説：</strong>String はプリミティブ型ではなく、参照型（クラス）です。Javaの8つのプリミティブ型は byte, short, int, long, float, double, char, boolean です。</p>
+            </div>
+
+            <div class="example p-4 mb-4 rounded-md">
+                <h4 class="font-bold mb-2">【演算子と式の評価】問題例：</h4>
+                <p><strong>問題：</strong>次のコードを実行した場合、出力される結果はどれですか？</p>
+                <div class="code-block">
+                    int a = 10;<br>
+                    int b = 3;<br>
+                    System.out.println(a / b);
+                </div>
+                <p>A. 3</p>
+                <p>B. 3.0</p>
+                <p>C. 3.33</p>
+                <p>D. 3.333333</p>
+                <p>E. コンパイルエラー</p>
+                <p><strong>正解：</strong>A</p>
+                <p><strong>解説：</strong>Java では整数同士の除算は整数結果になります。10 ÷ 3 = 3.33... ですが、小数部分は切り捨てられて 3 になります。</p>
+            </div>
+
+            <div class="example p-4 mb-4 rounded-md">
+                <h4 class="font-bold mb-2">【制御構文】問題例：</h4>
+                <p><strong>問題：</strong>次のループの実行結果として正しいものはどれですか？</p>
+                <div class="code-block">
+                    for(int i = 0; i < 5; i++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if(i == 3) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;continue;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;System.out.print(i);<br>
+                    }
+                </div>
+                <p>A. 0123</p>
+                <p>B. 01234</p>
+                <p>C. 0124</p>
+                <p>D. 012</p>
+                <p>E. 1234</p>
+                <p><strong>正解：</strong>C</p>
+                <p><strong>解説：</strong>i が 3 のとき、continue 文によってループの残りの部分がスキップされ、次の繰り返しに進みます。そのため、3 は出力されず、0, 1, 2, 4 が出力されます。</p>
+            </div>
+
+            <div class="example p-4 mb-4 rounded-md">
+                <h4 class="font-bold mb-2">【配列の宣言と操作】問題例：</h4>
+                <p><strong>問題：</strong>配列の宣言と初期化で正しいものはどれですか？</p>
+                <p>A. int array = new int[3];</p>
+                <p>B. int[] array = {1, 2, 3};</p>
+                <p>C. int array[] = new int[3]{1, 2, 3};</p>
+                <p>D. int[] array = new int(3);</p>
+                <p>E. array[] = {1, 2, 3};</p>
+                <p><strong>正解：</strong>B</p>
+                <p><strong>解説：</strong>選択肢B「int[] array = {1, 2, 3};」は配列の宣言と初期化を正しく行っています。Cは構文エラーで、サイズ指定と初期化を同時に行うことはできません。Dは括弧が角括弧ではありません。Eは型宣言がありません。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-10 bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-indigo-700 section-title mb-4">コード要件</h2>
+        <div class="prompt-section">
+            <h3 class="text-xl font-semibold text-indigo-600 mb-3">1. スクリプト構造</h3>
+            <ul class="list-disc ml-6 mb-4">
+                <li>メイン関数: <code>createJavaSilverExam()</code></li>
+                <li>フォーム作成関数: <code>createExamForm()</code></li>
+                <li>問題追加関数: <code>addQuestions(form)</code></li>
+                <li>スプレッドシート設定関数: <code>setupSpreadsheet(form)</code></li>
+                <li>分析機能設定関数: <code>setupAnalytics(sheet)</code></li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-indigo-600 mb-3">2. コードスタイル</h3>
+            <ul class="list-disc ml-6 mb-4">
+                <li>適切なコメント記述</li>
+                <li>エラーハンドリング処理</li>
+                <li>変数名は意味が分かりやすいものを使用</li>
+                <li>モジュール化された関数設計</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-indigo-600 mb-3">3. 問題データ構造</h3>
+            <ul class="list-disc ml-6 mb-4">
+                <li>問題をJSONまたはオブジェクト配列形式で管理</li>
+                <li>各問題に以下のプロパティを含める:
+                    <ul class="list-circle ml-6 mt-2">
+                        <li>category: カテゴリ名</li>
+                        <li>difficulty: 難易度（'basic', 'intermediate', 'advanced'）</li>
+                        <li>question: 問題文</li>
+                        <li>code: コードスニペット（必要な場合）</li>
+                        <li>options: 選択肢の配列</li>
+                        <li>answer: 正解のインデックスまたは正解文字列</li>
+                        <li>explanation: 解説文</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="mb-10 bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-indigo-700 section-title mb-4">実行方法・使用手順</h2>
+        <div class="prompt-section">
+            <ol class="list-decimal ml-6 mb-4">
+                <li class="mb-2">Google ドライブで新しいGoogle Apps Scriptファイルを作成</li>
+                <li class="mb-2">生成されたコードをコピーして貼り付け</li>
+                <li class="mb-2">必要に応じて、メール通知や共有設定などをカスタマイズ</li>
+                <li class="mb-2">「実行」ボタンをクリックしてスクリプトを実行</li>
+                <li class="mb-2">必要な権限を許可</li>
+                <li class="mb-2">生成されたフォームとスプレッドシートへのリンクがログに表示される</li>
+            </ol>
+        </div>
+    </section>
+
+    <section class="mb-10 bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-indigo-700 section-title mb-4">スクリプト実装例（一部）</h2>
+        <div class="prompt-section">
+            <p class="mb-4">以下は、メイン関数とフォーム作成関数の実装例です。これを参考に完全なスクリプトを作成してください。</p>
+            <div class="code-block">
+                /**<br>
+                 * Java Silver模擬試験のフォームとスプレッドシートを生成する<br>
+                 * メイン関数<br>
+                 */<br>
+                function createJavaSilverExam() {<br>
+                &nbsp;&nbsp;try {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;// フォームの作成<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;const form = createExamForm();<br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;// 問題の追加<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;addQuestions(form);<br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;// スプレッドシートの設定<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;const sheet = setupSpreadsheet(form);<br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;// 分析機能の設定<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;setupAnalytics(sheet);<br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Logger.log('模擬試験の作成が完了しました。');<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Logger.log('フォームURL: ' + form.getPublishedUrl());<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Logger.log('スプレッドシートURL: ' + sheet.getUrl());<br>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;return {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;form: form,<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sheet: sheet<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;};<br>
+                &nbsp;&nbsp;} catch (error) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Logger.log('エラーが発生しました: ' + error);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;return null;<br>
+                &nbsp;&nbsp;}<br>
+                }<br>
+                <br>
+                /**<br>
+                 * 試験用フォームを作成する<br>
+                 * @return {FormApp.Form} 作成されたフォーム<br>
+                 */<br>
+                function createExamForm() {<br>
+                &nbsp;&nbsp;// フォームの作成と基本設定<br>
+                &nbsp;&nbsp;const form = FormApp.create('Java Silver模擬テスト①');<br>
+                &nbsp;&nbsp;form.setDescription('Java SE 11 Silver試験対策のための模擬テストです。全50問、制限時間75分、合格ラインは70点以上（100点満点）です。すべての問題に回答してください。');<br>
+                &nbsp;&nbsp;form.setIsQuiz(true);<br>
+                &nbsp;&nbsp;form.setLimitOneResponsePerUser(true);<br>
+                &nbsp;&nbsp;form.setCollectEmail(true);<br>
+                &nbsp;&nbsp;form.setProgressBar(true);<br>
+                &nbsp;&nbsp;form.setPublishingSummary(true);<br>
+                <br>
+                &nbsp;&nbsp;// テーマの設定（青系）<br>
+                &nbsp;&nbsp;// 注：テーマのIDはAPI制限があるため、実際のコードでは別の方法が必要<br>
+                <br>
+                &nbsp;&nbsp;// 制限時間の設定（Google FormsのAPIではサポートされていないため注釈）<br>
+                &nbsp;&nbsp;// 実際には説明文に制限時間を記載することで対応<br>
+                <br>
+                &nbsp;&nbsp;// 受験者情報セクション<br>
+                &nbsp;&nbsp;const infoSection = form.addPageBreakItem();<br>
+                &nbsp;&nbsp;infoSection.setTitle('受験者情報');<br>
+                <br>
+                &nbsp;&nbsp;// 名前<br>
+                &nbsp;&nbsp;const nameItem = form.addTextItem();<br>
+                &nbsp;&nbsp;nameItem.setTitle('氏名');<br>
+                &nbsp;&nbsp;nameItem.setRequired(true);<br>
+                <br>
+                &nbsp;&nbsp;// メールアドレス（フォーム設定で収集するため不要）<br>
+                <br>
+                &nbsp;&nbsp;// 試験説明セクション<br>
+                &nbsp;&nbsp;const examSection = form.addPageBreakItem();<br>
+                &nbsp;&nbsp;examSection.setTitle('試験説明');<br>
+                &nbsp;&nbsp;examSection.setHelpText('このテストは以下のカテゴリから出題されます：\n' +<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;'• 基本構文と変数の宣言\n' +<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;'• 基本データ型と参照型\n' +<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;'• 演算子と式の評価\n' +<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;'• 制御構文（if-else, switch, for, while）\n' +<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;'• 配列の宣言と操作\n\n' +<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;'試験時間は75分、全50問（各2点）で100点満点です。70点以上で合格です。');<br>
+                <br>
+                &nbsp;&nbsp;return form;<br>
+                }
+            </div>
+            <div class="attention p-4 mt-4 rounded-md">
+                <p class="mb-2"><strong>注意事項：</strong></p>
+                <ul class="list-disc ml-6">
+                    <li>実際のGoogle Apps ScriptではGoogle FormsのAPIの制限があるため、一部の機能（例：制限時間の設定）は直接実装できない場合があります。その場合は代替手段を提示してください。</li>
+                    <li>50問すべての詳細な問題と回答を含めてください。これによりスクリプトが1回の実行で完全な模擬テストを生成できるようにします。</li>
+                    <li>スプレッドシートの分析機能は、数式やチャートを使用して視覚的に理解しやすいものにしてください。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-10 bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-2xl font-bold text-indigo-700 section-title mb-4">追加オプション機能（可能であれば実装）</h2>
+        <div class="prompt-section">
+            <ul class="list-disc ml-6 mb-4">
+                <li>テスト結果の自動メール送信機能</li>
+                <li>カテゴリ別の弱点を特定したフィードバック文生成</li>
+                <li>問題のランダム出題順序設定</li>
+                <li>難易度に応じた配点の変更（難問は3点など）</li>
+                <li>定期的なテスト結果分析レポートの自動生成</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="mt-10 pt-6 border-t-2 border-gray-200 text-center text-gray-600">
+        <p>© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        <p class="mt-2">ITエンジニア育成カリキュラム - Google Apps Script開発支援</p>
+    </footer>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDgrpgdrohFdlXecHLCQWh6d0uCFwR4eo1Hi3MlWPFQM3tZUnINeDGr1eAeJSkaGShQb1RYSaVVBZ%2BmtZpepp%2FD%2BUKjSeghcKQyiiv1%2B0tGGTissp%2BP9jbK84AfhvESLf8UpMZ9yBS7ehggFuaC50aLcpUSUjH8PDybNyALpw%2FjyEDY7EGELOP1VaFX2qR%2B4mBOJqIqD%2FyPSRtJ%2FHZ1flsiUalzJRbEG0lTHXB3KF3cQmU8lIUwOLwfsqMBB%2BtihG9%2FjIjSgVlDt1lkRtj%2BtEBEBK7bT1%2FIMtqec0JAraS3RPHGybtbvc28kmgBuRY%2BEEAOz456TTDfBQNOf0oY7RrXFnB5Iy1%2FfrYbvBSX6BIMfnJtBR5MtaxBbZRUD1%2BnqeSWtIVut7icYC%2FVo4Ls%2BHiH4peNcOfUnb%2BSMiGvIQZ4Jf6pLtpYONX4cNLA1GGjBn5SLZoPaHvfFjx%2FrgFFvGp4LwZ03CMya4CGUIXMiqvJl8l1F7FobLQOb5Xg%2BqXcWOAI14rxid8IteAz59B34qzCrHynfUPyhzyNbQ1CZKkCRX";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDgrpgdrohFdlXecHLCQWh6d0uCFwR4eo1Hi3MlWPFQM3tZUnINeDGr1eAeJSkaGShQb1RYSaVVBZ+mtZpepp/D+UKjSeghcKQyiiv1+0tGGTissp+P9jbK84AfhvESLf8UpMZ9yBS7ehggFuaC50aLcpUSUjH8PDybNyALpw/jyEDY7EGELOP1VaFX2qR+4mBOJqIqD/yPSRtJ/HZ1flsiUalzJRbEG0lTHXB3KF3cQmU8lIUwOLwfsqMBB+tihG9/jIjSgVlDt1lkRtj+tEBEBK7bT1/IMtqec0JAraS3RPHGybtbvc28kmgBuRY+EEAOz456TTDfBQNOf0oY7RrXFnB5Iy1/frYbvBSX6BIMfnJtBR5MtaxBbZRUD1+nqeSWtIVut7icYC/Vo4Ls+HiH4peNcOfUnb+SMiGvIQZ4Jf6pLtpYONX4cNLA1GGjBn5SLZoPaHvfFjx/rgFFvGp4LwZ03CMya4CGUIXMiqvJl8l1F7FobLQOb5Xg+qXcWOAI14rxid8IteAz59B34qzCrHynfUPyhzyNbQ1CZKkCRX";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

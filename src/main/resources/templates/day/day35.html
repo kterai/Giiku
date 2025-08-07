@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 35: 総合模擬試験・弱点強化 | ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/lib/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+        }
+        
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0.75rem 0;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #dc2626 0%, #f59e0b 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .section-title {
+            border-left: 4px solid #dc2626;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .schedule-item {
+            border-left: 3px solid #dc2626;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .time-label {
+            font-weight: bold;
+            color: #dc2626;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+        
+        .badge-custom {
+            background-color: #dc2626;
+            color: white;
+            font-weight: normal;
+            padding: 0.5em 0.7em;
+            border-radius: 5px;
+        }
+        
+        .next-step-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 5px solid #28a745;
+        }
+        
+        .feedback-form {
+            background-color: #f1f8ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        
+        .exam-section {
+            background: linear-gradient(135deg, #fff5f5 0%, #fef2f2 100%);
+            border: 2px solid #dc2626;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .exam-timer {
+            background-color: #dc2626;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        
+        footer {
+            background-color: #343a40;
+            color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links h5 {
+            color: white;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 767.98px) {
+            .page-header {
+                padding: 1.5rem 0;
+            }
+            
+            .content-card {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+        }
+        
+        /* 印刷用スタイル */
+         {
+            .no-print {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+            }
+            
+            .content-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            footer {
+                background-color: white;
+                color: black;
+            }
+            
+            a {
+                text-decoration: none;
+                color: black;
+            }
+            
+            .footer-links ul li a {
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script defer src="../../js/day-navigation.js"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                ITエンジニア育成カリキュラム
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="monthDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="monthDropdown">
+                            <li><a class="dropdown-item" href="../month/month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="../month/month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="weekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="weekDropdown">
+                            <li><a class="dropdown-item" href="../week/week5.html">第5週: コンピュータシステム</a></li>
+                            <li><a class="dropdown-item" href="../week/week6.html">第6週: ネットワーク・データベース</a></li>
+                            <li><a class="dropdown-item" href="../week/week7.html">第7週: アルゴリズム・セキュリティ・マネジメント</a></li>
+                            <li><a class="dropdown-item" href="../week/week8.html">第8週: ストラテジ系と総合対策</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/resources.html">学習リソース</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/faq.html">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">ホーム</a></li>
+                <li class="breadcrumb-item"><a href="../month/month2.html">第2ヶ月目</a></li>
+                <li class="breadcrumb-item"><a href="../week/week8.html">第8週</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Day 35</li>
+            </ol>
+        </nav>
+    </div>
+
+    <header class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-clipboard-check"></i> Day 35: 総合模擬試験・弱点強化</h1>
+            <p class="lead">基本情報技術者試験の全範囲を対象とした本格的な模擬試験で実力を測定し、弱点を集中強化します</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <section>
+                    <h2 class="section-title">学習目標</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-target text-danger"></i> 基本情報技術者試験の全範囲（テクノロジ系・マネジメント系・ストラテジ系）の総合理解度を測定する</li>
+                            <li class="list-group-item"><i class="fas fa-clock text-warning"></i> 本番同様の時間制限下での試験対応能力を身につける</li>
+                            <li class="list-group-item"><i class="fas fa-chart-line text-info"></i> 個人の弱点分野を特定し、優先順位をつけた学習計画を立てる</li>
+                            <li class="list-group-item"><i class="fas fa-brain text-success"></i> 午前試験・午後試験両方の問題解答テクニックを習得する</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title">達成基準</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> 午前試験で70%以上の正答率を達成する</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> 午後試験で合格ライン（60%）以上の得点を獲得する</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> 各分野（テクノロジ系・マネジメント系・ストラテジ系）で60%以上の理解度を示す</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> 弱点分野を明確に特定し、改善計画を策定できる</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title">詳細スケジュール</h2>
+                    <div class="content-card">
+                        <div class="accordion" id="scheduleAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="time-label">09:30-10:00</div> <div class="ms-3">試験説明・準備・心構え</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        <div class="exam-section">
+                                            <h5><i class="fas fa-info-circle"></i> 本日の試験概要</h5>
+                                            <p>基本情報技術者試験の本番と同じ形式・時間配分で模擬試験を実施します。午前試験（150分・80問）、午後試験（150分・11問中5問選択）の両方を体験し、実戦力を測定します。</p>
+                                            <div class="alert alert-warning">
+                                                <i class="fas fa-exclamation-triangle"></i> 試験中は本番同様、参考書の参照や相談は禁止です
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <div class="time-label">10:00-12:30</div> <div class="ms-3">午前試験（模擬試験）</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        <div class="exam-section">
+                                            <div class="exam-timer">
+                                                <i class="fas fa-stopwatch"></i> 試験時間: 150分（2時間30分）
+                                            </div>
+                                            <h5 class="mt-3"><i class="fas fa-list-ol"></i> 出題範囲と問題数</h5>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="card">
+                                                        <div class="card-header bg-primary text-white">
+                                                            <i class="fas fa-microchip"></i> テクノロジ系
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <p>50問（問1～50）</p>
+                                                            <ul class="small">
+                                                                <li>コンピュータシステム</li>
+                                                                <li>ネットワーク</li>
+                                                                <li>データベース</li>
+                                                                <li>セキュリティ</li>
+                                                                <li>アルゴリズム</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="card">
+                                                        <div class="card-header bg-success text-white">
+                                                            <i class="fas fa-users"></i> マネジメント系
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <p>20問（問51～70）</p>
+                                                            <ul class="small">
+                                                                <li>プロジェクトマネジメント</li>
+                                                                <li>サービスマネジメント</li>
+                                                                <li>システム監査</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="card">
+                                                        <div class="card-header bg-warning text-white">
+                                                            <i class="fas fa-chart-line"></i> ストラテジ系
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <p>10問（問71～80）</p>
+                                                            <ul class="small">
+                                                                <li>経営戦略</li>
+                                                                <li>システム戦略</li>
+                                                                <li>企業活動と法務</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-info mt-2">
+                                            <i class="fas fa-lightbulb"></i> 午前試験攻略のポイント：時間配分は1問約1.9分、分からない問題は後回しにして全問解答を優先
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <div class="time-label">12:30-13:45</div> <div class="ms-3">昼休憩・午前試験振り返り</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        昼食をとりながら、午前試験の手応えを振り返ります。午後試験に向けた心構えと戦略を整理する時間です。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="fas fa-utensils"></i> 昼食・休憩
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        <div class="time-label">13:45-16:15</div> <div class="ms-3">午後試験（模擬試験）</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        <div class="exam-section">
+                                            <div class="exam-timer">
+                                                <i class="fas fa-stopwatch"></i> 試験時間: 150分（2時間30分）
+                                            </div>
+                                            <h5 class="mt-3"><i class="fas fa-tasks"></i> 問題構成（11問中5問選択）</h5>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead class="table-dark">
+                                                        <tr>
+                                                            <th>問題番号</th>
+                                                            <th>分野</th>
+                                                            <th>選択</th>
+                                                            <th>配点</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>問1</td>
+                                                            <td>情報セキュリティ</td>
+                                                            <td class="text-danger">必須</td>
+                                                            <td>20点</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>問2～3</td>
+                                                            <td>ハードウェア・ソフトウェア</td>
+                                                            <td>1問選択</td>
+                                                            <td>20点</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>問4～5</td>
+                                                            <td>データベース</td>
+                                                            <td>1問選択</td>
+                                                            <td>20点</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>問6～7</td>
+                                                            <td>ネットワーク</td>
+                                                            <td>1問選択</td>
+                                                            <td>20点</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>問8</td>
+                                                            <td>データ構造・アルゴリズム</td>
+                                                            <td class="text-danger">必須</td>
+                                                            <td>20点</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>問9～11</td>
+                                                            <td>ソフトウェア設計</td>
+                                                            <td>1問選択</td>
+                                                            <td>20点</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-warning mt-2">
+                                            <i class="fas fa-exclamation-triangle"></i> 午後試験攻略のポイント：最初の15分で全問に目を通し、得意分野を選択してから解答開始
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        <div class="time-label">16:15-16:30</div> <div class="ms-3">休憩・採点準備</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        短時間の休憩を取り、採点と解説に向けた準備を行います。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSix">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        <div class="time-label">16:30-17:15</div> <div class="ms-3">採点・結果分析・弱点特定</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        <div class="exam-section">
+                                            <h5><i class="fas fa-chart-bar"></i> 詳細な結果分析</h5>
+                                            <p>午前・午後試験の採点結果をもとに、以下の観点から詳細分析を行います：</p>
+                                            <ul>
+                                                <li><strong>分野別正答率</strong>：各分野（テクノロジ系・マネジメント系・ストラテジ系）の習熟度</li>
+                                                <li><strong>問題タイプ別分析</strong>：計算問題、知識問題、読解問題の得点傾向</li>
+                                                <li><strong>時間配分分析</strong>：各問題にかけた時間と正答率の関係</li>
+                                                <li><strong>弱点分野の特定</strong>：優先的に学習すべき分野の明確化</li>
+                                            </ul>
+                                        </div>
+                                        <div class="alert alert-info mt-2">
+                                            <i class="fas fa-search"></i> 分析結果は個別に配布し、今後の学習計画立案に活用します
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSeven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                        <div class="time-label">17:15-17:45</div> <div class="ms-3">重要問題解説・弱点強化指導</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        <div class="exam-section">
+                                            <h5><i class="fas fa-graduation-cap"></i> 集中解説セッション</h5>
+                                            <p>多くの受験者が間違えた問題や重要度の高い問題を中心に詳細解説を行います：</p>
+                                            <ul>
+                                                <li><strong>頻出問題の解法パターン</strong>：基本情報試験でよく出題される問題の効率的な解き方</li>
+                                                <li><strong>計算問題のコツ</strong>：サブネット計算、性能計算、アルゴリズム計算の攻略法</li>
+                                                <li><strong>午後試験対策</strong>：長文読解のポイントと時間短縮テクニック</li>
+                                                <li><strong>個別弱点強化</strong>：各自の弱点分野に応じた学習方法の指導</li>
+                                            </ul>
+                                        </div>
+                                        <div class="alert alert-success mt-2">
+                                            <i class="fas fa-lightbulb"></i> 解説内容は録画し、後日復習用として提供します
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title">模擬試験詳細</h2>
+                    <div class="content-card">
+                        <h3><i class="fas fa-clipboard-check"></i> 基本情報技術者試験 総合模擬試験</h3>
+                        <p>本日実施する模擬試験は、基本情報技術者試験の最新出題傾向を反映した本格的な試験です。2ヶ月間の学習成果を総合的に評価し、本番試験への準備状況を確認します。</p>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header">
+                                <h4 class="mb-0"><i class="fas fa-morning"></i> 午前試験の特徴</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li><strong>出題形式</strong>：4択問題 80問</li>
+                                    <li><strong>試験時間</strong>：150分（1問あたり約1.9分）</li>
+                                    <li><strong>合格基準</strong>：60%以上（48問以上正解）</li>
+                                    <li><strong>特徴</strong>：幅広い知識が問われ、計算問題も含まれる</li>
+                                    <li><strong>対策ポイント</strong>：過去問演習による知識の定着と計算スピードの向上</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header">
+                                <h4 class="mb-0"><i class="fas fa-afternoon"></i> 午後試験の特徴</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul>
+                                    <li><strong>出題形式</strong>：記述式 11問中5問選択</li>
+                                    <li><strong>試験時間</strong>：150分（1問あたり30分）</li>
+                                    <li><strong>合格基準</strong>：60%以上</li>
+                                    <li><strong>特徴</strong>：実践的な問題解決能力が問われる</li>
+                                    <li><strong>対策ポイント</strong>：問題文の読解力と論理的思考力の強化</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header">
+                                <h4 class="mb-0"><i class="fas fa-chart-pie"></i> 評価・分析方法</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>試験結果は以下の観点から詳細に分析し、個別にフィードバックします：</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6><i class="fas fa-percentage"></i> 得点分析</h6>
+                                        <ul>
+                                            <li>総合得点・分野別得点</li>
+                                            <li>正答率・誤答率</li>
+                                            <li>合格可能性判定</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6><i class="fas fa-clock"></i> 時間分析</h6>
+                                        <ul>
+                                            <li>問題別所要時間</li>
+                                            <li>時間配分の適切性</li>
+                                            <li>効率性改善提案</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title">使用教材・リソース</h2>
+                    <div class="content-card">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fas fa-file-alt text-danger"></i> 模擬試験問題
+                                        </h5>
+                                        <p class="card-text">最新出題傾向を反映した午前・午後試験問題セット</p>
+                                        <ul class="small">
+                                            <li>午前試験：80問（150分）</li>
+                                            <li>午後試験：11問（150分）</li>
+                                            <li>解答用紙・計算用紙</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fas fa-calculator text-primary"></i> 試験用具
+                                        </h5>
+                                        <p class="card-text">試験で使用可能な用具類</p>
+                                        <ul class="small">
+                                            <li>筆記用具（鉛筆・消しゴム）</li>
+                                            <li>時計（アラーム機能なし）</li>
+                                            <li>定規（計算用）</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fas fa-chart-line text-success"></i> 分析ツール
+                                        </h5>
+                                        <p class="card-text">結果分析・弱点特定用システム</p>
+                                        <ul class="small">
+                                            <li>自動採点システム</li>
+                                            <li>分野別分析レポート</li>
+                                            <li>個別学習計画書</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title">理解度確認項目</h2>
+                    <div class="content-card">
+                        <div class="mb-4">
+                            <h4><i class="fas fa-star text-warning"></i> 基本レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check1">
+                                        <label class="form-check-label" for="check1">
+                                            午前試験で60%以上の正答率を達成した
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check2">
+                                        <label class="form-check-label" for="check2">
+                                            テクノロジ系分野で基本的な問題を解けた
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check3">
+                                        <label class="form-check-label" for="check3">
+                                            マネジメント系分野で基本的な問題を解けた
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check4">
+                                        <label class="form-check-label" for="check4">
+                                            ストラテジ系分野で基本的な問題を解けた
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check5">
+                                        <label class="form-check-label" for="check5">
+                                            時間内に全問に目を通すことができた
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4><i class="fas fa-medal text-primary"></i> 応用レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check6">
+                                        <label class="form-check-label" for="check6">
+                                            午前試験で70%以上の正答率を達成した
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check7">
+                                        <label class="form-check-label" for="check7">
+                                            午後試験で適切な問題選択ができた
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check8">
+                                        <label class="form-check-label" for="check8">
+                                            計算問題を効率的に解くことができた
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check9">
+                                        <label class="form-check-label" for="check9">
+                                            自分の弱点分野を明確に特定できた
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check10">
+                                        <label class="form-check-label" for="check10">
+                                            今後の学習計画を具体的に立てることができた
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title">次のステップ</h2>
+                    <div class="content-card next-step-card">
+                        <h3><i class="fas fa-trophy"></i> Day 36: 最終模擬試験・2ヶ月目総括</h3>
+                        <p>第2ヶ月目の最終日として、最終模擬試験を実施し、基本情報技術者試験への準備を完了させます。また、2ヶ月間の学習成果を総括し、第3ヶ月目のWebアプリケーション開発実践に向けた準備を行います。</p>
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-info-circle"></i> 本日の結果分析をもとに、明日の最終試験に向けた対策を個別に実施します
+                        </div>
+                        <a href="day36.html" class="btn btn-success mt-2">
+                            <i class="fas fa-arrow-right"></i> Day 36の詳細を見る
+                        </a>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title">フィードバック</h2>
+                    <div class="content-card feedback-form">
+                        <div class="alert alert-info">
+                            <i class="fas fa-comment"></i> 模擬試験の難易度や内容についてフィードバックをお寄せください。
+                        </div>
+                        <form id="feedback-form" class="mt-3">
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">試験の難易度</label>
+                                <select class="form-select" id="rating">
+                                    <option value="5">とても難しかった</option>
+                                    <option value="4">難しかった</option>
+                                    <option value="3">適切だった</option>
+                                    <option value="2">簡単だった</option>
+                                    <option value="1">とても簡単だった</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="feedbackText" class="form-label">コメント・要望</label>
+                                <textarea class="form-control" id="feedbackText" rows="3" placeholder="試験の感想や改善要望をご記入ください"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">送信</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top: 100px;">
+                    <div class="content-card mb-4">
+                        <h3><i class="fas fa-chart-pie"></i> 試験結果予測</h3>
+                        <div class="progress-container">
+                            <p>予想合格可能性</p>
+                            <div class="progress" style="height: 20px;">
+                                <div id="day-progress" class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>
+                            <p class="text-end mt-2" id="progress-text">0/10 完了</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="progressChart" style="height: 300px;"></canvas>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button id="resetProgress" class="btn btn-outline-warning btn-sm">
+                                <i class="fas fa-redo"></i> 進捗をリセット
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="fas fa-list"></i> 目次</h3>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#scheduleAccordion">詳細スケジュール</a>
+                            <a class="nav-link" href="#theme-details">模擬試験詳細</a>
+                            <a class="nav-link" href="#resources">使用教材・リソース</a>
+                            <a class="nav-link" href="#comprehension-check">理解度確認項目</a>
+                            <a class="nav-link" href="#next-steps">次のステップ</a>
+                        </nav>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="fas fa-external-link-alt"></i> 関連リンク</h3>
+                        <div class="list-group">
+                            <a href="../week/week8.html" class="list-group-item list-group-item-action">
+                                <i class="fas fa-calendar-week"></i> 第8週の概要
+                            </a>
+                            <a href="../month/month2.html" class="list-group-item list-group-item-action">
+                                <i class="fas fa-calendar-alt"></i> 第2ヶ月目の概要
+                            </a>
+                            <a href="../../resources/resources.html" class="list-group-item list-group-item-action">
+                                <i class="fas fa-book"></i> 学習リソース
+                            </a>
+                            <a href="../../resources/faq.html" class="list-group-item list-group-item-action">
+                                <i class="fas fa-question-circle"></i> よくある質問
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <h3><i class="fas fa-navigation"></i> ナビゲーション</h3>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="day34.html" class="btn btn-outline-primary">
+                                <i class="fas fa-arrow-left"></i> Day 34
+                            </a>
+                            <a href="day36.html" class="btn btn-outline-primary">
+                                Day 36 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-light mt-5">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="footer-logo">
+                        <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                    </div>
+                    <p>ITエンジニア育成カリキュラムは、未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>カリキュラム</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../month/month1.html">第1ヶ月目</a></li>
+                        <li><a href="../month/month2.html">第2ヶ月目</a></li>
+                        <li><a href="../month/month3.html">第3ヶ月目</a></li>
+                        <li><a href="../../resources/advanced.html">応用コース</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>リソース</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../resources/resources.html">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html">よくある質問</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>お問い合わせ</h5>
+                    <p>本カリキュラムについてのお問い合わせは下記までお願いします。</p>
+                    <a href="mailto:info@apsa.co.jp" class="btn btn-outline-light">
+                        <i class="fas fa-envelope"></i> メールでのお問い合わせ
+                    </a>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-light me-3"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-light"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/lib/jquery.min.js"></script>
+    <script src="../../js/lib/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // チェックボックスのイベントリスナーを設定
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+            
+            // 進捗リセットボタン
+            document.getElementById('resetProgress').addEventListener('click', function() {
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                updateProgress();
+            });
+            
+            // 初期進捗更新
+            updateProgress();
+            
+            // プログレスチャートの初期化
+            initProgressChart();
+            
+            // フィードバックフォーム
+            document.getElementById('feedback-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('フィードバックを送信しました。ありがとうございます！');
+                this.reset();
+            });
+        });
+        
+        // 進捗を更新する関数
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            const totalChecks = checkboxes.length;
+            let checkedCount = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    checkedCount++;
+                }
+            });
+            
+            const progressPercent = totalChecks > 0 ? Math.round((checkedCount / totalChecks) * 100) : 0;
+            
+            // プログレスバーを更新
+            const progressBar = document.getElementById('day-progress');
+            progressBar.style.width = `${progressPercent}%`;
+            progressBar.textContent = `${progressPercent}%`;
+            progressBar.setAttribute('aria-valuenow', progressPercent);
+            
+            // プログレステキストを更新
+            document.getElementById('progress-text').textContent = `${checkedCount}/${totalChecks} 完了`;
+            
+            // チャートを更新
+            updateProgressChart(checkedCount, totalChecks - checkedCount);
+            
+            // ローカルストレージに保存
+            localStorage.setItem('day35Progress', JSON.stringify({
+                checked: checkedCount,
+                total: totalChecks,
+                percent: progressPercent
+            }));
+        }
+        
+        // チャートの初期化
+        function initProgressChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            window.progressChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['完了', '未完了'],
+                    datasets: [{
+                        data: [0, 10],
+                        backgroundColor: ['#dc2626', '#e9ecef'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // チャートの更新
+        function updateProgressChart(completed, remaining) {
+            if (window.progressChart) {
+                window.progressChart.data.datasets[0].data = [completed, remaining];
+                window.progressChart.update();
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDiKjDgMc87wiKExBE2sMjKcI5GHVCq0gbUMM7cQ8lSEkH5sanZ2IkWCX%2FraUPn9DNZai8p0j%2B7WGNfDTgHCZBiKOfpQHW20nQzUVQ2u%2BZlweXJWfKCrtPb39Qje2P9BreWkEh%2FkCrph5at9iQKKcOq7%2BPyu8g04K8ekltT5NU4GGDAQ3tt7v8aF2PvlCfT8cUAMa6leKmA1SxwUWZ9Qy%2Fnh0CarzWcCTdDqCX4N0rSh6iUaesWIV0A2nYo6wt%2FEYqfjvbsnyWASgFIDrvkPV17WEA8YEp0LvYehC54aU%2BWYm0SBRI8irDG2bXGmpbrRwwU50BqMOWjowQQegPw24Jq8B8wJaHTgwsZWIi8PpyDqMNZuws%2BmmjagAj%2BhEvlwDuhyOF9gDJoFuP%2B%2BMW%2FbhCJbWIj6PFfwFzI7KCgr0vm%2BeCU1UUEI8tq%2FAUpRXhnftoUgwz6hVkGNOTtzx8VZTbyRPrA1AaX7wZe04XJs4N8YpWgKMExlqhCQWfU7TczGygw%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDiKjDgMc87wiKExBE2sMjKcI5GHVCq0gbUMM7cQ8lSEkH5sanZ2IkWCX/raUPn9DNZai8p0j+7WGNfDTgHCZBiKOfpQHW20nQzUVQ2u+ZlweXJWfKCrtPb39Qje2P9BreWkEh/kCrph5at9iQKKcOq7+Pyu8g04K8ekltT5NU4GGDAQ3tt7v8aF2PvlCfT8cUAMa6leKmA1SxwUWZ9Qy/nh0CarzWcCTdDqCX4N0rSh6iUaesWIV0A2nYo6wt/EYqfjvbsnyWASgFIDrvkPV17WEA8YEp0LvYehC54aU+WYm0SBRI8irDG2bXGmpbrRwwU50BqMOWjowQQegPw24Jq8B8wJaHTgwsZWIi8PpyDqMNZuws+mmjagAj+hEvlwDuhyOF9gDJoFuP++MW/bhCJbWIj6PFfwFzI7KCgr0vm+eCU1UUEI8tq/AUpRXhnftoUgwz6hVkGNOTtzx8VZTbyRPrA1AaX7wZe04XJs4N8YpWgKMExlqhCQWfU7TczGygw==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day48講義作成用プロンプト - JPA・Hibernate・データベース統合開発完全マスター</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-database text-green-500 mr-3"></i>
+                ITエンジニア育成カリキュラム - Day48: JPA・Hibernate・データベース統合開発（改良版）
+            </h1>
+            <p class="text-xl text-gray-600 mb-2">講義ページ作成用の詳細指示書</p>
+            <p class="text-lg text-gray-500">ORM技術を活用したエンタープライズ・データアクセス層の完全構築</p>
+        </header>
+
+        <div class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-800 mb-4">
+                <i class="fas fa-exclamation-triangle mr-2"></i>🚨 重要な改善指針
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3">
+                    <i class="fas fa-table mr-2"></i>📊 表・まとめの分かりやすさ重視
+                </h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li><strong>JPA/Hibernate専門用語</strong>は必ず<strong>日本語説明</strong>を併記</li>
+                    <li><strong>アノテーション概念</strong>は<strong>具体例</strong>で補足説明</li>
+                    <li>「適用場面」は<strong>実際のエンタープライズ開発例</strong>を記載</li>
+                    <li>まとめは<strong>具体的なパフォーマンス向上効果</strong>を明示</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3">
+                    <i class="fas fa-code mr-2"></i>🔤 JPA/Hibernate専門用語の扱い
+                </h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li>初出時は<strong>（日本語説明）</strong>を併記</li>
+                    <li>略語は<strong>正式名称</strong>を明記（JPA = Java Persistence API）</li>
+                    <li>「なぜORMが必要か」の<strong>理由</strong>を説明</li>
+                    <li><strong>実業務での効果・比喩</strong>を積極活用</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-folder-open mr-2"></i>📁 参照ファイル
+            </h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                <li><code>Training/pages/day/day48.html</code></li>
+                <li><code>Training/pages/lecture/Template_dayX_lecture.html</code></li>
+            </ul>
+        </div>
+
+        <div class="bg-gray-100 p-6 rounded-lg mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-cogs mr-2"></i>⚙️ 共通仕様
+            </h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                <li>HTML5 / lang="ja" / UTF-8</li>
+                <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                <li><strong>Tailwind CSS v2.2.19 CDN</strong> と <strong>FontAwesome v6.4.0 CDN</strong> を読み込む</li>
+                <li>レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                <li>コードブロックは <code>&lt;pre&gt;&lt;code class="language-java"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                <li>開発環境として <strong>IntelliJ IDEA + Spring Boot + MySQL Workbench</strong> を記載</li>
+                <li>フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+            </ul>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-green-800 mb-4">
+                <i class="fas fa-bullseye mr-2"></i>🎯 本日の学習目標
+            </h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-3">
+                <li><strong>JPA仕様とHibernateフレームワーク</strong>の基本概念を理解し、<strong>実際のプロジェクト</strong>で活用できる</li>
+                <li><strong>エンティティマッピング・アノテーション</strong>を使用した効率的なデータモデル設計ができる</li>
+                <li><strong>JPQL・Criteria API</strong>による複雑なクエリ実装と<strong>パフォーマンス最適化</strong>を習得する</li>
+                <li><strong>Spring Data JPA</strong>との統合による生産性向上と<strong>エンタープライズ開発</strong>を実践できる</li>
+            </ul>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-4">
+                <i class="fas fa-chart-line mr-2"></i>📊 JPA/Hibernate概念比較表の分かりやすさ改善指針
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-red-700 mb-3">❌ 改善前の問題例（JPA技術表）</h3>
+                <p class="text-gray-700 mb-4">
+                    <strong>問題：</strong>「@Entity」「@OneToMany」「LazyLoading」など、専門用語のみで初心者には理解困難
+                </p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3">✅ 改善後の指針</h3>
+                
+                <h4 class="font-semibold text-purple-600 mb-2">JPA/Hibernateアノテーションの説明強化</h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
+                    <li><strong>@Entity</strong> → 「エンティティ（データベーステーブルに対応するJavaクラス）」</li>
+                    <li><strong>@OneToMany</strong> → 「1対多関連（1つの部署に複数の社員が所属）」</li>
+                    <li><strong>LazyLoading</strong> → 「遅延読み込み（必要な時だけデータを取得）」</li>
+                    <li><strong>EntityManager</strong> → 「エンティティ管理者（データベース操作の司令塔）」</li>
+                </ul>
+
+                <h4 class="font-semibold text-purple-600 mb-2">具体例の追加</h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li><strong>「エンティティマッピング」</strong>→「Userクラスとusersテーブルの自動連携」</li>
+                    <li><strong>「関連マッピング」</strong>→「注文データと顧客データの関係性定義」</li>
+                    <li><strong>「JPQL」</strong>→「オブジェクト指向のSQL（SELECT u FROM User u）」</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-purple-50 border-l-4 border-purple-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-purple-800 mb-4">
+                <i class="fas fa-graduation-cap mr-2"></i>📚 JPA/Hibernate専門用語の説明強化指針
+            </h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-3">1. 初出時の詳細説明</h3>
+                    <div class="bg-white p-4 rounded-lg">
+                        <p class="text-gray-700">
+                            <strong>例：</strong>「JPA（Java Persistence API - Javaでデータベース操作を標準化する仕様）では...」
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-3">2. 日常例・比喩の活用</h3>
+                    <div class="bg-white p-4 rounded-lg">
+                        <p class="text-gray-700">
+                            <strong>例：</strong>「EntityManagerは図書館司書のように、本（データ）の貸出し・返却・管理を一元的に行います」
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-indigo-700 mb-3">3. 理由・背景の説明</h3>
+                    <div class="bg-white p-4 rounded-lg">
+                        <p class="text-gray-700">
+                            <strong>例：</strong>「なぜORMが重要かというと、SQLを直接書く手間を省き、Javaオブジェクトとして直感的にデータ操作できるため」
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4">
+                <i class="fas fa-sitemap mr-2"></i>📋 ページ構成（改良版）
+            </h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-green-700 mb-3">1. ヘッダー & ページング</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>左に前日 <code>day47_lecture.html</code> へのリンク（FontAwesome <code>fa-chevron-left</code>）</li>
+                        <li>右に翌日 <code>day49_lecture.html</code> へのリンク（<code>fa-chevron-right</code>）</li>
+                        <li>中央タイトル：<code>ITエンジニア育成カリキュラム - Day48: JPA・Hibernate・データベース統合開発</code></li>
+                        <li>サブタイトル：<code>ORM技術とSpring Data JPA完全マスター</code></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-green-700 mb-3">2. 学習目標（改良版）</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>JPA/Hibernateの基礎概念を<strong>実例とともに</strong>説明できる</li>
+                        <li>エンティティマッピングを<strong>実装レベル</strong>で理解する</li>
+                        <li>JPQL・Criteria APIを<strong>実際のプロジェクト</strong>で適用できる</li>
+                        <li>パフォーマンス最適化を<strong>本番環境レベル</strong>で実装できる</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-orange-50 border-l-4 border-orange-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-orange-800 mb-4">
+                <i class="fas fa-chalkboard-teacher mr-2"></i>📖 メイン講義内容（改良版指針）
+            </h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-blue-700 mb-3">1. JPA基礎概念とHibernateアーキテクチャ</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p class="text-gray-700 mb-2">
+                            <strong>❗ 具体例重視：</strong>
+                        </p>
+                        <p class="text-gray-700">
+                            「JPAはデータベース操作の翻訳者のようなもの、Javaオブジェクトの操作をSQLに自動変換」など、実例で説明
+                        </p>
+                        
+                        <h4 class="font-semibold text-indigo-600 mt-4 mb-2">初心者向け解説項目</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>ORMとは何か（Object-Relational Mapping）</li>
+                            <li>JPAとHibernateの関係（仕様 vs 実装）</li>
+                            <li>EntityManagerの役割と責任</li>
+                            <li>Persistence Contextの概念</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-indigo-600 mt-4 mb-2">実務豆知識</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>大規模アプリでのパフォーマンス考慮事項</li>
+                            <li>N+1問題の回避策</li>
+                            <li>キャッシュ戦略とメモリ管理</li>
+                            <li>本番環境でのデバッグとログ設定</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-purple-700 mb-3">2. エンティティマッピングとアノテーション完全理解</h3>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <p class="text-gray-700 mb-2">
+                            <strong>⚠️ 必須改良事項：</strong>
+                        </p>
+                        
+                        <h4 class="font-semibold text-green-600 mb-2">アノテーションの概念説明を強化：</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
+                            <li>「@Entityは身分証明書のようなもの、このクラスがデータベーステーブルと対応すると宣言」</li>
+                            <li>「@Idは主キー指定、データの一意識別子（マイナンバーのような概念）」</li>
+                            <li>「@OneToManyは親子関係の定義（1つの部署に複数の社員）」</li>
+                            <li>「@JoinColumnは外部キー設定、テーブル間の橋渡し役」</li>
+                        </ul>
+
+                        <h4 class="font-semibold text-green-600 mb-2">コード例で理解する</h4>
+                        <div class="bg-gray-800 text-green-400 p-4 rounded-lg font-mono text-sm mb-4">
+<pre>// ユーザーエンティティの例
+@Entity
+@Table(name = "users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List&lt;Order&gt; orders;
+}</pre>
+                        </div>
+
+                        <h4 class="font-semibold text-green-600 mb-2">アノテーション比較表に「実用例」列を追加：</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li><strong>@Entity:</strong> 「ユーザー情報、商品マスタ」</li>
+                            <li><strong>@OneToMany:</strong> 「注文-注文明細、カテゴリ-商品」</li>
+                            <li><strong>@ManyToOne:</strong> 「社員-部署、商品-カテゴリ」</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-red-700 mb-3">3. JPQL・Criteria API・クエリ最適化</h3>
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-600 mb-2">JPQL vs SQL比較</h4>
+                        <div class="bg-gray-800 text-green-400 p-4 rounded-lg font-mono text-sm mb-4">
+<pre>// JPQL（オブジェクト指向）
+SELECT u FROM User u WHERE u.age &gt; :minAge
+
+// 従来のSQL
+SELECT * FROM users WHERE age &gt; ?</pre>
+                        </div>
+
+                        <h4 class="font-semibold text-blue-600 mb-2">Criteria APIの動的クエリ</h4>
+                        <div class="bg-gray-800 text-green-400 p-4 rounded-lg font-mono text-sm mb-4">
+<pre>// 条件に応じて動的にクエリを構築
+CriteriaBuilder cb = em.getCriteriaBuilder();
+CriteriaQuery&lt;User&gt; query = cb.createQuery(User.class);
+Root&lt;User&gt; user = query.from(User.class);
+
+if (name != null) {
+    query.where(cb.equal(user.get("name"), name));
+}</pre>
+                        </div>
+
+                        <h4 class="font-semibold text-blue-600 mb-2">パフォーマンス最適化の実例</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li><strong>N+1問題回避：</strong>@BatchSize、fetch join活用</li>
+                            <li><strong>遅延読み込み：</strong>@LazyLoading適切な設定</li>
+                            <li><strong>クエリキャッシュ：</strong>@QueryHint活用</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-cyan-50 border-l-4 border-cyan-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-cyan-800 mb-4">
+                <i class="fas fa-tasks mr-2"></i>📝 演習問題・理解度クイズ（表示仕様）
+            </h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-green-700 mb-3">📋 演習問題</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>問題文：<strong>常に表示</strong></li>
+                        <li>回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+                        <li>詳細解説を削減しないよう注意</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-green-700 mb-3">🧠 理解度クイズ</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>問題・選択肢：<strong>常に表示</strong></li>
+                        <li>正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+                        <li>JavaScript showAnswer()関数を実装</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-purple-700 mb-3">演習問題作成の注意点：</h3>
+                    <ol class="list-decimal list-inside text-gray-700 space-y-2">
+                        <li>JPA/Hibernateの実用的なコード問題を作成する</li>
+                        <li>単純な暗記ではなく、実装力を測る問題にする</li>
+                        <li>エンタープライズ開発で役立つ実例を含める</li>
+                        <li>解答には詳細な解説とベストプラクティスを必ず含める</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-teal-50 border-l-4 border-teal-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-teal-800 mb-4">
+                <i class="fas fa-clipboard-check mr-2"></i>📝 まとめセクション改善指針
+            </h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-red-700 mb-3">❌ 避けるべき抽象的表現</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>「JPA/Hibernateを理解した」</li>
+                        <li>「データベース統合ができるようになった」</li>
+                        <li>「ORM技術を把握した」</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-green-700 mb-3">✅ 推奨する具体的表現</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>「JPAエンティティマッピングでユーザー管理システムを効率的に実装できる」</li>
+                        <li>「JPQL動的クエリで条件検索機能を柔軟に構築できる」</li>
+                        <li>「Hibernateの遅延読み込みでN+1問題を回避し、パフォーマンスを向上できる」</li>
+                        <li>「Spring Data JPAのRepositoryパターンで生産性を大幅に向上できる」</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-pink-50 border-l-4 border-pink-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-pink-800 mb-4">
+                <i class="fas fa-check-double mr-2"></i>✅ 分かりやすさチェックリスト
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-purple-700 mb-3">📊 表・図解</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>JPA/Hibernateアノテーションに必ず日本語説明を併記</li>
+                        <li>クエリ例には実行結果（「10件取得」等）</li>
+                        <li>適用場面は実際の開発例で説明</li>
+                        <li>比較表には「実用例」列を追加</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-purple-700 mb-3">📝 文章・説明</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>略語は正式名称を併記</li>
+                        <li>「なぜ」の理由を必ず説明</li>
+                        <li>日常例・比喩を積極活用</li>
+                        <li>まとめは具体的なメリットを明示</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-red-100 border-l-4 border-red-600 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-800 mb-4">
+                <i class="fas fa-exclamation-circle mr-2"></i>⚠️ 重要事項
+            </h2>
+            <ul class="list-disc list-inside text-red-700 space-y-2">
+                <li><strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                <li>特に「JPA/Hibernateアノテーションとクエリ技術」の解説は<strong>必ず詳細説明付きで改良</strong>すること</li>
+                <li>JPA/Hibernate専門用語の初出時は<strong>日本語説明を併記</strong>すること</li>
+                <li>まとめセクションは<strong>具体的なパフォーマンス向上効果</strong>で記載すること</li>
+                <li>HTMLの見やすさとJPA/Hibernate詳細解説を<strong>両立</strong>すること</li>
+            </ul>
+        </div>
+
+        <div class="bg-indigo-100 border-l-4 border-indigo-600 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4">
+                <i class="fas fa-star mr-2"></i>🌟 Day48特有の追加指針
+            </h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-blue-700 mb-3">JPA/Hibernate特化項目</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><strong>ORM実装の実例を豊富に：</strong>「よくあるマッピングエラーと解決法」セクション必須</li>
+                        <li><strong>Spring Boot+JPA統合環境：</strong>設定ファイル、プロパティ、デバッグ方法を詳述</li>
+                        <li><strong>エンタープライズでの活用例：</strong>実際のビジネスロジック例を複数提示</li>
+                        <li><strong>段階的学習：</strong>基本マッピング→関連マッピング→高度なクエリ→最適化の順序を明確に</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-green-700 mb-3">理解促進要素</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><strong>従来のJDBC との比較：</strong>同じ機能のJDBC版とJPA版を併記</li>
+                        <li><strong>パフォーマンスの恩恵：</strong>「クエリ削減効果」を具体的に紹介</li>
+                        <li><strong>開発効率向上：</strong>「コード行数削減効果」を体感できる例</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-800 text-white p-6 rounded-lg mb-8">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-code mr-2"></i>📤 出力形式
+            </h2>
+            <div class="text-yellow-300">
+                <p class="mb-4"><strong>⚠️ 重要事項：</strong></p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                    <li>特に「JPA/Hibernateのマッピングとクエリ技術」は<strong>必ず詳細説明付きで改良</strong>すること</li>
+                    <li>JPA/Hibernate専門用語の初出時は<strong>日本語説明を併記</strong>すること</li>
+                    <li>まとめセクションは<strong>具体的なメリット</strong>で記載すること</li>
+                    <li>HTMLの見やすさとJPA/Hibernate詳細解説を<strong>両立</strong>すること</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="text-center py-8">
+            <div class="inline-block bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-lg">
+                <h3 class="text-xl font-bold mb-2">
+                    <i class="fas fa-rocket mr-2"></i>完成したHTML講義ページのみを返してください
+                </h3>
+                <p>説明文や前置きは不要です</p>
+            </div>
+        </div>
+
+        <footer class="text-center mt-12 text-gray-500 border-t pt-8">
+            <p class="mb-2">
+                <i class="fas fa-copyright mr-1"></i>
+                © 2025 APSA Co.,Ltd. All Rights Reserved.
+            </p>
+            <p class="text-sm">
+                高品質なITエンジニア育成カリキュラムの提供
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDtYy4sL6KX70A2%2B9%2F6jqYYaj6WdlznALZA3s05XCubb1vZlZJ1tuIpGx9ZKLi514MM60%2FO%2BZmdfi4zksejA5OyOfJY6eeIjBx4YulJQ0vYJtfWM6TuuvTqjk%2B6HezfJUIyIrMkhPA9NvrUysfKoAMBcyxQ9zNCSXQLnBh5kYwrDZ%2BewdqpRLsYHVo8EImeN3tIC2H5mxd7h01dOFWM6F5qnA84UbuOuplbSIJC53U39ToSpRkwkQskzTEXaTIa46dko1XnBvT%2BCD0k2PDTTMKaE7idfGXePlykLdcMQLYh6%2BVcLPDEft%2FU3L0H4ipLJk9yLB3Js5uPZhKrEfu46IpzBM1OzEjIZrHcFWiPV0UEBgWCAwA%2FAWesHbNaB6NCzCSYi6u26ie%2Bjd5JXAbA%2Br9%2Bg%2F7ykq1OCqsTxOermcUbax2fixiWIR4JxVL2Zos1XF%2BYyg99eDMMBAHI%2B%2B0ZqRgm09x%2Blx6oeCkiR4YjfF1%2F%2BjjFm%2Fq8H05ixr0JRIUfhUXg%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDtYy4sL6KX70A2+9/6jqYYaj6WdlznALZA3s05XCubb1vZlZJ1tuIpGx9ZKLi514MM60/O+Zmdfi4zksejA5OyOfJY6eeIjBx4YulJQ0vYJtfWM6TuuvTqjk+6HezfJUIyIrMkhPA9NvrUysfKoAMBcyxQ9zNCSXQLnBh5kYwrDZ+ewdqpRLsYHVo8EImeN3tIC2H5mxd7h01dOFWM6F5qnA84UbuOuplbSIJC53U39ToSpRkwkQskzTEXaTIa46dko1XnBvT+CD0k2PDTTMKaE7idfGXePlykLdcMQLYh6+VcLPDEft/U3L0H4ipLJk9yLB3Js5uPZhKrEfu46IpzBM1OzEjIZrHcFWiPV0UEBgWCAwA/AWesHbNaB6NCzCSYi6u26ie+jd5JXAbA+r9+g/7ykq1OCqsTxOermcUbax2fixiWIR4JxVL2Zos1XF+Yyg99eDMMBAHI++0ZqRgm09x+lx6oeCkiR4YjfF1/+jjFm/q8H05ixr0JRIUfhUXg==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

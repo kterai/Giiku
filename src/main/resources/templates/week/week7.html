@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第7週: アルゴリズム・セキュリティ・マネジメント | ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .header {
+            background-color: #2c3e50;
+            color: white;
+        }
+        .nav-link {
+            color: #ecf0f1;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #3498db;
+        }
+        .day-card {
+            border-left: 5px solid #3498db;
+            transition: all 0.3s ease;
+        }
+        .day-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background-color: #e2e8f0;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 30px;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -39px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #3498db;
+            border: 4px solid white;
+        }
+        .progress-container {
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .progress-bar {
+            height: 100%;
+            border-radius: 5px;
+            background-color: #3498db;
+        }
+        .resource-card {
+            border-top: 4px solid #2ecc71;
+        }
+        .chart-container {
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold">ITエンジニア育成カリキュラム</h1>
+                <nav>
+                    <ul class="flex space-x-6">
+                        <li><a href="../../index.html" class="nav-link">ホーム</a></li>
+                        <li class="relative group">
+                            <a href="#" class="nav-link">月別カリキュラム</a>
+                            <ul class="absolute hidden bg-gray-800 p-3 rounded-md w-60 group-hover:block z-10">
+                                <li><a href="../month/month1.html" class="block py-1 nav-link">第1ヶ月目: Java Silver</a></li>
+                                <li><a href="../month/month2.html" class="block py-1 nav-link">第2ヶ月目: 基本情報</a></li>
+                                <li><a href="../month/month3.html" class="block py-1 nav-link">第3ヶ月目: Web開発</a></li>
+                            </ul>
+                        </li>
+                        <li class="relative group">
+                            <a href="#" class="nav-link">週別詳細</a>
+                            <ul class="absolute hidden bg-gray-800 p-3 rounded-md w-60 group-hover:block z-10">
+                                <li><a href="week1.html" class="block py-1 nav-link">第1週: Java基礎</a></li>
+                                <li><a href="week2.html" class="block py-1 nav-link">第2週: オブジェクト指向</a></li>
+                                <li><a href="week3.html" class="block py-1 nav-link">第3週: Java応用</a></li>
+                                <li><a href="week4.html" class="block py-1 nav-link">第4週: 総仕上げ</a></li>
+                                <li><a href="week5.html" class="block py-1 nav-link">第5週: コンピュータシステム</a></li>
+                                <li><a href="week6.html" class="block py-1 nav-link">第6週: ネットワーク・DB</a></li>
+                                <li><a href="week7.html" class="block py-1 nav-link font-bold text-blue-400">第7週: アルゴリズム・セキュリティ</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="../../resources/resources.html" class="nav-link">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html" class="nav-link">FAQ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- パンくずリスト -->
+        <nav class="text-sm mb-6">
+            <ol class="list-none p-0 flex flex-wrap">
+                <li class="flex items-center">
+                    <a href="../../index.html" class="text-blue-600 hover:text-blue-800">ホーム</a>
+                    <span class="mx-2">/</span>
+                </li>
+                <li class="flex items-center">
+                    <a href="../month/month2.html" class="text-blue-600 hover:text-blue-800">第2ヶ月目: 基本情報</a>
+                    <span class="mx-2">/</span>
+                </li>
+                <li class="text-gray-700">第7週: アルゴリズム・セキュリティ・マネジメント</li>
+            </ol>
+        </nav>
+
+        <!-- ヒーローセクション -->
+        <section class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg shadow-lg p-8 mb-10 text-white">
+            <h1 class="text-4xl font-bold mb-4">第7週: アルゴリズム・セキュリティ・マネジメント</h1>
+            <p class="text-xl mb-6">基本情報技術者試験の重要分野を学ぶ1週間</p>
+            <div class="flex items-center">
+                <span class="bg-white text-indigo-600 font-bold py-1 px-3 rounded-full mr-3">Day 29-33</span>
+                <span>2ヶ月目・第3週 (Week 7)</span>
+            </div>
+        </section>
+
+        <!-- 週の概要 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-10">
+            <h2 class="text-2xl font-bold mb-4 border-b pb-2">週間概要</h2>
+            <p class="mb-4">
+                この週では、基本情報技術者試験の重要分野であるアルゴリズム・データ構造、セキュリティ、プロジェクトマネジメントについて学習します。
+                データ構造の基本からアルゴリズムの効率性、情報セキュリティ対策、プロジェクト管理手法まで幅広く学びます。
+                この知識は単に試験のためだけでなく、エンジニアとしての実務において重要な基盤となります。
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-blue-700 mb-2 flex items-center">
+                        <i class="fas fa-cubes mr-2"></i>アルゴリズムとデータ構造
+                    </h3>
+                    <p>基本的なデータ構造と探索・ソートアルゴリズムを学び、計算量の概念を理解します。</p>
+                </div>
+                <div class="bg-red-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-red-700 mb-2 flex items-center">
+                        <i class="fas fa-shield-alt mr-2"></i>情報セキュリティ
+                    </h3>
+                    <p>暗号化技術、認証、最新の脅威と対策について体系的に学びます。</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-green-700 mb-2 flex items-center">
+                        <i class="fas fa-tasks mr-2"></i>プロジェクトマネジメント
+                    </h3>
+                    <p>PMBOK、WBS、開発プロセスなどのプロジェクト管理の基本を学びます。</p>
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <h3 class="font-bold text-lg mb-2">週間学習目標</h3>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>アルゴリズムとデータ構造の基本概念を理解し、適切な場面で活用できるようになる</li>
+                    <li>代表的な探索・ソートアルゴリズムの仕組みと計算量を説明できるようになる</li>
+                    <li>情報セキュリティの基本概念と対策を理解し、脅威への対応を説明できるようになる</li>
+                    <li>プロジェクトマネジメントの基礎知識を習得し、WBSやガントチャートを作成できるようになる</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 日別スケジュール -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-6">日別スケジュール</h2>
+            
+            <!-- Day 29 -->
+            <div class="day-card bg-white rounded-lg shadow-md p-6 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-blue-600">Day 29: アルゴリズムとデータ構造</h3>
+                    <span class="bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded">2ヶ月目・第7週・1日目</span>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="font-bold text-gray-700 mb-2">本日の学習目標</h4>
+                    <p class="text-gray-600">データ構造の基本と配列・リスト・スタック・キューなどのデータ構造の特性と使い分けを理解し、フローチャートを用いたアルゴリズム表現を習得します。</p>
+                </div>
+
+                <div class="timeline mb-6">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold">10:00-10:15 オリエンテーション</h4>
+                        <p class="text-gray-600 ml-4">前日の復習と今日のテーマ説明</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold">10:15-11:00 講義: データ構造基礎</h4>
+                        <p class="text-gray-600 ml-4">データ構造の概念、配列、リスト、スタック、キュー</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold">11:00-11:45 演習: データ構造の実装</h4>
+                        <p class="text-gray-600 ml-4">Java/疑似コードを使ったデータ構造の基本実装</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold">11:45-12:45 昼休憩</h4>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold">12:45-13:30 講義: アルゴリズム表現法</h4>
+                        <p class="text-gray-600 ml-4">フローチャート、疑似コード、アルゴリズムの評価方法</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold">13:30-14:15 演習: フローチャート作成</h4>
+                        <p class="text-gray-600 ml-4">基本的なアルゴリズムのフローチャート作成</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold">14:15-15:00 講義: 木構造とグラフ</h4>
+                        <p class="text-gray-600 ml-4">木構造、二分木、グラフの基本概念</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold">15:00-15:10 午後休憩</h4>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold">15:10-15:55 演習: 木構造の操作</h4>
+                        <p class="text-gray-600 ml-4">二分探索木の操作演習</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold">15:55-17:00 理解度チェック</h4>
+                        <p class="text-gray-600 ml-4">データ構造とアルゴリズム表現に関するテスト</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold">17:00-17:45 振り返り・質疑応答</h4>
+                        <p class="text-gray-600 ml-4">理解度チェックの解説と質問対応</p>
+                    </div>
+                </div>
+
+                <a href="../day/day29.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                    詳細を見る
+                </a>
+            </div>
+
+            <!-- Day 30 -->
+            <div class="day-card bg-white rounded-lg shadow-md p-6 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-blue-600">Day 30: 探索・ソートアルゴリズム</h3>
+                    <span class="bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded">2ヶ月目・第7週・2日目</span>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="font-bold text-gray-700 mb-2">本日の学習目標</h4>
+                    <p class="text-gray-600">線形探索・二分探索などの探索アルゴリズムと、バブルソート・クイックソートなどの各種ソートアルゴリズムの仕組みと計算量について理解します。</p>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="font-bold text-gray-700 mb-2">主な内容</h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>線形探索と二分探索</li>
+                        <li>基本的なソートアルゴリズム（バブルソート、選択ソート、挿入ソート）</li>
+                        <li>効率的なソートアルゴリズム（クイックソート、マージソート、ヒープソート）</li>
+                        <li>アルゴリズムの計算量（O記法）</li>
+                        <li>アルゴリズムの効率性比較</li>
+                    </ul>
+                </div>
+
+                <a href="../day/day30.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                    詳細を見る
+                </a>
+            </div>
+
+            <!-- Day 31 -->
+            <div class="day-card bg-white rounded-lg shadow-md p-6 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-blue-600">Day 31: セキュリティ基礎と対策</h3>
+                    <span class="bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded">2ヶ月目・第7週・3日目</span>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="font-bold text-gray-700 mb-2">本日の学習目標</h4>
+                    <p class="text-gray-600">情報セキュリティの基本概念、暗号化・認証技術、最新のセキュリティ脅威と対策方法について理解します。</p>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="font-bold text-gray-700 mb-2">主な内容</h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>情報セキュリティの3要素（機密性・完全性・可用性）</li>
+                        <li>暗号化技術（共通鍵暗号方式、公開鍵暗号方式）</li>
+                        <li>ハッシュ関数と電子署名</li>
+                        <li>認証技術（パスワード、多要素認証、生体認証）</li>
+                        <li>マルウェアと対策</li>
+                        <li>ネットワークセキュリティ（ファイアウォール、IDS/IPS）</li>
+                        <li>セキュリティインシデント対応</li>
+                    </ul>
+                </div>
+
+                <a href="../day/day31.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                    詳細を見る
+                </a>
+            </div>
+
+            <!-- Day 32 -->
+            <div class="day-card bg-white rounded-lg shadow-md p-6 mb-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-blue-600">Day 32: プロジェクトマネジメント</h3>
+                    <span class="bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded">2ヶ月目・第7週・4日目</span>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="font-bold text-gray-700 mb-2">本日の学習目標</h4>
+                    <p class="text-gray-600">PMBOK、WBS、ガントチャート、開発プロセスモデルなど、プロジェクト管理の基本概念と手法を理解します。</p>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="font-bold text-gray-700 mb-2">主な内容</h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>プロジェクト管理の基礎概念とPMBOK</li>
+                        <li>プロジェクト管理プロセス（立ち上げ、計画、実行、監視・コントロール、終結）</li>
+                        <li>WBS（Work Breakdown Structure）の作成</li>
+                        <li>スケジュール管理（ガントチャート、PERT図、クリティカルパス法）</li>
+                        <li>リスク管理とステークホルダー管理</li>
+                        <li>開発プロセスモデル（ウォーターフォール、アジャイル、スパイラル）</li>
+                    </ul>
+                </div>
+
+                <a href="../day/day32.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                    詳細を見る
+                </a>
+            </div>
+
+            <!-- Day 33 -->
+            <div class="day-card bg-white rounded-lg shadow-md p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold text-blue-600">Day 33: 模擬試験③と総合演習</h3>
+                    <span class="bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded">2ヶ月目・第7週・5日目</span>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="font-bold text-gray-700 mb-2">本日の学習目標</h4>
+                    <p class="text-gray-600">アルゴリズム、セキュリティ、マネジメント分野の総合的な模擬試験と演習を通じて、理解度を確認し、弱点を強化します。</p>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="font-bold text-gray-700 mb-2">主な内容</h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>午前中: アルゴリズム・データ構造の総合演習</li>
+                        <li>午前中: セキュリティ分野の演習と問題解決</li>
+                        <li>午後前半: プロジェクトマネジメント実践演習（WBS・ガントチャート作成）</li>
+                        <li>午後後半: 模擬試験（第7週範囲＋前週の総合）</li>
+                        <li>振り返り: 弱点分析と強化ポイントの確認</li>
+                    </ul>
+                </div>
+
+                <a href="../day/day33.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300">
+                    詳細を見る
+                </a>
+            </div>
+        </section>
+
+        <!-- 学習リソース -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-6">学習リソース</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="resource-card bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-book text-2xl text-green-600 mr-3"></i>
+                        <h3 class="text-xl font-bold">教材・参考書</h3>
+                    </div>
+                    <ul class="space-y-2">
+                        <li><a href="https://www.ipa.go.jp/shiken/syllabus/ps6vr7000000i06u-att/syllabus_fe_ver7_3.pdf" target="_blank" class="text-blue-600 hover:text-blue-800">IPA基本情報技術者試験シラバス</a></li>
+                        <li><a href="https://visualgo.net/" target="_blank" class="text-blue-600 hover:text-blue-800">VisuAlgo - アルゴリズムの可視化</a></li>
+                        <li><a href="https://www.jitec.ipa.go.jp/1_04hanni_sukiru/_index_feani.html" target="_blank" class="text-blue-600 hover:text-blue-800">IPA 基本情報技術者試験過去問</a></li>
+                        <li><a href="https://www.itmedia.co.jp/im/articles/1111/07/news134.html" target="_blank" class="text-blue-600 hover:text-blue-800">IT管理者のためのセキュリティ入門</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-laptop-code text-2xl text-green-600 mr-3"></i>
+                        <h3 class="text-xl font-bold">ツール・オンラインリソース</h3>
+                    </div>
+                    <ul class="space-y-2">
+                        <li><a href="https://algorithm-visualizer.org/" target="_blank" class="text-blue-600 hover:text-blue-800">Algorithm Visualizer</a></li>
+                        <li><a href="https://projectlibre.com/" target="_blank" class="text-blue-600 hover:text-blue-800">ProjectLibre (プロジェクト管理ツール)</a></li>
+                        <li><a href="https://www.owasp.org/index.php/Main_Page" target="_blank" class="text-blue-600 hover:text-blue-800">OWASP - セキュリティ情報</a></li>
+                        <li><a href="https://www.draw.io/" target="_blank" class="text-blue-600 hover:text-blue-800">draw.io - 図表作成ツール</a></li>
+                    </ul>
+                </div>
+
+                <div class="resource-card bg-white rounded-lg shadow-md p-6">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-tasks text-2xl text-green-600 mr-3"></i>
+                        <h3 class="text-xl font-bold">演習問題・課題</h3>
+                    </div>
+                    <ul class="space-y-2">
+                        <li><a href="https://atcoder.jp/contests/practice" target="_blank" class="text-blue-600 hover:text-blue-800">AtCoder - アルゴリズム演習</a></li>
+                        <li><a href="https://www.hackerrank.com/domains/algorithms" target="_blank" class="text-blue-600 hover:text-blue-800">HackerRank - Algorithms</a></li>
+                        <li><a href="https://www.coursera.org/learn/cybersecurity-roles-processes-operating-system-security" target="_blank" class="text-blue-600 hover:text-blue-800">Coursera - サイバーセキュリティ基礎</a></li>
+                        <li><a href="https://www.projectmanagement.com/contentPages/practice.cfm?ID=276&thisPageURL=/pages/practice.cfm" target="_blank" class="text-blue-600 hover:text-blue-800">PM.com - プロジェクト管理練習問題</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 進捗管理 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-10">
+            <h2 class="text-2xl font-bold mb-4">進捗管理</h2>
+            <div class="mb-6">
+                <h3 class="font-bold text-lg mb-2">第7週の進捗</h3>
+                <div class="progress-container">
+                    <div class="progress-bar" style="width: 0%" id="week-progress"></div>
+                </div>
+                <div class="flex justify-between text-sm text-gray-600">
+                    <span>0%</span>
+                    <span id="progress-percentage">0%</span>
+                    <span>100%</span>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="font-bold text-lg mb-2">日別チェックリスト</h3>
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="day29" class="w-5 h-5 text-blue-600 mr-2" onchange="updateProgress()">
+                        <label for="day29" class="select-none">Day 29: アルゴリズムとデータ構造</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="day30" class="w-5 h-5 text-blue-600 mr-2" onchange="updateProgress()">
+                        <label for="day30" class="select-none">Day 30: 探索・ソートアルゴリズム</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="day31" class="w-5 h-5 text-blue-600 mr-2" onchange="updateProgress()">
+                        <label for="day31" class="select-none">Day 31: セキュリティ基礎と対策</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="day32" class="w-5 h-5 text-blue-600 mr-2" onchange="updateProgress()">
+                        <label for="day32" class="select-none">Day 32: プロジェクトマネジメント</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" id="day33" class="w-5 h-5 text-blue-600 mr-2" onchange="updateProgress()">
+                        <label for="day33" class="select-none">Day 33: 模擬試験③と総合演習</label>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-lg mb-2">理解度評価</h3>
+                <div class="chart-container">
+                    <canvas id="skillChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- 次のステップ -->
+        <section class="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg shadow-lg p-8 text-white">
+            <h2 class="text-2xl font-bold mb-4">次のステップ</h2>
+            <p class="mb-6">次週は基本情報技術者試験の最後の分野であるストラテジ系と総合対策を学習します。経営戦略、システム戦略、法務知財などのビジネス視点での情報システムの役割を理解し、総合的な模擬試験を通じて試験対策を完成させます。</p>
+            <div class="flex space-x-4">
+                <a href="week6.html" class="bg-white text-indigo-600 hover:bg-gray-100 font-bold py-2 px-4 rounded transition duration-300">
+                    前の週に戻る
+                </a>
+                <a href="week8.html" class="bg-white text-indigo-600 hover:bg-gray-100 font-bold py-2 px-4 rounded transition duration-300">
+                    次の週へ進む
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 mt-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">ITエンジニア育成カリキュラム</h3>
+                    <p class="text-gray-400">体系的に学ぶ、3ヶ月でエンジニアになるための総合カリキュラム</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">カリキュラム</h4>
+                    <ul class="space-y-2">
+                        <li><a href="../month/month1.html" class="text-gray-400 hover:text-white">第1ヶ月目: Java Silver</a></li>
+                        <li><a href="../month/month2.html" class="text-gray-400 hover:text-white">第2ヶ月目: 基本情報</a></li>
+                        <li><a href="../month/month3.html" class="text-gray-400 hover:text-white">第3ヶ月目: Web開発</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">週別カリキュラム</h4>
+                    <ul class="space-y-2">
+                        <li><a href="week5.html" class="text-gray-400 hover:text-white">第5週: コンピュータシステム</a></li>
+                        <li><a href="week6.html" class="text-gray-400 hover:text-white">第6週: ネットワーク・DB</a></li>
+                        <li><a href="week7.html" class="text-gray-400 hover:text-white font-bold">第7週: アルゴリズム・セキュリティ</a></li>
+                        <li><a href="week8.html" class="text-gray-400 hover:text-white">第8週: ストラテジ系</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">リソース</h4>
+                    <ul class="space-y-2">
+                        <li><a href="../../resources/resources.html" class="text-gray-400 hover:text-white">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html" class="text-gray-400 hover:text-white">よくある質問</a></li>
+                        <li><a href="../../resources/advanced.html" class="text-gray-400 hover:text-white">応用コース</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>&copy; 2025 ITエンジニア育成カリキュラム All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // 進捗管理のJavaScript
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checked = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+            const total = checkboxes.length;
+            const percentage = Math.round((checked / total) * 100);
+            
+            document.getElementById('week-progress').style.width = percentage + '%';
+            document.getElementById('progress-percentage').textContent = percentage + '%';
+            
+            // ローカルストレージに保存（実際のアプリケーションでは）
+            // localStorage.setItem('week7-progress', JSON.stringify(Array.from(checkboxes).map(cb => cb.checked)));
+        }
+
+        // ページ読み込み時に保存された進捗を反映
+        document.addEventListener('DOMContentLoaded', function() {
+            // 実際のアプリケーションでは以下のようにローカルストレージから読み込む
+            // const savedProgress = JSON.parse(localStorage.getItem('week7-progress'));
+            // if (savedProgress) {
+            //     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            //     savedProgress.forEach((isChecked, index) => {
+            //         if (index < checkboxes.length) {
+            //             checkboxes[index].checked = isChecked;
+            //         }
+            //     });
+            //     updateProgress();
+            // }
+
+            // スキルチャートの初期化
+            const ctx = document.getElementById('skillChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['アルゴリズム', 'データ構造', '探索・ソートアルゴリズム', 'セキュリティ基礎', '暗号化・認証', 'プロジェクトマネジメント'],
+                    datasets: [{
+                        label: '現在のスキルレベル',
+                        data: [0, 0, 0, 0, 0, 0],
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgb(54, 162, 235)',
+                        pointBackgroundColor: 'rgb(54, 162, 235)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(54, 162, 235)'
+                    }, {
+                        label: '目標スキルレベル',
+                        data: [80, 80, 70, 75, 70, 75],
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        pointBackgroundColor: 'rgb(255, 99, 132)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(255, 99, 132)'
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDocAUofD5zuPpUhFI3gljBYxom5Ea%2B%2Fif18Vem32efBmQK1Y54%2BG43jvCe9Ct91lhCf2FLDAKSjv6%2BKklnASOiNPGSugmdmSjwTJKsb0i7i5i37tZzAScKO81FC%2FWg1yhJE7od8i3%2Fv5LNbT0wCDyubVYc%2FXHunmFG9AqUhuVsb%2B5ufdf8J%2BKJmXui3e%2BgvMDj2dE5eD4hIWUZLte%2F53w0lKOe0y%2BNmLpE%2FHaC1Xyl7kgjFAZUBYjaT2SOkTFTvyeFLj1zl9wxsjkVdr54OcKa50Cv%2F%2FqCB4n5WSHZut6hvr5vDLC9txssdDjOQsXe0UFILYN8Qv39xPenInYvfcocm84LXWDoffcjH9%2F0UkaF9xgPLMYh9u87iw2lcWB%2Bs4gKR%2FTM1n%2BjvSLmOrGEUnx9eLJSxMPpKhpzDQdprBVoCwx8HfsAPI01zdkK2vYYTF2hmcwjrTR3EOxT%2Fi4eVAW2o5quYbAZxLMm63fGQIL2Tr";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDocAUofD5zuPpUhFI3gljBYxom5Ea+/if18Vem32efBmQK1Y54+G43jvCe9Ct91lhCf2FLDAKSjv6+KklnASOiNPGSugmdmSjwTJKsb0i7i5i37tZzAScKO81FC/Wg1yhJE7od8i3/v5LNbT0wCDyubVYc/XHunmFG9AqUhuVsb+5ufdf8J+KJmXui3e+gvMDj2dE5eD4hIWUZLte/53w0lKOe0y+NmLpE/HaC1Xyl7kgjFAZUBYjaT2SOkTFTvyeFLj1zl9wxsjkVdr54OcKa50Cv//qCB4n5WSHZut6hvr5vDLC9txssdDjOQsXe0UFILYN8Qv39xPenInYvfcocm84LXWDoffcjH9/0UkaF9xgPLMYh9u87iw2lcWB+s4gKR/TM1n+jvSLmOrGEUnx9eLJSxMPpKhpzDQdprBVoCwx8HfsAPI01zdkK2vYYTF2hmcwjrTR3EOxT/i4eVAW2o5quYbAZxLMm63fGQIL2Tr";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

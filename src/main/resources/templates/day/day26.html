@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 26: データベース基礎（関係モデル、ER図、SQL基本構文）| ITエンジニア育成カリキュラム</title>
+    <link rel="stylesheet" href="../../css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/lib/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+        }
+        
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0.75rem 0;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #0056b3 0%, #007bff 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .section-title {
+            border-left: 4px solid #007bff;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .schedule-item {
+            border-left: 3px solid #007bff;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .time-label {
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+        
+        .badge-custom {
+            background-color: #17a2b8;
+            color: white;
+            font-weight: normal;
+            padding: 0.5em 0.7em;
+            border-radius: 5px;
+        }
+        
+        .next-step-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 5px solid #28a745;
+        }
+        
+        .feedback-form {
+            background-color: #f1f8ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        
+        footer {
+            background-color: #343a40;
+            color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links h5 {
+            color: white;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .sql-example {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+        }
+        
+        .database-concept {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            background-color: #fdfdfe;
+        }
+        
+        .er-diagram {
+            text-align: center;
+            padding: 2rem;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 767.98px) {
+            .page-header {
+                padding: 1.5rem 0;
+            }
+            
+            .content-card {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+        }
+        
+        /* 印刷用スタイル */
+         {
+            .no-print {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+            }
+            
+            .content-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            footer {
+                background-color: white;
+                color: black;
+            }
+            
+            a {
+                text-decoration: none;
+                color: black;
+            }
+            
+            .footer-links ul li a {
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script defer src="../../js/day-navigation.js"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                ITエンジニア育成カリキュラム
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="monthDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="monthDropdown">
+                            <li><a class="dropdown-item" href="../month/month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="../month/month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="weekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="weekDropdown">
+                            <li><a class="dropdown-item" href="../week/week1.html">第1週: Java基礎</a></li>
+                            <li><a class="dropdown-item" href="../week/week2.html">第2週: オブジェクト指向</a></li>
+                            <li><a class="dropdown-item" href="../week/week6.html">第6週: ネットワーク・データベース</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/resources.html">学習リソース</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/faq.html">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">ホーム</a></li>
+                <li class="breadcrumb-item"><a href="../month/month2.html">第2ヶ月目</a></li>
+                <li class="breadcrumb-item"><a href="../week/week6.html">第6週</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Day 26</li>
+            </ol>
+        </nav>
+    </div>
+
+    <header class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-database text-white me-3"></i>Day 26: データベース基礎</h1>
+            <p class="lead">関係モデル、ER図、SQL基本構文 - データベース設計と操作の基礎を学ぶ</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <section>
+                    <h2 class="section-title"><i class="fas fa-bullseye"></i> 学習目標</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>関係データベースの基本概念（リレーション、タプル、属性、キー）を理解する</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>ER図を使ったデータベース設計の基礎を習得する</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>正規化理論（第1～第3正規形）を理解し、適用できる</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>基本的なSQL文（SELECT, INSERT, UPDATE, DELETE）を記述できる</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title"><i class="fas fa-trophy"></i> 達成基準</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-star text-warning me-2"></i>データベースの種類と特徴を説明できる</li>
+                            <li class="list-group-item"><i class="fas fa-star text-warning me-2"></i>関係モデルの基本要素を正しく理解している</li>
+                            <li class="list-group-item"><i class="fas fa-star text-warning me-2"></i>簡単なER図を描いて正規化を行うことができる</li>
+                            <li class="list-group-item"><i class="fas fa-star text-warning me-2"></i>基本的なSQLクエリを作成・実行できる</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title"><i class="fas fa-clock"></i> 詳細スケジュール</h2>
+                    <div class="content-card">
+                        <div class="accordion" id="scheduleAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="time-label">10:00-10:15</div> <div class="ms-3">オリエンテーション・前日復習</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        前日のネットワーク応用の復習と本日のデータベース学習の概要説明。データベースの重要性と基本情報技術者試験での出題傾向を確認します。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <div class="time-label">10:15-11:00</div> <div class="ms-3">データベースの基本概念</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        データベースの種類（階層型、ネットワーク型、関係型、NoSQL）と特徴、関係モデルの基本概念（リレーション、タプル、属性、主キー、外部キー）について学習します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義 - データベースの基本理論
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <div class="time-label">11:00-11:45</div> <div class="ms-3">関係モデル演習</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        実際のテーブル例を使って、リレーション、タプル、属性の概念を理解し、主キーと外部キーの役割を確認する演習を行います。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習 - 関係モデルの理解
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        <div class="time-label">11:45-12:45</div> <div class="ms-3">昼休憩</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        休憩時間です。昼食をとり、リフレッシュしましょう。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        <div class="time-label">12:45-13:30</div> <div class="ms-3">ER図とデータベース設計</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ER図（Entity-Relationship図）の読み方と書き方、エンティティ、アトリビュート、リレーションシップの概念、データベース設計の基本手順を学習します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義 - データベース設計手法
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSix">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        <div class="time-label">13:30-14:15</div> <div class="ms-3">ER図作成演習</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        学校管理システムや図書館システムなどの具体例を使って、実際にER図を作成する演習を行います。要件定義からテーブル設計まで一連の流れを体験します。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習 - ER図作成実践
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSeven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                        <div class="time-label">14:15-15:00</div> <div class="ms-3">正規化理論</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        データベース正規化の目的と手法、第1正規形・第2正規形・第3正規形の概念と適用方法、正規化によるデータの冗長性排除について学習します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義 - 正規化理論の基礎
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEight">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                        <div class="time-label">15:00-15:10</div> <div class="ms-3">午後休憩</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        短い休憩時間です。リフレッシュしましょう。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingNine">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                        <div class="time-label">15:10-15:55</div> <div class="ms-3">SQL基本構文</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        SQL（Structured Query Language）の基本構文、SELECT文によるデータ抽出、INSERT・UPDATE・DELETE文によるデータ操作、WHERE句による条件指定を学習します。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習 - SQL基本操作
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTen">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                        <div class="time-label">15:55-17:00</div> <div class="ms-3">理解度チェック</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        データベース基礎分野の理解度を確認するテストを実施します。関係モデル、ER図、正規化、基本SQL文に関する問題に取り組みます。
+                                        <div class="alert alert-warning mt-2">
+                                            <i class="bi bi-patch-question-fill"></i> テスト - データベース基礎
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEleven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                                        <div class="time-label">17:00-17:45</div> <div class="ms-3">振り返り・質疑応答</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        本日の学習内容の振り返りと質疑応答。データベース設計や正規化でよくある疑問点について解説し、明日のデータベース応用学習への準備を行います。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="theme-details">
+                    <h2 class="section-title"><i class="fas fa-database"></i> データベース基礎</h2>
+                    <div class="content-card">
+                        <h3><i class="fas fa-layer-group"></i> データベースの種類と特徴</h3>
+                        
+                        <div class="database-concept">
+                            <h4><i class="fas fa-tree text-success"></i> 階層型データベース</h4>
+                            <p>データを木構造で管理するデータベース。親子関係が明確で、IBMのIMSが代表例です。</p>
+                            <ul>
+                                <li>特徴: 高速アクセス、構造が単純</li>
+                                <li>欠点: 柔軟性に欠ける、データの冗長性</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="database-concept">
+                            <h4><i class="fas fa-project-diagram text-info"></i> ネットワーク型データベース</h4>
+                            <p>複雑な関係をネットワーク構造で表現するデータベース。CODASYLが標準化しました。</p>
+                            <ul>
+                                <li>特徴: 多対多の関係を直接表現</li>
+                                <li>欠点: 構造が複雑、プログラミングが困難</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="database-concept">
+                            <h4><i class="fas fa-table text-primary"></i> 関係型データベース（RDB）</h4>
+                            <p>データを表（テーブル）の形で管理する現在最も普及しているデータベース。</p>
+                            <ul>
+                                <li>特徴: 直感的な構造、SQLによる標準的な操作</li>
+                                <li>利点: データの独立性、正規化による冗長性排除</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="database-concept">
+                            <h4><i class="fas fa-code-branch text-warning"></i> NoSQLデータベース</h4>
+                            <p>関係型以外の新しいデータベース技術の総称。ビッグデータ処理に適しています。</p>
+                            <ul>
+                                <li>種類: ドキュメント指向、キーバリュー型、カラム指向、グラフ型</li>
+                                <li>特徴: スケーラビリティ、柔軟なスキーマ</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <h3><i class="fas fa-cubes"></i> 関係モデルの基本概念</h3>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mt-3 mb-3">
+                                    <div class="card-header bg-primary text-white">
+                                        <h4 class="mb-0"><i class="fas fa-table"></i> リレーション（関係・表）</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>データを格納する表のこと。行と列で構成され、各列は特定の属性を表します。</p>
+                                        <ul>
+                                            <li>例: 学生テーブル、科目テーブル</li>
+                                            <li>特徴: 重複する行がない</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="card mt-3 mb-3">
+                                    <div class="card-header bg-success text-white">
+                                        <h4 class="mb-0"><i class="fas fa-minus"></i> タプル（組・行）</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>リレーション内の各行のこと。一つのエンティティ（実体）を表現します。</p>
+                                        <ul>
+                                            <li>例: 一人の学生の情報</li>
+                                            <li>特徴: 各タプルは一意に識別可能</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mt-3 mb-3">
+                                    <div class="card-header bg-info text-white">
+                                        <h4 class="mb-0"><i class="fas fa-columns"></i> 属性（列）</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>リレーション内の各列のこと。エンティティの特性を表現します。</p>
+                                        <ul>
+                                            <li>例: 学生ID、氏名、年齢</li>
+                                            <li>特徴: 各属性には定義域がある</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="card mt-3 mb-3">
+                                    <div class="card-header bg-warning text-dark">
+                                        <h4 class="mb-0"><i class="fas fa-key"></i> キー</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>タプルを一意に識別するための属性または属性の組み合わせ。</p>
+                                        <ul>
+                                            <li>主キー: 主要な識別子</li>
+                                            <li>外部キー: 他のテーブルとの関連付け</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <h3><i class="fas fa-sitemap"></i> ER図によるデータベース設計</h3>
+                        
+                        <div class="er-diagram">
+                            <h4>基本的なER図の要素</h4>
+                            <div class="row text-center mt-4">
+                                <div class="col-md-4">
+                                    <div class="border border-primary rounded p-3 mb-3">
+                                        <i class="fas fa-square text-primary fa-3x"></i>
+                                        <h5 class="mt-2">エンティティ</h5>
+                                        <p>データとして管理したい実体<br>（学生、科目、教員など）</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="border border-success rounded p-3 mb-3">
+                                        <i class="fas fa-circle text-success fa-3x"></i>
+                                        <h5 class="mt-2">アトリビュート</h5>
+                                        <p>エンティティの性質や特徴<br>（学生ID、氏名、年齢など）</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="border border-warning rounded p-3 mb-3">
+                                        <i class="fas fa-gem text-warning fa-3x"></i>
+                                        <h5 class="mt-2">リレーションシップ</h5>
+                                        <p>エンティティ間の関係<br>（履修、担当、所属など）</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-lightbulb"></i> <strong>設計のポイント:</strong>
+                            <ul class="mb-0 mt-2">
+                                <li>業務要件を正確に分析し、必要なエンティティを洗い出す</li>
+                                <li>エンティティ間の関係性（1対1、1対多、多対多）を明確にする</li>
+                                <li>主キーと外部キーを適切に設定する</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <h3><i class="fas fa-adjust"></i> 正規化理論</h3>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0">第1正規形（1NF）</h4>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>条件:</strong> 各セルに単一の値のみを格納する（多値属性の排除）</p>
+                                <div class="sql-example">
+                                    <strong>正規化前:</strong><br>
+                                    学生ID | 氏名 | 履修科目<br>
+                                    S001 | 田中 | 数学,英語,物理<br><br>
+                                    <strong>正規化後:</strong><br>
+                                    学生ID | 氏名 | 履修科目<br>
+                                    S001 | 田中 | 数学<br>
+                                    S001 | 田中 | 英語<br>
+                                    S001 | 田中 | 物理
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header bg-success text-white">
+                                <h4 class="mb-0">第2正規形（2NF）</h4>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>条件:</strong> 1NFかつ、非キー属性が主キー全体に完全従属する（部分従属の排除）</p>
+                                <p>複合キーの一部にのみ依存する属性を別テーブルに分割します。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header bg-info text-white">
+                                <h4 class="mb-0">第3正規形（3NF）</h4>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>条件:</strong> 2NFかつ、非キー属性間の推移従属がない（推移従属の排除）</p>
+                                <p>キー以外の属性に依存する属性を別テーブルに分割します。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <h3><i class="fas fa-code"></i> SQL基本構文</h3>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4><i class="fas fa-search text-primary"></i> SELECT文（データ抽出）</h4>
+                                <div class="sql-example">
+                                    -- 基本的なSELECT文<br>
+                                    SELECT 氏名, 年齢 FROM 学生;<br><br>
+                                    -- 条件付きSELECT文<br>
+                                    SELECT * FROM 学生 <br>
+                                    WHERE 年齢 >= 20;<br><br>
+                                    -- 並び替え<br>
+                                    SELECT * FROM 学生 <br>
+                                    ORDER BY 年齢 DESC;
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h4><i class="fas fa-plus text-success"></i> INSERT文（データ挿入）</h4>
+                                <div class="sql-example">
+                                    -- 新しいレコードの挿入<br>
+                                    INSERT INTO 学生 <br>
+                                    (学生ID, 氏名, 年齢) <br>
+                                    VALUES ('S001', '田中', 20);<br><br>
+                                    -- 複数レコードの挿入<br>
+                                    INSERT INTO 学生 VALUES <br>
+                                    ('S002', '佐藤', 21),<br>
+                                    ('S003', '山田', 19);
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <h4><i class="fas fa-edit text-warning"></i> UPDATE文（データ更新）</h4>
+                                <div class="sql-example">
+                                    -- 特定レコードの更新<br>
+                                    UPDATE 学生 <br>
+                                    SET 年齢 = 21 <br>
+                                    WHERE 学生ID = 'S001';<br><br>
+                                    -- 複数列の更新<br>
+                                    UPDATE 学生 <br>
+                                    SET 氏名 = '田中太郎', 年齢 = 22<br>
+                                    WHERE 学生ID = 'S001';
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h4><i class="fas fa-trash text-danger"></i> DELETE文（データ削除）</h4>
+                                <div class="sql-example">
+                                    -- 特定レコードの削除<br>
+                                    DELETE FROM 学生 <br>
+                                    WHERE 学生ID = 'S001';<br><br>
+                                    -- 条件に合致する複数レコード削除<br>
+                                    DELETE FROM 学生 <br>
+                                    WHERE 年齢 < 18;<br><br>
+                                    -- 全レコード削除<br>
+                                    DELETE FROM 学生;
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="resources">
+                    <h2 class="section-title"><i class="fas fa-book"></i> 使用教材・リソース</h2>
+                    <div class="content-card">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-book-fill text-primary"></i> 主要教材
+                                        </h5>
+                                        <ul class="card-text">
+                                            <li>基本情報技術者試験シラバス</li>
+                                            <li>データベース入門テキスト</li>
+                                            <li>SQL実践ガイド</li>
+                                            <li>IPA公式過去問題集</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-laptop-fill text-success"></i> 開発環境
+                                        </h5>
+                                        <ul class="card-text">
+                                            <li>MySQL Community Server</li>
+                                            <li>phpMyAdmin（Web管理ツール）</li>
+                                            <li>SQLiteブラウザ</li>
+                                            <li>ER図作成ツール（draw.io）</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-journal-code text-warning"></i> 参考サイト
+                                        </h5>
+                                        <ul class="card-text">
+                                            <li><a href="https://www.w3schools.com/sql/" target="_blank">W3Schools SQL Tutorial</a></li>
+                                            <li><a href="https://sqlbolt.com/" target="_blank">SQLBolt（対話型学習）</a></li>
+                                            <li><a href="https://dev.mysql.com/doc/" target="_blank">MySQL公式ドキュメント</a></li>
+                                            <li><a href="https://www.postgresql.jp/document" target="_blank">PostgreSQL日本語ドキュメント</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="comprehension-check">
+                    <h2 class="section-title"><i class="fas fa-check-double"></i> 理解度確認項目</h2>
+                    <div class="content-card">
+                        <div class="mb-4">
+                            <h4><i class="bi bi-star-fill text-warning"></i> 基本レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check1">
+                                        <label class="form-check-label" for="check1">
+                                            データベースの種類（階層型、ネットワーク型、関係型、NoSQL）の特徴を説明できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check2">
+                                        <label class="form-check-label" for="check2">
+                                            関係モデルの基本概念（リレーション、タプル、属性、キー）を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check3">
+                                        <label class="form-check-label" for="check3">
+                                            主キーと外部キーの役割と違いを説明できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check4">
+                                        <label class="form-check-label" for="check4">
+                                            ER図の基本的な記号（エンティティ、アトリビュート、リレーションシップ）を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check5">
+                                        <label class="form-check-label" for="check5">
+                                            第1～第3正規形の概念と正規化の目的を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4><i class="bi bi-stars text-primary"></i> 応用レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check6">
+                                        <label class="form-check-label" for="check6">
+                                            簡単な業務要件からER図を作成できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check7">
+                                        <label class="form-check-label" for="check7">
+                                            非正規化テーブルを第3正規形まで正規化できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check8">
+                                        <label class="form-check-label" for="check8">
+                                            基本的なSQL文（SELECT, INSERT, UPDATE, DELETE）を記述できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check9">
+                                        <label class="form-check-label" for="check9">
+                                            WHERE句を使った条件付きクエリを作成できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check10">
+                                        <label class="form-check-label" for="check10">
+                                            データベースの基本情報技術者試験問題を解答できる
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="next-steps">
+                    <h2 class="section-title"><i class="fas fa-arrow-right"></i> 次のステップ</h2>
+                    <div class="content-card next-step-card">
+                        <h3><i class="fas fa-rocket"></i> Day 27: データベース応用・最新技術</h3>
+                        <p>明日は今日学んだデータベース基礎を発展させ、SQL応用構文（JOIN、サブクエリ、集計関数）、トランザクション処理とACID特性、並行制御とデッドロック対策、NoSQLデータベースの種類と特徴、ビッグデータ処理の基礎について学習します。</p>
+                        
+                        <div class="alert alert-success mt-3">
+                            <h5><i class="fas fa-book-reader"></i> 予習のポイント:</h5>
+                            <ul class="mb-0">
+                                <li>今日学んだ基本SQL文の復習</li>
+                                <li>JOIN句の概念について調べる</li>
+                                <li>トランザクションの概念について予習</li>
+                                <li>NoSQLデータベースの種類について概要を把握</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="day27.html" class="btn btn-success mt-2">
+                            <i class="bi bi-arrow-right-circle-fill"></i> Day 27の詳細を見る
+                        </a>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title"><i class="fas fa-comment-dots"></i> フィードバック</h2>
+                    <div class="content-card feedback-form">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle-fill"></i> データベース基礎の学習内容についてフィードバックをお寄せください。
+                        </div>
+                        <form id="feedback-form" class="mt-3">
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">理解度</label>
+                                <select class="form-select" id="rating">
+                                    <option value="5">とても理解できた</option>
+                                    <option value="4">理解できた</option>
+                                    <option value="3">普通</option>
+                                    <option value="2">あまり理解できなかった</option>
+                                    <option value="1">理解できなかった</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="feedbackText" class="form-label">コメント</label>
+                                <textarea class="form-control" id="feedbackText" rows="3" placeholder="データベース設計やSQL文について、疑問点や感想をご記入ください"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> 送信
+                            </button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top: 100px;">
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-calendar-check"></i> 学習進捗</h3>
+                        <div class="progress-container">
+                            <p>Day 26の学習進捗</p>
+                            <div class="progress" style="height: 20px;">
+                                <div id="day-progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>
+                            <p class="text-end mt-2" id="progress-text">0/10 完了</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="progressChart" style="height: 300px;"></canvas>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button id="resetProgress" class="btn btn-outline-warning btn-sm">
+                                <i class="bi bi-arrow-counterclockwise"></i> 進捗をリセット
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-journal-text"></i> 目次</h3>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#scheduleAccordion">詳細スケジュール</a>
+                            <a class="nav-link" href="#theme-details">データベース基礎</a>
+                            <a class="nav-link" href="#resources">使用教材・リソース</a>
+                            <a class="nav-link" href="#comprehension-check">理解度確認項目</a>
+                            <a class="nav-link" href="#next-steps">次のステップ</a>
+                        </nav>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-link-45deg"></i> 関連リンク</h3>
+                        <div class="list-group">
+                            <a href="../week/week6.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-calendar-week"></i> 第6週の概要
+                            </a>
+                            <a href="../month/month2.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-calendar-month"></i> 第2ヶ月目の概要
+                            </a>
+                            <a href="../../resources/resources.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-book"></i> 学習リソース
+                            </a>
+                            <a href="../../resources/faq.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-question-circle"></i> よくある質問
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <h3><i class="bi bi-arrow-left-right"></i> ナビゲーション</h3>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="day25.html" class="btn btn-outline-primary">
+                                <i class="bi bi-arrow-left"></i> Day 25
+                            </a>
+                            <a href="day27.html" class="btn btn-outline-primary">
+                                Day 27 <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-light mt-5">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="footer-logo">
+                        <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                    </div>
+                    <p>ITエンジニア育成カリキュラムは、未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>カリキュラム</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../month/month1.html">第1ヶ月目</a></li>
+                        <li><a href="../month/month2.html">第2ヶ月目</a></li>
+                        <li><a href="../month/month3.html">第3ヶ月目</a></li>
+                        <li><a href="../../resources/advanced.html">応用コース</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>リソース</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../resources/resources.html">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html">よくある質問</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>お問い合わせ</h5>
+                    <p>本カリキュラムについてのお問い合わせは下記までお願いします。</p>
+                    <a href="mailto:info@apsa.co.jp" class="btn btn-outline-light">
+                        <i class="bi bi-envelope"></i> メールでのお問い合わせ
+                    </a>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="text-light"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/lib/jquery.min.js"></script>
+    <script src="../../js/lib/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // チェックボックスのイベントリスナーを設定
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+            
+            // 進捗リセットボタン
+            document.getElementById('resetProgress').addEventListener('click', function() {
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                updateProgress();
+            });
+            
+            // 初期進捗更新
+            updateProgress();
+            
+            // プログレスチャートの初期化
+            initProgressChart();
+            
+            // フィードバックフォーム
+            document.getElementById('feedback-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('フィードバックを送信しました。ありがとうございます！');
+                this.reset();
+            });
+            
+            // ローカルストレージから進捗を復元
+            const savedProgress = localStorage.getItem('day26Progress');
+            if (savedProgress) {
+                const progress = JSON.parse(savedProgress);
+                let count = 0;
+                checkboxes.forEach(checkbox => {
+                    if (count < progress.checked) {
+                        checkbox.checked = true;
+                    }
+                    count++;
+                });
+                updateProgress();
+            }
+        });
+        
+        // 進捗を更新する関数
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            const totalChecks = checkboxes.length;
+            let checkedCount = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    checkedCount++;
+                }
+            });
+            
+            const progressPercent = totalChecks > 0 ? Math.round((checkedCount / totalChecks) * 100) : 0;
+            
+            // プログレスバーを更新
+            const progressBar = document.getElementById('day-progress');
+            progressBar.style.width = `${progressPercent}%`;
+            progressBar.textContent = `${progressPercent}%`;
+            progressBar.setAttribute('aria-valuenow', progressPercent);
+            
+            // プログレステキストを更新
+            document.getElementById('progress-text').textContent = `${checkedCount}/${totalChecks} 完了`;
+            
+            // チャートを更新
+            updateProgressChart(checkedCount, totalChecks - checkedCount);
+            
+            // ローカルストレージに保存
+            localStorage.setItem('day26Progress', JSON.stringify({
+                checked: checkedCount,
+                total: totalChecks,
+                percent: progressPercent
+            }));
+        }
+        
+        // チャートの初期化
+        function initProgressChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            window.progressChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['完了', '未完了'],
+                    datasets: [{
+                        data: [0, 10],
+                        backgroundColor: ['#198754', '#e9ecef'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // チャートの更新
+        function updateProgressChart(completed, remaining) {
+            if (window.progressChart) {
+                window.progressChart.data.datasets[0].data = [completed, remaining];
+                window.progressChart.update();
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDl5Jfv5D2YOeQR0Bp%2FaJJnNFTf%2FJk0LswsKjaYMNIxdfGj0UTJwy5AK5W8m7JwSk6DgeE6bMxoQLrRm2%2B7%2FSHiy%2BX16MpSU2pY4LJVcZVdP04tXqviieTtrdnMpWP31%2BkqU5E3nwGYqqsny8s91nlQJz2yAqOU3Mjx7YGbe45D4vUF0lhSI2gm61aQiCeLDQufCSkApUTJs5m4jfJqAVgzj4boYXFLfBLuLJx%2FXudMGpQvp%2F%2BtExenHKikBPVuq32bnGQrxMI3354iev%2BU96DcloLtLipYMxz35zUo07Bxy6qMcotu23zpJ121AfaXrKot0Wu%2FpRsfJ%2Bqd3U8%2BzANRR47CT0XdqliCPhoysJPl7qfIrFL8VQrYIOsLPs4RyX8hEMtfBwdRLAz8eXO8EEcd9sHHINVR3a8a%2BoeTMX7lWfZqslw%2BKrNg2IWgxprD6smP6jzcaEczbeP6N4i9qX16Ek4LxQjwnDLePKEA1O%2BwAe5Qxw1mjSZSUYpay%2F8xlrvw%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDl5Jfv5D2YOeQR0Bp/aJJnNFTf/Jk0LswsKjaYMNIxdfGj0UTJwy5AK5W8m7JwSk6DgeE6bMxoQLrRm2+7/SHiy+X16MpSU2pY4LJVcZVdP04tXqviieTtrdnMpWP31+kqU5E3nwGYqqsny8s91nlQJz2yAqOU3Mjx7YGbe45D4vUF0lhSI2gm61aQiCeLDQufCSkApUTJs5m4jfJqAVgzj4boYXFLfBLuLJx/XudMGpQvp/+tExenHKikBPVuq32bnGQrxMI3354iev+U96DcloLtLipYMxz35zUo07Bxy6qMcotu23zpJ121AfaXrKot0Wu/pRsfJ+qd3U8+zANRR47CT0XdqliCPhoysJPl7qfIrFL8VQrYIOsLPs4RyX8hEMtfBwdRLAz8eXO8EEcd9sHHINVR3a8a+oeTMX7lWfZqslw+KrNg2IWgxprD6smP6jzcaEczbeP6N4i9qX16Ek4LxQjwnDLePKEA1O+wAe5Qxw1mjSZSUYpay/8xlrvw==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

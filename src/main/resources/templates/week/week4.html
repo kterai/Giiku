@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第4週: 総仕上げ | ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        .header-gradient {
+            background: linear-gradient(135deg, #4a6fa5 0%, #2c3e50 100%);
+            color: white;
+        }
+        .day-card {
+            border-left: 4px solid #4a6fa5;
+            transition: transform 0.3s ease;
+        }
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .resource-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #edf2f7;
+            margin-bottom: 1rem;
+        }
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #4a6fa5;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: white;
+            border: 4px solid #4a6fa5;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+        .breadcrumb {
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            display: inline-block;
+        }
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            .timeline-item:nth-child(even)::after {
+                left: 20px;
+            }
+            .timeline-item:nth-child(odd)::after {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <header class="navbar header-gradient shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold">
+                    <a href="../../index.html" class="text-white hover:text-gray-200">
+                        ITエンジニア育成カリキュラム
+                    </a>
+                </h1>
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-6">
+                        <li>
+                            <a href="../../index.html" class="text-white hover:text-gray-200">ホーム</a>
+                        </li>
+                        <li class="relative group">
+                            <a href="#" class="text-white hover:text-gray-200">月別カリキュラム</a>
+                            <div class="absolute left-0 mt-2 w-60 rounded-md shadow-lg bg-white hidden group-hover:block">
+                                <div class="py-1">
+                                    <a href="../month/month1.html" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">第1ヶ月目: Java Silver</a>
+                                    <a href="../month/month2.html" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">第2ヶ月目: 基本情報</a>
+                                    <a href="../month/month3.html" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">第3ヶ月目: Web開発</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="relative group">
+                            <a href="#" class="text-white hover:text-gray-200">週別詳細</a>
+                            <div class="absolute left-0 mt-2 w-60 rounded-md shadow-lg bg-white hidden group-hover:block">
+                                <div class="py-1">
+                                    <a href="week1.html" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">第1週: Java基礎</a>
+                                    <a href="week2.html" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">第2週: オブジェクト指向</a>
+                                    <a href="week3.html" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">第3週: Java応用</a>
+                                    <a href="week4.html" class="block px-4 py-2 text-gray-800 hover:bg-blue-100 bg-blue-50">第4週: 総仕上げ</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="relative group">
+                            <a href="#" class="text-white hover:text-gray-200">リソース</a>
+                            <div class="absolute right-0 mt-2 w-60 rounded-md shadow-lg bg-white hidden group-hover:block">
+                                <div class="py-1">
+                                    <a href="../../resources/resources.html" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">学習リソース</a>
+                                    <a href="../../resources/faq.html" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">よくある質問</a>
+                                    <a href="../../resources/advanced.html" class="block px-4 py-2 text-gray-800 hover:bg-blue-100">応用コース</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+                <button class="md:hidden focus:outline-none">
+                    <i class="fas fa-bars text-white text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+        <div class="bg-black bg-opacity-50 py-20">
+            <div class="container mx-auto px-4">
+                <div class="breadcrumb mb-4">
+                    <a href="../../index.html" class="text-blue-600 hover:text-blue-800">ホーム</a> &gt;
+                    <a href="../month/month1.html" class="text-blue-600 hover:text-blue-800">第1ヶ月目: Java Silver</a> &gt;
+                    <span class="text-gray-700">第4週: 総仕上げ</span>
+                </div>
+                <h1 class="text-4xl font-bold text-white mb-4">第4週: 総仕上げ</h1>
+                <p class="text-xl text-white">Day 16-18: Java Silver試験に向けた最終準備と総合復習</p>
+            </div>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4 py-8 flex-grow">
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">週の概要</h2>
+                <p class="text-lg text-gray-700 mb-6">
+                    第4週は、これまで学習してきたJavaの基礎から応用までの内容を総合的に復習し、Java Silver試験に向けた最終準備を行います。
+                    模擬試験を通じて理解度を確認し、弱点を強化することで、実際の試験に備えます。
+                    この週の終わりには、Java SE 17 Programmerとして必要な知識とスキルを完全に習得していることを目指します。
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-blue-50 rounded-lg p-6">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-bullseye text-blue-600 mr-3"></i>
+                            <h3 class="text-xl font-semibold">週の目標</h3>
+                        </div>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Java Silver試験の出題範囲を完全に網羅する</li>
+                            <li>複数回の模擬試験で80%以上の正答率を目指す</li>
+                            <li>弱点分野の集中的な復習と強化</li>
+                            <li>試験対策のテクニックと時間配分の戦略を習得</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-green-50 rounded-lg p-6">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-check-double text-green-600 mr-3"></i>
+                            <h3 class="text-xl font-semibold">獲得スキル</h3>
+                        </div>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Java SE 17のすべての重要機能の理解</li>
+                            <li>複雑な問題を解決するための論理的思考</li>
+                            <li>コードの分析と評価能力</li>
+                            <li>試験でよくある落とし穴の回避方法</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-purple-50 rounded-lg p-6">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-book text-purple-600 mr-3"></i>
+                            <h3 class="text-xl font-semibold">主要トピック</h3>
+                        </div>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Java Silver試験の全分野の総合復習</li>
+                            <li>模擬試験と詳細な解説</li>
+                            <li>よく間違える問題パターンの対策</li>
+                            <li>実践的なコーディング演習</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lightbulb text-yellow-400 text-xl mt-1"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-lg font-medium text-yellow-800">週のポイント</h3>
+                            <p class="text-yellow-700">
+                                この週は「量」より「質」を重視してください。すでに学習した内容をどれだけ深く理解しているかが重要です。
+                                模擬テストで間違えた問題は、なぜ間違えたのかを徹底的に分析し、同じ誤りを繰り返さないようにしましょう。
+                                また、試験直前の精神的な準備も大切です。十分な睡眠と休息を取り、ベストパフォーマンスを発揮できるようにしましょう。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">日別スケジュール</h2>
+                
+                <div class="mb-10">
+                    <div class="day-card bg-white rounded-lg shadow p-6 mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Day 16: 総合模擬試験①</h3>
+                        <div class="mb-4">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full mr-2">2023-07-20</span>
+                            <span class="inline-block bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">6時間</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-4">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-2">学習目標</h4>
+                                <ul class="list-disc list-inside space-y-1 text-gray-600">
+                                    <li>Java Silver試験の全範囲を網羅する模擬試験に挑戦</li>
+                                    <li>自分の強みと弱点分野を明確にする</li>
+                                    <li>時間配分と問題解決のペース配分を習得</li>
+                                    <li>解答の見直し方と消去法による回答テクニックを学ぶ</li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-2">タイムテーブル</h4>
+                                <table class="min-w-full">
+                                    <tbody>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">10:00 - 10:15</td>
+                                            <td class="py-2">オリエンテーション・模擬試験の説明</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">10:15 - 12:15</td>
+                                            <td class="py-2">模擬試験 パート1（80問中40問）</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">12:15 - 13:15</td>
+                                            <td class="py-2">昼休憩</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">13:15 - 15:15</td>
+                                            <td class="py-2">模擬試験 パート2（残り40問）</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">15:15 - 15:30</td>
+                                            <td class="py-2">休憩</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">15:30 - 17:00</td>
+                                            <td class="py-2">解答・解説・弱点分析</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">17:00 - 17:45</td>
+                                            <td class="py-2">振り返りと質疑応答</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="text-lg font-semibold text-gray-700 mb-2">今日のポイント</h4>
+                            <p class="text-gray-600 mb-3">
+                                模擬試験は実際の試験と同じ条件で行うことで、本番の雰囲気に慣れることが大切です。
+                                問題を解く際は、最初に全体を概観し、簡単な問題から解いていく戦略が効果的です。
+                                解答後の振り返りでは、間違えた問題だけでなく、正解した問題も含めて解答の根拠を明確にしましょう。
+                            </p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-link mr-2"></i>
+                                <a href="../day/day16.html" class="text-blue-600 hover:text-blue-800">Day 16の詳細ページへ</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="day-card bg-white rounded-lg shadow p-6 mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Day 17: 総合模擬試験②・直前対策</h3>
+                        <div class="mb-4">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full mr-2">2023-07-21</span>
+                            <span class="inline-block bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">6時間</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-4">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-2">学習目標</h4>
+                                <ul class="list-disc list-inside space-y-1 text-gray-600">
+                                    <li>前回の模擬試験で特定された弱点分野の強化</li>
+                                    <li>2回目の模擬試験による総合的な理解度の確認</li>
+                                    <li>試験テクニックと時間管理の改善</li>
+                                    <li>よくある落とし穴や誤解しやすい問題パターンの理解</li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-2">タイムテーブル</h4>
+                                <table class="min-w-full">
+                                    <tbody>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">10:00 - 10:30</td>
+                                            <td class="py-2">前回の模擬試験の復習と弱点分析</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">10:30 - 12:30</td>
+                                            <td class="py-2">模擬試験②（第1部）</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">12:30 - 13:30</td>
+                                            <td class="py-2">昼休憩</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">13:30 - 14:30</td>
+                                            <td class="py-2">模擬試験②（第2部）</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">14:30 - 15:30</td>
+                                            <td class="py-2">解答解説・成績分析</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">15:30 - 16:45</td>
+                                            <td class="py-2">弱点分野の集中復習・試験テクニック講座</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">16:45 - 17:45</td>
+                                            <td class="py-2">質疑応答・明日の最終テストに向けた準備</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="text-lg font-semibold text-gray-700 mb-2">今日のポイント</h4>
+                            <p class="text-gray-600 mb-3">
+                                2回目の模擬試験では、前回の経験を活かして時間配分を改善し、より確実に解答できるようにしましょう。
+                                特に注意したいのは、「誤っているものを選べ」などの否定形の問題や、複数の正解がある問題です。
+                                試験直前の対策として、Java SE 17の新機能に関する問題や、経験上多くの受験者が間違えやすいトピックに焦点を当てます。
+                            </p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-link mr-2"></i>
+                                <a href="../day/day17.html" class="text-blue-600 hover:text-blue-800">Day 17の詳細ページへ</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="day-card bg-white rounded-lg shadow p-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Day 18: 最終模擬試験・1ヶ月目総括</h3>
+                        <div class="mb-4">
+                            <span class="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full mr-2">2023-07-22</span>
+                            <span class="inline-block bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">6時間</span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-4">
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-2">学習目標</h4>
+                                <ul class="list-disc list-inside space-y-1 text-gray-600">
+                                    <li>最終模擬試験で総合的な実力を確認</li>
+                                    <li>1ヶ月間の学習内容を体系的に振り返る</li>
+                                    <li>残された弱点の最終補強</li>
+                                    <li>Java Silver受験に向けた最終準備と心構え</li>
+                                    <li>第2ヶ月目への準備</li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-700 mb-2">タイムテーブル</h4>
+                                <table class="min-w-full">
+                                    <tbody>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">10:00 - 10:15</td>
+                                            <td class="py-2">オリエンテーション・最終日の説明</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">10:15 - 12:15</td>
+                                            <td class="py-2">最終模擬試験（本番形式）</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">12:15 - 13:00</td>
+                                            <td class="py-2">昼休憩</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">13:00 - 14:00</td>
+                                            <td class="py-2">試験解説・最終成績評価</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">14:00 - 15:00</td>
+                                            <td class="py-2">1ヶ月間の総括・学習成果の確認</td>
+                                        </tr>
+                                        <tr class="border-b">
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">15:00 - 16:00</td>
+                                            <td class="py-2">試験直前の最終アドバイス・質疑応答</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="py-2 pr-4 text-gray-600 font-medium">16:00 - 17:45</td>
+                                            <td class="py-2">第2ヶ月目のプレビューと準備</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="text-lg font-semibold text-gray-700 mb-2">今日のポイント</h4>
+                            <p class="text-gray-600 mb-3">
+                                最終日は、これまでの学習の成果を確認するとともに、今後の学習への橋渡しとなる重要な日です。
+                                最終模擬試験では、本番さながらの緊張感を持って臨み、これまでの学習の成果を発揮しましょう。
+                                また、次の段階（基本情報技術者試験対策）への準備も始めることで、学習の連続性を保ちます。
+                            </p>
+                            <div class="flex items-center text-sm text-gray-500">
+                                <i class="fas fa-link mr-2"></i>
+                                <a href="../day/day18.html" class="text-blue-600 hover:text-blue-800">Day 18の詳細ページへ</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">学習進捗</h2>
+                    <div class="mb-6" style="height: 300px;">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-gray-600 font-medium">総合進捗</span>
+                        <span class="text-gray-800 font-bold">92%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+                        <div class="bg-blue-600 h-2.5 rounded-full" style="width: 92%"></div>
+                    </div>
+                    <p class="text-sm text-gray-600">
+                        第4週を完了すると、Java Silver 17の学習カリキュラム全体が終了します。
+                        次のステップとして、第2ヶ月目の基本情報技術者試験対策に進みます。
+                    </p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">学習リソース</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="resource-icon bg-blue-50 text-blue-600">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-800">模擬試験問題集</h3>
+                                <p class="text-gray-600 mb-2">Java SE 17 Programmer I (1Z0-829) 試験に完全対応した模擬問題集</p>
+                                <a href="https://education.oracle.com/java-se-17-developer/pexam_1Z0-829" class="text-blue-600 hover:text-blue-800 text-sm flex items-center">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Oracle公式サイト
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="resource-icon bg-green-50 text-green-600">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-800">コード練習プラットフォーム</h3>
+                                <p class="text-gray-600 mb-2">実践的なJavaプログラミング問題で実力を試す</p>
+                                <a href="https://www.hackerrank.com/domains/java" class="text-blue-600 hover:text-blue-800 text-sm flex items-center">
+                                    <i class="fas fa-external-link-alt mr-1"></i> HackerRank Java問題
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="resource-icon bg-purple-50 text-purple-600">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-800">試験直前チェックリスト</h3>
+                                <p class="text-gray-600 mb-2">Java Silver試験に向けた最終確認項目</p>
+                                <a href="../../resources/resources.html#exam-checklist" class="text-blue-600 hover:text-blue-800 text-sm flex items-center">
+                                    <i class="fas fa-external-link-alt mr-1"></i> チェックリストを見る
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <a href="../../resources/resources.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition duration-300">
+                                すべてのリソースを見る
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-8">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">次のステップ</h2>
+                <div class="flex items-center justify-between p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">第2ヶ月目: 基本情報技術者試験対策へ進む</h3>
+                        <p class="text-gray-600 max-w-2xl">
+                            Java Silver試験対策を終え、次は基本情報技術者試験に向けた学習を始めます。
+                            コンピュータシステム、ネットワーク、データベース、アルゴリズムなど、ITエンジニアとして必要な幅広い基礎知識を習得します。
+                            Java学習で培った論理的思考力を活かしながら、より広範なIT知識を体系的に学んでいきましょう。
+                        </p>
+                    </div>
+                    <a href="../month/month2.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg shadow-md transition duration-300">
+                        次のカリキュラムへ <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white pt-12 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">ITエンジニア育成カリキュラム</h3>
+                    <p class="text-gray-400">
+                        未経験から3ヶ月でITエンジニアとしての基礎を身につけるための体系的なプログラムです。
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">カリキュラム</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="../month/month1.html" class="hover:text-white">第1ヶ月目: Java Silver</a></li>
+                        <li><a href="../month/month2.html" class="hover:text-white">第2ヶ月目: 基本情報</a></li>
+                        <li><a href="../month/month3.html" class="hover:text-white">第3ヶ月目: Web開発</a></li>
+                        <li><a href="../../resources/advanced.html" class="hover:text-white">応用コース</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">第1ヶ月目</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="week1.html" class="hover:text-white">第1週: Java基礎</a></li>
+                        <li><a href="week2.html" class="hover:text-white">第2週: オブジェクト指向</a></li>
+                        <li><a href="week3.html" class="hover:text-white">第3週: Java応用</a></li>
+                        <li><a href="week4.html" class="hover:text-white">第4週: 総仕上げ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">リソース</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="../../resources/resources.html" class="hover:text-white">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html" class="hover:text-white">よくある質問</a></li>
+                        <li><a href="../../index.html" class="hover:text-white">ホームに戻る</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-6 text-center text-gray-400">
+                <p>&copy; 2023 ITエンジニア育成カリキュラム All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 進捗チャートの初期化
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            const progressChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['完了', '進行中', '未開始'],
+                    datasets: [{
+                        data: [85, 7, 8],
+                        backgroundColor: [
+                            '#4299e1',
+                            '#f6ad55',
+                            '#e2e8f0'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.raw + '%';
+                                }
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDjWfWquIbAEeON7SjQvRqriKSozVHd6jAOD%2B3dHf6ttd7UtUoUuG7T%2B1zxZU6rtPMi0yxx1jddu8sc%2FcILzTtqaHO5Z56nF0QV3yErOz7jKxihru1C%2B5%2Bsgp3wrJbaQGDyvq13JhOOl%2BAGJpN7DaV9ZQofy3wSCZFSNY60MtEPYvPVuREadIy1Vx7pVQ14v8PROer6uPWbsvVHhzFWpwIigleBdjhsbKAENIixljFZxnAkHk%2FBkfSPV4s7tNqqWeB9IVem1Kcw7mTWk1aqp60nB63jPJgarVW16i9RfcTdz9xflfuzVR5BFxRXOVHYKNZenm%2BBGNeRJL7%2BR5JH%2F%2BTDT%2FMpKhm9z877BJTC7q%2Fu89ESWs9Olpj%2BuD8EvgwHJ9dkuckaQpPQByO85GDybJIDdONK8NtJjwecpoUYQXplYFKlBjz2CQ8HlatIIrCNjqDJeUS4TPEVtkGzgFSRBQ3UuRNbysAu4Boml5QSIMpWTM";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDjWfWquIbAEeON7SjQvRqriKSozVHd6jAOD+3dHf6ttd7UtUoUuG7T+1zxZU6rtPMi0yxx1jddu8sc/cILzTtqaHO5Z56nF0QV3yErOz7jKxihru1C+5+sgp3wrJbaQGDyvq13JhOOl+AGJpN7DaV9ZQofy3wSCZFSNY60MtEPYvPVuREadIy1Vx7pVQ14v8PROer6uPWbsvVHhzFWpwIigleBdjhsbKAENIixljFZxnAkHk/BkfSPV4s7tNqqWeB9IVem1Kcw7mTWk1aqp60nB63jPJgarVW16i9RfcTdz9xflfuzVR5BFxRXOVHYKNZenm+BGNeRJL7+R5JH/+TDT/MpKhm9z877BJTC7q/u89ESWs9Olpj+uD8EvgwHJ9dkuckaQpPQByO85GDybJIDdONK8NtJjwecpoUYQXplYFKlBjz2CQ8HlatIIrCNjqDJeUS4TPEVtkGzgFSRBQ3UuRNbysAu4Boml5QSIMpWTM";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

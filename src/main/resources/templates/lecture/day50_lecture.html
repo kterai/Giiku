@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day50: マイクロサービス・Spring Cloud・分散システム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .code-block {
+            background: #f8fafc;
+            border-left: 4px solid #4f46e5;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight-box {
+            background: linear-gradient(90deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 4px solid #f59e0b;
+        }
+        .success-box {
+            background: linear-gradient(90deg, #dcfce7 0%, #bbf7d0 100%);
+            border-left: 4px solid #10b981;
+        }
+        .warning-box {
+            background: linear-gradient(90deg, #fef2f2 0%, #fecaca 100%);
+            border-left: 4px solid #ef4444;
+        }
+        .info-box {
+            background: linear-gradient(90deg, #dbeafe 0%, #bfdbfe 100%);
+            border-left: 4px solid #3b82f6;
+        }
+        .hidden-content {
+            display: none;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day49_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day51_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month3.html" class="hover:text-blue-600">3ヶ月目: Webアプリケーション開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week11.html" class="hover:text-blue-600">11週目: Spring Boot開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">50日目: マイクロサービス・Spring Cloud・分散システム</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day50.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="gradient-bg text-white py-8">
+            <div class="container mx-auto px-4">
+                <!-- Navigation -->
+                <div class="flex justify-between items-center mb-6">
+                    <a href="day49_lecture.html" class="flex items-center bg-white bg-opacity-20 px-4 py-2 rounded-lg hover:bg-opacity-30 transition-colors">
+                        <i class="fas fa-chevron-left mr-2"></i>
+                        <span>Day49: Spring Security</span>
+                    </a>
+                    <div class="text-center">
+                        <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">Day 50</span>
+                    </div>
+                    <a href="day51_lecture.html" class="flex items-center bg-white bg-opacity-20 px-4 py-2 rounded-lg hover:bg-opacity-30 transition-colors">
+                        <span>Day51: 最終プロジェクト</span>
+                        <i class="fas fa-chevron-right ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Title -->
+                <div class="text-center">
+                    <h1 class="text-4xl font-bold mb-4">
+                        <i class="fas fa-server mr-3"></i>
+                        ITエンジニア育成カリキュラム - Day50
+                    </h1>
+                    <h2 class="text-3xl font-semibold mb-2">マイクロサービス・Spring Cloud・分散システム</h2>
+                    <p class="text-xl opacity-90">スケーラブル分散アーキテクチャの設計と実装</p>
+                    
+                    <div class="mt-6 flex justify-center items-center space-x-4 flex-wrap">
+                        <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full mb-2">
+                            <i class="fas fa-puzzle-piece mr-2"></i>マイクロサービス
+                        </span>
+                        <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full mb-2">
+                            <i class="fas fa-cloud mr-2"></i>Spring Cloud
+                        </span>
+                        <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full mb-2">
+                            <i class="fas fa-network-wired mr-2"></i>分散システム
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container mx-auto px-4 py-8 max-w-6xl">
+            <!-- 推奨開発環境 -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-6">
+                    <h2 class="text-2xl font-bold text-blue-600 mb-4 flex items-center">
+                        <i class="fas fa-tools mr-3"></i>推奨開発環境
+                    </h2>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl mb-2"><i class="fas fa-code text-blue-500"></i></div>
+                            <h3 class="font-semibold text-gray-800">エディタ</h3>
+                            <p class="text-gray-600">IntelliJ IDEA + Spring Boot支援プラグイン</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl mb-2"><i class="fas fa-java text-orange-500"></i></div>
+                            <h3 class="font-semibold text-gray-800">実行環境</h3>
+                            <p class="text-gray-600">Java 17 + Spring Boot 3.x + Spring Cloud</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl mb-2"><i class="fas fa-vial text-green-500"></i></div>
+                            <h3 class="font-semibold text-gray-800">テストツール</h3>
+                            <p class="text-gray-600">Postman + Spring Boot Actuator</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 学習目標 -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-6">
+                    <h2 class="text-2xl font-bold text-green-600 mb-4 flex items-center">
+                        <i class="fas fa-target mr-3"></i>本日の学習目標
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">マイクロサービスアーキテクチャの理解</h3>
+                                    <p class="text-gray-600">モノリスとの違い、設計原則を具体例とともに説明できる</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">Spring Cloud Netflixの活用</h3>
+                                    <p class="text-gray-600">Eureka、Zuul、Hystrixを実際のプロジェクトで実装できる</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">分散システムの課題と解決策</h3>
+                                    <p class="text-gray-600">サービス間通信、障害対応、データ整合性の実装ができる</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                                <div>
+                                    <h3 class="font-semibold text-gray-800">運用・監視の実装</h3>
+                                    <p class="text-gray-600">負荷分散、ヘルスチェック、ログ集約システムを構築できる</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 1. マイクロサービスアーキテクチャの基礎理解 -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-8">
+                    <h2 class="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
+                        <i class="fas fa-puzzle-piece mr-3"></i>1. マイクロサービスアーキテクチャの基礎理解
+                    </h2>
+
+                    <!-- マイクロサービスとは -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">マイクロサービスとは？</h3>
+                        <div class="info-box p-6 rounded-lg mb-4">
+                            <p class="text-gray-700 text-lg leading-relaxed">
+                                <strong>マイクロサービス（Microservices）</strong>とは、大きなアプリケーションを<strong>小さな独立したサービス</strong>に分割するアーキテクチャ手法です。
+                                まるで<strong>レゴブロック</strong>のように、個別の機能を組み合わせて全体のシステムを構築します。
+                            </p>
+                        </div>
+
+                        <!-- モノリスとマイクロサービスの比較 -->
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div class="warning-box p-6 rounded-lg">
+                                <h4 class="font-semibold text-red-800 mb-3 flex items-center">
+                                    <i class="fas fa-building mr-2"></i>モノリス（従来型）
+                                </h4>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><strong>比喩：</strong>巨大な百貨店（全機能が1つの建物内）</li>
+                                    <li><strong>特徴：</strong>すべての機能が1つのアプリケーション</li>
+                                    <li><strong>問題：</strong>一部の障害が全体に影響</li>
+                                    <li><strong>課題：</strong>部分的な修正・デプロイが困難</li>
+                                </ul>
+                            </div>
+                            <div class="success-box p-6 rounded-lg">
+                                <h4 class="font-semibold text-green-800 mb-3 flex items-center">
+                                    <i class="fas fa-store mr-2"></i>マイクロサービス
+                                </h4>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><strong>比喩：</strong>商店街（個別の専門店が連携）</li>
+                                    <li><strong>特徴：</strong>機能ごとに独立したサービス</li>
+                                    <li><strong>利点：</strong>障害の影響範囲を限定</li>
+                                    <li><strong>メリット：</strong>個別のデプロイ・スケーリング可能</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 具体例 -->
+                        <div class="highlight-box p-6 rounded-lg">
+                            <h4 class="font-semibold text-orange-800 mb-3 flex items-center">
+                                <i class="fas fa-shopping-cart mr-2"></i>ECサイトでの具体例
+                            </h4>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div class="bg-white p-4 rounded border">
+                                    <h5 class="font-semibold text-blue-800 mb-2">ユーザーサービス</h5>
+                                    <p class="text-sm text-gray-600">会員登録・ログイン・プロフィール管理</p>
+                                </div>
+                                <div class="bg-white p-4 rounded border">
+                                    <h5 class="font-semibold text-green-800 mb-2">商品サービス</h5>
+                                    <p class="text-sm text-gray-600">商品情報・在庫管理・カタログ</p>
+                                </div>
+                                <div class="bg-white p-4 rounded border">
+                                    <h5 class="font-semibold text-purple-800 mb-2">注文サービス</h5>
+                                    <p class="text-sm text-gray-600">注文処理・決済・配送管理</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- マイクロサービス設計原則 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">マイクロサービス設計原則</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div class="border border-blue-200 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-blue-800 mb-2 flex items-center">
+                                        <i class="fas fa-database mr-2"></i>1. 単一責任の原則
+                                    </h4>
+                                    <p class="text-gray-700 text-sm">各サービスは1つの業務機能（ドメイン）に特化</p>
+                                    <div class="text-xs text-gray-600 mt-2">
+                                        <strong>例：</strong>「支払いサービス」は決済処理のみ担当
+                                    </div>
+                                </div>
+                                <div class="border border-green-200 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-green-800 mb-2 flex items-center">
+                                        <i class="fas fa-unlink mr-2"></i>2. 疎結合
+                                    </h4>
+                                    <p class="text-gray-700 text-sm">サービス間の依存関係を最小限に抑制</p>
+                                    <div class="text-xs text-gray-600 mt-2">
+                                        <strong>例：</strong>APIでのみ他サービスと通信
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="border border-purple-200 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-purple-800 mb-2 flex items-center">
+                                        <i class="fas fa-shield-alt mr-2"></i>3. 障害の分離
+                                    </h4>
+                                    <p class="text-gray-700 text-sm">1つのサービス障害が他に波及しない</p>
+                                    <div class="text-xs text-gray-600 mt-2">
+                                        <strong>例：</strong>レコメンド機能停止でも注文は継続
+                                    </div>
+                                </div>
+                                <div class="border border-orange-200 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-orange-800 mb-2 flex items-center">
+                                        <i class="fas fa-expand-arrows-alt mr-2"></i>4. 独立したスケーリング
+                                    </h4>
+                                    <p class="text-gray-700 text-sm">負荷に応じて個別にサーバー増減</p>
+                                    <div class="text-xs text-gray-600 mt-2">
+                                        <strong>例：</strong>セール時は商品サービスのみ増強
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Spring Cloud Netflix完全習得 -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-8">
+                    <h2 class="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
+                        <i class="fas fa-cloud mr-3"></i>2. Spring Cloud Netflix完全習得
+                    </h2>
+
+                    <!-- Spring Cloudとは -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Spring Cloud（スプリング クラウド）とは？</h3>
+                        <div class="info-box p-6 rounded-lg mb-4">
+                            <p class="text-gray-700 text-lg leading-relaxed">
+                                <strong>Spring Cloud</strong>は、マイクロサービス構築のための<strong>統合フレームワーク</strong>です。
+                                Netflixが実際の大規模システムで使用している実績あるコンポーネントを、Spring Bootで簡単に利用できます。
+                            </p>
+                        </div>
+
+                        <!-- Spring Cloud主要コンポーネント比較表 -->
+                        <div class="overflow-x-auto mb-6">
+                            <table class="w-full border-collapse border border-gray-300">
+                                <thead>
+                                    <tr class="bg-gray-100">
+                                        <th class="border border-gray-300 px-4 py-3 text-left">コンポーネント</th>
+                                        <th class="border border-gray-300 px-4 py-3 text-left">日本語説明</th>
+                                        <th class="border border-gray-300 px-4 py-3 text-left">主な機能</th>
+                                        <th class="border border-gray-300 px-4 py-3 text-left">実用例</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-3 font-semibold text-blue-600">Eureka</td>
+                                        <td class="border border-gray-300 px-4 py-3">サービス発見・登録</td>
+                                        <td class="border border-gray-300 px-4 py-3">サービスの自動発見とヘルスチェック</td>
+                                        <td class="border border-gray-300 px-4 py-3">「ユーザーサービス」がどこにあるかを管理</td>
+                                    </tr>
+                                    <tr class="bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-3 font-semibold text-green-600">Zuul/Gateway</td>
+                                        <td class="border border-gray-300 px-4 py-3">APIゲートウェイ</td>
+                                        <td class="border border-gray-300 px-4 py-3">ルーティング・認証・レート制限</td>
+                                        <td class="border border-gray-300 px-4 py-3">すべてのAPIを1つのURLで統一管理</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-3 font-semibold text-red-600">Hystrix</td>
+                                        <td class="border border-gray-300 px-4 py-3">サーキットブレーカー</td>
+                                        <td class="border border-gray-300 px-4 py-3">障害連鎖防止・フォールバック処理</td>
+                                        <td class="border border-gray-300 px-4 py-3">レコメンド停止でもデフォルト商品表示</td>
+                                    </tr>
+                                    <tr class="bg-gray-50">
+                                        <td class="border border-gray-300 px-4 py-3 font-semibold text-purple-600">Config Server</td>
+                                        <td class="border border-gray-300 px-4 py-3">設定の外部化</td>
+                                        <td class="border border-gray-300 px-4 py-3">環境別設定の一元管理</td>
+                                        <td class="border border-gray-300 px-4 py-3">本番・テスト環境の設定切り替え</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 px-4 py-3 font-semibold text-orange-600">Sleuth</td>
+                                        <td class="border border-gray-300 px-4 py-3">分散トレーシング</td>
+                                        <td class="border border-gray-300 px-4 py-3">リクエストの流れを追跡</td>
+                                        <td class="border border-gray-300 px-4 py-3">注文処理がどのサービスを経由したか追跡</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Eurekaサービス発見の実装 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Eureka（ユーレカ）- サービス発見の実装</h3>
+                        
+                        <div class="highlight-box p-6 rounded-lg mb-4">
+                            <h4 class="font-semibold text-orange-800 mb-3 flex items-center">
+                                <i class="fas fa-phone-alt mr-2"></i>Eurekaの比喩：電話帳システム
+                            </h4>
+                            <p class="text-gray-700">
+                                Eurekaは<strong>「電話帳」</strong>のような役割です。各サービスが自分の住所（IPアドレス・ポート）を登録し、
+                                他のサービスが「○○サービスはどこにある？」と問い合わせると、Eurekaが教えてくれます。
+                            </p>
+                        </div>
+
+                        <!-- Eureka Server設定 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Eureka Server（サービス登録サーバー）</h4>
+                            
+                            <div class="code-block p-4 rounded-lg mb-4">
+                                <h5 class="font-semibold text-gray-700 mb-2">1. 依存関係（pom.xml）</h5>
+                                <pre class="text-sm"><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+                            </div>
+
+                            <div class="code-block p-4 rounded-lg mb-4">
+                                <h5 class="font-semibold text-gray-700 mb-2">2. メインクラス</h5>
+                                <pre class="text-sm"><code>@SpringBootApplication
+@EnableEurekaServer  // Eurekaサーバーとして起動
+public class EurekaServerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaServerApplication.class, args);
+    }
+}</code></pre>
+                            </div>
+
+                            <div class="code-block p-4 rounded-lg">
+                                <h5 class="font-semibold text-gray-700 mb-2">3. 設定（application.yml）</h5>
+                                <pre class="text-sm"><code>server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false    # 自分自身は登録しない
+    fetch-registry: false          # 他のサービス情報は取得しない
+  server:
+    enable-self-preservation: false # 開発時は自己保護機能OFF</code></pre>
+                            </div>
+                        </div>
+
+                        <!-- Eureka Client設定 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Eureka Client（各マイクロサービス）</h4>
+                            
+                            <div class="code-block p-4 rounded-lg mb-4">
+                                <h5 class="font-semibold text-gray-700 mb-2">ユーザーサービスの例</h5>
+                                <pre class="text-sm"><code>@SpringBootApplication
+@EnableEurekaClient  // Eurekaクライアントとして登録
+public class UserServiceApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(UserServiceApplication.class, args);
+    }
+}</code></pre>
+                            </div>
+
+                            <div class="code-block p-4 rounded-lg">
+                                <h5 class="font-semibold text-gray-700 mb-2">設定（application.yml）</h5>
+                                <pre class="text-sm"><code>spring:
+  application:
+    name: user-service    # サービス名（他から呼び出される時の名前）
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/  # Eurekaサーバーの場所
+  instance:
+    prefer-ip-address: true</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- API Gateway実装 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Spring Cloud Gateway - API統一窓口</h3>
+                        
+                        <div class="highlight-box p-6 rounded-lg mb-4">
+                            <h4 class="font-semibold text-orange-800 mb-3 flex items-center">
+                                <i class="fas fa-door-open mr-2"></i>API Gatewayの比喩：高速道路の料金所
+                            </h4>
+                            <p class="text-gray-700">
+                                API Gatewayは<strong>「高速道路の料金所」</strong>です。すべての車（リクエスト）が必ず通り、行き先に応じて適切な道路（サービス）に振り分けます。
+                                認証チェックや交通整理（レート制限）も行います。
+                            </p>
+                        </div>
+
+                        <div class="code-block p-4 rounded-lg mb-4">
+                            <h5 class="font-semibold text-gray-700 mb-2">Gateway設定例</h5>
+                            <pre class="text-sm"><code>spring:
+  cloud:
+    gateway:
+      routes:
+        - id: user-service-route
+          uri: lb://user-service      # Eurekaからサービスを発見
+          predicates:
+            - Path=/api/users/**       # /api/users/* → user-service
+        - id: product-service-route
+          uri: lb://product-service
+          predicates:
+            - Path=/api/products/**    # /api/products/* → product-service
+          filters:
+            - name: RequestRateLimiter  # レート制限フィルター
+              args:
+                redis-rate-limiter.replenishRate: 10</code></pre>
+                        </div>
+
+                        <!-- Gateway使用効果 -->
+                        <div class="success-box p-6 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-3 flex items-center">
+                                <i class="fas fa-chart-line mr-2"></i>API Gateway導入効果
+                            </h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><strong>URL統一：</strong>フロントエンドは1つのURLのみ知っていればOK</li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><strong>認証一元化：</strong>すべてのAPIで共通の認証処理</li>
+                                </ul>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><strong>負荷分散：</strong>同じサービスの複数インスタンスに自動振り分け</li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><strong>CORS対応：</strong>ブラウザからのAPIアクセス問題を解決</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hystrix Circuit Breaker -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Hystrix - 障害連鎖防止の仕組み</h3>
+                        
+                        <div class="highlight-box p-6 rounded-lg mb-4">
+                            <h4 class="font-semibold text-orange-800 mb-3 flex items-center">
+                                <i class="fas fa-plug mr-2"></i>Hystrixの比喩：電気のブレーカー
+                            </h4>
+                            <p class="text-gray-700">
+                                Hystrixは<strong>「電気のブレーカー」</strong>です。1つの部屋で電気トラブルが起きても、
+                                ブレーカーが作動して他の部屋への影響を防ぎます。同様に、1つのサービスに障害が起きても、
+                                他のサービスは正常に動作し続けます。
+                            </p>
+                        </div>
+
+                        <div class="code-block p-4 rounded-lg mb-4">
+                            <h5 class="font-semibold text-gray-700 mb-2">Circuit Breaker実装例</h5>
+                            <pre class="text-sm"><code>@RestController
+public class RecommendationController {
+    
+    @Autowired
+    private ProductService productService;
+    
+    @GetMapping("/api/recommendations/{userId}")
+    @HystrixCommand(fallbackMethod = "getDefaultRecommendations")
+    public List&lt;Product&gt; getRecommendations(@PathVariable Long userId) {
+        // 外部のレコメンドサービスを呼び出し
+        return productService.getPersonalizedProducts(userId);
+    }
+    
+    // フォールバック処理：レコメンドサービスが落ちた時の代替処理
+    public List&lt;Product&gt; getDefaultRecommendations(Long userId) {
+        // 人気商品を返す（常に利用可能）
+        return productService.getPopularProducts();
+    }
+}</code></pre>
+                        </div>
+
+                        <!-- Circuit Breakerの状態 -->
+                        <div class="grid md:grid-cols-3 gap-4 mb-4">
+                            <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
+                                <h5 class="font-semibold text-green-800 mb-2">CLOSED（正常状態）</h5>
+                                <p class="text-sm text-gray-700">リクエストが正常に通過</p>
+                            </div>
+                            <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
+                                <h5 class="font-semibold text-yellow-800 mb-2">OPEN（遮断状態）</h5>
+                                <p class="text-sm text-gray-700">障害検知でフォールバック実行</p>
+                            </div>
+                            <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                                <h5 class="font-semibold text-blue-800 mb-2">HALF-OPEN（半開状態）</h5>
+                                <p class="text-sm text-gray-700">復旧確認のため一部リクエスト通過</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. 分散システムの課題と解決策 -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-8">
+                    <h2 class="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
+                        <i class="fas fa-network-wired mr-3"></i>3. 分散システムの課題と解決策
+                    </h2>
+
+                    <!-- 分散システムの主要課題 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">分散システムでよく発生する問題</h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="warning-box p-6 rounded-lg">
+                                <h4 class="font-semibold text-red-800 mb-3 flex items-center">
+                                    <i class="fas fa-exclamation-triangle mr-2"></i>ネットワーク遅延・障害
+                                </h4>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><strong>問題：</strong>サービス間通信でタイムアウト発生</li>
+                                    <li><strong>影響：</strong>1つの遅延が全体のレスポンス低下</li>
+                                    <li><strong>解決：</strong>非同期処理・Circuit Breaker</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="warning-box p-6 rounded-lg">
+                                <h4 class="font-semibold text-red-800 mb-3 flex items-center">
+                                    <i class="fas fa-database mr-2"></i>データ整合性の問題
+                                </h4>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><strong>問題：</strong>複数DBで同時更新時の不整合</li>
+                                    <li><strong>影響：</strong>注文完了だが在庫減らない</li>
+                                    <li><strong>解決：</strong>Sagaパターン・イベント駆動</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6 mt-6">
+                            <div class="warning-box p-6 rounded-lg">
+                                <h4 class="font-semibold text-red-800 mb-3 flex items-center">
+                                    <i class="fas fa-search mr-2"></i>サービス発見の複雑性
+                                </h4>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><strong>問題：</strong>動的に変わるサービスの場所</li>
+                                    <li><strong>影響：</strong>ハードコードされたIPでは運用困難</li>
+                                    <li><strong>解決：</strong>Service Discovery（Eureka）</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="warning-box p-6 rounded-lg">
+                                <h4 class="font-semibold text-red-800 mb-3 flex items-center">
+                                    <i class="fas fa-bug mr-2"></i>分散トレーシングの困難
+                                </h4>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><strong>問題：</strong>複数サービスにまたがるエラー調査</li>
+                                    <li><strong>影響：</strong>障害原因の特定に時間がかかる</li>
+                                    <li><strong>解決：</strong>分散トレーシング（Sleuth・Zipkin）</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- サービス間通信パターン -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">サービス間通信パターン</h3>
+                        
+                        <!-- 同期通信 vs 非同期通信 -->
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div class="info-box p-6 rounded-lg">
+                                <h4 class="font-semibold text-blue-800 mb-3 flex items-center">
+                                    <i class="fas fa-phone mr-2"></i>同期通信（REST API）
+                                </h4>
+                                <div class="space-y-3">
+                                    <div>
+                                        <strong class="text-blue-700">特徴：</strong>
+                                        <p class="text-gray-700 text-sm">リクエスト送信後、レスポンスを待つ</p>
+                                    </div>
+                                    <div>
+                                        <strong class="text-blue-700">適用場面：</strong>
+                                        <p class="text-gray-700 text-sm">ユーザー情報取得・商品詳細表示</p>
+                                    </div>
+                                    <div>
+                                        <strong class="text-blue-700">メリット：</strong>
+                                        <p class="text-gray-700 text-sm">シンプル・結果をすぐ取得</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="success-box p-6 rounded-lg">
+                                <h4 class="font-semibold text-green-800 mb-3 flex items-center">
+                                    <i class="fas fa-envelope mr-2"></i>非同期通信（メッセージング）
+                                </h4>
+                                <div class="space-y-3">
+                                    <div>
+                                        <strong class="text-green-700">特徴：</strong>
+                                        <p class="text-gray-700 text-sm">メッセージ送信後、即座に処理継続</p>
+                                    </div>
+                                    <div>
+                                        <strong class="text-green-700">適用場面：</strong>
+                                        <p class="text-gray-700 text-sm">注文処理・メール送信・在庫更新</p>
+                                    </div>
+                                    <div>
+                                        <strong class="text-green-700">メリット：</strong>
+                                        <p class="text-gray-700 text-sm">高い可用性・障害に強い</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 実装例 -->
+                        <div class="code-block p-4 rounded-lg mb-4">
+                            <h5 class="font-semibold text-gray-700 mb-2">非同期メッセージング実装例（RabbitMQ）</h5>
+                            <pre class="text-sm"><code>@Service
+public class OrderService {
+    
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+    
+    public void processOrder(Order order) {
+        // 注文をDBに保存
+        orderRepository.save(order);
+        
+        // 非同期で在庫更新を依頼（在庫サービスに送信）
+        rabbitTemplate.convertAndSend("inventory.exchange", 
+                                     "inventory.update", 
+                                     new InventoryUpdateMessage(order.getProductId(), order.getQuantity()));
+        
+        // 非同期でメール送信を依頼（通知サービスに送信）
+        rabbitTemplate.convertAndSend("notification.exchange", 
+                                     "order.confirmation", 
+                                     new OrderConfirmationMessage(order.getUserId(), order.getId()));
+        
+        // すぐにレスポンスを返す（在庫更新やメール送信を待たない）
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- データ整合性：Sagaパターン -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">データ整合性：Sagaパターン</h3>
+                        
+                        <div class="highlight-box p-6 rounded-lg mb-4">
+                            <h4 class="font-semibold text-orange-800 mb-3 flex items-center">
+                                <i class="fas fa-undo mr-2"></i>Sagaパターンとは？
+                            </h4>
+                            <p class="text-gray-700">
+                                複数のサービスにまたがるトランザクションを<strong>「一連の処理ステップ」</strong>として管理し、
+                                途中で失敗した場合は<strong>「補償処理」</strong>で元に戻すパターンです。
+                            </p>
+                        </div>
+
+                        <!-- 注文処理Sagaの例 -->
+                        <div class="bg-gray-50 p-6 rounded-lg mb-4">
+                            <h5 class="font-semibold text-gray-800 mb-3">注文処理Sagaの流れ</h5>
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-4">1</div>
+                                    <div class="flex-1">
+                                        <strong>注文作成</strong> - 注文サービスで注文を作成
+                                        <div class="text-sm text-gray-600">補償処理：注文キャンセル</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-4">2</div>
+                                    <div class="flex-1">
+                                        <strong>在庫引き当て</strong> - 在庫サービスで在庫を確保
+                                        <div class="text-sm text-gray-600">補償処理：在庫解放</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-4">3</div>
+                                    <div class="flex-1">
+                                        <strong>決済処理</strong> - 決済サービスで料金を徴収
+                                        <div class="text-sm text-gray-600">補償処理：返金処理</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-4">4</div>
+                                    <div class="flex-1">
+                                        <strong>配送手配</strong> - 配送サービスで配送を開始
+                                        <div class="text-sm text-gray-600">補償処理：配送キャンセル</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="warning-box p-4 rounded-lg">
+                            <p class="text-red-800">
+                                <i class="fas fa-exclamation-triangle mr-2"></i>
+                                <strong>重要：</strong>ステップ3で決済が失敗した場合、ステップ2の在庫解放とステップ1の注文キャンセルを自動実行
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. 監視・運用の実装 -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-8">
+                    <h2 class="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
+                        <i class="fas fa-chart-line mr-3"></i>4. 監視・運用の実装
+                    </h2>
+
+                    <!-- Spring Boot Actuator -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">Spring Boot Actuator - ヘルスチェック</h3>
+                        
+                        <div class="code-block p-4 rounded-lg mb-4">
+                            <h5 class="font-semibold text-gray-700 mb-2">Actuator設定</h5>
+                            <pre class="text-sm"><code>management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always</code></pre>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="info-box p-4 rounded-lg">
+                                <h5 class="font-semibold text-blue-800 mb-2">主要エンドポイント</h5>
+                                <ul class="space-y-1 text-sm text-gray-700">
+                                    <li><code>/actuator/health</code> - ヘルスチェック</li>
+                                    <li><code>/actuator/metrics</code> - メトリクス情報</li>
+                                    <li><code>/actuator/info</code> - アプリ情報</li>
+                                    <li><code>/actuator/prometheus</code> - Prometheus形式</li>
+                                </ul>
+                            </div>
+                            <div class="success-box p-4 rounded-lg">
+                                <h5 class="font-semibold text-green-800 mb-2">監視効果</h5>
+                                <ul class="space-y-1 text-sm text-gray-700">
+                                    <li>リアルタイムでサービス状態を監視</li>
+                                    <li>障害の早期発見・自動復旧</li>
+                                    <li>パフォーマンスメトリクスの可視化</li>
+                                    <li>運用チームの負荷軽減</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 分散ログ集約 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">分散ログ集約 - ELKスタック</h3>
+                        
+                        <div class="highlight-box p-6 rounded-lg mb-4">
+                            <h4 class="font-semibold text-orange-800 mb-3 flex items-center">
+                                <i class="fas fa-file-alt mr-2"></i>ELKスタックとは？
+                            </h4>
+                            <p class="text-gray-700">
+                                <strong>E</strong>lasticsearch（検索エンジン）、<strong>L</strong>ogstash（ログ収集）、<strong>K</strong>ibana（可視化）の組み合わせで、
+                                複数サービスのログを一元管理・検索・可視化します。
+                            </p>
+                        </div>
+
+                        <div class="grid md:grid-cols-3 gap-4 mb-4">
+                            <div class="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
+                                <h5 class="font-semibold text-yellow-800 mb-2">Elasticsearch</h5>
+                                <p class="text-sm text-gray-700">高速なログ検索・分析エンジン</p>
+                            </div>
+                            <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
+                                <h5 class="font-semibold text-green-800 mb-2">Logstash</h5>
+                                <p class="text-sm text-gray-700">ログの収集・変換・転送</p>
+                            </div>
+                            <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+                                <h5 class="font-semibold text-blue-800 mb-2">Kibana</h5>
+                                <p class="text-sm text-gray-700">ダッシュボード・グラフ表示</p>
+                            </div>
+                        </div>
+
+                        <div class="code-block p-4 rounded-lg">
+                            <h5 class="font-semibold text-gray-700 mb-2">構造化ログ出力例</h5>
+                            <pre class="text-sm"><code>@RestController
+public class UserController {
+    
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    
+    @GetMapping("/api/users/{id}")
+    public User getUser(@PathVariable Long id) {
+        // 構造化ログで出力（JSON形式）
+        logger.info("User request received: userId={}, timestamp={}", 
+                   id, Instant.now());
+        
+        User user = userService.findById(id);
+        
+        logger.info("User response sent: userId={}, userName={}, processingTime={}ms", 
+                   id, user.getName(), System.currentTimeMillis());
+        
+        return user;
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- 負荷分散設定 -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">負荷分散 - LoadBalancer設定</h3>
+                        
+                        <div class="code-block p-4 rounded-lg mb-4">
+                            <h5 class="font-semibold text-gray-700 mb-2">RestTemplate + LoadBalancer</h5>
+                            <pre class="text-sm"><code>@Configuration
+public class LoadBalancerConfig {
+    
+    @Bean
+    @LoadBalanced  // Eurekaサービス名での負荷分散を有効化
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+
+@Service
+public class OrderService {
+    
+    @Autowired
+    @LoadBalanced
+    private RestTemplate restTemplate;
+    
+    public Product getProduct(Long productId) {
+        // "product-service"の複数インスタンスに自動で負荷分散
+        return restTemplate.getForObject(
+            "http://product-service/api/products/" + productId, 
+            Product.class);
+    }
+}</code></pre>
+                        </div>
+
+                        <div class="success-box p-6 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-3 flex items-center">
+                                <i class="fas fa-balance-scale mr-2"></i>負荷分散の効果
+                            </h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><strong>高可用性：</strong>1台障害でも他でカバー</li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><strong>性能向上：</strong>複数台で処理を分散</li>
+                                </ul>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><strong>スケーラビリティ：</strong>負荷に応じてインスタンス増減</li>
+                                    <li><i class="fas fa-check text-green-500 mr-2"></i><strong>運用効率：</strong>ローリングアップデート可能</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. 演習問題 -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-8">
+                    <h2 class="text-3xl font-bold text-purple-600 mb-6 flex items-center">
+                        <i class="fas fa-laptop-code mr-3"></i>5. 演習問題
+                    </h2>
+
+                    <!-- 演習1 -->
+                    <div class="mb-8">
+                        <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-semibold text-purple-800 mb-4 flex items-center">
+                                <i class="fas fa-tasks mr-2"></i>演習1: ECサイトマイクロサービス設計
+                            </h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-2">課題内容</h4>
+                                    <p class="text-gray-700">
+                                        以下の機能を持つECサイトを、マイクロサービスアーキテクチャで設計してください：
+                                    </p>
+                                    <ul class="list-disc list-inside mt-2 space-y-1 text-gray-700">
+                                        <li>ユーザー管理（会員登録・ログイン）</li>
+                                        <li>商品管理（商品一覧・詳細・検索）</li>
+                                        <li>在庫管理（在庫数管理・引き当て）</li>
+                                        <li>注文管理（カート・注文処理・履歴）</li>
+                                        <li>決済処理（クレジットカード決済）</li>
+                                        <li>配送管理（配送先管理・配送状況）</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-2">設計要件</h4>
+                                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                                        <li>各サービスの責任範囲を明確に定義</li>
+                                        <li>サービス間の通信方法（同期/非同期）を選択</li>
+                                        <li>データの整合性をどう保つか検討</li>
+                                        <li>障害時の対応方法を設計</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <button onclick="showAnswer('exercise1')" class="bg-purple-600 text-white px-6 py-2 rounded hover:bg-purple-700 transition-colors">
+                                    <i class="fas fa-eye mr-2"></i>回答例を表示
+                                </button>
+                            </div>
+
+                            <div id="exercise1" class="hidden-content mt-6 p-6 bg-white rounded-lg border">
+                                <h4 class="font-semibold text-green-800 mb-4 flex items-center">
+                                    <i class="fas fa-lightbulb mr-2"></i>回答例
+                                </h4>
+                                <div class="space-y-6">
+                                    <!-- サービス分割 -->
+                                    <div>
+                                        <h5 class="font-semibold text-gray-800 mb-3">1. サービス分割</h5>
+                                        <div class="grid md:grid-cols-2 gap-4">
+                                            <div class="bg-blue-50 p-4 rounded border">
+                                                <h6 class="font-semibold text-blue-800 mb-2">User Service</h6>
+                                                <ul class="text-sm text-gray-700 space-y-1">
+                                                    <li>• ユーザー登録・認証</li>
+                                                    <li>• プロフィール管理</li>
+                                                    <li>• JWT トークン発行</li>
+                                                </ul>
+                                            </div>
+                                            <div class="bg-green-50 p-4 rounded border">
+                                                <h6 class="font-semibold text-green-800 mb-2">Product Service</h6>
+                                                <ul class="text-sm text-gray-700 space-y-1">
+                                                    <li>• 商品カタログ管理</li>
+                                                    <li>• 検索・フィルタリング</li>
+                                                    <li>• カテゴリ管理</li>
+                                                </ul>
+                                            </div>
+                                            <div class="bg-yellow-50 p-4 rounded border">
+                                                <h6 class="font-semibold text-yellow-800 mb-2">Inventory Service</h6>
+                                                <ul class="text-sm text-gray-700 space-y-1">
+                                                    <li>• 在庫数管理</li>
+                                                    <li>• 在庫引き当て・解放</li>
+                                                    <li>• 入出庫履歴</li>
+                                                </ul>
+                                            </div>
+                                            <div class="bg-purple-50 p-4 rounded border">
+                                                <h6 class="font-semibold text-purple-800 mb-2">Order Service</h6>
+                                                <ul class="text-sm text-gray-700 space-y-1">
+                                                    <li>• 注文作成・管理</li>
+                                                    <li>• カート機能</li>
+                                                    <li>• 注文履歴</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 通信パターン -->
+                                    <div>
+                                        <h5 class="font-semibold text-gray-800 mb-3">2. サービス間通信</h5>
+                                        <div class="overflow-x-auto">
+                                            <table class="w-full border-collapse border border-gray-300 text-sm">
+                                                <thead>
+                                                    <tr class="bg-gray-100">
+                                                        <th class="border border-gray-300 px-3 py-2">通信パターン</th>
+                                                        <th class="border border-gray-300 px-3 py-2">使用場面</th>
+                                                        <th class="border border-gray-300 px-3 py-2">理由</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="border border-gray-300 px-3 py-2 font-semibold">同期通信（REST）</td>
+                                                        <td class="border border-gray-300 px-3 py-2">商品詳細取得、ユーザー認証</td>
+                                                        <td class="border border-gray-300 px-3 py-2">即座に結果が必要</td>
+                                                    </tr>
+                                                    <tr class="bg-gray-50">
+                                                        <td class="border border-gray-300 px-3 py-2 font-semibold">非同期通信（Message）</td>
+                                                        <td class="border border-gray-300 px-3 py-2">注文確定後の在庫更新、メール送信</td>
+                                                        <td class="border border-gray-300 px-3 py-2">高い可用性が必要</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sagaパターン -->
+                                    <div>
+                                        <h5 class="font-semibold text-gray-800 mb-3">3. 注文処理Saga</h5>
+                                        <div class="bg-gray-50 p-4 rounded">
+                                            <div class="space-y-2 text-sm">
+                                                <div><strong>Step 1:</strong> Order Service - 注文作成 <span class="text-red-600">[補償: 注文削除]</span></div>
+                                                <div><strong>Step 2:</strong> Inventory Service - 在庫引き当て <span class="text-red-600">[補償: 在庫解放]</span></div>
+                                                <div><strong>Step 3:</strong> Payment Service - 決済処理 <span class="text-red-600">[補償: 返金処理]</span></div>
+                                                <div><strong>Step 4:</strong> Shipping Service - 配送手配 <span class="text-red-600">[補償: 配送キャンセル]</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 演習2 -->
+                    <div class="mb-8">
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                            <h3 class="text-xl font-semibold text-blue-800 mb-4 flex items-center">
+                                <i class="fas fa-code mr-2"></i>演習2: Spring Cloud実装
+                            </h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-2">課題内容</h4>
+                                    <p class="text-gray-700">
+                                        以下の要件を満たすSpring Cloudアプリケーションを実装してください：
+                                    </p>
+                                    <ul class="list-disc list-inside mt-2 space-y-1 text-gray-700">
+                                        <li>Eurekaサーバーを構築し、2つのマイクロサービスを登録</li>
+                                        <li>API Gatewayでルーティング設定</li>
+                                        <li>Circuit Breakerで障害対応</li>
+                                        <li>Config Serverで設定の外部化</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <button onclick="showAnswer('exercise2')" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors">
+                                    <i class="fas fa-eye mr-2"></i>実装例を表示
+                                </button>
+                            </div>
+
+                            <div id="exercise2" class="hidden-content mt-6 p-6 bg-white rounded-lg border">
+                                <h4 class="font-semibold text-green-800 mb-4 flex items-center">
+                                    <i class="fas fa-code mr-2"></i>実装例
+                                </h4>
+                                <div class="code-block p-4 rounded-lg">
+                                    <h5 class="font-semibold text-gray-700 mb-2">プロジェクト構成</h5>
+                                    <pre class="text-sm"><code>microservices-demo/
+├── eureka-server/          # サービス発見サーバー
+├── config-server/          # 設定管理サーバー
+├── api-gateway/           # APIゲートウェイ
+├── user-service/          # ユーザーサービス
+└── product-service/       # 商品サービス</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. 理解度クイズ -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-8">
+                    <h2 class="text-3xl font-bold text-orange-600 mb-6 flex items-center">
+                        <i class="fas fa-brain mr-3"></i>6. 理解度クイズ
+                    </h2>
+
+                    <!-- クイズ1 -->
+                    <div class="mb-8">
+                        <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg">
+                            <h3 class="text-lg font-semibold text-orange-800 mb-4 flex items-center">
+                                <i class="fas fa-question-circle mr-2"></i>クイズ1: マイクロサービスの特徴
+                            </h3>
+                            <p class="text-gray-800 mb-4">
+                                マイクロサービスアーキテクチャの主な利点として、<strong>最も適切でない</strong>ものはどれですか？
+                            </p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="quiz1" value="a" class="mr-3">
+                                    <span>A. 個別のサービスを独立してデプロイできる</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="quiz1" value="b" class="mr-3">
+                                    <span>B. 1つのサービス障害が他に波及しにくい</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="quiz1" value="c" class="mr-3">
+                                    <span>C. データベーストランザクションの管理が簡単になる</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="quiz1" value="d" class="mr-3">
+                                    <span>D. 負荷に応じて個別にスケーリングできる</span>
+                                </label>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <button onclick="showAnswer('quiz1')" class="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 transition-colors">
+                                    <i class="fas fa-eye mr-2"></i>回答を表示
+                                </button>
+                            </div>
+
+                            <div id="quiz1" class="hidden-content mt-6 p-6 bg-white rounded-lg border">
+                                <div class="flex items-start mb-4">
+                                    <i class="fas fa-check-circle text-green-500 text-xl mr-3 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-green-800 mb-2">正解: C</h4>
+                                        <p class="text-gray-700">
+                                            <strong>解説：</strong>マイクロサービスでは各サービスが独自のデータベースを持つため、
+                                            複数サービスにまたがるトランザクション管理は<strong>より複雑</strong>になります。
+                                            Sagaパターンなどの特別な仕組みが必要です。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- クイズ2 -->
+                    <div class="mb-8">
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                            <h3 class="text-lg font-semibold text-blue-800 mb-4 flex items-center">
+                                <i class="fas fa-question-circle mr-2"></i>クイズ2: Circuit Breakerパターン
+                            </h3>
+                            <p class="text-gray-800 mb-4">
+                                Hystrix Circuit Breakerが<strong>OPEN状態</strong>の時の動作として正しいものはどれですか？
+                            </p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="quiz2" value="a" class="mr-3">
+                                    <span>A. 正常にリクエストを転送する</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="quiz2" value="b" class="mr-3">
+                                    <span>B. フォールバック処理を実行する</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="quiz2" value="c" class="mr-3">
+                                    <span>C. エラーを即座に返す</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="quiz2" value="d" class="mr-3">
+                                    <span>D. 一部のリクエストのみ転送する</span>
+                                </label>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <button onclick="showAnswer('quiz2')" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors">
+                                    <i class="fas fa-eye mr-2"></i>回答を表示
+                                </button>
+                            </div>
+
+                            <div id="quiz2" class="hidden-content mt-6 p-6 bg-white rounded-lg border">
+                                <div class="flex items-start mb-4">
+                                    <i class="fas fa-check-circle text-green-500 text-xl mr-3 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-green-800 mb-2">正解: B</h4>
+                                        <p class="text-gray-700">
+                                            <strong>解説：</strong>OPEN状態では、リクエストを実際のサービスに送信せず、
+                                            代わりに<strong>フォールバック処理</strong>（代替処理）を実行します。
+                                            これにより障害の連鎖を防ぎ、ユーザーには最低限の機能を提供できます。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- クイズ3 -->
+                    <div class="mb-8">
+                        <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+                            <h3 class="text-lg font-semibold text-green-800 mb-4 flex items-center">
+                                <i class="fas fa-question-circle mr-2"></i>クイズ3: サービス間通信
+                            </h3>
+                            <p class="text-gray-800 mb-4">
+                                ECサイトの「注文確定後のメール送信」に最適な通信パターンはどれですか？
+                            </p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="quiz3" value="a" class="mr-3">
+                                    <span>A. 同期通信（REST API）でメールサービスを直接呼び出し</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="quiz3" value="b" class="mr-3">
+                                    <span>B. 非同期通信（メッセージング）でメール送信依頼</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="quiz3" value="c" class="mr-3">
+                                    <span>C. データベースに直接アクセスしてメール送信</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="quiz3" value="d" class="mr-3">
+                                    <span>D. フロントエンドでメール送信処理</span>
+                                </label>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <button onclick="showAnswer('quiz3')" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition-colors">
+                                    <i class="fas fa-eye mr-2"></i>回答を表示
+                                </button>
+                            </div>
+
+                            <div id="quiz3" class="hidden-content mt-6 p-6 bg-white rounded-lg border">
+                                <div class="flex items-start mb-4">
+                                    <i class="fas fa-check-circle text-green-500 text-xl mr-3 mt-1"></i>
+                                    <div>
+                                        <h4 class="font-semibold text-green-800 mb-2">正解: B</h4>
+                                        <p class="text-gray-700">
+                                            <strong>解説：</strong>メール送信は注文処理の<strong>主要処理ではない</strong>ため、
+                                            非同期通信が適しています。メール送信が失敗しても注文は完了でき、
+                                            システム全体の可用性が向上します。また、メール送信の負荷が注文処理に影響しません。
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. まとめ -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-8">
+                    <h2 class="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
+                        <i class="fas fa-clipboard-check mr-3"></i>7. まとめ
+                    </h2>
+
+                    <div class="space-y-8">
+                        <!-- 習得した重要ポイント -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">習得した重要ポイント</h3>
+                            
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="success-box p-6 rounded-lg">
+                                    <h4 class="font-semibold text-green-800 mb-3 flex items-center">
+                                        <i class="fas fa-puzzle-piece mr-2"></i>マイクロサービス設計
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-700">
+                                        <li><i class="fas fa-check text-green-500 mr-2"></i><strong>単一責任原則：</strong>各サービスは1つの業務機能に特化し、保守性を大幅向上</li>
+                                        <li><i class="fas fa-check text-green-500 mr-2"></i><strong>障害の分離：</strong>1つのサービス障害が他に波及せず、全体の可用性を確保</li>
+                                        <li><i class="fas fa-check text-green-500 mr-2"></i><strong>独立デプロイ：</strong>サービス単位での更新で、リリース頻度と品質を両立</li>
+                                    </ul>
+                                </div>
+
+                                <div class="info-box p-6 rounded-lg">
+                                    <h4 class="font-semibold text-blue-800 mb-3 flex items-center">
+                                        <i class="fas fa-cloud mr-2"></i>Spring Cloud活用
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-700">
+                                        <li><i class="fas fa-check text-blue-500 mr-2"></i><strong>Eureka：</strong>サービス自動発見でIP管理が不要、運用コストを大幅削減</li>
+                                        <li><i class="fas fa-check text-blue-500 mr-2"></i><strong>API Gateway：</strong>認証・ルーティング一元化で、フロントエンド開発を簡素化</li>
+                                        <li><i class="fas fa-check text-blue-500 mr-2"></i><strong>Circuit Breaker：</strong>障害連鎖防止で、1つの障害から全体を保護</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-2 gap-6 mt-6">
+                                <div class="highlight-box p-6 rounded-lg">
+                                    <h4 class="font-semibold text-orange-800 mb-3 flex items-center">
+                                        <i class="fas fa-network-wired mr-2"></i>分散システム対応
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-700">
+                                        <li><i class="fas fa-check text-orange-500 mr-2"></i><strong>非同期通信：</strong>メッセージングで高い可用性と処理性能を実現</li>
+                                        <li><i class="fas fa-check text-orange-500 mr-2"></i><strong>Sagaパターン：</strong>分散トランザクションで複雑な業務処理の整合性を保証</li>
+                                        <li><i class="fas fa-check text-orange-500 mr-2"></i><strong>データ分離：</strong>サービス専用DBで、他への影響を完全遮断</li>
+                                    </ul>
+                                </div>
+
+                                <div class="warning-box p-6 rounded-lg">
+                                    <h4 class="font-semibold text-red-800 mb-3 flex items-center">
+                                        <i class="fas fa-chart-line mr-2"></i>運用・監視技術
+                                    </h4>
+                                    <ul class="space-y-2 text-gray-700">
+                                        <li><i class="fas fa-check text-red-500 mr-2"></i><strong>ヘルスチェック：</strong>Actuatorで自動監視、障害の早期発見・復旧を実現</li>
+                                        <li><i class="fas fa-check text-red-500 mr-2"></i><strong>分散ログ：</strong>ELKスタックで複数サービスのログを統合検索</li>
+                                        <li><i class="fas fa-check text-red-500 mr-2"></i><strong>負荷分散：</strong>LoadBalancerで処理能力を自動最適化</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 実務での活用メリット -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">実務での活用メリット</h3>
+                            
+                            <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg border border-blue-200">
+                                <div class="grid md:grid-cols-3 gap-6">
+                                    <div>
+                                        <h4 class="font-semibold text-blue-800 mb-2 flex items-center">
+                                            <i class="fas fa-rocket mr-2"></i>開発効率向上
+                                        </h4>
+                                        <ul class="space-y-1 text-sm text-gray-700">
+                                            <li>• チーム独立で並行開発</li>
+                                            <li>• 技術スタック自由選択</li>
+                                            <li>• 小規模で高速な開発サイクル</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-purple-800 mb-2 flex items-center">
+                                            <i class="fas fa-shield-alt mr-2"></i>運用安定性確保
+                                        </h4>
+                                        <ul class="space-y-1 text-sm text-gray-700">
+                                            <li>• 障害範囲の限定化</li>
+                                            <li>• ゼロダウンタイムデプロイ</li>
+                                            <li>• 自動復旧・スケーリング</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-green-800 mb-2 flex items-center">
+                                            <i class="fas fa-chart-line mr-2"></i>ビジネス価値創出
+                                        </h4>
+                                        <ul class="space-y-1 text-sm text-gray-700">
+                                            <li>• 新機能の高速リリース</li>
+                                            <li>• 柔軟なシステム拡張</li>
+                                            <li>• コスト最適化</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 次回予告 -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">次回予告</h3>
+                            <div class="bg-gradient-to-r from-indigo-100 to-blue-100 p-6 rounded-lg border border-indigo-200">
+                                <h4 class="font-semibold text-indigo-800 mb-3 flex items-center">
+                                    <i class="fas fa-calendar-alt mr-2"></i>Day51: 最終プロジェクト統合・成果発表
+                                </h4>
+                                <p class="text-gray-700">
+                                    これまで学習した全技術を統合し、実践的なWebアプリケーションを開発します。
+                                    HTML・CSS・JavaScript・Java・Spring Boot・データベース・セキュリティ・マイクロサービスを活用した
+                                    <strong>総合演習プロジェクト</strong>で、実務レベルの開発スキルを完成させます。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- フッター -->
+            <footer class="text-center text-gray-500 py-6">
+                <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+    </main>
+
+    <script>
+        function showAnswer(elementId) {
+            const element = document.getElementById(elementId);
+            if (element.classList.contains('hidden-content')) {
+                element.classList.remove('hidden-content');
+                element.classList.add('block');
+            } else {
+                element.classList.add('hidden-content');
+                element.classList.remove('block');
+            }
+        }
+
+        // スムーズスクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = this.getAttribute('href');
+                if (target !== '#') {
+                    document.querySelector(target).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // フェードインアニメーション
+        window.addEventListener('load', function() {
+            const sections = document.querySelectorAll('section');
+            sections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                
+                setTimeout(() => {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDs2djT%2BCpc1MZcBMU%2BA9FNUv%2BZcouo%2Fbv%2FGo8cwP4flmpCDEi0iZtIuTzVub5IcQV1Sm619kZe7gB4zdXGgAAIMFRBxQIIEPaWOfEeaG%2BpSqRXldsT9bfo6jlG5b2shAhmzLfOdwKqlwwfSCGOdIAfgy2c9c3XtmMttSdwN4dulHD6XE%2BQE40afEsPbJ3sIaCbisYIv5Imx415uxyGwXIoKMRy%2FjZdGpaUv8ojP5TbS%2B50ZryoXO7UeTVJV5jaZRQeFFcIQx6ouzmieqgF5iXw4G8xf2xFYT4hCLaF%2Fo1ZTlS42ss1ibnrWe2YjBdLxx41v%2F6gIgraFsMDH2pbJnpQUOxvS128%2Fi8qkzG25yyf8q%2Bnq5mcWjeABE%2FBWuEDDpVuUl3QG9ikbZia01Bga1E%2BTS90uynGP4YOd1SIHIy6eSPXEcBThzpREwqJBwryHYIO62vk3W2U%2F%2Bx4EKAWziwJt%2FWHz8H4euTp92JYA8ijuXMAIH3OdPW3L2UcyzIAErnw%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDs2djT+Cpc1MZcBMU+A9FNUv+Zcouo/bv/Go8cwP4flmpCDEi0iZtIuTzVub5IcQV1Sm619kZe7gB4zdXGgAAIMFRBxQIIEPaWOfEeaG+pSqRXldsT9bfo6jlG5b2shAhmzLfOdwKqlwwfSCGOdIAfgy2c9c3XtmMttSdwN4dulHD6XE+QE40afEsPbJ3sIaCbisYIv5Imx415uxyGwXIoKMRy/jZdGpaUv8ojP5TbS+50ZryoXO7UeTVJV5jaZRQeFFcIQx6ouzmieqgF5iXw4G8xf2xFYT4hCLaF/o1ZTlS42ss1ibnrWe2YjBdLxx41v/6gIgraFsMDH2pbJnpQUOxvS128/i8qkzG25yyf8q+nq5mcWjeABE/BWuEDDpVuUl3QG9ikbZia01Bga1E+TS90uynGP4YOd1SIHIy6eSPXEcBThzpREwqJBwryHYIO62vk3W2U/+x4EKAWziwJt/WHz8H4euTp92JYA8ijuXMAIH3OdPW3L2UcyzIAErnw==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

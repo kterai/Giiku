@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 44 講義プロンプト: サーバーサイド開発入門</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .success-box {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .danger-box {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold mb-2">
+                    <i class="fas fa-server mr-3"></i>Day 44 講義プロンプト
+                </h1>
+                <h2 class="text-2xl font-semibold mb-4">サーバーサイド開発入門</h2>
+                <p class="text-lg opacity-90">Servlet・JSP基礎、HTTPリクエスト・レスポンス処理、JDBCによるデータベース連携</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Project Overview -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-project-diagram text-blue-600 mr-2"></i>プロジェクト名
+            </h2>
+            <div class="highlight-box">
+                <h3 class="text-xl font-semibold mb-2">ITエンジニア育成カリキュラム - Day44: サーバーサイド開発入門</h3>
+                <p class="text-gray-700">以下の指示に従って、<code class="bg-gray-200 px-2 py-1 rounded">Training/pages/lecture/day44_lecture.html</code> を生成してください。</p>
+            </div>
+        </section>
+
+        <!-- Important Guidelines -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-exclamation-triangle text-red-600 mr-2"></i>重要な改善指針
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="success-box">
+                    <h3 class="text-lg font-semibold text-green-800 mb-2">
+                        <i class="fas fa-globe-asia mr-2"></i>Webアプリケーション開発特化
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li><strong>実用的なServlet</strong>を中心とした解説</li>
+                        <li><strong>JSPとの連携</strong>パターンの紹介</li>
+                        <li><strong>データベース連携</strong>を意識したJDBC実装</li>
+                        <li><strong>HTTPプロトコル</strong>の実践的理解促進</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <h3 class="text-lg font-semibold text-yellow-800 mb-2">
+                        <i class="fas fa-book mr-2"></i>初心者理解促進重視
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li><strong>専門用語</strong>は必ず日本語説明を併記</li>
+                        <li><strong>なぜそうなるのか</strong>の理由を詳細解説</li>
+                        <li><strong>コード例</strong>は段階的に複雑化</li>
+                        <li><strong>エラーパターン</strong>と対処法を明示</li>
+                    </ul>
+                </div>
+
+                <div class="success-box">
+                    <h3 class="text-lg font-semibold text-green-800 mb-2">
+                        <i class="fas fa-tools mr-2"></i>実践・演習重視
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li><strong>段階的なハンズオン</strong>形式で構成</li>
+                        <li><strong>実用的なWebアプリ</strong>を複数実装</li>
+                        <li><strong>デバッグ技法</strong>の実践的指導</li>
+                        <li><strong>ベストプラクティス</strong>の具体例提示</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reference Files -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-folder-open text-blue-600 mr-2"></i>参照ファイル
+            </h2>
+            <div class="code-block">
+                <ul class="space-y-2 text-sm">
+                    <li><i class="fas fa-file-code mr-2"></i>Training/pages/day/day44.html</li>
+                    <li><i class="fas fa-file-code mr-2"></i>Training/pages/lecture/Template_dayX_lecture.html</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Learning Objectives -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-target text-blue-600 mr-2"></i>本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <div class="highlight-box">
+                        <h3 class="font-semibold text-yellow-800 mb-2">Webアプリケーションの基本構造理解</h3>
+                        <p class="text-gray-700">クライアント・サーバー通信の仕組みを<strong>実用レベル</strong>で理解する</p>
+                    </div>
+                    <div class="highlight-box">
+                        <h3 class="font-semibold text-yellow-800 mb-2">Servlet・JSPマスター</h3>
+                        <p class="text-gray-700">サーブレットとJSPの連携を<strong>具体例とともに</strong>習得する</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="highlight-box">
+                        <h3 class="font-semibold text-yellow-800 mb-2">HTTPプロトコル完全理解</h3>
+                        <p class="text-gray-700">リクエスト・レスポンス処理を<strong>実践的なWebアプリ</strong>で実装できる</p>
+                    </div>
+                    <div class="highlight-box">
+                        <h3 class="font-semibold text-yellow-800 mb-2">JDBC活用</h3>
+                        <p class="text-gray-700">データベース連携を<strong>安全かつ効率的</strong>に実装できる</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievement Criteria -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-check-circle text-green-600 mr-2"></i>達成基準
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="success-box">
+                    <h3 class="text-lg font-semibold text-green-800 mb-3">基本レベル</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>Servletのライフサイクルを<strong>自力で説明</strong>できる</li>
+                        <li>HTTPメソッド（GET・POST）を<strong>適切に使い分け</strong>できる</li>
+                        <li>JSPでの動的コンテンツ生成を<strong>実装</strong>できる</li>
+                        <li>JDBCによる基本的なCRUD操作を<strong>実装</strong>できる</li>
+                    </ul>
+                </div>
+                <div class="success-box">
+                    <h3 class="text-lg font-semibold text-green-800 mb-3">応用レベル</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>セッション管理を使った<strong>ログイン機能</strong>を実装できる</li>
+                        <li>フォーム処理と<strong>入力検証</strong>を適切に実装できる</li>
+                        <li>SQLインジェクション対策を<strong>実装</strong>できる</li>
+                        <li>MVCパターンに基づいた<strong>設計</strong>ができる</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lecture Structure -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-list-ol text-blue-600 mr-2"></i>講義構成（改良版指針）
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <h3 class="text-xl font-semibold text-blue-800 mb-2">1. Webアプリケーション基本構造</h3>
+                    <p class="text-gray-700 mb-2"><strong>❗ 具体例重視：</strong></p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                        <li>クライアント・サーバーモデルの<strong>実際の通信例</strong></li>
+                        <li>HTTPプロトコルの<strong>詳細な仕組み</strong>と<strong>ステータスコード</strong></li>
+                        <li>Webコンテナ（Tomcat）の<strong>役割と動作原理</strong></li>
+                    </ul>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-4">
+                    <h3 class="text-xl font-semibold text-green-800 mb-2">2. Servlet開発の実践</h3>
+                    <p class="text-gray-700 mb-2"><strong>⚠️ 必須改良事項：</strong></p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                        <li><strong>Servletライフサイクル：</strong>「なぜinit・service・destroyが必要か」を図解付きで説明</li>
+                        <li><strong>リクエスト処理：</strong>「doGet vs doPost」の使い分けを実コード例で解説</li>
+                        <li><strong>レスポンス生成：</strong>「HTML出力からJSON出力まで」を比較実装</li>
+                    </ul>
+                </div>
+
+                <div class="border-l-4 border-purple-500 pl-4">
+                    <h3 class="text-xl font-semibold text-purple-800 mb-2">3. JSPによる動的コンテンツ生成</h3>
+                    <p class="text-gray-700 mb-2"><strong>🔧 実践重視：</strong></p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                        <li><strong>JSP基本構文：</strong>「スクリプトレット vs 式言語」の使い分け</li>
+                        <li><strong>JavaBeansとの連携：</strong>「MVCパターン」での役割分担</li>
+                        <li><strong>JSTL活用：</strong>「繰り返し・条件分岐」の効率的な実装</li>
+                    </ul>
+                </div>
+
+                <div class="border-l-4 border-red-500 pl-4">
+                    <h3 class="text-xl font-semibold text-red-800 mb-2">4. JDBCによるデータベース連携</h3>
+                    <p class="text-gray-700 mb-2"><strong>💡 高度テクニック：</strong></p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                        <li><strong>接続プール：</strong>「なぜConnectionPoolが必要か」</li>
+                        <li><strong>PreparedStatement：</strong>「SQLインジェクション防止」の仕組み</li>
+                        <li><strong>トランザクション：</strong>「commit・rollback」による整合性保証</li>
+                    </ul>
+                </div>
+
+                <div class="border-l-4 border-yellow-500 pl-4">
+                    <h3 class="text-xl font-semibold text-yellow-800 mb-2">5. セッション管理とセキュリティ</h3>
+                    <p class="text-gray-700 mb-2"><strong>🌐 実用性重視：</strong></p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1 ml-4">
+                        <li><strong>HttpSession：</strong>「ステートレスHTTP」でのステート管理</li>
+                        <li><strong>Cookie活用：</strong>「永続化とセキュリティ」のバランス</li>
+                        <li><strong>フィルター：</strong>「横断的関心事」の効率的な処理</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exercise Specifications -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-clipboard-check text-blue-600 mr-2"></i>演習問題・理解度クイズ（表示仕様）
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="highlight-box">
+                    <h3 class="text-lg font-semibold text-yellow-800 mb-3">
+                        <i class="fas fa-clipboard-list mr-2"></i>演習問題
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>問題文：<strong>常に表示</strong></li>
+                        <li>回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+                        <li>詳細解説を削減しないよう注意</li>
+                    </ul>
+                </div>
+                
+                <div class="success-box">
+                    <h3 class="text-lg font-semibold text-green-800 mb-3">
+                        <i class="fas fa-brain mr-2"></i>理解度クイズ
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>問題・選択肢：<strong>常に表示</strong></li>
+                        <li>正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+                        <li>JavaScript showAnswer()関数を実装</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Terms -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-book-open text-blue-600 mr-2"></i>専門用語の説明強化指針
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-2">1. 初出時の詳細説明</h3>
+                    <div class="code-block">
+                        <p><strong>例：</strong></p>
+                        <p>「Servlet（サーブレット - サーバー側で動作するJavaプログラムで、HTTPリクエストを処理してレスポンスを生成する仕組み）では...」</p>
+                    </div>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-4">
+                    <h3 class="text-lg font-semibold text-green-800 mb-2">2. 日常例・比喩の活用</h3>
+                    <div class="code-block">
+                        <p><strong>例：</strong></p>
+                        <p>「セッション管理は、レストランでテーブル番号札を使って注文を管理するように、サーバーがクライアントを識別する仕組みです」</p>
+                    </div>
+                </div>
+
+                <div class="border-l-4 border-purple-500 pl-4">
+                    <h3 class="text-lg font-semibold text-purple-800 mb-2">3. 理由・背景の説明</h3>
+                    <div class="code-block">
+                        <p><strong>例：</strong></p>
+                        <p>「なぜPreparedStatementを使うかというと、SQLインジェクション攻撃を防ぎ、実行計画の再利用によりパフォーマンスも向上するため」</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Common Specifications -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-cog text-blue-600 mr-2"></i>共通仕様
+            </h2>
+            <div class="bg-gray-100 p-4 rounded-lg">
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li>HTML5 / lang="ja" / UTF-8</li>
+                    <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                    <li>Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                    <li>レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                    <li>コードブロックは <code>&lt;pre&gt;&lt;code class="language-java"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                    <li>開発環境として Eclipse + Apache Tomcat を記載</li>
+                    <li>フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Clarity Checklist -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-check-double text-green-600 mr-2"></i>分かりやすさチェックリスト
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="success-box">
+                    <h3 class="text-lg font-semibold text-green-800 mb-3">
+                        <i class="fas fa-chart-bar mr-2"></i>コード・図解
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>コード例は段階的に複雑化</li>
+                        <li>エラーパターンと正しい書き方を併記</li>
+                        <li>アーキテクチャは図解で視覚化</li>
+                        <li>デバッグ方法を具体的に説明</li>
+                    </ul>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3 class="text-lg font-semibold text-yellow-800 mb-3">
+                        <i class="fas fa-edit mr-2"></i>文章・説明
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>専門用語は必ず日本語説明を併記</li>
+                        <li>「なぜ」の理由を必ず説明</li>
+                        <li>実用例・比喩を積極活用</li>
+                        <li>まとめは具体的なメリットを明示</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Output Format -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-file-export text-blue-600 mr-2"></i>出力形式
+            </h2>
+            <div class="danger-box">
+                <h3 class="text-lg font-semibold text-red-800 mb-3">⚠️ 重要事項：</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li><strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                    <li>特に「Servlet・JSPとHTTP処理」は<strong>必ず実践例付きで詳細解説</strong>すること</li>
+                    <li>専門用語の初出時は<strong>日本語説明を併記</strong>すること</li>
+                    <li>コード例は<strong>段階的に複雑化</strong>させること</li>
+                    <li>HTMLの見やすさと詳細な解説を<strong>両立</strong>すること</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm opacity-80">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDvaWqrVCvjNTr75LAzuCswgbfNsj89oKMycg8Q7G%2FH7q23nZFqeD0Zm3FSXfea0AUiEj2r9dQC6W3FgAYPSjaVLwJs39nTY920pXSKA0rXd8xzbQOw6WCgRw0W8MtZi%2FBn02UXmioNy8AgeDo9XdTlFXC94D%2BAAd4ADNg72dTT0FY0ZOeknnpUGGKe5FZaVoAG0AhO%2BvHxYZg2K959pKtBq%2Fe%2BECTmJurWd97U%2Bd%2B43SLsNRimLCcbS5JDYOJP5%2FsoGTkz2Mb2a4ONeLSgcv8cQbx%2BGYQSz0Opqh71nye0R3YDQgKqiOymjsRWUY1FG1pL9oCCJHH%2FwfXs3kqCrwD0LZAH0u0ccdkSBh%2BNd6oY3z4M%2BYkUcskmttF5wt3OrnQrxLsSseESipqfwXNJbP5ORSkYCPLu9L9VnVHfA%2Fy4acdcD8RcHUMOvm7yokhvVewBkFXDHeMkf93q%2BZbem7uYcb1p2NmLSLgF1ZuF0KCR9RjjbiJL8RJ0AqSXF2iXUMOFtr4w23OdugVlSZf8XHKENl0V5klVlhXKsvmAR6%2FezkfSrvJ%2FjxHNty9NaTpJvw4A%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDvaWqrVCvjNTr75LAzuCswgbfNsj89oKMycg8Q7G/H7q23nZFqeD0Zm3FSXfea0AUiEj2r9dQC6W3FgAYPSjaVLwJs39nTY920pXSKA0rXd8xzbQOw6WCgRw0W8MtZi/Bn02UXmioNy8AgeDo9XdTlFXC94D+AAd4ADNg72dTT0FY0ZOeknnpUGGKe5FZaVoAG0AhO+vHxYZg2K959pKtBq/e+ECTmJurWd97U+d+43SLsNRimLCcbS5JDYOJP5/soGTkz2Mb2a4ONeLSgcv8cQbx+GYQSz0Opqh71nye0R3YDQgKqiOymjsRWUY1FG1pL9oCCJHH/wfXs3kqCrwD0LZAH0u0ccdkSBh+Nd6oY3z4M+YkUcskmttF5wt3OrnQrxLsSseESipqfwXNJbP5ORSkYCPLu9L9VnVHfA/y4acdcD8RcHUMOvm7yokhvVewBkFXDHeMkf93q+Zbem7uYcb1p2NmLSLgF1ZuF0KCR9RjjbiJL8RJ0AqSXF2iXUMOFtr4w23OdugVlSZf8XHKENl0V5klVlhXKsvmAR6/ezkfSrvJ/jxHNty9NaTpJvw4A==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

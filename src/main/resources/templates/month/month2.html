@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第2ヶ月目: 基本情報技術者試験対策 | ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --accent-color: #fd7e14;
+            --light-bg: #f8f9fa;
+            --dark-bg: #212529;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+        }
+        
+        .navbar-brand img {
+            max-height: 40px;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #0d6efd 0%, #0099ff 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            border-radius: 10px 10px 0 0 !important;
+        }
+        
+        .week-card .week-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .week-card .week-content {
+            padding: 1.5rem;
+        }
+        
+        .progress {
+            height: 20px;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-chart-container {
+            height: 300px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 40px;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .timeline-content {
+            background-color: white;
+            border-left: 3px solid var(--primary-color);
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .resource-card {
+            height: 100%;
+        }
+        
+        .resource-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+        }
+        
+        .footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer img {
+            max-height: 30px;
+        }
+        
+        .footer-links h5 {
+            color: white;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            text-align: center;
+            color: #adb5bd;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 2rem 0;
+            }
+            
+            .timeline-item {
+                padding-left: 30px;
+            }
+            
+            .timeline-marker {
+                width: 24px;
+                height: 24px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* アコーディオン用スタイル */
+        .accordion-button:not(.collapsed) {
+            background-color: rgba(13, 110, 253, 0.1);
+            color: var(--primary-color);
+        }
+
+        /* スキルバッジ */
+        .skill-badge {
+            display: inline-block;
+            background-color: var(--light-bg);
+            border-left: 3px solid var(--primary-color);
+            padding: 0.5rem 1rem;
+            margin: 0.25rem;
+            border-radius: 0 4px 4px 0;
+            font-size: 0.9rem;
+        }
+
+        /* チェックリストアイテム */
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        /* 印刷用スタイル */
+         {
+            .navbar, .footer {
+                display: none;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .card {
+                break-inside: avoid;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="../../index.html">
+                <img src="../../images/logo/apsa_logo.png" alt="APSA Logo" class="me-2">
+                <span>ITエンジニア育成カリキュラム</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarMonthDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarMonthDropdown">
+                            <li><a class="dropdown-item" href="month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item active" href="month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarWeekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarWeekDropdown">
+                            <li><a class="dropdown-item" href="../week/week5.html">第5週: コンピュータシステム</a></li>
+                            <li><a class="dropdown-item" href="../week/week6.html">第6週: ネットワーク・DB</a></li>
+                            <li><a class="dropdown-item" href="../week/week7.html">第7週: アルゴリズム・セキュリティ</a></li>
+                            <li><a class="dropdown-item" href="../week/week8.html">第8週: ストラテジ系</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarResourcesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            リソース
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarResourcesDropdown">
+                            <li><a class="dropdown-item" href="../../resources/resources.html">学習リソース</a></li>
+                            <li><a class="dropdown-item" href="../../resources/faq.html">よくある質問</a></li>
+                            <li><a class="dropdown-item" href="../../resources/advanced.html">応用コース</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ヒーローセクション -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="display-4 fw-bold mb-3">第2ヶ月目: 基本情報技術者試験対策</h1>
+                    <p class="fs-5">IT基礎知識を体系的に学び、基本情報技術者試験合格レベルを目指す</p>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="../../index.html" class="text-white">ホーム</a></li>
+                            <li class="breadcrumb-item active text-white" aria-current="page">第2ヶ月目</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-md-4 d-none d-md-block text-end">
+                    <i class="bi bi-laptop fs-1 text-white"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container py-4">
+        <!-- 月間概要 -->
+        <section class="mb-5">
+            <div class="card">
+                <div class="card-header bg-primary text-white py-3">
+                    <h2 class="mb-0">月間概要</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <h3 class="h4 mb-4 border-bottom pb-2"><i class="bi bi-flag-fill me-2"></i>月間学習目標</h3>
+                            <p>IT技術者に必須となる基礎知識の体系的な習得を目標とし、基本情報技術者試験合格を目指します。情報処理技術者試験のシラバスに沿って、テクノロジ系、マネジメント系、ストラテジ系の知識を幅広く身につけます。</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h3 class="h4 mb-4 border-bottom pb-2"><i class="bi bi-check2-circle me-2"></i>達成目標</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>基本情報技術者試験の全出題範囲を理解する</li>
+                                <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>午前試験の合格ラインである60%以上の正答率を達成する</li>
+                                <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>午後試験の基本的な問題が解けるようになる</li>
+                                <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i>IT基礎知識を活用した問題解決ができるようになる</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h3 class="h4 mb-4 border-bottom pb-2"><i class="bi bi-stars me-2"></i>習得スキル</h3>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 bg-light">
+                                    <div class="card-body">
+                                        <h4 class="h5 card-title"><i class="bi bi-cpu me-2 text-primary"></i>テクノロジ系</h4>
+                                        <div>
+                                            <span class="skill-badge">コンピュータ構成要素</span>
+                                            <span class="skill-badge">OSとミドルウェア</span>
+                                            <span class="skill-badge">ネットワーク技術</span>
+                                            <span class="skill-badge">データベース</span>
+                                            <span class="skill-badge">セキュリティ技術</span>
+                                            <span class="skill-badge">アルゴリズムとデータ構造</span>
+                                            <span class="skill-badge">プログラミング</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 bg-light">
+                                    <div class="card-body">
+                                        <h4 class="h5 card-title"><i class="bi bi-kanban me-2 text-primary"></i>マネジメント系</h4>
+                                        <div>
+                                            <span class="skill-badge">プロジェクトマネジメント</span>
+                                            <span class="skill-badge">サービスマネジメント</span>
+                                            <span class="skill-badge">システム監査</span>
+                                            <span class="skill-badge">開発プロセス</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100 bg-light">
+                                    <div class="card-body">
+                                        <h4 class="h5 card-title"><i class="bi bi-graph-up me-2 text-primary"></i>ストラテジ系</h4>
+                                        <div>
+                                            <span class="skill-badge">企業活動と法務</span>
+                                            <span class="skill-badge">経営戦略</span>
+                                            <span class="skill-badge">システム戦略</span>
+                                            <span class="skill-badge">情報システム開発</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 週別スケジュール -->
+        <section class="mb-5">
+            <h2 class="mb-4"><i class="bi bi-calendar-week me-2"></i>週別スケジュール</h2>
+            
+            <div class="row">
+                <!-- 第5週 -->
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h3 class="h5 mb-0">第5週: コンピュータシステム</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>コンピュータシステムの基礎知識を学び、ハードウェア、ソフトウェア、情報表現などの理解を深めます。</p>
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item">Day 19: 基本情報技術者試験の全体像、ハードウェア（CPU・メモリ・バス）</li>
+                                <li class="list-group-item">Day 20: ソフトウェア・OS（プロセス管理・メモリ管理・ファイルシステム）</li>
+                                <li class="list-group-item">Day 21: 情報処理と数値表現（2進数・8進数・16進数・補数・文字コード）</li>
+                                <li class="list-group-item">Day 22: ディジタル回路・論理設計（論理回路、論理演算、ブール代数）</li>
+                                <li class="list-group-item">Day 23: 模擬試験・週次総合テスト（今週内容の総合試験・復習）</li>
+                            </ul>
+                            <a href="../week/week5.html" class="btn btn-outline-primary">詳細を見る <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第6週 -->
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h3 class="h5 mb-0">第6週: ネットワーク・データベース</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>ネットワークの基礎知識とデータベースの概念・設計・操作を学びます。</p>
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item">Day 24: ネットワーク基礎（OSI参照モデル、TCP/IP、サブネット計算）</li>
+                                <li class="list-group-item">Day 25: ネットワーク応用（ルータ、スイッチ、クラウド、IoTの基礎）</li>
+                                <li class="list-group-item">Day 26: データベース基礎（関係モデル、ER図、SQL基本構文）</li>
+                                <li class="list-group-item">Day 27: データベース応用・最新技術（トランザクション、NoSQL、ビッグデータ）</li>
+                                <li class="list-group-item">Day 28: 模擬試験②と総合演習（今週の範囲の模擬演習・復習）</li>
+                            </ul>
+                            <a href="../week/week6.html" class="btn btn-outline-primary">詳細を見る <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第7週 -->
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h3 class="h5 mb-0">第7週: アルゴリズム・セキュリティ・マネジメント</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>アルゴリズムとデータ構造、セキュリティ技術、プロジェクトマネジメントを学びます。</p>
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item">Day 29: アルゴリズムとデータ構造（フローチャート、配列・リスト・スタック等）</li>
+                                <li class="list-group-item">Day 30: 探索・ソートアルゴリズム（線形探索・二分探索・各種ソート、計算量）</li>
+                                <li class="list-group-item">Day 31: セキュリティ基礎と対策（暗号化・認証・最新の脅威）</li>
+                                <li class="list-group-item">Day 32: プロジェクトマネジメント（PMBOK、WBS、開発プロセス）</li>
+                                <li class="list-group-item">Day 33: 模擬試験③と総合演習（マネジメント・セキュリティ総合演習）</li>
+                            </ul>
+                            <a href="../week/week7.html" class="btn btn-outline-primary">詳細を見る <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第8週 -->
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-primary text-white py-3">
+                            <h3 class="h5 mb-0">第8週: ストラテジ系と総合対策</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>経営戦略、システム戦略、法務知識を学び、総合的な試験対策を行います。</p>
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item">Day 34: ストラテジ系・経営戦略（経営戦略・システム戦略・法務・知財）</li>
+                                <li class="list-group-item">Day 35: 総合模擬試験・弱点強化</li>
+                                <li class="list-group-item">Day 36: 最終模擬試験・2ヶ月目総括</li>
+                            </ul>
+                            <a href="../week/week8.html" class="btn btn-outline-primary">詳細を見る <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学習リソース -->
+        <section class="mb-5">
+            <h2 class="mb-4"><i class="bi bi-book me-2"></i>学習リソース</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="text-center mb-3">
+                                <i class="bi bi-file-earmark-text resource-icon"></i>
+                            </div>
+                            <h3 class="h5 card-title text-center mb-3">公式教材</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="https://www.ipa.go.jp/shiken/syllabus/index.html" target="_blank" class="text-decoration-none">IPA 基本情報技術者試験シラバス</a></li>
+                                <li class="list-group-item"><a href="https://www.ipa.go.jp/shiken/mondai-kaiotu/index.html" target="_blank" class="text-decoration-none">IPA 過去問題</a></li>
+                                <li class="list-group-item"><a href="https://www.jitec.ipa.go.jp/1_04hanni_sukiru/_index_mondai.html" target="_blank" class="text-decoration-none">IPA 試験範囲・出題例</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="text-center mb-3">
+                                <i class="bi bi-laptop resource-icon"></i>
+                            </div>
+                            <h3 class="h5 card-title text-center mb-3">オンラインツール</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="https://visualgo.net/" target="_blank" class="text-decoration-none">VisuAlgo（アルゴリズム可視化）</a></li>
+                                <li class="list-group-item"><a href="https://www.sqltutorial.org/" target="_blank" class="text-decoration-none">SQL Tutorial</a></li>
+                                <li class="list-group-item"><a href="https://draw.io/" target="_blank" class="text-decoration-none">draw.io（ER図・ネットワーク図作成）</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="text-center mb-3">
+                                <i class="bi bi-journal-check resource-icon"></i>
+                            </div>
+                            <h3 class="h5 card-title text-center mb-3">演習問題</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a href="https://www.fe-siken.com/" target="_blank" class="text-decoration-none">基本情報技術者試験ドットコム</a></li>
+                                <li class="list-group-item"><a href="https://www.nw-siken.com/" target="_blank" class="text-decoration-none">ネットワークスペシャリスト試験ドットコム</a></li>
+                                <li class="list-group-item"><a href="https://www.db-siken.com/" target="_blank" class="text-decoration-none">データベーススペシャリスト試験ドットコム</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="../../resources/resources.html" class="btn btn-primary">全ての学習リソースを見る <i class="bi bi-arrow-right"></i></a>
+            </div>
+        </section>
+
+        <!-- 進捗トラッカー -->
+        <section class="mb-5">
+            <h2 class="mb-4"><i class="bi bi-graph-up me-2"></i>進捗状況</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <h3 class="h5 mb-3">週別進捗</h3>
+                            <div class="mb-3">
+                                <label for="week5Progress" class="form-label d-flex justify-content-between">
+                                    <span>第5週: コンピュータシステム</span>
+                                    <span id="week5Percentage">0%</span>
+                                </label>
+                                <div class="progress">
+                                    <div id="week5Progress" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="week6Progress" class="form-label d-flex justify-content-between">
+                                    <span>第6週: ネットワーク・データベース</span>
+                                    <span id="week6Percentage">0%</span>
+                                </label>
+                                <div class="progress">
+                                    <div id="week6Progress" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="week7Progress" class="form-label d-flex justify-content-between">
+                                    <span>第7週: アルゴリズム・セキュリティ・マネジメント</span>
+                                    <span id="week7Percentage">0%</span>
+                                </label>
+                                <div class="progress">
+                                    <div id="week7Progress" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="week8Progress" class="form-label d-flex justify-content-between">
+                                    <span>第8週: ストラテジ系と総合対策</span>
+                                    <span id="week8Percentage">0%</span>
+                                </label>
+                                <div class="progress">
+                                    <div id="week8Progress" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="month2Progress" class="form-label d-flex justify-content-between">
+                                    <span><strong>2ヶ月目 全体進捗</strong></span>
+                                    <span id="month2Percentage">0%</span>
+                                </label>
+                                <div class="progress">
+                                    <div id="month2Progress" class="progress-bar bg-success" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h3 class="h5 mb-3">分野別達成度</h3>
+                            <div class="progress-chart-container">
+                                <canvas id="skillRadarChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 次のステップ -->
+        <section class="mb-5">
+            <div class="card bg-light">
+                <div class="card-body p-4">
+                    <h2 class="card-title"><i class="bi bi-signpost-2 me-2"></i>次のステップ</h2>
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h3 class="h4 mb-3">第3ヶ月目: Webアプリケーション開発実践</h3>
+                            <p>基本情報技術者試験の学習で得た知識を活かし、実践的なWebアプリケーション開発に挑戦します。フロントエンド（HTML/CSS/JavaScript）からバックエンド（サーバーサイド開発、データベース連携）まで、実際に動作するWebアプリケーションを開発するための技術を学びます。</p>
+                            <a href="month3.html" class="btn btn-primary mt-2">次のカリキュラムへ進む <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                        <div class="col-md-4 text-center d-none d-md-block">
+                            <i class="bi bi-code-slash display-1 text-primary"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer bg-dark text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="../../images/logo/apsa_logo.png" alt="APSA Logo" class="me-2">
+                        <h5 class="mb-0">ITエンジニア育成カリキュラム</h5>
+                    </div>
+                    <p class="small">IT業界未経験者が3ヶ月でITエンジニアとしての基礎スキルを身につけるための体系的なカリキュラムです。</p>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>カリキュラム</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="month1.html">第1ヶ月目</a></li>
+                            <li><a href="month2.html">第2ヶ月目</a></li>
+                            <li><a href="month3.html">第3ヶ月目</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>週別詳細</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="../week/week5.html">第5週</a></li>
+                            <li><a href="../week/week6.html">第6週</a></li>
+                            <li><a href="../week/week7.html">第7週</a></li>
+                            <li><a href="../week/week8.html">第8週</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 mb-4 mb-md-0">
+                    <div class="footer-links">
+                        <h5>リソース</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="../../resources/resources.html">学習リソース</a></li>
+                            <li><a href="../../resources/faq.html">よくある質問</a></li>
+                            <li><a href="../../resources/advanced.html">応用コース</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <div class="footer-links">
+                        <h5>リンク</h5>
+                        <ul class="list-unstyled">
+                            <li><a href="https://www.apsa.co.jp/" target="_blank">APSA公式サイト</a></li>
+                            <li><a href="https://www.ipa.go.jp/" target="_blank">IPA</a></li>
+                            <li><a href="https://www.jitec.ipa.go.jp/" target="_blank">情報処理技術者試験</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="mb-0">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- スクリプト -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ローカルストレージから進捗データを取得またはデフォルト値を設定
+            const weekProgress = {
+                week5: localStorage.getItem('week5Progress') || 0,
+                week6: localStorage.getItem('week6Progress') || 0,
+                week7: localStorage.getItem('week7Progress') || 0,
+                week8: localStorage.getItem('week8Progress') || 0
+            };
+            
+            // 週別進捗バーの更新
+            updateProgressBar('week5Progress', 'week5Percentage', weekProgress.week5);
+            updateProgressBar('week6Progress', 'week6Percentage', weekProgress.week6);
+            updateProgressBar('week7Progress', 'week7Percentage', weekProgress.week7);
+            updateProgressBar('week8Progress', 'week8Percentage', weekProgress.week8);
+            
+            // 2ヶ月目全体の進捗を計算して更新
+            const month2Progress = calculateMonth2Progress(weekProgress);
+            updateProgressBar('month2Progress', 'month2Percentage', month2Progress);
+            
+            // スキルレーダーチャートの初期化
+            initSkillRadarChart();
+            
+            // 進捗バーの変更を検知して保存するイベントリスナーを追加
+            document.querySelectorAll('.progress-bar').forEach(bar => {
+                bar.addEventListener('click', function(e) {
+                    const progressBar = e.currentTarget;
+                    const barWidth = progressBar.parentElement.offsetWidth;
+                    const clickPosition = e.offsetX;
+                    const newProgress = Math.round((clickPosition / barWidth) * 100);
+                    
+                    const progressId = progressBar.id;
+                    updateProgressBar(progressId, progressId + 'Percentage', newProgress);
+                    
+                    // ローカルストレージに保存
+                    localStorage.setItem(progressId, newProgress);
+                    
+                    // 2ヶ月目全体の進捗を再計算
+                    if (progressId !== 'month2Progress') {
+                        const updatedWeekProgress = {
+                            week5: localStorage.getItem('week5Progress') || 0,
+                            week6: localStorage.getItem('week6Progress') || 0,
+                            week7: localStorage.getItem('week7Progress') || 0,
+                            week8: localStorage.getItem('week8Progress') || 0
+                        };
+                        const updatedMonth2Progress = calculateMonth2Progress(updatedWeekProgress);
+                        updateProgressBar('month2Progress', 'month2Percentage', updatedMonth2Progress);
+                        localStorage.setItem('month2Progress', updatedMonth2Progress);
+                    }
+                    
+                    // レーダーチャートの更新
+                    updateSkillRadarChart();
+                });
+            });
+        });
+        
+        // 進捗バーの更新関数
+        function updateProgressBar(progressBarId, percentageId, progress) {
+            const progressBar = document.getElementById(progressBarId);
+            const percentage = document.getElementById(percentageId);
+            
+            if (progressBar && percentage) {
+                progress = parseInt(progress);
+                progressBar.style.width = progress + '%';
+                progressBar.setAttribute('aria-valuenow', progress);
+                percentage.textContent = progress + '%';
+            }
+        }
+        
+        // 2ヶ月目全体の進捗を計算する関数
+        function calculateMonth2Progress(weekProgress) {
+            const w5 = parseInt(weekProgress.week5);
+            const w6 = parseInt(weekProgress.week6);
+            const w7 = parseInt(weekProgress.week7);
+            const w8 = parseInt(weekProgress.week8);
+            
+            return Math.round((w5 + w6 + w7 + w8) / 4);
+        }
+        
+        // スキルレーダーチャートの初期化
+        function initSkillRadarChart() {
+            const ctx = document.getElementById('skillRadarChart').getContext('2d');
+            
+            // ローカルストレージからスキル達成度データを取得するか、デフォルト値を設定
+            const skillData = {
+                hardware: localStorage.getItem('skillHardware') || 0,
+                software: localStorage.getItem('skillSoftware') || 0,
+                network: localStorage.getItem('skillNetwork') || 0,
+                database: localStorage.getItem('skillDatabase') || 0,
+                security: localStorage.getItem('skillSecurity') || 0,
+                algorithm: localStorage.getItem('skillAlgorithm') || 0,
+                management: localStorage.getItem('skillManagement') || 0,
+                strategy: localStorage.getItem('skillStrategy') || 0
+            };
+            
+            window.skillRadarChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'ハードウェア',
+                        'ソフトウェア・OS',
+                        'ネットワーク',
+                        'データベース',
+                        'セキュリティ',
+                        'アルゴリズム',
+                        'マネジメント',
+                        'ストラテジ'
+                    ],
+                    datasets: [{
+                        label: '達成度',
+                        data: [
+                            skillData.hardware,
+                            skillData.software,
+                            skillData.network,
+                            skillData.database,
+                            skillData.security,
+                            skillData.algorithm,
+                            skillData.management,
+                            skillData.strategy
+                        ],
+                        fill: true,
+                        backgroundColor: 'rgba(13, 110, 253, 0.2)',
+                        borderColor: 'rgba(13, 110, 253, 1)',
+                        pointBackgroundColor: 'rgba(13, 110, 253, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(13, 110, 253, 1)'
+                    }]
+                },
+                options: {
+                    elements: {
+                        line: {
+                            borderWidth: 2
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+        }
+        
+        // スキルレーダーチャートの更新
+        function updateSkillRadarChart() {
+            if (window.skillRadarChart) {
+                // 週の進捗から大まかなスキル習得度を推定
+                const week5Progress = parseInt(localStorage.getItem('week5Progress') || 0);
+                const week6Progress = parseInt(localStorage.getItem('week6Progress') || 0);
+                const week7Progress = parseInt(localStorage.getItem('week7Progress') || 0);
+                const week8Progress = parseInt(localStorage.getItem('week8Progress') || 0);
+                
+                // スキル別の達成度を計算（単純化のため、関連する週の進捗から推定）
+                const skillData = {
+                    hardware: Math.round(week5Progress * 0.8),
+                    software: Math.round(week5Progress * 0.7),
+                    network: Math.round(week6Progress * 0.8),
+                    database: Math.round(week6Progress * 0.7),
+                    security: Math.round(week7Progress * 0.6),
+                    algorithm: Math.round(week7Progress * 0.8),
+                    management: Math.round((week7Progress * 0.4) + (week8Progress * 0.4)),
+                    strategy: Math.round(week8Progress * 0.8)
+                };
+                
+                // ローカルストレージに保存
+                Object.keys(skillData).forEach(key => {
+                    localStorage.setItem('skill' + key.charAt(0).toUpperCase() + key.slice(1), skillData[key]);
+                });
+                
+                // チャートデータの更新
+                window.skillRadarChart.data.datasets[0].data = [
+                    skillData.hardware,
+                    skillData.software,
+                    skillData.network,
+                    skillData.database,
+                    skillData.security,
+                    skillData.algorithm,
+                    skillData.management,
+                    skillData.strategy
+                ];
+                
+                window.skillRadarChart.update();
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDoPYypooJSjMUEWb1TwcMh4h%2Bf%2Fi72i%2FsQMfpjsmkS0mIDzb7yJGiaqBMTmwYYuOq6hWODbN099RBINMbhNIMbuPsrrvXEXV6u9041sanpHObRipluooVLdxe97RBkykLKUcM4nH0ERWMesAa0%2FK4HZvknvZiNO9WjTiGAelDH6JTgeyzD0FeG0HSuyFi827PC8dA4KfrU5UeoY3g79bB4XL0R8hFBi%2BxraQHFM%2BBqRA3HIzQaLZmZ%2FNKmgF5ZsyYbg3xIv9ut4UbI%2BGGq9g6Yc590t9GxS6Wtd5fo1oJNVpj8wife9KVwVKciepHn85trGg1QCjgYOZ5RMq%2BYGvy7h5mmvkiaZEry%2F3faG90YdMEFj0CkPfbYJZB16o9NZ2R7BRYWovrJYkcaP7GAKigatwvo7jPwJRPxapirqQ7XDAgQTUI8%2BuBEDl2BngbbRfdunmAInNz7shR6iUu2Rwc04kyojvAzzlKImBzmV2aoGr%2FWqlYptrtBsZW%2B6XnIkExQ%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDoPYypooJSjMUEWb1TwcMh4h+f/i72i/sQMfpjsmkS0mIDzb7yJGiaqBMTmwYYuOq6hWODbN099RBINMbhNIMbuPsrrvXEXV6u9041sanpHObRipluooVLdxe97RBkykLKUcM4nH0ERWMesAa0/K4HZvknvZiNO9WjTiGAelDH6JTgeyzD0FeG0HSuyFi827PC8dA4KfrU5UeoY3g79bB4XL0R8hFBi+xraQHFM+BqRA3HIzQaLZmZ/NKmgF5ZsyYbg3xIv9ut4UbI+GGq9g6Yc590t9GxS6Wtd5fo1oJNVpj8wife9KVwVKciepHn85trGg1QCjgYOZ5RMq+YGvy7h5mmvkiaZEry/3faG90YdMEFj0CkPfbYJZB16o9NZ2R7BRYWovrJYkcaP7GAKigatwvo7jPwJRPxapirqQ7XDAgQTUI8+uBEDl2BngbbRfdunmAInNz7shR6iUu2Rwc04kyojvAzzlKImBzmV2aoGr/WqlYptrtBsZW+6XnIkExQ==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

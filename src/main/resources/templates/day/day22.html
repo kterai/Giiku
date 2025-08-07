@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 22: ディジタル回路・論理設計（論理回路、論理演算、ブール代数）| ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/lib/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+        }
+        
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0.75rem 0;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #0056b3 0%, #007bff 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .section-title {
+            border-left: 4px solid #007bff;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .schedule-item {
+            border-left: 3px solid #007bff;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .time-label {
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+        
+        .badge-custom {
+            background-color: #17a2b8;
+            color: white;
+            font-weight: normal;
+            padding: 0.5em 0.7em;
+            border-radius: 5px;
+        }
+        
+        .next-step-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 5px solid #28a745;
+        }
+        
+        .feedback-form {
+            background-color: #f1f8ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        
+        .logic-gate-diagram {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .truth-table {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .truth-table th {
+            background-color: #007bff;
+            color: white;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        
+        .truth-table td {
+            padding: 0.75rem;
+            text-align: center;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        footer {
+            background-color: #343a40;
+            color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links h5 {
+            color: white;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 767.98px) {
+            .page-header {
+                padding: 1.5rem 0;
+            }
+            
+            .content-card {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+        }
+        
+        /* 印刷用スタイル */
+         {
+            .no-print {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+            }
+            
+            .content-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            footer {
+                background-color: white;
+                color: black;
+            }
+            
+            a {
+                text-decoration: none;
+                color: black;
+            }
+            
+            .footer-links ul li a {
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script defer src="../../js/day-navigation.js"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                ITエンジニア育成カリキュラム
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="monthDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="monthDropdown">
+                            <li><a class="dropdown-item" href="../month/month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="../month/month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="weekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="weekDropdown">
+                            <li><a class="dropdown-item" href="../week/week1.html">第1週: Java基礎</a></li>
+                            <li><a class="dropdown-item" href="../week/week2.html">第2週: オブジェクト指向</a></li>
+                            <li><a class="dropdown-item" href="../week/week5.html">第5週: コンピュータシステム</a></li>
+                            <li><a class="dropdown-item" href="../week/week6.html">第6週: ネットワーク・データベース</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/resources.html">学習リソース</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/faq.html">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">ホーム</a></li>
+                <li class="breadcrumb-item"><a href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                <li class="breadcrumb-item"><a href="../week/week5.html">第5週: コンピュータシステム</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Day 22</li>
+            </ol>
+        </nav>
+    </div>
+
+    <header class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-microchip"></i> Day 22: ディジタル回路・論理設計</h1>
+            <p class="lead">論理回路、論理演算、ブール代数の基礎を学び、コンピュータの動作基盤を理解する</p>
+            <div class="mt-3">
+                <span class="badge bg-primary me-2">第2ヶ月目</span>
+                <span class="badge bg-info me-2">第5週</span>
+                <span class="badge bg-success">22日目</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <section>
+                    <h2 class="section-title"><i class="fas fa-bullseye"></i> 学習目標</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>基本論理ゲート（AND、OR、NOT、NAND、NOR）の動作と特性を理解する</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>ブール代数の基本法則と論理演算を習得する</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>組合せ回路（加算器、デコーダ、エンコーダ）の設計原理を理解する</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>順序回路（フリップフロップ、カウンタ、レジスタ）の動作を理解する</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>カルノー図を用いた論理式の簡単化手法を習得する</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title"><i class="fas fa-trophy"></i> 達成基準</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-medal text-warning me-2"></i>各論理ゲートの真理値表を正確に作成できる</li>
+                            <li class="list-group-item"><i class="fas fa-medal text-warning me-2"></i>ブール代数の法則を適用して論理式を簡単化できる</li>
+                            <li class="list-group-item"><i class="fas fa-medal text-warning me-2"></i>与えられた条件から組合せ回路を設計できる</li>
+                            <li class="list-group-item"><i class="fas fa-medal text-warning me-2"></i>フリップフロップの状態遷移図を描ける</li>
+                            <li class="list-group-item"><i class="fas fa-medal text-warning me-2"></i>カルノー図を用いて最小項表現を求められる</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title"><i class="fas fa-clock"></i> 詳細スケジュール</h2>
+                    <div class="content-card">
+                        <div class="accordion" id="scheduleAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="time-label">10:00-10:15</div> <div class="ms-3">オリエンテーション・前日復習</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        <p>前日の数値表現と文字コードの内容を復習し、本日のディジタル回路学習につなげます。</p>
+                                        <ul>
+                                            <li>2進数と論理回路の関係</li>
+                                            <li>コンピュータ内部での情報処理の流れ</li>
+                                            <li>今日の学習内容の概要説明</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <div class="time-label">10:15-11:00</div> <div class="ms-3">午前講義パート1: 基本論理ゲート</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        <p>ディジタル回路の基本となる論理ゲートについて学習します。</p>
+                                        <ul>
+                                            <li>論理ゲートの種類と記号（AND、OR、NOT、NAND、NOR、XOR）</li>
+                                            <li>各ゲートの動作と特性</li>
+                                            <li>真理値表の作成方法</li>
+                                            <li>論理式の表現方法</li>
+                                        </ul>
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <div class="time-label">11:00-11:45</div> <div class="ms-3">午前演習パート1: 論理ゲートの実習</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        <p>実際に論理ゲートの動作を確認し、真理値表を作成する演習を行います。</p>
+                                        <ul>
+                                            <li>シミュレータを使った論理ゲートの動作確認</li>
+                                            <li>各種論理ゲートの真理値表作成</li>
+                                            <li>基本論理演算の計算練習</li>
+                                            <li>複合ゲートの動作解析</li>
+                                        </ul>
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        <div class="time-label">11:45-12:45</div> <div class="ms-3">昼休憩</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        休憩時間です。昼食をとり、リフレッシュしましょう。論理回路の復習資料を軽く読むのもおすすめです。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        <div class="time-label">12:45-13:30</div> <div class="ms-3">午後講義パート1: ブール代数と組合せ回路</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        <p>ブール代数の基本法則と組合せ回路の設計について学習します。</p>
+                                        <ul>
+                                            <li>ブール代数の基本法則（交換法則、結合法則、分配法則）</li>
+                                            <li>ド・モルガンの定理</li>
+                                            <li>論理式の簡単化手法</li>
+                                            <li>加算器、減算器の設計</li>
+                                            <li>デコーダ、エンコーダの動作原理</li>
+                                        </ul>
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSix">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        <div class="time-label">13:30-14:15</div> <div class="ms-3">午後演習パート1: ブール代数と組合せ回路設計</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        <p>ブール代数を用いた論理式の簡単化と組合せ回路の設計を実習します。</p>
+                                        <ul>
+                                            <li>論理式の変形と簡単化</li>
+                                            <li>半加算器、全加算器の設計</li>
+                                            <li>3-to-8デコーダの設計</li>
+                                            <li>7セグメントディスプレイ用デコーダの設計</li>
+                                        </ul>
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSeven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                        <div class="time-label">14:15-15:00</div> <div class="ms-3">午後講義パート2: 順序回路とカルノー図</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        <p>記憶機能を持つ順序回路とカルノー図による最適化について学習します。</p>
+                                        <ul>
+                                            <li>フリップフロップの種類と動作（RS、JK、D、T）</li>
+                                            <li>状態遷移図と状態遷移表</li>
+                                            <li>カウンタとレジスタの設計</li>
+                                            <li>カルノー図の基本概念</li>
+                                            <li>最小項表現と最大項表現</li>
+                                        </ul>
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEight">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                        <div class="time-label">15:00-15:10</div> <div class="ms-3">午後休憩</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        短い休憩時間です。リフレッシュして、午後の演習に備えましょう。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingNine">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                        <div class="time-label">15:10-15:55</div> <div class="ms-3">午後演習パート2: 順序回路設計とカルノー図</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        <p>フリップフロップを用いた順序回路の設計とカルノー図による最適化を実習します。</p>
+                                        <ul>
+                                            <li>Dフリップフロップを用いたカウンタ設計</li>
+                                            <li>状態遷移図の作成</li>
+                                            <li>カルノー図を用いた論理式簡単化</li>
+                                            <li>3変数、4変数のカルノー図演習</li>
+                                        </ul>
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTen">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                        <div class="time-label">15:55-17:00</div> <div class="ms-3">理解度チェック</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        <p>本日学習したディジタル回路・論理設計の理解度を確認するテストを実施します。</p>
+                                        <ul>
+                                            <li>論理ゲートの真理値表作成問題</li>
+                                            <li>ブール代数による論理式簡単化問題</li>
+                                            <li>組合せ回路設計問題</li>
+                                            <li>カルノー図を用いた最適化問題</li>
+                                            <li>基本情報技術者試験の過去問題</li>
+                                        </ul>
+                                        <div class="alert alert-warning mt-2">
+                                            <i class="bi bi-patch-question-fill"></i> テスト
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEleven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                                        <div class="time-label">17:00-17:45</div> <div class="ms-3">振り返り・質疑応答</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        <p>本日の学習内容を振り返り、疑問点や不明点について質問する時間です。</p>
+                                        <ul>
+                                            <li>理解度チェックの解説</li>
+                                            <li>つまずきやすいポイントの復習</li>
+                                            <li>明日の模擬試験に向けた準備</li>
+                                            <li>質疑応答とディスカッション</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="theme-details">
+                    <h2 class="section-title"><i class="fas fa-microchip"></i> ディジタル回路の基礎</h2>
+                    <div class="content-card">
+                        <h3><i class="fas fa-puzzle-piece"></i> 基本論理ゲート</h3>
+                        <p>ディジタル回路の基本構成要素である論理ゲートについて詳しく学習します。各ゲートは特定の論理演算を実行し、コンピュータ内部の情報処理の基盤となります。</p>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="card mt-3 mb-3">
+                                    <div class="card-header bg-primary text-white">
+                                        <h4 class="mb-0"><i class="fas fa-sitemap"></i> ANDゲート</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>すべての入力が1（HIGH）の時のみ出力が1になる論理積演算を行います。</p>
+                                        <div class="logic-gate-diagram">
+                                            <strong>記号: A・B または A∧B</strong><br>
+                                            <small>すべてが真の時のみ真</small>
+                                        </div>
+                                        <table class="truth-table w-100 mt-2">
+                                            <thead>
+                                                <tr>
+                                                    <th>A</th>
+                                                    <th>B</th>
+                                                    <th>出力</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>0</td><td>0</td><td>0</td></tr>
+                                                <tr><td>0</td><td>1</td><td>0</td></tr>
+                                                <tr><td>1</td><td>0</td><td>0</td></tr>
+                                                <tr><td>1</td><td>1</td><td>1</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mt-3 mb-3">
+                                    <div class="card-header bg-success text-white">
+                                        <h4 class="mb-0"><i class="fas fa-plus"></i> ORゲート</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <p>いずれかの入力が1（HIGH）の時に出力が1になる論理和演算を行います。</p>
+                                        <div class="logic-gate-diagram">
+                                            <strong>記号: A+B または A∨B</strong><br>
+                                            <small>いずれかが真なら真</small>
+                                        </div>
+                                        <table class="truth-table w-100 mt-2">
+                                            <thead>
+                                                <tr>
+                                                    <th>A</th>
+                                                    <th>B</th>
+                                                    <th>出力</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td>0</td><td>0</td><td>0</td></tr>
+                                                <tr><td>0</td><td>1</td><td>1</td></tr>
+                                                <tr><td>1</td><td>0</td><td>1</td></tr>
+                                                <tr><td>1</td><td>1</td><td>1</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header bg-warning text-dark">
+                                <h4 class="mb-0"><i class="fas fa-exchange-alt"></i> ブール代数の基本法則</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>論理回路の設計と最適化に必要なブール代数の重要な法則について学習します。</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5>基本法則</h5>
+                                        <ul>
+                                            <li><strong>交換法則:</strong> A + B = B + A</li>
+                                            <li><strong>結合法則:</strong> (A + B) + C = A + (B + C)</li>
+                                            <li><strong>分配法則:</strong> A(B + C) = AB + AC</li>
+                                            <li><strong>恒等法則:</strong> A + 0 = A, A・1 = A</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5>重要な定理</h5>
+                                        <ul>
+                                            <li><strong>補数法則:</strong> A + A' = 1, A・A' = 0</li>
+                                            <li><strong>吸収法則:</strong> A + AB = A</li>
+                                            <li><strong>ド・モルガンの定理:</strong> (A + B)' = A'・B'</li>
+                                            <li><strong>二重否定:</strong> (A')' = A</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header bg-info text-white">
+                                <h4 class="mb-0"><i class="fas fa-cogs"></i> 組合せ回路と順序回路</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5>組合せ回路</h5>
+                                        <p>現在の入力のみで出力が決まる回路</p>
+                                        <ul>
+                                            <li>加算器（半加算器、全加算器）</li>
+                                            <li>デコーダ（3-to-8デコーダなど）</li>
+                                            <li>エンコーダ（8-to-3エンコーダなど）</li>
+                                            <li>マルチプレクサ、デマルチプレクサ</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5>順序回路</h5>
+                                        <p>過去の状態を記憶する回路</p>
+                                        <ul>
+                                            <li>フリップフロップ（RS、JK、D、T）</li>
+                                            <li>カウンタ（同期、非同期）</li>
+                                            <li>レジスタ（シフトレジスタなど）</li>
+                                            <li>状態機械（有限状態機械）</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="resources">
+                    <h2 class="section-title"><i class="fas fa-book-open"></i> 使用教材・リソース</h2>
+                    <div class="content-card">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-book-fill text-primary"></i> 主要教材
+                                        </h5>
+                                        <p class="card-text">
+                                            <strong>「基本情報技術者試験 午前問題集」</strong><br>
+                                            第5章: ディジタル回路<br>
+                                            <strong>「論理回路入門」</strong><br>
+                                            第1-3章: 基本ゲートとブール代数
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-laptop-fill text-success"></i> シミュレータ
+                                        </h5>
+                                        <p class="card-text">
+                                            <strong>Logisim Evolution</strong><br>
+                                            論理回路設計・シミュレーション<br>
+                                            <strong>Digital Logic Sim</strong><br>
+                                            ブラウザベースシミュレータ
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-journal-code text-warning"></i> 参考サイト
+                                        </h5>
+                                        <p class="card-text">
+                                            <strong>IPA 基本情報技術者試験</strong><br>
+                                            過去問題（ハードウェア分野）<br>
+                                            <strong>All About Circuits</strong><br>
+                                            ディジタル回路の解説
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="comprehension-check">
+                    <h2 class="section-title"><i class="fas fa-clipboard-check"></i> 理解度確認項目</h2>
+                    <div class="content-card">
+                        <div class="mb-4">
+                            <h4><i class="bi bi-star-fill text-warning"></i> 基本レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check1">
+                                        <label class="form-check-label" for="check1">
+                                            AND、OR、NOTゲートの動作を説明できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check2">
+                                        <label class="form-check-label" for="check2">
+                                            真理値表を正確に作成できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check3">
+                                        <label class="form-check-label" for="check3">
+                                            ブール代数の基本法則を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check4">
+                                        <label class="form-check-label" for="check4">
+                                            NAND、NOR、XORゲートの特性を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check5">
+                                        <label class="form-check-label" for="check5">
+                                            組合せ回路と順序回路の違いを説明できる
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4><i class="bi bi-stars text-primary"></i> 応用レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check6">
+                                        <label class="form-check-label" for="check6">
+                                            ブール代数を用いて論理式を簡単化できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check7">
+                                        <label class="form-check-label" for="check7">
+                                            半加算器と全加算器を設計できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check8">
+                                        <label class="form-check-label" for="check8">
+                                            カルノー図を用いて最小項表現を求められる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check9">
+                                        <label class="form-check-label" for="check9">
+                                            フリップフロップの状態遷移図を作成できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check10">
+                                        <label class="form-check-label" for="check10">
+                                            デコーダ・エンコーダ回路を設計できる
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="next-steps">
+                    <h2 class="section-title"><i class="fas fa-arrow-right"></i> 次のステップ</h2>
+                    <div class="content-card next-step-card">
+                        <h3><i class="fas fa-clipboard-list"></i> 明日: Day 23 - 模擬試験・週次総合テスト</h3>
+                        <p>第5週で学習したコンピュータシステム分野の総合的な理解度を確認します。基本情報技術者試験の形式に準じた模擬試験を実施し、ハードウェア・OS・数値表現・論理回路の各分野における弱点を特定し、次週に向けた学習計画を立てます。</p>
+                        <div class="mt-3">
+                            <h5>準備すべきこと：</h5>
+                            <ul>
+                                <li>今週学習した内容の総復習</li>
+                                <li>論理回路の計算練習</li>
+                                <li>過去問題の解法確認</li>
+                            </ul>
+                        </div>
+                        <a href="day23.html" class="btn btn-success mt-3">
+                            <i class="bi bi-arrow-right-circle-fill"></i> Day 23の詳細を見る
+                        </a>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title"><i class="fas fa-comment-dots"></i> フィードバック</h2>
+                    <div class="content-card feedback-form">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle-fill"></i> 本日の学習内容についてフィードバックをお寄せください。
+                        </div>
+                        <form id="feedback-form" class="mt-3">
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">理解度</label>
+                                <select class="form-select" id="rating">
+                                    <option value="5">とても理解できた</option>
+                                    <option value="4">理解できた</option>
+                                    <option value="3">普通</option>
+                                    <option value="2">あまり理解できなかった</option>
+                                    <option value="1">理解できなかった</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="feedbackText" class="form-label">コメント</label>
+                                <textarea class="form-control" id="feedbackText" rows="3" placeholder="今日の学習で難しかった点や、さらに詳しく知りたい内容があれば教えてください"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> 送信
+                            </button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top: 100px;">
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-calendar-check"></i> 学習進捗</h3>
+                        <div class="progress-container">
+                            <p>この日の学習進捗</p>
+                            <div class="progress" style="height: 20px;">
+                                <div id="day-progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>
+                            <p class="text-end mt-2" id="progress-text">0/10 完了</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="progressChart" style="height: 300px;"></canvas>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button id="resetProgress" class="btn btn-outline-warning btn-sm">
+                                <i class="bi bi-arrow-counterclockwise"></i> 進捗をリセット
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-journal-text"></i> 目次</h3>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#scheduleAccordion">詳細スケジュール</a>
+                            <a class="nav-link" href="#theme-details">ディジタル回路の基礎</a>
+                            <a class="nav-link" href="#resources">使用教材・リソース</a>
+                            <a class="nav-link" href="#comprehension-check">理解度確認項目</a>
+                            <a class="nav-link" href="#next-steps">次のステップ</a>
+                        </nav>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-link-45deg"></i> 関連リンク</h3>
+                        <div class="list-group">
+                            <a href="../week/week5.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-calendar-week"></i> 第5週の概要
+                            </a>
+                            <a href="../month/month2.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-calendar-month"></i> 第2ヶ月目の概要
+                            </a>
+                            <a href="../../resources/resources.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-book"></i> 学習リソース
+                            </a>
+                            <a href="../../resources/faq.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-question-circle"></i> よくある質問
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <h3><i class="bi bi-arrow-left-right"></i> ナビゲーション</h3>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="day21.html" class="btn btn-outline-primary">
+                                <i class="bi bi-arrow-left"></i> Day 21
+                            </a>
+                            <a href="day23.html" class="btn btn-outline-primary">
+                                Day 23 <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-light mt-5">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="footer-logo">
+                        <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                    </div>
+                    <p>ITエンジニア育成カリキュラムは、未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>カリキュラム</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../month/month1.html">第1ヶ月目</a></li>
+                        <li><a href="../month/month2.html">第2ヶ月目</a></li>
+                        <li><a href="../month/month3.html">第3ヶ月目</a></li>
+                        <li><a href="../../resources/advanced.html">応用コース</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>リソース</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../resources/resources.html">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html">よくある質問</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>お問い合わせ</h5>
+                    <p>本カリキュラムについてのお問い合わせは下記までお願いします。</p>
+                    <a href="mailto:info@apsa.co.jp" class="btn btn-outline-light">
+                        <i class="bi bi-envelope"></i> メールでのお問い合わせ
+                    </a>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="text-light"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/lib/jquery.min.js"></script>
+    <script src="../../js/lib/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // チェックボックスのイベントリスナーを設定
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+            
+            // 進捗リセットボタン
+            document.getElementById('resetProgress').addEventListener('click', function() {
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                updateProgress();
+            });
+            
+            // 初期進捗更新
+            updateProgress();
+            
+            // プログレスチャートの初期化
+            initProgressChart();
+            
+            // フィードバックフォーム
+            document.getElementById('feedback-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('フィードバックを送信しました。ありがとうございます！');
+                this.reset();
+            });
+        });
+        
+        // 進捗を更新する関数
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            const totalChecks = checkboxes.length;
+            let checkedCount = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    checkedCount++;
+                }
+            });
+            
+            const progressPercent = totalChecks > 0 ? Math.round((checkedCount / totalChecks) * 100) : 0;
+            
+            // プログレスバーを更新
+            const progressBar = document.getElementById('day-progress');
+            progressBar.style.width = `${progressPercent}%`;
+            progressBar.textContent = `${progressPercent}%`;
+            progressBar.setAttribute('aria-valuenow', progressPercent);
+            
+            // プログレステキストを更新
+            document.getElementById('progress-text').textContent = `${checkedCount}/${totalChecks} 完了`;
+            
+            // チャートを更新
+            updateProgressChart(checkedCount, totalChecks - checkedCount);
+            
+            // ローカルストレージに保存
+            localStorage.setItem('day22Progress', JSON.stringify({
+                checked: checkedCount,
+                total: totalChecks,
+                percent: progressPercent
+            }));
+        }
+        
+        // チャートの初期化
+        function initProgressChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            window.progressChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['完了', '未完了'],
+                    datasets: [{
+                        data: [0, 10],
+                        backgroundColor: ['#198754', '#e9ecef'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // チャートの更新
+        function updateProgressChart(completed, remaining) {
+            if (window.progressChart) {
+                window.progressChart.data.datasets[0].data = [completed, remaining];
+                window.progressChart.update();
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDo773FsCiRecI1kCb7GxkHOo2mWtNktks6RQIK9L%2BD0n6He8zYOFn6lcqm5yzgMXeZYJLeMC7fgpheDXm%2Fdmk7lPotfjmJwyzubP%2Fb%2F5ILpUFQ44HdlusyTi9wN0RoSnn9OH35T3OJ%2BSkMPQQHbaAsajuhMbU7hYKHO64XhtstiBNyzWoJ7onBh1AefT11PRrFKilVC6zdf2eO%2FcxsW5iOupvJA5YfusIHNdmLU2816%2Bks6H08imi31P6sQqfPtmH68%2BP3raarHleA0btsrdscvjTMBOowsZw10PQKzVKjJ4JsETurAHntcVEPhr2US6%2Flz39fSpEbCLOH%2FqzPA4S7qPakR74%2FwbbQ24H3F5U3Wu621k%2BiSCrQh6wPdllQmWWF0vh9cj7wj0gP0c40n7HpRbvyG38%2B6%2FUVY8CVcBDzsOYm%2F9dZ3qJesW09Agun2vdtLXXrw02dqRmr1jZ0921E43r0LgQc3rjcQZA3TJb6gVOcNoI4gZNOIey7fZIm8TJw%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDo773FsCiRecI1kCb7GxkHOo2mWtNktks6RQIK9L+D0n6He8zYOFn6lcqm5yzgMXeZYJLeMC7fgpheDXm/dmk7lPotfjmJwyzubP/b/5ILpUFQ44HdlusyTi9wN0RoSnn9OH35T3OJ+SkMPQQHbaAsajuhMbU7hYKHO64XhtstiBNyzWoJ7onBh1AefT11PRrFKilVC6zdf2eO/cxsW5iOupvJA5YfusIHNdmLU2816+ks6H08imi31P6sQqfPtmH68+P3raarHleA0btsrdscvjTMBOowsZw10PQKzVKjJ4JsETurAHntcVEPhr2US6/lz39fSpEbCLOH/qzPA4S7qPakR74/wbbQ24H3F5U3Wu621k+iSCrQh6wPdllQmWWF0vh9cj7wj0gP0c40n7HpRbvyG38+6/UVY8CVcBDzsOYm/9dZ3qJesW09Agun2vdtLXXrw02dqRmr1jZ0921E43r0LgQc3rjcQZA3TJb6gVOcNoI4gZNOIey7fZIm8TJw==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

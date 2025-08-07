@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day2_IMG1_Prompt - Java Data Types Table</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        .primitive {
+            background-color: #e6f7ff;
+        }
+        .reference {
+            background-color: #fff0f6;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #0066cc;
+        }
+        .subtitle {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 25px 0 15px;
+            color: #0066cc;
+        }
+        .note {
+            font-style: italic;
+            color: #666;
+            margin: 15px 0;
+        }
+        .image-prompt {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 30px 0;
+            border-left: 4px solid #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Image Generation Prompt: Java Data Types Reference Table</h1>
+        
+        <div class="image-prompt">
+            <h2>Image Generation Specifications</h2>
+            <p>Please create a professional educational diagram showing Java data types with the following specifications:</p>
+            <ul class="list-disc ml-5 my-3">
+                <li>Size: 1200x800 pixels</li>
+                <li>Background: White or light blue gradient</li>
+                <li>Title: "Java Data Types Overview"</li>
+                <li>Clean, professional style suitable for educational material</li>
+                <li>Well-organized table format with clear section headers</li>
+                <li>Font: Sans-serif (Arial or Helvetica), black text, readable size</li>
+                <li>Filename: day2_lecture_img01.png</li>
+            </ul>
+        </div>
+
+        <h2 class="subtitle">1. Primitive Data Types Table Content</h2>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Size</th>
+                        <th>Range</th>
+                        <th>Default Value</th>
+                        <th>Example Usage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="primitive">
+                        <td>byte</td>
+                        <td>8 bits</td>
+                        <td>-128 to 127</td>
+                        <td>0</td>
+                        <td>byte b = 100;</td>
+                    </tr>
+                    <tr class="primitive">
+                        <td>short</td>
+                        <td>16 bits</td>
+                        <td>-32,768 to 32,767</td>
+                        <td>0</td>
+                        <td>short s = 10000;</td>
+                    </tr>
+                    <tr class="primitive">
+                        <td>int</td>
+                        <td>32 bits</td>
+                        <td>-2,147,483,648 to 2,147,483,647</td>
+                        <td>0</td>
+                        <td>int i = 42;</td>
+                    </tr>
+                    <tr class="primitive">
+                        <td>long</td>
+                        <td>64 bits</td>
+                        <td>-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807</td>
+                        <td>0L</td>
+                        <td>long l = 123456789L;</td>
+                    </tr>
+                    <tr class="primitive">
+                        <td>float</td>
+                        <td>32 bits</td>
+                        <td>±3.4 × 10<sup>38</sup> with 6-7 significant digits</td>
+                        <td>0.0f</td>
+                        <td>float f = 3.14f;</td>
+                    </tr>
+                    <tr class="primitive">
+                        <td>double</td>
+                        <td>64 bits</td>
+                        <td>±1.7 × 10<sup>308</sup> with 15 significant digits</td>
+                        <td>0.0d</td>
+                        <td>double d = 3.14159;</td>
+                    </tr>
+                    <tr class="primitive">
+                        <td>char</td>
+                        <td>16 bits</td>
+                        <td>0 to 65,535 (Unicode characters)</td>
+                        <td>'\u0000'</td>
+                        <td>char c = 'A';</td>
+                    </tr>
+                    <tr class="primitive">
+                        <td>boolean</td>
+                        <td>1 bit</td>
+                        <td>true or false</td>
+                        <td>false</td>
+                        <td>boolean flag = true;</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subtitle">2. Reference Types</h2>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Default Value</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="reference">
+                        <td>Class</td>
+                        <td>User-defined or built-in reference type</td>
+                        <td>null</td>
+                        <td>String name = "Java";</td>
+                    </tr>
+                    <tr class="reference">
+                        <td>Interface</td>
+                        <td>Abstract type with method signatures</td>
+                        <td>null</td>
+                        <td>List&lt;String&gt; items;</td>
+                    </tr>
+                    <tr class="reference">
+                        <td>Array</td>
+                        <td>Collection of same-type elements</td>
+                        <td>null</td>
+                        <td>int[] numbers = {1, 2, 3};</td>
+                    </tr>
+                    <tr class="reference">
+                        <td>Enum</td>
+                        <td>Special class with predefined constants</td>
+                        <td>null</td>
+                        <td>enum Day { MONDAY, TUESDAY }</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="subtitle">3. Memory Allocation</h2>
+        
+        <div class="note">Include a visual comparison between primitive types (stored in stack memory) and reference types (reference in stack, object in heap)</div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Primitive Types</th>
+                        <th>Reference Types</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Memory Location</td>
+                        <td>Stack</td>
+                        <td>Heap (reference stored in stack)</td>
+                    </tr>
+                    <tr>
+                        <td>Default Value</td>
+                        <td>Type-specific (0, false, etc.)</td>
+                        <td>null</td>
+                    </tr>
+                    <tr>
+                        <td>Comparison</td>
+                        <td>== compares values</td>
+                        <td>== compares references, equals() compares content</td>
+                    </tr>
+                    <tr>
+                        <td>Passing to Methods</td>
+                        <td>Pass-by-value</td>
+                        <td>Pass-by-reference</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <h2 class="subtitle">4. Design Notes for Image</h2>
+        <ul class="list-disc ml-5">
+            <li>Use blue shading for primitive types section</li>
+            <li>Use pink/rose shading for reference types section</li>
+            <li>Include a memory model visual showing stack vs heap allocation</li>
+            <li>Add arrows connecting related concepts</li>
+            <li>Include a visual comparison of value vs reference semantics</li>
+            <li>Add clear headings and section labels</li>
+            <li>Ensure all text is in English</li>
+            <li>Include footnotes explaining common pitfalls (type conversion, null handling)</li>
+        </ul>
+
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDkUFLCe4pOZeIchNGt6X9GWDpWRsekv0MnFyz%2FOnXr7y8cgnXm1%2Fmt7ZVMI5RjgjC0U44d337%2BbhnEs28zSwtdvK0VFgvAYCBghT4e0sHooKOPe2iYpDzF99Gha64UlJmfXvclTOfvLuxYse%2BarysKViiRtIM8GDeUMwg%2F7U%2BAPBTIpeo%2FAwhffvs0UAjucAPW3w45K9qZyDcBXMceAv5TB7SkrN%2FDPWJ8RJY2nnJbvNgBj4J6rnjD8g6eWDkkZ2wDxLlZvowupSXPh%2FzwofQYjL1Hc8xioi8%2FECU1fhlnSGU8ABJdduAAp3BRvWUt5Dl0PIN%2B6rnkACkPRiZGxZlNTEDZDyBFBmrYiWqAZma7rhyfhmT9lqFb%2F8YAFa9qw3ZASQjPt%2FuawO0IxNYb8RNivRmGAuAfrY4rUD2Flfwy%2FfSj1arXuiiDqgWQW7tPLeX%2FUEoxsiuwRdbLoWGOHvVzN5guk68St4Pnk8nIWuZ%2BDrmQnPvAp6kVNNr9CSTGbulg%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDkUFLCe4pOZeIchNGt6X9GWDpWRsekv0MnFyz/OnXr7y8cgnXm1/mt7ZVMI5RjgjC0U44d337+bhnEs28zSwtdvK0VFgvAYCBghT4e0sHooKOPe2iYpDzF99Gha64UlJmfXvclTOfvLuxYse+arysKViiRtIM8GDeUMwg/7U+APBTIpeo/Awhffvs0UAjucAPW3w45K9qZyDcBXMceAv5TB7SkrN/DPWJ8RJY2nnJbvNgBj4J6rnjD8g6eWDkkZ2wDxLlZvowupSXPh/zwofQYjL1Hc8xioi8/ECU1fhlnSGU8ABJdduAAp3BRvWUt5Dl0PIN+6rnkACkPRiZGxZlNTEDZDyBFBmrYiWqAZma7rhyfhmT9lqFb/8YAFa9qw3ZASQjPt/uawO0IxNYb8RNivRmGAuAfrY4rUD2Flfwy/fSj1arXuiiDqgWQW7tPLeX/UEoxsiuwRdbLoWGOHvVzN5guk68St4Pnk8nIWuZ+DrmQnPvAp6kVNNr9CSTGbulg==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

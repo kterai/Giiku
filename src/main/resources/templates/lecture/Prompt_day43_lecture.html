@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 43 講義プロンプト: 応用SQL・トランザクション</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- ヘッダー -->
+        <header class="bg-blue-600 text-white p-6 rounded-lg mb-8">
+            <div class="flex items-center">
+                <i class="fas fa-database text-3xl mr-4"></i>
+                <div>
+                    <h1 class="text-3xl font-bold">Day 43 講義プロンプト</h1>
+                    <p class="text-blue-100 text-lg mt-2">応用SQL・トランザクション管理完全マスター</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- プロジェクト概要 -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-project-diagram text-blue-600 mr-3"></i>
+                プロジェクト名
+            </h2>
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <p class="text-lg font-semibold text-blue-800">
+                    ITエンジニア育成カリキュラム - Day43: 応用SQL・トランザクション管理実践
+                </p>
+                <p class="text-gray-700 mt-2">
+                    以下の指示に従って、<code class="bg-gray-200 px-2 py-1 rounded">Training/pages/lecture/day43_lecture.html</code> を生成してください。
+                </p>
+            </div>
+        </section>
+
+        <!-- 重要な改善指針 -->
+        <section class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-800 mb-4 flex items-center">
+                <i class="fas fa-exclamation-triangle text-red-600 mr-3"></i>
+                重要な改善指針
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-green-700 mb-3 flex items-center">
+                        <i class="fas fa-globe mr-2"></i>
+                        実践的データベース操作特化
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• <strong>複雑なJOIN操作</strong>を中心とした解説</li>
+                        <li>• <strong>パフォーマンス最適化</strong>の実践的手法</li>
+                        <li>• <strong>トランザクション設計</strong>の重要性</li>
+                        <li>• <strong>PostgreSQL固有機能</strong>の活用方法</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-blue-700 mb-3 flex items-center">
+                        <i class="fas fa-book mr-2"></i>
+                        初心者理解促進重視
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• <strong>専門用語</strong>は必ず日本語説明を併記</li>
+                        <li>• <strong>なぜそうなるのか</strong>の理由を詳細解説</li>
+                        <li>• <strong>SQL例</strong>は段階的に複雑化</li>
+                        <li>• <strong>エラーパターン</strong>と対処法を明示</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学習目標 -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-target text-green-600 mr-3"></i>
+                本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                        <p>複雑なSELECT文（JOIN、サブクエリ）を<strong>実用レベル</strong>で記述できる</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                        <p>集計関数とGROUP BY句を<strong>効果的に組み合わせ</strong>て使用できる</p>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                        <p>インデックス戦略を理解し<strong>パフォーマンス最適化</strong>を実施できる</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                        <p>ACID特性を理解した<strong>適切なトランザクション管理</strong>を実装できる</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 達成基準 -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-medal text-yellow-600 mr-3"></i>
+                達成基準
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-yellow-800 mb-3">基本レベル</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• 複雑なJOIN操作を<strong>自力で設計・実装</strong>できる</li>
+                        <li>• 集計関数の<strong>適切な使い分け</strong>ができる</li>
+                        <li>• インデックスの<strong>基本的な作成・管理</strong>ができる</li>
+                        <li>• トランザクションの<strong>開始・コミット・ロールバック</strong>を理解している</li>
+                    </ul>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-green-800 mb-3">応用レベル</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• パフォーマンス分析と<strong>クエリチューニング</strong>を実施できる</li>
+                        <li>• 複雑なサブクエリと<strong>CTE（Common Table Expression）</strong>を活用できる</li>
+                        <li>• 適切な<strong>隔離レベルの選択</strong>ができる</li>
+                        <li>• PostgreSQL固有の<strong>高度な機能</strong>を活用できる</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 講義構成 -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-list text-purple-600 mr-3"></i>
+                講義構成（改良版指針）
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <h3 class="text-lg font-semibold text-blue-700 mb-2">1. 複雑なSQL文の完全理解</h3>
+                    <div class="bg-blue-50 p-3 rounded">
+                        <p class="text-red-600 font-semibold mb-2">❗ 具体例重視：</p>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• JOIN操作（INNER、LEFT、RIGHT、FULL OUTER）の<strong>実用的な使い分け例</strong></li>
+                            <li>• サブクエリの<strong>実際の活用場面</strong>と<strong>パフォーマンス考慮</strong></li>
+                            <li>• ウィンドウ関数の<strong>実践的な活用例</strong>（ROW_NUMBER、RANK、LAG/LEAD含む）</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-4">
+                    <h3 class="text-lg font-semibold text-green-700 mb-2">2. 集計・分析クエリの高度活用</h3>
+                    <div class="bg-green-50 p-3 rounded">
+                        <p class="text-red-600 font-semibold mb-2">⚠️ 必須改良事項：</p>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• <strong>GROUP BY：</strong>「なぜグループ化が必要か」を図解付きで説明</li>
+                            <li>• <strong>HAVING句：</strong>「WHEREとの違い」を実コード例で解説</li>
+                            <li>• <strong>集計関数：</strong>「COUNT、SUM、AVG、MAX、MIN」の使い分けを比較表示</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="border-l-4 border-yellow-500 pl-4">
+                    <h3 class="text-lg font-semibold text-yellow-700 mb-2">3. インデックス戦略とパフォーマンス最適化</h3>
+                    <div class="bg-yellow-50 p-3 rounded">
+                        <p class="text-orange-600 font-semibold mb-2">🔧 実践重視：</p>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• <strong>インデックス設計：</strong>「B-Tree vs Hash vs GIN」の適切な選択</li>
+                            <li>• <strong>複合インデックス：</strong>「列の順序がパフォーマンスに与える影響」</li>
+                            <li>• <strong>EXPLAIN分析：</strong>「実行計画の読み方と最適化手法」</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="border-l-4 border-red-500 pl-4">
+                    <h3 class="text-lg font-semibold text-red-700 mb-2">4. トランザクション管理とACID特性</h3>
+                    <div class="bg-red-50 p-3 rounded">
+                        <p class="text-purple-600 font-semibold mb-2">💡 高度テクニック：</p>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• <strong>ACID特性：</strong>「なぜトランザクションが重要なのか」</li>
+                            <li>• <strong>隔離レベル：</strong>「READ UNCOMMITTED〜SERIALIZABLE」の実用的選択</li>
+                            <li>• <strong>デッドロック：</strong>「発生原因と予防策」を図解</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 演習問題・理解度クイズ -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-tasks text-indigo-600 mr-3"></i>
+                演習問題・理解度クイズ（表示仕様）
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-indigo-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-indigo-800 mb-3 flex items-center">
+                        <i class="fas fa-clipboard-list mr-2"></i>
+                        演習問題
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• 問題文：<strong>常に表示</strong></li>
+                        <li>• 回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+                        <li>• 詳細解説を削減しないよう注意</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-pink-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-pink-800 mb-3 flex items-center">
+                        <i class="fas fa-brain mr-2"></i>
+                        理解度クイズ
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li>• 問題・選択肢：<strong>常に表示</strong></li>
+                        <li>• 正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+                        <li>• JavaScript showAnswer()関数を実装</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 専門用語説明強化指針 -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-language text-teal-600 mr-3"></i>
+                専門用語の説明強化指針
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="bg-teal-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-teal-800 mb-2">1. 初出時の詳細説明</h3>
+                    <p class="text-gray-700 mb-2"><strong>例：</strong></p>
+                    <div class="bg-white p-3 rounded border-l-4 border-teal-500">
+                        <p class="text-gray-800">「JOIN（テーブル結合 - 複数のテーブルから関連するデータを組み合わせて取得する操作）では...」</p>
+                    </div>
+                </div>
+                
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-2">2. 日常例・比喩の活用</h3>
+                    <p class="text-gray-700 mb-2"><strong>例：</strong></p>
+                    <div class="bg-white p-3 rounded border-l-4 border-blue-500">
+                        <p class="text-gray-800">「インデックスは、本の索引のように、データの場所を素早く見つけるための仕組みです」</p>
+                    </div>
+                </div>
+                
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-green-800 mb-2">3. 理由・背景の説明</h3>
+                    <p class="text-gray-700 mb-2"><strong>例：</strong></p>
+                    <div class="bg-white p-3 rounded border-l-4 border-green-500">
+                        <p class="text-gray-800">「なぜトランザクションが必要かというと、複数の処理をまとめて成功・失敗を管理するため」</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 共通仕様 -->
+        <section class="bg-gray-100 p-6 rounded-lg mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-cog text-gray-600 mr-3"></i>
+                共通仕様
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <ul class="space-y-2 text-gray-700">
+                    <li>• HTML5 / lang="ja" / UTF-8</li>
+                    <li>• <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                    <li>• Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                    <li>• レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                </ul>
+                <ul class="space-y-2 text-gray-700">
+                    <li>• コードブロックは <code>&lt;pre&gt;&lt;code class="language-sql"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                    <li>• 開発環境として PostgreSQL + pgAdmin を記載</li>
+                    <li>• フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 出力形式 -->
+        <section class="bg-red-100 border-2 border-red-500 p-6 rounded-lg mb-8">
+            <h2 class="text-2xl font-bold text-red-800 mb-4 flex items-center">
+                <i class="fas fa-file-export text-red-600 mr-3"></i>
+                出力形式
+            </h2>
+            <div class="bg-white p-4 rounded-lg">
+                <p class="text-red-600 font-semibold mb-3">⚠️ 重要事項：</p>
+                <ul class="space-y-2 text-gray-800">
+                    <li>• <strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                    <li>• 特に「複雑なSQL操作とトランザクション管理」は<strong>必ず実践例付きで詳細解説</strong>すること</li>
+                    <li>• 専門用語の初出時は<strong>日本語説明を併記</strong>すること</li>
+                    <li>• SQL例は<strong>段階的に複雑化</strong>させること</li>
+                    <li>• HTMLの見やすさと詳細な解説を<strong>両立</strong>すること</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- フッター -->
+        <footer class="bg-gray-800 text-white p-6 rounded-lg text-center">
+            <p class="text-lg font-semibold mb-2">
+                <i class="fas fa-graduation-cap mr-2"></i>
+                ITエンジニア育成カリキュラム
+            </p>
+            <p class="text-gray-300">応用SQL・トランザクション管理の完全マスターを目指して</p>
+            <div class="mt-4 pt-4 border-t border-gray-600">
+                <p class="text-sm text-gray-400">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDvaWqrVCvjNTr75LAzuCswgbfNsj89oKMycg8Q7G%2FH7q23nZFqeD0Zm3FSXfea0AUiEj2r9dQC6W3FgAYPSjaVLwJs39nTY920pXSKA0rXd8xzbQOw6WCgRw0W8MtZi%2FBn02UXmioNy8AgeDo9XdTlFXC94D%2BAAd4ADNg72dTT0FY0ZOeknnpUGGKe5FZaVoAG0AhO%2BvHxYZg2K959pKtBqL129O7PxmT7utwJ3DI19CbPuned5zAxlOync%2B4ASXAJPNpFxXnga1TbpqYYTfEezFWk0Us%2B5K7uzUK7ryRfLSYuITEPrHha4%2B32Y8uvbJPArdbeiAK5oPRdbomLuJ%2FMn%2B04%2F3VLqYtu1kDtPRxhyNHGf3954JlKk%2F%2BoVDtDC4zyJFdOadWBCK9YHjtI8YpsOIAXlY4thjnYZjTvZUF5R0RcqB1QQATaARh8naee4gCh3%2B1VSaEF4gEQFg81AtDh0nxA8%2FUik%2BhWQKnFOWfRXmgqKMBEkQi5KJ0BbxDuDqt2pdy3DxIu21wpHhh6oY8%2B6BLFvOozPCNvgKN8EwK8HM748NaIsElefd8geCC5uQ7g%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDvaWqrVCvjNTr75LAzuCswgbfNsj89oKMycg8Q7G/H7q23nZFqeD0Zm3FSXfea0AUiEj2r9dQC6W3FgAYPSjaVLwJs39nTY920pXSKA0rXd8xzbQOw6WCgRw0W8MtZi/Bn02UXmioNy8AgeDo9XdTlFXC94D+AAd4ADNg72dTT0FY0ZOeknnpUGGKe5FZaVoAG0AhO+vHxYZg2K959pKtBqL129O7PxmT7utwJ3DI19CbPuned5zAxlOync+4ASXAJPNpFxXnga1TbpqYYTfEezFWk0Us+5K7uzUK7ryRfLSYuITEPrHha4+32Y8uvbJPArdbeiAK5oPRdbomLuJ/Mn+04/3VLqYtu1kDtPRxhyNHGf3954JlKk/+oVDtDC4zyJFdOadWBCK9YHjtI8YpsOIAXlY4thjnYZjTvZUF5R0RcqB1QQATaARh8naee4gCh3+1VSaEF4gEQFg81AtDh0nxA8/Uik+hWQKnFOWfRXmgqKMBEkQi5KJ0BbxDuDqt2pdy3DxIu21wpHhh6oY8+6BLFvOozPCNvgKN8EwK8HM748NaIsElefd8geCC5uQ7g==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

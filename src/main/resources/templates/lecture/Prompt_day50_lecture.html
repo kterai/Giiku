@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day50講義プロンプト - マイクロサービス・Spring Cloud・分散システム完全マスター</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .code-block {
+            background: #f8fafc;
+            border-left: 4px solid #4f46e5;
+        }
+        .highlight-box {
+            background: linear-gradient(90deg, #fef3c7 0%, #fde68a 100%);
+            border-left: 4px solid #f59e0b;
+        }
+        .success-box {
+            background: linear-gradient(90deg, #dcfce7 0%, #bbf7d0 100%);
+            border-left: 4px solid #10b981;
+        }
+        .warning-box {
+            background: linear-gradient(90deg, #fef2f2 0%, #fecaca 100%);
+            border-left: 4px solid #ef4444;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="gradient-bg text-white py-8">
+            <div class="container mx-auto px-4">
+                <div class="text-center">
+                    <h1 class="text-4xl font-bold mb-4">
+                        <i class="fas fa-server mr-3"></i>
+                        ITエンジニア育成カリキュラム - Day50: マイクロサービス・Spring Cloud・分散システム（改良版）
+                    </h1>
+                    <p class="text-xl opacity-90">講義ページ作成用の包括的指示書</p>
+                    <div class="mt-6 flex justify-center items-center space-x-4">
+                        <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">
+                            <i class="fas fa-microchip mr-2"></i>マイクロサービス
+                        </span>
+                        <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">
+                            <i class="fas fa-cloud mr-2"></i>Spring Cloud
+                        </span>
+                        <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">
+                            <i class="fas fa-network-wired mr-2"></i>分散システム
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container mx-auto px-4 py-8 max-w-6xl">
+            <!-- 重要な改善指針 -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-8">
+                    <h2 class="text-3xl font-bold text-red-600 mb-6 flex items-center">
+                        <i class="fas fa-exclamation-triangle mr-3"></i>🚨 重要な改善指針
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="warning-box p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold text-red-800 mb-4 flex items-center">
+                                <i class="fas fa-table mr-2"></i>📊 表・まとめの分かりやすさ重視
+                            </h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><i class="fas fa-check text-green-500 mr-2"></i><strong>マイクロサービス専門用語は必ず日本語説明を併記</strong></li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i><strong>分散システム概念は具体例で補足</strong></li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i><strong>「適用場面」は実際の開発例を記載</strong></li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i><strong>まとめは具体的なメリットを明示</strong></li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold text-orange-800 mb-4 flex items-center">
+                                <i class="fas fa-language mr-2"></i>🔤 Spring Cloud専門用語の扱い
+                            </h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><i class="fas fa-check text-green-500 mr-2"></i><strong>初出時は（日本語説明）を併記</strong></li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i><strong>略語は正式名称を明記</strong></li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i><strong>「なぜそうなるのか」の理由を説明</strong></li>
+                                <li><i class="fas fa-check text-green-500 mr-2"></i><strong>日常例・比喩を積極活用</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 参照ファイル -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-6">
+                    <h2 class="text-2xl font-bold text-blue-600 mb-4 flex items-center">
+                        <i class="fas fa-folder-open mr-3"></i>📁 参照ファイル
+                    </h2>
+                    <div class="code-block p-4 rounded">
+                        <ul class="list-disc list-inside text-gray-700 space-y-2">
+                            <li><code>Training/pages/day/day50.html</code></li>
+                            <li><code>Training/pages/lecture/Template_dayX_lecture.html</code></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 共通仕様 -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-6">
+                    <h2 class="text-2xl font-bold text-purple-600 mb-4 flex items-center">
+                        <i class="fas fa-cogs mr-3"></i>⚙️ 共通仕様
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">基本仕様</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>HTML5 / lang="ja" / UTF-8</li>
+                                <li>viewport設定でモバイル対応</li>
+                                <li>Tailwind CSS v2.2.19 CDN</li>
+                                <li>FontAwesome v6.4.0 CDN</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">技術仕様</h4>
+                            <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                <li>レスポンシブ対応</li>
+                                <li>コントラスト比 4.5:1 以上</li>
+                                <li>Java/Spring Boot コード例</li>
+                                <li>開発環境: IntelliJ IDEA + Spring Boot</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- マイクロサービス概念の説明強化指針 -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-8">
+                    <h2 class="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
+                        <i class="fas fa-puzzle-piece mr-3"></i>📚 マイクロサービス専門用語の説明強化指針
+                    </h2>
+
+                    <div class="space-y-6">
+                        <div class="warning-box p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold text-red-800 mb-4">❌ 改善前の問題例（分散システム表）</h3>
+                            <p class="text-gray-700 mb-3"><strong>問題：</strong>「Service Discovery」「Circuit Breaker」「API Gateway」など、専門用語のみで初心者には理解困難</p>
+                        </div>
+
+                        <div class="success-box p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold text-green-800 mb-4">✅ 改善後の指針</h3>
+                            
+                            <div class="mb-6">
+                                <h4 class="font-semibold text-green-700 mb-2">マイクロサービス概念の説明強化</h4>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><strong>Service Discovery</strong> → 「サービス発見（各サービスの場所を自動で見つける仕組み）」</li>
+                                    <li><strong>Circuit Breaker</strong> → 「サーキットブレーカー（電気のブレーカーのように障害を遮断）」</li>
+                                    <li><strong>API Gateway</strong> → 「APIゲートウェイ（すべてのAPIリクエストの入り口）」</li>
+                                    <li><strong>Load Balancer</strong> → 「負荷分散（複数サーバーに処理を振り分け）」</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold text-green-700 mb-2">具体例の追加</h4>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><strong>「マイクロサービス」</strong>→「レゴブロックのように、小さな機能を組み合わせてアプリを作る」</li>
+                                    <li><strong>「Service Mesh」</strong>→「サービス間の通信を管理する高速道路網」</li>
+                                    <li><strong>「分散トレーシング」</strong>→「宅配便の追跡のように、リクエストの流れを追跡」</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 学習目標 -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-6">
+                    <h2 class="text-2xl font-bold text-green-600 mb-4 flex items-center">
+                        <i class="fas fa-target mr-3"></i>🎯 学習目標
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                マイクロサービスアーキテクチャの設計原則を<strong>具体例とともに</strong>説明できる
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                Spring Cloud Netflixコンポーネントを<strong>実践例で</strong>理解する
+                            </li>
+                        </ul>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                分散システムの課題と解決策を<strong>実際にコーディング</strong>できる
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                サービス間通信を<strong>実装</strong>できる
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ページ構成指針 -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-8">
+                    <h2 class="text-3xl font-bold text-blue-600 mb-6 flex items-center">
+                        <i class="fas fa-sitemap mr-3"></i>📋 ページ構成（改良版）
+                    </h2>
+
+                    <div class="space-y-8">
+                        <!-- ヘッダー・ページング -->
+                        <div class="border-l-4 border-blue-500 pl-6">
+                            <h3 class="text-xl font-semibold text-blue-800 mb-3">1. ヘッダー & ページング</h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><i class="fas fa-chevron-left text-blue-500 mr-2"></i>左に前日 <code>day49_lecture.html</code> へのリンク</li>
+                                <li><i class="fas fa-chevron-right text-blue-500 mr-2"></i>右に翌日 <code>day51_lecture.html</code> へのリンク</li>
+                                <li><i class="fas fa-heading text-blue-500 mr-2"></i>中央タイトル：<code>ITエンジニア育成カリキュラム - Day50: マイクロサービス・Spring Cloud・分散システム</code></li>
+                                <li><i class="fas fa-tag text-blue-500 mr-2"></i>サブタイトル：<code>スケーラブル分散アーキテクチャの設計と実装</code></li>
+                            </ul>
+                        </div>
+
+                        <!-- メイン講義 -->
+                        <div class="border-l-4 border-green-500 pl-6">
+                            <h3 class="text-xl font-semibold text-green-800 mb-3">2. メイン講義（改良版指針）</h3>
+                            
+                            <div class="mb-6">
+                                <h4 class="font-semibold text-green-700 mb-2">マイクロサービス基礎概念の詳細説明</h4>
+                                <div class="highlight-box p-4 rounded">
+                                    <p class="text-gray-700"><strong>❗ 具体例重視：</strong></p>
+                                    <ul class="list-disc list-inside mt-2 space-y-1 text-gray-700">
+                                        <li>「モノリスは巨大な建物、マイクロサービスは個別の店舗が集まった商店街」</li>
+                                        <li>「Service Discoveryは電話帳、各サービスの住所を管理」</li>
+                                        <li>「API Gatewayは高速道路の料金所、すべての車（リクエスト）が通る」</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="warning-box p-6 rounded-lg">
+                                <h4 class="font-semibold text-red-800 mb-3">⚠️ 必須改良事項：Spring Cloud比較表</h4>
+                                <p class="text-gray-700 mb-3"><strong>表の各項目に詳細説明を追加：</strong></p>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li><strong>Eureka：</strong>「サービス登録・発見（例：ユーザーサービスがどこにあるかを管理）」</li>
+                                    <li><strong>Zuul/Gateway：</strong>「API統一窓口（例：すべてのAPIを1つのURLで管理）」</li>
+                                    <li><strong>Hystrix：</strong>「障害耐性（例：1つのサービスが落ちても全体に影響しない）」</li>
+                                    <li><strong>適用場面：</strong>「大規模システム」→「ECサイトの注文・決済・在庫管理を分離」など具体例</li>
+                                </ul>
+                                
+                                <p class="text-gray-700 mt-4 mb-2"><strong>比較表に「実用例」列を追加：</strong></p>
+                                <ul class="space-y-1 text-gray-700">
+                                    <li>Eureka: 「サービス登録、ヘルスチェック」</li>
+                                    <li>Zuul: 「ルーティング、認証ゲートウェイ」</li>
+                                    <li>Hystrix: 「タイムアウト、フォールバック処理」</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 演習問題・理解度クイズ -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-6">
+                    <h2 class="text-2xl font-bold text-purple-600 mb-4 flex items-center">
+                        <i class="fas fa-question-circle mr-3"></i>📝 演習問題・理解度クイズ（表示仕様）
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="border border-purple-200 p-4 rounded-lg">
+                            <h3 class="font-semibold text-purple-800 mb-3 flex items-center">
+                                <i class="fas fa-clipboard-list mr-2"></i>演習問題
+                            </h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><i class="fas fa-eye text-green-500 mr-2"></i>問題文：<strong>常に表示</strong></li>
+                                <li><i class="fas fa-mouse-pointer text-blue-500 mr-2"></i>回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+                                <li><i class="fas fa-info-circle text-orange-500 mr-2"></i>詳細解説を削減しないよう注意</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="border border-purple-200 p-4 rounded-lg">
+                            <h3 class="font-semibold text-purple-800 mb-3 flex items-center">
+                                <i class="fas fa-brain mr-2"></i>理解度クイズ
+                            </h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li><i class="fas fa-eye text-green-500 mr-2"></i>問題・選択肢：<strong>常に表示</strong></li>
+                                <li><i class="fas fa-mouse-pointer text-blue-500 mr-2"></i>正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+                                <li><i class="fas fa-code text-purple-500 mr-2"></i>JavaScript showAnswer()関数を実装</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- まとめセクション改善指針 -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-8">
+                    <h2 class="text-3xl font-bold text-indigo-600 mb-6 flex items-center">
+                        <i class="fas fa-clipboard-check mr-3"></i>📝 まとめセクション改善指針
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="warning-box p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold text-red-800 mb-4 flex items-center">
+                                <i class="fas fa-times-circle mr-2"></i>❌ 避けるべき抽象的表現
+                            </h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li>「マイクロサービスを理解した」</li>
+                                <li>「分散システムを把握した」</li>
+                                <li>「Spring Cloudが使えるようになった」</li>
+                                <li>「サービス設計ができるようになった」</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="success-box p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold text-green-800 mb-4 flex items-center">
+                                <i class="fas fa-check-circle mr-2"></i>✅ 推奨する具体的表現
+                            </h3>
+                            <ul class="space-y-2 text-gray-700">
+                                <li>「Eurekaでサービス自動発見を実現、手動設定不要で運用効率向上」</li>
+                                <li>「API Gatewayで認証・ルーティングを一元化、システム管理を大幅簡素化」</li>
+                                <li>「Circuit Breakerで障害連鎖を防止、1つのサービス障害が全体に波及しない」</li>
+                                <li>「Spring Cloud Configで設定の外部化、環境別デプロイが容易」</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 分かりやすさチェックリスト -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-8">
+                    <h2 class="text-3xl font-bold text-teal-600 mb-6 flex items-center">
+                        <i class="fas fa-tasks mr-3"></i>✅ 分かりやすさチェックリスト
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-xl font-semibold text-teal-800 mb-4 flex items-center">
+                                <i class="fas fa-chart-bar mr-2"></i>📊 表・図解
+                            </h3>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                    Spring Cloud専門用語に必ず日本語説明を併記
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                    分散システム設計には具体例（「Netflixの事例」）
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                    適用場面は実際の開発例で説明
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                    比較表には「実用例」列を追加
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-semibold text-teal-800 mb-4 flex items-center">
+                                <i class="fas fa-file-alt mr-2"></i>📝 文章・説明
+                            </h3>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                    略語は正式名称を併記
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                    「なぜ」の理由を必ず説明
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                    日常例・比喩を積極活用
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                    まとめは具体的なメリットを明示
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Day50特有の追加指針 -->
+            <section class="mb-8">
+                <div class="bg-white rounded-lg card-shadow p-8">
+                    <h2 class="text-3xl font-bold text-purple-600 mb-6 flex items-center">
+                        <i class="fas fa-star mr-3"></i>🌟 Day50特有の追加指針
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="highlight-box p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold text-orange-800 mb-4">マイクロサービス特化項目</h3>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fas fa-bug text-red-500 mr-2 mt-1"></i>
+                                    <strong>分散システムの課題を豊富に：</strong>「よくある分散システム問題と解決法」セクション必須
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-tools text-blue-500 mr-2 mt-1"></i>
+                                    <strong>Spring Boot + Cloudでの開発環境：</strong>設定、デバッグ方法を詳述
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-code text-green-500 mr-2 mt-1"></i>
+                                    <strong>実際のサービス間通信例：</strong>実装コード例を複数提示
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-layer-group text-purple-500 mr-2 mt-1"></i>
+                                    <strong>段階的学習：</strong>モノリス→分散→マイクロサービスの順序を明確に
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="success-box p-6 rounded-lg">
+                            <h3 class="text-xl font-semibold text-green-800 mb-4">理解促進要素</h3>
+                            <ul class="space-y-3 text-gray-700">
+                                <li class="flex items-start">
+                                    <i class="fas fa-balance-scale text-blue-500 mr-2 mt-1"></i>
+                                    <strong>モノリスとの比較：</strong>同じ機能のモノリス版とマイクロサービス版を併記
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-shield-alt text-green-500 mr-2 mt-1"></i>
+                                    <strong>可用性の恩恵：</strong>「障害に強いシステムの実例」を具体的に紹介
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-rocket text-purple-500 mr-2 mt-1"></i>
+                                    <strong>スケーラビリティ向上：</strong>「負荷分散による性能向上効果」を体感できる例
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 出力形式 -->
+            <section class="mb-8">
+                <div class="bg-red-50 rounded-lg card-shadow p-8 border-l-4 border-red-500">
+                    <h2 class="text-3xl font-bold text-red-600 mb-6 flex items-center">
+                        <i class="fas fa-exclamation-triangle mr-3"></i>📤 出力形式
+                    </h2>
+                    
+                    <div class="warning-box p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold text-red-800 mb-4">⚠️ 重要事項</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-double text-red-500 mr-2 mt-1"></i>
+                                <strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-table text-red-500 mr-2 mt-1"></i>
+                                特に「Spring Cloud比較表とアーキテクチャ設計」は<strong>必ず詳細説明付きで改良</strong>すること
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-language text-red-500 mr-2 mt-1"></i>
+                                マイクロサービス専門用語の初出時は<strong>日本語説明を併記</strong>すること
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-list-ul text-red-500 mr-2 mt-1"></i>
+                                まとめセクションは<strong>具体的なメリット</strong>で記載すること
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-balance-scale text-red-500 mr-2 mt-1"></i>
+                                HTMLの見やすさと詳細なSpring Cloud解説を<strong>両立</strong>すること
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- フッター -->
+            <footer class="text-center text-gray-500 py-6">
+                <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // スムーズスクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // フェードインアニメーション
+        window.addEventListener('load', function() {
+            const sections = document.querySelectorAll('section');
+            sections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                
+                setTimeout(() => {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDmJ14qOrClfyrDfnj237ApKDkbB%2Bn1K75CfmbYOM9uwYHJ00Qf7trIJhZ1NDmNW%2FI534BFoGR0xIfUK2qQWkWcWiEF7hAwV%2FaM%2BPUxOBtSVf9y9BWHAOo0KZCGH%2FKUH5r03nvBB48H%2FzW2zyRUZn9NUaCky%2FXqcYv3OZQRcm8Adj3XLchXAER849YI6zFWZhIduAgiX0gt0t177H07z1Rr9DJ7cwtHOq8O5PjJGav2PsEQrihk8vggrHMf0RqYtfv%2BONd%2FOBY%2BKBJWGBWlpYCGm%2BWpss4QKxSgWTVi8CvQQFqRRBgiUT3f1IXsDIR3j8hGB5bIKDQQDxT5UkiGBcH8txO3SMTe0rb6gvjBhfwlEE7b07zip7D1vKlgBh6%2FJOpcRqwbI13zUQS%2FR1wSz1if8smHNqIxWjxKOYBvhec7SfutV3Hhb9EOz9Oerlp8CW7iq1ux%2FZv1I0sFUPMtk5apZ%2BrGwUvIgFILsLjRf%2BRjzZ2rX%2BcqPIOF1fs18FOlJ7nw%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDmJ14qOrClfyrDfnj237ApKDkbB+n1K75CfmbYOM9uwYHJ00Qf7trIJhZ1NDmNW/I534BFoGR0xIfUK2qQWkWcWiEF7hAwV/aM+PUxOBtSVf9y9BWHAOo0KZCGH/KUH5r03nvBB48H/zW2zyRUZn9NUaCky/XqcYv3OZQRcm8Adj3XLchXAER849YI6zFWZhIduAgiX0gt0t177H07z1Rr9DJ7cwtHOq8O5PjJGav2PsEQrihk8vggrHMf0RqYtfv+ONd/OBY+KBJWGBWlpYCGm+Wpss4QKxSgWTVi8CvQQFqRRBgiUT3f1IXsDIR3j8hGB5bIKDQQDxT5UkiGBcH8txO3SMTe0rb6gvjBhfwlEE7b07zip7D1vKlgBh6/JOpcRqwbI13zUQS/R1wSz1if8smHNqIxWjxKOYBvhec7SfutV3Hhb9EOz9Oerlp8CW7iq1ux/Zv1I0sFUPMtk5apZ+rGwUvIgFILsLjRf+RjzZ2rX+cqPIOF1fs18FOlJ7nw==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 41: モダンJavaScript・Web制作実習</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        .demo-area {
+            border: 2px dashed #d1d5db;
+            border-radius: 8px;
+            padding: 1rem;
+            background: #f9fafb;
+        }
+        .interactive-demo {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <script defer src="../../js/day-navigation.js"></script>
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-4xl font-bold mb-2">
+                        <i class="fas fa-code mr-3"></i>
+                        Day 41: モダンJavaScript・Web制作実習
+                    </h1>
+                    <p class="text-xl opacity-90">ES6+機能とPromise、async/awaitを活用した実践的Web開発</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-sm opacity-80">ITエンジニア育成カリキュラム</div>
+                    <div class="text-2xl font-bold">41日目 / 54日間</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- 学習目標 -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-blue-600 mb-6">
+                <i class="fas fa-target mr-3"></i>学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-blue-800 mb-4">
+                        <i class="fas fa-rocket mr-2"></i>モダンJavaScript機能の完全理解
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>ES6+の主要機能（アロー関数、分割代入、テンプレートリテラル）を実践活用</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>モジュールシステム（import/export）による効率的コード管理</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>クラス構文とプロトタイプ継承の使い分け</li>
+                    </ul>
+                </div>
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold text-green-800 mb-4">
+                        <i class="fas fa-sync-alt mr-2"></i>非同期処理の実践マスター
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Promise連鎖から async/await への移行パターン</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>API通信とエラーハンドリングの実装</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>並列処理（Promise.all）と逐次処理の使い分け</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 p-6 bg-yellow-50 border-l-4 border-yellow-400">
+                <h3 class="text-xl font-bold text-yellow-800 mb-3">
+                    <i class="fas fa-lightbulb mr-2"></i>実践的Web制作技術
+                </h3>
+                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                        <strong class="text-yellow-700">インタラクティブUI</strong><br>
+                        動的コンテンツ生成、イベント処理の高度化
+                    </div>
+                    <div>
+                        <strong class="text-yellow-700">モジュール化開発</strong><br>
+                        再利用可能コンポーネント、保守性向上
+                    </div>
+                    <div>
+                        <strong class="text-yellow-700">パフォーマンス最適化</strong><br>
+                        遅延読み込み、効率的DOM操作
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 詳細スケジュール -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-blue-600 mb-6">
+                <i class="fas fa-calendar-alt mr-3"></i>詳細スケジュール
+            </h2>
+            <div class="space-y-6">
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-500 text-white px-4 py-2 rounded-lg font-bold mr-4">10:00-10:15</div>
+                        <h3 class="text-xl font-bold">オリエンテーション・前日復習</h3>
+                    </div>
+                    <p class="text-gray-700">JavaScript基礎の復習確認とモダンJavaScript学習の意義、今日の実習プロジェクト概要説明</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-500 text-white px-4 py-2 rounded-lg font-bold mr-4">10:15-11:00</div>
+                        <h3 class="text-xl font-bold">ES6+モダン機能実習</h3>
+                    </div>
+                    <p class="text-gray-700">アロー関数、分割代入、スプレッド演算子、テンプレートリテラルの実践活用演習</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-500 text-white px-4 py-2 rounded-lg font-bold mr-4">11:00-11:45</div>
+                        <h3 class="text-xl font-bold">モジュールシステム・クラス構文</h3>
+                    </div>
+                    <p class="text-gray-700">import/export、ES6クラス、継承、静的メソッドの実装パターン学習</p>
+                </div>
+
+                <div class="bg-yellow-100 p-6 rounded-lg border-l-4 border-yellow-500">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-yellow-500 text-white px-4 py-2 rounded-lg font-bold mr-4">11:45-12:45</div>
+                        <h3 class="text-xl font-bold">昼休憩</h3>
+                    </div>
+                    <p class="text-gray-700">休憩時間です。昼食をとり、リフレッシュしましょう。</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-red-500 text-white px-4 py-2 rounded-lg font-bold mr-4">12:45-13:30</div>
+                        <h3 class="text-xl font-bold">Promise・async/await完全マスター</h3>
+                    </div>
+                    <p class="text-gray-700">Promise連鎖の問題点、async/awaitによる解決、エラーハンドリングパターン</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-500 text-white px-4 py-2 rounded-lg font-bold mr-4">13:30-14:15</div>
+                        <h3 class="text-xl font-bold">API通信・データ処理実習</h3>
+                    </div>
+                    <p class="text-gray-700">Fetch API、JSON処理、並列API呼び出し、リアルタイムデータ更新の実装</p>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-teal-500 text-white px-4 py-2 rounded-lg font-bold mr-4">14:15-15:00</div>
+                        <h3 class="text-xl font-bold">総合Web制作実習・発表</h3>
+                    </div>
+                    <p class="text-gray-700">モダンJavaScript技術を統合した実践プロジェクト完成、成果発表と相互レビュー</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ES6+モダン機能 -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-blue-600 mb-6">
+                <i class="fas fa-star mr-3"></i>ES6+モダンJavaScript機能
+            </h2>
+
+            <!-- アロー関数 -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-arrow-right text-blue-500 mr-2"></i>アロー関数（Arrow Functions）
+                </h3>
+                <p class="text-gray-700 mb-4">
+                    <span class="highlight">アロー関数</span>は従来の function キーワードより簡潔な記法で、<strong>this</strong>の扱いが異なる特徴があります。
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">従来の関数記法</h4>
+                        <div class="code-block">
+<pre><code class="language-javascript">// 従来の関数宣言
+function add(a, b) {
+    return a + b;
+}
+
+// 従来の関数式
+const multiply = function(a, b) {
+    return a * b;
+};
+
+// 配列処理での使用
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map(function(num) {
+    return num * 2;
+});</code></pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">アロー関数記法</h4>
+                        <div class="code-block">
+<pre><code class="language-javascript">// アロー関数（基本形）
+const add = (a, b) => {
+    return a + b;
+};
+
+// 単一式の場合はreturn省略可能
+const multiply = (a, b) => a * b;
+
+// 配列処理での使用（簡潔）
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map(num => num * 2);</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h4 class="text-xl font-bold mb-4"><i class="fas fa-play mr-2"></i>実践演習: アロー関数変換</h4>
+                    <div class="demo-area bg-white text-gray-800">
+                        <div class="mb-4">
+                            <label class="block font-bold mb-2">数値を入力してください：</label>
+                            <input type="number" id="arrowInput" class="border rounded px-3 py-2 mr-4" placeholder="数値を入力">
+                            <button onclick="testArrowFunctions()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                                <i class="fas fa-calculator mr-2"></i>計算実行
+                            </button>
+                        </div>
+                        <div id="arrowResult" class="bg-gray-100 p-4 rounded mt-4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 分割代入 -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-expand-arrows-alt text-green-500 mr-2"></i>分割代入（Destructuring Assignment）
+                </h3>
+                <p class="text-gray-700 mb-4">
+                    <span class="highlight">分割代入</span>は配列やオブジェクトから値を取り出して、別々の変数に代入する構文です。
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">配列の分割代入</h4>
+                        <div class="code-block">
+<pre><code class="language-javascript">// 基本的な配列分割代入
+const fruits = ['apple', 'banana', 'orange'];
+const [first, second, third] = fruits;
+console.log(first);  // 'apple'
+console.log(second); // 'banana'
+
+// デフォルト値の設定
+const [a, b, c = 'default'] = ['x', 'y'];
+console.log(c); // 'default'
+
+// 残り要素の取得
+const numbers = [1, 2, 3, 4, 5];
+const [head, ...tail] = numbers;
+console.log(head); // 1
+console.log(tail); // [2, 3, 4, 5]</code></pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">オブジェクトの分割代入</h4>
+                        <div class="code-block">
+<pre><code class="language-javascript">// 基本的なオブジェクト分割代入
+const user = {
+    name: '田中太郎',
+    age: 25,
+    email: 'tanaka@example.com'
+};
+
+const {name, age, email} = user;
+console.log(name); // '田中太郎'
+
+// 別名での代入
+const {name: userName, age: userAge} = user;
+console.log(userName); // '田中太郎'
+
+// ネストされたオブジェクト
+const profile = {
+    user: {name: '佐藤', details: {city: '東京'}}
+};
+const {user: {name: profileName, details: {city}}} = profile;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h4 class="text-xl font-bold mb-4"><i class="fas fa-user mr-2"></i>実践演習: ユーザー情報分割代入</h4>
+                    <div class="demo-area bg-white text-gray-800">
+                        <button onclick="demonstrateDestructuring()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                            <i class="fas fa-magic mr-2"></i>分割代入実行
+                        </button>
+                        <div id="destructuringResult" class="bg-gray-100 p-4 rounded mt-4"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- テンプレートリテラル -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-quote-left text-purple-500 mr-2"></i>テンプレートリテラル（Template Literals）
+                </h3>
+                <p class="text-gray-700 mb-4">
+                    <span class="highlight">テンプレートリテラル</span>はバッククォート（`）を使用して、文字列内に変数や式を埋め込める機能です。
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">従来の文字列結合</h4>
+                        <div class="code-block">
+<pre><code class="language-javascript">// 従来の文字列結合
+const name = '田中太郎';
+const age = 25;
+const message = 'こんにちは、' + name + 'さん。' +
+                '年齢は' + age + '歳ですね。';
+
+// 複数行文字列
+const html = '&lt;div&gt;' +
+             '  &lt;h1&gt;タイトル&lt;/h1&gt;' +
+             '  &lt;p&gt;内容&lt;/p&gt;' +
+             '&lt;/div&gt;';</code></pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">テンプレートリテラル</h4>
+                        <div class="code-block">
+<pre><code class="language-javascript">// テンプレートリテラル
+const name = '田中太郎';
+const age = 25;
+const message = `こんにちは、${name}さん。
+年齢は${age}歳ですね。`;
+
+// 複数行文字列（自然な改行）
+const html = `&lt;div&gt;
+  &lt;h1&gt;タイトル&lt;/h1&gt;
+  &lt;p&gt;内容&lt;/p&gt;
+&lt;/div&gt;`;
+
+// 式の埋め込み
+const price = 1200;
+const tax = 0.1;
+const total = `合計: ${price * (1 + tax)}円`;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-demo">
+                    <h4 class="text-xl font-bold mb-4"><i class="fas fa-receipt mr-2"></i>実践演習: 動的HTML生成</h4>
+                    <div class="demo-area bg-white text-gray-800">
+                        <div class="grid md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="block font-bold mb-2">商品名：</label>
+                                <input type="text" id="productName" class="border rounded px-3 py-2 w-full" value="ノートPC">
+                            </div>
+                            <div>
+                                <label class="block font-bold mb-2">価格：</label>
+                                <input type="number" id="productPrice" class="border rounded px-3 py-2 w-full" value="98000">
+                            </div>
+                        </div>
+                        <button onclick="generateProductHTML()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+                            <i class="fas fa-code mr-2"></i>HTML生成
+                        </button>
+                        <div id="templateResult" class="bg-gray-100 p-4 rounded mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 非同期処理 -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-blue-600 mb-6">
+                <i class="fas fa-sync-alt mr-3"></i>非同期処理の実践マスター
+            </h2>
+
+            <!-- Promise -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-handshake text-blue-500 mr-2"></i>Promiseから async/await への進化
+                </h3>
+                <p class="text-gray-700 mb-4">
+                    <span class="highlight">Promise</span>は非同期処理の結果を表すオブジェクトですが、<span class="highlight">async/await</span>により同期的な書き方が可能になりました。
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">Promise連鎖の問題</h4>
+                        <div class="code-block">
+<pre><code class="language-javascript">// Promise連鎖（読みにくい）
+function fetchUserData(userId) {
+    return fetch(`/api/users/${userId}`)
+        .then(response => response.json())
+        .then(user => {
+            return fetch(`/api/posts/${user.id}`);
+        })
+        .then(response => response.json())
+        .then(posts => {
+            return fetch(`/api/comments/${posts[0].id}`);
+        })
+        .then(response => response.json())
+        .catch(error => {
+            console.error('エラー:', error);
+        });
+}</code></pre>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-3">async/await（読みやすい）</h4>
+                        <div class="code-block">
+<pre><code class="language-javascript">// async/await（読みやすい）
+async function fetchUserData(userId) {
+    try {
+        const userResponse = await fetch(`/api/users/${userId}`);
+        const user = await userResponse.json();
+        
+        const postsResponse = await fetch(`/api/posts/${user.id}`);
+        const posts = await postsResponse.json();
+        
+        const commentsResponse = await fetch(`/api/comments/${posts[0].id}`);
+        const comments = await commentsResponse.json();
+        
+        return {user, posts, comments};
+    } catch (error) {
+        console.error('エラー:', error);
+        throw error;
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 並列処理 -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-tasks text-green-500 mr-2"></i>並列処理と逐次処理
+                </h3>
+                
+                <div class="code-block mb-4">
+<pre><code class="language-javascript">// 並列処理（Promise.all）- 高速
+async function fetchAllDataInParallel() {
+    try {
+        const [users, posts, comments] = await Promise.all([
+            fetch('/api/users').then(r => r.json()),
+            fetch('/api/posts').then(r => r.json()),
+            fetch('/api/comments').then(r => r.json())
+        ]);
+        
+        console.log('すべてのデータを並列取得完了');
+        return {users, posts, comments};
+    } catch (error) {
+        console.error('並列処理エラー:', error);
+    }
+}
+
+// 逐次処理 - 順序が重要な場合
+async function fetchDataSequentially() {
+    try {
+        const users = await fetch('/api/users').then(r => r.json());
+        console.log('ユーザー取得完了');
+        
+        const posts = await fetch(`/api/posts?userId=${users[0].id}`).then(r => r.json());
+        console.log('投稿取得完了');
+        
+        const comments = await fetch(`/api/comments?postId=${posts[0].id}`).then(r => r.json());
+        console.log('コメント取得完了');
+        
+        return {users, posts, comments};
+    } catch (error) {
+        console.error('逐次処理エラー:', error);
+    }
+}</code></pre>
+                </div>
+
+                <div class="interactive-demo">
+                    <h4 class="text-xl font-bold mb-4"><i class="fas fa-stopwatch mr-2"></i>実践演習: 並列 vs 逐次処理</h4>
+                    <div class="demo-area bg-white text-gray-800">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <button onclick="simulateParallelFetch()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                                <i class="fas fa-bolt mr-2"></i>並列処理実行
+                            </button>
+                            <button onclick="simulateSequentialFetch()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                                <i class="fas fa-list-ol mr-2"></i>逐次処理実行
+                            </button>
+                        </div>
+                        <div id="asyncResult" class="bg-gray-100 p-4 rounded mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 実践Web制作プロジェクト -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-blue-600 mb-6">
+                <i class="fas fa-project-diagram mr-3"></i>総合Web制作実習プロジェクト
+            </h2>
+
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-lg mb-6">
+                <h3 class="text-2xl font-bold mb-4">
+                    <i class="fas fa-newspaper mr-2"></i>プロジェクト: 動的ニュースダッシュボード
+                </h3>
+                <p class="text-lg">
+                    モダンJavaScript機能を活用して、リアルタイムでニュースを取得・表示する動的Webアプリケーションを構築します。
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <h4 class="text-xl font-bold text-blue-800 mb-4">
+                        <i class="fas fa-cog mr-2"></i>使用技術スタック
+                    </h4>
+                    <ul class="space-y-2">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>ES6+ アロー関数・分割代入</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>async/await による非同期処理</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>テンプレートリテラルによる動的HTML</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>モジュールシステム（import/export）</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Fetch API によるデータ取得</li>
+                    </ul>
+                </div>
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <h4 class="text-xl font-bold text-green-800 mb-4">
+                        <i class="fas fa-list-ul mr-2"></i>実装機能
+                    </h4>
+                    <ul class="space-y-2">
+                        <li><i class="fas fa-newspaper text-blue-500 mr-2"></i>複数ソースからのニュース取得</li>
+                        <li><i class="fas fa-filter text-blue-500 mr-2"></i>カテゴリ別フィルタリング機能</li>
+                        <li><i class="fas fa-search text-blue-500 mr-2"></i>リアルタイム検索機能</li>
+                        <li><i class="fas fa-heart text-blue-500 mr-2"></i>お気に入り保存機能</li>
+                        <li><i class="fas fa-mobile-alt text-blue-500 mr-2"></i>レスポンシブデザイン</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- プロジェクト実装エリア -->
+            <div class="demo-area">
+                <h4 class="text-xl font-bold mb-4">
+                    <i class="fas fa-code mr-2"></i>ライブコーディング実習
+                </h4>
+                
+                <div class="mb-6">
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <button onclick="loadTechNews()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                            <i class="fas fa-microchip mr-2"></i>技術ニュース
+                        </button>
+                        <button onclick="loadBusinessNews()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                            <i class="fas fa-chart-line mr-2"></i>ビジネス
+                        </button>
+                        <button onclick="loadSportsNews()" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">
+                            <i class="fas fa-futbol mr-2"></i>スポーツ
+                        </button>
+                        <button onclick="clearNews()" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">
+                            <i class="fas fa-trash mr-2"></i>クリア
+                        </button>
+                    </div>
+                    
+                    <div class="flex gap-2 mb-4">
+                        <input type="text" id="searchInput" placeholder="ニュースを検索..." class="flex-1 border rounded px-3 py-2">
+                        <button onclick="searchNews()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+                            <i class="fas fa-search mr-2"></i>検索
+                        </button>
+                    </div>
+                </div>
+
+                <div id="newsContainer" class="min-h-[200px] bg-gray-100 p-4 rounded">
+                    <div class="text-center text-gray-500">
+                        <i class="fas fa-newspaper text-4xl mb-4"></i>
+                        <p>上のボタンをクリックしてニュースを読み込んでください</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 理解度確認 -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-blue-600 mb-6">
+                <i class="fas fa-brain mr-3"></i>理解度確認クイズ
+            </h2>
+
+            <div class="space-y-6">
+                <div class="border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">問題1: アロー関数の特徴</h3>
+                    <p class="mb-4">アロー関数の特徴として<strong>正しくない</strong>ものはどれですか？</p>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="a" class="mr-2">
+                            <span>A. function キーワードより簡潔に書ける</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="b" class="mr-2">
+                            <span>B. this の値が呼び出し元によって決まる</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="c" class="mr-2">
+                            <span>C. 単一式の場合はreturnを省略できる</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="d" class="mr-2">
+                            <span>D. 配列のmapメソッドでよく使用される</span>
+                        </label>
+                    </div>
+                    <button onclick="showAnswer('q1', 'b', 'アロー関数のthisは定義時のコンテキストに固定されます（レキシカルthis）')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        回答を表示
+                    </button>
+                    <div id="q1-answer" class="mt-4 p-4 bg-blue-50 rounded hidden"></div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">問題2: async/await の利点</h3>
+                    <p class="mb-4">async/await を使用する主な利点は何ですか？</p>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="a" class="mr-2">
+                            <span>A. 処理速度が向上する</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="b" class="mr-2">
+                            <span>B. 同期処理のように読みやすいコードが書ける</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="c" class="mr-2">
+                            <span>C. エラーが発生しなくなる</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="d" class="mr-2">
+                            <span>D. ブラウザの互換性が向上する</span>
+                        </label>
+                    </div>
+                    <button onclick="showAnswer('q2', 'b', 'async/awaitは非同期処理を同期処理のように直感的に書けるため、コードの可読性が大幅に向上します。')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        回答を表示
+                    </button>
+                    <div id="q2-answer" class="mt-4 p-4 bg-blue-50 rounded hidden"></div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-xl font-bold mb-4">問題3: 分割代入の応用</h3>
+                    <p class="mb-4">次のコードの実行結果として正しいものはどれですか？</p>
+                    <div class="code-block mb-4">
+<pre><code class="language-javascript">const data = {
+    user: {
+        name: '太郎', 
+        details: {age: 25, city: '東京'}
+    }
+};
+const {user: {name, details: {city}}} = data;
+console.log(name, city);</code></pre>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="a" class="mr-2">
+                            <span>A. 太郎 東京</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="b" class="mr-2">
+                            <span>B. user city</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="c" class="mr-2">
+                            <span>C. undefined undefined</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="d" class="mr-2">
+                            <span>D. エラーが発生する</span>
+                        </label>
+                    </div>
+                    <button onclick="showAnswer('q3', 'a', 'ネストされたオブジェクトの分割代入により、nameに「太郎」、cityに「東京」が代入されます。')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        回答を表示
+                    </button>
+                    <div id="q3-answer" class="mt-4 p-4 bg-blue-50 rounded hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 次のステップ -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-blue-600 mb-6">
+                <i class="fas fa-route mr-3"></i>次のステップ
+            </h2>
+            
+            <div class="bg-gradient-to-r from-green-500 to-blue-600 text-white p-6 rounded-lg">
+                <h3 class="text-2xl font-bold mb-4">
+                    <i class="fas fa-arrow-right mr-2"></i>次の日: Day 42 - Node.js基礎・サーバーサイド開発
+                </h3>
+                <p class="text-lg mb-4">
+                    明日からはサーバーサイド開発の世界に入ります。今日学習したモダンJavaScriptの知識を活かして、Node.jsによるサーバーサイドJavaScript開発を学習します。
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-2">
+                            <i class="fas fa-server mr-2"></i>予習のポイント
+                        </h4>
+                        <ul class="space-y-1 text-sm">
+                            <li>• Node.jsの特徴と用途を調べる</li>
+                            <li>• サーバーサイドとクライアントサイドの違いを理解する</li>
+                            <li>• npmパッケージマネージャーの基本を確認する</li>
+                            <li>• RESTful APIの基本概念を復習する</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-2">
+                            <i class="fas fa-lightbulb mr-2"></i>学習継続のコツ
+                        </h4>
+                        <ul class="space-y-1 text-sm">
+                            <li>• 今日作成したコードを復習する</li>
+                            <li>• モダンJSの機能を日常的に使ってみる</li>
+                            <li>• 小さなプロジェクトで実践練習を続ける</li>
+                            <li>• MDNドキュメントで詳細を確認する</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学習成果まとめ -->
+        <section class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold mb-6">
+                <i class="fas fa-trophy mr-3"></i>本日の学習成果
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white bg-opacity-20 p-6 rounded-lg">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-code text-4xl mb-2"></i>
+                        <h3 class="text-xl font-bold">モダンJavaScript</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm">
+                        <li>✓ アロー関数の実践活用</li>
+                        <li>✓ 分割代入の効率的使用</li>
+                        <li>✓ テンプレートリテラルの応用</li>
+                        <li>✓ ES6+機能の総合理解</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white bg-opacity-20 p-6 rounded-lg">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-sync-alt text-4xl mb-2"></i>
+                        <h3 class="text-xl font-bold">非同期処理</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm">
+                        <li>✓ Promise→async/await移行</li>
+                        <li>✓ 並列処理と逐次処理</li>
+                        <li>✓ エラーハンドリング実装</li>
+                        <li>✓ API通信の実践</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white bg-opacity-20 p-6 rounded-lg">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-project-diagram text-4xl mb-2"></i>
+                        <h3 class="text-xl font-bold">実践プロジェクト</h3>
+                    </div>
+                    <ul class="space-y-2 text-sm">
+                        <li>✓ 動的Webアプリ構築</li>
+                        <li>✓ 実用的機能実装</li>
+                        <li>✓ モジュール化開発</li>
+                        <li>✓ 品質向上とデバッグ</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <p class="text-xl font-bold">
+                    <i class="fas fa-star mr-2"></i>
+                    モダンJavaScript開発者としての基盤が完成しました！
+                    <i class="fas fa-star ml-2"></i>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4">
+                <i class="fas fa-graduation-cap text-2xl mr-2"></i>
+                <span class="text-xl font-bold">ITエンジニア育成カリキュラム</span>
+            </div>
+            <p class="text-gray-400">
+                41日目完了 - モダンJavaScript・Web制作実習
+            </p>
+            <p class="text-sm text-gray-500 mt-4">
+                © 2025 APSA Co.,Ltd. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // アロー関数の実践演習
+        function testArrowFunctions() {
+            const input = document.getElementById('arrowInput').value;
+            const num = parseInt(input) || 0;
+            
+            // 従来の関数とアロー関数の比較
+            const traditional = function(x) {
+                return x * 2;
+            };
+            
+            const arrow = x => x * 2;
+            const arrowWithMultiple = (x, y) => x * y;
+            const arrowWithBlock = x => {
+                const result = x * x;
+                return result;
+            };
+            
+            const results = `
+                <h5 class="font-bold text-lg mb-3">実行結果（入力値: ${num}）</h5>
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <span>従来の関数（×2）:</span>
+                        <strong>${traditional(num)}</strong>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>アロー関数（×2）:</span>
+                        <strong>${arrow(num)}</strong>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>複数引数（×3）:</span>
+                        <strong>${arrowWithMultiple(num, 3)}</strong>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>ブロック形式（²）:</span>
+                        <strong>${arrowWithBlock(num)}</strong>
+                    </div>
+                </div>
+                <div class="mt-4 p-3 bg-blue-100 rounded">
+                    <strong>学習ポイント:</strong> アロー関数は簡潔な記法で、thisの扱いが異なります。
+                </div>
+            `;
+            
+            document.getElementById('arrowResult').innerHTML = results;
+        }
+
+        // 分割代入の実演
+        function demonstrateDestructuring() {
+            // サンプルデータ
+            const users = [
+                {name: '田中太郎', age: 25, email: 'tanaka@example.com', address: {city: '東京', zip: '100-0001'}},
+                {name: '佐藤花子', age: 30, email: 'sato@example.com', address: {city: '大阪', zip: '530-0001'}},
+                {name: '鈴木一郎', age: 28, email: 'suzuki@example.com', address: {city: '名古屋', zip: '460-0001'}}
+            ];
+
+            // 配列の分割代入
+            const [first, second, third] = users;
+            
+            // オブジェクトの分割代入
+            const {name, age, address: {city}} = first;
+            
+            // 複数ユーザーの分割代入
+            const userSummaries = users.map(({name, age, address: {city}}) => `${name}（${age}歳・${city}）`);
+
+            const results = `
+                <h5 class="font-bold text-lg mb-3">分割代入実行結果</h5>
+                <div class="space-y-4">
+                    <div>
+                        <strong>配列の分割代入:</strong>
+                        <div class="ml-4 text-sm">
+                            <div>first: ${first.name}</div>
+                            <div>second: ${second.name}</div>
+                            <div>third: ${third.name}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <strong>オブジェクトの分割代入:</strong>
+                        <div class="ml-4 text-sm">
+                            <div>name: ${name}</div>
+                            <div>age: ${age}</div>
+                            <div>city: ${city}</div>
+                        </div>
+                    </div>
+                    <div>
+                        <strong>map関数での活用:</strong>
+                        <div class="ml-4 text-sm">
+                            ${userSummaries.map(summary => `<div>• ${summary}</div>`).join('')}
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 p-3 bg-green-100 rounded">
+                    <strong>学習ポイント:</strong> 分割代入により、必要な値を効率的に取り出せます。
+                </div>
+            `;
+            
+            document.getElementById('destructuringResult').innerHTML = results;
+        }
+
+        // テンプレートリテラルによるHTML生成
+        function generateProductHTML() {
+            const name = document.getElementById('productName').value;
+            const price = parseInt(document.getElementById('productPrice').value) || 0;
+            const tax = 0.1;
+            const totalPrice = Math.floor(price * (1 + tax));
+
+            // テンプレートリテラルによる動的HTML生成
+            const productHTML = `
+                <div class="border rounded-lg p-4 bg-white shadow">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">${name}</h3>
+                        <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">NEW</span>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span>本体価格:</span>
+                            <span>¥${price.toLocaleString()}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>消費税（10%）:</span>
+                            <span>¥${(price * tax).toLocaleString()}</span>
+                        </div>
+                        <hr>
+                        <div class="flex justify-between font-bold text-lg">
+                            <span>合計:</span>
+                            <span class="text-red-600">¥${totalPrice.toLocaleString()}</span>
+                        </div>
+                    </div>
+                    <button class="w-full mt-4 bg-green-500 text-white py-2 rounded hover:bg-green-600">
+                        カートに追加
+                    </button>
+                </div>
+            `;
+
+            const codeExample = `
+                <h5 class="font-bold mb-2">生成されたテンプレートリテラル:</h5>
+                <pre class="bg-gray-800 text-green-400 p-3 rounded text-xs overflow-x-auto"><code>const productHTML = \`
+&lt;div class="border rounded-lg p-4"&gt;
+  &lt;h3&gt;\${name}&lt;/h3&gt;
+  &lt;div&gt;価格: ¥\${price.toLocaleString()}&lt;/div&gt;
+  &lt;div&gt;合計: ¥\${Math.floor(price * 1.1)}&lt;/div&gt;
+&lt;/div&gt;\`;</code></pre>
+            `;
+
+            document.getElementById('templateResult').innerHTML = `
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h5 class="font-bold mb-2">生成されたHTML:</h5>
+                        ${productHTML}
+                    </div>
+                    <div>
+                        ${codeExample}
+                        <div class="mt-4 p-3 bg-purple-100 rounded text-sm">
+                            <strong>学習ポイント:</strong> テンプレートリテラルで動的なHTMLを効率的に生成できます。
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 並列処理のシミュレーション
+        async function simulateParallelFetch() {
+            const startTime = Date.now();
+            document.getElementById('asyncResult').innerHTML = `
+                <div class="text-center">
+                    <i class="fas fa-spinner fa-spin text-2xl text-blue-500"></i>
+                    <p class="mt-2">並列処理実行中...</p>
+                </div>
+            `;
+
+            try {
+                // 並列処理をシミュレート
+                const [users, posts, comments] = await Promise.all([
+                    simulateAPICall('users', 1000),
+                    simulateAPICall('posts', 1200),
+                    simulateAPICall('comments', 800)
+                ]);
+
+                const endTime = Date.now();
+                const duration = endTime - startTime;
+
+                document.getElementById('asyncResult').innerHTML = `
+                    <div class="bg-green-50 p-4 rounded">
+                        <h5 class="font-bold text-green-800 mb-3">
+                            <i class="fas fa-check-circle mr-2"></i>並列処理完了
+                        </h5>
+                        <div class="space-y-2 text-sm">
+                            <div>実行時間: <strong>${duration}ms</strong></div>
+                            <div>取得データ: ${users.length} users, ${posts.length} posts, ${comments.length} comments</div>
+                            <div class="text-green-700 font-bold">✓ すべてのAPIを同時実行で高速処理</div>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('asyncResult').innerHTML = `
+                    <div class="bg-red-50 p-4 rounded">
+                        <strong class="text-red-800">エラー:</strong> ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // 逐次処理のシミュレーション
+        async function simulateSequentialFetch() {
+            const startTime = Date.now();
+            document.getElementById('asyncResult').innerHTML = `
+                <div class="text-center">
+                    <i class="fas fa-spinner fa-spin text-2xl text-blue-500"></i>
+                    <p class="mt-2">逐次処理実行中...</p>
+                </div>
+            `;
+
+            try {
+                // 逐次処理をシミュレート
+                const users = await simulateAPICall('users', 1000);
+                const posts = await simulateAPICall('posts', 1200);
+                const comments = await simulateAPICall('comments', 800);
+
+                const endTime = Date.now();
+                const duration = endTime - startTime;
+
+                document.getElementById('asyncResult').innerHTML = `
+                    <div class="bg-blue-50 p-4 rounded">
+                        <h5 class="font-bold text-blue-800 mb-3">
+                            <i class="fas fa-list-ol mr-2"></i>逐次処理完了
+                        </h5>
+                        <div class="space-y-2 text-sm">
+                            <div>実行時間: <strong>${duration}ms</strong></div>
+                            <div>取得データ: ${users.length} users, ${posts.length} posts, ${comments.length} comments</div>
+                            <div class="text-blue-700 font-bold">✓ 順序を保証して確実に処理</div>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('asyncResult').innerHTML = `
+                    <div class="bg-red-50 p-4 rounded">
+                        <strong class="text-red-800">エラー:</strong> ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // API呼び出しのシミュレーション
+        function simulateAPICall(type, delay) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const mockData = {
+                        users: [{id: 1, name: '田中'}, {id: 2, name: '佐藤'}],
+                        posts: [{id: 1, title: '投稿1'}, {id: 2, title: '投稿2'}, {id: 3, title: '投稿3'}],
+                        comments: [{id: 1, text: 'コメント1'}, {id: 2, text: 'コメント2'}]
+                    };
+                    resolve(mockData[type] || []);
+                }, delay);
+            });
+        }
+
+        // ニュースプロジェクト機能
+        function loadTechNews() {
+            const techNews = [
+                {title: '新しいJavaScriptフレームワークがリリース', category: 'Tech', time: '2時間前'},
+                {title: 'AI技術の最新動向レポート', category: 'Tech', time: '4時間前'},
+                {title: 'クラウドサービスの比較分析', category: 'Tech', time: '6時間前'}
+            ];
+            displayNews(techNews, 'tech');
+        }
+
+        function loadBusinessNews() {
+            const businessNews = [
+                {title: 'スタートアップ企業の資金調達動向', category: 'Business', time: '1時間前'},
+                {title: '仮想通貨市場の最新分析', category: 'Business', time: '3時間前'},
+                {title: 'リモートワークの生産性調査結果', category: 'Business', time: '5時間前'}
+            ];
+            displayNews(businessNews, 'business');
+        }
+
+        function loadSportsNews() {
+            const sportsNews = [
+                {title: '野球日本シリーズ開幕戦結果', category: 'Sports', time: '30分前'},
+                {title: 'サッカーワールドカップ予選情報', category: 'Sports', time: '2時間前'},
+                {title: 'オリンピック競技日程発表', category: 'Sports', time: '4時間前'}
+            ];
+            displayNews(sportsNews, 'sports');
+        }
+
+        function displayNews(newsArray, category) {
+            const categoryColors = {
+                tech: 'bg-blue-500',
+                business: 'bg-green-500',
+                sports: 'bg-orange-500'
+            };
+
+            const newsHTML = newsArray.map(news => `
+                <div class="bg-white border rounded-lg p-4 mb-4 shadow hover:shadow-md transition-shadow">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-lg text-gray-800 mb-2">${news.title}</h4>
+                            <div class="flex items-center space-x-2">
+                                <span class="${categoryColors[category]} text-white px-2 py-1 rounded text-xs">
+                                    ${news.category}
+                                </span>
+                                <span class="text-gray-500 text-sm">${news.time}</span>
+                            </div>
+                        </div>
+                        <button onclick="toggleFavorite(this)" class="text-gray-400 hover:text-red-500 ml-4">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            document.getElementById('newsContainer').innerHTML = `
+                <h4 class="font-bold text-lg mb-4 capitalize">${category} News</h4>
+                ${newsHTML}
+            `;
+        }
+
+        function clearNews() {
+            document.getElementById('newsContainer').innerHTML = `
+                <div class="text-center text-gray-500">
+                    <i class="fas fa-newspaper text-4xl mb-4"></i>
+                    <p>上のボタンをクリックしてニュースを読み込んでください</p>
+                </div>
+            `;
+        }
+
+        function searchNews() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            if (!query) {
+                alert('検索キーワードを入力してください');
+                return;
+            }
+
+            const allNews = [
+                {title: 'JavaScript最新アップデート情報', category: 'Tech', time: '1時間前'},
+                {title: 'React vs Vue.js 比較レポート', category: 'Tech', time: '2時間前'},
+                {title: 'テック企業の採用動向調査', category: 'Business', time: '3時間前'}
+            ];
+
+            const filteredNews = allNews.filter(news => 
+                news.title.toLowerCase().includes(query)
+            );
+
+            if (filteredNews.length === 0) {
+                document.getElementById('newsContainer').innerHTML = `
+                    <div class="text-center text-gray-500">
+                        <i class="fas fa-search text-4xl mb-4"></i>
+                        <p>「${query}」に関するニュースは見つかりませんでした</p>
+                    </div>
+                `;
+            } else {
+                displayNews(filteredNews, 'search');
+            }
+        }
+
+        function toggleFavorite(button) {
+            const icon = button.querySelector('i');
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                button.classList.add('text-red-500');
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                button.classList.remove('text-red-500');
+            }
+        }
+
+        // クイズ回答表示
+        function showAnswer(questionId, correctAnswer, explanation) {
+            const selectedValue = document.querySelector(`input[name="${questionId}"]:checked`)?.value;
+            const answerDiv = document.getElementById(`${questionId}-answer`);
+            
+            if (selectedValue === correctAnswer) {
+                answerDiv.className = 'mt-4 p-4 bg-green-50 border border-green-200 rounded';
+                answerDiv.innerHTML = `
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                        <strong class="text-green-800">正解です！</strong>
+                    </div>
+                    <p class="text-green-700">${explanation}</p>
+                `;
+            } else {
+                answerDiv.className = 'mt-4 p-4 bg-red-50 border border-red-200 rounded';
+                answerDiv.innerHTML = `
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-times-circle text-red-500 mr-2"></i>
+                        <strong class="text-red-800">不正解です</strong>
+                    </div>
+                    <p class="text-red-700">正解: ${correctAnswer.toUpperCase()}</p>
+                    <p class="text-gray-700 mt-2">${explanation}</p>
+                `;
+            }
+            
+            answerDiv.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDn9sTZb7BbUincnY9obtQDTFIWtvpHbGgEAo77zBssEOX9t90PIoTUOJeG0TwqZdmv1NZfx45uXBO%2F2BrHmFX3w%2BDtP5RplDzFCh6HZg6jE%2B0DDajVyDDkrWYL8mVi12P9XAKo9QxcpEoBmlJtKfiwXTWyXyp%2FxdL4I6HuE%2Fkku7C0rho4hFBwqUDZFE9qNKr8Nt6gHXGL6vKAG7h1XGeH%2FywGTvfyv%2FSl6EXPvGe5i6VPHZakKmQjn%2B%2F%2BmhMRHteobbMk7BREvudI2miGNJP2rFfPFujUxiN44S19HdueRbRfSQVLgg7ZzvXwzqrx9CKkoh5oI7NHdZqpLHuzjDKIRR0wV%2BhpSC6TqwSdfd6NL7dVSn27rtau31NVZ9iK9SOd7Mp3lKzT3DlJ5tT9Na72%2BZLl1a44pLhG%2F9G7jWDlIXT6Uf64JPDSlVPrlnkz2aEjKnoltoJD%2F0Fs600b6tSwshr%2BQSkI9yvpQ2EuUFZKxIAsXF%2FAJ7MJ7nfVFOM1TzTA%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDn9sTZb7BbUincnY9obtQDTFIWtvpHbGgEAo77zBssEOX9t90PIoTUOJeG0TwqZdmv1NZfx45uXBO/2BrHmFX3w+DtP5RplDzFCh6HZg6jE+0DDajVyDDkrWYL8mVi12P9XAKo9QxcpEoBmlJtKfiwXTWyXyp/xdL4I6HuE/kku7C0rho4hFBwqUDZFE9qNKr8Nt6gHXGL6vKAG7h1XGeH/ywGTvfyv/Sl6EXPvGe5i6VPHZakKmQjn+/+mhMRHteobbMk7BREvudI2miGNJP2rFfPFujUxiN44S19HdueRbRfSQVLgg7ZzvXwzqrx9CKkoh5oI7NHdZqpLHuzjDKIRR0wV+hpSC6TqwSdfd6NL7dVSn27rtau31NVZ9iK9SOd7Mp3lKzT3DlJ5tT9Na72+ZLl1a44pLhG/9G7jWDlIXT6Uf64JPDSlVPrlnkz2aEjKnoltoJD/0Fs600b6tSwshr+QSkI9yvpQ2EuUFZKxIAsXF/AJ7MJ7nfVFOM1TzTA==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

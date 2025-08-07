@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>標準ナビゲーション仕様: dayX.html用 [前後ページナビゲーション追加版]</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+        }
+        .sticky-nav { 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            backdrop-filter: blur(10px); 
+        }
+        .month-badge {
+            background: linear-gradient(45deg, #ffd700, #ffed4a);
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .spec-section {
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- デモ用ナビゲーション実装 -->
+    <header class="gradient-bg text-white sticky-nav">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <h1 class="text-2xl font-bold">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        ITエンジニア育成カリキュラム
+                    </h1>
+                    <span class="month-badge text-black px-3 py-1 rounded-full text-sm font-semibold">
+                        1ヶ月目 開始!
+                    </span>
+                </div>
+                <nav class="flex items-center space-x-6">
+                    <a href="../month/month1.html" class="hover:text-yellow-300 transition-colors">
+                        <i class="fas fa-home mr-1"></i>トップ
+                    </a>
+                    <a href="../month/month1.html" class="hover:text-yellow-300 transition-colors">
+                        <i class="fas fa-layer-group mr-1"></i>1ヶ月目
+                    </a>
+                    <a href="../week/week1.html" class="hover:text-yellow-300 transition-colors">
+                        <i class="fas fa-calendar-week mr-1"></i>1周目
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 階層ナビゲーション -->
+    <div class="bg-white border-b">
+        <div class="container mx-auto px-4 py-3">
+            <nav class="flex items-center space-x-2 text-sm text-gray-600">
+                <a href="../month/month1.html" class="hover:text-blue-600">
+                    <i class="fas fa-home"></i> ホーム
+                </a>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+                <a href="../month/month1.html" class="hover:text-blue-600">1ヶ月目: Java基礎</a>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+                <a href="../week/week1.html" class="hover:text-blue-600">1週目: Java言語基礎</a>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+                <span class="text-blue-600 font-semibold">1日目: Java概要・環境構築</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- 前後ページナビゲーション -->
+    <div class="bg-blue-50 border-b">
+        <div class="container mx-auto px-4 py-2">
+            <div class="flex justify-between items-center">
+                <div class="text-gray-500 text-sm">
+                    <i class="fas fa-chevron-left mr-1"></i>
+                    <span class="opacity-50">前日</span>
+                    <span class="text-gray-400">|</span>
+                </div>
+                <div class="flex items-center space-x-4 text-sm">
+                    <a href="day1_lecture.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-green-300 transition-colors bg-white">
+                        <i class="fas fa-book mr-1"></i>講義ページ
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4 text-sm">
+                    <span class="text-gray-400">|</span>
+                    <a href="day2.html" class="text-blue-600 hover:text-blue-800 font-medium">
+                        翌日 <i class="fas fa-chevron-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 仕様書本文 -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-800 mb-2">
+                    <i class="fas fa-file-code text-blue-600 mr-3"></i>
+                    dayX.html用標準ナビゲーション仕様書
+                </h1>
+                <p class="text-xl text-gray-600">前後ページナビゲーション追加版</p>
+                <div class="flex justify-center items-center mt-4 space-x-4">
+                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">全54ファイル対応</span>
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">完全実装仕様</span>
+                </div>
+            </div>
+
+            <div class="spec-section">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-palette mr-2 text-purple-600"></i>
+                    1. CSS定義
+                </h2>
+                <div class="code-block">
+                    <pre class="text-sm"><code>.gradient-bg { 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+}
+.sticky-nav { 
+    position: sticky; 
+    top: 0; 
+    z-index: 100; 
+    backdrop-filter: blur(10px); 
+}
+.month-badge {
+    background: linear-gradient(45deg, #ffd700, #ffed4a);
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="spec-section">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-header mr-2 text-blue-600"></i>
+                    2. ヘッダーナビゲーション構造
+                </h2>
+                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                    <h3 class="font-semibold text-blue-800 mb-2">実装要素:</h3>
+                    <ul class="space-y-1 text-sm text-blue-700">
+                        <li>• グラデーション背景（紫系）</li>
+                        <li>• ITエンジニア育成カリキュラムタイトル</li>
+                        <li>• 動的バッジ（Month1/2/3に応じて変更）</li>
+                        <li>• 上部リンク（トップ、Xヶ月目、Y週目）</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="spec-section">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-sitemap mr-2 text-green-600"></i>
+                    3. 階層ナビゲーション（パンくずリスト）
+                </h2>
+                <div class="bg-green-50 p-4 rounded-lg mb-4">
+                    <h3 class="font-semibold text-green-800 mb-2">階層構造:</h3>
+                    <div class="text-sm text-green-700">
+                        ホーム → Xヶ月目: テーマ名 → Y週目: 週テーマ → Z日目: 日テーマ
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-section">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-arrows-alt-h mr-2 text-orange-600"></i>
+                    4. 前後ページナビゲーション【NEW】
+                </h2>
+                <div class="bg-orange-50 p-4 rounded-lg mb-4">
+                    <h3 class="font-semibold text-orange-800 mb-2">構成要素:</h3>
+                    <ul class="space-y-1 text-sm text-orange-700">
+                        <li>• 左側: 前日リンク（Day1の場合は非活性表示）</li>
+                        <li>• 中央: 講義ページボタン（dayX_lecture.htmlへのリンク）</li>
+                        <li>• 右側: 翌日リンク（Day54の場合は非活性表示）</li>
+                    </ul>
+                </div>
+                <div class="code-block">
+                    <pre class="text-sm"><code>&lt;div class="bg-blue-50 border-b"&gt;
+    &lt;div class="container mx-auto px-4 py-2"&gt;
+        &lt;div class="flex justify-between items-center"&gt;
+            &lt;div class="text-gray-500 text-sm"&gt;
+                &lt;i class="fas fa-chevron-left mr-1"&gt;&lt;/i&gt;
+                &lt;span class="opacity-50"&gt;前日&lt;/span&gt;
+                &lt;span class="text-gray-400"&gt;|&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class="flex items-center space-x-4 text-sm"&gt;
+                &lt;a href="dayX_lecture.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-green-300 transition-colors bg-white"&gt;
+                    &lt;i class="fas fa-book mr-1"&gt;&lt;/i&gt;講義ページ
+                &lt;/a&gt;
+            &lt;/div&gt;
+            &lt;div class="flex items-center space-x-4 text-sm"&gt;
+                &lt;span class="text-gray-400"&gt;|&lt;/span&gt;
+                &lt;a href="dayX+1.html" class="text-blue-600 hover:text-blue-800 font-medium"&gt;
+                    翌日 &lt;i class="fas fa-chevron-right ml-1"&gt;&lt;/i&gt;
+                &lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+
+            <div class="spec-section">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-cogs mr-2 text-red-600"></i>
+                    5. 動的パラメータ設定
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-300">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-2 border-b text-left font-semibold">Day範囲</th>
+                                <th class="px-4 py-2 border-b text-left font-semibold">Month</th>
+                                <th class="px-4 py-2 border-b text-left font-semibold">Week</th>
+                                <th class="px-4 py-2 border-b text-left font-semibold">バッジテキスト</th>
+                                <th class="px-4 py-2 border-b text-left font-semibold">月テーマ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-2 border-b font-medium">Day1-18</td>
+                                <td class="px-4 py-2 border-b">Month1</td>
+                                <td class="px-4 py-2 border-b">Week1-6</td>
+                                <td class="px-4 py-2 border-b">1ヶ月目 開始!</td>
+                                <td class="px-4 py-2 border-b">Java基礎</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-2 border-b font-medium">Day19-36</td>
+                                <td class="px-4 py-2 border-b">Month2</td>
+                                <td class="px-4 py-2 border-b">Week7-12</td>
+                                <td class="px-4 py-2 border-b">2ヶ月目 開始!</td>
+                                <td class="px-4 py-2 border-b">基本情報技術者試験対策</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-2 border-b font-medium">Day37-54</td>
+                                <td class="px-4 py-2 border-b">Month3</td>
+                                <td class="px-4 py-2 border-b">Week13-18</td>
+                                <td class="px-4 py-2 border-b">3ヶ月目 開始!</td>
+                                <td class="px-4 py-2 border-b">Web開発</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="spec-section">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-exclamation-triangle mr-2 text-yellow-600"></i>
+                    6. 境界値処理
+                </h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-yellow-800 mb-2">Day1の場合:</h3>
+                        <ul class="space-y-1 text-sm text-yellow-700">
+                            <li>• 前日リンクを非活性表示</li>
+                            <li>• opacity-50クラスで視覚的に無効化</li>
+                            <li>• クリック不可能な状態</li>
+                        </ul>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-yellow-800 mb-2">Day54の場合:</h3>
+                        <ul class="space-y-1 text-sm text-yellow-700">
+                            <li>• 翌日リンクを非活性表示</li>
+                            <li>• opacity-50クラスで視覚的に無効化</li>
+                            <li>• クリック不可能な状態</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="spec-section">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                    <i class="fas fa-code mr-2 text-indigo-600"></i>
+                    7. 実装適用例（Day1）
+                </h2>
+                <div class="bg-indigo-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-indigo-800 mb-2">Day1実装時の具体的な値:</h3>
+                    <ul class="space-y-1 text-sm text-indigo-700">
+                        <li>• <strong>[X]</strong> → <code>1</code> (Month1)</li>
+                        <li>• <strong>[Y]</strong> → <code>1</code> (Week1)</li>
+                        <li>• <strong>[Z]</strong> → <code>1</code> (Day1)</li>
+                        <li>• <strong>バッジ</strong> → <code>1ヶ月目 開始!</code></li>
+                        <li>• <strong>月テーマ</strong> → <code>Java基礎</code></li>
+                        <li>• <strong>週テーマ</strong> → <code>Java言語基礎</code></li>
+                        <li>• <strong>日テーマ</strong> → <code>Java概要・環境構築</code></li>
+                        <li>• <strong>前日リンク</strong> → 非活性表示</li>
+                        <li>• <strong>翌日リンク</strong> → <code>day2.html</code></li>
+                        <li>• <strong>講義ページリンク</strong> → <code>day1_lecture.html</code></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-lg mt-8">
+                <div class="text-center">
+                    <h2 class="text-2xl font-bold mb-2">
+                        <i class="fas fa-check-circle mr-2"></i>
+                        実装準備完了
+                    </h2>
+                    <p class="text-blue-100">この仕様に基づいて全54個のdayX.htmlファイルに統一ナビゲーションを適用可能</p>
+                    <div class="flex justify-center items-center mt-4 space-x-6">
+                        <div class="text-center">
+                            <div class="text-2xl font-bold">54</div>
+                            <div class="text-sm text-blue-200">ファイル対応</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold">4</div>
+                            <div class="text-sm text-blue-200">ナビゲーション層</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold">100%</div>
+                            <div class="text-sm text-blue-200">統一仕様</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white py-6 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-300">
+                <i class="fas fa-copyright mr-1"></i>
+                2025 ITエンジニア育成カリキュラム. All Rights Reserved.
+            </p>
+            <p class="text-sm text-gray-400 mt-2">
+                dayX.html用標準ナビゲーション仕様書 - 前後ページナビゲーション追加版
+            </p>
+        </div>
+    </footer>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"96aa30e09902deb2","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDu5M%2BiEjMz1dNY6rXIxiS7KHHVgXjNOQkjgkdyUoVIFLMPLtdCPLqiNvGHB%2BKJV6JJzzLylP0Vjf%2BH12aE1geVKK5CIZSlnruy%2B3wsmRUE3IfmYBFpgg%2Bu66v90wAfHkxtGQdZhlLTw3hSz%2Fz39BPmsD6jdGGt5OeCOcWH%2BOBnC0g7Krgg%2Bf875iv7ZklMJFNZXQk7IqFrBG0TOCVTGLf%2FcrJTuFQPQ2DB1vDLNuRD%2FxBJ6msaFaVTtMqXkQ9rwWcNJW%2F1fqK0twxZ%2FDZCWjYmfWWvkuXMmp1N5SCU%2FEQYJoye%2B0uO27gHIEPRS%2FeeQZq4HpHctfht%2FAWzSdnpejsqQzKdFK7%2BGLHHHdXA3oabxf5qlv3Hy5PUOaZD%2B%2Bq0GCqqypxFp1FUhjhmCotFhzwbxd3%2FUrDvC6Py%2FEhwJ5J3T0s6LLre7RTxibVOrFZVHVmA0tFimB37DCLlP6WTB5%2B4t%2BiBYWkTEa0NS9dlPLkIdDRfc%2FRHD4fUsevyQxLDbbjg%2BOgpz6y01TBVNSQkYN9no%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDu5M+iEjMz1dNY6rXIxiS7KHHVgXjNOQkjgkdyUoVIFLMPLtdCPLqiNvGHB+KJV6JJzzLylP0Vjf+H12aE1geVKK5CIZSlnruy+3wsmRUE3IfmYBFpgg+u66v90wAfHkxtGQdZhlLTw3hSz/z39BPmsD6jdGGt5OeCOcWH+OBnC0g7Krgg+f875iv7ZklMJFNZXQk7IqFrBG0TOCVTGLf/crJTuFQPQ2DB1vDLNuRD/xBJ6msaFaVTtMqXkQ9rwWcNJW/1fqK0twxZ/DZCWjYmfWWvkuXMmp1N5SCU/EQYJoye+0uO27gHIEPRS/eeQZq4HpHctfht/AWzSdnpejsqQzKdFK7+GLHHHdXA3oabxf5qlv3Hy5PUOaZD++q0GCqqypxFp1FUhjhmCotFhzwbxd3/UrDvC6Py/EhwJ5J3T0s6LLre7RTxibVOrFZVHVmA0tFimB37DCLlP6WTB5+4t+iBYWkTEa0NS9dlPLkIdDRfc/RHD4fUsevyQxLDbbjg+Ogpz6y01TBVNSQkYN9no=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 12: ジェネリクスと型安全性 - ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+         {
+            body { print-color-adjust: exact; }
+            .no-print { display: none; }
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.25rem;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <script defer src="../../js/day-navigation.js"></script>
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold">Day 12: ジェネリクスと型安全性</h1>
+                    <p class="text-blue-200 mt-2">ITエンジニア育成カリキュラム - 第3週</p>
+                </div>
+                <div class="text-right">
+                    <div class="bg-blue-500 px-4 py-2 rounded-lg">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        <span class="font-semibold">Day 12</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-blue-700 text-white py-3">
+        <div class="container mx-auto px-4">
+            <div class="flex space-x-6">
+                <a href="#learning-goals" class="hover:text-blue-200 transition-colors">
+                    <i class="fas fa-bullseye mr-2"></i>学習目標
+                </a>
+                <a href="#schedule" class="hover:text-blue-200 transition-colors">
+                    <i class="fas fa-clock mr-2"></i>スケジュール
+                </a>
+                <a href="#theme-details" class="hover:text-blue-200 transition-colors">
+                    <i class="fas fa-book mr-2"></i>テーマ詳細
+                </a>
+                <a href="#resources" class="hover:text-blue-200 transition-colors">
+                    <i class="fas fa-laptop-code mr-2"></i>リソース
+                </a>
+                <a href="#comprehension-check" class="hover:text-blue-200 transition-colors">
+                    <i class="fas fa-check-circle mr-2"></i>理解度確認
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Learning Goals -->
+        <section id="learning-goals" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-bullseye mr-2"></i>学習目標
+            </h2>
+            <ul class="space-y-2">
+                <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                    <span>ジェネリクスの基本概念と型安全性の重要性を理解する</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                    <span>ジェネリッククラスとジェネリックメソッドを定義・使用できる</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                    <span>ワイルドカード（? extends, ? super）を適切に使用できる</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                    <span>境界付き型パラメータを使ったジェネリクスを実装できる</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                    <span>型消去（Type Erasure）の仕組みを理解し対処できる</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                    <span>コレクションフレームワークでジェネリクスを効果的に活用できる</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Achievement Criteria -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-trophy mr-2"></i>達成基準
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">基本達成基準</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-1 text-xs"></i>
+                            <span>型安全性の利点を説明できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-1 text-xs"></i>
+                            <span>基本的なジェネリッククラスを定義できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-1 text-xs"></i>
+                            <span>ジェネリックメソッドを作成できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-1 text-xs"></i>
+                            <span>ワイルドカードの基本的な使い方を理解している</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">応用達成基準</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-green-400 mr-2 mt-1 text-xs"></i>
+                            <span>複雑な境界付きジェネリクスを実装できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-green-400 mr-2 mt-1 text-xs"></i>
+                            <span>PECS原則を理解し適用できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-green-400 mr-2 mt-1 text-xs"></i>
+                            <span>型消去による制限を理解し回避策を講じられる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-green-400 mr-2 mt-1 text-xs"></i>
+                            <span>実用的なジェネリッククラスライブラリを設計できる</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule -->
+        <section id="schedule" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-clock mr-2"></i>詳細スケジュール
+            </h2>
+            <div class="space-y-4">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-blue-700 mb-2">
+                        <i class="fas fa-play-circle mr-2"></i>10:00-10:15 オリエンテーション・前日復習
+                    </h3>
+                    <p class="text-gray-700">前日学習したコレクションフレームワークの復習と、本日のジェネリクス学習の位置づけを確認します。配列とコレクションの違い、List・Set・Mapの特徴を振り返り、型安全性の重要性について導入します。</p>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-green-700 mb-2">
+                        <i class="fas fa-chalkboard-teacher mr-2"></i>10:15-11:45 講義: ジェネリクスの基本概念
+                    </h3>
+                    <p class="text-gray-700">ジェネリクスの基本概念、型安全性の利点、ジェネリッククラスとジェネリックメソッドの定義方法について学習します。型パラメータの命名規則と使用方法も含みます。</p>
+                </div>
+
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-yellow-700 mb-2">
+                        <i class="fas fa-utensils mr-2"></i>11:45-12:45 昼休憩
+                    </h3>
+                    <p class="text-gray-700">休憩時間です。昼食をとり、リフレッシュしましょう。</p>
+                </div>
+
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-purple-700 mb-2">
+                        <i class="fas fa-code mr-2"></i>12:45-14:15 演習: ジェネリクスの実装
+                    </h3>
+                    <p class="text-gray-700">ジェネリッククラスとメソッドの実装演習を行います。型安全な汎用データ構造を作成し、実際にジェネリクスの利点を体感します。</p>
+                </div>
+
+                <div class="bg-red-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-red-700 mb-2">
+                        <i class="fas fa-question-circle mr-2"></i>14:15-15:00 ワイルドカードと境界付き型パラメータ
+                    </h3>
+                    <p class="text-gray-700">ワイルドカード（?、? extends、? super）の使い方と、境界付き型パラメータについて学習します。PECS原則（Producer Extends, Consumer Super）も含みます。</p>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-coffee mr-2"></i>15:00-15:10 午後休憩
+                    </h3>
+                    <p class="text-gray-700">短い休憩時間です。</p>
+                </div>
+
+                <div class="bg-indigo-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-indigo-700 mb-2">
+                        <i class="fas fa-tools mr-2"></i>15:10-16:30 高度なジェネリクスと型消去
+                    </h3>
+                    <p class="text-gray-700">型消去（Type Erasure）の仕組みと制限、回避策について学習します。実行時の型情報取得方法や、ジェネリクス使用時の注意点を理解します。</p>
+                </div>
+
+                <div class="bg-teal-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-teal-700 mb-2">
+                        <i class="fas fa-check-double mr-2"></i>16:30-17:00 理解度チェック・演習
+                    </h3>
+                    <p class="text-gray-700">本日学習したジェネリクスの概念について理解度を確認し、実践的な演習問題に取り組みます。</p>
+                </div>
+
+                <div class="bg-orange-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-orange-700 mb-2">
+                        <i class="fas fa-comments mr-2"></i>17:00-17:45 振り返り・質疑応答
+                    </h3>
+                    <p class="text-gray-700">本日の学習内容を振り返り、疑問点について質疑応答を行います。明日のラムダ式学習への準備も行います。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme Details -->
+        <section id="theme-details" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6">
+                <i class="fas fa-book mr-2"></i>テーマ詳細
+            </h2>
+
+            <!-- Generics Basic Concepts -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">ジェネリクスの基本概念</h3>
+                
+                <div class="highlight mb-4">
+                    <h4 class="font-semibold mb-2">ジェネリクスとは</h4>
+                    <p>ジェネリクス（Generics）は、型をパラメータ化することで、クラス、インターフェース、メソッドを型に対して汎用的に定義する仕組みです。Java 5で導入され、型安全性の向上とコードの再利用性を高めることができます。</p>
+                </div>
+
+                <div class="code-block">
+                    <h4 class="font-semibold mb-2">ジェネリクスを使わない場合の問題</h4>
+                    <pre class="text-sm overflow-x-auto"><code>// ジェネリクス使用前（Java 1.4以前）
+List list = new ArrayList();
+list.add("Hello");
+list.add(123);  // 異なる型も追加可能
+
+String str = (String) list.get(0);  // キャストが必要
+String str2 = (String) list.get(1); // 実行時エラー（ClassCastException）
+</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <h4 class="font-semibold mb-2">ジェネリクス使用後の改善</h4>
+                    <pre class="text-sm overflow-x-auto"><code>// ジェネリクス使用（Java 5以降）
+List&lt;String&gt; list = new ArrayList&lt;&gt;();
+list.add("Hello");
+// list.add(123);  // コンパイルエラー：型が一致しない
+
+String str = list.get(0);  // キャスト不要
+// 型安全性が保証され、実行時エラーを防げる
+</code></pre>
+                </div>
+            </div>
+
+            <!-- Generic Classes -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">ジェネリッククラス</h3>
+                
+                <div class="code-block">
+                    <h4 class="font-semibold mb-2">ジェネリッククラスの定義</h4>
+                    <pre class="text-sm overflow-x-auto"><code>// ジェネリッククラスの定義
+public class Box&lt;T&gt; {
+    private T content;
+    
+    public Box(T content) {
+        this.content = content;
+    }
+    
+    public T getContent() {
+        return content;
+    }
+    
+    public void setContent(T content) {
+        this.content = content;
+    }
+    
+    // 型Tに依存しないメソッドも定義可能
+    public boolean isEmpty() {
+        return content == null;
+    }
+}
+
+// 使用例
+Box&lt;String&gt; stringBox = new Box&lt;&gt;("Hello, Generics!");
+Box&lt;Integer&gt; intBox = new Box&lt;&gt;(42);
+Box&lt;List&lt;String&gt;&gt; listBox = new Box&lt;&gt;(Arrays.asList("A", "B", "C"));
+
+String text = stringBox.getContent();  // キャスト不要
+Integer number = intBox.getContent();   // 型安全
+</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <h4 class="font-semibold mb-2">複数の型パラメータ</h4>
+                    <pre class="text-sm overflow-x-auto"><code>// 複数の型パラメータを持つクラス
+public class Pair&lt;T, U&gt; {
+    private final T first;
+    private final U second;
+    
+    public Pair(T first, U second) {
+        this.first = first;
+        this.second = second;
+    }
+    
+    public T getFirst() {
+        return first;
+    }
+    
+    public U getSecond() {
+        return second;
+    }
+    
+    @Override
+    public String toString() {
+        return "(" + first + ", " + second + ")";
+    }
+}
+
+// 使用例
+Pair&lt;String, Integer&gt; nameAge = new Pair&lt;&gt;("Alice", 25);
+Pair&lt;Double, Boolean&gt; scorePass = new Pair&lt;&gt;(85.5, true);
+
+System.out.println(nameAge.getFirst());  // "Alice"
+System.out.println(nameAge.getSecond()); // 25
+</code></pre>
+                </div>
+            </div>
+
+            <!-- Generic Methods -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">ジェネリックメソッド</h3>
+                
+                <div class="code-block">
+                    <h4 class="font-semibold mb-2">ジェネリックメソッドの定義</h4>
+                    <pre class="text-sm overflow-x-auto"><code>public class Utility {
+    // ジェネリックメソッドの定義
+    public static &lt;T&gt; void swap(T[] array, int i, int j) {
+        T temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    
+    // 戻り値も型パラメータを使用
+    public static &lt;T&gt; T getFirst(List&lt;T&gt; list) {
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
+    
+    // 複数の型パラメータを持つメソッド
+    public static &lt;T, U&gt; Pair&lt;T, U&gt; makePair(T first, U second) {
+        return new Pair&lt;&gt;(first, second);
+    }
+}
+
+// 使用例
+String[] names = {"Alice", "Bob", "Charlie"};
+Utility.swap(names, 0, 2);  // Alice と Charlie を交換
+
+List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5);
+Integer first = Utility.getFirst(numbers);  // 1
+
+Pair&lt;String, Double&gt; result = Utility.makePair("Score", 95.5);
+</code></pre>
+                </div>
+            </div>
+
+            <!-- Wildcards -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">ワイルドカード</h3>
+                
+                <div class="highlight mb-4">
+                    <h4 class="font-semibold mb-2">ワイルドカードの種類</h4>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>? （非境界ワイルドカード）</strong>: 任意の型</li>
+                        <li><strong>? extends T （上界ワイルドカード）</strong>: Tまたはそのサブタイプ</li>
+                        <li><strong>? super T （下界ワイルドカード）</strong>: Tまたはそのスーパータイプ</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+                    <h4 class="font-semibold mb-2">ワイルドカードの使用例</h4>
+                    <pre class="text-sm overflow-x-auto"><code>// 上界ワイルドカード (? extends T)
+public static double sumOfList(List&lt;? extends Number&gt; list) {
+    double sum = 0.0;
+    for (Number n : list) {
+        sum += n.doubleValue();
+    }
+    return sum;
+}
+
+// 下界ワイルドカード (? super T)
+public static void addNumbers(List&lt;? super Integer&gt; list) {
+    for (int i = 1; i &lt;= 10; i++) {
+        list.add(i);
+    }
+}
+
+// 使用例
+List&lt;Integer&gt; integers = Arrays.asList(1, 2, 3, 4, 5);
+List&lt;Double&gt; doubles = Arrays.asList(1.1, 2.2, 3.3);
+
+// ? extends Number なので、NumberのサブタイプならOK
+double sum1 = sumOfList(integers);  // Integer は Number のサブタイプ
+double sum2 = sumOfList(doubles);   // Double は Number のサブタイプ
+
+// ? super Integer なので、IntegerのスーパータイプならOK
+List&lt;Number&gt; numbers = new ArrayList&lt;&gt;();
+List&lt;Object&gt; objects = new ArrayList&lt;&gt;();
+addNumbers(numbers);  // Number は Integer のスーパータイプ
+addNumbers(objects);  // Object は Integer のスーパータイプ
+</code></pre>
+                </div>
+
+                <div class="highlight mb-4">
+                    <h4 class="font-semibold mb-2">PECS原則</h4>
+                    <p><strong>Producer Extends, Consumer Super</strong></p>
+                    <ul class="list-disc pl-5 space-y-1 mt-2">
+                        <li><strong>Producer Extends</strong>: データを取り出す（生産する）場合は ? extends T</li>
+                        <li><strong>Consumer Super</strong>: データを追加する（消費する）場合は ? super T</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bounded Type Parameters -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">境界付き型パラメータ</h3>
+                
+                <div class="code-block">
+                    <h4 class="font-semibold mb-2">境界付き型パラメータの使用</h4>
+                    <pre class="text-sm overflow-x-auto"><code>// 上界境界付き型パラメータ
+public class NumberBox&lt;T extends Number&gt; {
+    private T number;
+    
+    public NumberBox(T number) {
+        this.number = number;
+    }
+    
+    public T getNumber() {
+        return number;
+    }
+    
+    // Numberのメソッドが使用可能
+    public double getDoubleValue() {
+        return number.doubleValue();
+    }
+    
+    // 他のNumberBoxと比較
+    public boolean isGreaterThan(NumberBox&lt;? extends Number&gt; other) {
+        return this.getDoubleValue() &gt; other.getDoubleValue();
+    }
+}
+
+// 複数の境界を指定
+public class SortableList&lt;T extends Comparable&lt;T&gt; & Serializable&gt; {
+    private List&lt;T&gt; list = new ArrayList&lt;&gt;();
+    
+    public void add(T item) {
+        list.add(item);
+    }
+    
+    public void sort() {
+        Collections.sort(list);  // Comparableなのでソート可能
+    }
+    
+    public List&lt;T&gt; getList() {
+        return new ArrayList&lt;&gt;(list);  // Serializableなので安全にコピー
+    }
+}
+
+// 使用例
+NumberBox&lt;Integer&gt; intBox = new NumberBox&lt;&gt;(42);
+NumberBox&lt;Double&gt; doubleBox = new NumberBox&lt;&gt;(3.14);
+
+System.out.println(intBox.isGreaterThan(doubleBox));  // false
+
+SortableList&lt;String&gt; stringList = new SortableList&lt;&gt;();
+stringList.add("Charlie");
+stringList.add("Alice");
+stringList.add("Bob");
+stringList.sort();  // アルファベット順にソート
+</code></pre>
+                </div>
+            </div>
+
+            <!-- Type Erasure -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">型消去（Type Erasure）</h3>
+                
+                <div class="highlight mb-4">
+                    <h4 class="font-semibold mb-2">型消去とは</h4>
+                    <p>Javaのジェネリクスは、コンパイル時のみに存在し、実行時には型情報が消去（erasure）されます。これは後方互換性を保つための仕組みですが、いくつかの制限を生み出します。</p>
+                </div>
+
+                <div class="code-block">
+                    <h4 class="font-semibold mb-2">型消去による制限と対処法</h4>
+                    <pre class="text-sm overflow-x-auto"><code>public class GenericArray&lt;T&gt; {
+    private T[] array;
+    
+    // これはコンパイルエラー：new T[size] はできない
+    // public GenericArray(int size) {
+    //     array = new T[size];  // Cannot create a generic array of T
+    // }
+    
+    // 回避策1: Object配列を使用してキャスト
+    @SuppressWarnings("unchecked")
+    public GenericArray(int size) {
+        array = (T[]) new Object[size];
+    }
+    
+    // 回避策2: Class&lt;T&gt;を受け取ってリフレクションを使用
+    @SuppressWarnings("unchecked")
+    public GenericArray(Class&lt;T&gt; type, int size) {
+        array = (T[]) Array.newInstance(type, size);
+    }
+    
+    public T get(int index) {
+        return array[index];
+    }
+    
+    public void set(int index, T value) {
+        array[index] = value;
+    }
+    
+    // 実行時の型チェック
+    public boolean isInstance(Object obj, Class&lt;T&gt; type) {
+        return type.isInstance(obj);
+    }
+}
+
+// 実行時型情報を取得する方法
+public abstract class TypeReference&lt;T&gt; {
+    private final Type type;
+    
+    protected TypeReference() {
+        Type superClass = getClass().getGenericSuperclass();
+        this.type = ((ParameterizedType) superClass).getActualTypeArguments()[0];
+    }
+    
+    public Type getType() {
+        return type;
+    }
+}
+
+// 使用例
+TypeReference&lt;List&lt;String&gt;&gt; typeRef = new TypeReference&lt;List&lt;String&gt;&gt;() {};
+Type type = typeRef.getType();
+System.out.println(type);  // java.util.List&lt;java.lang.String&gt;
+</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources -->
+        <section id="resources" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-laptop-code mr-2"></i>使用教材・リソース
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">
+                        <i class="fas fa-tools mr-2"></i>開発環境
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span><strong>Pleiades (Eclipse)</strong> - 統合開発環境</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            <span><strong>Amazon Corretto JDK 17</strong> - Java開発キット</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-700 mb-3">
+                        <i class="fas fa-book mr-2"></i>参考図書
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-book-open text-blue-500 mr-2 mt-1"></i>
+                            <span>「Java Silver SE 17 対策テキスト」</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-book-open text-blue-500 mr-2 mt-1"></i>
+                            <span>「Effective Java 第3版」- ジェネリクスのベストプラクティス</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-book-open text-blue-500 mr-2 mt-1"></i>
+                            <span>「Java言語仕様」- 型システムの詳細</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-3">
+                    <i class="fas fa-globe mr-2"></i>オンラインリソース
+                </h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-external-link-alt text-purple-500 mr-2 mt-1"></i>
+                            <span>Oracle Java Documentation - Generics Tutorial</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-external-link-alt text-purple-500 mr-2 mt-1"></i>
+                            <span>Baeldung - Java Generics Guide</span>
+                        </li>
+                    </ul>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-external-link-alt text-purple-500 mr-2 mt-1"></i>
+                            <span>Java Magazine - Advanced Generics Articles</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-external-link-alt text-purple-500 mr-2 mt-1"></i>
+                            <span>OpenJDK - Type System Implementation</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold text-gray-700 mb-3">
+                    <i class="fas fa-code mr-2"></i>演習課題
+                </h3>
+                <ul class="space-y-2">
+                    <li class="flex items-start">
+                        <i class="fas fa-tasks text-orange-500 mr-2 mt-1"></i>
+                        <span>型安全なスタック・キューの実装</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-tasks text-orange-500 mr-2 mt-1"></i>
+                        <span>ジェネリックを活用したユーティリティクラスの作成</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-tasks text-orange-500 mr-2 mt-1"></i>
+                        <span>ワイルドカードを使ったコレクション操作メソッド</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-tasks text-orange-500 mr-2 mt-1"></i>
+                        <span>境界付き型パラメータを使った比較・ソート機能</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Comprehension Check -->
+        <section id="comprehension-check" class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-check-circle mr-2"></i>理解度確認項目
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-green-600 mb-4">
+                        <i class="fas fa-seedling mr-2"></i>基本レベル
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-green-400 mr-2 mt-1 text-xs"></i>
+                            <span>ジェネリクスの基本概念と利点を説明できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-green-400 mr-2 mt-1 text-xs"></i>
+                            <span>型パラメータとワイルドカードの違いを理解している</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-green-400 mr-2 mt-1 text-xs"></i>
+                            <span>基本的なジェネリッククラスを定義できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-green-400 mr-2 mt-1 text-xs"></i>
+                            <span>ジェネリックメソッドの基本的な書き方を理解している</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-green-400 mr-2 mt-1 text-xs"></i>
+                            <span>コレクションでジェネリクスを適切に使用できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-green-400 mr-2 mt-1 text-xs"></i>
+                            <span>? extends と ? super の基本的な違いを説明できる</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-blue-600 mb-4">
+                        <i class="fas fa-rocket mr-2"></i>応用レベル
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-1 text-xs"></i>
+                            <span>複雑な境界付き型パラメータを適切に設計できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-1 text-xs"></i>
+                            <span>PECS原則を理解し、適切にワイルドカードを選択できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-1 text-xs"></i>
+                            <span>型消去による制限を理解し、適切な回避策を実装できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-1 text-xs"></i>
+                            <span>実行時型情報を取得する方法を理解している</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-1 text-xs"></i>
+                            <span>ジェネリクスを活用した再利用可能なライブラリを設計できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-1 text-xs"></i>
+                            <span>型安全性とパフォーマンスのバランスを考慮した実装ができる</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-arrow-right mr-2"></i>次のステップ
+            </h2>
+            
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                    <i class="fas fa-calendar-plus mr-2"></i>Day 13: ラムダ式と関数型インターフェース
+                </h3>
+                <p class="text-gray-700 mb-4">
+                    明日は、Java 8で導入されたラムダ式と関数型インターフェースについて学習します。ジェネリクスと組み合わせることで、より柔軟で表現力豊かなコードを書けるようになります。
+                </p>
+                
+                <div class="bg-white p-4 rounded-lg">
+                    <h4 class="font-semibold text-gray-700 mb-2">予習のポイント</h4>
+                    <ul class="space-y-1">
+                        <li class="flex items-start">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2 mt-1"></i>
+                            <span>関数型プログラミングの基本概念を調べておく</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2 mt-1"></i>
+                            <span>匿名クラスの書き方を復習しておく</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2 mt-1"></i>
+                            <span>Comparatorインターフェースの使い方を確認しておく</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2 mt-1"></i>
+                            <span>関数型インターフェースとは何かを調べておく</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h3 class="text-lg font-semibold mb-2">ITエンジニア育成カリキュラム</h3>
+                <p class="text-gray-400 mb-4">未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+                <div class="border-t border-gray-600 pt-4">
+                    <p class="text-sm text-gray-400">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDp%2BeTHD14Rs0jXwWiWe3ZEgka0a9weTEG5i01oUaS16QkDBNPTkQjS%2BUkz5TNWWWIbu%2BKfMp%2F%2ByE4fFzlWl9yvW%2BYe8jhNs7zIERrwuX5JuHhnA01XwG0YH82qgdTcL3C5P%2Bn8sZkDLbqxo8CCPuoTCKs%2F722gpYoqop26R5MZnH4vN9WvpDe4GWYgh0yp7C3H3%2FXG9hOa1UB2UgxE%2Bw9iOlvIRzI4IY7uSsKUP%2F9XGsge20UJujXIlWJ1IuNggJSrToseN1DcJE7Jwywf3DdNvqKNc95gSdZwwsdaOs1ZYEDtzoQJiKQPauJmI8iAE22gxoVpNFBfVwNzBkeBfdPfic5qfza%2B%2Fce2RsyPeufOUvDJvOu4UzOfHqsvzxyFuC2KrUkQFyeA5ABVJsO3LgKEqz9H%2B%2BnJfLZuZWOPCtrizRdtM03E7TvnVqvhPgdW%2Bn58zcV3f9CF%2FZPKvgltgcrn%2B2EK4NK%2B2txeNA8gsiPVXa";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDp+eTHD14Rs0jXwWiWe3ZEgka0a9weTEG5i01oUaS16QkDBNPTkQjS+Ukz5TNWWWIbu+KfMp/+yE4fFzlWl9yvW+Ye8jhNs7zIERrwuX5JuHhnA01XwG0YH82qgdTcL3C5P+n8sZkDLbqxo8CCPuoTCKs/722gpYoqop26R5MZnH4vN9WvpDe4GWYgh0yp7C3H3/XG9hOa1UB2UgxE+w9iOlvIRzI4IY7uSsKUP/9XGsge20UJujXIlWJ1IuNggJSrToseN1DcJE7Jwywf3DdNvqKNc95gSdZwwsdaOs1ZYEDtzoQJiKQPauJmI8iAE22gxoVpNFBfVwNzBkeBfdPfic5qfza+/ce2RsyPeufOUvDJvOu4UzOfHqsvzxyFuC2KrUkQFyeA5ABVJsO3LgKEqz9H++nJfLZuZWOPCtrizRdtM03E7TvnVqvhPgdW+n58zcV3f9CF/ZPKvgltgcrn+2EK4NK+2txeNA8gsiPVXa";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

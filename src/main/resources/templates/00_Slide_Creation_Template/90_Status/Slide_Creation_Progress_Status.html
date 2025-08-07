@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スライド作成進捗状況</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .progress-bar {
+            height: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+        .completed {
+            color: #10B981;
+        }
+        .pending {
+            color: #F59E0B;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #E5E7EB;
+            text-align: left;
+        }
+        th {
+            background-color: #F3F4F6;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #F9FAFB;
+        }
+        tr:hover {
+            background-color: #EFF6FF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen p-6">
+    <div class="max-w-6xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+        <header class="bg-blue-600 text-white p-6">
+            <h1 class="text-3xl font-bold">スライド作成進捗状況</h1>
+            <p class="text-lg">最終更新: 2025年7月29日</p>
+        </header>
+
+        <div class="p-6">
+            <h2 class="text-2xl font-semibold mb-4">進捗サマリー</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gray-50 rounded-lg p-5 shadow-sm">
+                    <h3 class="text-lg font-medium text-gray-700 mb-3">Day 1-5 スライドプロンプト</h3>
+                    <div class="progress-bar bg-gray-200 mb-2">
+                        <div class="progress-fill bg-green-500" style="width: 100%"></div>
+                    </div>
+                    <p class="text-right font-medium">100% (5/5)</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-lg p-5 shadow-sm">
+                    <h3 class="text-lg font-medium text-gray-700 mb-3">Day 6-10 スライドプロンプト</h3>
+                    <div class="progress-bar bg-gray-200 mb-2">
+                        <div class="progress-fill bg-green-500" style="width: 100%"></div>
+                    </div>
+                    <p class="text-right font-medium">100% (5/5)</p>
+                </div>
+            </div>
+
+            <h2 class="text-2xl font-semibold mt-8 mb-4">詳細進捗状況</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full">
+                    <thead>
+                        <tr>
+                            <th>日程</th>
+                            <th>テーマ</th>
+                            <th>プロンプト作成</th>
+                            <th>スライド生成</th>
+                            <th>最終確認</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Day 1</td>
+                            <td>オリエンテーション・Java概要</td>
+                            <td><span class="completed"><i class="fas fa-check-circle mr-1"></i>完了</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                        </tr>
+                        <tr>
+                            <td>Day 2</td>
+                            <td>データ型と変数</td>
+                            <td><span class="completed"><i class="fas fa-check-circle mr-1"></i>完了</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                        </tr>
+                        <tr>
+                            <td>Day 3</td>
+                            <td>制御構文と配列基礎</td>
+                            <td><span class="completed"><i class="fas fa-check-circle mr-1"></i>完了</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                        </tr>
+                        <tr>
+                            <td>Day 4</td>
+                            <td>多次元配列とアルゴリズム</td>
+                            <td><span class="completed"><i class="fas fa-check-circle mr-1"></i>完了</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                        </tr>
+                        <tr>
+                            <td>Day 5</td>
+                            <td>Java Silver模擬テスト①・週次総合テスト</td>
+                            <td><span class="completed"><i class="fas fa-check-circle mr-1"></i>完了</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                        </tr>
+                        <tr>
+                            <td>Day 6</td>
+                            <td>クラスとオブジェクト</td>
+                            <td><span class="completed"><i class="fas fa-check-circle mr-1"></i>完了</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                        </tr>
+                        <tr>
+                            <td>Day 7</td>
+                            <td>カプセル化と継承</td>
+                            <td><span class="completed"><i class="fas fa-check-circle mr-1"></i>完了</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                        </tr>
+                        <tr>
+                            <td>Day 8</td>
+                            <td>ポリモーフィズム・抽象クラス</td>
+                            <td><span class="completed"><i class="fas fa-check-circle mr-1"></i>完了</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                        </tr>
+                        <tr>
+                            <td>Day 9</td>
+                            <td>例外処理とパッケージ</td>
+                            <td><span class="completed"><i class="fas fa-check-circle mr-1"></i>完了</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                        </tr>
+                        <tr>
+                            <td>Day 10</td>
+                            <td>Java 17の新機能と模擬テスト②</td>
+                            <td><span class="completed"><i class="fas fa-check-circle mr-1"></i>完了</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                            <td><span class="pending"><i class="fas fa-hourglass-half mr-1"></i>未実施</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="text-2xl font-semibold mt-8 mb-4">次のステップ</h2>
+            
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded">
+                <h3 class="text-xl font-medium text-blue-800 mb-2">優先タスク</h3>
+                <ol class="list-decimal ml-5 text-gray-700">
+                    <li class="mb-2">Day1のプロンプトを使用してGammaAIでスライド作成</li>
+                    <li class="mb-2">作成したスライドの内容確認と調整</li>
+                    <li class="mb-2">Day1のスライドを完成させ、テンプレートとして他の日に適用</li>
+                </ol>
+            </div>
+            
+            <div class="mt-6">
+                <h3 class="text-xl font-medium mb-2">スケジュール提案</h3>
+                <ul class="list-disc ml-5 text-gray-700">
+                    <li class="mb-2">1日あたり2-3日分のスライド生成を目標とする</li>
+                    <li class="mb-2">内容確認と調整は翌日に行う</li>
+                    <li class="mb-2">第3週（Day11-15）のプロンプト作成を次回セッションで開始する</li>
+                </ul>
+            </div>
+            
+            <div class="mt-6">
+                <h3 class="text-xl font-medium mb-2">注意点</h3>
+                <ul class="list-disc ml-5 text-gray-700">
+                    <li class="mb-2">各スライドはPleiadesとAmazon Correttoを前提としていることを確認する</li>
+                    <li class="mb-2">特にDay6以降はオブジェクト指向プログラミングの概念が重要なので、視覚的な図解を多く含めるようにプロンプトを工夫する</li>
+                    <li class="mb-2">コードサンプルはシンタックスハイライトが適用されることを確認する</li>
+                </ul>
+            </div>
+            
+            <div class="mt-8 p-5 bg-gray-50 rounded-lg">
+                <h3 class="text-xl font-medium mb-3">メモ欄</h3>
+                <p class="text-gray-700 mb-3">Day1のスライドプロンプトでは、開発環境のダウンロードをオリエンテーション時に開始する設計に変更した。これにより講義中にダウンロードが完了し、実際の環境構築をスムーズに進められるようにした。</p>
+                <p class="text-gray-700 mb-3">Day2-5のプロンプトは基本的な構造を統一し、各日のテーマに合わせた内容にカスタマイズしている。</p>
+                <p class="text-gray-700 mb-3">Day6-10のプロンプトも同様の構造で、特にJava 17の新機能に関しては視覚的な図解と具体的なコード例を充実させた。</p>
+                <p class="text-gray-700">スライド作成後は、コードのシンタックスハイライト、図解の適切さ、時間配分の妥当性を重点的にチェックする必要がある。</p>
+            </div>
+        </div>
+        
+        <footer class="bg-gray-100 p-6 mt-6 border-t border-gray-200">
+            <p class="text-center text-gray-600">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDh5oE1qNVZCEGBkgM1rmVaPettouqb6pjryQnA46tSDPhwLLqF93xl1epmxzk%2FB5SaokBmfmyhnzI9Pdb6L%2F1oznh0%2FjCph0mQfBGkbA5Q%2BmIMTSW%2Fdbd%2B6ryHZqLaKdaS30MEgqyFRAd5Y2eurcWSY7wkcsHPLzQHhoZVuYNSyXx5jT4C1dVpF2b1SqDGSbDk52H1Xve%2FmnwAunZgQRFA03co%2FqHklr80MLeWPDxn0VYnGqL3QF53kAlYyFuVVCyAEpjWHyyZsXW%2FDj1yO0PNDHP8hbP1oaFzzvAJNRFWpF2fChe1dGhY9xYKG0KWqaf%2BlQvPsugHl7pZeH32y%2BN8o1AZuawzI1gCf0QqlugjE9Qw1KJzZId8crTTdelqbR6bmKvmU7vhY0SlwT5fLr0CdvcoOTL9fUO2XnK9YoUVjaPp2zeqAAWfQIuBayjzdY%2BpjNh5GlLQxRKL6wM12satpP9XRrlS9ES88msbSngrzdkDgs%2B7eJJPgXvaBSVcVuBo7exE4CWToFtgx7b2uP8w0%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDh5oE1qNVZCEGBkgM1rmVaPettouqb6pjryQnA46tSDPhwLLqF93xl1epmxzk/B5SaokBmfmyhnzI9Pdb6L/1oznh0/jCph0mQfBGkbA5Q+mIMTSW/dbd+6ryHZqLaKdaS30MEgqyFRAd5Y2eurcWSY7wkcsHPLzQHhoZVuYNSyXx5jT4C1dVpF2b1SqDGSbDk52H1Xve/mnwAunZgQRFA03co/qHklr80MLeWPDxn0VYnGqL3QF53kAlYyFuVVCyAEpjWHyyZsXW/Dj1yO0PNDHP8hbP1oaFzzvAJNRFWpF2fChe1dGhY9xYKG0KWqaf+lQvPsugHl7pZeH32y+N8o1AZuawzI1gCf0QqlugjE9Qw1KJzZId8crTTdelqbR6bmKvmU7vhY0SlwT5fLr0CdvcoOTL9fUO2XnK9YoUVjaPp2zeqAAWfQIuBayjzdY+pjNh5GlLQxRKL6wM12satpP9XRrlS9ES88msbSngrzdkDgs+7eJJPgXvaBSVcVuBo7exE4CWToFtgx7b2uP8w0=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

@@ -1,0 +1,60 @@
+# 講義ページ ナビゲーション適用状況
+
+`dayX_lecture_navigation_standard.html` を参照し、各講義ページのナビゲーション標準化の進捗を記録します。
+
+- [x] day1_lecture.html
+- [x] day2_lecture.html
+- [x] day3_lecture.html
+- [x] day4_lecture.html
+- [x] day5_lecture.html
+- [x] day6_lecture.html
+- [x] day7_lecture.html
+- [x] day8_lecture.html
+- [x] day9_lecture.html
+- [x] day10_lecture.html
+- [x] day11_lecture.html
+- [x] day12_lecture.html
+- [x] day13_lecture.html
+- [x] day14_lecture.html
+- [x] day15_lecture.html
+- [x] day16_lecture.html
+- [x] day17_lecture.html
+- [x] day18_lecture.html
+- [x] day19_lecture.html
+- [x] day20_lecture.html
+- [x] day21_lecture.html
+- [x] day22_lecture.html
+- [x] day23_lecture.html
+- [x] day24_lecture.html
+- [x] day25_lecture.html
+- [x] day26_lecture.html
+- [x] day27_lecture.html
+- [x] day28_lecture.html
+- [x] day29_lecture.html
+- [x] day30_lecture.html
+- [x] day31_lecture.html
+- [x] day32_lecture.html
+- [x] day33_lecture.html
+- [x] day34_lecture.html
+- [x] day35_lecture.html
+ - [x] day36_lecture.html
+ - [x] day37_lecture.html
+ - [x] day38_lecture.html
+ - [x] day39_lecture.html
+ - [x] day40_lecture.html
+ - [x] day41_lecture.html
+ - [x] day42_lecture.html
+ - [x] day43_lecture.html
+ - [x] day44_lecture.html
+- [x] day45_lecture.html
+- [x] day46_lecture.html
+- [x] day47_lecture.html
+- [x] day48_lecture.html
+- [x] day49_lecture.html
+- [x] day50_lecture.html
+- [x] day51_lecture.html
+- [x] day52_lecture.html
+- [x] day53_lecture.html
+- [x] day54_lecture.html
+
+最終更新: 2025-08-06

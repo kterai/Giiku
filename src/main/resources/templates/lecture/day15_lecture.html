@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム - Day15: 総復習と模擬テスト③</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .answer-hidden { display: none; }
+        .answer-visible { display: block; }
+        .highlight-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .concept-box { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .practice-box { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+    .summary-box { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+    .fixed-nav {
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.95);
+    }
+    .nav-link:hover {
+        background-color: rgba(59, 130, 246, 0.1);
+    }
+    .breadcrumb-separator::after {
+        content: ">";
+        margin: 0 8px;
+        color: #9CA3AF;
+    }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day14_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day16_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month1.html" class="hover:text-blue-600">1ヶ月目: Java基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week3.html" class="hover:text-blue-600">3週目: Java言語応用</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">15日目: 総復習と模擬テスト③</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day15.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+        <header class="bg-white shadow-md">
+            <div class="container mx-auto px-4 py-4">
+                <div class="text-center">
+                    <h1 class="text-xl sm:text-2xl font-bold text-gray-800">ITエンジニア育成カリキュラム</h1>
+                    <h2 class="text-lg sm:text-xl text-blue-600 font-semibold">Day15: 総復習と模擬テスト③</h2>
+                    <p class="text-sm text-gray-600 mt-1">第3週の総まとめと理解度チェック</p>
+                </div>
+            </div>
+        </header>
+        <div class="container mx-auto px-4 py-8">
+        <!-- 学習目標 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="highlight-box text-white p-4 rounded-lg mb-4">
+                <h3 class="text-xl font-bold mb-3 flex items-center">
+                    <i class="fas fa-target mr-3"></i>学習目標
+                </h3>
+                <ul class="space-y-2">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle mr-2 mt-1 text-green-300"></i>
+                        <span>第3週の内容（コレクション・ジェネリクス・ラムダ式・Stream）を総復習する</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle mr-2 mt-1 text-green-300"></i>
+                        <span>模擬テスト③で理解度を確認し、弱点を明確にする</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle mr-2 mt-1 text-green-300"></i>
+                        <span>次週への準備を整え、学習計画を立てる</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- スケジュール表 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-bold mb-4 flex items-center text-gray-800">
+                <i class="fas fa-clock mr-3 text-blue-600"></i>本日のスケジュール
+            </h3>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr class="bg-blue-50">
+                            <th class="border border-gray-300 px-4 py-3 text-left font-semibold">時間</th>
+                            <th class="border border-gray-300 px-4 py-3 text-left font-semibold">内容</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="border border-gray-300 px-4 py-2">10:00-10:20</td><td class="border border-gray-300 px-4 py-2">前週の総まとめ・重要ポイント確認</td></tr>
+                        <tr class="bg-gray-50"><td class="border border-gray-300 px-4 py-2">10:20-11:30</td><td class="border border-gray-300 px-4 py-2">コレクション・ジェネリクス復習</td></tr>
+                        <tr><td class="border border-gray-300 px-4 py-2">11:30-12:00</td><td class="border border-gray-300 px-4 py-2">ラムダ式・Stream API復習</td></tr>
+                        <tr class="bg-gray-50"><td class="border border-gray-300 px-4 py-2">12:00-13:00</td><td class="border border-gray-300 px-4 py-2">昼休憩</td></tr>
+                        <tr><td class="border border-gray-300 px-4 py-2">13:00-15:00</td><td class="border border-gray-300 px-4 py-2">模擬テスト③（本試験形式）</td></tr>
+                        <tr class="bg-gray-50"><td class="border border-gray-300 px-4 py-2">15:00-16:00</td><td class="border border-gray-300 px-4 py-2">模擬テスト解説・講評</td></tr>
+                        <tr><td class="border border-gray-300 px-4 py-2">16:00-16:40</td><td class="border border-gray-300 px-4 py-2">理解度確認・質疑応答</td></tr>
+                        <tr class="bg-gray-50"><td class="border border-gray-300 px-4 py-2">16:40-17:00</td><td class="border border-gray-300 px-4 py-2">まとめと第4週の概要</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 講師向け詳細説明指針 -->
+        <section class="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-bold mb-4 flex items-center text-gray-800">
+                <i class="fas fa-chalkboard-teacher mr-3 text-green-600"></i>講師向け詳細説明指針
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg p-4">
+                    <h4 class="font-bold text-lg mb-3 text-green-700">復習進行のポイント</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start"><i class="fas fa-arrow-right mr-2 mt-1 text-green-500"></i>各概念の「なぜ」を重視した振り返り</li>
+                        <li class="flex items-start"><i class="fas fa-arrow-right mr-2 mt-1 text-green-500"></i>実践的な使い分けの判断基準を明確化</li>
+                        <li class="flex items-start"><i class="fas fa-arrow-right mr-2 mt-1 text-green-500"></i>よくある間違いパターンの共有</li>
+                        <li class="flex items-start"><i class="fas fa-arrow-right mr-2 mt-1 text-green-500"></i>個別理解度の確認と対応</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-lg p-4">
+                    <h4 class="font-bold text-lg mb-3 text-blue-700">受講者サポート重点</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start"><i class="fas fa-arrow-right mr-2 mt-1 text-blue-500"></i>苦手分野の特定と強化方法の提示</li>
+                        <li class="flex items-start"><i class="fas fa-arrow-right mr-2 mt-1 text-blue-500"></i>模擬テスト結果の詳細フィードバック</li>
+                        <li class="flex items-start"><i class="fas fa-arrow-right mr-2 mt-1 text-blue-500"></i>次週への学習計画立案支援</li>
+                        <li class="flex items-start"><i class="fas fa-arrow-right mr-2 mt-1 text-blue-500"></i>自主学習リソースの紹介</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 総復習 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-bold mb-6 flex items-center text-gray-800">
+                <i class="fas fa-book-open mr-3 text-purple-600"></i>第3週総復習
+            </h3>
+
+            <!-- Day11: コレクション復習 -->
+            <div class="concept-box text-white p-4 rounded-lg mb-6">
+                <h4 class="text-lg font-bold mb-3 flex items-center">
+                    <i class="fas fa-database mr-2"></i>Day11: コレクションフレームワーク
+                </h4>
+                <div class="bg-white bg-opacity-20 rounded p-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h5 class="font-semibold mb-2">重要概念</h5>
+                            <ul class="space-y-1 text-sm">
+                                <li>• List（順序あり、重複許可）</li>
+                                <li>• Set（順序なし、重複不可）</li>
+                                <li>• Map（キー・値のペア）</li>
+                                <li>• ArrayList vs LinkedList</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold mb-2">実用的な選択基準</h5>
+                            <ul class="space-y-1 text-sm">
+                                <li>• ランダムアクセス重視 → ArrayList</li>
+                                <li>• 頻繁な挿入・削除 → LinkedList</li>
+                                <li>• 重複チェック → HashSet</li>
+                                <li>• ソート済み集合 → TreeSet</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day12: ジェネリクス復習 -->
+            <div class="practice-box text-white p-4 rounded-lg mb-6">
+                <h4 class="text-lg font-bold mb-3 flex items-center">
+                    <i class="fas fa-shield-alt mr-2"></i>Day12: ジェネリクスと型安全性
+                </h4>
+                <div class="bg-white bg-opacity-20 rounded p-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h5 class="font-semibold mb-2">重要概念</h5>
+                            <ul class="space-y-1 text-sm">
+                                <li>• 型パラメータ（&lt;T&gt;, &lt;E&gt;, &lt;K,V&gt;）</li>
+                                <li>• 境界型（&lt;T extends Number&gt;）</li>
+                                <li>• ワイルドカード（?, ? extends, ? super）</li>
+                                <li>• PECS原則（生産者extend、消費者super）</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold mb-2">導入メリット</h5>
+                            <ul class="space-y-1 text-sm">
+                                <li>• コンパイル時の型チェック</li>
+                                <li>• キャスト処理の省略</li>
+                                <li>• コードの再利用性向上</li>
+                                <li>• 実行時エラーの防止</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day13: ラムダ式復習 -->
+            <div class="summary-box text-white p-4 rounded-lg mb-6">
+                <h4 class="text-lg font-bold mb-3 flex items-center">
+                    <i class="fas fa-bolt mr-2"></i>Day13: ラムダ式と関数型プログラミング
+                </h4>
+                <div class="bg-white bg-opacity-20 rounded p-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h5 class="font-semibold mb-2">重要概念</h5>
+                            <ul class="space-y-1 text-sm">
+                                <li>• ラムダ式構文（(引数) -> {処理}）</li>
+                                <li>• @FunctionalInterface</li>
+                                <li>• メソッド参照（::）</li>
+                                <li>• effective final制約</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold mb-2">主要インターフェース</h5>
+                            <ul class="space-y-1 text-sm">
+                                <li>• Function&lt;T,R&gt;（変換処理）</li>
+                                <li>• Consumer&lt;T&gt;（消費処理）</li>
+                                <li>• Supplier&lt;T&gt;（生成処理）</li>
+                                <li>• Predicate&lt;T&gt;（判定処理）</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Day14: Stream API復習 -->
+            <div class="highlight-box text-white p-4 rounded-lg mb-6">
+                <h4 class="text-lg font-bold mb-3 flex items-center">
+                    <i class="fas fa-stream mr-2"></i>Day14: Stream APIと関数型プログラミング実践
+                </h4>
+                <div class="bg-white bg-opacity-20 rounded p-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h5 class="font-semibold mb-2">重要概念</h5>
+                            <ul class="space-y-1 text-sm">
+                                <li>• パイプライン処理（連続的な処理の流れ）</li>
+                                <li>• 遅延評価（終端操作まで処理延期）</li>
+                                <li>• 中間操作（filter, map, sortedなど）</li>
+                                <li>• 終端操作（collect, forEachなど）</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold mb-2">並列ストリーム注意点</h5>
+                            <ul class="space-y-1 text-sm">
+                                <li>• スレッド安全性の確保</li>
+                                <li>• 副作用のない処理</li>
+                                <li>• 順序保証の考慮</li>
+                                <li>• 適切なデータサイズ</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模擬テスト出題範囲 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-bold mb-4 flex items-center text-gray-800">
+                <i class="fas fa-clipboard-list mr-3 text-red-600"></i>模擬テスト③の出題範囲
+            </h3>
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-4">
+                <p class="text-sm text-yellow-800">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    各テーマから均等に出題され、実践的な問題を中心とした構成です
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-bold text-lg mb-3 text-purple-700">出題分野と比率</h4>
+                    <ul class="space-y-2">
+                        <li class="flex justify-between items-center bg-purple-50 p-2 rounded">
+                            <span>コレクション操作</span>
+                            <span class="bg-purple-600 text-white px-2 py-1 rounded text-sm">25%</span>
+                        </li>
+                        <li class="flex justify-between items-center bg-blue-50 p-2 rounded">
+                            <span>ジェネリクス設計</span>
+                            <span class="bg-blue-600 text-white px-2 py-1 rounded text-sm">25%</span>
+                        </li>
+                        <li class="flex justify-between items-center bg-green-50 p-2 rounded">
+                            <span>ラムダ式活用</span>
+                            <span class="bg-green-600 text-white px-2 py-1 rounded text-sm">25%</span>
+                        </li>
+                        <li class="flex justify-between items-center bg-red-50 p-2 rounded">
+                            <span>Stream API実践</span>
+                            <span class="bg-red-600 text-white px-2 py-1 rounded text-sm">25%</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-3 text-orange-700">重点ポイント</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-star mr-2 mt-1 text-orange-500"></i>
+                            <span>適切なコレクションの選択理由</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star mr-2 mt-1 text-orange-500"></i>
+                            <span>ジェネリクスの実践的な型設計</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star mr-2 mt-1 text-orange-500"></i>
+                            <span>ラムダ式とメソッド参照の使い分け</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star mr-2 mt-1 text-orange-500"></i>
+                            <span>Stream操作のパフォーマンス考慮</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- サンプル問題 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-bold mb-4 flex items-center text-gray-800">
+                <i class="fas fa-lightbulb mr-3 text-yellow-600"></i>サンプル問題と解説
+            </h3>
+            
+            <!-- サンプル問題1 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                <h4 class="font-bold text-lg mb-3 text-blue-700">問題1: Stream活用による条件抽出</h4>
+                <p class="mb-3">以下の要件を満たすStreamを用いた処理を実装してください：</p>
+                <div class="bg-gray-100 p-3 rounded mb-3">
+                    <p class="text-sm">学生リストから「年齢が20歳以上」かつ「成績がB以上」の学生の名前を取得し、アルファベット順でソートして出力</p>
+                </div>
+                <button onclick="showSampleAnswer(1)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>解答例を表示
+                </button>
+                <div id="sampleAnswer1" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
+                    <h5 class="font-bold mb-2">解答例：</h5>
+                    <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto"><code>students.stream()
+    .filter(student -> student.getAge() >= 20)
+    .filter(student -> student.getGrade().compareTo(Grade.B) >= 0)
+    .map(Student::getName)
+    .sorted()
+    .collect(Collectors.toList());</code></pre>
+                    <h5 class="font-bold mt-3 mb-2">解説：</h5>
+                    <ul class="text-sm space-y-1">
+                        <li>• filter()で2つの条件を順次適用</li>
+                        <li>• map()で学生オブジェクトから名前を抽出</li>
+                        <li>• sorted()でアルファベット順にソート</li>
+                        <li>• collect()でリストとして収集</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- サンプル問題2 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                <h4 class="font-bold text-lg mb-3 text-green-700">問題2: ジェネリクスを使ったユーティリティクラス設計</h4>
+                <p class="mb-3">型安全性を確保したペア（2つの値を保持）クラスを設計してください：</p>
+                <button onclick="showSampleAnswer(2)" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>解答例を表示
+                </button>
+                <div id="sampleAnswer2" class="answer-hidden mt-4 bg-green-50 p-4 rounded">
+                    <h5 class="font-bold mb-2">解答例：</h5>
+                    <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto"><code>public class Pair&lt;T, U&gt; {
+    private final T first;
+    private final U second;
+    
+    public Pair(T first, U second) {
+        this.first = first;
+        this.second = second;
+    }
+    
+    public T getFirst() { return first; }
+    public U getSecond() { return second; }
+    
+    @Override
+    public String toString() {
+        return "(" + first + ", " + second + ")";
+    }
+}</code></pre>
+                    <h5 class="font-bold mt-3 mb-2">注意点：</h5>
+                    <ul class="text-sm space-y-1">
+                        <li>• 2つの異なる型パラメータT, Uを使用</li>
+                        <li>• finalフィールドでイミュータブル設計</li>
+                        <li>• toStringメソッドでデバッグしやすく</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 演習問題 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-bold mb-4 flex items-center text-gray-800">
+                <i class="fas fa-code mr-3 text-purple-600"></i>総合演習問題
+            </h3>
+            
+            <div class="border border-purple-200 rounded-lg p-4 mb-4">
+                <h4 class="font-bold text-lg mb-3 text-purple-700">
+                    <i class="fas fa-laptop-code mr-2"></i>総合演習: 社員管理システム
+                </h4>
+                <div class="mb-4">
+                    <p class="mb-3">以下の要件を満たす社員管理システムを実装してください：</p>
+                    <div class="bg-purple-50 p-4 rounded mb-4">
+                        <h5 class="font-semibold mb-2">要件：</h5>
+                        <ul class="space-y-1 text-sm">
+                            <li>1. Employeeクラス（ID、名前、部署、給与を持つ）</li>
+                            <li>2. 部署ごとに社員をグループ化</li>
+                            <li>3. 各部署の平均給与を計算</li>
+                            <li>4. 給与が平均以上の社員のみを抽出</li>
+                            <li>5. 結果を部署名でソートして表示</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <button onclick="showExerciseAnswer(1)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>解答例を表示
+                </button>
+                
+                <div id="exerciseAnswer1" class="answer-hidden mt-4 bg-purple-50 p-4 rounded">
+                    <h5 class="font-bold mb-2">解答例：</h5>
+                    <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto"><code>// Employeeクラス
+public class Employee {
+    private final int id;
+    private final String name;
+    private final String department;
+    private final double salary;
+    
+    // コンストラクタとgetterメソッド省略
+}
+
+// メイン処理
+Map&lt;String, Double&gt; avgSalaryByDept = employees.stream()
+    .collect(Collectors.groupingBy(
+        Employee::getDepartment,
+        Collectors.averagingDouble(Employee::getSalary)
+    ));
+
+Map&lt;String, List&lt;Employee&gt;&gt; result = employees.stream()
+    .filter(emp -> emp.getSalary() >= avgSalaryByDept.get(emp.getDepartment()))
+    .collect(Collectors.groupingBy(Employee::getDepartment))
+    .entrySet().stream()
+    .sorted(Map.Entry.comparingByKey())
+    .collect(Collectors.toMap(
+        Map.Entry::getKey,
+        Map.Entry::getValue,
+        (e1, e2) -> e1,
+        LinkedHashMap::new
+    ));</code></pre>
+                    <h5 class="font-bold mt-3 mb-2">解説：</h5>
+                    <ul class="text-sm space-y-1">
+                        <li>• groupingBy()で部署ごとのグループ化</li>
+                        <li>• averagingDouble()で平均給与計算</li>
+                        <li>• filter()で条件に合う社員を抽出</li>
+                        <li>• LinkedHashMapでソート順序を保持</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模擬テスト -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-bold mb-4 flex items-center text-gray-800">
+                <i class="fas fa-clipboard-check mr-3 text-red-600"></i>模擬テスト③
+            </h3>
+            
+            <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
+                <p class="text-red-800">
+                    <i class="fas fa-clock mr-2"></i>
+                    制限時間: 120分（本試験と同じ形式）
+                </p>
+            </div>
+
+            <!-- 問題1 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                <h4 class="font-bold text-lg mb-3">問題1: コレクションの性能特性</h4>
+                <p class="mb-3">ArrayList と LinkedList の挿入・削除性能に関する説明で正しいものはどれですか？</p>
+                <div class="space-y-2 mb-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="q1" value="A" class="mr-2">
+                        <span>A: ArrayList の挿入は常に O(1) で高速</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q1" value="B" class="mr-2">
+                        <span>B: LinkedList は先頭・末尾への挿入・削除が高速</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q1" value="C" class="mr-2">
+                        <span>C: 両者とも挿入・削除に必ず O(n) の時間がかかる</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q1" value="D" class="mr-2">
+                        <span>D: LinkedList はランダムアクセスが ArrayList より高速</span>
+                    </label>
+                </div>
+                <button onclick="showAnswer(1)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                <div id="answer1" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
+                    <p class="text-lg font-bold text-green-600 mb-2">正解: B</p>
+                    <p class="text-sm mb-2"><strong>解説:</strong></p>
+                    <p class="text-sm">LinkedList はリンク構造のため、先頭や末尾への挿入・削除は O(1) で高速です。一方、ArrayList は末尾への挿入は O(1) ですが、途中への挿入は要素のシフトが必要で O(n) かかります。ランダムアクセスは ArrayList が O(1)、LinkedList が O(n) です。</p>
+                </div>
+            </div>
+
+            <!-- 問題2 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                <h4 class="font-bold text-lg mb-3">問題2: ジェネリクスの境界型</h4>
+                <p class="mb-3">&lt;T extends Number&gt; が示すものはどれですか？</p>
+                <div class="space-y-2 mb-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="q2" value="A" class="mr-2">
+                        <span>A: T は Number 型またはそのサブタイプに制限される</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q2" value="B" class="mr-2">
+                        <span>B: T は Number を実装するインターフェース</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q2" value="C" class="mr-2">
+                        <span>C: T は任意の型を受け入れる</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q2" value="D" class="mr-2">
+                        <span>D: T は Number 型そのものに限定される</span>
+                    </label>
+                </div>
+                <button onclick="showAnswer(2)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                <div id="answer2" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
+                    <p class="text-lg font-bold text-green-600 mb-2">正解: A</p>
+                    <p class="text-sm mb-2"><strong>解説:</strong></p>
+                    <p class="text-sm">&lt;T extends Number&gt; は上限境界を表し、T は Number クラスまたはその子クラス（Integer、Double など）に制限されます。これにより Number クラスのメソッドを安全に使用できます。</p>
+                </div>
+            </div>
+
+            <!-- 問題3 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                <h4 class="font-bold text-lg mb-3">問題3: ラムダ式と外部変数</h4>
+                <p class="mb-3">ラムダ式で外部変数を参照する際の制約はどれですか？</p>
+                <div class="space-y-2 mb-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="q3" value="A" class="mr-2">
+                        <span>A: final または実質的final（effective final）でなければならない</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q3" value="B" class="mr-2">
+                        <span>B: 常に同期化処理が必要</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q3" value="C" class="mr-2">
+                        <span>C: どんな変数でも自由に参照・変更可能</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q3" value="D" class="mr-2">
+                        <span>D: 静的変数のみ参照可能</span>
+                    </label>
+                </div>
+                <button onclick="showAnswer(3)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                <div id="answer3" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
+                    <p class="text-lg font-bold text-green-600 mb-2">正解: A</p>
+                    <p class="text-sm mb-2"><strong>解説:</strong></p>
+                    <p class="text-sm">ラムダ式内で外部変数を参照する場合、その変数は final または実質的final（一度だけ代入され、その後変更されない）でなければなりません。これは変数キャプチャの仕組みによるものです。</p>
+                </div>
+            </div>
+
+            <!-- 問題4 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                <h4 class="font-bold text-lg mb-3">問題4: Stream の操作</h4>
+                <p class="mb-3">Stream の filter と map を組み合わせた処理の目的は何ですか？</p>
+                <div class="space-y-2 mb-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="q4" value="A" class="mr-2">
+                        <span>A: 要素の整列処理</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q4" value="B" class="mr-2">
+                        <span>B: 要素の追加処理</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q4" value="C" class="mr-2">
+                        <span>C: 条件で絞り込んだ後に要素を変換</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q4" value="D" class="mr-2">
+                        <span>D: 要素の削除処理</span>
+                    </label>
+                </div>
+                <button onclick="showAnswer(4)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                <div id="answer4" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
+                    <p class="text-lg font-bold text-green-600 mb-2">正解: C</p>
+                    <p class="text-sm mb-2"><strong>解説:</strong></p>
+                    <p class="text-sm">filter() で条件に合う要素を絞り込み、その後 map() で要素を別の形に変換するのが一般的なパターンです。例：学生リストから成績優秀者を抽出し、名前だけを取得する処理など。</p>
+                </div>
+            </div>
+
+            <!-- 問題5 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                <h4 class="font-bold text-lg mb-3">問題5: コードの実行結果</h4>
+                <p class="mb-3">以下のコードの出力は何ですか？</p>
+                <pre class="bg-gray-100 p-3 rounded mb-3 text-sm"><code>Stream.of(1,2,3,4,5)
+      .filter(n -> n % 2 == 0)
+      .count();</code></pre>
+                <div class="space-y-2 mb-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="q5" value="A" class="mr-2">
+                        <span>A: 1</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q5" value="B" class="mr-2">
+                        <span>B: 2</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q5" value="C" class="mr-2">
+                        <span>C: 3</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="q5" value="D" class="mr-2">
+                        <span>D: 5</span>
+                    </label>
+                </div>
+                <button onclick="showAnswer(5)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                <div id="answer5" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
+                    <p class="text-lg font-bold text-green-600 mb-2">正解: B</p>
+                    <p class="text-sm mb-2"><strong>解説:</strong></p>
+                    <p class="text-sm">1,2,3,4,5 の中で偶数（n % 2 == 0）は 2 と 4 の2つです。filter() で偶数のみが残り、count() でその個数を返すため、結果は 2 になります。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 理解度確認 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-bold mb-4 flex items-center text-gray-800">
+                <i class="fas fa-chart-line mr-3 text-indigo-600"></i>理解度確認と今後の学習計画
+            </h3>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-indigo-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-lg mb-3 text-indigo-700">
+                        <i class="fas fa-search mr-2"></i>理解度チェック方法
+                    </h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-check mr-2 mt-1 text-indigo-500"></i>
+                            <span>模擬テストの正答率（80%以上が目標）</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check mr-2 mt-1 text-indigo-500"></i>
+                            <span>各概念の「なぜ」を説明できるか</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check mr-2 mt-1 text-indigo-500"></i>
+                            <span>実装時の選択理由を述べられるか</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check mr-2 mt-1 text-indigo-500"></i>
+                            <span>コードの動作を正確に予測できるか</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-lg mb-3 text-green-700">
+                        <i class="fas fa-road mr-2"></i>弱点別強化方法
+                    </h4>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right mr-2 mt-1 text-green-500"></i>
+                            <span><strong>コレクション:</strong> 実際のデータで性能比較実験</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right mr-2 mt-1 text-green-500"></i>
+                            <span><strong>ジェネリクス:</strong> 独自クラスでの型パラメータ設計</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right mr-2 mt-1 text-green-500"></i>
+                            <span><strong>ラムダ式:</strong> 既存コードのラムダ式書き換え</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-arrow-right mr-2 mt-1 text-green-500"></i>
+                            <span><strong>Stream:</strong> 複雑なデータ操作パターンの練習</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- まとめと次回予告 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-bold mb-4 flex items-center text-gray-800">
+                <i class="fas fa-flag-checkered mr-3 text-purple-600"></i>本日のまとめと次のステップ
+            </h3>
+            
+            <div class="summary-box text-white p-4 rounded-lg mb-6">
+                <h4 class="text-lg font-bold mb-3">第3週の学習成果</h4>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h5 class="font-semibold mb-2">習得した技術</h5>
+                        <ul class="space-y-1">
+                            <li>• 適切なコレクションの選択と活用</li>
+                            <li>• 型安全なコード設計（ジェネリクス）</li>
+                            <li>• 関数型プログラミングの基礎</li>
+                            <li>• 効率的なデータ処理（Stream API）</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold mb-2">実践力の向上</h5>
+                        <ul class="space-y-1">
+                            <li>• パフォーマンスを考慮した実装</li>
+                            <li>• 保守性の高いコード作成</li>
+                            <li>• 現代的なJava開発手法</li>
+                            <li>• 問題解決のアプローチ法</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-orange-50 border-l-4 border-orange-400 p-4 mb-4">
+                <h4 class="font-bold text-lg mb-2 text-orange-800">
+                    <i class="fas fa-rocket mr-2"></i>第4週の概要
+                </h4>
+                <p class="text-orange-800 mb-2">次週からは実際のWebアプリケーション開発に入ります：</p>
+                <ul class="text-sm text-orange-700 space-y-1">
+                    <li>• Spring Framework の基礎</li>
+                    <li>• RESTful API の設計と実装</li>
+                    <li>• データベース連携（JPA/Hibernate）</li>
+                    <li>• セキュリティとテスト</li>
+                </ul>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <h4 class="font-bold text-lg mb-2 text-blue-800">
+                    <i class="fas fa-lightbulb mr-2"></i>継続学習のアドバイス
+                </h4>
+                <p class="text-blue-700 text-sm">今週学んだ内容は、今後のWebアプリ開発でも頻繁に使用します。特にStream APIとラムダ式は現代的なJava開発には欠かせません。復習時間を確保し、実際にコードを書いて理解を深めてください。</p>
+            </div>
+        </section>
+
+        <!-- ナビゲーションリンク -->
+        <section class="bg-gray-100 rounded-lg shadow-md p-6">
+            <h3 class="text-lg font-bold mb-4 text-gray-800">
+                <i class="fas fa-link mr-2"></i>関連ページ
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <a href="day14_lecture.html" class="bg-white p-3 rounded shadow hover:shadow-md transition-shadow text-center">
+                    <i class="fas fa-arrow-left text-blue-600 mb-2"></i>
+                    <div class="text-sm font-semibold">前日</div>
+                    <div class="text-xs text-gray-600">Day14</div>
+                </a>
+                <a href="day16_lecture.html" class="bg-white p-3 rounded shadow hover:shadow-md transition-shadow text-center">
+                    <i class="fas fa-arrow-right text-blue-600 mb-2"></i>
+                    <div class="text-sm font-semibold">翌日</div>
+                    <div class="text-xs text-gray-600">Day16</div>
+                </a>
+                <a href="../week/week3.html" class="bg-white p-3 rounded shadow hover:shadow-md transition-shadow text-center">
+                    <i class="fas fa-calendar-week text-green-600 mb-2"></i>
+                    <div class="text-sm font-semibold">第3週一覧</div>
+                    <div class="text-xs text-gray-600">週間まとめ</div>
+                </a>
+                <a href="../month/month1.html" class="bg-white p-3 rounded shadow hover:shadow-md transition-shadow text-center">
+                    <i class="fas fa-calendar-alt text-purple-600 mb-2"></i>
+                    <div class="text-sm font-semibold">第1ヶ月目一覧</div>
+                    <div class="text-xs text-gray-600">月間まとめ</div>
+                </a>
+            </div>
+        </section>
+    </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                <p class="text-sm text-gray-400 mt-2">開発環境: Pleiades (Eclipse) + Amazon Corretto JDK 17</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showAnswer(questionNumber) {
+            const answerId = 'answer' + questionNumber;
+            const answerDiv = document.getElementById(answerId);
+            const button = answerDiv.previousElementSibling;
+            
+            if (answerDiv.classList.contains('answer-hidden')) {
+                answerDiv.classList.remove('answer-hidden');
+                answerDiv.classList.add('answer-visible');
+                button.innerHTML = '<i class="fas fa-eye-slash mr-2"></i>回答を非表示';
+                button.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                button.classList.add('bg-gray-600', 'hover:bg-gray-700');
+            } else {
+                answerDiv.classList.remove('answer-visible');
+                answerDiv.classList.add('answer-hidden');
+                button.innerHTML = '<i class="fas fa-eye mr-2"></i>回答を表示';
+                button.classList.remove('bg-gray-600', 'hover:bg-gray-700');
+                button.classList.add('bg-blue-600', 'hover:bg-blue-700');
+            }
+        }
+
+        function showExerciseAnswer(exerciseNumber) {
+            const answerId = 'exerciseAnswer' + exerciseNumber;
+            const answerDiv = document.getElementById(answerId);
+            const button = answerDiv.previousElementSibling;
+            
+            if (answerDiv.classList.contains('answer-hidden')) {
+                answerDiv.classList.remove('answer-hidden');
+                answerDiv.classList.add('answer-visible');
+                button.innerHTML = '<i class="fas fa-eye-slash mr-2"></i>解答例を非表示';
+                button.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+                button.classList.add('bg-gray-600', 'hover:bg-gray-700');
+            } else {
+                answerDiv.classList.remove('answer-visible');
+                answerDiv.classList.add('answer-hidden');
+                button.innerHTML = '<i class="fas fa-eye mr-2"></i>解答例を表示';
+                button.classList.remove('bg-gray-600', 'hover:bg-gray-700');
+                button.classList.add('bg-purple-600', 'hover:bg-purple-700');
+            }
+        }
+
+        function showSampleAnswer(sampleNumber) {
+            const answerId = 'sampleAnswer' + sampleNumber;
+            const answerDiv = document.getElementById(answerId);
+            const button = answerDiv.previousElementSibling;
+            
+            if (answerDiv.classList.contains('answer-hidden')) {
+                answerDiv.classList.remove('answer-hidden');
+                answerDiv.classList.add('answer-visible');
+                button.innerHTML = '<i class="fas fa-eye-slash mr-2"></i>解答例を非表示';
+                if (sampleNumber === 1) {
+                    button.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                } else {
+                    button.classList.remove('bg-green-600', 'hover:bg-green-700');
+                }
+                button.classList.add('bg-gray-600', 'hover:bg-gray-700');
+            } else {
+                answerDiv.classList.remove('answer-visible');
+                answerDiv.classList.add('answer-hidden');
+                button.innerHTML = '<i class="fas fa-eye mr-2"></i>解答例を表示';
+                button.classList.remove('bg-gray-600', 'hover:bg-gray-700');
+                if (sampleNumber === 1) {
+                    button.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                } else {
+                    button.classList.add('bg-green-600', 'hover:bg-green-700');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDsZhQN0Ey3iH%2BYivaJOXVRmXWYqhB0%2FXnCSKuALYg%2BHFr0VPFNyQL0vLma1y7dQfcBbPk3H0Lxg6y3M3P2rkGC%2F%2BFEeIXJasLmuNqf%2F9us1JH99Ah0DfwBvfNiQ2Cv77CjpvAXMNa36oZQBLAqC4DeWmCALwUks%2Bq8zuM56DAs35YozNEqNFFVw9HRnQ5Et9%2FK1IJUGRvV8n3GT8uerTycI%2Ff0fkSWH9Ef1P%2FzdoCzPNptUqvMVqsM3F7uNN1yv2eHQ4IWkNznQsMEsnMo398k8f%2BX0HCByFknItGqtFu4TfN6zQidF7MZAc77iMhUTkf3%2FqTTv1eZbgkjltp8iDgkjvN6p6AMAawRTu16wA%2BjxeVWSi8WHYqGwYqWvXdxw06UaKEW1jXmRGuSWEc4eH0h6zUEjtXlU2jIY1vE15KVdYsCAsL2CkwOpKbcIrOwZmlnYIo4MUVDXzhHglVzAi6l%2B6JLHdSLF1JeuneRGP2CUMHj4PPQju%2BMfO%2Bg4OpgaffKq2bYPUCW7gdlPFlAMJWioI%2FB1pIHzl30EzgS81MLKz";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDsZhQN0Ey3iH+YivaJOXVRmXWYqhB0/XnCSKuALYg+HFr0VPFNyQL0vLma1y7dQfcBbPk3H0Lxg6y3M3P2rkGC/+FEeIXJasLmuNqf/9us1JH99Ah0DfwBvfNiQ2Cv77CjpvAXMNa36oZQBLAqC4DeWmCALwUks+q8zuM56DAs35YozNEqNFFVw9HRnQ5Et9/K1IJUGRvV8n3GT8uerTycI/f0fkSWH9Ef1P/zdoCzPNptUqvMVqsM3F7uNN1yv2eHQ4IWkNznQsMEsnMo398k8f+X0HCByFknItGqtFu4TfN6zQidF7MZAc77iMhUTkf3/qTTv1eZbgkjltp8iDgkjvN6p6AMAawRTu16wA+jxeVWSi8WHYqGwYqWvXdxw06UaKEW1jXmRGuSWEc4eH0h6zUEjtXlU2jIY1vE15KVdYsCAsL2CkwOpKbcIrOwZmlnYIo4MUVDXzhHglVzAi6l+6JLHdSLF1JeuneRGP2CUMHj4PPQju+MfO+g4OpgaffKq2bYPUCW7gdlPFlAMJWioI/B1pIHzl30EzgS81MLKz";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

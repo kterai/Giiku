@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day46: Spring Boot・MVC・Thymeleaf</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+        .answer-hidden {
+            display: none;
+        }
+        .answer-shown {
+            display: block;
+        }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day45_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day47_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month3.html" class="hover:text-blue-600">3ヶ月目: Webアプリケーション開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week10.html" class="hover:text-blue-600">10週目: バックエンド基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">46日目: Spring Boot・MVC・Thymeleaf</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day46.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <div class="inline-block bg-gradient-to-r from-green-600 to-blue-600 text-white px-8 py-4 rounded-lg shadow-lg mb-6">
+                <h1 class="text-3xl font-bold">
+                    <i class="fas fa-leaf mr-3"></i>
+                    Spring Boot・MVC・Thymeleaf完全マスター
+                </h1>
+                <p class="text-lg mt-2 opacity-90">ITエンジニア育成カリキュラム - Day 46</p>
+            </div>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                MVCアーキテクチャの理解からThymeleafテンプレートエンジンの活用まで、実用的なWebアプリケーション開発技術を体系的に習得
+            </p>
+        </header>
+
+        <!-- Learning Objectives -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-green-600 mb-6 flex items-center">
+                <i class="fas fa-target mr-3"></i>
+                本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+                    <h3 class="font-bold text-green-800 mb-3">基礎理解</h3>
+                    <ul class="text-green-700 space-y-3">
+                        <li>• <strong>MVCアーキテクチャ</strong>の概念を実用レベルで理解する</li>
+                        <li>• <strong>Spring MVC</strong>の基礎とアノテーションを習得する</li>
+                        <li>• <strong>Thymeleaf</strong>テンプレートエンジンを効率的に活用できる</li>
+                        <li>• <strong>Spring Boot自動設定</strong>の仕組みを理解する</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                    <h3 class="font-bold text-blue-800 mb-3">実践応用</h3>
+                    <ul class="text-blue-700 space-y-3">
+                        <li>• <strong>フォーム処理と検証</strong>をセキュアに実装できる</li>
+                        <li>• <strong>RESTfulなURL</strong>パターンを設計できる</li>
+                        <li>• <strong>エラーハンドリング</strong>を適切に実装できる</li>
+                        <li>• 実用的な<strong>Webアプリケーション</strong>を完成させる</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Environment -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6 flex items-center">
+                <i class="fas fa-tools mr-3"></i>
+                推奨開発環境
+            </h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <h3 class="font-bold text-blue-800 mb-2 flex items-center">
+                        <i class="fas fa-laptop-code mr-2"></i>
+                        IDE
+                    </h3>
+                    <p class="text-blue-700">IntelliJ IDEA + Spring Boot DevTools</p>
+                </div>
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <h3 class="font-bold text-green-800 mb-2 flex items-center">
+                        <i class="fas fa-globe mr-2"></i>
+                        ブラウザ
+                    </h3>
+                    <p class="text-green-700">Google Chrome + Developer Tools</p>
+                </div>
+                <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                    <h3 class="font-bold text-purple-800 mb-2 flex items-center">
+                        <i class="fas fa-database mr-2"></i>
+                        データベース
+                    </h3>
+                    <p class="text-purple-700">H2 Database (開発用)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- MVC Architecture -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-indigo-600 mb-6 flex items-center">
+                <i class="fas fa-sitemap mr-3"></i>
+                1. MVCアーキテクチャの完全理解
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-indigo-800 mb-4">MVCとは？</h3>
+                <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 rounded-r-lg mb-6">
+                    <p class="text-indigo-700 mb-4">
+                        <strong>MVC（Model-View-Controller - モデル・ビュー・コントローラー）</strong>は、
+                        アプリケーションの責任を3つの層に分離する設計パターンです。
+                        まるで料理店のように、<span class="highlight">Controller（料理人）</span>がお客様の注文を受け、
+                        <span class="highlight">Model（食材・レシピ）</span>でデータを処理し、
+                        <span class="highlight">View（盛り付け・プレゼンテーション）</span>で美しく提供します。
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                        <h4 class="font-bold text-red-800 mb-3 flex items-center">
+                            <i class="fas fa-microchip mr-2"></i>
+                            Model（モデル）
+                        </h4>
+                        <p class="text-red-700 text-sm mb-3">
+                            <strong>役割：</strong>データとビジネスロジック
+                        </p>
+                        <ul class="text-red-600 text-sm space-y-1">
+                            <li>• データベースとの連携</li>
+                            <li>• ビジネスルールの実装</li>
+                            <li>• データの検証・変換</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                        <h4 class="font-bold text-green-800 mb-3 flex items-center">
+                            <i class="fas fa-eye mr-2"></i>
+                            View（ビュー）
+                        </h4>
+                        <p class="text-green-700 text-sm mb-3">
+                            <strong>役割：</strong>ユーザーインターフェース
+                        </p>
+                        <ul class="text-green-600 text-sm space-y-1">
+                            <li>• HTMLの生成</li>
+                            <li>• データの表示・フォーマット</li>
+                            <li>• ユーザー入力の受付</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                        <h4 class="font-bold text-blue-800 mb-3 flex items-center">
+                            <i class="fas fa-cogs mr-2"></i>
+                            Controller（コントローラー）
+                        </h4>
+                        <p class="text-blue-700 text-sm mb-3">
+                            <strong>役割：</strong>リクエスト処理・制御
+                        </p>
+                        <ul class="text-blue-600 text-sm space-y-1">
+                            <li>• リクエストの受信・解析</li>
+                            <li>• ModelとViewの仲介</li>
+                            <li>• レスポンスの生成・返却</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-50 border border-yellow-300 rounded-lg p-6">
+                    <h4 class="font-bold text-yellow-800 mb-3 flex items-center">
+                        <i class="fas fa-lightbulb mr-2"></i>
+                        なぜMVCが重要なのか？
+                    </h4>
+                    <ul class="text-yellow-700 space-y-2">
+                        <li>• <strong>保守性向上：</strong>各層の責任が明確で、変更の影響範囲が限定される</li>
+                        <li>• <strong>再利用性：</strong>同じModelを複数のViewで使用可能</li>
+                        <li>• <strong>テスト容易性：</strong>各層を独立してテストできる</li>
+                        <li>• <strong>チーム開発：</strong>役割分担が明確で並行開発が可能</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Spring Boot Auto Configuration -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-green-600 mb-6 flex items-center">
+                <i class="fas fa-magic mr-3"></i>
+                2. Spring Boot自動設定の活用
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-green-800 mb-4">Spring Bootとは？</h3>
+                <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg mb-6">
+                    <p class="text-green-700 mb-4">
+                        <strong>Spring Boot</strong>は、Javaでエンタープライズアプリケーションを素早く・簡単に開発するためのフレームワークです。
+                        従来のSpringフレームワークが持つ複雑な設定を大幅に簡素化し、
+                        <span class="highlight">「設定より規約（Convention over Configuration）」</span>の思想で開発効率を劇的に向上させます。
+                    </p>
+                </div>
+
+                <h4 class="text-lg font-bold text-green-800 mb-4">@SpringBootApplication の魔法</h4>
+                <div class="code-block mb-4">
+<pre><code class="language-java">@SpringBootApplication
+public class MyWebApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(MyWebApplication.class, args);
+    }
+}</code></pre>
+                </div>
+
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 mb-6">
+                    <h5 class="font-bold text-gray-800 mb-3">@SpringBootApplication が行う3つの魔法：</h5>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-blue-50 p-4 rounded">
+                            <h6 class="font-bold text-blue-800">@Configuration</h6>
+                            <p class="text-blue-700 text-sm">設定クラスとして認識</p>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded">
+                            <h6 class="font-bold text-purple-800">@EnableAutoConfiguration</h6>
+                            <p class="text-purple-700 text-sm">自動設定を有効化</p>
+                        </div>
+                        <div class="bg-orange-50 p-4 rounded">
+                            <h6 class="font-bold text-orange-800">@ComponentScan</h6>
+                            <p class="text-orange-700 text-sm">コンポーネントを自動探索</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 class="text-lg font-bold text-green-800 mb-4">application.properties での設定カスタマイズ</h4>
+                <div class="code-block mb-4">
+<pre><code># サーバーポート設定
+server.port=8080
+
+# データベース接続設定
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+
+# H2コンソール有効化
+spring.h2.console.enabled=true
+
+# Thymeleafキャッシュ無効化（開発時）
+spring.thymeleaf.cache=false
+
+# ログレベル設定
+logging.level.com.example=DEBUG</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Thymeleaf Template Engine -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-yellow-600 mb-6 flex items-center">
+                <i class="fas fa-code mr-3"></i>
+                3. Thymeleafテンプレートエンジン
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-yellow-800 mb-4">Thymeleafとは？</h3>
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg mb-6">
+                    <p class="text-yellow-700 mb-4">
+                        <strong>Thymeleaf（タイムリーフ）</strong>は、HTML5ベースのテンプレートエンジンです。
+                        <span class="highlight">自然なテンプレート（Natural Template）</span>の特徴を持ち、
+                        HTMLファイルをブラウザで直接開いても正常に表示されるため、
+                        デザイナーとエンジニアの協業がスムーズになります。
+                    </p>
+                </div>
+
+                <h4 class="text-lg font-bold text-yellow-800 mb-4">基本的なThymeleaf構文</h4>
+                
+                <div class="mb-6">
+                    <h5 class="font-bold text-gray-800 mb-3">1. th:text vs th:utext（XSS対策の観点から）</h5>
+                    <div class="code-block mb-4">
+<pre><code class="language-html">&lt;!-- th:text: HTMLエスケープあり（推奨・安全） --&gt;
+&lt;p th:text="${message}"&gt;デフォルトメッセージ&lt;/p&gt;
+
+&lt;!-- th:utext: HTMLエスケープなし（危険・注意して使用） --&gt;
+&lt;p th:utext="${htmlContent}"&gt;デフォルトHTML&lt;/p&gt;</code></pre>
+                    </div>
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-r-lg mb-4">
+                        <p class="text-red-700 text-sm">
+                            <strong>⚠️ セキュリティ注意：</strong>
+                            th:utextは信頼できるHTMLコンテンツのみに使用し、
+                            ユーザー入力には必ずth:textを使ってXSS攻撃を防止しましょう。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h5 class="font-bold text-gray-800 mb-3">2. th:if/th:unless（条件分岐の実用パターン）</h5>
+                    <div class="code-block mb-4">
+<pre><code class="language-html">&lt;!-- ユーザーログイン状態による表示切り替え --&gt;
+&lt;div th:if="${user != null}"&gt;
+    &lt;p&gt;ようこそ、&lt;span th:text="${user.name}"&gt;ゲスト&lt;/span&gt;さん！&lt;/p&gt;
+    &lt;a href="/logout"&gt;ログアウト&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;div th:unless="${user != null}"&gt;
+    &lt;a href="/login"&gt;ログイン&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;!-- エラーメッセージの表示 --&gt;
+&lt;div th:if="${error}" class="alert alert-danger"&gt;
+    &lt;p th:text="${error}"&gt;エラーメッセージ&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h5 class="font-bold text-gray-800 mb-3">3. th:each（繰り返し処理でのオブジェクト操作）</h5>
+                    <div class="code-block mb-4">
+<pre><code class="language-html">&lt;!-- 商品リストの表示 --&gt;
+&lt;table class="table"&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;商品名&lt;/th&gt;
+            &lt;th&gt;価格&lt;/th&gt;
+            &lt;th&gt;在庫&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr th:each="product, iterStat : ${products}"&gt;
+            &lt;td th:text="${product.name}"&gt;商品名&lt;/td&gt;
+            &lt;td th:text="${product.price + '円'}"&gt;価格&lt;/td&gt;
+            &lt;td th:text="${product.stock}"&gt;在庫数&lt;/td&gt;
+            &lt;!-- インデックス番号の表示 --&gt;
+            &lt;td th:text="${iterStat.index + 1}"&gt;行番号&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h5 class="font-bold text-gray-800 mb-3">4. フォーム処理</h5>
+                    <div class="code-block mb-4">
+<pre><code class="language-html">&lt;!-- フォームオブジェクトとの連携 --&gt;
+&lt;form th:action="@{/products}" th:object="${product}" method="post"&gt;
+    &lt;div class="form-group"&gt;
+        &lt;label for="name"&gt;商品名:&lt;/label&gt;
+        &lt;input type="text" id="name" th:field="*{name}" class="form-control"&gt;
+        &lt;!-- バリデーションエラーの表示 --&gt;
+        &lt;div th:if="${#fields.hasErrors('name')}" class="text-danger"&gt;
+            &lt;p th:errors="*{name}"&gt;商品名エラー&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;div class="form-group"&gt;
+        &lt;label for="price"&gt;価格:&lt;/label&gt;
+        &lt;input type="number" id="price" th:field="*{price}" class="form-control"&gt;
+        &lt;div th:if="${#fields.hasErrors('price')}" class="text-danger"&gt;
+            &lt;p th:errors="*{price}"&gt;価格エラー&lt;/p&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    &lt;button type="submit" class="btn btn-primary"&gt;登録&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Processing and Validation -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-red-600 mb-6 flex items-center">
+                <i class="fas fa-check-circle mr-3"></i>
+                4. フォーム処理とバリデーション
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-red-800 mb-4">コントローラーでのフォーム処理</h3>
+
+                <h4 class="text-lg font-bold text-red-800 mb-4">1. @ModelAttribute（フォームオブジェクトのバインディング）</h4>
+                <div class="code-block mb-4">
+<pre><code class="language-java">@Controller
+@RequestMapping("/products")
+public class ProductController {
+
+    @GetMapping("/new")
+    public String showCreateForm(Model model) {
+        // 空のProductオブジェクトをフォームに渡す
+        model.addAttribute("product", new Product());
+        return "products/create";
+    }
+
+    @PostMapping
+    public String createProduct(@ModelAttribute("product") Product product, 
+                               Model model) {
+        // フォームから送信されたデータがproductオブジェクトに自動バインド
+        productService.save(product);
+        return "redirect:/products";
+    }
+}</code></pre>
+                </div>
+
+                <h4 class="text-lg font-bold text-red-800 mb-4">2. @Valid/@Validated（Bean Validationとの連携）</h4>
+                <div class="code-block mb-4">
+<pre><code class="language-java">// Product.java - バリデーションアノテーションの設定
+public class Product {
+    
+    @NotBlank(message = "商品名は必須です")
+    @Size(max = 100, message = "商品名は100文字以内で入力してください")
+    private String name;
+    
+    @NotNull(message = "価格は必須です")
+    @DecimalMin(value = "0", message = "価格は0以上で入力してください")
+    private BigDecimal price;
+    
+    @Min(value = 0, message = "在庫数は0以上で入力してください")
+    private Integer stock;
+    
+    // getters and setters...
+}</code></pre>
+                </div>
+
+                <h4 class="text-lg font-bold text-red-800 mb-4">3. BindingResult（エラー処理の実装パターン）</h4>
+                <div class="code-block mb-4">
+<pre><code class="language-java">@PostMapping
+public String createProduct(@Valid @ModelAttribute("product") Product product,
+                           BindingResult bindingResult,
+                           Model model) {
+    
+    // バリデーションエラーがある場合
+    if (bindingResult.hasErrors()) {
+        // エラーがあればフォーム画面に戻る
+        return "products/create";
+    }
+    
+    try {
+        productService.save(product);
+        // 成功メッセージを設定
+        model.addAttribute("message", "商品を登録しました");
+        return "redirect:/products";
+    } catch (DataIntegrityViolationException e) {
+        // データベースエラーの処理
+        bindingResult.rejectValue("name", "duplicate", "この商品名は既に存在します");
+        return "products/create";
+    }
+}</code></pre>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                    <h5 class="font-bold text-blue-800 mb-3">💡 実践的なポイント</h5>
+                    <ul class="text-blue-700 space-y-2">
+                        <li>• <strong>@Valid</strong>は引数の直前に配置し、<strong>BindingResult</strong>は必ず@Validの直後に配置</li>
+                        <li>• エラー時はModelに新しいデータを追加せず、元のフォーム画面に戻す</li>
+                        <li>• カスタムエラーメッセージは<strong>bindingResult.rejectValue()</strong>で追加</li>
+                        <li>• 成功後は<strong>redirect:</strong>を使ってPRG（Post-Redirect-Get）パターンを実装</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security and Error Handling -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-purple-600 mb-6 flex items-center">
+                <i class="fas fa-shield-alt mr-3"></i>
+                5. セキュリティとエラーハンドリング
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-purple-800 mb-4">CSRF対策（トークン生成・検証の仕組み）</h3>
+                
+                <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg mb-6">
+                    <p class="text-purple-700 mb-4">
+                        <strong>CSRF（Cross-Site Request Forgery - クロスサイトリクエストフォージェリ）</strong>とは、
+                        悪意のあるサイトから正規サイトに対して、ユーザーの意図しないリクエストを送信する攻撃です。
+                        Spring Securityを使用することで、自動的にCSRF保護が有効になります。
+                    </p>
+                </div>
+
+                <h4 class="text-lg font-bold text-purple-800 mb-4">CSRF保護の実装</h4>
+                <div class="code-block mb-4">
+<pre><code class="language-html">&lt;!-- Thymeleafテンプレートでは自動的にCSRFトークンが挿入される --&gt;
+&lt;form th:action="@{/products}" method="post"&gt;
+    &lt;!-- CSRFトークンは自動的に隠しフィールドとして追加される --&gt;
+    &lt;input type="text" name="name" placeholder="商品名"&gt;
+    &lt;button type="submit"&gt;登録&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- 手動でCSRFトークンを追加する場合 --&gt;
+&lt;form action="/products" method="post"&gt;
+    &lt;input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"&gt;
+    &lt;input type="text" name="name" placeholder="商品名"&gt;
+    &lt;button type="submit"&gt;登録&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                </div>
+
+                <h4 class="text-lg font-bold text-purple-800 mb-4">カスタムエラーページの作成</h4>
+                <div class="code-block mb-4">
+<pre><code class="language-java">// ErrorController.java
+@Controller
+public class CustomErrorController implements ErrorController {
+
+    @RequestMapping("/error")
+    public String handleError(HttpServletRequest request, Model model) {
+        Integer statusCode = (Integer) request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        
+        if (statusCode != null) {
+            switch (statusCode) {
+                case 404:
+                    model.addAttribute("errorMessage", "お探しのページが見つかりません");
+                    return "error/404";
+                case 500:
+                    model.addAttribute("errorMessage", "サーバー内部エラーが発生しました");
+                    return "error/500";
+                default:
+                    model.addAttribute("errorMessage", "エラーが発生しました");
+                    return "error/general";
+            }
+        }
+        return "error/general";
+    }
+}</code></pre>
+                </div>
+
+                <div class="code-block mb-4">
+<pre><code class="language-html">&lt;!-- error/404.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th="http://www.thymeleaf.org"&gt;
+&lt;head&gt;
+    &lt;title&gt;ページが見つかりません&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="container"&gt;
+        &lt;h1&gt;404 - ページが見つかりません&lt;/h1&gt;
+        &lt;p th:text="${errorMessage}"&gt;エラーメッセージ&lt;/p&gt;
+        &lt;a th:href="@{/}"&gt;ホームに戻る&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+
+                <h4 class="text-lg font-bold text-purple-800 mb-4">入力検証とサニタイゼーション</h4>
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-lg mb-4">
+                    <h5 class="font-bold text-yellow-800 mb-3">⚠️ セキュリティベストプラクティス</h5>
+                    <ul class="text-yellow-700 space-y-2">
+                        <li>• <strong>入力検証：</strong>すべてのユーザー入力を検証し、想定外のデータを拒否</li>
+                        <li>• <strong>出力エスケープ：</strong>Thymeleafのth:textを使用してHTML特殊文字をエスケープ</li>
+                        <li>• <strong>SQLインジェクション対策：</strong>JPA/Hibernateのパラメータバインディングを使用</li>
+                        <li>• <strong>認証・認可：</strong>Spring Securityで適切なアクセス制御を実装</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practical Example -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-orange-600 mb-6 flex items-center">
+                <i class="fas fa-project-diagram mr-3"></i>
+                6. 実践例：商品管理アプリケーション
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-orange-800 mb-4">完全なCRUD操作の実装</h3>
+
+                <h4 class="text-lg font-bold text-orange-800 mb-4">Product エンティティ</h4>
+                <div class="code-block mb-4">
+<pre><code class="language-java">@Entity
+@Table(name = "products")
+public class Product {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @NotBlank(message = "商品名は必須です")
+    @Size(max = 100, message = "商品名は100文字以内で入力してください")
+    @Column(nullable = false, length = 100)
+    private String name;
+    
+    @NotNull(message = "価格は必須です")
+    @DecimalMin(value = "0", message = "価格は0以上で入力してください")
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal price;
+    
+    @Min(value = 0, message = "在庫数は0以上で入力してください")
+    @Column(nullable = false)
+    private Integer stock = 0;
+    
+    @Column(length = 500)
+    private String description;
+    
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
+    
+    // コンストラクタ、getter、setter省略
+}</code></pre>
+                </div>
+
+                <h4 class="text-lg font-bold text-orange-800 mb-4">ProductController（完全版）</h4>
+                <div class="code-block mb-4">
+<pre><code class="language-java">@Controller
+@RequestMapping("/products")
+public class ProductController {
+    
+    private final ProductService productService;
+    
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+    
+    // 商品一覧表示
+    @GetMapping
+    public String listProducts(Model model) {
+        List&lt;Product&gt; products = productService.findAll();
+        model.addAttribute("products", products);
+        return "products/list";
+    }
+    
+    // 商品詳細表示
+    @GetMapping("/{id}")
+    public String showProduct(@PathVariable Long id, Model model) {
+        Product product = productService.findById(id)
+            .orElseThrow(() -&gt; new ResponseStatusException(HttpStatus.NOT_FOUND));
+        model.addAttribute("product", product);
+        return "products/detail";
+    }
+    
+    // 新規作成フォーム表示
+    @GetMapping("/new")
+    public String showCreateForm(Model model) {
+        model.addAttribute("product", new Product());
+        return "products/create";
+    }
+    
+    // 商品作成処理
+    @PostMapping
+    public String createProduct(@Valid @ModelAttribute Product product,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "products/create";
+        }
+        
+        try {
+            productService.save(product);
+            redirectAttributes.addFlashAttribute("successMessage", "商品を登録しました");
+            return "redirect:/products";
+        } catch (Exception e) {
+            bindingResult.reject("error.general", "登録中にエラーが発生しました");
+            return "products/create";
+        }
+    }
+    
+    // 編集フォーム表示
+    @GetMapping("/{id}/edit")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Product product = productService.findById(id)
+            .orElseThrow(() -&gt; new ResponseStatusException(HttpStatus.NOT_FOUND));
+        model.addAttribute("product", product);
+        return "products/edit";
+    }
+    
+    // 商品更新処理
+    @PostMapping("/{id}")
+    public String updateProduct(@PathVariable Long id,
+                               @Valid @ModelAttribute Product product,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "products/edit";
+        }
+        
+        try {
+            product.setId(id);
+            productService.save(product);
+            redirectAttributes.addFlashAttribute("successMessage", "商品を更新しました");
+            return "redirect:/products/" + id;
+        } catch (Exception e) {
+            bindingResult.reject("error.general", "更新中にエラーが発生しました");
+            return "products/edit";
+        }
+    }
+    
+    // 商品削除処理
+    @PostMapping("/{id}/delete")
+    public String deleteProduct(@PathVariable Long id,
+                               RedirectAttributes redirectAttributes) {
+        try {
+            productService.deleteById(id);
+            redirectAttributes.addFlashAttribute("successMessage", "商品を削除しました");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "削除中にエラーが発生しました");
+        }
+        return "redirect:/products";
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exercise Problems -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-cyan-600 mb-6 flex items-center">
+                <i class="fas fa-dumbbell mr-3"></i>
+                演習問題
+            </h2>
+
+            <div class="space-y-6">
+                <div class="bg-cyan-50 border border-cyan-200 rounded-lg p-6">
+                    <h3 class="text-lg font-bold text-cyan-800 mb-4">演習1: ユーザー管理機能の実装</h3>
+                    <p class="text-cyan-700 mb-4">
+                        以下の要件を満たすユーザー管理機能を実装してください：
+                    </p>
+                    <ul class="text-cyan-700 space-y-2 mb-4">
+                        <li>• Userエンティティ（名前、メールアドレス、年齢、登録日時）</li>
+                        <li>• バリデーション（名前必須、メール形式チェック、年齢範囲制限）</li>
+                        <li>• CRUD操作（一覧、詳細、作成、編集、削除）</li>
+                        <li>• エラーハンドリングとメッセージ表示</li>
+                    </ul>
+                    <button class="bg-cyan-600 text-white px-4 py-2 rounded hover:bg-cyan-700" onclick="toggleAnswer('answer1')">
+                        回答例を表示
+                    </button>
+                    <div id="answer1" class="answer-hidden mt-4 bg-gray-50 border border-gray-300 rounded p-4">
+                        <div class="code-block">
+<pre><code class="language-java">// User.java
+@Entity
+@Table(name = "users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @NotBlank(message = "名前は必須です")
+    @Size(max = 50, message = "名前は50文字以内で入力してください")
+    private String name;
+    
+    @NotBlank(message = "メールアドレスは必須です")
+    @Email(message = "正しいメールアドレス形式で入力してください")
+    private String email;
+    
+    @NotNull(message = "年齢は必須です")
+    @Min(value = 0, message = "年齢は0以上で入力してください")
+    @Max(value = 150, message = "年齢は150以下で入力してください")
+    private Integer age;
+    
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+    
+    // コンストラクタ、getter、setter省略
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                    <h3 class="text-lg font-bold text-green-800 mb-4">演習2: 検索機能の実装</h3>
+                    <p class="text-green-700 mb-4">
+                        商品管理アプリケーションに以下の検索機能を追加してください：
+                    </p>
+                    <ul class="text-green-700 space-y-2 mb-4">
+                        <li>• 商品名での部分一致検索</li>
+                        <li>• 価格範囲での絞り込み</li>
+                        <li>• 在庫ありのみの絞り込みオプション</li>
+                        <li>• 検索条件の保持（検索後も条件が残る）</li>
+                    </ul>
+                    <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" onclick="toggleAnswer('answer2')">
+                        回答例を表示
+                    </button>
+                    <div id="answer2" class="answer-hidden mt-4 bg-gray-50 border border-gray-300 rounded p-4">
+                        <div class="code-block">
+<pre><code class="language-java">// ProductSearchForm.java
+public class ProductSearchForm {
+    private String name;
+    private BigDecimal minPrice;
+    private BigDecimal maxPrice;
+    private Boolean inStockOnly;
+    
+    // getter、setter省略
+}
+
+// ProductController.java（検索機能追加）
+@GetMapping
+public String listProducts(@ModelAttribute ProductSearchForm searchForm, Model model) {
+    List&lt;Product&gt; products = productService.search(searchForm);
+    model.addAttribute("products", products);
+    model.addAttribute("searchForm", searchForm);
+    return "products/list";
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-indigo-600 mb-6 flex items-center">
+                <i class="fas fa-question-circle mr-3"></i>
+                理解度クイズ
+            </h2>
+
+            <div class="space-y-6">
+                <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-6">
+                    <h3 class="text-lg font-bold text-indigo-800 mb-4">クイズ1: MVCアーキテクチャについて</h3>
+                    <p class="text-indigo-700 mb-4">
+                        Spring MVCにおいて、フォームから送信されたデータをJavaオブジェクトに自動的にバインドするアノテーションはどれですか？
+                    </p>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="a" class="mr-2">
+                            <span class="text-indigo-700">A. @RequestParam</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="b" class="mr-2">
+                            <span class="text-indigo-700">B. @ModelAttribute</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="c" class="mr-2">
+                            <span class="text-indigo-700">C. @PathVariable</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="d" class="mr-2">
+                            <span class="text-indigo-700">D. @RequestBody</span>
+                        </label>
+                    </div>
+                    <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700" onclick="showAnswer('quiz1Answer')">
+                        回答を表示
+                    </button>
+                    <div id="quiz1Answer" class="answer-hidden mt-4 bg-green-50 border border-green-300 rounded p-4">
+                        <p class="text-green-800 font-bold">正解: B. @ModelAttribute</p>
+                        <p class="text-green-700 mt-2">
+                            @ModelAttributeは、フォームから送信されたデータを自動的にJavaオブジェクトにバインドするアノテーションです。
+                            HTMLフォームのname属性とJavaオブジェクトのフィールド名が一致していれば、自動的にデータが設定されます。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-purple-50 border border-purple-200 rounded-lg p-6">
+                    <h3 class="text-lg font-bold text-purple-800 mb-4">クイズ2: Thymeleafについて</h3>
+                    <p class="text-purple-700 mb-4">
+                        XSS攻撃を防ぐために、ユーザー入力を安全に表示するThymeleaf属性はどれですか？
+                    </p>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="a" class="mr-2">
+                            <span class="text-purple-700">A. th:utext</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="b" class="mr-2">
+                            <span class="text-purple-700">B. th:text</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="c" class="mr-2">
+                            <span class="text-purple-700">C. th:html</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="d" class="mr-2">
+                            <span class="text-purple-700">D. th:raw</span>
+                        </label>
+                    </div>
+                    <button class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700" onclick="showAnswer('quiz2Answer')">
+                        回答を表示
+                    </button>
+                    <div id="quiz2Answer" class="answer-hidden mt-4 bg-green-50 border border-green-300 rounded p-4">
+                        <p class="text-green-800 font-bold">正解: B. th:text</p>
+                        <p class="text-green-700 mt-2">
+                            th:textは自動的にHTMLエスケープを行うため、XSS攻撃を防げます。
+                            一方、th:utextはHTMLエスケープを行わないため、信頼できるHTMLコンテンツにのみ使用すべきです。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-emerald-600 mb-6 flex items-center">
+                <i class="fas fa-check mr-3"></i>
+                まとめ
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-emerald-50 border-l-4 border-emerald-500 p-6 rounded-r-lg">
+                    <h3 class="text-lg font-bold text-emerald-800 mb-4">習得した重要ポイント</h3>
+                    <ul class="text-emerald-700 space-y-2">
+                        <li>• <strong>MVCアーキテクチャ：</strong>責任の分離により保守性・再利用性が向上</li>
+                        <li>• <strong>Spring Boot：</strong>自動設定により開発効率を大幅に向上</li>
+                        <li>• <strong>Thymeleaf：</strong>自然なテンプレートでデザイナーとの協業が円滑</li>
+                        <li>• <strong>バリデーション：</strong>Bean Validationで堅牢な入力検証を実現</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                    <h3 class="text-lg font-bold text-blue-800 mb-4">実務での具体的メリット</h3>
+                    <ul class="text-blue-700 space-y-2">
+                        <li>• <strong>開発効率：</strong>設定の自動化により開発時間を50%短縮</li>
+                        <li>• <strong>セキュリティ：</strong>CSRF対策・XSS対策が標準で実装済み</li>
+                        <li>• <strong>保守性：</strong>MVC分離により機能追加・修正が容易</li>
+                        <li>• <strong>拡張性：</strong>Spring Bootの豊富なライブラリで機能拡張が簡単</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-yellow-50 border border-yellow-300 rounded-lg p-6 mt-6">
+                <h3 class="text-lg font-bold text-yellow-800 mb-4 flex items-center">
+                    <i class="fas fa-arrow-right mr-2"></i>
+                    次のステップ
+                </h3>
+                <p class="text-yellow-700 mb-3">
+                    今回学習したSpring Boot・MVC・Thymeleafの知識を基に、次は以下のトピックに進みましょう：
+                </p>
+                <ul class="text-yellow-700 space-y-1">
+                    <li>• Spring Boot RESTful API開発（Day47）</li>
+                    <li>• JPA・Hibernateによるデータベース操作（Day48）</li>
+                    <li>• Spring Securityによる認証・認可（Day49）</li>
+                    <li>• マイクロサービスアーキテクチャ（Day50）</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center py-12">
+            <div class="bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg p-8 shadow-lg">
+                <h3 class="text-2xl font-bold mb-4">
+                    <i class="fas fa-graduation-cap mr-3"></i>
+                    Spring Boot・MVC・Thymeleaf 完全マスター達成！
+                </h3>
+                <p class="text-lg opacity-90 mb-4">
+                    実用的なWebアプリケーション開発の基盤技術を習得しました
+                </p>
+                <div class="text-sm opacity-75">
+                    © 2025 APSA Co.,Ltd. All Rights Reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+    </main>
+
+    <script>
+        function toggleAnswer(answerId) {
+            const answerElement = document.getElementById(answerId);
+            if (answerElement.classList.contains('answer-hidden')) {
+                answerElement.classList.remove('answer-hidden');
+                answerElement.classList.add('answer-shown');
+            } else {
+                answerElement.classList.add('answer-hidden');
+                answerElement.classList.remove('answer-shown');
+            }
+        }
+
+        function showAnswer(answerId) {
+            const answerElement = document.getElementById(answerId);
+            answerElement.classList.remove('answer-hidden');
+            answerElement.classList.add('answer-shown');
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDvSPe1624e3KLhc91oBF9p5laGIjLwvO3TwJVIsinT2FqWhuQiRsBjVRqdSEEWX4XP1EHiJ9NFLAaWe3TyjDwsDAOF8mxuQgEcuEe5Xjz1eEnBmtSuik7TkWVFjmKrwlw8iWA5ra%2BsV4k9bO5Y7lS3ghKXpMLgbRNbLcKzUCJ9hyOF8fmzmdh7obIKxybyy7aH3l8e3sSKwjtwc5tp2zWm1x7R%2BQwJhzwoaOS2cH0d9HxgYi4bi1YtSmQih3H2a7Us36YVJBWYu0fkTrQ9DVcO6G5iJh7vLyb1a4iLD3QQOmiXEIDoO85tFj4P50JyqQUaZnAUx7U9pYjrlfucbU8mUDKK1FZgKOoewQWIJADBiT%2FKHZXmhFaCZM0T%2FYif%2FyF1G2G8hgGn4vbjG%2BWMoam5oqOSQjhOS8eoTiY7Md8w6W9zETIF1VTLNh2c1qz73bZn3c%2F5QbIqLxX33A4Vs4SkJ9ISHfFHU9T3wuia6HNWfdNTCYgFP2FbEWtveql6uiqA%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDvSPe1624e3KLhc91oBF9p5laGIjLwvO3TwJVIsinT2FqWhuQiRsBjVRqdSEEWX4XP1EHiJ9NFLAaWe3TyjDwsDAOF8mxuQgEcuEe5Xjz1eEnBmtSuik7TkWVFjmKrwlw8iWA5ra+sV4k9bO5Y7lS3ghKXpMLgbRNbLcKzUCJ9hyOF8fmzmdh7obIKxybyy7aH3l8e3sSKwjtwc5tp2zWm1x7R+QwJhzwoaOS2cH0d9HxgYi4bi1YtSmQih3H2a7Us36YVJBWYu0fkTrQ9DVcO6G5iJh7vLyb1a4iLD3QQOmiXEIDoO85tFj4P50JyqQUaZnAUx7U9pYjrlfucbU8mUDKK1FZgKOoewQWIJADBiT/KHZXmhFaCZM0T/Yif/yF1G2G8hgGn4vbjG+WMoam5oqOSQjhOS8eoTiY7Md8w6W9zETIF1VTLNh2c1qz73bZn3c/5QbIqLxX33A4Vs4SkJ9ISHfFHU9T3wuia6HNWfdNTCYgFP2FbEWtveql6uiqA==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

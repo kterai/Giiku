@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第6週: ネットワーク・データベース | ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a6da7;
+            --secondary-color: #6c757d;
+            --accent-color: #ffc107;
+            --success-color: #28a745;
+            --info-color: #17a2b8;
+            --warning-color: #ff9800;
+            --danger-color: #dc3545;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .hero-section {
+            background-color: #e9ecef;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            font-weight: bold;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .day-schedule {
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+        
+        .time-block {
+            border-left: 3px solid var(--secondary-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .resource-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+        
+        .resource-icon {
+            margin-right: 0.75rem;
+            color: var(--primary-color);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3a5a8a;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            width: 50%; /* Week 6 of 12 */
+        }
+
+        .nav-pills .nav-link {
+            margin-right: 0.5rem;
+            border-radius: 0.25rem;
+            padding: 0.5rem 1rem;
+            color: var(--dark-color);
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .nav-pills .nav-link:hover:not(.active) {
+            background-color: #e9ecef;
+        }
+
+        .topic-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .topic-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .topic-list li:last-child {
+            border-bottom: none;
+        }
+
+        .topic-list li::before {
+            content: "\f105";
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            margin-right: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-xl md:text-2xl font-bold">ITエンジニア育成カリキュラム</h1>
+                <nav>
+                    <ul class="flex space-x-4">
+                        <li><a href="../../index.html" class="text-white hover:text-gray-300">ホーム</a></li>
+                        <li class="relative group">
+                            <a href="#" class="text-white hover:text-gray-300">月別カリキュラム</a>
+                            <div class="absolute left-0 mt-2 w-48 rounded-md shadow-lg bg-white hidden group-hover:block z-10">
+                                <a href="../../pages/month/month1.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">第1ヶ月目: Java Silver</a>
+                                <a href="../../pages/month/month2.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">第2ヶ月目: 基本情報</a>
+                                <a href="../../pages/month/month3.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">第3ヶ月目: Web開発</a>
+                            </div>
+                        </li>
+                        <li><a href="../../resources/resources.html" class="text-white hover:text-gray-300">学習リソース</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-section">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl md:text-3xl font-bold mb-2">第6週: ネットワーク・データベース</h2>
+            <p class="text-lg">基本情報技術者試験のネットワークとデータベースを学ぶ週</p>
+        </div>
+    </div>
+
+    <main class="container mx-auto px-4">
+        <div class="mb-6">
+            <nav aria-label="breadcrumb">
+                <ol class="flex py-2 text-sm">
+                    <li><a href="../../index.html" class="text-blue-600 hover:underline">ホーム</a></li>
+                    <li class="mx-2">/</li>
+                    <li><a href="../../pages/month/month2.html" class="text-blue-600 hover:underline">第2ヶ月目: 基本情報</a></li>
+                    <li class="mx-2">/</li>
+                    <li class="text-gray-600">第6週: ネットワーク・データベース</li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="md:col-span-2">
+                <section class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 border-b-2 border-gray-200 pb-2">週間概要</h3>
+                    <p class="mb-4">
+                        第6週では、基本情報技術者試験に出題されるネットワークとデータベースの基礎知識を学習します。ネットワークの基本モデルやプロトコル、IPアドレス計算、データベースの設計と操作、トランザクション管理など、IT業界で必須の知識を体系的に身につけます。
+                    </p>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                        <h4 class="font-bold text-blue-800 mb-2">学習目標</h4>
+                        <ul class="list-disc pl-5 space-y-1">
+                            <li>ネットワークの基本的なモデルとプロトコルを理解する</li>
+                            <li>IPアドレス計算・サブネットマスクの活用方法を習得する</li>
+                            <li>ルータ・スイッチなどのネットワーク機器の役割を理解する</li>
+                            <li>関係データベースの概念とER図による設計を習得する</li>
+                            <li>基本的なSQL文を記述できるようになる</li>
+                            <li>トランザクション処理・データの整合性について理解する</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 border-b-2 border-gray-200 pb-2">日別スケジュール</h3>
+                    
+                    <div class="day-schedule">
+                        <h4 class="text-lg font-bold">Day 24: ネットワーク基礎</h4>
+                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                            <p class="font-semibold mb-2">本日の学習内容</p>
+                            <ul class="topic-list">
+                                <li>OSI参照モデルの7層構造と各層の役割</li>
+                                <li>TCP/IPプロトコルスイートの概要</li>
+                                <li>IPアドレスとサブネットマスクの基礎</li>
+                                <li>IPv4アドレスのクラス分類とCIDR表記</li>
+                                <li>サブネット計算の基礎と実践</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">10:00-11:45 | 午前の部</h5>
+                            <p>OSI参照モデルとTCP/IPプロトコルの概要を学びます。各層の役割とプロトコルの関係性、およびネットワーク通信の基本的な流れを理解します。</p>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">12:45-15:00 | 午後の部（前半）</h5>
+                            <p>IPアドレスの基礎とサブネットマスクについて学びます。IPv4アドレスのクラス、プライベートアドレス、サブネットマスクの概念を理解し、ネットワークアドレスとホストアドレスの計算方法を習得します。</p>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">15:10-17:45 | 午後の部（後半）</h5>
+                            <p>サブネット計算の演習を行います。与えられたネットワーク要件に基づいて適切なサブネット設計を行う練習をします。理解度チェックと振り返りを行い、学んだ内容を定着させます。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="day-schedule">
+                        <h4 class="text-lg font-bold">Day 25: ネットワーク応用</h4>
+                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                            <p class="font-semibold mb-2">本日の学習内容</p>
+                            <ul class="topic-list">
+                                <li>ルータ、スイッチなどのネットワーク機器の役割</li>
+                                <li>ルーティングプロトコル（RIP、OSPF、BGPなど）</li>
+                                <li>VLAN、NAT/NAPT、ファイアウォールの概念</li>
+                                <li>無線LANの規格と基本セキュリティ</li>
+                                <li>クラウドネットワークとSDN入門</li>
+                                <li>IoT/エッジコンピューティングの基礎</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">10:00-11:45 | 午前の部</h5>
+                            <p>ネットワーク機器（ルータ、スイッチ、アクセスポイントなど）の役割と機能について学びます。各種ルーティングプロトコルの特徴と使い分けについて理解します。</p>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">12:45-15:00 | 午後の部（前半）</h5>
+                            <p>VLAN、NAT/NAPT、ファイアウォールなどのネットワーク技術と無線LANの規格・セキュリティについて学習します。実際のネットワーク設計における各技術の適用方法を考えます。</p>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">15:10-17:45 | 午後の部（後半）</h5>
+                            <p>クラウドネットワークの基礎とSDN（Software Defined Network）、IoTやエッジコンピューティングなど最新のネットワーク技術のトレンドについて学びます。理解度チェックで学習内容を確認します。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="day-schedule">
+                        <h4 class="text-lg font-bold">Day 26: データベース基礎</h4>
+                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                            <p class="font-semibold mb-2">本日の学習内容</p>
+                            <ul class="topic-list">
+                                <li>データベースの種類と特徴（階層型、ネットワーク型、関係型、NoSQL）</li>
+                                <li>関係モデルの基本概念（リレーション、タプル、属性、キー）</li>
+                                <li>ER図によるデータベース設計の基礎</li>
+                                <li>正規化理論（第1正規形～第3正規形）</li>
+                                <li>SQL基本構文（SELECT, INSERT, UPDATE, DELETE）</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">10:00-11:45 | 午前の部</h5>
+                            <p>データベースの種類と特徴、関係モデルの基本概念について学びます。リレーショナルデータベースにおけるテーブル、レコード、フィールド、キーなどの基本要素を理解します。</p>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">12:45-15:00 | 午後の部（前半）</h5>
+                            <p>ER図を用いたデータベース設計の方法と、データベース正規化の理論を学びます。実際にER図を描き、正規化を行う演習を通して、効率的なデータベース設計の考え方を身につけます。</p>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">15:10-17:45 | 午後の部（後半）</h5>
+                            <p>SQL基本構文（SELECT、INSERT、UPDATE、DELETE）を学び、実際にクエリを作成する演習を行います。理解度チェックでは、基本的なSQLクエリの作成問題に取り組みます。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="day-schedule">
+                        <h4 class="text-lg font-bold">Day 27: データベース応用・最新技術</h4>
+                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                            <p class="font-semibold mb-2">本日の学習内容</p>
+                            <ul class="topic-list">
+                                <li>SQL応用（JOIN句、サブクエリ、集計関数）</li>
+                                <li>インデックスと最適化の基本</li>
+                                <li>トランザクション処理とACID特性</li>
+                                <li>並行制御と排他制御（ロック、デッドロック）</li>
+                                <li>NoSQLデータベースの種類と特徴</li>
+                                <li>ビッグデータ処理の基礎知識</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">10:00-11:45 | 午前の部</h5>
+                            <p>SQL応用構文（各種JOIN句、サブクエリ、集計関数）を学び、より高度なデータ抽出や分析のためのクエリ作成方法を習得します。インデックスを活用したクエリ最適化の基礎も学びます。</p>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">12:45-15:00 | 午後の部（前半）</h5>
+                            <p>トランザクション処理とACID特性、並行制御と排他制御のメカニズムについて学びます。ロックの種類や、デッドロックが発生するケースとその回避方法についても理解します。</p>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">15:10-17:45 | 午後の部（後半）</h5>
+                            <p>NoSQLデータベース（ドキュメント指向、キーバリュー型、カラム指向、グラフ型）の特徴と使い分け、ビッグデータ処理の基本的な概念について学習します。理解度チェックで学習内容を確認します。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="day-schedule">
+                        <h4 class="text-lg font-bold">Day 28: 模擬試験②と総合演習</h4>
+                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                            <p class="font-semibold mb-2">本日の学習内容</p>
+                            <ul class="topic-list">
+                                <li>ネットワーク分野の総合問題演習</li>
+                                <li>データベース分野の総合問題演習</li>
+                                <li>模擬試験（午前・午後想定問題）</li>
+                                <li>解説と弱点分析</li>
+                                <li>第6週の総括と重要ポイントの復習</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">10:00-11:45 | 午前の部</h5>
+                            <p>ネットワーク分野の総合問題演習を行います。OSI参照モデル、TCP/IP、サブネット計算、ネットワーク機器など、これまでに学んだ内容を網羅する問題に取り組みます。</p>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">12:45-15:00 | 午後の部（前半）</h5>
+                            <p>データベース分野の総合問題演習を行います。データベース設計、SQL、トランザクション、最新技術など、データベースに関する様々な問題に取り組みます。</p>
+                        </div>
+                        
+                        <div class="time-block">
+                            <h5 class="font-semibold">15:10-17:45 | 午後の部（後半）</h5>
+                            <p>基本情報技術者試験の形式に準じた模擬試験（ネットワークとデータベース分野）に取り組みます。その後、解説と弱点分析を行い、第6週の学習内容を総括します。次週の学習へつなげるためのポイントも確認します。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mb-8">
+                    <h3 class="text-xl font-bold mb-4 border-b-2 border-gray-200 pb-2">学習到達度の評価方法</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <ul class="space-y-2">
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i> 日々の演習課題の完了（各日のタスク達成度）</li>
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i> 理解度チェックテストのスコア（各日80%以上が目標）</li>
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i> 模擬試験の結果（第28日目、70%以上の正解率が目標）</li>
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i> 実習課題（ネットワーク構成図作成、データベース設計、SQL作成など）の完成度</li>
+                            <li><i class="fas fa-check-circle text-green-500 mr-2"></i> 授業中のディスカッションへの参加度</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="md:col-span-1">
+                <div class="card mb-6">
+                    <div class="card-header">学習の進捗状況</div>
+                    <div class="card-body">
+                        <p class="mb-2">全体の進捗:</p>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span>Week 6/12</span>
+                                <span>50%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="progressChart"></canvas>
+                        </div>
+                        
+                        <p class="text-center text-sm text-gray-600">第2ヶ月目: 基本情報技術者試験対策</p>
+                    </div>
+                </div>
+                
+                <div class="card mb-6">
+                    <div class="card-header">週間ナビゲーション</div>
+                    <div class="card-body">
+                        <div class="nav-pills">
+                            <a href="../week/week5.html" class="nav-link mb-2">
+                                <i class="fas fa-arrow-left mr-1"></i> 第5週: コンピュータシステム
+                            </a>
+                            <a href="#" class="nav-link active mb-2">
+                                <i class="fas fa-calendar-week mr-1"></i> 第6週: ネットワーク・データベース
+                            </a>
+                            <a href="../week/week7.html" class="nav-link mb-2">
+                                <i class="fas fa-arrow-right mr-1"></i> 第7週: アルゴリズム・セキュリティ
+                            </a>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h4 class="font-bold mb-2">日別リンク</h4>
+                            <ul class="space-y-1 text-blue-600">
+                                <li><a href="../day/day24.html" class="hover:underline">Day 24: ネットワーク基礎</a></li>
+                                <li><a href="../day/day25.html" class="hover:underline">Day 25: ネットワーク応用</a></li>
+                                <li><a href="../day/day26.html" class="hover:underline">Day 26: データベース基礎</a></li>
+                                <li><a href="../day/day27.html" class="hover:underline">Day 27: データベース応用</a></li>
+                                <li><a href="../day/day28.html" class="hover:underline">Day 28: 模擬試験と総合演習</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">学習リソース</div>
+                    <div class="card-body">
+                        <div class="resource-item">
+                            <div class="resource-icon"><i class="fas fa-book"></i></div>
+                            <div>
+                                <p class="font-semibold">基本情報技術者 午前試験 対策書</p>
+                                <p class="text-sm">FOM出版 / IPAシラバス準拠</p>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-item">
+                            <div class="resource-icon"><i class="fas fa-globe"></i></div>
+                            <div>
+                                <p class="font-semibold">Cisco Networking Academy</p>
+                                <p class="text-sm">ネットワークの基礎学習</p>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-item">
+                            <div class="resource-icon"><i class="fas fa-database"></i></div>
+                            <div>
+                                <p class="font-semibold">SQL練習問題集</p>
+                                <p class="text-sm">SQLZoo / HackerRank SQLコース</p>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-item">
+                            <div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
+                            <div>
+                                <p class="font-semibold">ER図作成ガイド</p>
+                                <p class="text-sm">データベース設計の実践的アプローチ</p>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-item">
+                            <div class="resource-icon"><i class="fas fa-desktop"></i></div>
+                            <div>
+                                <p class="font-semibold">ネットワークシミュレータ</p>
+                                <p class="text-sm">Packet Tracer / GNS3</p>
+                            </div>
+                        </div>
+                        
+                        <a href="../../resources/resources.html" class="btn-primary mt-4 text-center block">全てのリソースを見る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">ITエンジニア育成カリキュラム</h3>
+                    <p class="text-gray-300">未経験からITエンジニアへの第一歩を支援する3ヶ月間の体系的プログラム</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-3">カリキュラム</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="../../pages/month/month1.html" class="hover:text-white">第1ヶ月目: Java Silver</a></li>
+                        <li><a href="../../pages/month/month2.html" class="hover:text-white">第2ヶ月目: 基本情報</a></li>
+                        <li><a href="../../pages/month/month3.html" class="hover:text-white">第3ヶ月目: Web開発</a></li>
+                        <li><a href="../../resources/advanced.html" class="hover:text-white">応用コース</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold mb-3">リソース</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="../../resources/resources.html" class="hover:text-white">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html" class="hover:text-white">よくある質問</a></li>
+                        <li><a href="../../progress_and_planning.html" class="hover:text-white">作業進捗と計画</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-4 border-t border-gray-700 text-center text-gray-400">
+                <p>&copy; 2025 ITエンジニア育成カリキュラム All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // 進捗グラフを描画
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        const progressChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['完了', '残り'],
+                datasets: [{
+                    data: [50, 50], // 50% 完了
+                    backgroundColor: [
+                        '#4a6da7',
+                        '#e9ecef'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDjaTRBquFRWR6BH4%2BXf2KKwkk6sgZmwU2PL8Q4RotcT%2FIMqRJQJVPQ98c%2Bfakeih1fLRiCP%2FIWIo8r8AsoXDjKBvyOc9u4AiB8%2FETY8AcpjG0HyPRVgJProk4UvmSvZHdicD2z6By1AcAA82krwe6jQhPZHkM6gsBZxeZGx6QvaBseYgnUXeBMOF%2BRkCalIpFzZTFR8gXqoFp4R7qT2ghCLOy34HCuwPS1EaDZ%2B3%2F4%2Fes%2F%2FtRVwZwqFp%2Fwmtdo74PDdgcHHTlhnkI%2BB4BAfiuHDr9BiKNMrlLHYZR64ULZQEcDv5J5xh6tv5bQh7s%2B06gQiK8dOc1YYI0%2BqGMuAIWe%2BxAF7itorUvx5DWqts8GoOu69esq%2FKw93JlrM4Y635XlUbI6qIyNo%2BXfCOUf2Oe6YzL023h9edzXjh%2FxVDNrZAJl%2BmM177oXECC0Wd4y4caw35NTnWttkj1aLLMR6%2B9gyvn3powD82JC%2Bo0a7kE3Ec";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDjaTRBquFRWR6BH4+Xf2KKwkk6sgZmwU2PL8Q4RotcT/IMqRJQJVPQ98c+fakeih1fLRiCP/IWIo8r8AsoXDjKBvyOc9u4AiB8/ETY8AcpjG0HyPRVgJProk4UvmSvZHdicD2z6By1AcAA82krwe6jQhPZHkM6gsBZxeZGx6QvaBseYgnUXeBMOF+RkCalIpFzZTFR8gXqoFp4R7qT2ghCLOy34HCuwPS1EaDZ+3/4/es//tRVwZwqFp/wmtdo74PDdgcHHTlhnkI+B4BAfiuHDr9BiKNMrlLHYZR64ULZQEcDv5J5xh6tv5bQh7s+06gQiK8dOc1YYI0+qGMuAIWe+xAF7itorUvx5DWqts8GoOu69esq/Kw93JlrM4Y635XlUbI6qIyNo+XfCOUf2Oe6YzL023h9edzXjh/xVDNrZAJl+mM177oXECC0Wd4y4caw35NTnWttkj1aLLMR6+9gyvn3powD82JC+o0a7kE3Ec";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム - Day49: Spring Security・認証認可・セキュリティ</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day48_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day50_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month3.html" class="hover:text-blue-600">3ヶ月目: Webアプリケーション開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week11.html" class="hover:text-blue-600">11週目: Spring Boot開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">49日目: Spring Security・認証認可・セキュリティ</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day49.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- ヘッダー・ナビゲーション -->
+        <header class="flex justify-between items-center mb-8 bg-white rounded-lg shadow-lg p-6">
+            <a href="day48_lecture.html" class="flex items-center text-blue-600 hover:text-blue-800 transition-colors">
+                <i class="fas fa-chevron-left mr-2"></i>
+                <span class="hidden sm:inline">Day48: JPA・Hibernate</span>
+                <span class="sm:hidden">前日</span>
+            </a>
+            
+            <div class="text-center">
+                <h1 class="text-2xl md:text-3xl font-bold text-blue-800 mb-2">
+                    ITエンジニア育成カリキュラム - Day49
+                </h1>
+                <h2 class="text-lg md:text-xl font-semibold text-gray-700">
+                    Spring Security・認証認可・セキュリティ
+                </h2>
+                <p class="text-sm text-gray-600 mt-1">
+                    JWT・OAuth2.0・CSRF/XSS対策・セキュリティ実装
+                </p>
+            </div>
+            
+            <a href="day50_lecture.html" class="flex items-center text-blue-600 hover:text-blue-800 transition-colors">
+                <span class="hidden sm:inline">Day50: マイクロサービス</span>
+                <span class="sm:hidden">翌日</span>
+                <i class="fas fa-chevron-right ml-2"></i>
+            </a>
+        </header>
+
+        <!-- 本日の学習目標 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-target mr-2"></i>本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-blue-800 mb-2">Spring Securityアーキテクチャの理解</h3>
+                    <p class="text-sm text-gray-700">セキュリティフィルターチェーン・認証・認可の仕組みを実例とともに理解する</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-green-800 mb-2">認証・認可の実践実装</h3>
+                    <p class="text-sm text-gray-700">Form認証・JWT・OAuth2.0の実装方法を実践レベルで習得する</p>
+                </div>
+                <div class="bg-red-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-red-800 mb-2">セキュリティ脅威と対策</h3>
+                    <p class="text-sm text-gray-700">CSRF・XSS・SQLインジェクション等の攻撃手法と対策を実際のWebアプリで適用する</p>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-purple-800 mb-2">本番環境レベルのセキュリティ実装</h3>
+                    <p class="text-sm text-gray-700">企業レベルのセキュリティ要件を満たす実装パターンを身につける</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 推奨開発環境 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-tools mr-2"></i>推奨開発環境
+            </h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <i class="fas fa-laptop-code text-3xl text-blue-600 mb-2"></i>
+                    <h3 class="font-semibold">IDE</h3>
+                    <p class="text-sm text-gray-600">IntelliJ IDEA + Spring Boot拡張</p>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <i class="fas fa-coffee text-3xl text-orange-600 mb-2"></i>
+                    <h3 class="font-semibold">実行環境</h3>
+                    <p class="text-sm text-gray-600">Java 17 + Spring Boot 3.x</p>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                    <i class="fas fa-database text-3xl text-green-600 mb-2"></i>
+                    <h3 class="font-semibold">データベース</h3>
+                    <p class="text-sm text-gray-600">MySQL + Spring Data JPA</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. Spring Securityアーキテクチャの完全理解 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-6">
+                <i class="fas fa-shield-alt mr-2"></i>1. Spring Securityアーキテクチャの完全理解
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Spring Securityとは？</h3>
+                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700">
+                        <strong>Spring Security（スプリング・セキュリティ）</strong>は、Springアプリケーションのセキュリティを包括的に管理するフレームワークです。
+                        まるで建物の警備システムのように、「誰が」「何を」「いつ」アクセスできるかを細かく制御し、不正アクセスや攻撃からアプリケーションを守ります。
+                    </p>
+                </div>
+                
+                <h4 class="text-lg font-semibold text-gray-800 mb-3">Spring Securityの主要機能</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h5 class="font-semibold text-blue-800">認証（Authentication）</h5>
+                        <p class="text-sm text-gray-600">「誰であるかの確認」- パスワード認証、JWT認証、OAuth2.0など</p>
+                    </div>
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <h5 class="font-semibold text-green-800">認可（Authorization）</h5>
+                        <p class="text-sm text-gray-600">「何ができるかの許可」- ロールベースアクセス制御、メソッドレベル認可など</p>
+                    </div>
+                    <div class="border-l-4 border-red-500 pl-4">
+                        <h5 class="font-semibold text-red-800">攻撃対策</h5>
+                        <p class="text-sm text-gray-600">CSRF、XSS、セッションハイジャック等の攻撃からの防御</p>
+                    </div>
+                    <div class="border-l-4 border-purple-500 pl-4">
+                        <h5 class="font-semibold text-purple-800">セッション管理</h5>
+                        <p class="text-sm text-gray-600">安全なセッション管理、同時ログイン制限、タイムアウト制御</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">セキュリティフィルターチェーンの仕組み</h3>
+                <div class="bg-yellow-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700">
+                        <strong>SecurityFilterChain（セキュリティフィルターチェーン）</strong>は、空港のセキュリティチェックポイントのように、
+                        複数の検査を順番に実行します。各フィルターが特定の役割を持ち、リクエストが安全かどうかを段階的に確認します。
+                    </p>
+                </div>
+                
+                <pre><code class="language-java">@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+            // CSRF対策を有効化（悪意のあるサイトからの攻撃を防ぐ）
+            .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
+            
+            // リクエストの認可設定
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/public/**", "/login").permitAll()  // 公開ページは誰でもアクセス可能
+                .requestMatchers("/admin/**").hasRole("ADMIN")        // 管理画面は管理者のみ
+                .anyRequest().authenticated()                         // その他は認証必須
+            )
+            
+            // フォーム認証の設定
+            .formLogin(form -> form
+                .loginPage("/login")                    // カスタムログインページ
+                .defaultSuccessUrl("/dashboard", true)  // ログイン成功時の遷移先
+                .failureUrl("/login?error=true")        // ログイン失敗時の遷移先
+            )
+            
+            // ログアウトの設定
+            .logout(logout -> logout
+                .logoutUrl("/logout")                   // ログアウトURL
+                .logoutSuccessUrl("/login?logout=true") // ログアウト成功時の遷移先
+                .invalidateHttpSession(true)           // セッションを無効化
+                .deleteCookies("JSESSIONID")            // セッションCookieを削除
+            )
+            .build();
+    }
+}</code></pre>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">主要コンポーネントの役割</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-300 px-4 py-2 text-left">コンポーネント</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">日本語説明</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">役割</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">具体例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">AuthenticationManager</td>
+                                <td class="border border-gray-300 px-4 py-2">認証管理者</td>
+                                <td class="border border-gray-300 px-4 py-2">身分証確認係のような役割</td>
+                                <td class="border border-gray-300 px-4 py-2">パスワード照合、JWT検証</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 font-mono">UserDetailsService</td>
+                                <td class="border border-gray-300 px-4 py-2">ユーザー詳細サービス</td>
+                                <td class="border border-gray-300 px-4 py-2">会員データベースのような役割</td>
+                                <td class="border border-gray-300 px-4 py-2">ユーザー情報取得、権限確認</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">SecurityContext</td>
+                                <td class="border border-gray-300 px-4 py-2">セキュリティ文脈</td>
+                                <td class="border border-gray-300 px-4 py-2">現在のログイン状態を保持する記録簿</td>
+                                <td class="border border-gray-300 px-4 py-2">ログインユーザー情報、権限情報</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 font-mono">Principal</td>
+                                <td class="border border-gray-300 px-4 py-2">認証主体</td>
+                                <td class="border border-gray-300 px-4 py-2">ログインしているユーザーの身元情報</td>
+                                <td class="border border-gray-300 px-4 py-2">ユーザー名、メールアドレス</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 認証・認可メカニズムの完全理解 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-6">
+                <i class="fas fa-key mr-2"></i>2. 認証・認可メカニズムの完全理解
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">認証（Authentication）vs 認可（Authorization）</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 mb-2">
+                            <i class="fas fa-id-card mr-2"></i>認証（Authentication）
+                        </h4>
+                        <p class="text-sm text-gray-700 mb-2">
+                            <strong>「あなたは誰ですか？」</strong>を確認する処理
+                        </p>
+                        <p class="text-sm text-gray-600">
+                            身分証確認と同じで、パスワードやトークンで本人確認を行います。
+                            空港でのパスポート提示に例えられます。
+                        </p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-green-800 mb-2">
+                            <i class="fas fa-unlock mr-2"></i>認可（Authorization）
+                        </h4>
+                        <p class="text-sm text-gray-700 mb-2">
+                            <strong>「あなたは何ができますか？」</strong>を制御する処理
+                        </p>
+                        <p class="text-sm text-gray-600">
+                            VIP席への入場許可と同じで、ユーザーの権限に応じてアクセス可能な機能を制御します。
+                            会社の部署別アクセス権限に例えられます。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">認証方式の詳細比較</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-300 px-4 py-2 text-left">認証方式</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">特徴</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">適用場面</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">実用例</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">メリット/デメリット</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-semibold">Form認証</td>
+                                <td class="border border-gray-300 px-4 py-2">ユーザー名・パスワードでログイン</td>
+                                <td class="border border-gray-300 px-4 py-2">一般的なWebアプリケーション</td>
+                                <td class="border border-gray-300 px-4 py-2">企業の社内システム、会員制サイト</td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    <span class="text-green-600">シンプル、理解しやすい</span><br>
+                                    <span class="text-red-600">セッション管理が必要</span>
+                                </td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 font-semibold">JWT認証</td>
+                                <td class="border border-gray-300 px-4 py-2">トークンベース認証（デジタル身分証明書）</td>
+                                <td class="border border-gray-300 px-4 py-2">API認証、SPA（Single Page Application）</td>
+                                <td class="border border-gray-300 px-4 py-2">モバイルアプリ、React/Vue.jsアプリ</td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    <span class="text-green-600">ステートレス、スケーラブル</span><br>
+                                    <span class="text-red-600">トークン管理が複雑</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-semibold">OAuth2.0</td>
+                                <td class="border border-gray-300 px-4 py-2">外部サービス連携（他社の身分証を信頼）</td>
+                                <td class="border border-gray-300 px-4 py-2">ソーシャルログイン、外部API連携</td>
+                                <td class="border border-gray-300 px-4 py-2">「Googleでログイン」「GitHubでログイン」</td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    <span class="text-green-600">UX向上、パスワード管理不要</span><br>
+                                    <span class="text-red-600">外部サービス依存</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">UserDetailsServiceの実装例</h3>
+                <p class="text-gray-700 mb-4">
+                    カスタムユーザー認証ロジックを実装し、データベースからユーザー情報を取得して認証を行います。
+                </p>
+                
+                <pre><code class="language-java">@Service
+public class CustomUserDetailsService implements UserDetailsService {
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // データベースからユーザー情報を取得
+        User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new UsernameNotFoundException("ユーザーが見つかりません: " + username));
+        
+        // Spring SecurityのUserDetailsオブジェクトを作成
+        return User.builder()
+            .username(user.getUsername())
+            .password(user.getPassword())  // BCryptでハッシュ化済みのパスワード
+            .authorities(getAuthorities(user.getRoles()))  // ユーザーの権限を設定
+            .accountNonExpired(true)      // アカウント有効期限
+            .accountNonLocked(true)       // アカウントロック状態
+            .credentialsNonExpired(true)  // パスワード有効期限
+            .enabled(user.isEnabled())    // アカウント有効/無効
+            .build();
+    }
+    
+    // ユーザーロールから権限リストを作成
+    private Collection<? extends GrantedAuthority> getAuthorities(Set<Role> roles) {
+        return roles.stream()
+            .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
+            .collect(Collectors.toList());
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- 3. セキュリティ脅威と対策の実践解説 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-6">
+                <i class="fas fa-bug mr-2"></i>3. セキュリティ脅威と対策の実践解説
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                    <h3 class="text-lg font-semibold text-red-800 mb-3">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>主要なセキュリティ脅威
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-chevron-right text-red-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>CSRF攻撃：</strong>他サイトから勝手にリクエスト送信
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-chevron-right text-red-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>XSS攻撃：</strong>悪意のあるスクリプト注入
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-chevron-right text-red-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>SQLインジェクション：</strong>不正なSQL実行
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-chevron-right text-red-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>セッションハイジャック：</strong>セッションID盗取
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <h3 class="text-lg font-semibold text-green-800 mb-3">
+                        <i class="fas fa-shield-alt mr-2"></i>Spring Securityの対策
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>CSRFトークン：</strong>正当なリクエストかを検証
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>入力値検証：</strong>サニタイゼーション・エスケープ処理
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>PreparedStatement：</strong>SQL文の安全な実行
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>HTTPS通信：</strong>通信内容の暗号化
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">CSRF（Cross-Site Request Forgery）対策の実装</h3>
+                <div class="bg-yellow-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700">
+                        <strong>CSRF攻撃</strong>とは、悪意のあるサイトがユーザーのブラウザを使って、
+                        ユーザーが意図しないリクエストを別のサイト（銀行サイトなど）に送信する攻撃です。
+                        まるで偽の銀行員が本人の印鑑を勝手に使って手続きを行うようなものです。
+                    </p>
+                </div>
+                
+                <pre><code class="language-java">// CSRF対策の設定
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+            // CSRF保護を有効化し、CookieベースのCSRFトークンを使用
+            .csrf(csrf -> csrf
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .ignoringRequestMatchers("/api/public/**")  // 公開APIはCSRF対象外
+            )
+            .build();
+    }
+}
+
+// HTMLフォームでのCSRFトークン使用例
+@Controller
+public class FormController {
+    
+    @GetMapping("/secure-form")
+    public String showForm(Model model, HttpServletRequest request) {
+        // CSRFトークンをビューに渡す
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+        model.addAttribute("_csrf", csrfToken);
+        return "secure-form";
+    }
+    
+    @PostMapping("/secure-form")
+    public String processForm(@RequestParam String data) {
+        // CSRFトークンが自動的に検証される
+        // 正当なリクエストのみがここに到達
+        return "success";
+    }
+}</code></pre>
+                
+                <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+                    <h4 class="font-semibold text-blue-800 mb-2">CSRFトークンの仕組み</h4>
+                    <ol class="list-decimal list-inside text-sm text-gray-700 space-y-1">
+                        <li>フォーム表示時にサーバーがランダムなCSRFトークンを生成</li>
+                        <li>トークンを隠しフィールドとしてフォームに埋め込み</li>
+                        <li>フォーム送信時にトークンも一緒に送信</li>
+                        <li>サーバーがトークンの正当性を検証</li>
+                        <li>正当なトークンの場合のみ処理を実行</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">XSS（Cross-Site Scripting）対策の実装</h3>
+                <div class="bg-red-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700">
+                        <strong>XSS攻撃</strong>とは、Webアプリケーションに悪意のあるスクリプトを注入し、
+                        他のユーザーのブラウザで実行させる攻撃です。まるでウイルス感染したファイルを
+                        他の人に配布するような危険な攻撃手法です。
+                    </p>
+                </div>
+                
+                <pre><code class="language-java">// XSS対策のためのバリデーション・サニタイゼーション
+@RestController
+public class UserController {
+    
+    // 入力値のバリデーション
+    @PostMapping("/users")
+    public ResponseEntity<User> createUser(@Valid @RequestBody UserDto userDto) {
+        // @Valid により自動的にバリデーションが実行される
+        User user = userService.createUser(userDto);
+        return ResponseEntity.ok(user);
+    }
+}
+
+// DTOクラスでのバリデーション設定
+public class UserDto {
+    
+    @NotBlank(message = "ユーザー名は必須です")
+    @Size(min = 3, max = 20, message = "ユーザー名は3-20文字で入力してください")
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "ユーザー名は英数字とアンダースコアのみ使用可能です")
+    private String username;
+    
+    @Email(message = "正しいメールアドレス形式で入力してください")
+    private String email;
+    
+    // HTML要素を無害化するカスタムバリデーション
+    @SafeHtml(whitelistType = SafeHtml.WhiteListType.NONE)
+    private String description;
+}
+
+// サニタイゼーション処理
+@Service
+public class SanitizationService {
+    
+    public String sanitizeHtml(String input) {
+        if (input == null) return null;
+        
+        // HTMLタグを除去・エスケープ
+        return Jsoup.clean(input, Whitelist.none())
+            .replace("<", "&lt;")
+            .replace(">", "&gt;")
+            .replace("\"", "&quot;")
+            .replace("'", "&#x27;")
+            .replace("/", "&#x2F;");
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- 4. JWT・OAuth2.0の実践実装 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-6">
+                <i class="fas fa-key mr-2"></i>4. JWT・OAuth2.0の実践実装
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">JWT（JSON Web Token）の実装</h3>
+                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700">
+                        <strong>JWT（JSON Web Token）</strong>は、デジタル身分証明書のようなものです。
+                        期限付きの入場券のように、一定期間有効で、改ざんを検知できる安全なトークンです。
+                        モバイルアプリやSPA（Single Page Application）での認証によく使用されます。
+                    </p>
+                </div>
+                
+                <pre><code class="language-java">// JWT実装のための依存関係設定
+@Service
+public class JwtTokenService {
+    
+    private final String SECRET_KEY = "mySecretKey";
+    private final long EXPIRATION_TIME = 86400000; // 24時間（ミリ秒）
+    
+    // JWTトークンの生成
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", userDetails.getAuthorities().stream()
+            .map(GrantedAuthority::getAuthority)
+            .collect(Collectors.toList()));
+        
+        return Jwts.builder()
+            .setClaims(claims)                                    // ペイロード（権限情報等）
+            .setSubject(userDetails.getUsername())                // ユーザー名
+            .setIssuedAt(new Date(System.currentTimeMillis()))    // 発行日時
+            .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME)) // 有効期限
+            .signWith(SignatureAlgorithm.HS512, SECRET_KEY)       // 署名アルゴリズムと秘密鍵
+            .compact();
+    }
+    
+    // JWTトークンの検証
+    public Boolean validateToken(String token, UserDetails userDetails) {
+        try {
+            final String username = getUsernameFromToken(token);
+            return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        } catch (Exception e) {
+            return false;  // トークンが無効または改ざんされている
+        }
+    }
+    
+    // トークンからユーザー名を取得
+    public String getUsernameFromToken(String token) {
+        return getClaimFromToken(token, Claims::getSubject);
+    }
+    
+    // トークンの有効期限をチェック
+    private Boolean isTokenExpired(String token) {
+        final Date expiration = getExpirationDateFromToken(token);
+        return expiration.before(new Date());
+    }
+    
+    // トークンから有効期限を取得
+    public Date getExpirationDateFromToken(String token) {
+        return getClaimFromToken(token, Claims::getExpiration);
+    }
+    
+    // トークンから指定された情報を取得
+    public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = getAllClaimsFromToken(token);
+        return claimsResolver.apply(claims);
+    }
+    
+    // トークンから全ての情報を取得
+    private Claims getAllClaimsFromToken(String token) {
+        return Jwts.parser()
+            .setSigningKey(SECRET_KEY)
+            .parseClaimsJws(token)
+            .getBody();
+    }
+}</code></pre>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">JWTフィルターの実装</h3>
+                <pre><code class="language-java">// JWT認証フィルター
+@Component
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+    
+    @Autowired
+    private UserDetailsService userDetailsService;
+    
+    @Autowired
+    private JwtTokenService jwtTokenService;
+    
+    @Override
+    protected void doFilterInternal(HttpServletRequest request, 
+                                  HttpServletResponse response, 
+                                  FilterChain chain) throws ServletException, IOException {
+        
+        final String requestTokenHeader = request.getHeader("Authorization");
+        
+        String username = null;
+        String jwtToken = null;
+        
+        // Bearerトークンの形式チェック
+        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
+            jwtToken = requestTokenHeader.substring(7);  // "Bearer "を除去
+            try {
+                username = jwtTokenService.getUsernameFromToken(jwtToken);
+            } catch (IllegalArgumentException e) {
+                logger.error("JWTトークンの取得に失敗しました");
+            } catch (ExpiredJwtException e) {
+                logger.error("JWTトークンの有効期限が切れています");
+            }
+        }
+        
+        // トークンが有効で、まだ認証されていない場合
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            
+            UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+            
+            // トークンが有効な場合、認証を設定
+            if (jwtTokenService.validateToken(jwtToken, userDetails)) {
+                UsernamePasswordAuthenticationToken authToken = 
+                    new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+            }
+        }
+        chain.doFilter(request, response);
+    }
+}</code></pre>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">OAuth2.0の実装例</h3>
+                <div class="bg-green-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700">
+                        <strong>OAuth2.0</strong>は、他社の身分証を信頼してログインを行う仕組みです。
+                        「Googleでログイン」「GitHubでログイン」などのソーシャルログインがその例です。
+                        ユーザーはパスワードを覚える必要がなく、開発者もパスワード管理の責任を負わずに済みます。
+                    </p>
+                </div>
+                
+                <pre><code class="language-java">// OAuth2.0設定
+@Configuration
+@EnableOAuth2Client
+public class OAuth2Config {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/", "/login**", "/error**").permitAll()
+                .anyRequest().authenticated()
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .loginPage("/login")
+                .defaultSuccessUrl("/dashboard", true)
+                .failureUrl("/login?error=true")
+                .userInfoEndpoint(userInfo -> userInfo
+                    .userService(oAuth2UserService())  // カスタムユーザーサービス
+                )
+            )
+            .build();
+    }
+    
+    @Bean
+    public OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService() {
+        return new CustomOAuth2UserService();
+    }
+}
+
+// カスタムOAuth2ユーザーサービス
+@Service
+public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Override
+    public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+        // デフォルトのOAuth2UserServiceでユーザー情報を取得
+        OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
+        OAuth2User oAuth2User = delegate.loadUser(userRequest);
+        
+        // プロバイダー情報を取得（google, github等）
+        String registrationId = userRequest.getClientRegistration().getRegistrationId();
+        String userNameAttributeName = userRequest.getClientRegistration()
+            .getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
+        
+        // OAuth2ユーザー情報を処理
+        OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(registrationId, oAuth2User.getAttributes());
+        
+        // データベースでユーザーを検索または作成
+        User user = getOrCreateUser(oAuth2UserInfo, registrationId);
+        
+        return new CustomOAuth2User(user, oAuth2User.getAttributes(), userNameAttributeName);
+    }
+    
+    private User getOrCreateUser(OAuth2UserInfo oAuth2UserInfo, String provider) {
+        return userRepository.findByEmailAndProvider(oAuth2UserInfo.getEmail(), provider)
+            .orElseGet(() -> {
+                User newUser = User.builder()
+                    .name(oAuth2UserInfo.getName())
+                    .email(oAuth2UserInfo.getEmail())
+                    .provider(provider)
+                    .providerId(oAuth2UserInfo.getId())
+                    .role(Role.USER)
+                    .build();
+                return userRepository.save(newUser);
+            });
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- 5. パスワード暗号化とセッション管理 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-6">
+                <i class="fas fa-lock mr-2"></i>5. パスワード暗号化とセッション管理
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">BCryptPasswordEncoderの実装</h3>
+                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700">
+                        <strong>BCrypt</strong>は、パスワードを安全にハッシュ化する暗号化アルゴリズムです。
+                        同じパスワードでも毎回異なるハッシュ値を生成する「ソルト」機能により、
+                        レインボーテーブル攻撃を防ぎます。金庫の暗証番号を複雑な暗号に変換するようなものです。
+                    </p>
+                </div>
+                
+                <pre><code class="language-java">// パスワード暗号化の設定
+@Configuration
+public class PasswordConfig {
+    
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        // BCryptを使ってパスワードをハッシュ化
+        // 強度12は現在推奨される安全レベル
+        return new BCryptPasswordEncoder(12);
+    }
+}
+
+// ユーザー登録サービス
+@Service
+public class UserService {
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    // 新規ユーザー登録
+    public User registerUser(UserRegistrationDto registrationDto) {
+        // パスワードの強度チェック
+        if (!isPasswordStrong(registrationDto.getPassword())) {
+            throw new IllegalArgumentException("パスワードが弱すぎます");
+        }
+        
+        // パスワードをハッシュ化（元のパスワードは保存されない）
+        String hashedPassword = passwordEncoder.encode(registrationDto.getPassword());
+        
+        User user = User.builder()
+            .username(registrationDto.getUsername())
+            .email(registrationDto.getEmail())
+            .password(hashedPassword)  // ハッシュ化されたパスワードを保存
+            .role(Role.USER)
+            .enabled(true)
+            .createdAt(LocalDateTime.now())
+            .build();
+        
+        return userRepository.save(user);
+    }
+    
+    // パスワード強度チェック
+    private boolean isPasswordStrong(String password) {
+        if (password == null || password.length() < 8) {
+            return false;
+        }
+        
+        // 英大文字、英小文字、数字、特殊文字を含むかチェック
+        Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$");
+        return pattern.matcher(password).matches();
+    }
+    
+    // パスワード変更
+    public void changePassword(String username, String oldPassword, String newPassword) {
+        User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new UsernameNotFoundException("ユーザーが見つかりません"));
+        
+        // 現在のパスワードが正しいかチェック
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new IllegalArgumentException("現在のパスワードが間違っています");
+        }
+        
+        // 新しいパスワードをハッシュ化して保存
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setPasswordChangedAt(LocalDateTime.now());
+        userRepository.save(user);
+    }
+}</code></pre>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">セッション管理の実装</h3>
+                <pre><code class="language-java">// セッション管理の設定
+@Configuration
+@EnableWebSecurity
+public class SessionConfig {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+            .sessionManagement(session -> session
+                // セッション作成ポリシー
+                .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                
+                // 同時ログイン制限（1ユーザーにつき最大2セッション）
+                .maximumSessions(2)
+                .maxSessionsPreventsLogin(false)  // 新しいログインを許可し、古いセッションを無効化
+                .sessionRegistry(sessionRegistry())
+                
+                // セッション固定化攻撃対策
+                .and()
+                .sessionFixation().changeSessionId()
+                
+                // セッションタイムアウト（30分）
+                .invalidSessionUrl("/login?expired=true")
+            )
+            
+            // Remember-Me機能（ログイン状態を記憶）
+            .rememberMe(remember -> remember
+                .key("uniqueAndSecret")
+                .tokenValiditySeconds(86400)  // 24時間有効
+                .userDetailsService(userDetailsService)
+            )
+            .build();
+    }
+    
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
+    }
+    
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
+    }
+}
+
+// セッション監視サービス
+@Service
+public class SessionService {
+    
+    @Autowired
+    private SessionRegistry sessionRegistry;
+    
+    // アクティブなセッション数を取得
+    public int getActiveSessionCount() {
+        return sessionRegistry.getAllPrincipals().size();
+    }
+    
+    // 特定ユーザーのセッションを全て無効化
+    public void invalidateUserSessions(String username) {
+        List<Object> principals = sessionRegistry.getAllPrincipals();
+        for (Object principal : principals) {
+            if (principal instanceof UserDetails) {
+                UserDetails userDetails = (UserDetails) principal;
+                if (userDetails.getUsername().equals(username)) {
+                    List<SessionInformation> sessions = sessionRegistry.getAllSessions(principal, false);
+                    for (SessionInformation session : sessions) {
+                        session.expireNow();  // セッションを即座に無効化
+                    }
+                }
+            }
+        }
+    }
+    
+    // セッション情報の取得
+    public List<SessionInfo> getActiveSessionsInfo() {
+        List<SessionInfo> sessionsInfo = new ArrayList<>();
+        List<Object> principals = sessionRegistry.getAllPrincipals();
+        
+        for (Object principal : principals) {
+            if (principal instanceof UserDetails) {
+                UserDetails userDetails = (UserDetails) principal;
+                List<SessionInformation> sessions = sessionRegistry.getAllSessions(principal, false);
+                
+                for (SessionInformation session : sessions) {
+                    SessionInfo info = SessionInfo.builder()
+                        .username(userDetails.getUsername())
+                        .sessionId(session.getSessionId())
+                        .lastRequest(session.getLastRequest())
+                        .expired(session.isExpired())
+                        .build();
+                    sessionsInfo.add(info);
+                }
+            }
+        }
+        return sessionsInfo;
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- 6. 演習問題 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-6">
+                <i class="fas fa-pencil-alt mr-2"></i>6. 演習問題
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4">
+                    <h3 class="font-semibold text-blue-800 mb-3">演習1: Spring Securityの基本設定</h3>
+                    <p class="text-gray-700 mb-3">
+                        以下の要件を満たすSpring Securityの設定を作成してください：
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 mb-4">
+                        <li>"/public/**"のパスは誰でもアクセス可能</li>
+                        <li>"/admin/**"のパスは管理者のみアクセス可能</li>
+                        <li>その他のパスは認証が必要</li>
+                        <li>ログインページは"/login"</li>
+                        <li>ログアウト後は"/login?logout=true"にリダイレクト</li>
+                    </ul>
+                    
+                    <button onclick="toggleAnswer('answer1')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                        回答例を表示
+                    </button>
+                    
+                    <div id="answer1" class="hidden mt-4 p-4 bg-gray-100 rounded">
+                        <pre><code class="language-java">@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers("/public/**").permitAll()           // 公開パス
+                .requestMatchers("/admin/**").hasRole("ADMIN")        // 管理者限定
+                .anyRequest().authenticated()                         // その他は認証必須
+            )
+            .formLogin(form -> form
+                .loginPage("/login")                                 // カスタムログインページ
+                .permitAll()                                         // ログインページは誰でもアクセス可能
+            )
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout=true")              // ログアウト後のリダイレクト先
+                .invalidateHttpSession(true)                         // セッション無効化
+                .deleteCookies("JSESSIONID")                         // セッションCookie削除
+            )
+            .build();
+    }
+    
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="bg-green-50 border-l-4 border-green-500 p-4">
+                    <h3 class="font-semibold text-green-800 mb-3">演習2: JWT認証の実装</h3>
+                    <p class="text-gray-700 mb-3">
+                        JWTトークンを生成し、認証に使用するREST APIを作成してください：
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 mb-4">
+                        <li>POST /api/auth/login でトークンを生成</li>
+                        <li>認証が必要なAPIではBearerトークンで認証</li>
+                        <li>トークンの有効期限は24時間</li>
+                        <li>無効なトークンの場合は401エラーを返す</li>
+                    </ul>
+                    
+                    <button onclick="toggleAnswer('answer2')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
+                        回答例を表示
+                    </button>
+                    
+                    <div id="answer2" class="hidden mt-4 p-4 bg-gray-100 rounded">
+                        <pre><code class="language-java">@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+    
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    
+    @Autowired
+    private JwtTokenService jwtTokenService;
+    
+    @Autowired
+    private UserDetailsService userDetailsService;
+    
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        try {
+            // ユーザー認証
+            authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                    loginRequest.getUsername(), 
+                    loginRequest.getPassword()
+                )
+            );
+            
+            // ユーザー詳細を取得
+            UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.getUsername());
+            
+            // JWTトークンを生成
+            String token = jwtTokenService.generateToken(userDetails);
+            
+            return ResponseEntity.ok(new JwtResponse(token, "Bearer", 86400)); // 24時間
+            
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(new ErrorResponse("認証に失敗しました"));
+        }
+    }
+}
+
+// リクエスト・レスポンス用DTO
+public class LoginRequest {
+    private String username;
+    private String password;
+    // getters and setters
+}
+
+public class JwtResponse {
+    private String accessToken;
+    private String tokenType;
+    private int expiresIn;
+    // constructors, getters and setters
+}</code></pre>
+                    </div>
+                </div>
+                
+                <div class="bg-purple-50 border-l-4 border-purple-500 p-4">
+                    <h3 class="font-semibold text-purple-800 mb-3">演習3: CSRF対策の実装</h3>
+                    <p class="text-gray-700 mb-3">
+                        CSRFトークンを使用したフォーム送信の実装を行ってください：
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 mb-4">
+                        <li>フォーム表示時にCSRFトークンを生成</li>
+                        <li>フォーム送信時にCSRFトークンを検証</li>
+                        <li>無効なトークンの場合はエラーページを表示</li>
+                        <li>AjaxリクエストでもCSRF対策を実装</li>
+                    </ul>
+                    
+                    <button onclick="toggleAnswer('answer3')" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                        回答例を表示
+                    </button>
+                    
+                    <div id="answer3" class="hidden mt-4 p-4 bg-gray-100 rounded">
+                        <pre><code class="language-java">// Controller側の実装
+@Controller
+public class FormController {
+    
+    @GetMapping("/secure-form")
+    public String showForm(Model model, HttpServletRequest request) {
+        // CSRFトークンをモデルに追加
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+        model.addAttribute("_csrf", csrfToken);
+        return "secure-form";
+    }
+    
+    @PostMapping("/secure-form")
+    public String processForm(@RequestParam String data, HttpServletRequest request) {
+        // CSRFトークンは自動的に検証される
+        // ここに到達した時点で検証済み
+        return "success";
+    }
+}
+
+// HTML側の実装（Thymeleaf）
+/*
+<form method="post" th:action="@{/secure-form}">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <input type="text" name="data" required/>
+    <button type="submit">送信</button>
+</form>
+
+<!-- Ajax用のCSRF設定 -->
+<script>
+$(document).ready(function() {
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    
+    $.ajaxSetup({
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(header, token);
+        }
+    });
+});
+</script>
+*/</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. 理解度クイズ -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-6">
+                <i class="fas fa-question-circle mr-2"></i>7. 理解度クイズ
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <h3 class="font-semibold text-yellow-800 mb-3">問題1: 認証と認可の違い</h3>
+                    <p class="text-gray-700 mb-4">
+                        認証（Authentication）と認可（Authorization）の違いについて、最も適切な説明はどれですか？
+                    </p>
+                    <div class="space-y-2">
+                        <label class="flex items-start">
+                            <input type="radio" name="q1" value="a" class="mt-1 mr-2">
+                            <span class="text-sm">A. 認証は「何ができるか」、認可は「誰であるか」を確認する</span>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="q1" value="b" class="mt-1 mr-2">
+                            <span class="text-sm">B. 認証は「誰であるか」、認可は「何ができるか」を確認する</span>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="q1" value="c" class="mt-1 mr-2">
+                            <span class="text-sm">C. 認証と認可は同じ意味で使われる</span>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="q1" value="d" class="mt-1 mr-2">
+                            <span class="text-sm">D. 認証はデータベース、認可はファイルで管理する</span>
+                        </label>
+                    </div>
+                    
+                    <button onclick="showAnswer('quiz1')" class="mt-4 bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition-colors">
+                        回答を表示
+                    </button>
+                    
+                    <div id="quiz1" class="hidden mt-4 p-4 bg-green-100 rounded">
+                        <p class="font-semibold text-green-800">正解: B</p>
+                        <p class="text-green-700 mt-2">
+                            <strong>認証（Authentication）</strong>は「誰であるか」を確認する処理で、身分証確認のようなものです。
+                            <strong>認可（Authorization）</strong>は「何ができるか」を制御する処理で、入場許可証のようなものです。
+                            例：銀行では、まず身分証で本人確認（認証）を行い、その後口座へのアクセス権限（認可）を確認します。
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <h3 class="font-semibold text-blue-800 mb-3">問題2: CSRF攻撃の対策</h3>
+                    <p class="text-gray-700 mb-4">
+                        CSRF（Cross-Site Request Forgery）攻撃を防ぐための最も効果的な対策はどれですか？
+                    </p>
+                    <div class="space-y-2">
+                        <label class="flex items-start">
+                            <input type="radio" name="q2" value="a" class="mt-1 mr-2">
+                            <span class="text-sm">A. パスワードを複雑にする</span>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="q2" value="b" class="mt-1 mr-2">
+                            <span class="text-sm">B. CSRFトークンをフォームに埋め込む</span>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="q2" value="c" class="mt-1 mr-2">
+                            <span class="text-sm">C. SQLインジェクション対策を行う</span>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="q2" value="d" class="mt-1 mr-2">
+                            <span class="text-sm">D. セッションタイムアウトを短くする</span>
+                        </label>
+                    </div>
+                    
+                    <button onclick="showAnswer('quiz2')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                        回答を表示
+                    </button>
+                    
+                    <div id="quiz2" class="hidden mt-4 p-4 bg-green-100 rounded">
+                        <p class="font-semibold text-green-800">正解: B</p>
+                        <p class="text-green-700 mt-2">
+                            CSRF攻撃は悪意のあるサイトから勝手にリクエストを送信する攻撃です。
+                            <strong>CSRFトークン</strong>をフォームに埋め込むことで、正当なリクエストかどうかを検証できます。
+                            トークンは予測不可能でランダムな値で、攻撃者は知ることができないため効果的な対策となります。
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                    <h3 class="font-semibold text-red-800 mb-3">問題3: JWTトークンの特徴</h3>
+                    <p class="text-gray-700 mb-4">
+                        JWT（JSON Web Token）の特徴として正しくないものはどれですか？
+                    </p>
+                    <div class="space-y-2">
+                        <label class="flex items-start">
+                            <input type="radio" name="q3" value="a" class="mt-1 mr-2">
+                            <span class="text-sm">A. ステートレスな認証が可能</span>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="q3" value="b" class="mt-1 mr-2">
+                            <span class="text-sm">B. 改ざんを検知できる</span>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="q3" value="c" class="mt-1 mr-2">
+                            <span class="text-sm">C. サーバー側でセッション管理が必要</span>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="q3" value="d" class="mt-1 mr-2">
+                            <span class="text-sm">D. 有効期限を設定できる</span>
+                        </label>
+                    </div>
+                    
+                    <button onclick="showAnswer('quiz3')" class="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors">
+                        回答を表示
+                    </button>
+                    
+                    <div id="quiz3" class="hidden mt-4 p-4 bg-green-100 rounded">
+                        <p class="font-semibold text-green-800">正解: C</p>
+                        <p class="text-green-700 mt-2">
+                            JWTの最大の特徴は<strong>ステートレス</strong>であることです。
+                            サーバー側でセッション管理を行う必要がなく、トークン自体に必要な情報が含まれています。
+                            これにより、スケーラビリティが向上し、分散システムでの認証が容易になります。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. まとめ -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-6">
+                <i class="fas fa-check-circle mr-2"></i>8. まとめ
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-green-800 mb-4">🔒 習得したセキュリティ技術</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-shield-alt text-green-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>Spring Security統合実装：</strong>フォーム認証・JWT認証・OAuth2.0を実装し、不正アクセスを完全遮断
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-lock text-green-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>パスワード暗号化：</strong>BCryptでパスワードを安全にハッシュ化し、データ漏洩時も安全性を確保
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-user-shield text-green-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>認証・認可の分離：</strong>「誰であるか」と「何ができるか」を適切に制御し、権限管理を体系化
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-key text-green-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>JWT活用：</strong>ステートレス認証でAPIアクセスを効率化し、モバイルアプリ対応を実現
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold text-red-800 mb-4">🛡️ 実装したセキュリティ対策</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-ban text-red-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>CSRF対策：</strong>CSRFトークンで他サイトからの不正リクエストを完全防御
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-code text-red-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>XSS対策：</strong>入力値検証・エスケープ処理で悪意あるスクリプト注入を阻止
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-database text-red-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>SQLインジェクション対策：</strong>PreparedStatementで不正なSQL実行を根本的に防止
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-clock text-red-600 mr-2 mt-1"></i>
+                            <div>
+                                <strong>セッション管理：</strong>タイムアウト・同時ログイン制限で不正利用を検知・防止
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-8 p-6 bg-blue-50 rounded-lg">
+                <h3 class="text-xl font-semibold text-blue-800 mb-4">🚀 実務での活用効果</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="text-center">
+                        <i class="fas fa-chart-line text-3xl text-blue-600 mb-2"></i>
+                        <h4 class="font-semibold">セキュリティレベル向上</h4>
+                        <p class="text-sm text-gray-600">企業レベルのセキュリティ要件を満たす堅牢なアプリケーション開発</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-users text-3xl text-green-600 mb-2"></i>
+                        <h4 class="font-semibold">ユーザー体験改善</h4>
+                        <p class="text-sm text-gray-600">OAuth2.0ソーシャルログインでUX向上とセキュリティを両立</p>
+                    </div>
+                    <div class="text-center">
+                        <i class="fas fa-cogs text-3xl text-purple-600 mb-2"></i>
+                        <h4 class="font-semibold">開発効率向上</h4>
+                        <p class="text-sm text-gray-600">Spring Securityの自動設定で開発工数を大幅削減</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-500">
+                <p class="text-yellow-800">
+                    <i class="fas fa-lightbulb mr-2"></i>
+                    <strong>次回（Day50）は：</strong>マイクロサービス・Spring Cloud・分散システムについて学習し、
+                    大規模アプリケーションのアーキテクチャ設計技術を習得します。
+                </p>
+            </div>
+        </section>
+
+        <!-- フッター -->
+        <footer class="text-center text-gray-500 mt-8">
+            <p>© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </footer>
+    </div>
+    </main>
+
+    <script>
+        // 回答例表示切り替え
+        function toggleAnswer(answerId) {
+            const element = document.getElementById(answerId);
+            element.classList.toggle('hidden');
+        }
+
+        // クイズ回答表示
+        function showAnswer(quizId) {
+            const element = document.getElementById(quizId);
+            element.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDo%2BYSZs%2BVCgWHLfMi1tHmUcz%2Brpcf0%2Fr9Eq0CRQm30NTBqVR7czF%2BSSxIeEdVaGmNbekn2d4QGxsWNmdrwdm7F1f%2Fh9PsmEumoFjZHLt7V%2BMCvR5yaoxYfIzWYoQWfoiSL0%2BXWLWUG4rfullmVLQGwTZhopjVH4Kdlm%2BRBV8eOImbihNPoy6I%2FTK7fzlXKCmcX2GNTLukUzN7gqL3%2BL9mhtUQwiNIcHmshjSxlv3ROS%2BTiN0jFhIJ0fKpA3qeNEy1Wc3NTwujQqp9yNVhSha4Id1Nxan6lLeWeU2eM8Ba7NADETDFtqyuM7DFgNRrXq2t%2BmjK%2Ffs7L%2B4%2FC4zdN3935irJdVAIS1gUx0T7WiQoKj2AWRSbYXDQ2jelNrzE9L9RpSqz5me2Iv97IsIJf%2FA5ms2vVafiZsFVht0dgXG3WKqsTvW3%2FfCN15w0nAfS%2FYpp6nOoJPTDJgDY2LxCk6FsRr9AcMN4JDf9UkzAnp8bElu7ocH58ZPZt%2BOUjM1Wm%2FxOg%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDo+YSZs+VCgWHLfMi1tHmUcz+rpcf0/r9Eq0CRQm30NTBqVR7czF+SSxIeEdVaGmNbekn2d4QGxsWNmdrwdm7F1f/h9PsmEumoFjZHLt7V+MCvR5yaoxYfIzWYoQWfoiSL0+XWLWUG4rfullmVLQGwTZhopjVH4Kdlm+RBV8eOImbihNPoy6I/TK7fzlXKCmcX2GNTLukUzN7gqL3+L9mhtUQwiNIcHmshjSxlv3ROS+TiN0jFhIJ0fKpA3qeNEy1Wc3NTwujQqp9yNVhSha4Id1Nxan6lLeWeU2eM8Ba7NADETDFtqyuM7DFgNRrXq2t+mjK/fs7L+4/C4zdN3935irJdVAIS1gUx0T7WiQoKj2AWRSbYXDQ2jelNrzE9L9RpSqz5me2Iv97IsIJf/A5ms2vVafiZsFVht0dgXG3WKqsTvW3/fCN15w0nAfS/Ypp6nOoJPTDJgDY2LxCk6FsRr9AcMN4JDf9UkzAnp8bElu7ocH58ZPZt+OUjM1Wm/xOg==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

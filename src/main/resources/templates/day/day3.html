@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 3: 制御構文・配列 | ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0056b3;
+            --secondary: #6c757d;
+            --accent: #17a2b8;
+            --light: #f8f9fa;
+            --dark: #343a40;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .navbar-brand img {
+            max-height: 40px;
+        }
+        
+        .hero-section {
+            background-color: var(--light);
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .hero-section h1 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .hero-section p {
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+        
+        .section-title {
+            border-left: 5px solid var(--primary);
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .goal-card {
+            border-left: 4px solid var(--accent);
+            background-color: rgba(23, 162, 184, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 0.25rem;
+        }
+        
+        .schedule-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .schedule-time {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .schedule-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .code-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            border-radius: 0.25rem;
+            overflow-x: auto;
+        }
+        
+        .topic-section {
+            margin-bottom: 3rem;
+        }
+        
+        .subtopic {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .resource-card {
+            border: 1px solid #eee;
+            padding: 1.5rem;
+            border-radius: 0.25rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        
+        .resource-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .checklist-item {
+            margin-bottom: 0.75rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+        
+        .checklist-item::before {
+            content: "\f058";
+            font-family: "Font Awesome 5 Free";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 900;
+        }
+        
+        .next-step-card {
+            background-color: var(--light);
+            border-left: 4px solid var(--primary);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0.25rem;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        footer .logo {
+            max-width: 150px;
+            margin-bottom: 1rem;
+        }
+        
+        footer h5 {
+            color: white;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 0.5rem;
+        }
+        
+        footer ul {
+            padding-left: 0;
+            list-style: none;
+        }
+        
+        footer ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        footer a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            color: white;
+        }
+        
+        .breadcrumb {
+            margin-bottom: 0;
+            background-color: transparent;
+            padding: 0.75rem 0;
+        }
+        
+         {
+            .navbar, .breadcrumb-section, footer {
+                display: none;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            body {
+                font-size: 12pt;
+            }
+            
+            h1 {
+                font-size: 18pt;
+            }
+            
+            h2 {
+                font-size: 16pt;
+            }
+            
+            h3 {
+                font-size: 14pt;
+            }
+        }
+        
+        /* モバイルでの最適化 */
+        @media (max-width: 576px) {
+            .hero-section {
+                padding: 2rem 0;
+            }
+            
+            .hero-section h1 {
+                font-size: 1.75rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .code-block {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script defer src="../../js/day-navigation.js"></script>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="../../index.html">
+                <img src="../../images/logo/apsa_logo.png" alt="APSA Logo" class="me-2">
+                <span>ITエンジニア育成カリキュラム</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink1">
+                            <li><a class="dropdown-item" href="../month/month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="../month/month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                            <li><a class="dropdown-item" href="../week/week1.html">第1週: Java基礎</a></li>
+                            <li><a class="dropdown-item" href="../week/week2.html">第2週: オブジェクト指向</a></li>
+                            <li><a class="dropdown-item" href="../week/week3.html">第3週: Java応用</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink3" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            日別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink3">
+                            <li><a class="dropdown-item" href="day1.html">Day 1: オリエンテーション</a></li>
+                            <li><a class="dropdown-item" href="day2.html">Day 2: Java基本型・変数</a></li>
+                            <li><a class="dropdown-item active" href="day3.html">Day 3: 制御構文・配列</a></li>
+                            <li><a class="dropdown-item" href="day4.html">Day 4: 配列応用</a></li>
+                            <li><a class="dropdown-item" href="day5.html">Day 5: 模擬テスト</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/resources.html">学習リソース</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- パンくずリスト -->
+    <section class="breadcrumb-section bg-light py-2">
+        <div class="container">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../../index.html">ホーム</a></li>
+                    <li class="breadcrumb-item"><a href="../month/month1.html">第1ヶ月目</a></li>
+                    <li class="breadcrumb-item"><a href="../week/week1.html">第1週</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Day 3</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- ヒーローセクション -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>Day 3: 制御構文・配列</h1>
+            <p class="lead">Javaの条件分岐、繰り返し処理、配列の基本を習得する</p>
+        </div>
+    </section>
+    <div class="container mb-3 text-end">
+        <a href="../lecture/day3_lecture.html" target="_blank" class="btn btn-warning">
+            講義スライドを開く
+        </a>
+    </div>
+
+    <!-- メインコンテンツ -->
+    <main class="container">
+        <!-- 学習目標 -->
+        <section class="mb-5">
+            <h2 class="section-title">学習目標</h2>
+            <div class="goal-card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li>条件分岐（if-else文、switch文）を理解し、適切に使用できる</li>
+                            <li>繰り返し処理（for文、while文、do-while文）を理解し、適切に使用できる</li>
+                            <li>配列の宣言、初期化、アクセス方法を理解する</li>
+                            <li>配列を使用した基本的なプログラムを作成できる</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="mb-3">達成基準</h4>
+                        <ul>
+                            <li>条件に応じて異なる処理を行うプログラムを作成できる</li>
+                            <li>繰り返し処理を使って効率的なコードを書ける</li>
+                            <li>配列を宣言、初期化し、要素にアクセスできる</li>
+                            <li>演習問題の80%以上を正解する</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 詳細スケジュール -->
+        <section class="mb-5">
+            <h2 class="section-title">詳細スケジュール</h2>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <!-- 時間割 -->
+                    <div class="schedule-item">
+                        <div class="schedule-time">10:00-10:15</div>
+                        <div class="schedule-title">オリエンテーション・前日復習</div>
+                        <p>前日学習したJavaの基本型、変数、演算子の復習と本日の学習内容の概要説明を行います。</p>
+                    </div>
+                    
+                    <div class="schedule-item">
+                        <div class="schedule-time">10:15-11:00</div>
+                        <div class="schedule-title">午前講義パート1: 条件分岐 (if-else, switch)</div>
+                        <p>Javaの条件分岐構文について学びます。if文、if-else文、else-if文、switch文の使い方と適切な使用場面について解説します。</p>
+                        <div class="code-block">
+                            <pre>// if-else文の例
+if (score >= 80) {
+    System.out.println("優");
+} else if (score >= 70) {
+    System.out.println("良");
+} else if (score >= 60) {
+    System.out.println("可");
+} else {
+    System.out.println("不可");
+}
+
+// switch文の例
+switch (day) {
+    case 1:
+        System.out.println("月曜日");
+        break;
+    case 2:
+        System.out.println("火曜日");
+        break;
+    // ... 他の曜日 ...
+    default:
+        System.out.println("無効な日付");
+}</pre>
+                        </div>
+                    </div>
+
+                    <div class="schedule-item">
+                        <div class="schedule-time">11:00-11:45</div>
+                        <div class="schedule-title">午前演習パート1: 条件分岐演習</div>
+                        <p>条件分岐を使用した演習問題を解きます。様々なシナリオで条件分岐を適切に使用する方法を実践します。</p>
+                        <ul>
+                            <li>成績判定プログラムの作成</li>
+                            <li>曜日に応じた予定表示プログラムの作成</li>
+                            <li>季節判定プログラムの作成</li>
+                        </ul>
+                    </div>
+
+                    <div class="schedule-item">
+                        <div class="schedule-time">11:45-12:45</div>
+                        <div class="schedule-title">昼休憩</div>
+                        <p>休憩時間です。昼食をとり、リフレッシュしましょう。</p>
+                    </div>
+
+                    <div class="schedule-item">
+                        <div class="schedule-time">12:45-13:30</div>
+                        <div class="schedule-title">午後講義パート1: 繰り返し処理 (for, while, do-while)</div>
+                        <p>Javaの繰り返し処理構文について学びます。for文、while文、do-while文の違いと使い方、break文とcontinue文の役割について解説します。</p>
+                        <div class="code-block">
+                            <pre>// for文の例
+for (int i = 0; i < 5; i++) {
+    System.out.println("カウント: " + i);
+}
+
+// while文の例
+int i = 0;
+while (i < 5) {
+    System.out.println("カウント: " + i);
+    i++;
+}
+
+// do-while文の例
+int j = 0;
+do {
+    System.out.println("最低1回は実行: " + j);
+    j++;
+} while (j < 5);</pre>
+                        </div>
+                    </div>
+
+                    <div class="schedule-item">
+                        <div class="schedule-time">13:30-14:15</div>
+                        <div class="schedule-title">午後演習パート1: 繰り返し処理演習</div>
+                        <p>繰り返し処理を使用した演習問題を解きます。様々なループパターンを実装し、効率的なコードの書き方を学びます。</p>
+                        <ul>
+                            <li>1から100までの合計を計算するプログラム</li>
+                            <li>フィボナッチ数列を表示するプログラム</li>
+                            <li>九九表を表示するプログラム</li>
+                        </ul>
+                    </div>
+
+                    <div class="schedule-item">
+                        <div class="schedule-time">14:15-15:00</div>
+                        <div class="schedule-title">午後講義パート2: 配列の基礎</div>
+                        <p>Javaの配列について学びます。配列の宣言、初期化、要素へのアクセス方法、配列の長さの取得方法を解説します。</p>
+                        <div class="code-block">
+                            <pre>// 配列の宣言と初期化
+int[] numbers = new int[5];  // 5要素の整数配列
+numbers[0] = 10;
+numbers[1] = 20;
+numbers[2] = 30;
+numbers[3] = 40;
+numbers[4] = 50;
+
+// 別の初期化方法
+int[] scores = {85, 90, 78, 92, 88};
+
+// 配列の長さ
+int length = scores.length;  // 5
+
+// 配列の要素へのアクセス
+System.out.println("3番目の得点: " + scores[2]);  // 78</pre>
+                        </div>
+                    </div>
+
+                    <div class="schedule-item">
+                        <div class="schedule-time">15:00-15:10</div>
+                        <div class="schedule-title">午後休憩</div>
+                        <p>短い休憩時間です。リフレッシュしましょう。</p>
+                    </div>
+
+                    <div class="schedule-item">
+                        <div class="schedule-time">15:10-15:55</div>
+                        <div class="schedule-title">午後演習パート2: 配列演習</div>
+                        <p>配列を使用した演習問題を解きます。配列の基本操作を実践し、配列を活用したプログラミングスキルを養います。</p>
+                        <ul>
+                            <li>配列の最大値・最小値を求めるプログラム</li>
+                            <li>配列の平均値を計算するプログラム</li>
+                            <li>配列の要素を逆順に表示するプログラム</li>
+                        </ul>
+                    </div>
+
+                    <div class="schedule-item">
+                        <div class="schedule-time">15:55-17:00</div>
+                        <div class="schedule-title">理解度チェック</div>
+                        <p>本日学習した内容の理解度を確認するテストを実施します。条件分岐、繰り返し処理、配列に関する問題を解き、理解度を確認します。</p>
+                    </div>
+
+                    <div class="schedule-item">
+                        <div class="schedule-time">17:00-17:45</div>
+                        <div class="schedule-title">振り返り・質疑応答</div>
+                        <p>本日の学習内容を総復習し、分からなかった点や疑問点について質疑応答を行います。また、明日の学習内容についての予告を行います。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- テーマ詳細 -->
+        <section class="topic-section">
+            <h2 class="section-title">テーマ詳細</h2>
+            
+            <!-- 条件分岐 -->
+            <div class="subtopic mb-4">
+                <h3>条件分岐構文</h3>
+                <p>条件分岐はプログラムの流れを制御する基本的な構文です。条件に応じて異なる処理を行いたい場合に使用します。</p>
+                
+                <h4>if-else文</h4>
+                <p>条件が真の場合と偽の場合で処理を分けます。複数の条件を連鎖させる場合はelse-if文を使用します。</p>
+                <div class="code-block">
+                    <pre>if (条件1) {
+    // 条件1が真の場合の処理
+} else if (条件2) {
+    // 条件1が偽で条件2が真の場合の処理
+} else {
+    // すべての条件が偽の場合の処理
+}</pre>
+                </div>
+                
+                <h4>switch文</h4>
+                <p>ある変数の値に応じて処理を分ける場合に使用します。複数の同じ値に対して同じ処理を行う場合に便利です。</p>
+                <div class="code-block">
+                    <pre>switch (変数) {
+    case 値1:
+        // 変数が値1の場合の処理
+        break;
+    case 値2:
+    case 値3:
+        // 変数が値2または値3の場合の処理
+        break;
+    default:
+        // どの値にも一致しない場合の処理
+}</pre>
+                </div>
+                <p>※ switchでは整数型、文字型、文字列型（Java 7以降）のみ使用可能です。</p>
+            </div>
+            
+            <!-- 繰り返し処理 -->
+            <div class="subtopic mb-4">
+                <h3>繰り返し処理構文</h3>
+                <p>繰り返し処理は同じ処理を複数回実行する場合に使用します。Javaでは3種類の繰り返し構文があります。</p>
+                
+                <h4>for文</h4>
+                <p>繰り返し回数が決まっている場合に使用します。初期化、条件、更新の3つの部分で構成されます。</p>
+                <div class="code-block">
+                    <pre>for (初期化; 条件; 更新) {
+    // 繰り返し実行される処理
+}</pre>
+                </div>
+                
+                <h4>while文</h4>
+                <p>条件が真の間、処理を繰り返し実行します。条件が最初から偽の場合は一度も実行されません。</p>
+                <div class="code-block">
+                    <pre>while (条件) {
+    // 繰り返し実行される処理
+}</pre>
+                </div>
+                
+                <h4>do-while文</h4>
+                <p>処理を実行してから条件を評価します。最低1回は処理が実行されることが保証されます。</p>
+                <div class="code-block">
+                    <pre>do {
+    // 繰り返し実行される処理
+} while (条件);</pre>
+                </div>
+                
+                <h4>break文とcontinue文</h4>
+                <p><strong>break文</strong>: ループを即座に終了します。<br>
+                <strong>continue文</strong>: 現在の繰り返しをスキップし、次の繰り返しに進みます。</p>
+            </div>
+            
+            <!-- 配列 -->
+            <div class="subtopic">
+                <h3>配列</h3>
+                <p>配列は同じ型の複数の値をまとめて管理するためのデータ構造です。インデックスを使用して各要素にアクセスします。</p>
+                
+                <h4>配列の宣言と初期化</h4>
+                <div class="code-block">
+                    <pre>// 方法1: サイズを指定して宣言後、個別に要素を初期化
+int[] array1 = new int[5];
+array1[0] = 10;
+array1[1] = 20;
+// ...
+
+// 方法2: 宣言と同時に初期化
+int[] array2 = {10, 20, 30, 40, 50};
+
+// 方法3: 宣言と初期化を別々に
+int[] array3;
+array3 = new int[]{10, 20, 30, 40, 50};</pre>
+                </div>
+                
+                <h4>配列の操作</h4>
+                <p><strong>要素へのアクセス</strong>: インデックス（0から始まる）を使用してアクセスします。<br>
+                <strong>配列の長さ</strong>: length属性で取得します。<br>
+                <strong>配列の走査</strong>: for文やfor-each文（拡張for文）を使用します。</p>
+                
+                <div class="code-block">
+                    <pre>// for文による配列の走査
+for (int i = 0; i < array.length; i++) {
+    System.out.println(array[i]);
+}
+
+// 拡張for文による配列の走査
+for (int value : array) {
+    System.out.println(value);
+}</pre>
+                </div>
+                
+                <div class="alert alert-warning">
+                    <strong>注意点:</strong> インデックスは0から始まります。配列の範囲外にアクセスすると「ArrayIndexOutOfBoundsException」が発生します。
+                </div>
+            </div>
+        </section>
+
+        <!-- 使用教材・リソース -->
+        <section class="mb-5">
+            <h2 class="section-title">使用教材・リソース</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4>公式ドキュメント</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/flow.html" target="_blank">Java Tutorial: Control Flow Statements</a></li>
+                            <li><a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/arrays.html" target="_blank">Java Tutorial: Arrays</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h4>練習問題</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="https://www.w3resource.com/java-exercises/basic/index.php" target="_blank">W3Resource: Java基礎演習問題</a></li>
+                            <li><a href="https://www.hackerrank.com/domains/java" target="_blank">HackerRank: Java練習問題</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h4>ビデオチュートリアル</h4>
+                        <ul class="list-unstyled">
+                            <li><a href="https://www.youtube.com/watch?v=ldYLYRNaucM" target="_blank">Java 条件分岐・繰り返し構文入門</a></li>
+                            <li><a href="https://www.youtube.com/watch?v=L3-q2GxAqZA" target="_blank">Java 配列基礎講座</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 理解度確認項目 -->
+        <section class="mb-5">
+            <h2 class="section-title">理解度確認項目</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>基本レベル</h3>
+                    <div class="checklist-item">if-else文を使って条件分岐を実装できる</div>
+                    <div class="checklist-item">switch文を適切に使用できる</div>
+                    <div class="checklist-item">for文を使って繰り返し処理を実装できる</div>
+                    <div class="checklist-item">while文とdo-while文の違いを説明できる</div>
+                    <div class="checklist-item">配列を宣言、初期化し、要素にアクセスできる</div>
+                </div>
+                <div class="col-md-6">
+                    <h3>応用レベル</h3>
+                    <div class="checklist-item">複雑な条件分岐を効率的に実装できる</div>
+                    <div class="checklist-item">breakとcontinueを適切に使用できる</div>
+                    <div class="checklist-item">配列を使って基本的なアルゴリズムを実装できる</div>
+                    <div class="checklist-item">ネストした繰り返し処理を理解し使用できる</div>
+                    <div class="checklist-item">拡張for文を使って配列を効率的に走査できる</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 進捗状況 -->
+        <section class="progress-container">
+            <h2 class="section-title">進捗状況</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>第1週の進捗</h3>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">3/5 日目 (60%)</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3>本日の学習項目</h3>
+                    <div class="progress mb-2">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="daily-progress">0%</div>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input progress-check" type="checkbox" id="check1" data-value="20">
+                        <label class="form-check-label" for="check1">条件分岐を理解し実装できる</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input progress-check" type="checkbox" id="check2" data-value="20">
+                        <label class="form-check-label" for="check2">繰り返し処理を理解し実装できる</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input progress-check" type="checkbox" id="check3" data-value="20">
+                        <label class="form-check-label" for="check3">配列の基本操作を理解し実装できる</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input progress-check" type="checkbox" id="check4" data-value="20">
+                        <label class="form-check-label" for="check4">演習問題を解いて実践できる</label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input progress-check" type="checkbox" id="check5" data-value="20">
+                        <label class="form-check-label" for="check5">理解度チェックで80%以上正解できる</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 次のステップ -->
+        <section class="mb-5">
+            <h2 class="section-title">次のステップ</h2>
+            <div class="next-step-card">
+                <h3>Day 4: 配列応用・アルゴリズム基礎</h3>
+                <p>次回は配列をさらに掘り下げて学習します。多次元配列の概念、配列を用いた基本的なソートアルゴリズム（バブルソート、選択ソート）、探索アルゴリズム（線形探索、二分探索）などを学びます。また、配列を使用した実践的なプログラミング演習も行います。</p>
+                <p>予習ポイント:</p>
+                <ul>
+                    <li>多次元配列の概念について調べておく</li>
+                    <li>ソートアルゴリズムの基本的な考え方を理解しておく</li>
+                    <li>本日学んだ配列の基本操作を復習しておく</li>
+                </ul>
+                <a href="day4.html" class="btn btn-primary">次の日へ進む</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="../../images/logo/apsa_logo.png" alt="APSA Logo" class="logo img-fluid">
+                    <p class="mt-3">ITエンジニア育成カリキュラムは、IT業界未経験者を3ヶ月間で基本的なITエンジニアスキルを習得させ、実際の開発現場で活躍できる人材を育成するプログラムです。</p>
+                </div>
+                <div class="col-md-2">
+                    <h5>コース</h5>
+                    <ul>
+                        <li><a href="../month/month1.html">Java Silver</a></li>
+                        <li><a href="../month/month2.html">基本情報</a></li>
+                        <li><a href="../month/month3.html">Web開発</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>リソース</h5>
+                    <ul>
+                        <li><a href="../../resources/resources.html">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html">よくある質問</a></li>
+                        <li><a href="../../resources/advanced.html">応用コース</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>学習進捗</h5>
+                    <ul>
+                        <li><a href="../week/week1.html">第1週: Java基礎</a></li>
+                        <li><a href="day1.html">Day 1: オリエンテーション</a></li>
+                        <li><a href="day2.html">Day 2: Java基本型・変数</a></li>
+                        <li><a href="day3.html">Day 3: 制御構文・配列</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4">
+            <div class="text-center">
+                <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script>
+        // 進捗チェックボックスの機能
+        $(document).ready(function() {
+            $('.progress-check').change(function() {
+                updateProgress();
+            });
+            
+            function updateProgress() {
+                let total = 0;
+                $('.progress-check:checked').each(function() {
+                    total += parseInt($(this).data('value'));
+                });
+                
+                $('#daily-progress').css('width', total + '%');
+                $('#daily-progress').text(total + '%');
+                
+                // ローカルストレージに保存
+                localStorage.setItem('day3-progress', total);
+            }
+            
+            // ページロード時に保存済みの進捗を反映
+            let savedProgress = localStorage.getItem('day3-progress');
+            if (savedProgress) {
+                let checked = parseInt(savedProgress) / 20;
+                for (let i = 0; i < checked; i++) {
+                    $('#check' + (i+1)).prop('checked', true);
+                }
+                updateProgress();
+            }
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDlz4ZdsoJs22qzV74XUe04kayMsdFPFlBq2YA%2F7cydPgGxWmcvbhKsrs04zOh3sluChfGX0GkTCWRqmb%2F3a9%2F6nmYOqgyr%2FTtS3NkI4Bj7Ufntw5yEhHRni1xKSDkQY%2BnkZxGlqOGSmIEYWRw7zLYEGicL%2BLtR7OQpVPWqYALCeQ%2FGqPTGMu2nIduDs0RTkt5iyofOjBXUtcdFH1o4MyRCkqQtP3KFzqFu2dN%2F5cxIVjqbk9567gWsQ0uj%2BpgPnOs%2FXQBYUi%2BgaUT4eeIHJKGD3v3towypikl11UTKynr%2FtQGNdIXpDQaePPbaIGliRJTiJuAW6aOP4z6949cpAhIenb3p2zSjXFs%2FpO4a9k03YT5uAtYExtY1g%2BInRSv8qxqueG3MieNnC116UsSRlsyiuAdo7NEnBz%2BUR4Ui3ht3klaQ0%2FAv%2BbBu62rd5ksmg2QSFK14eHm0PtqyShPQMPZvVpGg2ykiMndpgclRYMX0un";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDlz4ZdsoJs22qzV74XUe04kayMsdFPFlBq2YA/7cydPgGxWmcvbhKsrs04zOh3sluChfGX0GkTCWRqmb/3a9/6nmYOqgyr/TtS3NkI4Bj7Ufntw5yEhHRni1xKSDkQY+nkZxGlqOGSmIEYWRw7zLYEGicL+LtR7OQpVPWqYALCeQ/GqPTGMu2nIduDs0RTkt5iyofOjBXUtcdFH1o4MyRCkqQtP3KFzqFu2dN/5cxIVjqbk9567gWsQ0uj+pgPnOs/XQBYUi+gaUT4eeIHJKGD3v3towypikl11UTKynr/tQGNdIXpDQaePPbaIGliRJTiJuAW6aOP4z6949cpAhIenb3p2zSjXFs/pO4a9k03YT5uAtYExtY1g+InRSv8qxqueG3MieNnC116UsSRlsyiuAdo7NEnBz+UR4Ui3ht3klaQ0/Av+bBu62rd5ksmg2QSFK14eHm0PtqyShPQMPZvVpGg2ykiMndpgclRYMX0un";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

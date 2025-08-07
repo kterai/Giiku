@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 30: 探索・ソートアルゴリズム（線形探索・二分探索・各種ソート、計算量）| ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/lib/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+        }
+        
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0.75rem 0;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .section-title {
+            border-left: 4px solid #dc3545;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .algorithm-complexity {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .complexity-o1 { color: #4caf50; font-weight: bold; }
+        .complexity-ologn { color: #8bc34a; font-weight: bold; }
+        .complexity-on { color: #ff9800; font-weight: bold; }
+        .complexity-onlogn { color: #ff5722; font-weight: bold; }
+        .complexity-on2 { color: #f44336; font-weight: bold; }
+        
+        .schedule-item {
+            border-left: 3px solid #dc3545;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .time-label {
+            font-weight: bold;
+            color: #dc3545;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+        
+        .badge-custom {
+            background-color: #17a2b8;
+            color: white;
+            font-weight: normal;
+            padding: 0.5em 0.7em;
+            border-radius: 5px;
+        }
+        
+        .next-step-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 5px solid #28a745;
+        }
+        
+        .feedback-form {
+            background-color: #f1f8ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        
+        .algorithm-demo {
+            background-color: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        footer {
+            background-color: #343a40;
+            color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links h5 {
+            color: white;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 767.98px) {
+            .page-header {
+                padding: 1.5rem 0;
+            }
+            
+            .content-card {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+        }
+        
+        /* 印刷用スタイル */
+         {
+            .no-print {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+            }
+            
+            .content-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            footer {
+                background-color: white;
+                color: black;
+            }
+            
+            a {
+                text-decoration: none;
+                color: black;
+            }
+            
+            .footer-links ul li a {
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script defer src="../../js/day-navigation.js"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                ITエンジニア育成カリキュラム
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="monthDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="monthDropdown">
+                            <li><a class="dropdown-item" href="../month/month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="../month/month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="weekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="weekDropdown">
+                            <li><a class="dropdown-item" href="../week/week5.html">第5週: コンピュータシステム</a></li>
+                            <li><a class="dropdown-item" href="../week/week6.html">第6週: ネットワーク・データベース</a></li>
+                            <li><a class="dropdown-item" href="../week/week7.html">第7週: アルゴリズム・セキュリティ・マネジメント</a></li>
+                            <li><a class="dropdown-item" href="../week/week8.html">第8週: ストラテジ系と総合対策</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/resources.html">学習リソース</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/faq.html">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">ホーム</a></li>
+                <li class="breadcrumb-item"><a href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                <li class="breadcrumb-item"><a href="../week/week7.html">第7週: アルゴリズム・セキュリティ・マネジメント</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Day 30</li>
+            </ol>
+        </nav>
+    </div>
+
+    <header class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-sort-amount-down"></i> Day 30: 探索・ソートアルゴリズム</h1>
+            <p class="lead">線形探索・二分探索・各種ソート、計算量分析を学習します</p>
+            <div class="mt-3">
+                <span class="badge badge-custom me-2">2ヶ月目・第7週・2日目</span>
+                <span class="badge badge-custom me-2">アルゴリズム・データ構造</span>
+                <span class="badge badge-custom">基本情報技術者試験対策</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <section>
+                    <h2 class="section-title"><i class="fas fa-bullseye"></i> 学習目標</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-search text-primary"></i> 線形探索と二分探索のアルゴリズムを理解し、実装できる</li>
+                            <li class="list-group-item"><i class="fas fa-sort text-primary"></i> 基本ソート（バブル・選択・挿入）の仕組みと特性を理解する</li>
+                            <li class="list-group-item"><i class="fas fa-rocket text-primary"></i> 高速ソート（クイック・マージ・ヒープ）の原理と利点を説明できる</li>
+                            <li class="list-group-item"><i class="fas fa-chart-line text-primary"></i> O記法による時間計算量・空間計算量を解析できる</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title"><i class="fas fa-trophy"></i> 達成基準</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> 各探索アルゴリズムの時間計算量を正確に答えられる</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> 基本ソートアルゴリズムを疑似コードで記述できる</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> データ量に応じて最適なソートアルゴリズムを選択できる</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> 基本情報技術者試験のアルゴリズム問題に対応できる</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title"><i class="fas fa-clock"></i> 詳細スケジュール</h2>
+                    <div class="content-card">
+                        <div class="accordion" id="scheduleAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="time-label">10:00-10:15</div> <div class="ms-3">オリエンテーション・前日復習</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        前日のデータ構造（配列・リスト・スタック・キュー・木構造）の内容を振り返り、本日学習するアルゴリズムとの関連性を確認します。
+                                        <div class="mt-2">
+                                            <strong>復習ポイント：</strong>
+                                            <ul>
+                                                <li>データ構造の特性とアクセス方法</li>
+                                                <li>フローチャートによるアルゴリズム表現</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <div class="time-label">10:15-11:00</div> <div class="ms-3">探索アルゴリズム基礎</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        線形探索と二分探索の原理と実装方法を学習します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義
+                                        </div>
+                                        <div class="algorithm-complexity">
+                                            <h6>計算量比較</h6>
+                                            <ul>
+                                                <li>線形探索: <span class="complexity-on">O(n)</span></li>
+                                                <li>二分探索: <span class="complexity-ologn">O(log n)</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <div class="time-label">11:00-11:45</div> <div class="ms-3">探索アルゴリズム実装演習</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        Java/疑似コードを使って線形探索と二分探索を実装し、動作を確認します。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習
+                                        </div>
+                                        <div class="algorithm-demo">
+                                            <h6>演習問題</h6>
+                                            <ol>
+                                                <li>配列から特定の値を線形探索で見つけるプログラム</li>
+                                                <li>ソート済み配列での二分探索の実装</li>
+                                                <li>実行時間の測定と比較</li>
+                                            </ol>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        <div class="time-label">11:45-12:45</div> <div class="ms-3">昼休憩</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        休憩時間です。昼食をとり、リフレッシュしましょう。午後は様々なソートアルゴリズムについて学習します。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        <div class="time-label">12:45-13:30</div> <div class="ms-3">基本ソートアルゴリズム</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        バブルソート、選択ソート、挿入ソートの原理と実装を学習します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義
+                                        </div>
+                                        <div class="algorithm-complexity">
+                                            <h6>基本ソートの計算量</h6>
+                                            <ul>
+                                                <li>バブルソート: <span class="complexity-on2">O(n²)</span></li>
+                                                <li>選択ソート: <span class="complexity-on2">O(n²)</span></li>
+                                                <li>挿入ソート: <span class="complexity-on2">O(n²)</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSix">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        <div class="time-label">13:30-14:15</div> <div class="ms-3">基本ソート実装演習</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        基本ソートアルゴリズムを実装し、動作を視覚的に確認します。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習
+                                        </div>
+                                        <div class="algorithm-demo">
+                                            <h6>実習内容</h6>
+                                            <ul>
+                                                <li>各ソートアルゴリズムの疑似コード作成</li>
+                                                <li>実装とデバッグ</li>
+                                                <li>ソート過程の可視化</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSeven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                        <div class="time-label">14:15-15:00</div> <div class="ms-3">高速ソートアルゴリズム</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        クイックソート、マージソート、ヒープソートの原理と特性を学習します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義
+                                        </div>
+                                        <div class="algorithm-complexity">
+                                            <h6>高速ソートの計算量</h6>
+                                            <ul>
+                                                <li>クイックソート: 平均 <span class="complexity-onlogn">O(n log n)</span>、最悪 <span class="complexity-on2">O(n²)</span></li>
+                                                <li>マージソート: <span class="complexity-onlogn">O(n log n)</span></li>
+                                                <li>ヒープソート: <span class="complexity-onlogn">O(n log n)</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEight">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                        <div class="time-label">15:00-15:10</div> <div class="ms-3">午後休憩</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        短い休憩時間です。リフレッシュしましょう。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingNine">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                        <div class="time-label">15:10-15:55</div> <div class="ms-3">計算量解析と最適化</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        O記法による計算量解析と、アルゴリズムの選択指針を学習します。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習
+                                        </div>
+                                        <div class="algorithm-demo">
+                                            <h6>解析演習</h6>
+                                            <ul>
+                                                <li>各アルゴリズムの計算量測定</li>
+                                                <li>データサイズと実行時間の関係分析</li>
+                                                <li>最適なアルゴリズム選択の判断基準</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTen">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                        <div class="time-label">15:55-17:00</div> <div class="ms-3">理解度チェック</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        探索・ソートアルゴリズムと計算量に関する理解度を確認するテストを実施します。
+                                        <div class="alert alert-warning mt-2">
+                                            <i class="bi bi-patch-question-fill"></i> テスト
+                                        </div>
+                                        <div class="mt-2">
+                                            <strong>出題範囲：</strong>
+                                            <ul>
+                                                <li>線形探索・二分探索の計算量</li>
+                                                <li>各種ソートアルゴリズムの特性</li>
+                                                <li>O記法による計算量解析</li>
+                                                <li>アルゴリズムの適用場面</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEleven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                                        <div class="time-label">17:00-17:45</div> <div class="ms-3">振り返り・質疑応答</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        本日学習したアルゴリズムの理解度を確認し、疑問点を解決します。明日のセキュリティ基礎と対策に向けた準備も行います。
+                                        <div class="mt-2">
+                                            <strong>振り返りポイント：</strong>
+                                            <ul>
+                                                <li>各アルゴリズムの使い分け</li>
+                                                <li>計算量の意味と重要性</li>
+                                                <li>実務での応用場面</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title"><i class="fas fa-cogs"></i> テーマ詳細</h2>
+                    <div class="content-card">
+                        <h3><i class="fas fa-search"></i> 探索アルゴリズム</h3>
+                        <p>データの集合から特定の値を効率的に見つけ出すためのアルゴリズムです。探索の効率性は、データの性質と選択するアルゴリズムによって大きく異なります。</p>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header bg-primary text-white">
+                                <h4 class="mb-0"><i class="fas fa-arrow-right"></i> 線形探索（Linear Search）</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>配列の先頭から順番に目的の値を探すシンプルなアルゴリズムです。</p>
+                                <div class="code-block">
+function linearSearch(arr, target) {
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] == target) {
+            return i;  // 見つかった位置を返す
+        }
+    }
+    return -1;  // 見つからない場合
+}
+                                </div>
+                                <div class="algorithm-complexity mt-2">
+                                    <strong>特徴：</strong>
+                                    <ul>
+                                        <li>時間計算量: <span class="complexity-on">O(n)</span></li>
+                                        <li>空間計算量: <span class="complexity-o1">O(1)</span></li>
+                                        <li>ソート済みでないデータでも使用可能</li>
+                                        <li>実装が簡単</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header bg-success text-white">
+                                <h4 class="mb-0"><i class="fas fa-divide"></i> 二分探索（Binary Search）</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>ソート済みの配列で、中央の値と比較して探索範囲を半分ずつ絞り込むアルゴリズムです。</p>
+                                <div class="code-block">
+function binarySearch(arr, target) {
+    int left = 0, right = arr.length - 1;
+    while (left <= right) {
+        int mid = (left + right) / 2;
+        if (arr[mid] == target) {
+            return mid;
+        } else if (arr[mid] < target) {
+            left = mid + 1;
+        } else {
+            right = mid - 1;
+        }
+    }
+    return -1;
+}
+                                </div>
+                                <div class="algorithm-complexity mt-2">
+                                    <strong>特徴：</strong>
+                                    <ul>
+                                        <li>時間計算量: <span class="complexity-ologn">O(log n)</span></li>
+                                        <li>空間計算量: <span class="complexity-o1">O(1)</span></li>
+                                        <li>データが事前にソートされている必要がある</li>
+                                        <li>大量のデータで効率的</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header bg-warning text-dark">
+                                <h4 class="mb-0"><i class="fas fa-sort"></i> ソートアルゴリズム</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>データを特定の順序（昇順・降順）に並び替えるアルゴリズムです。用途に応じて最適なアルゴリズムを選択することが重要です。</p>
+                                
+                                <h5 class="mt-3"><i class="fas fa-level-up-alt"></i> 基本ソートアルゴリズム</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="algorithm-demo">
+                                            <h6>バブルソート</h6>
+                                            <p>隣接する要素を比較し、順序が逆なら交換を繰り返す</p>
+                                            <div class="algorithm-complexity">
+                                                <span class="complexity-on2">O(n²)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="algorithm-demo">
+                                            <h6>選択ソート</h6>
+                                            <p>未ソート部分から最小値を選択し、先頭に移動</p>
+                                            <div class="algorithm-complexity">
+                                                <span class="complexity-on2">O(n²)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="algorithm-demo">
+                                            <h6>挿入ソート</h6>
+                                            <p>要素を一つずつ取り出し、適切な位置に挿入</p>
+                                            <div class="algorithm-complexity">
+                                                <span class="complexity-on2">O(n²)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h5 class="mt-3"><i class="fas fa-rocket"></i> 高速ソートアルゴリズム</h5>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="algorithm-demo">
+                                            <h6>クイックソート</h6>
+                                            <p>基準値（ピボット）で分割し、再帰的にソート</p>
+                                            <div class="algorithm-complexity">
+                                                平均: <span class="complexity-onlogn">O(n log n)</span><br>
+                                                最悪: <span class="complexity-on2">O(n²)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="algorithm-demo">
+                                            <h6>マージソート</h6>
+                                            <p>分割統治法を使用し、安定ソートを実現</p>
+                                            <div class="algorithm-complexity">
+                                                <span class="complexity-onlogn">O(n log n)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="algorithm-demo">
+                                            <h6>ヒープソート</h6>
+                                            <p>ヒープ構造を利用した効率的なソート</p>
+                                            <div class="algorithm-complexity">
+                                                <span class="complexity-onlogn">O(n log n)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header bg-info text-white">
+                                <h4 class="mb-0"><i class="fas fa-chart-line"></i> 計算量解析（O記法）</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>アルゴリズムの効率性を評価するための数学的記法です。入力サイズに対する実行時間やメモリ使用量の増加率を表現します。</p>
+                                <div class="chart-container">
+                                    <canvas id="complexityChart" style="height: 300px;"></canvas>
+                                </div>
+                                <div class="algorithm-complexity">
+                                    <h6>主要な計算量クラス</h6>
+                                    <ul>
+                                        <li><span class="complexity-o1">O(1)</span> - 定数時間: ハッシュテーブルのアクセス</li>
+                                        <li><span class="complexity-ologn">O(log n)</span> - 対数時間: 二分探索</li>
+                                        <li><span class="complexity-on">O(n)</span> - 線形時間: 線形探索</li>
+                                        <li><span class="complexity-onlogn">O(n log n)</span> - 線形対数時間: 効率的なソート</li>
+                                        <li><span class="complexity-on2">O(n²)</span> - 二次時間: 基本的なソート</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title"><i class="fas fa-book"></i> 使用教材・リソース</h2>
+                    <div class="content-card">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-book-fill text-primary"></i> 主要教材
+                                        </h5>
+                                        <ul class="card-text">
+                                            <li>基本情報技術者試験対策テキスト（アルゴリズム編）</li>
+                                            <li>アルゴリズムとデータ構造入門</li>
+                                            <li>IPA公式シラバス・過去問題集</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-laptop-fill text-success"></i> 実習環境
+                                        </h5>
+                                        <ul class="card-text">
+                                            <li>Eclipse/IntelliJ IDEA</li>
+                                            <li>VisuAlgo（アルゴリズム可視化）</li>
+                                            <li>AtCoder（演習問題）</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-journal-code text-warning"></i> 参考サイト
+                                        </h5>
+                                        <ul class="card-text">
+                                            <li><a href="https://visualgo.net/" target="_blank">VisuAlgo</a></li>
+                                            <li><a href="https://atcoder.jp/" target="_blank">AtCoder</a></li>
+                                            <li><a href="https://www.ipa.go.jp/" target="_blank">IPA公式サイト</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title"><i class="fas fa-clipboard-check"></i> 理解度確認項目</h2>
+                    <div class="content-card">
+                        <div class="mb-4">
+                            <h4><i class="bi bi-star-fill text-warning"></i> 基本レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check1">
+                                        <label class="form-check-label" for="check1">
+                                            線形探索のアルゴリズムと計算量を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check2">
+                                        <label class="form-check-label" for="check2">
+                                            二分探索の前提条件と利点を説明できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check3">
+                                        <label class="form-check-label" for="check3">
+                                            基本ソート（バブル・選択・挿入）の動作を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check4">
+                                        <label class="form-check-label" for="check4">
+                                            O記法の基本概念を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check5">
+                                        <label class="form-check-label" for="check5">
+                                            高速ソートの種類と特徴を知っている
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4><i class="bi bi-stars text-primary"></i> 応用レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check6">
+                                        <label class="form-check-label" for="check6">
+                                            探索アルゴリズムを疑似コードで記述できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check7">
+                                        <label class="form-check-label" for="check7">
+                                            データ量に応じて最適なソートアルゴリズムを選択できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check8">
+                                        <label class="form-check-label" for="check8">
+                                            各アルゴリズムの時間・空間計算量を解析できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check9">
+                                        <label class="form-check-label" for="check9">
+                                            基本情報技術者試験のアルゴリズム問題を解ける
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check10">
+                                        <label class="form-check-label" for="check10">
+                                            実務でのアルゴリズム選択指針を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title"><i class="fas fa-arrow-right"></i> 次のステップ</h2>
+                    <div class="content-card next-step-card">
+                        <h3><i class="fas fa-shield-alt"></i> Day 31: セキュリティ基礎と対策</h3>
+                        <p>明日は情報セキュリティの基本概念と対策技術について学習します。暗号化技術、認証システム、最新のセキュリティ脅威と対策方法を理解し、安全なシステム構築の基礎を身につけます。</p>
+                        <div class="mt-3">
+                            <h6>予習ポイント：</h6>
+                            <ul>
+                                <li>情報セキュリティの3要素（機密性・完全性・可用性）</li>
+                                <li>暗号化の基本概念</li>
+                                <li>マルウェアの種類と対策</li>
+                            </ul>
+                        </div>
+                        <a href="day31.html" class="btn btn-success mt-2">
+                            <i class="bi bi-arrow-right-circle-fill"></i> Day 31の詳細を見る
+                        </a>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title"><i class="fas fa-comment-alt"></i> フィードバック</h2>
+                    <div class="content-card feedback-form">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle-fill"></i> 本日のアルゴリズム学習についてフィードバックをお寄せください。
+                        </div>
+                        <form id="feedback-form" class="mt-3">
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">理解度</label>
+                                <select class="form-select" id="rating">
+                                    <option value="5">とても理解できた</option>
+                                    <option value="4">理解できた</option>
+                                    <option value="3">普通</option>
+                                    <option value="2">あまり理解できなかった</option>
+                                    <option value="1">理解できなかった</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="feedbackText" class="form-label">コメント</label>
+                                <textarea class="form-control" id="feedbackText" rows="3" placeholder="特に難しかった内容や、もっと学びたい内容があればお聞かせください"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">送信</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top: 100px;">
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-calendar-check"></i> 学習進捗</h3>
+                        <div class="progress-container">
+                            <p>Day 30の学習進捗</p>
+                            <div class="progress" style="height: 20px;">
+                                <div id="day-progress" class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>
+                            <p class="text-end mt-2" id="progress-text">0/10 完了</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="progressChart"></canvas>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button id="resetProgress" class="btn btn-outline-warning btn-sm">
+                                <i class="bi bi-arrow-counterclockwise"></i> 進捗をリセット
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-journal-text"></i> 目次</h3>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#scheduleAccordion">詳細スケジュール</a>
+                            <a class="nav-link" href="#theme-details">テーマ詳細</a>
+                            <a class="nav-link" href="#resources">使用教材・リソース</a>
+                            <a class="nav-link" href="#comprehension-check">理解度確認項目</a>
+                            <a class="nav-link" href="#next-steps">次のステップ</a>
+                        </nav>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-link-45deg"></i> 関連リンク</h3>
+                        <div class="list-group">
+                            <a href="../week/week7.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-calendar-week"></i> 第7週の概要
+                            </a>
+                            <a href="../month/month2.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-calendar-month"></i> 第2ヶ月目の概要
+                            </a>
+                            <a href="../../resources/resources.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-book"></i> 学習リソース
+                            </a>
+                            <a href="../../resources/faq.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-question-circle"></i> よくある質問
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <h3><i class="bi bi-arrow-left-right"></i> ナビゲーション</h3>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="day29.html" class="btn btn-outline-primary">
+                                <i class="bi bi-arrow-left"></i> Day 29
+                            </a>
+                            <a href="day31.html" class="btn btn-outline-primary">
+                                Day 31 <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-light mt-5">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="footer-logo">
+                        <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                    </div>
+                    <p>ITエンジニア育成カリキュラムは、未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>カリキュラム</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../month/month1.html">第1ヶ月目</a></li>
+                        <li><a href="../month/month2.html">第2ヶ月目</a></li>
+                        <li><a href="../month/month3.html">第3ヶ月目</a></li>
+                        <li><a href="../../resources/advanced.html">応用コース</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>リソース</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../resources/resources.html">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html">よくある質問</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>お問い合わせ</h5>
+                    <p>本カリキュラムについてのお問い合わせは下記までお願いします。</p>
+                    <a href="mailto:info@apsa.co.jp" class="btn btn-outline-light">
+                        <i class="bi bi-envelope"></i> メールでのお問い合わせ
+                    </a>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="text-light"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/lib/jquery.min.js"></script>
+    <script src="../../js/lib/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // チェックボックスのイベントリスナーを設定
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+            
+            // 進捗リセットボタン
+            document.getElementById('resetProgress').addEventListener('click', function() {
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                updateProgress();
+            });
+            
+            // 初期進捗更新
+            updateProgress();
+            
+            // プログレスチャートの初期化
+            initProgressChart();
+            
+            // 計算量比較チャートの初期化
+            initComplexityChart();
+            
+            // フィードバックフォーム
+            document.getElementById('feedback-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('フィードバックを送信しました。ありがとうございます！');
+                this.reset();
+            });
+        });
+        
+        // 進捗を更新する関数
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            const totalChecks = checkboxes.length;
+            let checkedCount = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    checkedCount++;
+                }
+            });
+            
+            const progressPercent = totalChecks > 0 ? Math.round((checkedCount / totalChecks) * 100) : 0;
+            
+            // プログレスバーを更新
+            const progressBar = document.getElementById('day-progress');
+            progressBar.style.width = `${progressPercent}%`;
+            progressBar.textContent = `${progressPercent}%`;
+            progressBar.setAttribute('aria-valuenow', progressPercent);
+            
+            // プログレステキストを更新
+            document.getElementById('progress-text').textContent = `${checkedCount}/${totalChecks} 完了`;
+            
+            // チャートを更新
+            updateProgressChart(checkedCount, totalChecks - checkedCount);
+            
+            // ローカルストレージに保存
+            localStorage.setItem('day30Progress', JSON.stringify({
+                checked: checkedCount,
+                total: totalChecks,
+                percent: progressPercent
+            }));
+        }
+        
+        // プログレスチャートの初期化
+        function initProgressChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            window.progressChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['完了', '未完了'],
+                    datasets: [{
+                        data: [0, 10],
+                        backgroundColor: ['#dc3545', '#e9ecef'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 計算量比較チャートの初期化
+        function initComplexityChart() {
+            const ctx = document.getElementById('complexityChart').getContext('2d');
+            
+            // データサイズ (n)
+            const dataSize = [1, 10, 100, 1000, 10000];
+            
+            // 各計算量の理論値
+            const o1 = dataSize.map(() => 1);
+            const ologn = dataSize.map(n => Math.log2(n));
+            const on = dataSize.map(n => n);
+            const onlogn = dataSize.map(n => n * Math.log2(n));
+            const on2 = dataSize.map(n => n * n / 10000); // スケール調整
+            
+            window.complexityChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dataSize,
+                    datasets: [
+                        {
+                            label: 'O(1)',
+                            data: o1,
+                            borderColor: '#4caf50',
+                            backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                            tension: 0.1
+                        },
+                        {
+                            label: 'O(log n)',
+                            data: ologn,
+                            borderColor: '#8bc34a',
+                            backgroundColor: 'rgba(139, 195, 74, 0.1)',
+                            tension: 0.1
+                        },
+                        {
+                            label: 'O(n)',
+                            data: on,
+                            borderColor: '#ff9800',
+                            backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                            tension: 0.1
+                        },
+                        {
+                            label: 'O(n log n)',
+                            data: onlogn,
+                            borderColor: '#ff5722',
+                            backgroundColor: 'rgba(255, 87, 34, 0.1)',
+                            tension: 0.1
+                        },
+                        {
+                            label: 'O(n²)',
+                            data: on2,
+                            borderColor: '#f44336',
+                            backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                            tension: 0.1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'アルゴリズム計算量の比較'
+                        },
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'データサイズ (n)'
+                            },
+                            type: 'logarithmic'
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: '実行時間（相対値）'
+                            },
+                            type: 'logarithmic'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // プログレスチャートの更新
+        function updateProgressChart(completed, remaining) {
+            if (window.progressChart) {
+                window.progressChart.data.datasets[0].data = [completed, remaining];
+                window.progressChart.update();
+            }
+        }
+    </script>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDkn7XYcccrOGNdyHcPk3xikHhjoMxgZ9hy29%2FoBlmkbiW4Mhpr5nB0V3Ngp9QIKFvMDAzNbsIZn7C91bXBsW3S%2F0mvJApY3%2BZTWAq3hZbeZg9oqXObTuqKcWAZJEOMP25xIe3HEGIGsxrrt9VaZV0GUPt7ymLhIb4LsGCMVi0cvEhe2XiX6bEsRwuspBrWfk%2FHwoX4h7JOxhlDOkMxEnmmKvmGlrDjfZRAMyVb7m%2FW4p5QswoUI4AUYWwg088Ag90noDyHWaSfJ34cyKBV8FrMQzCPNkoDbzoF6zfSulKQnGY4sSMuuzrPZeCfsqkjPtDb5%2FVKN4j60zMxpJiKHU17TAE1%2FBzuvuTH76nBr6G1utv3XWyfrq7WNGF%2Fsw%2FHyib3ZUSSjE0bVoO1BxjpoEvAyA4U5xt%2FyvrQqhvaiqfeqkI7YoCSpUtYoAk8TziU4W1cR2mWMUpvzOTFYUSBzsjrxXIzMQLEPVRaMxo3vkH2tkYErxGcsml8YxvwZ7x66WuQ%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDkn7XYcccrOGNdyHcPk3xikHhjoMxgZ9hy29/oBlmkbiW4Mhpr5nB0V3Ngp9QIKFvMDAzNbsIZn7C91bXBsW3S/0mvJApY3+ZTWAq3hZbeZg9oqXObTuqKcWAZJEOMP25xIe3HEGIGsxrrt9VaZV0GUPt7ymLhIb4LsGCMVi0cvEhe2XiX6bEsRwuspBrWfk/HwoX4h7JOxhlDOkMxEnmmKvmGlrDjfZRAMyVb7m/W4p5QswoUI4AUYWwg088Ag90noDyHWaSfJ34cyKBV8FrMQzCPNkoDbzoF6zfSulKQnGY4sSMuuzrPZeCfsqkjPtDb5/VKN4j60zMxpJiKHU17TAE1/BzuvuTH76nBr6G1utv3XWyfrq7WNGF/sw/Hyib3ZUSSjE0bVoO1BxjpoEvAyA4U5xt/yvrQqhvaiqfeqkI7YoCSpUtYoAk8TziU4W1cR2mWMUpvzOTFYUSBzsjrxXIzMQLEPVRaMxo3vkH2tkYErxGcsml8YxvwZ7x66WuQ==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDl5Jfv5D2YOeQR0Bp%2FaJJnNFTf%2FJk0LswsKjaYMNIxdfGj0UTJwy5AK5W8m7JwSk6DgeE6bMxoQLrRm2%2B7%2FSHiy%2BX16MpSU2pY4LJVcZVdP04tXqviieTtrdnMpWP31%2BkqU5E3nwGYqqsny8s91nlQJz2yAqOU3Mjx7YGbe45D4vUF0lhSI2gm61aQiCeLDQufCSkApUTJs5m4jfJqAVgzjrU9MwqXO4CA87ADB4YEQW56V9XlXZK%2FfsQ2TbN259WH9Zil0vFW7U12uDY4yGoK4CZBRafMc9%2BH8Ovp9fq%2FKsbS7tdOVQ0cA9B2%2FjGcIjPsUSircs1QtekaTobxJP7XHaa3k359kjRFsCPSfsa7pBx4krphjAkrQ%2B5fOEQtCzGFP8WDGVD0E8eKTabwLQlVQATdhzhhdMJbKQF7PpZ63tWWrx7mALFmg06AI1gbX86u0bG%2BCBNXmAWRVmR4q4BChu7v2ZsH9WEI%2B%2F8fC95ep%2BMePdPua6V639SQ7QvxncEQ%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDl5Jfv5D2YOeQR0Bp/aJJnNFTf/Jk0LswsKjaYMNIxdfGj0UTJwy5AK5W8m7JwSk6DgeE6bMxoQLrRm2+7/SHiy+X16MpSU2pY4LJVcZVdP04tXqviieTtrdnMpWP31+kqU5E3nwGYqqsny8s91nlQJz2yAqOU3Mjx7YGbe45D4vUF0lhSI2gm61aQiCeLDQufCSkApUTJs5m4jfJqAVgzjrU9MwqXO4CA87ADB4YEQW56V9XlXZK/fsQ2TbN259WH9Zil0vFW7U12uDY4yGoK4CZBRafMc9+H8Ovp9fq/KsbS7tdOVQ0cA9B2/jGcIjPsUSircs1QtekaTobxJP7XHaa3k359kjRFsCPSfsa7pBx4krphjAkrQ+5fOEQtCzGFP8WDGVD0E8eKTabwLQlVQATdhzhhdMJbKQF7PpZ63tWWrx7mALFmg06AI1gbX86u0bG+CBNXmAWRVmR4q4BChu7v2ZsH9WEI+/8fC95ep+MePdPua6V639SQ7QvxncEQ==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

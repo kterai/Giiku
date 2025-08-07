@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム - Day53: 総合演習プロジェクト完成・テスト・デプロイ</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50">
+    <script defer src="../../js/day-navigation.js"></script>
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-4">
+        <div class="container mx-auto px-4">
+            <h1 class="text-2xl font-bold">ITエンジニア育成カリキュラム - 第12週第5日目</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Learning Objectives -->
+        <section class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-bold mb-4 text-blue-600"><i class="fas fa-target mr-2"></i>学習目標</h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li>総合演習プロジェクトを完全に仕上げ、プロダクションレベルの品質を達成する</li>
+                <li>包括的なテスト戦略を実行し、システム全体の品質を保証できる</li>
+                <li>本番環境へのデプロイメントプロセスを理解し実践できる</li>
+                <li>運用・保守に必要な監視システムとドキュメントを整備できる</li>
+            </ul>
+        </section>
+
+        <!-- Achievement Criteria -->
+        <section class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-bold mb-4 text-green-600"><i class="fas fa-check-circle mr-2"></i>達成基準</h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li>プロジェクトの全機能が正常に動作し、バグのない状態を達成している</li>
+                <li>包括的なテストスイートが整備され、80%以上のコードカバレッジを達成している</li>
+                <li>本番環境への自動デプロイメントパイプラインが構築されている</li>
+                <li>運用監視システムが設定され、適切なアラートが機能している</li>
+            </ul>
+        </section>
+
+        <!-- Detailed Schedule -->
+        <section class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-bold mb-4 text-purple-600"><i class="fas fa-clock mr-2"></i>詳細スケジュール</h2>
+            
+            <div class="space-y-4">
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <h5 class="font-semibold text-blue-600">10:00-10:30 前日の実装確認・課題整理</h5>
+                    <p class="text-gray-600">実装状況の確認、残り作業の洗い出し、優先度設定</p>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-4">
+                    <h5 class="font-semibold text-green-600">10:30-12:00 機能完成・最終調整</h5>
+                    <p class="text-gray-600">残り機能の実装完了、UI/UX最終調整、パフォーマンス最適化</p>
+                </div>
+
+                <div class="border-l-4 border-gray-400 pl-4">
+                    <h5 class="font-semibold text-gray-600">12:00-13:00 昼休憩</h5>
+                    <p class="text-gray-600">休憩時間です。昼食をとり、リフレッシュしましょう。</p>
+                </div>
+
+                <div class="border-l-4 border-red-500 pl-4">
+                    <h5 class="font-semibold text-red-600">13:00-14:15 包括的テスト実行</h5>
+                    <p class="text-gray-600">全レベルのテスト実行、品質保証、セキュリティテスト</p>
+                </div>
+
+                <div class="border-l-4 border-yellow-500 pl-4">
+                    <h5 class="font-semibold text-yellow-600">14:15-15:30 本番環境デプロイ</h5>
+                    <p class="text-gray-600">プロダクション環境への配信、CI/CDパイプライン実行</p>
+                </div>
+
+                <div class="border-l-4 border-indigo-500 pl-4">
+                    <h5 class="font-semibold text-indigo-600">15:30-16:30 運用準備・監視設定</h5>
+                    <p class="text-gray-600">監視システム構築、ドキュメント整備、プレゼンテーション準備</p>
+                </div>
+
+                <div class="border-l-4 border-pink-500 pl-4">
+                    <h5 class="font-semibold text-pink-600">16:30-17:00 成果発表・振り返り</h5>
+                    <p class="text-gray-600">プロジェクト成果の発表、学習の振り返り、次のステップ計画</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme Details -->
+        <section id="theme-details" class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-bold mb-4 text-indigo-600"><i class="fas fa-book-open mr-2"></i>テーマ詳細</h2>
+            
+            <h3 class="text-lg font-semibold mb-3 text-gray-800">総合演習プロジェクト完成・テスト・デプロイ</h3>
+            
+            <p class="text-gray-700 mb-6">
+                本日は総合演習プロジェクトの最終完成段階として、これまで3週間にわたって開発してきたWebアプリケーションを完全に仕上げ、
+                プロダクションレベルの品質を達成します。包括的なテスト実行、本番環境へのデプロイメント、運用準備までを一貫して実施し、
+                実際のプロジェクト完遂プロセスを体験します。
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-blue-800 mb-2"><i class="fas fa-code mr-2"></i>機能完成・品質向上</h4>
+                    <ul class="text-sm text-blue-700 space-y-1">
+                        <li>• 残り機能の完全実装</li>
+                        <li>• バグ修正とエラーハンドリング強化</li>
+                        <li>• UI/UXの最終調整</li>
+                        <li>• パフォーマンス最適化</li>
+                        <li>• アクセシビリティ対応</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-green-800 mb-2"><i class="fas fa-test-tube mr-2"></i>包括的テスト戦略</h4>
+                    <ul class="text-sm text-green-700 space-y-1">
+                        <li>• 単体テスト拡充とカバレッジ向上</li>
+                        <li>• 統合テスト・システムテスト</li>
+                        <li>• ユーザビリティテスト</li>
+                        <li>• セキュリティテスト</li>
+                        <li>• パフォーマンス・負荷テスト</li>
+                    </ul>
+                </div>
+
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-purple-800 mb-2"><i class="fas fa-rocket mr-2"></i>デプロイメント実践</h4>
+                    <ul class="text-sm text-purple-700 space-y-1">
+                        <li>• Docker化とコンテナ戦略</li>
+                        <li>• クラウドデプロイメント</li>
+                        <li>• CI/CDパイプライン実行</li>
+                        <li>• Blue-Greenデプロイメント</li>
+                        <li>• ロールバック戦略</li>
+                    </ul>
+                </div>
+
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-yellow-800 mb-2"><i class="fas fa-chart-line mr-2"></i>運用・監視システム</h4>
+                    <ul class="text-sm text-yellow-700 space-y-1">
+                        <li>• ログ監視・パフォーマンス監視</li>
+                        <li>• エラートラッキング</li>
+                        <li>• アラート設定</li>
+                        <li>• ダッシュボード構築</li>
+                        <li>• バックアップ戦略</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-gray-800 mb-2"><i class="fas fa-lightbulb mr-2"></i>重要ポイント</h4>
+                <ul class="text-gray-700 space-y-1">
+                    <li>• プロダクションレベルの品質基準の理解と実践</li>
+                    <li>• DevOps文化とCI/CDパイプラインの重要性</li>
+                    <li>• 継続的な監視と改善のサイクル構築</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Resources -->
+        <section id="resources" class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-bold mb-4 text-orange-600"><i class="fas fa-tools mr-2"></i>使用教材・リソース</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">開発・テストツール</h4>
+                    <ul class="text-gray-600 space-y-1">
+                        <li>• Jest, Cypress (テストフレームワーク)</li>
+                        <li>• SonarQube (コード品質分析)</li>
+                        <li>• OWASP ZAP (セキュリティテスト)</li>
+                        <li>• JMeter (負荷テスト)</li>
+                        <li>• Docker Desktop</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">デプロイ・監視ツール</h4>
+                    <ul class="text-gray-600 space-y-1">
+                        <li>• GitHub Actions (CI/CD)</li>
+                        <li>• AWS/Azure/GCP (クラウドプラットフォーム)</li>
+                        <li>• Nginx (リバースプロキシ)</li>
+                        <li>• Prometheus, Grafana (監視)</li>
+                        <li>• Sentry (エラートラッキング)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h4 class="font-semibold text-gray-800 mb-2">参考資料</h4>
+                <ul class="text-gray-600 space-y-1">
+                    <li>• The Twelve-Factor App (アプリケーション設計原則)</li>
+                    <li>• DevOps Handbook (DevOps実践ガイド)</li>
+                    <li>• Site Reliability Engineering (SRE実践書)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Comprehension Check -->
+        <section id="comprehension-check" class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-bold mb-4 text-red-600"><i class="fas fa-clipboard-check mr-2"></i>理解度確認項目</h2>
+            
+            <div class="mb-6">
+                <h4 class="font-semibold text-gray-800 mb-3">基本レベル</h4>
+                <div class="space-y-2">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <span class="text-gray-700">プロジェクトの全機能が完成し正常に動作している</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <span class="text-gray-700">基本的なテスト（ユニット・統合）が実装されている</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <span class="text-gray-700">本番環境への手動デプロイができる</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <span class="text-gray-700">基本的な監視設定が理解できている</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <span class="text-gray-700">プロジェクトドキュメントが整備されている</span>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="font-semibold text-gray-800 mb-3">応用レベル</h4>
+                <div class="space-y-2">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <span class="text-gray-700">包括的テスト戦略を実装し高いカバレッジを達成できる</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <span class="text-gray-700">CI/CDパイプラインで自動デプロイメントを実現できる</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <span class="text-gray-700">プロダクションレベルの監視・アラートシステムを構築できる</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <span class="text-gray-700">セキュリティとパフォーマンスの最適化ができる</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="mr-2">
+                        <span class="text-gray-700">運用・保守戦略を含む完全な本番システムを構築できる</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section id="next-steps" class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-bold mb-4 text-teal-600"><i class="fas fa-arrow-right mr-2"></i>次のステップ</h2>
+            
+            <div class="bg-teal-50 p-4 rounded-lg">
+                <h3 class="font-semibold text-teal-800 mb-2">次の日: Day54 - 総合評価・キャリア展望・継続学習計画</h3>
+                <p class="text-teal-700 mb-3">
+                    いよいよ最終日となります。3ヶ月間の学習成果の総合評価を行い、
+                    ITエンジニアとしてのキャリア展望と継続学習計画を策定します。
+                </p>
+                
+                <div class="text-sm text-teal-600">
+                    <p class="font-semibold mb-1">予習のポイント:</p>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li>3ヶ月間の学習成果をまとめる</li>
+                        <li>今後のキャリア目標を考える</li>
+                        <li>継続学習したい技術分野を整理する</li>
+                    </ul>
+                </div>
+            </div>
+
+            <a href="day54.html" class="inline-block mt-4 bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700 transition-colors">
+                詳細を見る
+            </a>
+        </section>
+
+        <!-- Feedback -->
+        <section class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-bold mb-4 text-gray-600"><i class="fas fa-comment mr-2"></i>フィードバック</h2>
+            <p class="text-gray-600 mb-4">このページの内容についてフィードバックをお寄せください。</p>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">理解度</label>
+                    <select class="w-full p-2 border border-gray-300 rounded">
+                        <option>選択してください</option>
+                        <option>完全に理解できた</option>
+                        <option>概ね理解できた</option>
+                        <option>部分的に理解できた</option>
+                        <option>理解が困難だった</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">コメント</label>
+                    <textarea class="w-full p-2 border border-gray-300 rounded h-20" placeholder="ご意見・ご感想をお聞かせください"></textarea>
+                </div>
+                
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                    送信
+                </button>
+            </div>
+        </section>
+
+        <!-- Progress -->
+        <section class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <h3 class="font-semibold text-gray-800 mb-2">学習進捗</h3>
+            <div class="w-full bg-gray-200 rounded-full h-3 mb-2">
+                <div class="bg-blue-600 h-3 rounded-full" style="width: 98.1%"></div>
+            </div>
+            <p class="text-sm text-gray-600">53日目 / 54日間 (98.1%完了)</p>
+        </section>
+
+        <!-- Navigation -->
+        <section class="mb-8 bg-white rounded-lg shadow-md p-6">
+            <div class="flex justify-between items-center">
+                <a href="day52.html" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>前の日
+                </a>
+                <span class="text-gray-600">Day 53</span>
+                <a href="day54.html" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                    次の日<i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-2">ITエンジニア育成カリキュラムは、未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+            <hr class="border-gray-600 my-4">
+            <p class="text-gray-400">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Table of Contents (Hidden by default) -->
+    <div id="tocModal" class="fixed inset-0 bg-black bg-opacity-50 hidden">
+        <div class="bg-white p-6 rounded-lg max-w-md mx-auto mt-20">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold">目次</h3>
+                <button onclick="toggleToc()" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="space-y-2">
+                <li><a href="#theme-details" class="text-blue-600 hover:underline">詳細スケジュール</a></li>
+                <li><a href="#theme-details" class="text-blue-600 hover:underline">テーマ詳細</a></li>
+                <li><a href="#resources" class="text-blue-600 hover:underline">使用教材・リソース</a></li>
+                <li><a href="#comprehension-check" class="text-blue-600 hover:underline">理解度確認項目</a></li>
+                <li><a href="#next-steps" class="text-blue-600 hover:underline">次のステップ</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function toggleToc() {
+            const modal = document.getElementById('tocModal');
+            modal.classList.toggle('hidden');
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('tocModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleToc();
+            }
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDkB%2BXF6pvUPxY%2B%2Fj9c0vpbzWHiy%2Bt9gLwi9OM0Jt07yhaouh2gNuzP8cnrz9C%2F1%2B378WcuvYOR%2FjsP92kqnGV%2F%2FgC2afM%2FfuuSlpQ9itFtCgmdjz6rFTY1sE0uDbBzV8Hc8rr6Ba2hlf9HgfFcCZpccVakaDd4QNvFfQ0CCXjU1yWDzYFAwfFHKVBZT%2F%2B%2BEaWxArHkNNSVk%2BaoxDphFGZCDseVjspE6scMOio%2FJlJGZffzjy41vRyIuvyYF7YYxBQz5UAR8%2BAKGnihL%2BiBuFUSEigOhVjZZBWYvrnDISkbMCt4WR%2BDoCY14RG2bUmm7VIp0%2BYjBPHCLEXJXBDEY9BPkThkIbUc3jX2sjIJ5FNbKHo0dNddt9osSpaBpWzX2mY%2FWsMpjPLTaHC2oOUonbUvo0vzze0XXhJbk3h2VE1nmBjkE6vTJWDkOT9oLlf2dgJiWrJU6cyEEwOEXehqeef5ePGTEcIIA5VZZcoEDwGrY%2F";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDkB+XF6pvUPxY+/j9c0vpbzWHiy+t9gLwi9OM0Jt07yhaouh2gNuzP8cnrz9C/1+378WcuvYOR/jsP92kqnGV//gC2afM/fuuSlpQ9itFtCgmdjz6rFTY1sE0uDbBzV8Hc8rr6Ba2hlf9HgfFcCZpccVakaDd4QNvFfQ0CCXjU1yWDzYFAwfFHKVBZT/++EaWxArHkNNSVk+aoxDphFGZCDseVjspE6scMOio/JlJGZffzjy41vRyIuvyYF7YYxBQz5UAR8+AKGnihL+iBuFUSEigOhVjZZBWYvrnDISkbMCt4WR+DoCY14RG2bUmm7VIp0+YjBPHCLEXJXBDEY9BPkThkIbUc3jX2sjIJ5FNbKHo0dNddt9osSpaBpWzX2mY/WsMpjPLTaHC2oOUonbUvo0vzze0XXhJbk3h2VE1nmBjkE6vTJWDkOT9oLlf2dgJiWrJU6cyEEwOEXehqeef5ePGTEcIIA5VZZcoEDwGrY/";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

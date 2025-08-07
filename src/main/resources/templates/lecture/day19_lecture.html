@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day19: ネットワークプログラミング基礎</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .header-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .content-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 24px;
+            margin: 20px 0;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+        }
+        .code-example {
+            background: #1a202c;
+            color: #68d391;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 12px 0;
+        }
+        .answer-section {
+            background: #f0fff4;
+            border-left: 4px solid #48bb78;
+            padding: 16px;
+            margin: 12px 0;
+            border-radius: 4px;
+            display: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .answer-section.show {
+            display: block;
+            max-height: 1000px;
+        }
+        .network-diagram {
+            background: #e6fffa;
+            border: 2px dashed #319795;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin: 16px 0;
+        }
+        .protocol-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 16px 0;
+        }
+        .protocol-table th, .protocol-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+        .protocol-table th {
+            background: #f7fafc;
+            font-weight: bold;
+        }
+        .btn-reveal {
+            background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-reveal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+        }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day18_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day20_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month1.html" class="hover:text-blue-600">1ヶ月目: Java基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week4.html" class="hover:text-blue-600">4週目: 総仕上げ</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">19日目: ネットワークプログラミング基礎</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day19.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <header class="bg-blue-800 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <h1 class="text-2xl md:text-3xl font-bold text-center mb-2">
+                <i class="fas fa-network-wired mr-3"></i>
+                Day19: ネットワークプログラミング基礎
+            </h1>
+            <p class="text-center text-blue-200 text-lg">Socket通信・HTTP通信・クライアント・サーバー開発</p>
+            <div class="mt-3 text-center text-sm">
+                <span class="bg-blue-700 px-3 py-1 rounded-full mr-2">所要時間: 4時間</span>
+                <span class="bg-blue-700 px-3 py-1 rounded-full mr-2">対象: プログラミング中級者</span>
+                <span class="bg-blue-700 px-3 py-1 rounded-full">JavaSilver対応</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+
+        <!-- 学習目標 -->
+        <div class="content-card">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-blue-500 pb-2">
+                <i class="fas fa-bullseye mr-3 text-blue-500"></i>本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="highlight-box">
+                    <h3 class="text-lg font-bold mb-3 text-gray-800">
+                        <i class="fas fa-plug mr-2"></i>Socket通信の習得
+                    </h3>
+                    <ul class="text-sm space-y-2">
+                        <li>✓ TCP/UDPの違いと使い分けを理解</li>
+                        <li>✓ ServerSocketとSocketクラスの使用方法</li>
+                        <li>✓ クライアント・サーバー間のデータ送受信</li>
+                        <li>✓ マルチスレッドによる複数クライアント対応</li>
+                    </ul>
+                </div>
+                <div class="highlight-box">
+                    <h3 class="text-lg font-bold mb-3 text-gray-800">
+                        <i class="fas fa-globe mr-2"></i>HTTP通信の理解
+                    </h3>
+                    <ul class="text-sm space-y-2">
+                        <li>✓ HTTPプロトコルの基本構造</li>
+                        <li>✓ HttpURLConnectionの使用方法</li>
+                        <li>✓ GET/POSTリクエストの実装</li>
+                        <li>✓ JSONデータの送受信</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ITエンジニア豆知識 -->
+        <div class="content-card bg-gradient-to-r from-purple-50 to-pink-50">
+            <h2 class="text-2xl font-bold mb-6 text-purple-800">
+                <i class="fas fa-lightbulb mr-3"></i>ITエンジニア豆知識
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                    <h3 class="text-lg font-bold mb-3 text-purple-700">
+                        <i class="fas fa-history mr-2"></i>インターネットの誕生と発展
+                    </h3>
+                    <p class="text-sm text-gray-700 mb-3">
+                        1969年、アメリカの<span class="font-bold text-purple-600">ARPANET</span>（アーパネット）からインターネットは始まりました。
+                        当初は4つの大学を結ぶ研究ネットワークでしたが、現在では世界中の40億人以上が利用する巨大なネットワークに成長しています。
+                    </p>
+                    <div class="bg-purple-100 p-3 rounded">
+                        <p class="text-xs text-purple-800">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            最初に接続された4つの大学：UCLA、スタンフォード研究所、UCSB、ユタ大学
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                    <h3 class="text-lg font-bold mb-3 text-purple-700">
+                        <i class="fas fa-layer-group mr-2"></i>OSI参照モデルとTCP/IP
+                    </h3>
+                    <p class="text-sm text-gray-700 mb-3">
+                        ネットワーク通信は「<span class="font-bold text-purple-600">郵便システム</span>」と似ています。
+                        手紙（データ）を送るとき、封筒に宛先を書き（IPアドレス）、郵便局（ルーター）が配達先を判断し、
+                        郵便番号（ポート番号）で具体的な配達先を特定します。
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 shadow-sm">
+                    <h3 class="text-lg font-bold mb-3 text-purple-700">
+                        <i class="fas fa-shield-alt mr-2"></i>現代のネットワークセキュリティ
+                    </h3>
+                    <p class="text-sm text-gray-700">
+                        現在のWeb通信の約95%は<span class="font-bold text-purple-600">HTTPS</span>で暗号化されています。
+                        これは「盗聴されても内容が読めない暗号の手紙」を送るようなもので、
+                        個人情報やクレジットカード情報を安全に送信できます。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- メイン講義内容 -->
+        <div class="content-card">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-green-500 pb-2">
+                <i class="fas fa-chalkboard-teacher mr-3 text-green-500"></i>講義内容
+            </h2>
+
+            <!-- 1. ネットワーク通信の基礎 -->
+            <section class="mb-8">
+                <h3 class="text-xl font-bold mb-4 text-green-700">
+                    <i class="fas fa-sitemap mr-2"></i>1. ネットワーク通信の基礎
+                </h3>
+                
+                <div class="network-diagram">
+                    <h4 class="font-bold mb-2">TCP/IP 4層モデル</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
+                        <div class="bg-red-100 p-3 rounded">
+                            <div class="font-bold text-red-800">アプリケーション層</div>
+                            <div class="text-xs text-red-600">HTTP, FTP, SMTP</div>
+                        </div>
+                        <div class="bg-orange-100 p-3 rounded">
+                            <div class="font-bold text-orange-800">トランスポート層</div>
+                            <div class="text-xs text-orange-600">TCP, UDP</div>
+                        </div>
+                        <div class="bg-yellow-100 p-3 rounded">
+                            <div class="font-bold text-yellow-800">インターネット層</div>
+                            <div class="text-xs text-yellow-600">IP, ICMP</div>
+                        </div>
+                        <div class="bg-green-100 p-3 rounded">
+                            <div class="font-bold text-green-800">ネットワーク層</div>
+                            <div class="text-xs text-green-600">Ethernet, WiFi</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-lg mt-4">
+                    <h4 class="font-bold mb-2 text-blue-800">TCP vs UDP の違い</h4>
+                    <table class="protocol-table w-full">
+                        <thead>
+                            <tr>
+                                <th>項目</th>
+                                <th>TCP（信頼性重視）</th>
+                                <th>UDP（速度重視）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold">接続方式</td>
+                                <td>コネクション型（事前に接続確立）</td>
+                                <td>コネクションレス型（いきなり送信）</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">信頼性</td>
+                                <td>高い（到達保証・順序保証）</td>
+                                <td>低い（到達・順序保証なし）</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">速度</td>
+                                <td>やや遅い（確認処理のため）</td>
+                                <td>高速（確認処理なし）</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">用途例</td>
+                                <td>Webブラウジング、メール送信</td>
+                                <td>動画配信、オンラインゲーム</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">例え話</td>
+                                <td>「書留郵便」確実だがやや時間がかかる</td>
+                                <td>「普通郵便」早いが時々紛失する</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 2. Socket通信の実装 -->
+            <section class="mb-8">
+                <h3 class="text-xl font-bold mb-4 text-green-700">
+                    <i class="fas fa-plug mr-2"></i>2. Socket通信の実装
+                </h3>
+
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold mb-3 text-gray-700">2.1 サーバーサイドの実装</h4>
+                    <p class="text-sm text-gray-600 mb-3">
+                        サーバーは「お店」のようなもので、お客様（クライアント）からの注文（リクエスト）を待ち受けます。
+                    </p>
+                    
+                    <div class="code-example">
+                        <div class="text-yellow-300 mb-2">// シンプルなTCPサーバーの実装</div>
+                        <div class="text-white">
+import java.io.*;<br>
+import java.net.*;<br><br>
+
+public class SimpleServer {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try (ServerSocket serverSocket = new ServerSocket(8080)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("サーバーがポート8080で待ち受けています...");<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// クライアントからの接続を待つ<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Socket clientSocket = serverSocket.accept();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("クライアントが接続しました: " + <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clientSocket.getRemoteSocketAddress());<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// データの送受信<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BufferedReader in = new BufferedReader(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new InputStreamReader(clientSocket.getInputStream()));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PrintWriter out = new PrintWriter(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clientSocket.getOutputStream(), true);<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String inputLine = in.readLine();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out.println("サーバーからの返答: " + inputLine);<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clientSocket.close();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (IOException e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold mb-3 text-gray-700">2.2 クライアントサイドの実装</h4>
+                    <p class="text-sm text-gray-600 mb-3">
+                        クライアントは「お客様」として、サーバー（お店）に注文（リクエスト）を送ります。
+                    </p>
+                    
+                    <div class="code-example">
+                        <div class="text-yellow-300 mb-2">// シンプルなTCPクライアントの実装</div>
+                        <div class="text-white">
+import java.io.*;<br>
+import java.net.*;<br><br>
+
+public class SimpleClient {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try (Socket socket = new Socket("localhost", 8080)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("サーバーに接続しました");<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// データの送受信<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PrintWriter out = new PrintWriter(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;socket.getOutputStream(), true);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BufferedReader in = new BufferedReader(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new InputStreamReader(socket.getInputStream()));<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// メッセージを送信<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out.println("こんにちは、サーバー！");<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// サーバーからの返答を受信<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String response = in.readLine();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("サーバーからの返答: " + response);<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (IOException e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h4 class="font-bold mb-2 text-yellow-800">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>講師向け指導ポイント
+                    </h4>
+                    <ul class="text-sm space-y-1 text-yellow-700">
+                        <li>• <strong>try-with-resources文</strong>の重要性を強調（リソースの自動クローズ）</li>
+                        <li>• <strong>ポート番号</strong>は「建物の部屋番号」として例示</li>
+                        <li>• <strong>InputStream/OutputStream</strong>は「パイプの水の流れ」として説明</li>
+                        <li>• <strong>ブロッキング処理</strong>について：accept()やreadLine()で待機することを説明</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 3. HTTP通信の実装 -->
+            <section class="mb-8">
+                <h3 class="text-xl font-bold mb-4 text-green-700">
+                    <i class="fas fa-globe mr-2"></i>3. HTTP通信の実装
+                </h3>
+
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold mb-3 text-gray-700">3.1 HTTP GETリクエストの実装</h4>
+                    <p class="text-sm text-gray-600 mb-3">
+                        HTTP通信は「レストランでの注文」のようなもの。メニュー（URL）を指定して、料理（データ）をもらいます。
+                    </p>
+                    
+                    <div class="code-example">
+                        <div class="text-yellow-300 mb-2">// HTTP GETリクエストの実装</div>
+                        <div class="text-white">
+import java.io.*;<br>
+import java.net.*;<br><br>
+
+public class HttpGetExample {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// URLを作成<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL url = new URL("https://api.example.com/users");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HttpURLConnection connection = <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(HttpURLConnection) url.openConnection();<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// リクエストメソッドを設定<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.setRequestMethod("GET");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.setRequestProperty("Accept", "application/json");<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// レスポンスコードを確認<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int responseCode = connection.getResponseCode();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Response Code: " + responseCode);<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// レスポンスを読み取り<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BufferedReader reader = new BufferedReader(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new InputStreamReader(connection.getInputStream()));<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String line;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;StringBuilder response = new StringBuilder();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while ((line = reader.readLine()) != null) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response.append(line);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reader.close();<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Response: " + response.toString());<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (IOException e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-lg font-semibold mb-3 text-gray-700">3.2 HTTP POSTリクエストの実装</h4>
+                    <p class="text-sm text-gray-600 mb-3">
+                        POSTリクエストは「宅配便の送付」のようなもの。荷物（データ）を梱包して相手に送ります。
+                    </p>
+                    
+                    <div class="code-example">
+                        <div class="text-yellow-300 mb-2">// HTTP POSTリクエストの実装</div>
+                        <div class="text-white">
+import java.io.*;<br>
+import java.net.*;<br><br>
+
+public class HttpPostExample {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL url = new URL("https://api.example.com/users");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HttpURLConnection connection = <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(HttpURLConnection) url.openConnection();<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// POSTリクエストの設定<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.setRequestMethod("POST");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.setRequestProperty("Content-Type", "application/json");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.setDoOutput(true);<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 送信するJSONデータ<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String jsonData = "{\"name\":\"田中太郎\",\"age\":25}";<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// データを送信<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try (OutputStreamWriter writer = new OutputStreamWriter(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.getOutputStream())) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writer.write(jsonData);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writer.flush();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// レスポンスを読み取り<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int responseCode = connection.getResponseCode();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Response Code: " + responseCode);<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (IOException e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-bold mb-2 text-blue-800">
+                        <i class="fas fa-lightbulb mr-2"></i>HTTPメソッドの使い分け
+                    </h4>
+                    <table class="protocol-table w-full">
+                        <thead>
+                            <tr>
+                                <th>メソッド</th>
+                                <th>用途</th>
+                                <th>データ送信</th>
+                                <th>例え話</th>
+                                <th>実用例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="font-semibold text-green-600">GET</td>
+                                <td>データの取得</td>
+                                <td>URLに含める</td>
+                                <td>「図書館で本を借りる」</td>
+                                <td>検索、データ表示</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold text-blue-600">POST</td>
+                                <td>データの送信・作成</td>
+                                <td>リクエストボディ</td>
+                                <td>「手紙を投函する」</td>
+                                <td>ユーザー登録、ファイルアップロード</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold text-yellow-600">PUT</td>
+                                <td>データの更新・置換</td>
+                                <td>リクエストボディ</td>
+                                <td>「ファイルを上書き保存」</td>
+                                <td>プロフィール更新</td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold text-red-600">DELETE</td>
+                                <td>データの削除</td>
+                                <td>通常なし</td>
+                                <td>「ゴミ箱に捨てる」</td>
+                                <td>アカウント削除、ファイル削除</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 4. マルチスレッド対応サーバー -->
+            <section class="mb-8">
+                <h3 class="text-xl font-bold mb-4 text-green-700">
+                    <i class="fas fa-users mr-2"></i>4. マルチスレッド対応サーバー
+                </h3>
+
+                <div class="mb-4">
+                    <p class="text-sm text-gray-600 mb-3">
+                        単一スレッドのサーバーは「一人で接客する店員」のようなもの。一度に一つのお客様しか対応できません。
+                        マルチスレッドサーバーは「複数の店員がいる店」で、同時に複数のお客様に対応できます。
+                    </p>
+                </div>
+
+                <div class="code-example">
+                    <div class="text-yellow-300 mb-2">// マルチスレッド対応サーバーの実装</div>
+                    <div class="text-white">
+import java.io.*;<br>
+import java.net.*;<br>
+import java.util.concurrent.*;<br><br>
+
+public class MultiThreadServer {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;private static final int PORT = 8080;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;private static final ExecutorService threadPool = <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Executors.newFixedThreadPool(10);<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try (ServerSocket serverSocket = new ServerSocket(PORT)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("マルチスレッドサーバー開始 (Port: " + PORT + ")");<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while (true) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 新しいクライアント接続を待つ<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Socket clientSocket = serverSocket.accept();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 新しいスレッドでクライアントを処理<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;threadPool.submit(new ClientHandler(clientSocket));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (IOException e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}<br><br>
+
+// クライアント処理用のクラス<br>
+class ClientHandler implements Runnable {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;private Socket clientSocket;<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;public ClientHandler(Socket socket) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.clientSocket = socket;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;@Override<br>
+&nbsp;&nbsp;&nbsp;&nbsp;public void run() {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try (BufferedReader in = new BufferedReader(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new InputStreamReader(clientSocket.getInputStream()));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PrintWriter out = new PrintWriter(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clientSocket.getOutputStream(), true)) {<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String inputLine = in.readLine();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("受信: " + inputLine + <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" (Thread: " + Thread.currentThread().getName() + ")");<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 少し処理に時間をかける（実際の処理をシミュレート）<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thread.sleep(2000);<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out.println("処理完了: " + inputLine);<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (IOException | InterruptedException e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} finally {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clientSocket.close();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (IOException e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+                    </div>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg mt-4">
+                    <h4 class="font-bold mb-2 text-green-800">
+                        <i class="fas fa-info-circle mr-2"></i>スレッドプールの利点
+                    </h4>
+                    <ul class="text-sm space-y-1 text-green-700">
+                        <li>• <strong>リソース管理</strong>：スレッド数を制限してメモリ使用量を制御</li>
+                        <li>• <strong>性能向上</strong>：スレッドの使い回しでオーバーヘッドを削減</li>
+                        <li>• <strong>システム安定性</strong>：大量のリクエストでもシステムダウンを防止</li>
+                        <li>• <strong>スケーラビリティ</strong>：同時接続数に応じてプール数を調整可能</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <!-- 演習問題 -->
+        <div class="content-card">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-orange-500 pb-2">
+                <i class="fas fa-dumbbell mr-3 text-orange-500"></i>演習問題
+            </h2>
+
+            <!-- 演習問題1 -->
+            <div class="mb-8">
+                <h3 class="text-lg font-bold mb-4 text-orange-700">
+                    <i class="fas fa-code mr-2"></i>演習問題1: エコーサーバーの作成 ★★☆
+                </h3>
+                <div class="bg-orange-50 p-4 rounded-lg mb-4">
+                    <p class="text-sm text-gray-700 mb-3">
+                        <strong>問題：</strong>クライアントから受信したメッセージをそのまま返送する「エコーサーバー」を作成してください。
+                    </p>
+                    <div class="text-sm text-gray-600">
+                        <strong>要件：</strong>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>ポート番号：9999を使用</li>
+                            <li>複数のメッセージを処理できること（"exit"で終了）</li>
+                            <li>接続するクライアント数の表示</li>
+                            <li>try-with-resources文を使用</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="btn-reveal" onclick="showAnswer(1)">
+                    <i class="fas fa-eye mr-2"></i>回答と詳細解説を表示
+                </button>
+                <div id="answer1" class="answer-section">
+                    <h4 class="font-bold text-green-800 mb-3">解答例</h4>
+                    <div class="code-example text-xs">
+                        <div class="text-white">
+// エコーサーバーの実装<br>
+import java.io.*;<br>
+import java.net.*;<br><br>
+
+public class EchoServer {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;private static int clientCount = 0;<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try (ServerSocket serverSocket = new ServerSocket(9999)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("エコーサーバー開始 (Port: 9999)");<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while (true) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Socket clientSocket = serverSocket.accept();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clientCount++;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("クライアント接続 #" + clientCount);<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;handleClient(clientSocket);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (IOException e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;private static void handleClient(Socket clientSocket) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try (BufferedReader in = new BufferedReader(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new InputStreamReader(clientSocket.getInputStream()));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PrintWriter out = new PrintWriter(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clientSocket.getOutputStream(), true)) {<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String inputLine;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while ((inputLine = in.readLine()) != null) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if ("exit".equalsIgnoreCase(inputLine)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out.println("サーバー接続を終了します");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;out.println("ECHO: " + inputLine);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (IOException e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} finally {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clientSocket.close();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (IOException e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e.printStackTrace();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-blue-100 rounded">
+                        <h5 class="font-bold text-blue-800 mb-2">解説ポイント</h5>
+                        <ul class="text-sm text-blue-700 space-y-1">
+                            <li>• <strong>クライアント数の管理</strong>：static変数で接続数をカウント</li>
+                            <li>• <strong>終了条件</strong>：「exit」メッセージで接続を安全に終了</li>
+                            <li>• <strong>リソース管理</strong>：try-with-resourcesでストリームを自動クローズ</li>
+                            <li>• <strong>エラーハンドリング</strong>：IOException等の適切な例外処理</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 演習問題2 -->
+            <div class="mb-8">
+                <h3 class="text-lg font-bold mb-4 text-orange-700">
+                    <i class="fas fa-globe mr-2"></i>演習問題2: 天気情報取得API ★★★
+                </h3>
+                <div class="bg-orange-50 p-4 rounded-lg mb-4">
+                    <p class="text-sm text-gray-700 mb-3">
+                        <strong>問題：</strong>HTTP GETリクエストを使用して、天気情報APIから指定都市の天気データを取得し、
+                        JSON形式のレスポンスから必要な情報を抽出するプログラムを作成してください。
+                    </p>
+                    <div class="text-sm text-gray-600">
+                        <strong>要件：</strong>
+                        <ul class="list-disc list-inside mt-2 space-y-1">
+                            <li>API URL: https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=YOUR_API_KEY</li>
+                            <li>レスポンスコードが200以外の場合はエラーメッセージを表示</li>
+                            <li>JSONレスポンスから都市名、天気、気温を抽出</li>
+                            <li>適切な例外処理を実装</li>
+                        </ul>
+                    </div>
+                </div>
+                <button class="btn-reveal" onclick="showAnswer(2)">
+                    <i class="fas fa-eye mr-2"></i>回答と詳細解説を表示
+                </button>
+                <div id="answer2" class="answer-section">
+                    <h4 class="font-bold text-green-800 mb-3">解答例</h4>
+                    <div class="code-example text-xs">
+                        <div class="text-white">
+import java.io.*;<br>
+import java.net.*;<br>
+import org.json.*; // JSON処理用ライブラリ<br><br>
+
+public class WeatherAPIClient {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;private static final String API_KEY = "YOUR_API_KEY";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;private static final String BASE_URL = <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"https://api.openweathermap.org/data/2.5/weather";<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String city = "Tokyo";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;getWeatherInfo(city);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;public static void getWeatherInfo(String city) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// URLを構築<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String urlString = BASE_URL + "?q=" + city + <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&appid=" + API_KEY + "&units=metric";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;URL url = new URL(urlString);<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;HttpURLConnection connection = <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(HttpURLConnection) url.openConnection();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.setRequestMethod("GET");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connection.setRequestProperty("Accept", "application/json");<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int responseCode = connection.getResponseCode();<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (responseCode == 200) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// 成功レスポンスを読み取り<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BufferedReader reader = new BufferedReader(<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new InputStreamReader(connection.getInputStream()));<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;StringBuilder response = new StringBuilder();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String line;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while ((line = reader.readLine()) != null) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;response.append(line);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reader.close();<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// JSONをパース<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parseWeatherData(response.toString());<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.err.println("APIリクエストエラー: " + responseCode);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (IOException e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.err.println("ネットワークエラー: " + e.getMessage());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;private static void parseWeatherData(String jsonString) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSONObject json = new JSONObject(jsonString);<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String cityName = json.getString("name");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JSONArray weatherArray = json.getJSONArray("weather");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String weather = weatherArray.getJSONObject(0).getString("description");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;double temperature = json.getJSONObject("main").getDouble("temp");<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("=== 天気情報 ===");<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("都市: " + cityName);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("天気: " + weather);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("気温: " + temperature + "°C");<br><br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} catch (Exception e) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.err.println("JSONパースエラー: " + e.getMessage());<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+                        </div>
+                    </div>
+                    <div class="mt-4 p-3 bg-blue-100 rounded">
+                        <h5 class="font-bold text-blue-800 mb-2">解説ポイント</h5>
+                        <ul class="text-sm text-blue-700 space-y-1">
+                            <li>• <strong>URL構築</strong>：クエリパラメータの適切な組み合わせ</li>
+                            <li>• <strong>レスポンスコード確認</strong>：200番台以外はエラーとして処理</li>
+                            <li>• <strong>JSON解析</strong>：org.json ライブラリを使用した階層データの取得</li>
+                            <li>• <strong>例外分離</strong>：ネットワークエラーとパースエラーを個別に処理</li>
+                            <li>• <strong>API Key管理</strong>：実際の開発では環境変数や設定ファイルを使用</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 理解度チェッククイズ -->
+        <div class="content-card">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-purple-500 pb-2">
+                <i class="fas fa-question-circle mr-3 text-purple-500"></i>理解度チェッククイズ
+            </h2>
+
+            <!-- クイズ1 -->
+            <div class="mb-6">
+                <h3 class="text-lg font-bold mb-3 text-purple-700">
+                    クイズ1: TCP vs UDP ★★☆
+                </h3>
+                <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                    <p class="text-sm font-semibold mb-3">
+                        オンラインゲームで使用するネットワークプロトコルとして、TCPとUDPのどちらが適切でしょうか？
+                    </p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="a" class="mr-2">
+                            <span>A) TCP - データの確実な到達が最重要</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="b" class="mr-2">
+                            <span>B) UDP - リアルタイム性が最重要</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="c" class="mr-2">
+                            <span>C) どちらでも同じ</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="d" class="mr-2">
+                            <span>D) ゲームの種類による</span>
+                        </label>
+                    </div>
+                </div>
+                <button class="btn-reveal" onclick="showAnswer(3)">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                <div id="answer3" class="answer-section">
+                    <div class="p-4">
+                        <h4 class="font-bold text-green-800 mb-2">正解: B) UDP - リアルタイム性が最重要</h4>
+                        <div class="text-sm text-gray-700 space-y-2">
+                            <p><strong>解説：</strong></p>
+                            <p>オンラインゲーム（特にアクションゲーム）では、<span class="font-bold text-purple-600">リアルタイム性</span>が最も重要です。</p>
+                            <ul class="list-disc list-inside space-y-1 mt-2">
+                                <li><strong>UDP</strong>：少しデータが欠けても、遅延の少ない通信が可能</li>
+                                <li><strong>TCP</strong>：データの再送処理により遅延が発生する可能性</li>
+                                <li>例：FPSゲームで敵の位置情報が0.1秒遅れると致命的</li>
+                                <li>ただし、チャット機能やゲーム結果保存にはTCPを使用</li>
+                            </ul>
+                            <div class="mt-3 p-2 bg-purple-100 rounded">
+                                <p class="text-xs text-purple-800">
+                                    <i class="fas fa-lightbulb mr-1"></i>
+                                    実際のゲームでは用途に応じてTCPとUDPを使い分けることが多い
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- クイズ2 -->
+            <div class="mb-6">
+                <h3 class="text-lg font-bold mb-3 text-purple-700">
+                    クイズ2: HTTPステータスコード ★☆☆
+                </h3>
+                <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                    <p class="text-sm font-semibold mb-3">
+                        APIリクエストで「404」エラーが返された場合の意味は？
+                    </p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="a" class="mr-2">
+                            <span>A) サーバーが応答しない</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="b" class="mr-2">
+                            <span>B) 認証が必要</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="c" class="mr-2">
+                            <span>C) 要求されたリソースが見つからない</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="d" class="mr-2">
+                            <span>D) サーバー内部エラー</span>
+                        </label>
+                    </div>
+                </div>
+                <button class="btn-reveal" onclick="showAnswer(4)">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                <div id="answer4" class="answer-section">
+                    <div class="p-4">
+                        <h4 class="font-bold text-green-800 mb-2">正解: C) 要求されたリソースが見つからない</h4>
+                        <div class="text-sm text-gray-700 space-y-2">
+                            <p><strong>解説：</strong></p>
+                            <p>404エラーは「<span class="font-bold text-purple-600">Not Found</span>」を意味します。</p>
+                            <div class="bg-gray-100 p-3 rounded mt-2">
+                                <h5 class="font-bold mb-1">主要なHTTPステータスコード</h5>
+                                <ul class="text-xs space-y-1">
+                                    <li><strong>200 OK</strong>：正常な処理完了</li>
+                                    <li><strong>400 Bad Request</strong>：リクエストが不正</li>
+                                    <li><strong>401 Unauthorized</strong>：認証が必要</li>
+                                    <li><strong>404 Not Found</strong>：リソースが見つからない</li>
+                                    <li><strong>500 Internal Server Error</strong>：サーバー内部エラー</li>
+                                </ul>
+                            </div>
+                            <p class="mt-2">例：存在しないURLにアクセスした場合や、削除されたファイルを要求した場合</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- クイズ3 -->
+            <div class="mb-6">
+                <h3 class="text-lg font-bold mb-3 text-purple-700">
+                    クイズ3: ポート番号 ★★☆
+                </h3>
+                <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                    <p class="text-sm font-semibold mb-3">
+                        Webブラウザが通常使用するポート番号は？
+                    </p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz3" value="a" class="mr-2">
+                            <span>A) 21番（FTP）</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz3" value="b" class="mr-2">
+                            <span>B) 25番（SMTP）</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz3" value="c" class="mr-2">
+                            <span>C) 80番（HTTP）と443番（HTTPS）</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz3" value="d" class="mr-2">
+                            <span>D) 8080番</span>
+                        </label>
+                    </div>
+                </div>
+                <button class="btn-reveal" onclick="showAnswer(5)">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                <div id="answer5" class="answer-section">
+                    <div class="p-4">
+                        <h4 class="font-bold text-green-800 mb-2">正解: C) 80番（HTTP）と443番（HTTPS）</h4>
+                        <div class="text-sm text-gray-700 space-y-2">
+                            <p><strong>解説：</strong></p>
+                            <p>Webブラウザは以下のポート番号を使用します：</p>
+                            <ul class="list-disc list-inside space-y-1 mt-2">
+                                <li><strong>80番</strong>：HTTP通信（暗号化なし）</li>
+                                <li><strong>443番</strong>：HTTPS通信（SSL/TLS暗号化）</li>
+                            </ul>
+                            <div class="bg-blue-100 p-3 rounded mt-3">
+                                <h5 class="font-bold mb-1 text-blue-800">Well-knownポート番号</h5>
+                                <ul class="text-xs space-y-1">
+                                    <li><strong>21</strong>：FTP（ファイル転送）</li>
+                                    <li><strong>22</strong>：SSH（セキュアシェル）</li>
+                                    <li><strong>25</strong>：SMTP（メール送信）</li>
+                                    <li><strong>53</strong>：DNS（名前解決）</li>
+                                    <li><strong>80</strong>：HTTP（Web）</li>
+                                    <li><strong>443</strong>：HTTPS（セキュアWeb）</li>
+                                </ul>
+                            </div>
+                            <p class="mt-2 text-xs">
+                                <i class="fas fa-info-circle mr-1"></i>
+                                URLでポート番号を省略した場合、HTTPは80番、HTTPSは443番が自動的に使用される
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- まとめと次回予告 -->
+        <div class="content-card bg-gradient-to-r from-green-50 to-blue-50">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-green-500 pb-2">
+                <i class="fas fa-graduation-cap mr-3 text-green-500"></i>まとめと次回予告
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-green-700">
+                        <i class="fas fa-check-circle mr-2"></i>本日の重要ポイント
+                    </h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-network-wired mr-2 mt-1 text-green-500"></i>
+                            <div>
+                                <span class="font-semibold">Socket通信の基礎</span>
+                                <p class="text-gray-600">TCP/UDPの違いを理解し、適切なプロトコルを選択できる</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-globe mr-2 mt-1 text-blue-500"></i>
+                            <div>
+                                <span class="font-semibold">HTTP通信の実装</span>
+                                <p class="text-gray-600">GET/POSTリクエストを適切に使い分けてAPI通信が可能</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-users mr-2 mt-1 text-purple-500"></i>
+                            <div>
+                                <span class="font-semibold">マルチスレッド対応</span>
+                                <p class="text-gray-600">複数クライアントを同時に処理できるサーバー構築</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-shield-alt mr-2 mt-1 text-red-500"></i>
+                            <div>
+                                <span class="font-semibold">エラーハンドリング</span>
+                                <p class="text-gray-600">ネットワーク通信における適切な例外処理の実装</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-blue-700">
+                        <i class="fas fa-arrow-right mr-2"></i>次回予告: Day20
+                    </h3>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <h4 class="font-semibold text-blue-800 mb-2">総復習と模擬テスト③</h4>
+                        <p class="text-sm text-gray-600 mb-3">
+                            これまでに学習したJava基礎知識を総合的に復習し、
+                            実力を確認する模擬テストを実施します。
+                        </p>
+                        <ul class="text-xs space-y-1 text-gray-500">
+                            <li>• Java基礎文法の総復習</li>
+                            <li>• オブジェクト指向プログラミングの実践</li>
+                            <li>• ネットワーク・データベース連携</li>
+                            <li>• 模擬試験問題（30問）</li>
+                            <li>• 弱点分析と学習計画立案</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 p-4 bg-yellow-100 rounded-lg">
+                <h4 class="font-bold text-yellow-800 mb-2">
+                    <i class="fas fa-lightbulb mr-2"></i>実践のすすめ
+                </h4>
+                <p class="text-sm text-yellow-700">
+                    ネットワークプログラミングは実際に動かしてみることが理解への近道です。
+                    今日学習したサンプルコードを動かし、パラメータを変更して動作の違いを確認してみましょう。
+                    特に<span class="font-bold">マルチスレッドサーバー</span>では、複数のクライアントから同時接続して、
+                    リアルタイムでの処理の様子を観察することをお勧めします。
+                </p>
+            </div>
+        </div>
+
+        <!-- フッター -->
+        <footer class="mt-8 text-center text-sm text-gray-600 border-t pt-6">
+            <p>
+                <i class="fas fa-book mr-2"></i>
+                ITエンジニア育成カリキュラム - Day19: ネットワークプログラミング基礎
+            </p>
+            <p class="mt-2">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </footer>
+    </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        function showAnswer(questionId) {
+            const answerDiv = document.getElementById('answer' + questionId);
+            const button = event.target;
+            
+            if (answerDiv.classList.contains('show')) {
+                // 非表示にする
+                answerDiv.classList.remove('show');
+                answerDiv.style.maxHeight = '0';
+                button.innerHTML = '<i class="fas fa-eye mr-2"></i>回答と詳細解説を表示';
+            } else {
+                // 表示する
+                answerDiv.classList.add('show');
+                answerDiv.style.maxHeight = answerDiv.scrollHeight + 'px';
+                button.innerHTML = '<i class="fas fa-eye-slash mr-2"></i>回答を非表示';
+                
+                // スムーズスクロール
+                setTimeout(() => {
+                    answerDiv.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'nearest' 
+                    });
+                }, 300);
+            }
+        }
+        
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            // プログレスバーのアニメーション（もしあれば）
+            const progressElements = document.querySelectorAll('.progress-bar');
+            progressElements.forEach(element => {
+                const progress = element.getAttribute('data-progress');
+                element.style.width = progress + '%';
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+        
+        // クイズの選択状態管理
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // 同じ名前のラジオボタンの親要素のスタイルをリセット
+                document.querySelectorAll(`input[name="${this.name}"]`).forEach(r => {
+                    r.closest('label').classList.remove('bg-blue-100');
+                });
+                // 選択されたラジオボタンの親要素にスタイルを適用
+                this.closest('label').classList.add('bg-blue-100');
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqvy2USMyz27xq3k%2B7KBcs6D8RS1h7A5ucfJi8%2FnXiBcUxf5byFErh3GufkHT%2Fg66%2B6ovVREOI1dhBdPqxWdfV%2BZ2x3WKA5Af6nYH8aOyV5YXu8U2dBB%2BtdcRiKtxqrLdKU4WfjeNrZ7%2FvH2PaI4lJXit6V%2BNrPHUwJlFPvsIK2yUz1CAxgOqWPKpYgCHQVzVpNnNCCjIlP%2FPqlFR1B%2BCWUPDecxMXyP1e8UnEkTl%2FwGsT34n%2BdVFxsDMncENOI8tDwZHnyfGHmEQ5WkyeLvi4dpYtl0JPfsJfBCVXWnobTb5sXtvJB4YsNtH9Ax1K8YPxPe34K5HWk9%2Bb2oDpA36eRzyvHGDi9Dyxm1fEwqmogxzfcf2OYZkEKHY5hqm08p9rUWz%2BRQJuTNP2arOi1m5zmR%2FLfMkqdrRB9zK98eiyXP5rWD6NKXBl2PQOFNdqFiXoH4nPpfSlhD6HeSmhiS70hlXGrC6C%2FrIa4YjBs6pklZdnbFbUf1041Da1Y3w2wmD580o9HmPgEyPBfa2A0%2FV8I%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqvy2USMyz27xq3k+7KBcs6D8RS1h7A5ucfJi8/nXiBcUxf5byFErh3GufkHT/g66+6ovVREOI1dhBdPqxWdfV+Z2x3WKA5Af6nYH8aOyV5YXu8U2dBB+tdcRiKtxqrLdKU4WfjeNrZ7/vH2PaI4lJXit6V+NrPHUwJlFPvsIK2yUz1CAxgOqWPKpYgCHQVzVpNnNCCjIlP/PqlFR1B+CWUPDecxMXyP1e8UnEkTl/wGsT34n+dVFxsDMncENOI8tDwZHnyfGHmEQ5WkyeLvi4dpYtl0JPfsJfBCVXWnobTb5sXtvJB4YsNtH9Ax1K8YPxPe34K5HWk9+b2oDpA36eRzyvHGDi9Dyxm1fEwqmogxzfcf2OYZkEKHY5hqm08p9rUWz+RQJuTNP2arOi1m5zmR/LfMkqdrRB9zK98eiyXP5rWD6NKXBl2PQOFNdqFiXoH4nPpfSlhD6HeSmhiS70hlXGrC6C/rIa4YjBs6pklZdnbFbUf1041Da1Y3w2wmD580o9HmPgEyPBfa2A0/V8I=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

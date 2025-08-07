@@ -1,0 +1,12 @@
+{
+  "name": "unryu-system",
+  "private": true,
+  "devDependencies": {
+    "@playwright/test": "^1.43.1",
+    "dotenv": "^16.1.4"
+  },
+  "scripts": {
+    "test:e2e": "playwright test",
+    "run:e2e": "node scripts/run-e2e.js"
+  }
+}

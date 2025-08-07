@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 41 講義プロンプト: モダンJavaScript・Web制作実習</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- ヘッダー -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-code text-4xl text-blue-600 mr-4"></i>
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">モダンJavaScript・Web制作実習（改良版）</h1>
+                    <p class="text-gray-600 mt-2">ES6+機能とPromiseを活用した実践的Web制作プロジェクト</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- プロジェクト概要 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-project-diagram text-green-600 mr-3"></i>
+                プロジェクト名
+            </h2>
+            <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                <p class="text-lg font-semibold text-green-800">
+                    ITエンジニア育成カリキュラム - Day41: モダンJavaScript・Web制作実習
+                </p>
+                <p class="text-green-700 mt-2">
+                    以下の指示に従って、<code class="bg-green-200 px-2 py-1 rounded">Training/pages/lecture/day41_lecture.html</code>を生成してください。
+                </p>
+            </div>
+        </div>
+
+        <!-- 重要な改善指針 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-exclamation-triangle text-red-600 mr-3"></i>
+                🚨 重要な改善指針
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-3">
+                        <i class="fas fa-laptop-code mr-2"></i>
+                        🌐 実践的Web制作特化
+                    </h3>
+                    <ul class="text-blue-700 space-y-2">
+                        <li>• <strong>ES6+構文</strong>を活用した現代的コード作成</li>
+                        <li>• <strong>モジュールシステム</strong>によるコード分割</li>
+                        <li>• <strong>非同期処理</strong>を活用したAPI連携</li>
+                        <li>• <strong>実用的プロジェクト</strong>の段階的構築</li>
+                    </ul>
+                </div>
+
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-purple-800 mb-3">
+                        <i class="fas fa-user-graduate mr-2"></i>
+                        📚 初心者理解促進重視
+                    </h3>
+                    <ul class="text-purple-700 space-y-2">
+                        <li>• <strong>ES5との違い</strong>を明確に比較説明</li>
+                        <li>• <strong>なぜそうなるのか</strong>の理由を詳細解説</li>
+                        <li>• <strong>実例コード</strong>は段階的に複雑化</li>
+                        <li>• <strong>よくある間違い</strong>と対処法を明示</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 参照ファイル -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-folder-open text-orange-600 mr-3"></i>
+                📁 参照ファイル
+            </h2>
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <ul class="text-gray-700 space-y-2">
+                    <li>• <code class="bg-gray-200 px-2 py-1 rounded">Training/pages/day/day41.html</code></li>
+                    <li>• <code class="bg-gray-200 px-2 py-1 rounded">Training/pages/lecture/Template_dayX_lecture.html</code></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 学習目標 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-bullseye text-red-600 mr-3"></i>
+                🎯 本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <p class="text-gray-700">ES6+の主要機能（アロー関数・分割代入・スプレッド演算子）を<strong>実用レベル</strong>で活用できる</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <p class="text-gray-700">テンプレートリテラルとモジュールシステムを<strong>実践的プロジェクト</strong>で実装できる</p>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <p class="text-gray-700">Promise・async/awaitを使った<strong>非同期処理</strong>を完全習得する</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <p class="text-gray-700">実用的な<strong>Webアプリケーション</strong>を一から構築できる</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 達成基準 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-medal text-yellow-600 mr-3"></i>
+                ✅ 達成基準
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-yellow-500 mr-3 mt-1"></i>
+                        <p class="text-gray-700">ES6+構文を使って<strong>モダンなコード</strong>を記述できる</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-yellow-500 mr-3 mt-1"></i>
+                        <p class="text-gray-700">モジュールを使った<strong>コード分割</strong>を実装できる</p>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-yellow-500 mr-3 mt-1"></i>
+                        <p class="text-gray-700">非同期処理でAPI連携する<strong>Webアプリ</strong>を構築できる</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-yellow-500 mr-3 mt-1"></i>
+                        <p class="text-gray-700">エラーハンドリングを含む<strong>堅牢なコード</strong>を書ける</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 講義構成 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-list-ol text-blue-600 mr-3"></i>
+                📋 講義構成（改良版指針）
+            </h2>
+
+            <div class="space-y-6">
+                <!-- ES6+基本機能 -->
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <h3 class="text-xl font-semibold text-blue-800 mb-3">1. ES6+基本機能の完全理解</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p class="text-blue-800 font-semibold mb-2">❗ 具体例重視：</p>
+                        <ul class="text-blue-700 space-y-1">
+                            <li>• アロー関数の<strong>実用的な使い分け例</strong>（thisの違い含む）</li>
+                            <li>• 分割代入の<strong>実践的パターン</strong>（オブジェクト・配列・関数引数）</li>
+                            <li>• スプレッド演算子の<strong>効果的活用法</strong>（配列結合・オブジェクト更新）</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- テンプレートリテラル -->
+                <div class="border-l-4 border-green-500 pl-4">
+                    <h3 class="text-xl font-semibold text-green-800 mb-3">2. テンプレートリテラルとモジュール</h3>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <p class="text-green-800 font-semibold mb-2">⚠️ 必須改良事項：</p>
+                        <ul class="text-green-700 space-y-1">
+                            <li>• <strong>テンプレートリテラル：</strong>「なぜ文字列結合より優れているか」を実例で説明</li>
+                            <li>• <strong>モジュールシステム：</strong>「import/exportの使い分け」を実践的に解説</li>
+                            <li>• <strong>ファイル分割：</strong>「保守性向上の仕組み」を具体的プロジェクトで実装</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 非同期処理 -->
+                <div class="border-l-4 border-purple-500 pl-4">
+                    <h3 class="text-xl font-semibold text-purple-800 mb-3">3. 非同期処理の実践マスター</h3>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <p class="text-purple-800 font-semibold mb-2">🔧 実践重視：</p>
+                        <ul class="text-purple-700 space-y-1">
+                            <li>• <strong>Promise：</strong>「コールバック地獄からの脱却」を実例で解説</li>
+                            <li>• <strong>async/await：</strong>「同期的な書き方で非同期処理」を実装</li>
+                            <li>• <strong>エラーハンドリング：</strong>「try-catch」による堅牢な処理を実践</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Web制作実習 -->
+                <div class="border-l-4 border-red-500 pl-4">
+                    <h3 class="text-xl font-semibold text-red-800 mb-3">4. 実践Web制作プロジェクト</h3>
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <p class="text-red-800 font-semibold mb-2">💡 総合実習：</p>
+                        <ul class="text-red-700 space-y-1">
+                            <li>• <strong>天気予報アプリ：</strong>API連携とモダンJS構文の総合活用</li>
+                            <li>• <strong>タスク管理アプリ：</strong>LocalStorageとES6+機能の実践統合</li>
+                            <li>• <strong>モジュール設計：</strong>「機能別ファイル分割」の実装例</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 演習問題・理解度クイズ -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-tasks text-indigo-600 mr-3"></i>
+                📝 演習問題・理解度クイズ（表示仕様）
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-indigo-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-indigo-800 mb-3">📋 演習問題</h3>
+                    <ul class="text-indigo-700 space-y-2">
+                        <li>• 問題文：<strong>常に表示</strong></li>
+                        <li>• 回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+                        <li>• 詳細解説を削減しないよう注意</li>
+                    </ul>
+                </div>
+
+                <div class="bg-pink-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-pink-800 mb-3">🧠 理解度クイズ</h3>
+                    <ul class="text-pink-700 space-y-2">
+                        <li>• 問題・選択肢：<strong>常に表示</strong></li>
+                        <li>• 正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+                        <li>• JavaScript showAnswer()関数を実装</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 専門用語の説明強化指針 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-book text-teal-600 mr-3"></i>
+                📚 専門用語の説明強化指針
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="bg-teal-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-teal-800 mb-2">1. 初出時の詳細説明</h3>
+                    <p class="text-teal-700"><strong>例：</strong></p>
+                    <p class="text-teal-600 italic">"アロー関数（ES6で導入された、functionキーワードを省略できる簡潔な関数記法）では..."</p>
+                </div>
+
+                <div class="bg-cyan-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-cyan-800 mb-2">2. 日常例・比喩の活用</h3>
+                    <p class="text-cyan-700"><strong>例：</strong></p>
+                    <p class="text-cyan-600 italic">"分割代入は、荷物の中から必要なものだけを取り出すように、オブジェクトから特定のプロパティだけを抽出する仕組みです"</p>
+                </div>
+
+                <div class="bg-emerald-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-emerald-800 mb-2">3. 理由・背景の説明</h3>
+                    <p class="text-emerald-700"><strong>例：</strong></p>
+                    <p class="text-emerald-600 italic">"なぜasync/awaitが登場したかというと、Promiseの.then()チェーンが複雑になりがちだったため"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 共通仕様 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-cog text-gray-600 mr-3"></i>
+                ⚙️ 共通仕様
+            </h2>
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <ul class="text-gray-700 space-y-2">
+                    <li>• HTML5 / lang="ja" / UTF-8</li>
+                    <li>• <code class="bg-gray-200 px-2 py-1 rounded">&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                    <li>• Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                    <li>• レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                    <li>• コードブロックは <code class="bg-gray-200 px-2 py-1 rounded">&lt;pre&gt;&lt;code class="language-javascript"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                    <li>• 開発環境として Visual Studio Code + Chrome DevTools を記載</li>
+                    <li>• フッターに <code class="bg-gray-200 px-2 py-1 rounded">© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 分かりやすさチェックリスト -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-check-double text-green-600 mr-3"></i>
+                ✅ 分かりやすさチェックリスト
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-green-800 mb-3">📊 コード・実習</h3>
+                    <ul class="text-green-700 space-y-2">
+                        <li>• コード例は段階的に複雑化</li>
+                        <li>• ES5との比較コードを併記</li>
+                        <li>• 実用的なプロジェクトを段階的構築</li>
+                        <li>• デバッグ方法を具体的に説明</li>
+                    </ul>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-3">📝 文章・説明</h3>
+                    <ul class="text-blue-700 space-y-2">
+                        <li>• 専門用語は必ず日本語説明を併記</li>
+                        <li>• 「なぜ」の理由を必ず説明</li>
+                        <li>• 実用例・比喩を積極活用</li>
+                        <li>• まとめは具体的なメリットを明示</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 出力形式 -->
+        <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+            <h2 class="text-2xl font-bold text-red-800 mb-4 flex items-center">
+                <i class="fas fa-file-export text-red-600 mr-3"></i>
+                📤 出力形式
+            </h2>
+            <div class="bg-red-100 p-4 rounded-lg">
+                <p class="text-red-800 font-semibold mb-2">⚠️ 重要事項：</p>
+                <ul class="text-red-700 space-y-2">
+                    <li>• <strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                    <li>• 特に「ES6+機能と実践的Web制作」は<strong>必ず実例付きで詳細解説</strong>すること</li>
+                    <li>• 専門用語の初出時は<strong>日本語説明を併記</strong>すること</li>
+                    <li>• コード例は<strong>段階的に複雑化</strong>させること</li>
+                    <li>• HTMLの見やすさと詳細な解説を<strong>両立</strong>すること</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- フッター -->
+        <div class="text-center mt-8 text-gray-600">
+            <p>© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDlAlpbyYA9Avd1KCLMECZeKSYX%2FdSFl%2BjSubr1HQeyPY76Z%2BsxP%2FkIue4u0taVlu98k1HJlYu6eSSIXn0WUPN689UjOIbXWqcjSSuqBqE2ZSe6EDka5er2caFDlsfQ1GJnKRz0AJUfk4z%2FxMqGoALRPl6xQPBUyVQM5A8ij52SdONd2pbYwuCL1%2BV%2FcgoAPdr5Tm%2F1r7MB2ZSUmyFg6P6fryJhhbo5VCEpAe%2BG8Zoc2wTxdrQXjEMhNc30nd5T9axEUetjKuStl%2FEqUY%2BE8xC1q9sAqK9EhLB%2F4vJqxVxt3IVxR6xcMsntnbHP8H2vCSehcQ%2BrnubWqzaSoee0HB4S2YjcY2dFXeXuaoW3oXb%2FYc0f1Qpn74luKWfKLhW4iHeg9xa1TB9JsEli4SgEGwdZ9eniCT0peIcJp16L%2BiWJKAKPErf1BITKAULCQ3QM8ZySsShxrb5nw6Ox4yW3mBPQHI7n43PLkMdI%2BPeGGuo0JH6xt8vN5Eh3c3Ux6NI%2FS6xSlT3LI1MvLYQjKRUUEpR2U%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDlAlpbyYA9Avd1KCLMECZeKSYX/dSFl+jSubr1HQeyPY76Z+sxP/kIue4u0taVlu98k1HJlYu6eSSIXn0WUPN689UjOIbXWqcjSSuqBqE2ZSe6EDka5er2caFDlsfQ1GJnKRz0AJUfk4z/xMqGoALRPl6xQPBUyVQM5A8ij52SdONd2pbYwuCL1+V/cgoAPdr5Tm/1r7MB2ZSUmyFg6P6fryJhhbo5VCEpAe+G8Zoc2wTxdrQXjEMhNc30nd5T9axEUetjKuStl/EqUY+E8xC1q9sAqK9EhLB/4vJqxVxt3IVxR6xcMsntnbHP8H2vCSehcQ+rnubWqzaSoee0HB4S2YjcY2dFXeXuaoW3oXb/Yc0f1Qpn74luKWfKLhW4iHeg9xa1TB9JsEli4SgEGwdZ9eniCT0peIcJp16L+iWJKAKPErf1BITKAULCQ3QM8ZySsShxrb5nw6Ox4yW3mBPQHI7n43PLkMdI+PeGGuo0JH6xt8vN5Eh3c3Ux6NI/S6xSlT3LI1MvLYQjKRUUEpR2U=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

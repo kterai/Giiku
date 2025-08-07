@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 4: 配列応用・アルゴリズム基礎 | ITエンジニア育成カリキュラム</title>
+    <link href="../../css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/lib/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #6c757d;
+            --accent-color: #28a745;
+            --light-bg: #f8f9fa;
+            --dark-bg: #343a40;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+        }
+        
+        .hero-section {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-section h1 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-section p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            border-left: 5px solid var(--primary-color);
+            padding-left: 15px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card {
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .schedule-item {
+            border-left: 3px solid var(--primary-color);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background-color: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .schedule-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .schedule-time {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        
+        .learning-objective {
+            background-color: #e9f5ff;
+            border-radius: 4px;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+        }
+        
+        .learning-objective i {
+            color: var(--primary-color);
+            margin-right: 8px;
+        }
+        
+        .achievement-criteria {
+            background-color: #e9fff0;
+            border-radius: 4px;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+        }
+        
+        .achievement-criteria i {
+            color: var(--accent-color);
+            margin-right: 8px;
+        }
+        
+        .resource-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .resource-card i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+        
+        .resource-card h5 {
+            margin-top: 0;
+        }
+        
+        .understanding-item {
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .understanding-item i {
+            margin-right: 8px;
+        }
+        
+        .nav-tabs .nav-link.active {
+            font-weight: bold;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .algorithm-description {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        pre {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .next-step-card {
+            background-color: #e9f5ff;
+            border-left: 5px solid var(--primary-color);
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 3rem;
+        }
+        
+        .footer a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 2rem 0;
+            }
+            
+            .navbar-brand img {
+                height: 30px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+        
+        /* アルゴリズム可視化のためのスタイル */
+        .algorithm-visualization {
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .array-element {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            margin: 0 5px;
+            text-align: center;
+            line-height: 40px;
+            background-color: #e9f5ff;
+            border: 1px solid #0056b3;
+            border-radius: 4px;
+        }
+        
+        .array-element.active {
+            background-color: #ffc107;
+            border-color: #ff9800;
+        }
+        
+        .array-element.sorted {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        /* 印刷用スタイル */
+         {
+            .navbar, .footer {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+            }
+            
+            .card {
+                break-inside: avoid;
+            }
+            
+            a::after {
+                content: " (" attr(href) ")";
+                font-size: 80%;
+                color: #666;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script defer src="../../js/day-navigation.js"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                ITエンジニア育成カリキュラム
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../../pages/month/month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="../../pages/month/month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="../../pages/month/month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../../pages/week/week1.html">第1週: Java基礎</a></li>
+                            <li><a class="dropdown-item" href="../../pages/week/week2.html">第2週: オブジェクト指向</a></li>
+                            <li><a class="dropdown-item" href="../../pages/week/week3.html">第3週: Java応用</a></li>
+                            <li><a class="dropdown-item" href="../../pages/week/week4.html">第4週: 総仕上げ</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            日別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="day1.html">Day 1: オリエンテーション</a></li>
+                            <li><a class="dropdown-item" href="day2.html">Day 2: Java基本型・変数</a></li>
+                            <li><a class="dropdown-item" href="day3.html">Day 3: 制御構文・配列</a></li>
+                            <li><a class="dropdown-item active" href="day4.html">Day 4: 配列応用・アルゴリズム</a></li>
+                            <li><a class="dropdown-item" href="day5.html">Day 5: 模擬テスト・総合テスト</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/resources.html">学習リソース</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <div class="container text-center">
+            <h1>Day 4: 配列応用・アルゴリズム基礎</h1>
+            <p>多次元配列とアルゴリズムの基礎を習得する</p>
+        </div>
+    </div>
+    <div class="container mb-3 text-end">
+        <a href="../lecture/day4_lecture.html" target="_blank" class="btn btn-warning">
+            講義スライドを開く
+        </a>
+    </div>
+
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">ホーム</a></li>
+                <li class="breadcrumb-item"><a href="../../pages/month/month1.html">第1ヶ月目</a></li>
+                <li class="breadcrumb-item"><a href="../../pages/week/week1.html">第1週</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Day 4</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col-md-8">
+                <section>
+                    <h2 class="section-title">学習目標</h2>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="learning-objective">
+                                <i class="fas fa-check-circle"></i> 多次元配列（2次元配列）の理解と操作方法を習得する
+                            </div>
+                            <div class="learning-objective">
+                                <i class="fas fa-check-circle"></i> 基本的なソートアルゴリズム（バブルソート、選択ソート）を理解し、実装できるようになる
+                            </div>
+                            <div class="learning-objective">
+                                <i class="fas fa-check-circle"></i> 探索アルゴリズム（線形探索、二分探索）の概念と実装方法を習得する
+                            </div>
+                            <div class="learning-objective">
+                                <i class="fas fa-check-circle"></i> アルゴリズムの計算量（時間計算量・空間計算量）の基礎を理解する
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title">達成基準</h2>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="achievement-criteria">
+                                <i class="fas fa-award"></i> 2次元配列を使用したプログラムを作成できる
+                            </div>
+                            <div class="achievement-criteria">
+                                <i class="fas fa-award"></i> バブルソートと選択ソートを自分で実装できる
+                            </div>
+                            <div class="achievement-criteria">
+                                <i class="fas fa-award"></i> 線形探索と二分探索の違いを説明し、実装できる
+                            </div>
+                            <div class="achievement-criteria">
+                                <i class="fas fa-award"></i> 各アルゴリズムの計算量を理解し、比較できる
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title">詳細スケジュール</h2>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            タイムテーブル
+                        </div>
+                        <div class="card-body">
+                            <div class="schedule-item">
+                                <div class="schedule-time">10:00-10:15</div>
+                                <h4>オリエンテーション・前日復習</h4>
+                                <p>前日学習した制御構文と基本的な配列操作の復習を行い、本日の学習内容と目標を確認します。</p>
+                            </div>
+                            
+                            <div class="schedule-item">
+                                <div class="schedule-time">10:15-11:00</div>
+                                <h4>多次元配列の基礎</h4>
+                                <p>2次元配列の宣言、初期化、アクセス方法について学びます。行列や表形式のデータを扱う際の多次元配列の活用法を理解します。</p>
+                                <ul>
+                                    <li>2次元配列の宣言と初期化</li>
+                                    <li>2次元配列へのアクセス（行と列）</li>
+                                    <li>多次元配列の実際の使用例</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="schedule-item">
+                                <div class="schedule-time">11:00-11:45</div>
+                                <h4>多次元配列の演習</h4>
+                                <p>多次元配列を使用した実践的な演習を行い、理解を深めます。</p>
+                                <ul>
+                                    <li>2次元配列を使った行列演算</li>
+                                    <li>2次元配列を使ったゲーム盤の表現</li>
+                                    <li>拡張for文を使った多次元配列の操作</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="schedule-item">
+                                <div class="schedule-time">11:45-12:45</div>
+                                <h4>昼休憩</h4>
+                                <p>休憩時間です。昼食をとり、リフレッシュしましょう。</p>
+                            </div>
+                            
+                            <div class="schedule-item">
+                                <div class="schedule-time">12:45-13:30</div>
+                                <h4>ソートアルゴリズム基礎</h4>
+                                <p>基本的なソートアルゴリズムの概念、動作原理、実装方法について学びます。</p>
+                                <ul>
+                                    <li>ソートアルゴリズムの基本概念と種類</li>
+                                    <li>バブルソートの原理と実装</li>
+                                    <li>選択ソートの原理と実装</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="schedule-item">
+                                <div class="schedule-time">13:30-14:15</div>
+                                <h4>ソートアルゴリズム演習</h4>
+                                <p>学習したソートアルゴリズムを実際に実装し、動作を確認します。</p>
+                                <ul>
+                                    <li>バブルソートの実装演習</li>
+                                    <li>選択ソートの実装演習</li>
+                                    <li>ソートアルゴリズムの効率比較</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="schedule-item">
+                                <div class="schedule-time">14:15-15:00</div>
+                                <h4>探索アルゴリズム基礎</h4>
+                                <p>データから特定の値を検索するための探索アルゴリズムについて学びます。</p>
+                                <ul>
+                                    <li>探索アルゴリズムの基本概念</li>
+                                    <li>線形探索（リニアサーチ）の原理と実装</li>
+                                    <li>二分探索（バイナリサーチ）の原理と実装</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="schedule-item">
+                                <div class="schedule-time">15:00-15:10</div>
+                                <h4>午後休憩</h4>
+                                <p>短い休憩時間です。リフレッシュしましょう。</p>
+                            </div>
+                            
+                            <div class="schedule-item">
+                                <div class="schedule-time">15:10-15:55</div>
+                                <h4>探索アルゴリズム演習</h4>
+                                <p>学習した探索アルゴリズムを実際に実装し、効率を比較します。</p>
+                                <ul>
+                                    <li>線形探索の実装演習</li>
+                                    <li>二分探索の実装演習</li>
+                                    <li>探索アルゴリズムの効率比較</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="schedule-item">
+                                <div class="schedule-time">15:55-17:00</div>
+                                <h4>理解度チェック</h4>
+                                <p>多次元配列、ソートアルゴリズム、探索アルゴリズムについての理解度を確認するテストを行います。</p>
+                                <ul>
+                                    <li>多次元配列の操作に関する問題</li>
+                                    <li>ソートアルゴリズムの実装と時間計算量に関する問題</li>
+                                    <li>探索アルゴリズムの実装と時間計算量に関する問題</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="schedule-item">
+                                <div class="schedule-time">17:00-17:45</div>
+                                <h4>振り返り・質疑応答</h4>
+                                <p>本日の学習内容の振り返りと質疑応答を行います。また、翌日の学習内容の予告も行います。</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title">テーマ詳細</h2>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" id="themeTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="multidimensional-tab" data-bs-toggle="tab" data-bs-target="#multidimensional" type="button" role="tab" aria-controls="multidimensional" aria-selected="true">多次元配列</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="sort-tab" data-bs-toggle="tab" data-bs-target="#sort" type="button" role="tab" aria-controls="sort" aria-selected="false">ソートアルゴリズム</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="search-tab" data-bs-toggle="tab" data-bs-target="#search" type="button" role="tab" aria-controls="search" aria-selected="false">探索アルゴリズム</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content" id="themeTabsContent">
+                                <div class="tab-pane fade show active" id="multidimensional" role="tabpanel" aria-labelledby="multidimensional-tab">
+                                    <h3>多次元配列</h3>
+                                    <p>多次元配列は、配列の要素として配列を持つ構造です。特に2次元配列は表形式のデータを表現するのに適しています。</p>
+                                    
+                                    <div class="algorithm-description">
+                                        <h4>2次元配列の宣言と初期化</h4>
+                                        <pre><code>// 宣言方法1
+int[][] array1 = new int[3][4]; // 3行4列の2次元配列
+
+// 宣言方法2（初期化を伴う）
+int[][] array2 = {
+    {1, 2, 3, 4},
+    {5, 6, 7, 8},
+    {9, 10, 11, 12}
+};</code></pre>
+                                    </div>
+                                    
+                                    <div class="algorithm-description">
+                                        <h4>2次元配列へのアクセス</h4>
+                                        <pre><code>// 要素へのアクセス
+int value = array2[1][2]; // 2行目、3列目の要素（値は7）
+
+// 2次元配列の走査（通常のfor文）
+for (int i = 0; i < array2.length; i++) {
+    for (int j = 0; j < array2[i].length; j++) {
+        System.out.print(array2[i][j] + " ");
+    }
+    System.out.println();
+}
+
+// 2次元配列の走査（拡張for文）
+for (int[] row : array2) {
+    for (int element : row) {
+        System.out.print(element + " ");
+    }
+    System.out.println();
+}</code></pre>
+                                    </div>
+                                    
+                                    <h4>多次元配列の実用例</h4>
+                                    <ul>
+                                        <li>画像処理（ピクセルの2次元グリッド）</li>
+                                        <li>ゲーム開発（ゲーム盤、迷路など）</li>
+                                        <li>表計算（スプレッドシートのような表形式データ）</li>
+                                        <li>行列計算（数学的な行列演算）</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="sort" role="tabpanel" aria-labelledby="sort-tab">
+                                    <h3>ソートアルゴリズム</h3>
+                                    <p>ソートアルゴリズムは、データを特定の順序（通常は昇順または降順）に並べ替えるためのアルゴリズムです。</p>
+                                    
+                                    <div class="algorithm-description">
+                                        <h4>バブルソート</h4>
+                                        <p>隣接する要素を比較し、必要に応じて交換することを繰り返すシンプルなソートアルゴリズムです。</p>
+                                        <p><strong>時間計算量:</strong> O(n²) - nは配列の要素数</p>
+                                        <pre><code>public static void bubbleSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // 要素を交換
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}</code></pre>
+                                    </div>
+                                    
+                                    <div class="algorithm-visualization">
+                                        <h5>バブルソートの動作イメージ</h5>
+                                        <div class="d-flex justify-content-center my-3">
+                                            <div class="array-element">5</div>
+                                            <div class="array-element active">3</div>
+                                            <div class="array-element active">8</div>
+                                            <div class="array-element">1</div>
+                                            <div class="array-element">2</div>
+                                            <div class="array-element sorted">9</div>
+                                        </div>
+                                        <p class="text-center">比較中：3と8を比較（入れ替えは不要）</p>
+                                    </div>
+                                    
+                                    <div class="algorithm-description">
+                                        <h4>選択ソート</h4>
+                                        <p>配列内の最小要素を見つけて先頭に配置し、次に残りの部分で最小要素を見つけて2番目に配置するというプロセスを繰り返します。</p>
+                                        <p><strong>時間計算量:</strong> O(n²) - nは配列の要素数</p>
+                                        <pre><code>public static void selectionSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 0; i < n - 1; i++) {
+        // 未ソート部分の最小要素のインデックスを見つける
+        int minIndex = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+        // 見つかった最小要素と現在位置を交換
+        int temp = arr[minIndex];
+        arr[minIndex] = arr[i];
+        arr[i] = temp;
+    }
+}</code></pre>
+                                    </div>
+                                    
+                                    <div class="algorithm-visualization">
+                                        <h5>選択ソートの動作イメージ</h5>
+                                        <div class="d-flex justify-content-center my-3">
+                                            <div class="array-element sorted">1</div>
+                                            <div class="array-element sorted">2</div>
+                                            <div class="array-element active">3</div>
+                                            <div class="array-element">8</div>
+                                            <div class="array-element active">5</div>
+                                            <div class="array-element">9</div>
+                                        </div>
+                                        <p class="text-center">3番目の位置に配置する最小要素を探索中</p>
+                                    </div>
+                                    
+                                    <div class="chart-container">
+                                        <canvas id="sortComparisonChart"></canvas>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">
+                                    <h3>探索アルゴリズム</h3>
+                                    <p>探索アルゴリズムは、データ集合から特定の値を持つ要素を見つけるためのアルゴリズムです。</p>
+                                    
+                                    <div class="algorithm-description">
+                                        <h4>線形探索（リニアサーチ）</h4>
+                                        <p>配列の先頭から順番に各要素を調べる最も基本的な探索アルゴリズムです。</p>
+                                        <p><strong>時間計算量:</strong> O(n) - nは配列の要素数</p>
+                                        <pre><code>public static int linearSearch(int[] arr, int target) {
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] == target) {
+            return i; // 見つかった場合はインデックスを返す
+        }
+    }
+    return -1; // 見つからなかった場合は-1を返す
+}</code></pre>
+                                    </div>
+                                    
+                                    <div class="algorithm-description">
+                                        <h4>二分探索（バイナリサーチ）</h4>
+                                        <p>ソート済みの配列において、中央の要素と目的の値を比較し、探索範囲を半分に絞り込むことを繰り返す効率的な探索アルゴリズムです。</p>
+                                        <p><strong>時間計算量:</strong> O(log n) - nは配列の要素数</p>
+                                        <p><strong>注意:</strong> 二分探索はソート済みの配列に対してのみ適用可能です</p>
+                                        <pre><code>public static int binarySearch(int[] arr, int target) {
+    int left = 0;
+    int right = arr.length - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        // 中央の要素をチェック
+        if (arr[mid] == target) {
+            return mid; // 見つかった場合はインデックスを返す
+        }
+        
+        // 探索範囲を半分に絞り込む
+        if (arr[mid] < target) {
+            left = mid + 1; // 右半分を探索
+        } else {
+            right = mid - 1; // 左半分を探索
+        }
+    }
+    
+    return -1; // 見つからなかった場合は-1を返す
+}</code></pre>
+                                    </div>
+                                    
+                                    <div class="algorithm-visualization">
+                                        <h5>二分探索の動作イメージ</h5>
+                                        <div class="d-flex justify-content-center my-3">
+                                            <div class="array-element">1</div>
+                                            <div class="array-element">3</div>
+                                            <div class="array-element">5</div>
+                                            <div class="array-element active">7</div>
+                                            <div class="array-element">9</div>
+                                            <div class="array-element">11</div>
+                                            <div class="array-element">13</div>
+                                        </div>
+                                        <p class="text-center">中央値の7と目標値を比較</p>
+                                    </div>
+                                    
+                                    <div class="chart-container">
+                                        <canvas id="searchComparisonChart"></canvas>
+                                    </div>
+                                    
+                                    <div class="table-responsive mt-4">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>アルゴリズム</th>
+                                                    <th>時間計算量</th>
+                                                    <th>前提条件</th>
+                                                    <th>メリット</th>
+                                                    <th>デメリット</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>線形探索</td>
+                                                    <td>O(n)</td>
+                                                    <td>なし</td>
+                                                    <td>シンプルで実装が容易<br>ソート不要</td>
+                                                    <td>大きなデータセットでは効率が悪い</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>二分探索</td>
+                                                    <td>O(log n)</td>
+                                                    <td>ソート済み配列</td>
+                                                    <td>大きなデータセットでも効率的</td>
+                                                    <td>事前にソートが必要<br>実装が複雑</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title">使用教材・リソース</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="resource-card">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-book"></i>
+                                    <h5 class="mb-0">公式ドキュメント</h5>
+                                </div>
+                                <ul>
+                                    <li><a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/arrays.html" target="_blank">Java Tutorial: Arrays (Oracle公式)</a></li>
+                                    <li><a href="https://docs.oracle.com/javase/specs/jls/se17/html/jls-10.html" target="_blank">Java Language Specification: Arrays</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="resource-card">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-laptop-code"></i>
+                                    <h5 class="mb-0">オンライン演習</h5>
+                                </div>
+                                <ul>
+                                    <li><a href="https://visualgo.net/en/sorting" target="_blank">VisuAlgo - ソートアルゴリズムの可視化</a></li>
+                                    <li><a href="https://www.hackerrank.com/domains/algorithms" target="_blank">HackerRank - アルゴリズム問題集</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="resource-card">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-code"></i>
+                                    <h5 class="mb-0">サンプルコード</h5>
+                                </div>
+                                <ul>
+                                    <li><a href="https://github.com/TheAlgorithms/Java" target="_blank">The Algorithms - Java実装</a></li>
+                                    <li><a href="https://www.baeldung.com/java-sorting-arrays" target="_blank">Baeldung - Javaでのソートアルゴリズム</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="resource-card">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-video"></i>
+                                    <h5 class="mb-0">動画教材</h5>
+                                </div>
+                                <ul>
+                                    <li><a href="https://www.youtube.com/watch?v=xli_FI7CuzA" target="_blank">Javaでの多次元配列の使用方法</a></li>
+                                    <li><a href="https://www.youtube.com/watch?v=kPRA0W1kECg" target="_blank">15種類のソートアルゴリズム可視化</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title">理解度確認項目</h2>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            自己チェックリスト
+                        </div>
+                        <div class="card-body">
+                            <h5>基本レベル</h5>
+                            <div class="understanding-item">
+                                <i class="far fa-circle"></i> 2次元配列の宣言と初期化ができる
+                            </div>
+                            <div class="understanding-item">
+                                <i class="far fa-circle"></i> 2次元配列の要素にアクセスして値を取得・設定できる
+                            </div>
+                            <div class="understanding-item">
+                                <i class="far fa-circle"></i> for文を使って2次元配列を走査できる
+                            </div>
+                            <div class="understanding-item">
+                                <i class="far fa-circle"></i> バブルソートと選択ソートの基本的な仕組みを説明できる
+                            </div>
+                            <div class="understanding-item">
+                                <i class="far fa-circle"></i> 線形探索と二分探索の違いを説明できる
+                            </div>
+                            
+                            <h5 class="mt-4">応用レベル</h5>
+                            <div class="understanding-item">
+                                <i class="far fa-circle"></i> 不規則な形状の2次元配列（ジャグ配列）を作成し操作できる
+                            </div>
+                            <div class="understanding-item">
+                                <i class="far fa-circle"></i> バブルソートと選択ソートをJavaで実装できる
+                            </div>
+                            <div class="understanding-item">
+                                <i class="far fa-circle"></i> 線形探索と二分探索をJavaで実装できる
+                            </div>
+                            <div class="understanding-item">
+                                <i class="far fa-circle"></i> 各アルゴリズムの時間計算量と空間計算量を分析できる
+                            </div>
+                            <div class="understanding-item">
+                                <i class="far fa-circle"></i> 実際の問題に適したアルゴリズムを選択できる
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="progress-container">
+                    <h2 class="section-title">第1週の進捗状況</h2>
+                    <div class="progress" style="height: 25px;">
+                        <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">80%</div>
+                    </div>
+                    <div class="text-end mt-2">Day 4/5 完了</div>
+                </div>
+
+                <div class="next-step-card">
+                    <h3>次のステップ: Day 5 - Java Silver模擬テスト①・週次総合テスト</h3>
+                    <p>明日は第1週の学習内容の理解度を確認するための模擬テストと総合テストを実施します。Java基本構文、変数、データ型、演算子、制御構文、配列、アルゴリズムの基礎など、これまでに学んだすべての内容を復習しておきましょう。</p>
+                    <a href="day5.html" class="btn btn-primary mt-3">Day 5のカリキュラムを見る</a>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="sticky-top" style="top: 100px;">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            ナビゲーション
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <a href="day3.html" class="btn btn-outline-primary">
+                                    <i class="fas fa-arrow-left"></i> Day 3: 制御構文・配列
+                                </a>
+                                <a href="day5.html" class="btn btn-outline-primary">
+                                    Day 5: Java Silver模擬テスト <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                            <hr>
+                            <div class="d-grid gap-2">
+                                <a href="../../pages/week/week1.html" class="btn btn-outline-secondary">
+                                    第1週のカリキュラム一覧
+                                </a>
+                                <a href="../../pages/month/month1.html" class="btn btn-outline-secondary">
+                                    第1ヶ月目のカリキュラム
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            本日のポイント
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <strong><i class="fas fa-check text-success"></i> 2次元配列</strong>
+                                    <p class="small mb-0">表形式データの表現に最適な構造</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong><i class="fas fa-check text-success"></i> ソートアルゴリズム</strong>
+                                    <p class="small mb-0">バブルソート：O(n²)、選択ソート：O(n²)</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong><i class="fas fa-check text-success"></i> 探索アルゴリズム</strong>
+                                    <p class="small mb-0">線形探索：O(n)、二分探索：O(log n)</p>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong><i class="fas fa-check text-success"></i> 計算量</strong>
+                                    <p class="small mb-0">アルゴリズムの効率性を測る重要な指標</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            質問・フィードバック
+                        </div>
+                        <div class="card-body">
+                            <p>このページの内容についてのご質問やフィードバックがございましたら、以下のボタンからお寄せください。</p>
+                            <div class="d-grid">
+                                <a href="mailto:feedback@apsa.co.jp?subject=Day4カリキュラムについての質問" class="btn btn-outline-primary">
+                                    <i class="fas fa-envelope"></i> 質問・フィードバックを送る
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="footer-logo">
+                        <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                        <h3>ITエンジニア育成カリキュラム</h3>
+                        <p>20代〜30代の未経験者が3ヶ月でITエンジニアになるための体系的なカリキュラム</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h5>カリキュラム</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../pages/month/month1.html">第1ヶ月目: Java Silver</a></li>
+                        <li><a href="../../pages/month/month2.html">第2ヶ月目: 基本情報</a></li>
+                        <li><a href="../../pages/month/month3.html">第3ヶ月目: Web開発</a></li>
+                        <li><a href="../../resources/advanced.html">応用コース</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6">
+                    <h5>リソース</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../resources/resources.html">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html">よくある質問</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h5>お問い合わせ</h5>
+                    <address>
+                        <p><i class="fas fa-map-marker-alt"></i> 〒103-0027 東京都中央区日本橋2-10-5 グレースビル APSA 株式会社</p>
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:info@apsa.co.jp">info@apsa.co.jp</a></p>
+                        <p><i class="fas fa-globe"></i> <a href="https://www.apsa.co.jp" target="_blank">www.apsa.co.jp</a></p>
+                    </address>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/lib/jquery.min.js"></script>
+    <script src="../../js/lib/bootstrap.bundle.min.js"></script>
+    <script src="../../js/lib/chart.umd.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ソートアルゴリズム比較チャート
+            if(document.getElementById('sortComparisonChart')) {
+                var sortCtx = document.getElementById('sortComparisonChart').getContext('2d');
+                var sortComparisonChart = new Chart(sortCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['10要素', '100要素', '1,000要素', '10,000要素'],
+                        datasets: [{
+                            label: 'バブルソート',
+                            data: [0.1, 10, 1000, 100000],
+                            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }, {
+                            label: '選択ソート',
+                            data: [0.1, 10, 1000, 100000],
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: '処理時間（相対値）'
+                                },
+                                type: 'logarithmic',
+                                beginAtZero: true
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: '配列サイズ'
+                                }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'ソートアルゴリズムの性能比較'
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // 探索アルゴリズム比較チャート
+            if(document.getElementById('searchComparisonChart')) {
+                var searchCtx = document.getElementById('searchComparisonChart').getContext('2d');
+                var searchComparisonChart = new Chart(searchCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['10', '100', '1,000', '10,000', '100,000', '1,000,000'],
+                        datasets: [{
+                            label: '線形探索',
+                            data: [10, 100, 1000, 10000, 100000, 1000000],
+                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 2
+                        }, {
+                            label: '二分探索',
+                            data: [3.32, 6.64, 9.97, 13.29, 16.61, 19.93],
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: '最大比較回数'
+                                },
+                                type: 'logarithmic',
+                                beginAtZero: true
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: '要素数'
+                                }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: '探索アルゴリズムの性能比較'
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // チェックボックス機能
+            const checkItems = document.querySelectorAll('.understanding-item');
+            checkItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    if (icon.classList.contains('far', 'fa-circle')) {
+                        icon.classList.remove('far', 'fa-circle');
+                        icon.classList.add('fas', 'fa-check-circle', 'text-success');
+                    } else {
+                        icon.classList.remove('fas', 'fa-check-circle', 'text-success');
+                        icon.classList.add('far', 'fa-circle');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDtqZgxVQ50Z%2Bi0ksfOnvBiEqHuDCQF1TJK9yVbPUWrQF%2BAWsHeoBefqeoJO8hEELC%2B6XBpX2Q2kB835rN9IO3BFpCWG5nyiyzl0vbAuq%2Br3sC2%2BYjEL%2BSD7e%2FIhOpCWtMeLEvxMb%2Bx3q55%2BYNwbURajwXpEH2v%2B%2B%2BGN1u9SCk5Xw%2FG5HKcLDx5XGcggu5GI0ljtWgbd%2FWVT%2Fz7A%2BzeZhrD6oL8Z4fHOgxqtUoePNxkd32lBklm%2BnKgJGTOAkGBd4By1TExIDUOhribS8IIHko1KvjXX4RDHWIynu2LM7Ym0khh9YcPJl%2BCNKV5RGXm%2FjYAc0G%2Ba6b1vje9Pc23Ij%2BwgSz2CvBEvCsl3KfBIvXo0GneTrGAtZ%2FROlCTmOUzEBTSU7Ro5faE7hAOqqFn8vJuwhE0tnCNJKbSkoK805kkDkDKSUjw6gpS5y%2FYPvv%2BGO2PWvBbkfLw9QrZOI82VGhZk4wLh0f4haRmTsvuS3UG0U";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDtqZgxVQ50Z+i0ksfOnvBiEqHuDCQF1TJK9yVbPUWrQF+AWsHeoBefqeoJO8hEELC+6XBpX2Q2kB835rN9IO3BFpCWG5nyiyzl0vbAuq+r3sC2+YjEL+SD7e/IhOpCWtMeLEvxMb+x3q55+YNwbURajwXpEH2v+++GN1u9SCk5Xw/G5HKcLDx5XGcggu5GI0ljtWgbd/WVT/z7A+zeZhrD6oL8Z4fHOgxqtUoePNxkd32lBklm+nKgJGTOAkGBd4By1TExIDUOhribS8IIHko1KvjXX4RDHWIynu2LM7Ym0khh9YcPJl+CNKV5RGXm/jYAc0G+a6b1vje9Pc23Ij+wgSz2CvBEvCsl3KfBIvXo0GneTrGAtZ/ROlCTmOUzEBTSU7Ro5faE7hAOqqFn8vJuwhE0tnCNJKbSkoK805kkDkDKSUjw6gpS5y/YPvv+GO2PWvBbkfLw9QrZOI82VGhZk4wLh0f4haRmTsvuS3UG0U";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

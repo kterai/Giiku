@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロンプト改良版 - Day18: 第1ヶ月目総括と第2ヶ月目準備</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 25px 0 15px 0;
+        }
+        .improvement-box {
+            background-color: #f0f8ff;
+            border: 2px solid #4a90e2;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .clarity-box {
+            background-color: #fff8dc;
+            border: 2px solid #ffa500;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .content-box {
+            background-color: #f9f9f9;
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+        .warning-box {
+            background-color: #fff5f5;
+            border: 2px solid #e53e3e;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .code-example {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 12px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+        ul, ol {
+            padding-left: 25px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-graduation-cap text-blue-600"></i>
+                プロンプト改良版 - Day18: 第1ヶ月目総括と第2ヶ月目準備
+            </h1>
+            <p class="text-xl text-gray-600">Java技術整理・ポートフォリオ作成・基本情報技術者試験準備</p>
+            <p class="text-lg text-red-600 font-semibold mt-4">
+                <i class="fas fa-exclamation-triangle"></i>
+                分かりやすさ重視の改良版プロンプト指示書
+            </p>
+        </header>
+
+        <div class="warning-box">
+            <h2 class="text-2xl font-bold text-red-600 mb-3">
+                <i class="fas fa-info-circle"></i> 重要な注意事項
+            </h2>
+            <p class="text-lg">この文書は実際のHTMLファイルではなく、<strong>day18_lecture.html</strong>を生成するための詳細なプロンプト指示書です。</p>
+            <p class="mt-2">既存の豊富な内容を保持しつつ、<span class="highlight">分かりづらい表・専門用語・まとめセクションを改善</span>した指針を含みます。</p>
+        </div>
+
+        <div class="improvement-box">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-lightbulb"></i> 🎯 初心者理解重視の必須改善要項
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-700 mb-3">■ 表・まとめセクションの分かりやすさ確保</h3>
+                    <ul class="space-y-2">
+                        <li><span class="highlight">専門用語は略語だけでなく日本語説明を併記</span></li>
+                        <li>抽象的な表現は具体例・実用例で補完</li>
+                        <li>比較表には「なぜその違いが重要か」を明記</li>
+                        <li>技術スキル表には習熟度の目安を具体的に記載</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-700 mb-3">■ ポートフォリオ関連用語の徹底解説</h3>
+                    <ul class="space-y-2">
+                        <li><span class="highlight">GitHub、README、リポジトリ等の用語定義</span></li>
+                        <li>「技術スタック」「コミット」「プルリクエスト」の平易な説明</li>
+                        <li>ポートフォリオの「品質」基準を具体例で説明</li>
+                        <li>基本情報技術者試験の専門用語も初心者向けに解説</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-header">
+            <h2 class="text-2xl font-bold">
+                <i class="fas fa-clipboard-list"></i> 基本仕様（Day11-15で確立済み）
+            </h2>
+        </div>
+
+        <div class="content-box">
+            <h3 class="text-xl font-semibold mb-3">共通仕様</h3>
+            <ul>
+                <li>HTML5 / lang="ja" / UTF-8</li>
+                <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                <li>Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                <li>レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                <li>コードブロックは <code>&lt;pre&gt;&lt;code class="language-java"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                <li>開発環境として Pleiades (Eclipse) + Amazon Corretto JDK 17 を記載</li>
+                <li>フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+            </ul>
+        </div>
+
+        <div class="section-header">
+            <h2 class="text-2xl font-bold">
+                <i class="fas fa-star"></i> Day18の講義内容構成指示
+            </h2>
+        </div>
+
+        <div class="content-box">
+            <h3 class="text-xl font-semibold mb-3">1. ヘッダー & ページング</h3>
+            <ul>
+                <li>左: <code>day17_lecture.html</code></li>
+                <li>右: <code>day19_lecture.html</code></li>
+                <li>タイトル: <code>ITエンジニア育成カリキュラム - Day18: 第1ヶ月目総括と第2ヶ月目準備</code></li>
+                <li>サブタイトル: <code>Java技術整理・ポートフォリオ作成・基本情報技術者試験準備</code></li>
+            </ul>
+        </div>
+
+        <div class="content-box">
+            <h3 class="text-xl font-semibold mb-3">2. 学習目標</h3>
+            <ul>
+                <li>第1ヶ月目のJava学習成果を体系的に整理できる</li>
+                <li>技術ポートフォリオの構築方法を理解し実践できる</li>
+                <li>基本情報技術者試験の概要と学習計画を立てられる</li>
+                <li>第2ヶ月目の学習目標を明確に設定できる</li>
+            </ul>
+        </div>
+
+        <div class="content-box">
+            <h3 class="text-xl font-semibold mb-3">3. スケジュール表（改善版）</h3>
+            <div class="clarity-box">
+                <h4 class="text-lg font-semibold text-orange-700 mb-2">📋 分かりやすい表作成のポイント</h4>
+                <ul>
+                    <li>各時間帯の活動内容を具体的に記載</li>
+                    <li>専門用語には括弧内で簡単な説明を併記</li>
+                    <li>受講者が「何をするのか」が明確に分かる表現にする</li>
+                </ul>
+            </div>
+            <table class="w-full">
+                <thead>
+                    <tr>
+                        <th>時間</th>
+                        <th>内容</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>10:00-10:15</td><td>前日の復習・本日の目標確認</td></tr>
+                    <tr><td>10:15-11:00</td><td>Java技術習得状況の整理と評価（基礎文法・オブジェクト指向・応用技術）</td></tr>
+                    <tr><td>11:00-12:00</td><td>個人プロジェクトの完成とコード品質向上（リファクタリング・ドキュメント整備）</td></tr>
+                    <tr><td>12:00-13:00</td><td>昼休憩</td></tr>
+                    <tr><td>13:00-14:15</td><td>技術ポートフォリオの構築（GitHub活用・README作成・プロフィール整備）</td></tr>
+                    <tr><td>14:15-15:00</td><td>基本情報技術者試験の概要と準備（試験形式・学習計画作成）</td></tr>
+                    <tr><td>15:00-16:00</td><td>演習：ポートフォリオ作成実践</td></tr>
+                    <tr><td>16:00-16:40</td><td>理解度クイズ・総合評価</td></tr>
+                    <tr><td>16:40-17:00</td><td>第2ヶ月目への準備と目標設定</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-header">
+            <h2 class="text-2xl font-bold">
+                <i class="fas fa-book-open"></i> メイン講義の詳細構成
+            </h2>
+        </div>
+
+        <div class="content-box">
+            <h3 class="text-xl font-semibold mb-3">3.1 Java技術習得状況の整理と評価</h3>
+            <div class="clarity-box">
+                <h4 class="text-lg font-semibold text-orange-700 mb-2">📊 技術評価表の改善指針</h4>
+                <ul>
+                    <li><span class="highlight">習熟度レベルを5段階で明確化</span>（初学者・初級・中級・上級・エキスパート）</li>
+                    <li>各レベルの具体的な達成基準を併記</li>
+                    <li>自己評価と客観評価の両方を含める</li>
+                    <li>改善が必要な分野を特定しやすい構成にする</li>
+                </ul>
+            </div>
+            
+            <h4 class="text-lg font-semibold mt-4 mb-2">基礎文法レベル</h4>
+            <p>変数・データ型・制御構文・配列・メソッドの理解度を評価。実際のコード例を用いた自己チェック表を作成。</p>
+            
+            <h4 class="text-lg font-semibold mt-4 mb-2">オブジェクト指向レベル</h4>
+            <p>クラス・継承・ポリモーフィズム・カプセル化の実装能力を評価。UML図の読解力も含める。</p>
+            
+            <h4 class="text-lg font-semibold mt-4 mb-2">応用技術レベル</h4>
+            <p>コレクション・ジェネリクス・ラムダ式・Stream APIの活用度を評価。実際のプログラム作成能力も確認。</p>
+        </div>
+
+        <div class="content-box">
+            <h3 class="text-xl font-semibold mb-3">3.2 個人プロジェクトの完成とコード品質向上</h3>
+            <div class="clarity-box">
+                <h4 class="text-lg font-semibold text-orange-700 mb-2">🔧 コード品質基準の明確化</h4>
+                <ul>
+                    <li><span class="highlight">「良いコード」の具体的な定義を提示</span></li>
+                    <li>命名規則・コメント・構造化の具体例を豊富に掲載</li>
+                    <li>リファクタリングのビフォー・アフター例を示す</li>
+                    <li>コードレビューのチェックポイントを一覧化</li>
+                </ul>
+            </div>
+            <p>命名規則・コメント記述・コードの可読性・処理の効率性・エラーハンドリングの各観点から品質向上を図る方法を学習。</p>
+        </div>
+
+        <div class="content-box">
+            <h3 class="text-xl font-semibold mb-3">3.3 技術ポートフォリオの構築</h3>
+            <div class="clarity-box">
+                <h4 class="text-lg font-semibold text-orange-700 mb-2">📁 ポートフォリオ用語の徹底解説</h4>
+                <ul>
+                    <li><span class="highlight">GitHub</span>: プログラムのソースコードを保存・管理するオンラインサービス</li>
+                    <li><span class="highlight">リポジトリ</span>: プロジェクトのファイルをまとめて保存する場所（フォルダのようなもの）</li>
+                    <li><span class="highlight">README</span>: プロジェクトの説明書。何を作ったか、どう使うかを記載</li>
+                    <li><span class="highlight">コミット</span>: 変更内容を記録に残すこと（セーブのようなもの）</li>
+                    <li><span class="highlight">技術スタック</span>: プロジェクトで使用した技術の一覧</li>
+                </ul>
+            </div>
+            
+            <h4 class="text-lg font-semibold mt-4 mb-2">GitHub活用法</h4>
+            <p>アカウント作成・リポジトリ作成・ファイルアップロード・公開設定の手順を段階的に説明。</p>
+            
+            <h4 class="text-lg font-semibold mt-4 mb-2">プロフィールREADME作成</h4>
+            <p>自己紹介・スキル・プロジェクト一覧・連絡先を効果的に表示する方法を実例とともに解説。</p>
+            
+            <h4 class="text-lg font-semibold mt-4 mb-2">技術スタック可視化</h4>
+            <p>使用技術をバッジ形式で表示する方法と、レベル感を伝える工夫を紹介。</p>
+        </div>
+
+        <div class="content-box">
+            <h3 class="text-xl font-semibold mb-3">3.4 基本情報技術者試験の概要と準備</h3>
+            <div class="clarity-box">
+                <h4 class="text-lg font-semibold text-orange-700 mb-2">📚 試験関連用語の分かりやすい解説</h4>
+                <ul>
+                    <li><span class="highlight">基本情報技術者試験</span>: IT業界の国家資格。プログラマー・SE向けの基礎知識を問う</li>
+                    <li><span class="highlight">CBT</span>: Computer Based Testing（コンピュータを使った試験方式）</li>
+                    <li><span class="highlight">午前試験</span>: IT全般の基礎知識（4択80問・150分）</li>
+                    <li><span class="highlight">午後試験</span>: プログラミングとアルゴリズム（記述式・150分）</li>
+                </ul>
+            </div>
+            
+            <h4 class="text-lg font-semibold mt-4 mb-2">試験形式と出題範囲</h4>
+            <p>CBT形式での実施・午前/午後の構成・各分野の出題比率・合格基準を詳細に説明。</p>
+            
+            <h4 class="text-lg font-semibold mt-4 mb-2">8週間学習計画</h4>
+            <p>効率的な学習スケジュール・分野別対策・過去問活用法・モチベーション維持の工夫を提案。</p>
+        </div>
+
+        <div class="section-header">
+            <h2 class="text-2xl font-bold">
+                <i class="fas fa-lightbulb"></i> ITエンジニア豆知識
+            </h2>
+        </div>
+
+        <div class="content-box">
+            <h3 class="text-xl font-semibold mb-3">1. ポートフォリオの重要性</h3>
+            <p>採用市場でのポートフォリオの価値・企業が注目するポイント・成功事例を紹介。</p>
+            
+            <h3 class="text-xl font-semibold mb-3">2. 基本情報技術者試験の価値</h3>
+            <p>資格取得のメリット・キャリアへの影響・企業での評価について実例を挙げて説明。</p>
+            
+            <h3 class="text-xl font-semibold mb-3">3. 学習継続のコツ</h3>
+            <p>モチベーション管理・学習習慣の定着・挫折回避の方法を心理学的観点から解説。</p>
+        </div>
+
+        <div class="section-header">
+            <h2 class="text-2xl font-bold">
+                <i class="fas fa-dumbbell"></i> 演習問題（改善版）
+            </h2>
+        </div>
+
+        <div class="clarity-box">
+            <h3 class="text-lg font-semibold text-orange-700 mb-3">📝 演習問題の表示仕様</h3>
+            <ul>
+                <li><span class="highlight">問題文は常に表示</span>（非表示にしない）</li>
+                <li><span class="highlight">回答例・解説は「回答例を表示」ボタンでクリック時に表示</span></li>
+                <li>JavaScriptで showExerciseAnswer(n) 関数を実装</li>
+                <li>詳細な解説を削減せずに充実した内容を維持</li>
+            </ul>
+        </div>
+
+        <div class="content-box">
+            <h3 class="text-xl font-semibold mb-3">演習1: Java技術習得度の自己評価</h3>
+            <p><strong>問題:</strong> これまでに学習したJava技術について、以下の観点で自己評価を行い、改善計画を立案せよ。</p>
+            <ul>
+                <li>基礎文法（変数、制御構文、配列、メソッド）</li>
+                <li>オブジェクト指向（クラス、継承、ポリモーフィズム）</li>
+                <li>応用技術（コレクション、ジェネリクス、ラムダ式、Stream）</li>
+                <li>開発環境とツール（Eclipse、デバッガ、JUnit）</li>
+            </ul>
+            
+            <h3 class="text-xl font-semibold mb-3">演習2: GitHubポートフォリオの設計</h3>
+            <p><strong>問題:</strong> 効果的な技術ポートフォリオを作成するための設計書を作成せよ。</p>
+            
+            <h3 class="text-xl font-semibold mb-3">演習3: 基本情報技術者試験学習計画</h3>
+            <p><strong>問題:</strong> 8週間で基本情報技術者試験に合格するための詳細な学習計画を作成せよ。</p>
+        </div>
+
+        <div class="section-header">
+            <h2 class="text-2xl font-bold">
+                <i class="fas fa-question-circle"></i> 理解度確認クイズ（5問）
+            </h2>
+        </div>
+
+        <div class="clarity-box">
+            <h3 class="text-lg font-semibold text-orange-700 mb-3">❓ クイズの表示仕様</h3>
+            <ul>
+                <li><span class="highlight">問題文・選択肢は常に表示</span></li>
+                <li><span class="highlight">正解・解説は「回答を表示」ボタンでクリック時に表示</span></li>
+                <li>JavaScriptで showAnswer(n) 関数を実装</li>
+                <li>正解は色付きで強調表示</li>
+            </ul>
+        </div>
+
+        <div class="content-box">
+            <p class="text-lg mb-4">各問題に詳細な解説を含める：</p>
+            <ol>
+                <li>Java技術習得の評価基準に関する問題</li>
+                <li>コード品質向上の方法に関する問題</li>
+                <li>GitHubポートフォリオ作成に関する問題</li>
+                <li>基本情報技術者試験の概要に関する問題</li>
+                <li>学習継続とモチベーション管理に関する問題</li>
+            </ol>
+        </div>
+
+        <div class="section-header">
+            <h2 class="text-2xl font-bold">
+                <i class="fas fa-chart-line"></i> まとめと次回予告（改善版）
+            </h2>
+        </div>
+
+        <div class="clarity-box">
+            <h3 class="text-lg font-semibold text-orange-700 mb-3">📋 まとめセクションの改善指針</h3>
+            <ul>
+                <li><span class="highlight">抽象的な箇条書きではなく具体的なメリット・活用法を記載</span></li>
+                <li>「なぜ重要なのか」「どう活用するか」を明確に説明</li>
+                <li>次回学習内容との関連性を具体的に示す</li>
+                <li>復習時に参照しやすい構成にする</li>
+            </ul>
+        </div>
+
+        <div class="content-box">
+            <h3 class="text-xl font-semibold mb-3">本日のポイント</h3>
+            <ul>
+                <li><strong>技術習得の可視化:</strong> 自己評価により強み・弱みを明確化し、効率的な学習方針を立てられる</li>
+                <li><strong>ポートフォリオの戦略的活用:</strong> GitHubを活用した技術アピールで就職・転職活動を有利に進められる</li>
+                <li><strong>基本情報技術者試験の価値理解:</strong> 国家資格取得によりIT基礎知識の証明とキャリアアップが可能</li>
+                <li><strong>継続学習の基盤構築:</strong> 第2ヶ月目以降の学習を効果的に進めるための準備が整った</li>
+            </ul>
+        </div>
+
+        <div class="section-header">
+            <h2 class="text-2xl font-bold">
+                <i class="fas fa-link"></i> ナビゲーションリンク
+            </h2>
+        </div>
+
+        <div class="content-box">
+            <ul>
+                <li>前日: day17_lecture.html</li>
+                <li>翌日: day19_lecture.html</li>
+                <li>第4週一覧: ../week/week4.html</li>
+                <li>第1ヶ月目一覧: ../month/month1.html</li>
+            </ul>
+        </div>
+
+        <div class="section-header">
+            <h2 class="text-2xl font-bold">
+                <i class="fas fa-code"></i> JavaScript実装指示
+            </h2>
+        </div>
+
+        <div class="content-box">
+            <div class="code-example">
+function showAnswer(questionId) {<br>
+&nbsp;&nbsp;const answer = document.getElementById('answer' + questionId);<br>
+&nbsp;&nbsp;if (answer.style.display === 'none' || answer.style.display === '') {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;answer.style.display = 'block';<br>
+&nbsp;&nbsp;} else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;answer.style.display = 'none';<br>
+&nbsp;&nbsp;}<br>
+}<br><br>
+function showExerciseAnswer(exerciseId) {<br>
+&nbsp;&nbsp;const answer = document.getElementById('exerciseAnswer' + exerciseId);<br>
+&nbsp;&nbsp;if (answer.style.display === 'none' || answer.style.display === '') {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;answer.style.display = 'block';<br>
+&nbsp;&nbsp;} else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;answer.style.display = 'none';<br>
+&nbsp;&nbsp;}<br>
+}
+            </div>
+        </div>
+
+        <div class="section-header">
+            <h2 class="text-2xl font-bold">
+                <i class="fas fa-check-circle"></i> 最終確認チェックリスト
+            </h2>
+        </div>
+
+        <div class="content-box">
+            <h3 class="text-xl font-semibold mb-3">コンテンツ品質確認</h3>
+            <ul>
+                <li>✅ Day18の実際の内容に基づく講義構成</li>
+                <li>✅ Java技術整理セクション詳細記載</li>
+                <li>✅ ポートフォリオ作成手順明記</li>
+                <li>✅ 基本情報技術者試験概要説明</li>
+                <li>✅ ITエンジニア豆知識3項目以上</li>
+                <li>✅ 全問題に詳細解説あり</li>
+                <li>✅ <span class="highlight">専門用語の分かりやすい解説追加</span></li>
+                <li>✅ <span class="highlight">表・まとめセクションの改善実装</span></li>
+            </ul>
+
+            <h3 class="text-xl font-semibold mb-3 mt-6">機能要件確認</h3>
+            <ul>
+                <li>✅ 演習問題の「回答例を表示」ボタン実装</li>
+                <li>✅ 理解度クイズの「回答を表示」ボタン実装</li>
+                <li>✅ レスポンシブデザイン対応</li>
+                <li>✅ アクセシビリティ配慮</li>
+                <li>✅ SEO対策（適切なメタタグ）</li>
+                <li>✅ ページ読み込み速度最適化</li>
+            </ul>
+        </div>
+
+        <div class="warning-box mt-8">
+            <h3 class="text-xl font-bold text-red-600 mb-3">
+                <i class="fas fa-exclamation-triangle"></i> 出力形式
+            </h3>
+            <p class="text-lg">
+                <span class="highlight">上記の分かりやすさ改善指針をすべて含んだ完成HTMLのみを返してください。</span>
+            </p>
+            <p class="mt-2">既存の豊富な内容を保持しつつ、表・専門用語・まとめセクションを初心者にとって理解しやすい形に改良することが重要です。</p>
+        </div>
+
+        <footer class="text-center mt-12 py-6 border-t-2 border-gray-300">
+            <p class="text-gray-600">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDl6jXlVDIaNJrInmkOe7k%2F1NudL7ju0WnlCwVf1RGhCiBsZ1k8vlG6knBVcWP46jJ5wWOVLJkpU62Nvwik6w29vMGXgZGi%2FsnmVetZ36ouSfwd2bTH8v3y3fuNS4oiPsvxUuH%2BkFako%2FoE3qz39Hfv4yM%2BGM9vRFK0Ha4QYM0ZtEygoA2MoVQm83jByve1Xvznzde1vq7ouf2ZdR3X%2Bh4MFwZ3E7kCn5pd68hV%2BJjKW5vxYBgcsZupgv0LxPeWFl1UDzmfPvAWh26zZ3WHGTbPXYbZvCZdoueetDZZXlb4Qhg1cTA3b%2FG%2BjMnW4L0%2FFHpTy3t23fj2Cu%2Ftod1Ydwqct%2Fa1wHiDUqL9yVzqcCr0SWZjtJyqAvRbPwWIYPRoNBMIhM0V48cx45rHeZk802XcaaBGxtZPYFtovkaCYe1HzEUPpFwsl5lKt9465iNKNykAhaI12yWfX1VdNLWFMwH5EvqwTsdC5lnqcF8bR7Kq8CYgKyaLcNNPwEy17qpV%2BUd8mAV1GXCB27cyvW7HS1lkT0%2F%2BIyRgABjZCqiCHJAvPr8N1KggwsyHfW7KIREwF4Zw%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDl6jXlVDIaNJrInmkOe7k/1NudL7ju0WnlCwVf1RGhCiBsZ1k8vlG6knBVcWP46jJ5wWOVLJkpU62Nvwik6w29vMGXgZGi/snmVetZ36ouSfwd2bTH8v3y3fuNS4oiPsvxUuH+kFako/oE3qz39Hfv4yM+GM9vRFK0Ha4QYM0ZtEygoA2MoVQm83jByve1Xvznzde1vq7ouf2ZdR3X+h4MFwZ3E7kCn5pd68hV+JjKW5vxYBgcsZupgv0LxPeWFl1UDzmfPvAWh26zZ3WHGTbPXYbZvCZdoueetDZZXlb4Qhg1cTA3b/G+jMnW4L0/FHpTy3t23fj2Cu/tod1Ydwqct/a1wHiDUqL9yVzqcCr0SWZjtJyqAvRbPwWIYPRoNBMIhM0V48cx45rHeZk802XcaaBGxtZPYFtovkaCYe1HzEUPpFwsl5lKt9465iNKNykAhaI12yWfX1VdNLWFMwH5EvqwTsdC5lnqcF8bR7Kq8CYgKyaLcNNPwEy17qpV+Ud8mAV1GXCB27cyvW7HS1lkT0/+IyRgABjZCqiCHJAvPr8N1KggwsyHfW7KIREwF4Zw==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

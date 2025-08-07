@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day7_GammaAIプロンプト</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .prompt-section {
+            border-left: 4px solid #3b82f6;
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="content bg-white shadow-lg rounded-lg my-8">
+        <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Day7 GammaAIスライド作成用プロンプト</h1>
+        <div class="mb-6">
+            <p class="mb-4">以下のプロンプトをコピーして、GammaAIに入力することでDay7「カプセル化と継承」のスライドを作成できます。</p>
+        </div>
+
+        <div class="bg-blue-50 p-4 rounded-lg mb-8">
+            <h2 class="text-xl font-semibold mb-2">プロンプトの使い方</h2>
+            <ol class="list-decimal pl-5 space-y-1">
+                <li>GammaAI（https://gamma.app/）にアクセス</li>
+                <li>新規プレゼンテーションを作成</li>
+                <li>下記のプロンプト全文をコピー</li>
+                <li>AIプロンプト入力欄に貼り付けて生成</li>
+                <li>生成されたスライドを確認し、必要に応じて調整</li>
+            </ol>
+        </div>
+
+        <div class="border-t border-gray-300 pt-6">
+            <h2 class="text-2xl font-bold mb-4">プロンプト全文</h2>
+            <pre class="text-sm">プロジェクト名：ITエンジニア育成カリキュラム - Day 7: カプセル化と継承
+
+以下の指示に従って、プログラミング教育用のプロフェッショナルな講義スライドを作成してください。
+
+## スライド全体の設定
+- プロフェッショナルな教育用テンプレートを使用（青と白のカラースキームが望ましい）
+- 各スライドには明確な見出しをつける
+- すべてのスライドに下部にスライド番号を表示
+- フォントは読みやすく明確なものを選択
+- 必要に応じて関連する画像やアイコン、図解を追加
+- 背景色で文字が見えづらくならないように注意する
+
+## スライドの構成
+
+### タイトルスライド
+- タイトル: 「ITエンジニア育成カリキュラム - Day 7」
+- サブタイトル: 「カプセル化と継承」
+- 日付: 「2025年」
+- オブジェクト指向プログラミングを表す適切な画像を配置
+
+### スライド2：本日の学習目標
+以下の箇条書きリストを含める:
+- カプセル化の原則とその重要性を理解する
+- 適切なアクセス修飾子を使い分けられるようになる
+- getter/setterメソッドの適切な設計と実装ができる
+- 継承の概念とその使用場面を理解する
+- superキーワードを使ったコンストラクタの連鎖を理解する
+- メソッドのオーバーライドの仕組みと実装方法を習得する
+
+### スライド3：1日のスケジュール概要
+時間割を表形式で示す:
+- 10:00-10:15 オリエンテーション・前日復習
+- 10:15-11:45 講義: カプセル化とアクセス制御
+- 11:45-12:45 昼休憩
+- 12:45-14:15 講義: 継承の基本と応用
+- 14:15-15:55 演習: カプセル化と継承を使ったクラス設計
+- 15:55-17:00 理解度チェック
+- 17:00-17:45 振り返り・質疑応答
+
+### スライド4：オリエンテーション・前日復習 (10:00-10:15)
+以下の内容を簡潔に示す:
+- クラスとオブジェクトの基本概念の復習
+- コンストラクタとthisキーワードの確認
+- 本日の学習内容の位置づけ（オブジェクト指向の3大原則のうち2つ）
+
+### スライド5：カプセル化の概念 (10:15-11:45)
+カプセル化の基本概念と重要性について説明:
+- カプセル化の定義：データと操作をひとつのユニットにまとめ、データへの直接アクセスを制限する
+- カプセル化の目的：データの整合性保護、実装詳細の隠蔽、変更に強い設計の実現
+- カプセル化の実装方法：privateフィールドとpublicメソッド（アクセサ）の組み合わせ
+- カプセル化の利点：データ検証の一元化、内部実装の変更が外部に影響しない
+
+### スライド6：アクセス修飾子 (10:15-11:45 続き)
+アクセス修飾子の種類と範囲を表で示す:
+| 修飾子 | 同じクラス | 同じパッケージ | サブクラス | その他 |
+| --- | --- | --- | --- | --- |
+| public | ○ | ○ | ○ | ○ |
+| protected | ○ | ○ | ○ | × |
+| default | ○ | ○ | × (同パッケージなら○) | × |
+| private | ○ | × | × | × |
+
+各修飾子の適切な使用場面について説明を追加
+
+### スライド7：getter/setterメソッド (10:15-11:45 続き)
+getter/setterの実装例と利点を示す:
+```java
+public class Person {
+    // privateフィールド（カプセル化）
+    private String name;
+    private int age;
+    
+    // getter - 読み取りアクセスを提供
+    public String getName() {
+        return name;
+    }
+    
+    // setter - バリデーション付き書き込みアクセス
+    public void setAge(int age) {
+        if (age >= 0 && age <= 120) {
+            this.age = age;
+        } else {
+            throw new IllegalArgumentException("年齢は0～120の範囲である必要があります");
+        }
+    }
+}
+```
+- データ検証の実装方法
+- 条件付きアクセス制御の実現方法
+
+### スライド8：カプセル化演習の概要 (10:15-11:45 続き)
+カプセル化を実践するための演習概要:
+- 銀行口座クラスの設計（残高のカプセル化と入出金操作）
+- 商品クラスの設計（価格設定とバリデーション）
+- 学生クラスの設計（成績管理と平均点計算）
+
+### スライド9：昼休憩 (11:45-12:45)
+- 休憩時間です
+- 昼食をとり、リフレッシュしましょう
+- 午後のセッションは12:45から開始します
+
+### スライド10：継承の基本概念 (12:45-14:15)
+継承の基本と利点について説明:
+- 継承の定義：既存のクラス（スーパークラス）から特性を受け継ぎ、新しいクラス（サブクラス）を作る仕組み
+- 「is-a」関係の表現：「サブクラスはスーパークラスの一種」
+- 継承の利点：コードの再利用、階層的分類、拡張性
+- 継承の基本構文：`public class 子クラス extends 親クラス {}`
+- Javaの単一継承の特徴（多重継承との違い）
+
+### スライド11：継承の例と階層 (12:45-14:15 続き)
+視覚的な継承階層の例:
+- 動物クラス階層（Animal → Dog, Cat, Bird など）
+- 図形クラス階層（Shape → Circle, Rectangle, Triangle など）
+- 従業員クラス階層（Employee → Manager, Developer, Salesperson など）
+
+各例での共通メンバと特有のメンバを表で示す
+
+### スライド12：superキーワードの使い方 (12:45-14:15 続き)
+superキーワードの様々な使用方法を例示:
+```java
+public class Animal {
+    protected String name;
+    
+    public Animal(String name) {
+        this.name = name;
+    }
+    
+    public void makeSound() {
+        System.out.println("一般的な鳴き声");
+    }
+}
+
+public class Dog extends Animal {
+    private String breed;
+    
+    public Dog(String name, String breed) {
+        super(name); // スーパークラスのコンストラクタ呼び出し
+        this.breed = breed;
+    }
+    
+    @Override
+    public void makeSound() {
+        super.makeSound(); // スーパークラスのメソッド呼び出し
+        System.out.println(name + "がワンワン吠えています");
+    }
+}
+```
+- スーパークラスのコンストラクタ呼び出し: `super(引数)`
+- スーパークラスのメソッド呼び出し: `super.メソッド名(引数)`
+- スーパークラスのフィールドアクセス: `super.フィールド名`
+
+### スライド13：メソッドオーバーライド (12:45-14:15 続き)
+オーバーライドの概念と規則:
+- オーバーライドの定義：サブクラスでスーパークラスのメソッドを再定義すること
+- @Overrideアノテーションの意味と重要性
+- オーバーライドの規則:
+  1. メソッド名、パラメータ、戻り値の型が同じでなければならない
+  2. アクセス修飾子は同等以上に緩くできる（制限は強化できない）
+  3. スーパークラスのメソッドより多くの例外をスローできない
+  4. staticメソッド、privateメソッド、finalメソッドはオーバーライドできない
+
+### スライド14：継承の制限 (12:45-14:15 続き)
+継承に関する制限事項:
+- finalクラス：継承できないクラス（例：String, Integer など）
+- finalメソッド：オーバーライドできないメソッド
+- Javaの単一継承：1つのクラスは1つのクラスしか継承できない
+- 代替策：インターフェースの実装（複数可能）
+- 継承の乱用の危険性と「継承より合成」の原則
+
+### スライド15：演習：カプセル化と継承を使ったクラス設計 (14:15-15:55)
+実践的な演習の内容:
+- 銀行口座システムの設計
+  - 基本口座クラス（Account）：残高、入金、出金、残高照会
+  - 普通預金口座（SavingsAccount）：利息計算機能
+  - 当座預金口座（CheckingAccount）：手数料と最低残高
+- クラス図とコード実装のステップ
+- テストケースの作成と実行方法
+
+### スライド16：カプセル化と継承を組み合わせた実装例 (14:15-15:55 続き)
+具体的な実装例:
+```java
+// 基本口座クラス
+public class Account {
+    private String accountNumber;
+    private String ownerName;
+    protected double balance; // サブクラスからのアクセス許可
+    
+    public Account(String accountNumber, String ownerName, double initialBalance) {
+        this.accountNumber = accountNumber;
+        this.ownerName = ownerName;
+        if (initialBalance >= 0) {
+            this.balance = initialBalance;
+        } else {
+            throw new IllegalArgumentException("初期残高は0以上である必要があります");
+        }
+    }
+    
+    public double getBalance() {
+        return balance;
+    }
+    
+    public boolean deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean withdraw(double amount) {
+        if (amount > 0 && balance >= amount) {
+            balance -= amount;
+            return true;
+        }
+        return false;
+    }
+}
+
+// 普通預金口座クラス
+public class SavingsAccount extends Account {
+    private double interestRate; // 金利
+    
+    public SavingsAccount(String accountNumber, String ownerName, 
+                        double initialBalance, double interestRate) {
+        super(accountNumber, ownerName, initialBalance);
+        this.interestRate = interestRate;
+    }
+    
+    public void addInterest() {
+        double interest = balance * interestRate;
+        deposit(interest);
+    }
+}
+```
+
+### スライド17：理解度チェック (15:55-17:00)
+クイズ形式の理解度確認問題:
+- カプセル化の目的は何ですか？（選択肢）
+- 次のうちサブクラスからアクセスできる修飾子はどれですか？（選択肢）
+- 継承のコードで間違っている箇所を指摘してください（コード例）
+- superキーワードの正しい使い方は？（選択肢）
+- @Overrideアノテーションの役割は？（選択肢）
+
+### スライド18：復習とよくある間違い (15:55-17:00 続き)
+カプセル化と継承のよくある間違いと対策:
+- カプセル化の誤り：privateフィールドへのアクセサ忘れ、バリデーション不足
+- 継承の誤り：superの呼び出し忘れ、オーバーライドの規則違反
+- デザインの誤り：不適切な継承関係（is-a関係でないのに継承を使用）
+
+### スライド19：振り返りと質疑応答 (17:00-17:45)
+本日の学習内容の総括:
+- カプセル化の重要ポイント
+- 継承のベストプラクティス
+- よくある質問と回答
+- 演習の解説と模範解答
+
+### スライド20：次のステップ
+次回の学習内容の予告:
+- ポリモーフィズム（多態性）
+- 抽象クラスとインターフェース
+- オブジェクト指向設計の完成
+- 予習のポイント
+
+## 追加の指示
+- 各スライドには説明的なノートを追加し、講師が補足情報を伝えられるようにしてください
+- コードブロックには適切なシンタックスハイライトを適用してください
+- 特にカプセル化と継承の概念を視覚的に理解できる図解を含めてください
+- アクセス修飾子の範囲を示す図は円の入れ子構造で表現するとわかりやすいです
+- 継承関係はツリー構造の図で表現してください
+- コードの重要な部分は太字や色付きのテキストで強調してください
+- Pleiadesを使用した開発環境での実装例のスクリーンショットがあると理解しやすくなります
+- Amazon Corretto JDK 17を使用していることを明記してください
+
+以上の指示に基づいて、プロフェッショナルな教育用スライドを作成してください。</pre>
+        </div>
+
+        <div class="mt-8 bg-green-50 p-4 rounded-lg">
+            <h3 class="font-semibold text-green-800">このプロンプトのポイント</h3>
+            <ul class="list-disc pl-5 mt-2 space-y-1 text-sm">
+                <li>カプセル化と継承の概念を視覚的に理解しやすい図解を含めるよう指定</li>
+                <li>実践的なコード例を多く含め、理解を深められるよう工夫</li>
+                <li>アクセス修飾子の範囲を表で明確に示す構成</li>
+                <li>具体的な銀行口座システムの例で継承関係を説明</li>
+                <li>Pleiadesを使用した開発環境とAmazon Corretto JDK 17の使用を明記</li>
+            </ul>
+        </div>
+
+        <div class="mt-6 text-sm text-gray-600">
+            <p>© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDmvWG3wJYgkPfYxZXhDxMpjoMUYumb0AcrrdP61Vn5s86IZL3j3%2FmCqu10n3bgNvSvi90KBnrVVPuQ7u1inoGWzBY9kzS3uyft0IHwBdl70BzHYvFwtR3G4dN8pBloP2UjcbK6hnm54ADLiQNv%2BYrP3aAwRQlWQtVfDmd8tlSGyxfCd0QmZYqGKW86rIIY4vyw5sPYSYcXClB%2Bj8QS9GYx%2BmuipD%2BzkEX%2Fe9P5398NVLK8n9FVEdnv2kDAdR7MhZK5nCF%2FV8JcHTDiw3SOa9Kc7x8bQmK%2F9tZUcChdImEvwnaSmpR6Jboiqeu5hKwKAeLTu9agBNcTzJ63U%2FE%2F5eL5uZYBzBozlfUi091RqvyW5gIvqSNgLofolkqtjz%2Bg6aqhpHmsxX5jc2eYfXmFeuBjX3YBgH1WQsiKFqvD8ManxLfM7GllvZOCWnFJ1TH7xBdbrSaNN8nfhCM0ngplaW6dNoyCZkmnnOJb%2B58cgUN2CJpOWusoxaIwnSL6EYJOSXJ0TFzVc8%2B9kmkooeLdsJ76E%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDmvWG3wJYgkPfYxZXhDxMpjoMUYumb0AcrrdP61Vn5s86IZL3j3/mCqu10n3bgNvSvi90KBnrVVPuQ7u1inoGWzBY9kzS3uyft0IHwBdl70BzHYvFwtR3G4dN8pBloP2UjcbK6hnm54ADLiQNv+YrP3aAwRQlWQtVfDmd8tlSGyxfCd0QmZYqGKW86rIIY4vyw5sPYSYcXClB+j8QS9GYx+muipD+zkEX/e9P5398NVLK8n9FVEdnv2kDAdR7MhZK5nCF/V8JcHTDiw3SOa9Kc7x8bQmK/9tZUcChdImEvwnaSmpR6Jboiqeu5hKwKAeLTu9agBNcTzJ63U/E/5eL5uZYBzBozlfUi091RqvyW5gIvqSNgLofolkqtjz+g6aqhpHmsxX5jc2eYfXmFeuBjX3YBgH1WQsiKFqvD8ManxLfM7GllvZOCWnFJ1TH7xBdbrSaNN8nfhCM0ngplaW6dNoyCZkmnnOJb+58cgUN2CJpOWusoxaIwnSL6EYJOSXJ0TFzVc8+9kmkooeLdsJ76E=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

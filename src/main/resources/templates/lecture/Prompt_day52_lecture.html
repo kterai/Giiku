@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day52講義プロンプト - テスト駆動開発・JUnit・統合テスト完全マスター</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-vial mr-3"></i>
+                ITエンジニア育成カリキュラム - Day52: テスト駆動開発・JUnit・統合テスト（改良版）
+            </h1>
+            <p class="text-xl text-gray-600">高品質ソフトウェア開発のためのテスト技術完全マスター</p>
+            <div class="mt-4 p-4 bg-blue-100 rounded-lg">
+                <p class="text-blue-800 font-semibold">
+                    以下の指示に従って、<code class="bg-blue-200 px-2 py-1 rounded">Training/pages/lecture/day52_lecture.html</code> を生成してください。
+                </p>
+            </div>
+        </header>
+
+        <!-- 重要な改善指針 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-600 mb-4">
+                <i class="fas fa-exclamation-triangle mr-2"></i>🚨 重要な改善指針
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-green-700 mb-3">
+                        <i class="fas fa-chart-bar mr-2"></i>📊 表・まとめの分かりやすさ重視
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>テスト用語は必ず<strong>日本語説明</strong>を併記</li>
+                        <li>テスト手法は<strong>具体例</strong>で補足</li>
+                        <li>「適用場面」は<strong>実際の開発例</strong>を記載</li>
+                        <li>まとめは<strong>具体的なメリット</strong>を明示</li>
+                    </ul>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-blue-700 mb-3">
+                        <i class="fas fa-language mr-2"></i>🔤 専門用語の扱い
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>初出時は<strong>（日本語説明）</strong>を併記</li>
+                        <li>略語は<strong>正式名称</strong>を明記</li>
+                        <li>「なぜそうなるのか」の<strong>理由</strong>を説明</li>
+                        <li><strong>日常例・比喩</strong>を積極活用</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 参照ファイル -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-folder-open mr-2"></i>📁 参照ファイル
+            </h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                <li><code class="bg-gray-200 px-2 py-1 rounded">Training/pages/day/day52.html</code></li>
+                <li><code class="bg-gray-200 px-2 py-1 rounded">Training/pages/lecture/Template_dayX_lecture.html</code></li>
+            </ul>
+        </section>
+
+        <!-- 共通仕様 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-cog mr-2"></i>⚙️ 共通仕様
+            </h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                <li>HTML5 / lang="ja" / UTF-8</li>
+                <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                <li>Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                <li>レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                <li>コードブロックは <code>&lt;pre&gt;&lt;code class="language-java"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                <li>開発環境として IntelliJ IDEA + JUnit 5 + Maven/Gradle を記載</li>
+                <li>フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+            </ul>
+        </section>
+
+        <!-- 学習目標 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-target mr-2"></i>🎯 学習目標
+            </h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-3">
+                <li><strong>テスト駆動開発（TDD）の基本原則</strong>を理解し、レッド・グリーン・リファクタサイクルを実践できる</li>
+                <li><strong>JUnit 5とAssertJ</strong>を使用した効果的な単体テストを設計・実装できる</li>
+                <li><strong>Spring Boot Test・TestContainers</strong>による統合テスト環境を構築できる</li>
+                <li><strong>テストカバレッジ・品質管理</strong>を理解し、CI/CDパイプラインに統合できる</li>
+            </ul>
+        </section>
+
+        <!-- 達成基準 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-medal mr-2"></i>🏆 達成基準
+            </h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-3">
+                <li><strong>TDD手法</strong>を適用した開発サイクルを実践し、テストファーストの開発ができる</li>
+                <li><strong>JUnit 5の全機能</strong>（パラメータ化テスト、動的テスト、拡張機能）を活用できる</li>
+                <li><strong>Mockito・スパイテスト</strong>を使用した依存関係のモック化ができる</li>
+                <li><strong>統合テスト・E2Eテスト</strong>の設計と実装ができる</li>
+            </ul>
+        </section>
+
+        <!-- テスト手法比較表の分かりやすさ改善指針 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-orange-600 mb-4">
+                <i class="fas fa-table mr-2"></i>📊 テスト手法比較表の分かりやすさ改善指針
+            </h2>
+            
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-4">
+                <h3 class="font-semibold text-red-800 mb-2">❌ 改善前の問題例（テスト手法表）</h3>
+                <p class="text-red-700"><strong>問題：</strong>「Unit Test」「Integration Test」「E2E Test」など、専門用語のみで初心者には理解困難</p>
+            </div>
+
+            <div class="bg-green-50 border-l-4 border-green-500 p-4">
+                <h3 class="font-semibold text-green-800 mb-3">✅ 改善後の指針</h3>
+                
+                <div class="mb-4">
+                    <h4 class="font-semibold text-green-700 mb-2">テスト手法の説明強化</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li><strong>Unit Test</strong> → 「単体テスト（個別メソッドの動作確認）」</li>
+                        <li><strong>Integration Test</strong> → 「統合テスト（複数コンポーネントの連携確認）」</li>
+                        <li><strong>E2E Test</strong> → 「エンドツーエンドテスト（全体の動作確認）」</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-green-700 mb-2">具体例の追加</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li><strong>「単体テスト」</strong>→「計算メソッドの正確性確認」</li>
+                        <li><strong>「統合テスト」</strong>→「データベース連携処理の確認」</li>
+                        <li><strong>「E2Eテスト」</strong>→「ユーザー登録から完了まで全工程確認」</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 専門用語の説明強化指針 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-purple-600 mb-4">
+                <i class="fas fa-book mr-2"></i>📚 専門用語の説明強化指針
+            </h2>
+
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-purple-700 mb-3">1. 初出時の詳細説明</h3>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <p class="text-gray-700"><strong>例：</strong>「TDD（Test-Driven Development - テストを先に書いて開発を進める手法）では...」</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-purple-700 mb-3">2. 日常例・比喩の活用</h3>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <p class="text-gray-700"><strong>例：</strong>「モックテストは映画の撮影における代役のように、本物の代わりに動作するテスト用オブジェクトです」</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-purple-700 mb-3">3. 理由・背景の説明</h3>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <p class="text-gray-700"><strong>例：</strong>「なぜTDDが有効かというと、テストを先に書くことで要件が明確になり、バグの早期発見ができるため」</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ページ構成（改良版） -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-sitemap mr-2"></i>📋 ページ構成（改良版）
+            </h2>
+
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-green-700 mb-3">1. ヘッダー & ページング</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>左に前日 <code>day51_lecture.html</code> へのリンク（FontAwesome <code>fa-chevron-left</code>）</li>
+                        <li>右に翌日 <code>day53_lecture.html</code> へのリンク（<code>fa-chevron-right</code>）</li>
+                        <li>中央タイトル：<code>ITエンジニア育成カリキュラム - Day52: テスト駆動開発・JUnit・統合テスト</code></li>
+                        <li>サブタイトル：<code>高品質ソフトウェア開発のためのテスト技術完全マスター</code></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-green-700 mb-3">2. 学習目標</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>TDD手法を<strong>具体例とともに</strong>説明できる</li>
+                        <li>JUnit 5 / AssertJ の機能を<strong>実践例で</strong>理解する</li>
+                        <li>統合テストを<strong>実際にコーディング</strong>できる</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- メイン講義（改良版指針） -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-chalkboard-teacher mr-2"></i>📖 メイン講義（改良版指針）
+            </h2>
+
+            <div class="space-y-8">
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4">
+                    <h3 class="text-lg font-semibold text-yellow-800 mb-3">TDD基礎概念とレッド・グリーン・リファクタサイクル</h3>
+                    <div class="text-gray-700">
+                        <p class="mb-2"><strong>❗ 具体例重視：</strong></p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>「レッドフェーズ：失敗するテストを書く（例：まだ存在しないメソッドをテスト）」</li>
+                            <li>「グリーンフェーズ：最小限のコードでテストを通す（例：とりあえず期待値を返す）」</li>
+                            <li>「リファクタフェーズ：重複を取り除き、コードを整理する」</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-3">JUnit 5・AssertJ比較表（重要改良箇所）</h3>
+                    <div class="text-gray-700">
+                        <p class="mb-3"><strong>⚠️ 必須改良事項：</strong></p>
+                        
+                        <div class="mb-4">
+                            <h4 class="font-semibold mb-2">表の各項目に詳細説明を追加：</h4>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>@Test：</strong>「テストメソッドの指定（例：@Test void shouldReturnTrue()）」</li>
+                                <li><strong>@ParameterizedTest：</strong>「複数値での同じテスト実行（例：異なる入力値で計算確認）」</li>
+                                <li><strong>適用場面：</strong>「単体テスト」→「個別メソッドの動作確認・境界値テスト」など具体例</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold mb-2">比較表に「実用例」列を追加：</h4>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>JUnit 5: 「計算ロジック検証、例外処理確認」</li>
+                                <li>AssertJ: 「詳細な検証、コレクション検証」</li>
+                                <li>Mockito: 「外部依存モック化、API呼び出し代替」</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 border-l-4 border-green-500 p-4">
+                    <h3 class="text-lg font-semibold text-green-800 mb-3">Spring Boot Test・TestContainers統合</h3>
+                    <div class="text-gray-700">
+                        <p class="mb-2"><strong>🔧 実践重視：</strong></p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>@SpringBootTest：</strong>「アプリケーション全体のテスト環境起動」</li>
+                            <li><strong>TestContainers：</strong>「Dockerコンテナでの実データベーステスト」</li>
+                            <li><strong>@MockBean：</strong>「Spring コンテキスト内でのモック注入」</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 演習問題・理解度クイズ（表示仕様） -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-question-circle mr-2"></i>📝 演習問題・理解度クイズ（表示仕様）
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-orange-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-orange-700 mb-3">📋 演習問題</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>問題文：<strong>常に表示</strong></li>
+                        <li>回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+                        <li>詳細解説を削減しないよう注意</li>
+                    </ul>
+                </div>
+
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-purple-700 mb-3">🧠 理解度クイズ</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>問題・選択肢：<strong>常に表示</strong></li>
+                        <li>正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+                        <li>JavaScript showAnswer()関数を実装</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- まとめセクション改善指針 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-summary mr-2"></i>📝 まとめセクション改善指針
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-red-50 border-l-4 border-red-500 p-4">
+                    <h3 class="font-semibold text-red-800 mb-3">❌ 避けるべき抽象的表現</h3>
+                    <ul class="list-disc list-inside text-red-700 space-y-1">
+                        <li>「TDDを理解した」</li>
+                        <li>「テスト技術を把握した」</li>
+                        <li>「品質管理ができるようになった」</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-50 border-l-4 border-green-500 p-4">
+                    <h3 class="font-semibold text-green-800 mb-3">✅ 推奨する具体的表現</h3>
+                    <ul class="list-disc list-inside text-green-700 space-y-1">
+                        <li>「TDD手法でバグ発生率を削減、要件明確化を実現」</li>
+                        <li>「JUnit 5で効率的な単体テスト、AssertJで詳細検証を実装」</li>
+                        <li>「TestContainersで実環境テスト、CI/CD統合で継続的品質管理」</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 分かりやすさチェックリスト -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-check-double mr-2"></i>✅ 分かりやすさチェックリスト
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-blue-700 mb-3">📊 表・図解</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>テスト用語に必ず日本語説明を併記</li>
+                        <li>テスト手法には具体例（「ユーザー登録テスト」）</li>
+                        <li>適用場面は実際の開発例で説明</li>
+                        <li>比較表には「実用例」列を追加</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-green-700 mb-3">📝 文章・説明</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>略語は正式名称を併記</li>
+                        <li>「なぜ」の理由を必ず説明</li>
+                        <li>日常例・比喩を積極活用</li>
+                        <li>まとめは具体的なメリットを明示</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 特別指針 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-purple-600 mb-4">
+                <i class="fas fa-star mr-2"></i>🌟 Day52特有の追加指針
+            </h2>
+
+            <div class="space-y-6">
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4">
+                    <h3 class="font-semibold text-yellow-800 mb-3">テスト特化項目</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><strong>TDDサイクルの実例を豊富に：</strong>「実際のコード例でレッド→グリーン→リファクタを体験」</li>
+                        <li><strong>テストピラミッド概念の図解：</strong>「単体テスト（多）→統合テスト（中）→E2Eテスト（少）」</li>
+                        <li><strong>テストカバレッジの具体的数値目標：</strong>「単体テスト80%以上、統合テスト60%以上」</li>
+                        <li><strong>CI/CD統合の実践例：</strong>「GitHub Actions・Jenkins での自動テスト実行」</li>
+                    </ul>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4">
+                    <h3 class="font-semibold text-blue-800 mb-3">理解促進要素</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><strong>アンチパターンの紹介：</strong>「テストのないコード」「テストが複雑すぎる」例を具体的に</li>
+                        <li><strong>テスト品質の指標：</strong>「FIRST原則（Fast, Independent, Repeatable, Self-validating, Timely）」</li>
+                        <li><strong>実務でのベストプラクティス：</strong>「テスト命名規則」「テストデータ管理」を体系化</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 出力形式 -->
+        <section class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
+            <h2 class="text-xl font-bold text-red-800 mb-3">
+                <i class="fas fa-exclamation-triangle mr-2"></i>⚠️ 重要事項
+            </h2>
+            <ul class="list-disc list-inside text-red-700 space-y-2">
+                <li><strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                <li>特に「TDD手法とテスト比較表」は<strong>必ず詳細説明付きで改良</strong>すること</li>
+                <li>テスト専門用語の初出時は<strong>日本語説明を併記</strong>すること</li>
+                <li>まとめセクションは<strong>具体的なメリット</strong>で記載すること</li>
+                <li>HTMLの見やすさと詳細なテスト解説を<strong>両立</strong>すること</li>
+            </ul>
+        </section>
+
+        <!-- 出力形式 -->
+        <section class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8">
+            <h2 class="text-xl font-bold text-blue-800 mb-3">
+                <i class="fas fa-file-export mr-2"></i>📤 出力形式
+            </h2>
+            <p class="text-blue-700">
+                完成したHTML講義ページのみを返してください。<br>
+                説明文や前置きは不要です。
+            </p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 pt-8 border-t border-gray-200">
+            <p class="text-gray-500 mb-4">
+                <i class="fas fa-graduation-cap mr-2"></i>
+                高品質ソフトウェア開発のためのテスト技術を完全マスター
+            </p>
+            <p class="text-gray-400">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDnLToSD%2BuKzgOy5BWN0t30saOkNuhGku6gd4OMrx6D%2Fi6spUNmv4LTxW5YwyJTdeh2n96rkm73%2BhWPLDf1TophNZlCvypaNAdryg%2BEPYhSXFLzP73L%2FTAr8RB2Ydd52MQxaQU5oSPRSY35kxThMvW43peokhVPb7F2RoIDeZeWc94HN2GyKf56l73xILLlbh7qoE7JHK9VJni%2Bnz6z81Gv0svyTp5aqC6wjX2UpqrQP1mATRHMUivdN0ibSz%2B1o74Vmnb3aG5B5rZ%2BQY4g2LXPwIf9xwt07Dqz6ahMrV1LcHT2ASsSZZ5BqPvCxmnUFquFYw6RhQJJntQpAFdKHS8KvhCqiLO8pdAoE5KK2Bnwa%2BauqKqZu9yzkQV2rtmftIeQgmpRRZTFt8vaiCInkd5wp7ALeDIhKYfwQBCcqrG9rigltswfkZN3cnBff8T%2FGq89zUzW5lr3Gjs%2B8kDr%2FqLS3%2BRXnB%2FATZ6LNdLbBVfwH9aoOCwQkpp%2BuSyS8so0Zofw%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDnLToSD+uKzgOy5BWN0t30saOkNuhGku6gd4OMrx6D/i6spUNmv4LTxW5YwyJTdeh2n96rkm73+hWPLDf1TophNZlCvypaNAdryg+EPYhSXFLzP73L/TAr8RB2Ydd52MQxaQU5oSPRSY35kxThMvW43peokhVPb7F2RoIDeZeWc94HN2GyKf56l73xILLlbh7qoE7JHK9VJni+nz6z81Gv0svyTp5aqC6wjX2UpqrQP1mATRHMUivdN0ibSz+1o74Vmnb3aG5B5rZ+QY4g2LXPwIf9xwt07Dqz6ahMrV1LcHT2ASsSZZ5BqPvCxmnUFquFYw6RhQJJntQpAFdKHS8KvhCqiLO8pdAoE5KK2Bnwa+auqKqZu9yzkQV2rtmftIeQgmpRRZTFt8vaiCInkd5wp7ALeDIhKYfwQBCcqrG9rigltswfkZN3cnBff8T/Gq89zUzW5lr3Gjs+8kDr/qLS3+RXnB/ATZ6LNdLbBVfwH9aoOCwQkpp+uSyS8so0Zofw==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

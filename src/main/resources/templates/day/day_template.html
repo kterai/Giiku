@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日別カリキュラムページテンプレート（APSA版） | ITエンジニア育成カリキュラム</title>
+    <link rel="stylesheet" href="../../css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/lib/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+        }
+        
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0.75rem 0;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #0056b3 0%, #007bff 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .section-title {
+            border-left: 4px solid #007bff;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .schedule-item {
+            border-left: 3px solid #007bff;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .time-label {
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+        
+        .badge-custom {
+            background-color: #17a2b8;
+            color: white;
+            font-weight: normal;
+            padding: 0.5em 0.7em;
+            border-radius: 5px;
+        }
+        
+        .next-step-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 5px solid #28a745;
+        }
+        
+        .feedback-form {
+            background-color: #f1f8ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        
+        footer {
+            background-color: #343a40;
+            color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links h5 {
+            color: white;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 767.98px) {
+            .page-header {
+                padding: 1.5rem 0;
+            }
+            
+            .content-card {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+        }
+        
+        /* 印刷用スタイル */
+         {
+            .no-print {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+            }
+            
+            .content-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            footer {
+                background-color: white;
+                color: black;
+            }
+            
+            a {
+                text-decoration: none;
+                color: black;
+            }
+            
+            .footer-links ul li a {
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                ITエンジニア育成カリキュラム
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="monthDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="monthDropdown">
+                            <li><a class="dropdown-item" href="../month/month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="../month/month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="weekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="weekDropdown">
+                            <li><a class="dropdown-item" href="../week/week1.html">第1週: Java基礎</a></li>
+                            <li><a class="dropdown-item" href="../week/week2.html">第2週: オブジェクト指向</a></li>
+                            <!-- 他の週も同様に追加 -->
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/resources.html">学習リソース</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/faq.html">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">ホーム</a></li>
+                <li class="breadcrumb-item"><a href="../month/monthX.html">第X月</a></li>
+                <li class="breadcrumb-item"><a href="../week/weekX.html">第X週</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Day X</li>
+            </ol>
+        </nav>
+    </div>
+
+    <header class="page-header">
+        <div class="container">
+            <h1>Day X: ここにタイトルを入力</h1>
+            <p class="lead">ここに日のサブタイトルや概要を入力</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <section>
+                    <h2 class="section-title">学習目標</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">学習目標1</li>
+                            <li class="list-group-item">学習目標2</li>
+                            <li class="list-group-item">学習目標3</li>
+                            <li class="list-group-item">学習目標4</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title">達成基準</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">達成基準1</li>
+                            <li class="list-group-item">達成基準2</li>
+                            <li class="list-group-item">達成基準3</li>
+                            <li class="list-group-item">達成基準4</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title">詳細スケジュール</h2>
+                    <div class="content-card">
+                        <div class="accordion" id="scheduleAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="time-label">10:00-10:15</div> <div class="ms-3">オリエンテーション・前日復習</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ここにオリエンテーションと前日復習の内容を入力します。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <div class="time-label">10:15-11:00</div> <div class="ms-3">午前講義パート1</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ここに午前講義パート1の内容を入力します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <div class="time-label">11:00-11:45</div> <div class="ms-3">午前演習パート1</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ここに午前演習パート1の内容を入力します。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        <div class="time-label">11:45-12:45</div> <div class="ms-3">昼休憩</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        休憩時間です。昼食をとり、リフレッシュしましょう。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 残りの時間帯も同様に追加 -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        <div class="time-label">12:45-13:30</div> <div class="ms-3">午後講義パート1</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ここに午後講義パート1の内容を入力します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSix">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        <div class="time-label">13:30-14:15</div> <div class="ms-3">午後演習パート1</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ここに午後演習パート1の内容を入力します。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSeven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                        <div class="time-label">14:15-15:00</div> <div class="ms-3">午後講義パート2</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ここに午後講義パート2の内容を入力します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEight">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                        <div class="time-label">15:00-15:10</div> <div class="ms-3">午後休憩</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        短い休憩時間です。リフレッシュしましょう。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingNine">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                        <div class="time-label">15:10-15:55</div> <div class="ms-3">午後演習パート2</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ここに午後演習パート2の内容を入力します。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTen">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                        <div class="time-label">15:55-17:00</div> <div class="ms-3">理解度チェック</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ここに理解度チェックの内容を入力します。
+                                        <div class="alert alert-warning mt-2">
+                                            <i class="bi bi-patch-question-fill"></i> テスト
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEleven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                                        <div class="time-label">17:00-17:45</div> <div class="ms-3">振り返り・質疑応答</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ここに振り返り・質疑応答の内容を入力します。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title">テーマ詳細</h2>
+                    <div class="content-card">
+                        <h3>ここにメインテーマのタイトルを入力</h3>
+                        <p>ここにテーマに関する詳細な説明を記載します。このセクションはその日の主要テーマについての詳細な情報を提供するために使用します。</p>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header">
+                                <h4 class="mb-0">サブトピック1</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>サブトピック1の説明をここに記載します。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header">
+                                <h4 class="mb-0">サブトピック2</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>サブトピック2の説明をここに記載します。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header">
+                                <h4 class="mb-0">サブトピック3</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>サブトピック3の説明をここに記載します。</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title">使用教材・リソース</h2>
+                    <div class="content-card">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-book-fill text-primary"></i> 主要教材
+                                        </h5>
+                                        <p class="card-text">ここに主要教材の情報を記載します。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-laptop-fill text-success"></i> 開発環境
+                                        </h5>
+                                        <p class="card-text">ここに開発環境の情報を記載します。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-journal-code text-warning"></i> 参考サイト
+                                        </h5>
+                                        <p class="card-text">ここに参考サイトの情報を記載します。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title">理解度確認項目</h2>
+                    <div class="content-card">
+                        <div class="mb-4">
+                            <h4><i class="bi bi-star-fill text-warning"></i> 基本レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check1">
+                                        <label class="form-check-label" for="check1">
+                                            基本項目1を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check2">
+                                        <label class="form-check-label" for="check2">
+                                            基本項目2を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check3">
+                                        <label class="form-check-label" for="check3">
+                                            基本項目3を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check4">
+                                        <label class="form-check-label" for="check4">
+                                            基本項目4を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check5">
+                                        <label class="form-check-label" for="check5">
+                                            基本項目5を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4><i class="bi bi-stars text-primary"></i> 応用レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check6">
+                                        <label class="form-check-label" for="check6">
+                                            応用項目1を実践できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check7">
+                                        <label class="form-check-label" for="check7">
+                                            応用項目2を実践できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check8">
+                                        <label class="form-check-label" for="check8">
+                                            応用項目3を実践できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check9">
+                                        <label class="form-check-label" for="check9">
+                                            応用項目4を実践できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check10">
+                                        <label class="form-check-label" for="check10">
+                                            応用項目5を実践できる
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title">次のステップ</h2>
+                    <div class="content-card next-step-card">
+                        <h3>次の日: タイトルを入力</h3>
+                        <p>次の日の概要や予習すべき内容をここに記載します。</p>
+                        <a href="dayX+1.html" class="btn btn-success mt-2">
+                            <i class="bi bi-arrow-right-circle-fill"></i> 詳細を見る
+                        </a>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title">フィードバック</h2>
+                    <div class="content-card feedback-form">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle-fill"></i> このページの内容についてフィードバックをお寄せください。
+                        </div>
+                        <form id="feedback-form" class="mt-3">
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">理解度</label>
+                                <select class="form-select" id="rating">
+                                    <option value="5">とても理解できた</option>
+                                    <option value="4">理解できた</option>
+                                    <option value="3">普通</option>
+                                    <option value="2">あまり理解できなかった</option>
+                                    <option value="1">理解できなかった</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="feedbackText" class="form-label">コメント</label>
+                                <textarea class="form-control" id="feedbackText" rows="3" placeholder="コメントをご記入ください"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">送信</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top: 100px;">
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-calendar-check"></i> 学習進捗</h3>
+                        <div class="progress-container">
+                            <p>この日の学習進捗</p>
+                            <div class="progress" style="height: 20px;">
+                                <div id="day-progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>
+                            <p class="text-end mt-2" id="progress-text">0/10 完了</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="progressChart"></canvas>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button id="resetProgress" class="btn btn-outline-warning btn-sm">
+                                <i class="bi bi-arrow-counterclockwise"></i> 進捗をリセット
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-journal-text"></i> 目次</h3>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#scheduleAccordion">詳細スケジュール</a>
+                            <a class="nav-link" href="#theme-details">テーマ詳細</a>
+                            <a class="nav-link" href="#resources">使用教材・リソース</a>
+                            <a class="nav-link" href="#comprehension-check">理解度確認項目</a>
+                            <a class="nav-link" href="#next-steps">次のステップ</a>
+                        </nav>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-link-45deg"></i> 関連リンク</h3>
+                        <div class="list-group">
+                            <a href="../week/weekX.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-calendar-week"></i> 第X週の概要
+                            </a>
+                            <a href="../month/monthX.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-calendar-month"></i> 第X月の概要
+                            </a>
+                            <a href="../../resources/resources.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-book"></i> 学習リソース
+                            </a>
+                            <a href="../../resources/faq.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-question-circle"></i> よくある質問
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <h3><i class="bi bi-arrow-left-right"></i> ナビゲーション</h3>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="dayX-1.html" class="btn btn-outline-primary">
+                                <i class="bi bi-arrow-left"></i> 前の日
+                            </a>
+                            <a href="dayX+1.html" class="btn btn-outline-primary">
+                                次の日 <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-light mt-5">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="footer-logo">
+                        <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                    </div>
+                    <p>ITエンジニア育成カリキュラムは、未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>カリキュラム</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../month/month1.html">第1ヶ月目</a></li>
+                        <li><a href="../month/month2.html">第2ヶ月目</a></li>
+                        <li><a href="../month/month3.html">第3ヶ月目</a></li>
+                        <li><a href="../../resources/advanced.html">応用コース</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>リソース</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../resources/resources.html">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html">よくある質問</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>お問い合わせ</h5>
+                    <p>本カリキュラムについてのお問い合わせは下記までお願いします。</p>
+                    <a href="mailto:info@apsa.co.jp" class="btn btn-outline-light">
+                        <i class="bi bi-envelope"></i> メールでのお問い合わせ
+                    </a>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="text-light"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/lib/jquery.min.js"></script>
+    <script src="../../js/lib/bootstrap.bundle.min.js"></script>
+    <script src="../../js/lib/chart.umd.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // チェックボックスのイベントリスナーを設定
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+            
+            // 進捗リセットボタン
+            document.getElementById('resetProgress').addEventListener('click', function() {
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                updateProgress();
+            });
+            
+            // 初期進捗更新
+            updateProgress();
+            
+            // プログレスチャートの初期化
+            initProgressChart();
+            
+            // フィードバックフォーム
+            document.getElementById('feedback-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('フィードバックを送信しました。ありがとうございます！');
+                this.reset();
+            });
+        });
+        
+        // 進捗を更新する関数
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            const totalChecks = checkboxes.length;
+            let checkedCount = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    checkedCount++;
+                }
+            });
+            
+            const progressPercent = totalChecks > 0 ? Math.round((checkedCount / totalChecks) * 100) : 0;
+            
+            // プログレスバーを更新
+            const progressBar = document.getElementById('day-progress');
+            progressBar.style.width = `${progressPercent}%`;
+            progressBar.textContent = `${progressPercent}%`;
+            progressBar.setAttribute('aria-valuenow', progressPercent);
+            
+            // プログレステキストを更新
+            document.getElementById('progress-text').textContent = `${checkedCount}/${totalChecks} 完了`;
+            
+            // チャートを更新
+            updateProgressChart(checkedCount, totalChecks - checkedCount);
+            
+            // ローカルストレージに保存
+            localStorage.setItem('dayXProgress', JSON.stringify({
+                checked: checkedCount,
+                total: totalChecks,
+                percent: progressPercent
+            }));
+        }
+        
+        // チャートの初期化
+        function initProgressChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            window.progressChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['完了', '未完了'],
+                    datasets: [{
+                        data: [0, 10],
+                        backgroundColor: ['#198754', '#e9ecef'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // チャートの更新
+        function updateProgressChart(completed, remaining) {
+            if (window.progressChart) {
+                window.progressChart.data.datasets[0].data = [completed, remaining];
+                window.progressChart.update();
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDkn7XYcccrOGNdyHcPk3xikHhjoMxgZ9hy29%2FoBlmkbiW4Mhpr5nB0V3Ngp9QIKFvMDAzNbsIZn7C91bXBsW3S%2F0mvJApY3%2BZTWAq3hZbeZg9oqXObTuqKcWAZJEOMP25xIe3HEGIGsxrrt9VaZV0GUPt7ymLhIb4LsGCMVi0cvEhe2XiX6bEsRwuspBrWfk%2FHwoX4h7JOxhlDOkMxEnmmKvmGlrDjfZRAMyVb7m%2FW4p5QswoUI4AUYWwg088Ag90noDyHWaSfJ34cyKBV8FrMQzCPNkoDbzoF6zfSulKQnGY4sSMuuzrPZeCfsqkjPtDb5%2FVKN4j60zMxpJiKHU17TAE1%2FBzuvuTH76nBr6G1utv3XWyfrq7WNGF%2Fsw%2FHyib3ZUSSjE0bVoO1BxjpoEvAyA4U5xt%2FyvrQqhvaiqfeqkI7YoCSpUtYoAk8TziU4W1cR2mWMUpvzOTFYUSBzsjrxXIzMQLEPVRaMxo3vkH2tkYErxGcsml8YxvwZ7x66WuQ%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDkn7XYcccrOGNdyHcPk3xikHhjoMxgZ9hy29/oBlmkbiW4Mhpr5nB0V3Ngp9QIKFvMDAzNbsIZn7C91bXBsW3S/0mvJApY3+ZTWAq3hZbeZg9oqXObTuqKcWAZJEOMP25xIe3HEGIGsxrrt9VaZV0GUPt7ymLhIb4LsGCMVi0cvEhe2XiX6bEsRwuspBrWfk/HwoX4h7JOxhlDOkMxEnmmKvmGlrDjfZRAMyVb7m/W4p5QswoUI4AUYWwg088Ag90noDyHWaSfJ34cyKBV8FrMQzCPNkoDbzoF6zfSulKQnGY4sSMuuzrPZeCfsqkjPtDb5/VKN4j60zMxpJiKHU17TAE1/BzuvuTH76nBr6G1utv3XWyfrq7WNGF/sw/Hyib3ZUSSjE0bVoO1BxjpoEvAyA4U5xt/yvrQqhvaiqfeqkI7YoCSpUtYoAk8TziU4W1cR2mWMUpvzOTFYUSBzsjrxXIzMQLEPVRaMxo3vkH2tkYErxGcsml8YxvwZ7x66WuQ==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

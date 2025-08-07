@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第12週: 総合開発 | ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #3b82f6;
+            --accent-color: #10b981;
+            --text-color: #1f2937;
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+        }
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+        .header-gradient {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .day-card {
+            border-left: 4px solid var(--accent-color);
+            transition: all 0.3s ease;
+        }
+        .day-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .timeline-step {
+            position: relative;
+            padding-left: 2.5rem;
+        }
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background-color: var(--border-color);
+        }
+        .timeline-step::after {
+            content: '';
+            position: absolute;
+            left: -0.5rem;
+            top: 1rem;
+            height: 1rem;
+            width: 1rem;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+        }
+        .progress-container {
+            height: 0.5rem;
+            background-color: var(--border-color);
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: var(--accent-color);
+            border-radius: 9999px;
+            width: 100%;
+        }
+        .chart-container {
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header-gradient text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <h1 class="text-2xl font-bold mb-4 md:mb-0">ITエンジニア育成カリキュラム</h1>
+                <nav>
+                    <ul class="flex flex-wrap justify-center space-x-1 md:space-x-4">
+                        <li><a href="../../index.html" class="nav-link px-3 py-2 rounded">ホーム</a></li>
+                        <li class="relative group">
+                            <a href="#" class="nav-link px-3 py-2 rounded flex items-center">
+                                月別カリキュラム
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </a>
+                            <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden group-hover:block z-10">
+                                <div class="py-1">
+                                    <a href="../month/month1.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">第1ヶ月目: Java Silver</a>
+                                    <a href="../month/month2.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">第2ヶ月目: 基本情報</a>
+                                    <a href="../month/month3.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">第3ヶ月目: Web開発</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="relative group">
+                            <a href="#" class="nav-link px-3 py-2 rounded flex items-center bg-white bg-opacity-20">
+                                週別詳細
+                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </a>
+                            <div class="absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg hidden group-hover:block z-10">
+                                <div class="py-1 grid grid-cols-2">
+                                    <a href="week1.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">第1週: Java基礎</a>
+                                    <a href="week2.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">第2週: OOP</a>
+                                    <a href="week3.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">第3週: Java応用</a>
+                                    <a href="week4.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">第4週: 総仕上げ</a>
+                                    <a href="week5.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">第5週: コンピュータ</a>
+                                    <a href="week6.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">第6週: ネット・DB</a>
+                                    <a href="week7.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">第7週: アルゴリズム</a>
+                                    <a href="week8.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">第8週: 総合対策</a>
+                                    <a href="week9.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">第9週: フロント</a>
+                                    <a href="week10.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">第10週: バック</a>
+                                    <a href="week11.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">第11週: Spring</a>
+                                    <a href="week12.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100 font-bold">第12週: 総合開発</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="../../resources/resources.html" class="nav-link px-3 py-2 rounded">リソース</a></li>
+                        <li><a href="../../resources/faq.html" class="nav-link px-3 py-2 rounded">FAQ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="mb-8">
+            <nav class="text-sm mb-4">
+                <ol class="list-none p-0 inline-flex">
+                    <li class="flex items-center">
+                        <a href="../../index.html" class="text-blue-600 hover:text-blue-800">ホーム</a>
+                        <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </li>
+                    <li class="flex items-center">
+                        <a href="../month/month3.html" class="text-blue-600 hover:text-blue-800">第3ヶ月目: Web開発</a>
+                        <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </li>
+                    <li class="text-gray-700">第12週: 総合開発</li>
+                </ol>
+            </nav>
+
+            <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-3xl font-bold mb-4 text-indigo-700">第12週: 総合開発</h2>
+                <p class="text-gray-600 mb-4">Day 52-54 | カリキュラム第3ヶ月目 最終週</p>
+                <div class="mb-6">
+                    <div class="progress-container">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <p class="text-right text-sm text-gray-600 mt-1">進捗: 12/12週 (100%)</p>
+                </div>
+                <p class="mb-4">この週では、3ヶ月間のカリキュラムの集大成として、総合開発プロジェクトに取り組みます。要件定義・設計から実装、テスト、発表までの一連の開発プロセスを体験し、これまで学んだ技術を統合したWebアプリケーションを開発します。このプロジェクトはポートフォリオとしても活用できる実践的な内容です。</p>
+                
+                <div class="mt-8 mb-6">
+                    <h3 class="text-xl font-bold mb-4 text-indigo-600 border-b pb-2">週間目標</h3>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>チーム開発を通じて実践的なWebアプリケーションを完成させる</li>
+                        <li>要件定義から設計、実装、テスト、発表までのソフトウェア開発プロセスを体験する</li>
+                        <li>これまで学習した技術要素（フロントエンド、バックエンド、データベース）を統合する</li>
+                        <li>ポートフォリオとして活用できる成果物を作成する</li>
+                        <li>プレゼンテーション能力と技術文書作成能力を身につける</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4 text-indigo-600 border-b pb-2">日別スケジュール</h3>
+                        
+                        <div class="mb-8">
+                            <div class="day-card bg-white p-4 rounded-lg shadow mb-4 border-l-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="text-lg font-bold text-indigo-800">Day 52: 総合アプリケーション開発 - 要件定義・設計</h4>
+                                        <p class="text-sm text-gray-500 mb-2">最終プロジェクトの始動</p>
+                                    </div>
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">設計フェーズ</span>
+                                </div>
+                                <div class="mt-2">
+                                    <div class="timeline-step pb-5">
+                                        <h5 class="font-bold">午前: プロジェクト概要と要件定義</h5>
+                                        <ul class="mt-2 text-sm text-gray-600 list-disc pl-5 space-y-1">
+                                            <li>プロジェクトの目的と概要説明</li>
+                                            <li>チーム編成と役割分担</li>
+                                            <li>要件定義ワークショップ</li>
+                                            <li>ユーザーストーリーの作成</li>
+                                        </ul>
+                                    </div>
+                                    <div class="timeline-step pb-5">
+                                        <h5 class="font-bold">午後: アプリケーション設計</h5>
+                                        <ul class="mt-2 text-sm text-gray-600 list-disc pl-5 space-y-1">
+                                            <li>画面設計と UI/UX プロトタイピング</li>
+                                            <li>データベース設計（ER図作成）</li>
+                                            <li>アーキテクチャ設計</li>
+                                            <li>API設計（RESTful API）</li>
+                                        </ul>
+                                    </div>
+                                    <div class="mt-3">
+                                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-semibold flex items-center">
+                                            詳細を見る
+                                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="day-card bg-white p-4 rounded-lg shadow mb-4 border-l-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="text-lg font-bold text-indigo-800">Day 53: 総合アプリケーション開発 - 実装</h4>
+                                        <p class="text-sm text-gray-500 mb-2">設計に基づく実装作業</p>
+                                    </div>
+                                    <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">実装フェーズ</span>
+                                </div>
+                                <div class="mt-2">
+                                    <div class="timeline-step pb-5">
+                                        <h5 class="font-bold">午前: 開発環境セットアップと実装開始</h5>
+                                        <ul class="mt-2 text-sm text-gray-600 list-disc pl-5 space-y-1">
+                                            <li>Gitリポジトリ作成とチーム共有</li>
+                                            <li>Spring Boot プロジェクトのセットアップ</li>
+                                            <li>データベースマイグレーション</li>
+                                            <li>基本的なCRUD機能の実装</li>
+                                        </ul>
+                                    </div>
+                                    <div class="timeline-step pb-5">
+                                        <h5 class="font-bold">午後: 継続実装とテスト</h5>
+                                        <ul class="mt-2 text-sm text-gray-600 list-disc pl-5 space-y-1">
+                                            <li>フロントエンド実装（HTML/CSS/JavaScript/Bootstrap）</li>
+                                            <li>バックエンド機能実装（Spring MVC/Security/JPA）</li>
+                                            <li>単体テストの作成</li>
+                                            <li>チーム内コードレビュー</li>
+                                        </ul>
+                                    </div>
+                                    <div class="mt-3">
+                                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-semibold flex items-center">
+                                            詳細を見る
+                                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="day-card bg-white p-4 rounded-lg shadow border-l-4">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <h4 class="text-lg font-bold text-indigo-800">Day 54: 総合アプリケーション開発 - 完成・発表</h4>
+                                        <p class="text-sm text-gray-500 mb-2">最終調整とプレゼンテーション</p>
+                                    </div>
+                                    <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded">完成・発表</span>
+                                </div>
+                                <div class="mt-2">
+                                    <div class="timeline-step pb-5">
+                                        <h5 class="font-bold">午前: 最終調整とテスト</h5>
+                                        <ul class="mt-2 text-sm text-gray-600 list-disc pl-5 space-y-1">
+                                            <li>最終バグフィックス</li>
+                                            <li>統合テスト・ユーザー受け入れテスト</li>
+                                            <li>ドキュメント整備（README, API仕様書等）</li>
+                                            <li>デプロイ作業（Herokuまたは同等サービス）</li>
+                                        </ul>
+                                    </div>
+                                    <div class="timeline-step">
+                                        <h5 class="font-bold">午後: 成果発表会</h5>
+                                        <ul class="mt-2 text-sm text-gray-600 list-disc pl-5 space-y-1">
+                                            <li>プレゼンテーション資料作成</li>
+                                            <li>成果発表会（各チーム15分発表+Q&A）</li>
+                                            <li>相互フィードバック</li>
+                                            <li>3ヶ月間のカリキュラム総括</li>
+                                        </ul>
+                                    </div>
+                                    <div class="mt-3">
+                                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-semibold flex items-center">
+                                            詳細を見る
+                                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between mt-6">
+                            <a href="week11.html" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                前の週
+                            </a>
+                            <a href="../../resources/advanced.html" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg flex items-center">
+                                次のステップ
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-bold mb-4 text-indigo-600 border-b pb-2">学習リソース</h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="https://spring.io/guides/tutorials/spring-boot-kotlin/" class="flex items-start">
+                                    <i class="fas fa-book text-indigo-500 mt-1"></i>
+                                    <span class="ml-2 text-gray-700 hover:text-indigo-600">Spring Boot ガイド</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.postgresql.org/docs/" class="flex items-start">
+                                    <i class="fas fa-database text-indigo-500 mt-1"></i>
+                                    <span class="ml-2 text-gray-700 hover:text-indigo-600">PostgreSQL ドキュメント</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://getbootstrap.jp/docs/5.0/getting-started/introduction/" class="flex items-start">
+                                    <i class="fas fa-paint-brush text-indigo-500 mt-1"></i>
+                                    <span class="ml-2 text-gray-700 hover:text-indigo-600">Bootstrap 5 ドキュメント</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://docs.github.com/ja" class="flex items-start">
+                                    <i class="fab fa-github text-indigo-500 mt-1"></i>
+                                    <span class="ml-2 text-gray-700 hover:text-indigo-600">GitHub ドキュメント</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://junit.org/junit5/docs/current/user-guide/" class="flex items-start">
+                                    <i class="fas fa-vial text-indigo-500 mt-1"></i>
+                                    <span class="ml-2 text-gray-700 hover:text-indigo-600">JUnit 5 ガイド</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <a href="../../resources/resources.html" class="block mt-4 text-indigo-600 hover:text-indigo-800 text-sm font-medium">
+                            すべてのリソースを見る →
+                        </a>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-bold mb-4 text-indigo-600 border-b pb-2">開発進捗状況</h3>
+                        <div class="chart-container">
+                            <canvas id="progressChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4 text-indigo-600 border-b pb-2">プロジェクトテーマ例</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                オンライン予約システム
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                タスク管理アプリケーション
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                ECサイト（ショッピングカート機能付き）
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                SNS/コミュニティプラットフォーム
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                ブログ/CMS システム
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-bold mb-6 text-indigo-600 border-b pb-2">カリキュラム総括</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div class="bg-indigo-50 p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <div class="rounded-full bg-indigo-600 text-white w-8 h-8 flex items-center justify-center mr-3">
+                                <span class="font-bold">1</span>
+                            </div>
+                            <h4 class="font-bold text-indigo-900">Java Silver</h4>
+                        </div>
+                        <p class="text-sm text-gray-700">第1ヶ月目で習得したJavaプログラミングの基礎とオブジェクト指向の知識を実際のアプリケーション開発に活用します。</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <div class="rounded-full bg-blue-600 text-white w-8 h-8 flex items-center justify-center mr-3">
+                                <span class="font-bold">2</span>
+                            </div>
+                            <h4 class="font-bold text-blue-900">基本情報技術</h4>
+                        </div>
+                        <p class="text-sm text-gray-700">第2ヶ月目で習得したデータベース設計、アルゴリズム、セキュリティ、プロジェクト管理の知識をプロジェクト実践で応用します。</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <div class="flex items-center mb-2">
+                            <div class="rounded-full bg-green-600 text-white w-8 h-8 flex items-center justify-center mr-3">
+                                <span class="font-bold">3</span>
+                            </div>
+                            <h4 class="font-bold text-green-900">Web開発</h4>
+                        </div>
+                        <p class="text-sm text-gray-700">第3ヶ月目で習得したフロントエンド、バックエンド技術を統合し、フルスタックなWebアプリケーションを完成させます。</p>
+                    </div>
+                </div>
+                
+                <p class="mb-4">この最終週で3ヶ月間のカリキュラムは完了しますが、学習の旅はここで終わりではありません。4ヶ月目以降の応用コースでは、より専門的なスキルを習得し、キャリアの可能性をさらに広げることができます。</p>
+                
+                <div class="flex justify-center mt-6">
+                    <a href="../../resources/advanced.html" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg flex items-center">
+                        応用コースを見る
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300">
+        <div class="container mx-auto px-4 py-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-xl font-bold text-white mb-4">ITエンジニア育成カリキュラム</h4>
+                    <p class="text-sm">IT未経験者を3ヶ月間で即戦力エンジニアに育成する、体系的なカリキュラムです。</p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white mb-4">カリキュラム</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="../month/month1.html" class="hover:text-white">第1ヶ月目: Java Silver</a></li>
+                        <li><a href="../month/month2.html" class="hover:text-white">第2ヶ月目: 基本情報</a></li>
+                        <li><a href="../month/month3.html" class="hover:text-white">第3ヶ月目: Web開発</a></li>
+                        <li><a href="../../resources/advanced.html" class="hover:text-white">応用コース</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white mb-4">リソース</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="../../resources/resources.html" class="hover:text-white">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html" class="hover:text-white">よくある質問</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white mb-4">リンク</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="../../index.html" class="hover:text-white">ホームページ</a></li>
+                        <li><a href="week11.html" class="hover:text-white">前の週</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-sm text-center">
+                <p>&copy; 2025 ITエンジニア育成カリキュラム All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 進捗グラフの初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            
+            const progressChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['完了', '実装中', '計画中'],
+                    datasets: [{
+                        data: [70, 30, 0],
+                        backgroundColor: [
+                            '#10b981',
+                            '#3b82f6',
+                            '#e5e7eb'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        title: {
+                            display: true,
+                            text: 'プロジェクト進捗状況'
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDiXiad7c7xTEeCvUBz%2BgyRNHq0m0NhentXvpZQY6uECgQPGybf%2FlpqvRdD0AS7iZh1moVV9bNkVmjbaFvT9oiYJ7z%2FY47XU3VY7kbDBfNsOXjliqdCj%2BdDz0rtkCIR7%2B5OakZNSNHFLjzyq6tBUbW9fTG4mNabDfFCLC%2BDvDEwyzDW%2BpMqv2wDEls2My%2FHfeyYQUAYA4jLoeqt3miuCi4e3dE8RGfvmKd2VucLMobCTqVQ%2B34JKlvfXC2heUdVVcwnRDEx7a1hPGDzx9k1xP3Bsr2grzwvQF4OZciDCwo9uFg5covV237wAQXRaQ2gONN%2F%2BFXPB0hgacKQjT8le1OZVC0cRRPFXuvw7l9KRVdjPfe3%2Fc0NMMqzWBS0RtIQEpBeuUG2JkHAvHmKl2WTXRu%2F6poZP6ADMW3uKXr47y55kYYgZ3rzj4Gp%2BALcoOT95Vie%2FQjHA9SCVXdK6hNKbIBoZCNCRrJdmT5RI5p2ZYZ%2BLx";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDiXiad7c7xTEeCvUBz+gyRNHq0m0NhentXvpZQY6uECgQPGybf/lpqvRdD0AS7iZh1moVV9bNkVmjbaFvT9oiYJ7z/Y47XU3VY7kbDBfNsOXjliqdCj+dDz0rtkCIR7+5OakZNSNHFLjzyq6tBUbW9fTG4mNabDfFCLC+DvDEwyzDW+pMqv2wDEls2My/HfeyYQUAYA4jLoeqt3miuCi4e3dE8RGfvmKd2VucLMobCTqVQ+34JKlvfXC2heUdVVcwnRDEx7a1hPGDzx9k1xP3Bsr2grzwvQF4OZciDCwo9uFg5covV237wAQXRaQ2gONN/+FXPB0hgacKQjT8le1OZVC0cRRPFXuvw7l9KRVdjPfe3/c0NMMqzWBS0RtIQEpBeuUG2JkHAvHmKl2WTXRu/6poZP6ADMW3uKXr47y55kYYgZ3rzj4Gp+ALcoOT95Vie/QjHA9SCVXdK6hNKbIBoZCNCRrJdmT5RI5p2ZYZ+Lx";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

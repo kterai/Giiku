@@ -1,0 +1,14 @@
+/*
+ * Copyright (c) 2024 APSA Co.,Ltd. All rights reserved.
+ * 雲流システム - Gradle Settings
+ */
+
+rootProject.name = 'unryu-system'
+
+// Gradle Enterprise設定（将来の拡張用）
+// gradleEnterprise {
+//     buildScan {
+//         termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+//         termsOfServiceAgree = 'yes'
+//     }
+// }

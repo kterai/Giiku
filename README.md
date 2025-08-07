@@ -1,2 +1,84 @@
-# Giiku
-🚀 A skill-building platform for aspiring engineers. Giiku helps learners grow through technical exercises, progress tracking, and hands-on Java &amp; web app development. Built with Spring Boot, React, and PostgreSQL.
+# ITエンジニア育成カリキュラム
+
+このリポジトリは、未経験者を対象に4ヶ月で基礎から応用まで学ぶためのカリキュラムを管理しています。月別・週別・日別ページを用意し、全54日分の学習内容を体系的に整理します。
+
+なお、本サイトはスマートフォンでも閲覧しやすいようレスポンシブデザインを採用しています。
+
+## カリキュラム概要
+1. **1ヶ月目: Oracle Java Silver 17 対策**
+2. **2ヶ月目: IPA 基本情報技術者試験対策**
+3. **3ヶ月目: Webアプリケーション開発の基礎**
+   - システム開発の基礎
+     - システム開発とは
+     - システム開発手法（種類、工程、特徴など）
+     - 設計手法（MVC、DDD など）
+     - システム構成パターン（ネイティブアプリ、クラサバ、Webアプリ など）
+     - 開発環境（IDE、Docker、クラウド など）
+     - テスト（手法、工程、自動化 など）
+   - HTML の基礎
+   - CSS の基礎
+   - JavaScript の基礎
+   - Servlet、JSP の基礎
+   - RDB の基礎（PostgreSQL）
+4. **4ヶ月目: Webアプリケーション開発の応用**
+   - Eclipse
+   - SpringBoot（SpringDataJPA、SpringSecurity、Thymeleaf）
+   - Bootstrap
+   - React
+   - スマホ対応（レスポンシブ）
+   - Flyway
+   - Lombok
+   - Gradle
+   - JUnit
+   - GitHub
+   - Playwright
+## 環境構築
+- Java は [Amazon Corretto](https://aws.amazon.com/corretto/) を使用
+- IDE は [Pleiades](https://pleiades.io/) を推奨
+
+## 進捗状況（2025-08-06時点）
+- **全体進捗:** 54%
+- **月別ページ:** 100%
+- **週別ページ:** 100%
+- **日別ページ:** 9%
+- **リソースページ:** 100%
+
+## 完了済みタスク
+- ディレクトリ構造の設計と `index.html` の確認
+- `month1.html`〜`month3.html` の作成
+- `week1.html`〜`week12.html` の作成
+- `day1.html`〜`day5.html` の作成開始
+- `resources.html`、`faq.html`、`advanced.html` の作成
+- `day_template.html` の作成
+- ページ間ナビゲーションの実装
+- Day1～Day10講義ページに前後リンクを追加
+- `day1_slides.html` の追加（Day 1 講義スライド）
+- `day2_lecture.html` のページング対応
+- `day3_lecture.html` のページング対応
+- `day2`～`day10`の各ページに講義スライドリンクを追加
+- `day11_lecture.html` の追加
+- `day11.html` に講義スライドリンクを追加
+- Day1〜Day5講義ページに標準ナビゲーションを追加
+- Day6〜Day10講義ページに標準ナビゲーションを追加
+- Day11〜Day15講義ページに標準ナビゲーションを追加
+- Day16〜Day20講義ページに標準ナビゲーションを追加
+- Day21〜Day25講義ページに標準ナビゲーションを追加
+- Day26〜Day30講義ページに標準ナビゲーションを追加
+- Day31〜Day35講義ページに標準ナビゲーションを追加
+- Day36〜Day40講義ページに標準ナビゲーションを追加
+- Day41〜Day45講義ページに標準ナビゲーションを追加
+- Day46〜Day54講義ページに標準ナビゲーションを追加
+
+## 今後のタスク（優先順位順）
+1. `day6.html`〜`day54.html` の作成（残り49日分）
+2. `images` ディレクトリへのロゴや図解の追加
+3. CSS改善と JavaScript 機能の拡張
+4. 全ページの内容チェックとリンク修正
+
+### テンプレート活用手順
+1. `day_template.html` をコピーして `dayX.html` にリネーム
+2. タイトル・概要・学習目標を更新
+3. 詳細スケジュールとリソースを記入
+4. ナビゲーションリンクを調整
+5. 画像やロゴファイルは必ず相対パスで参照する
+次回セッションでは、オブジェクト指向プログラミングに対応する第2週（day6〜day10）のページ作成を進めます。

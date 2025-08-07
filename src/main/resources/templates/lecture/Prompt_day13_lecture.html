@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロンプト改良版 - ITエンジニア育成カリキュラム講義ページ作成指針</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <h1 class="text-3xl font-bold text-blue-600 mb-6 border-b-4 border-blue-200 pb-4">
+                <i class="fas fa-edit mr-3"></i>プロジェクト名：ITエンジニア育成カリキュラム - Day{X}: {講義タイトル}
+            </h1>
+            
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 mb-8">
+                <h2 class="text-xl font-bold text-yellow-800 mb-2">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>重要な作成指針
+                </h2>
+                <p class="text-yellow-700">以下の指示に従って <code class="bg-yellow-200 px-2 py-1 rounded">Training/pages/lecture/day{X}_lecture.html</code> を生成してください。</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <h2 class="text-xl font-bold text-blue-800 mb-4">
+                        <i class="fas fa-file-alt mr-2"></i>参照ファイル
+                    </h2>
+                    <ul class="list-disc list-inside text-blue-700 space-y-2">
+                        <li>Training/pages/day/day{X}.html</li>
+                        <li>Training/pages/lecture/Template_dayX_lecture.html</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <h2 class="text-xl font-bold text-green-800 mb-4">
+                        <i class="fas fa-cogs mr-2"></i>共通仕様
+                    </h2>
+                    <ul class="list-disc list-inside text-green-700 space-y-2">
+                        <li>HTML5 / lang="ja" / UTF-8</li>
+                        <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                        <li>Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN</li>
+                        <li>レスポンシブ対応、コントラスト比 4.5:1 以上</li>
+                        <li>コードブロックは <code>&lt;pre&gt;&lt;code class="language-java"&gt;&lt;/code&gt;&lt;/pre&gt;</code></li>
+                        <li>開発環境: Pleiades (Eclipse) + Amazon Corretto JDK 17</li>
+                        <li>フッター: <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-red-50 border-2 border-red-200 p-8 mb-8 rounded-lg">
+                <h2 class="text-2xl font-bold text-red-800 mb-6">
+                    <i class="fas fa-lightbulb mr-3"></i>🎯 分かりやすさ重視の改善指針
+                </h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-lg border border-red-200">
+                        <h3 class="text-lg font-bold text-red-700 mb-4">
+                            <i class="fas fa-table mr-2"></i>1. 表・まとめセクションの改善
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-bold text-red-600 mb-2">❌ 避けるべき表現</h4>
+                                <ul class="list-disc list-inside text-sm text-red-600 space-y-1">
+                                    <li>「O(1)」「O(n)」だけの記載</li>
+                                    <li>略語のみ（PECS、SAMなど）</li>
+                                    <li>専門用語の羅列</li>
+                                    <li>「高速」「適切」などの曖昧表現</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-green-600 mb-2">✅ 改善後の表現</h4>
+                                <ul class="list-disc list-inside text-sm text-green-600 space-y-1">
+                                    <li>「O(1) = 即座に処理」具体的説明付き</li>
+                                    <li>「PECS = Producer Extends, Consumer Super」意味併記</li>
+                                    <li>「なぜ」「どんな時に」の理由説明</li>
+                                    <li>「1000件なら0.001秒」具体的数値例</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg border border-red-200">
+                        <h3 class="text-lg font-bold text-red-700 mb-4">
+                            <i class="fas fa-book mr-2"></i>2. 専門用語の詳細解説
+                        </h3>
+                        <div class="bg-gray-50 p-4 rounded mb-4">
+                            <h4 class="font-bold mb-2">必須要素：</h4>
+                            <ol class="list-decimal list-inside space-y-2 text-sm">
+                                <li><strong>用語の定義</strong>：「〜とは」で始まる明確な定義</li>
+                                <li><strong>具体例</strong>：実際のコード例や身近な例え</li>
+                                <li><strong>なぜ重要か</strong>：その概念が必要な理由</li>
+                                <li><strong>使い分け</strong>：いつどのように使うかの指針</li>
+                                <li><strong>よくある間違い</strong>：初心者が陥りやすいミス</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg border border-red-200">
+                        <h3 class="text-lg font-bold text-red-700 mb-4">
+                            <i class="fas fa-eye mr-2"></i>3. 視覚的理解の促進
+                        </h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="text-center">
+                                <div class="bg-blue-100 p-4 rounded-lg mb-2">
+                                    <i class="fas fa-chart-bar text-2xl text-blue-600"></i>
+                                </div>
+                                <h4 class="font-bold text-sm">比較表</h4>
+                                <p class="text-xs text-gray-600">性能・特徴を一目で比較</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-green-100 p-4 rounded-lg mb-2">
+                                    <i class="fas fa-sitemap text-2xl text-green-600"></i>
+                                </div>
+                                <h4 class="font-bold text-sm">フローチャート</h4>
+                                <p class="text-xs text-gray-600">処理の流れを図解</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-purple-100 p-4 rounded-lg mb-2">
+                                    <i class="fas fa-lightbulb text-2xl text-purple-600"></i>
+                                </div>
+                                <h4 class="font-bold text-sm">アナロジー</h4>
+                                <p class="text-xs text-gray-600">身近な例えで理解促進</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-purple-50 border-2 border-purple-200 p-8 mb-8 rounded-lg">
+                <h2 class="text-2xl font-bold text-purple-800 mb-6">
+                    <i class="fas fa-tasks mr-3"></i>📋 具体的実装要求
+                </h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-lg">
+                        <h3 class="text-lg font-bold text-purple-700 mb-4">演習問題の実装仕様</h3>
+                        <div class="bg-gray-50 p-4 rounded">
+                            <h4 class="font-bold mb-2">表示形式：</h4>
+                            <ul class="list-disc list-inside space-y-2 text-sm">
+                                <li><strong>問題文</strong>：常に表示（隠さない）</li>
+                                <li><strong>回答例</strong>：「回答例を表示」ボタンでクリック時に表示</li>
+                                <li><strong>解説</strong>：詳細な解説を削減せず、充実した内容を維持</li>
+                                <li><strong>HTML構造</strong>：見やすいレイアウトとスタイリング</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg">
+                        <h3 class="text-lg font-bold text-purple-700 mb-4">理解度クイズの実装仕様</h3>
+                        <div class="bg-gray-50 p-4 rounded">
+                            <h4 class="font-bold mb-2">表示形式：</h4>
+                            <ul class="list-disc list-inside space-y-2 text-sm">
+                                <li><strong>問題文・選択肢</strong>：常に表示</li>
+                                <li><strong>正解・解説</strong>：「回答を表示」ボタンでクリック時に表示</li>
+                                <li><strong>JavaScript機能</strong>：showAnswer()関数で動的表示</li>
+                                <li><strong>正解表示</strong>：色付きで強調表示</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-indigo-50 border-2 border-indigo-200 p-8 mb-8 rounded-lg">
+                <h2 class="text-2xl font-bold text-indigo-800 mb-6">
+                    <i class="fas fa-exclamation-circle mr-3"></i>⚠️ 分かりづらさ防止の必須チェック項目
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-bold text-indigo-700 mb-4">表・図表のチェック項目</h3>
+                        <ul class="list-none space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span class="text-sm">各列・行の意味が明確か</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span class="text-sm">専門用語に説明が併記されているか</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span class="text-sm">具体的な数値例があるか</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span class="text-sm">初心者でも理解できる表現か</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-indigo-700 mb-4">まとめセクションのチェック項目</h3>
+                        <ul class="list-none space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span class="text-sm">略語の正式名称が記載されているか</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span class="text-sm">概念の具体的なメリットが説明されているか</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span class="text-sm">実務での活用場面が明記されているか</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                <span class="text-sm">復習時に意味が分かる表現か</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-orange-50 border-2 border-orange-200 p-8 mb-8 rounded-lg">
+                <h2 class="text-2xl font-bold text-orange-800 mb-6">
+                    <i class="fas fa-palette mr-3"></i>🎨 推奨する説明テクニック
+                </h2>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white p-4 rounded-lg border border-orange-200">
+                        <h3 class="font-bold text-orange-700 mb-3">
+                            <i class="fas fa-comments mr-2"></i>アナロジー活用
+                        </h3>
+                        <ul class="text-sm space-y-2">
+                            <li>• ArrayList = 本棚（番号で本を取り出し）</li>
+                            <li>• LinkedList = 数珠つなぎ（順番に辿る）</li>
+                            <li>• HashMap = 辞書（キーワードで検索）</li>
+                            <li>• Stream = 工場のベルトコンベア</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border border-orange-200">
+                        <h3 class="font-bold text-orange-700 mb-3">
+                            <i class="fas fa-calculator mr-2"></i>具体的数値例
+                        </h3>
+                        <ul class="text-sm space-y-2">
+                            <li>• 「O(1) = 1万件でも0.001秒」</li>
+                            <li>• 「O(n) = 1万件なら10秒」</li>
+                            <li>• 「メモリ使用量：配列の1.5倍」</li>
+                            <li>• 「処理速度：従来の10倍高速」</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg border border-orange-200">
+                        <h3 class="font-bold text-orange-700 mb-3">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>失敗例の提示
+                        </h3>
+                        <ul class="text-sm space-y-2">
+                            <li>• よくあるコンパイルエラー</li>
+                            <li>• 性能問題の原因</li>
+                            <li>• 間違った使い方の例</li>
+                            <li>• デバッグのポイント</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-teal-50 border-2 border-teal-200 p-8 mb-8 rounded-lg">
+                <h2 class="text-2xl font-bold text-teal-800 mb-6">
+                    <i class="fas fa-code mr-3"></i>💻 コード例の改善指針
+                </h2>
+                
+                <div class="space-y-4">
+                    <div class="bg-white p-6 rounded-lg">
+                        <h3 class="font-bold text-teal-700 mb-4">必須要素：</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-bold text-sm mb-2 text-teal-600">基本要件</h4>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li>詳細なコメント付き</li>
+                                    <li>段階的な複雑度</li>
+                                    <li>実用的な例（学生管理など）</li>
+                                    <li>エラー処理も含む</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm mb-2 text-teal-600">説明要素</h4>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li>各行の動作説明</li>
+                                    <li>なぜこの書き方なのか</li>
+                                    <li>他の書き方との比較</li>
+                                    <li>実行結果の予想</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-100 p-8 rounded-lg">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                    <i class="fas fa-file-code mr-3"></i>出力形式
+                </h2>
+                <div class="bg-red-100 border border-red-300 p-4 rounded">
+                    <p class="text-red-800 font-bold">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        上記の分かりやすさ改善指針をすべて反映した完成HTMLのみを返してください。
+                    </p>
+                    <ul class="mt-3 text-red-700 text-sm list-disc list-inside space-y-1">
+                        <li>表・まとめセクションは初心者にも分かりやすく</li>
+                        <li>専門用語には必ず詳細説明を併記</li>
+                        <li>アナロジーや具体例を豊富に含める</li>
+                        <li>演習問題・クイズは指定の表示仕様で実装</li>
+                        <li>HTMLの見やすさと詳細解説を両立</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDpklfe%2FBKuURTzdLwuhkvIQGN6lG%2BQxJm8p6DBXBOdAbDrPA0hFV%2B4MMEvt6nJ97g6cVi%2Fv2SaP%2BzO5pCTJDk%2B%2FryArgZtl28qFl9nRuTpgc9IXD6w4nS4%2BssHF5aKBJYC7ymHvfzCXiDMZxYf5XQslKV5%2Fj%2BC0SxHh0uY%2BbL35BzqSbdoxorN8NI2lLYCdWDtpL9DArv7bxoyn0qkU4XbmSctfjMyXnc6u5M23ATeJOiUv6uYrJmmp5juyhyC4L9W7j%2FRPlfP0kd7xixr6wAtCwTP8nkQ11EA84rJY%2F9dfPir6P4ukKjuXAuskuZIuETDOYQxsmV4%2BoKXAx5RG8MB5gqj7M1IxppiO5q6iJH8kTW%2FO6oC5ym5omtZHebBf3ilwyGhbJrYQd487T7rdGG0I91A3ooJlaNy9eRuvt5oSNUGDOvOj%2BqGEpe%2Bae6%2FP2uZFvgd2f7KV6lSpNu%2F3o%2FFYQOV%2FblsoNiHQZ17ErvDSxxc7kW8KHTbqINFstfug9ALsaGXH8SAoOQSua%2FI3ern1gTm%2Bs1Nour4NbBRlnnUK2UipV9ylZbPelBVa9b%2Bn%2FAw%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDpklfe/BKuURTzdLwuhkvIQGN6lG+QxJm8p6DBXBOdAbDrPA0hFV+4MMEvt6nJ97g6cVi/v2SaP+zO5pCTJDk+/ryArgZtl28qFl9nRuTpgc9IXD6w4nS4+ssHF5aKBJYC7ymHvfzCXiDMZxYf5XQslKV5/j+C0SxHh0uY+bL35BzqSbdoxorN8NI2lLYCdWDtpL9DArv7bxoyn0qkU4XbmSctfjMyXnc6u5M23ATeJOiUv6uYrJmmp5juyhyC4L9W7j/RPlfP0kd7xixr6wAtCwTP8nkQ11EA84rJY/9dfPir6P4ukKjuXAuskuZIuETDOYQxsmV4+oKXAx5RG8MB5gqj7M1IxppiO5q6iJH8kTW/O6oC5ym5omtZHebBf3ilwyGhbJrYQd487T7rdGG0I91A3ooJlaNy9eRuvt5oSNUGDOvOj+qGEpe+ae6/P2uZFvgd2f7KV6lSpNu/3o/FYQOV/blsoNiHQZ17ErvDSxxc7kW8KHTbqINFstfug9ALsaGXH8SAoOQSua/I3ern1gTm+s1Nour4NbBRlnnUK2UipV9ylZbPelBVa9b+n/Aw==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

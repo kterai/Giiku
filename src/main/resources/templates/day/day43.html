@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 43: 応用SQL・トランザクション</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .code-block {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .sql-keyword {
+            color: #60a5fa;
+            font-weight: bold;
+        }
+        .sql-string {
+            color: #34d399;
+        }
+        .sql-comment {
+            color: #9ca3af;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <script defer src="../../js/day-navigation.js"></script>
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center">
+                <i class="fas fa-database text-3xl mr-4"></i>
+                <div>
+                    <h1 class="text-3xl font-bold">Day 43: 応用SQL・トランザクション</h1>
+                    <p class="text-blue-100">複雑なSQL文（JOIN、サブクエリ）、集計関数、インデックス、トランザクション管理の実践習得</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-blue-500 text-white py-2">
+        <div class="container mx-auto px-4">
+            <div class="flex space-x-6">
+                <a href="#objectives" class="hover:text-blue-200"><i class="fas fa-target mr-2"></i>学習目標</a>
+                <a href="#joins" class="hover:text-blue-200"><i class="fas fa-link mr-2"></i>JOIN操作</a>
+                <a href="#aggregates" class="hover:text-blue-200"><i class="fas fa-calculator mr-2"></i>集計関数</a>
+                <a href="#indexes" class="hover:text-blue-200"><i class="fas fa-tachometer-alt mr-2"></i>インデックス</a>
+                <a href="#transactions" class="hover:text-blue-200"><i class="fas fa-shield-alt mr-2"></i>トランザクション</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- 学習目標 -->
+        <section id="objectives" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                    <i class="fas fa-target mr-2"></i>学習目標
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">基本目標</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                複雑なJOIN文を理解し、適切に使い分けられる
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                サブクエリを活用した効率的なデータ取得ができる
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                集計関数とGROUP BY句を組み合わせて使用できる
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">応用目標</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-star text-yellow-500 mr-2 mt-1"></i>
+                                インデックスの概念を理解し、パフォーマンス向上に活用できる
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-star text-yellow-500 mr-2 mt-1"></i>
+                                トランザクション管理（ACID特性）を理解し実装できる
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-star text-yellow-500 mr-2 mt-1"></i>
+                                PostgreSQL固有の機能を活用できる
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JOIN操作 -->
+        <section id="joins" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-blue-600 mb-6">
+                    <i class="fas fa-link mr-2"></i>JOIN操作の完全マスター
+                </h2>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">JOINの種類と使い分け</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-600 mb-2">INNER JOIN</h4>
+                            <p class="text-sm text-gray-600 mb-3">両方のテーブルに一致するレコードのみを取得</p>
+                            <div class="code-block text-sm">
+<span class="sql-keyword">SELECT</span> u.name, o.order_date, o.total<br>
+<span class="sql-keyword">FROM</span> users u<br>
+<span class="sql-keyword">INNER JOIN</span> orders o <span class="sql-keyword">ON</span> u.id = o.user_id<br>
+<span class="sql-keyword">WHERE</span> o.total > <span class="sql-string">1000</span>;
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-600 mb-2">LEFT JOIN</h4>
+                            <p class="text-sm text-gray-600 mb-3">左のテーブルのすべてのレコードを取得</p>
+                            <div class="code-block text-sm">
+<span class="sql-keyword">SELECT</span> u.name, o.order_date<br>
+<span class="sql-keyword">FROM</span> users u<br>
+<span class="sql-keyword">LEFT JOIN</span> orders o <span class="sql-keyword">ON</span> u.id = o.user_id<br>
+<span class="sql-keyword">ORDER BY</span> u.name;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">複雑なJOIN例</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold mb-3">3つのテーブルを結合した注文詳細取得</h4>
+                        <div class="code-block">
+<span class="sql-keyword">SELECT</span> <br>
+    u.name <span class="sql-keyword">AS</span> customer_name,<br>
+    o.order_date,<br>
+    p.product_name,<br>
+    oi.quantity,<br>
+    p.price * oi.quantity <span class="sql-keyword">AS</span> subtotal<br>
+<span class="sql-keyword">FROM</span> users u<br>
+<span class="sql-keyword">INNER JOIN</span> orders o <span class="sql-keyword">ON</span> u.id = o.user_id<br>
+<span class="sql-keyword">INNER JOIN</span> order_items oi <span class="sql-keyword">ON</span> o.id = oi.order_id<br>
+<span class="sql-keyword">INNER JOIN</span> products p <span class="sql-keyword">ON</span> oi.product_id = p.id<br>
+<span class="sql-keyword">WHERE</span> o.order_date >= <span class="sql-string">'2024-01-01'</span><br>
+<span class="sql-keyword">ORDER BY</span> o.order_date <span class="sql-keyword">DESC</span>, u.name;
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">サブクエリの活用</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-600 mb-2">WHERE句でのサブクエリ</h4>
+                            <div class="code-block text-sm">
+<span class="sql-comment">-- 平均注文金額を超える注文を取得</span><br>
+<span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> orders<br>
+<span class="sql-keyword">WHERE</span> total > (<br>
+&nbsp;&nbsp;<span class="sql-keyword">SELECT</span> <span class="sql-keyword">AVG</span>(total)<br>
+&nbsp;&nbsp;<span class="sql-keyword">FROM</span> orders<br>
+);
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-600 mb-2">EXISTS句でのサブクエリ</h4>
+                            <div class="code-block text-sm">
+<span class="sql-comment">-- 注文履歴があるユーザーのみ取得</span><br>
+<span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> users u<br>
+<span class="sql-keyword">WHERE</span> <span class="sql-keyword">EXISTS</span> (<br>
+&nbsp;&nbsp;<span class="sql-keyword">SELECT</span> 1 <span class="sql-keyword">FROM</span> orders o<br>
+&nbsp;&nbsp;<span class="sql-keyword">WHERE</span> o.user_id = u.id<br>
+);
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 集計関数 -->
+        <section id="aggregates" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-blue-600 mb-6">
+                    <i class="fas fa-calculator mr-2"></i>集計関数とGROUP BY句
+                </h2>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">基本的な集計関数</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg text-center">
+                            <i class="fas fa-plus-circle text-blue-500 text-2xl mb-2"></i>
+                            <h4 class="font-semibold">COUNT()</h4>
+                            <p class="text-sm text-gray-600">レコード数を数える</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg text-center">
+                            <i class="fas fa-calculator text-green-500 text-2xl mb-2"></i>
+                            <h4 class="font-semibold">SUM() / AVG()</h4>
+                            <p class="text-sm text-gray-600">合計・平均を計算</p>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-lg text-center">
+                            <i class="fas fa-sort-amount-up text-yellow-500 text-2xl mb-2"></i>
+                            <h4 class="font-semibold">MAX() / MIN()</h4>
+                            <p class="text-sm text-gray-600">最大・最小値を取得</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">GROUP BYとHAVING句の実践例</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold mb-3">月別売上集計とフィルタリング</h4>
+                        <div class="code-block">
+<span class="sql-keyword">SELECT</span> <br>
+    <span class="sql-keyword">DATE_TRUNC</span>(<span class="sql-string">'month'</span>, order_date) <span class="sql-keyword">AS</span> month,<br>
+    <span class="sql-keyword">COUNT</span>(*) <span class="sql-keyword">AS</span> order_count,<br>
+    <span class="sql-keyword">SUM</span>(total) <span class="sql-keyword">AS</span> total_sales,<br>
+    <span class="sql-keyword">AVG</span>(total) <span class="sql-keyword">AS</span> avg_order_value,<br>
+    <span class="sql-keyword">MAX</span>(total) <span class="sql-keyword">AS</span> max_order<br>
+<span class="sql-keyword">FROM</span> orders<br>
+<span class="sql-keyword">WHERE</span> order_date >= <span class="sql-string">'2024-01-01'</span><br>
+<span class="sql-keyword">GROUP BY</span> <span class="sql-keyword">DATE_TRUNC</span>(<span class="sql-string">'month'</span>, order_date)<br>
+<span class="sql-keyword">HAVING</span> <span class="sql-keyword">SUM</span>(total) > <span class="sql-string">10000</span><br>
+<span class="sql-keyword">ORDER BY</span> month;
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">ウィンドウ関数の活用</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold mb-3">顧客別の注文ランキング</h4>
+                        <div class="code-block">
+<span class="sql-keyword">SELECT</span> <br>
+    user_id,<br>
+    order_date,<br>
+    total,<br>
+    <span class="sql-keyword">ROW_NUMBER</span>() <span class="sql-keyword">OVER</span> (<br>
+        <span class="sql-keyword">PARTITION BY</span> user_id <br>
+        <span class="sql-keyword">ORDER BY</span> total <span class="sql-keyword">DESC</span><br>
+    ) <span class="sql-keyword">AS</span> order_rank,<br>
+    <span class="sql-keyword">SUM</span>(total) <span class="sql-keyword">OVER</span> (<br>
+        <span class="sql-keyword">PARTITION BY</span> user_id<br>
+    ) <span class="sql-keyword">AS</span> customer_total<br>
+<span class="sql-keyword">FROM</span> orders<br>
+<span class="sql-keyword">ORDER BY</span> user_id, order_rank;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- インデックス -->
+        <section id="indexes" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-blue-600 mb-6">
+                    <i class="fas fa-tachometer-alt mr-2"></i>インデックスによるパフォーマンス最適化
+                </h2>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">インデックスの基本概念</h3>
+                    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                        <p class="mb-4">
+                            <strong>インデックス</strong>とは、データベーステーブル内のデータを高速に検索するための仕組みです。
+                            本のページ番号のように、データの場所を効率的に特定できます。
+                        </p>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-green-600 mb-2">
+                                    <i class="fas fa-plus-circle mr-1"></i>メリット
+                                </h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• SELECT文の検索速度が大幅に向上</li>
+                                    <li>• WHERE句、ORDER BY句の処理が高速化</li>
+                                    <li>• JOIN操作のパフォーマンスが改善</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-red-600 mb-2">
+                                    <i class="fas fa-minus-circle mr-1"></i>デメリット
+                                </h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• INSERT/UPDATE/DELETE が若干遅くなる</li>
+                                    <li>• 追加のストレージ容量が必要</li>
+                                    <li>• メンテナンスのオーバーヘッド</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">インデックスの作成と管理</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-600 mb-2">単一カラムインデックス</h4>
+                            <div class="code-block text-sm">
+<span class="sql-comment">-- よく検索されるカラムにインデックス作成</span><br>
+<span class="sql-keyword">CREATE INDEX</span> idx_users_email<br>
+<span class="sql-keyword">ON</span> users(email);<br>
+<br>
+<span class="sql-comment">-- 日付カラムのインデックス</span><br>
+<span class="sql-keyword">CREATE INDEX</span> idx_orders_date<br>
+<span class="sql-keyword">ON</span> orders(order_date);
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-600 mb-2">複合インデックス</h4>
+                            <div class="code-block text-sm">
+<span class="sql-comment">-- 複数カラムの組み合わせインデックス</span><br>
+<span class="sql-keyword">CREATE INDEX</span> idx_orders_user_date<br>
+<span class="sql-keyword">ON</span> orders(user_id, order_date);<br>
+<br>
+<span class="sql-comment">-- 部分インデックス</span><br>
+<span class="sql-keyword">CREATE INDEX</span> idx_orders_active<br>
+<span class="sql-keyword">ON</span> orders(status)<br>
+<span class="sql-keyword">WHERE</span> status = <span class="sql-string">'active'</span>;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">パフォーマンス分析</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold mb-3">EXPLAIN文による実行計画の確認</h4>
+                        <div class="code-block">
+<span class="sql-comment">-- クエリの実行計画を確認</span><br>
+<span class="sql-keyword">EXPLAIN ANALYZE</span><br>
+<span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> orders<br>
+<span class="sql-keyword">WHERE</span> user_id = <span class="sql-string">123</span><br>
+<span class="sql-keyword">AND</span> order_date >= <span class="sql-string">'2024-01-01'</span>;<br>
+<br>
+<span class="sql-comment">-- インデックス使用状況の確認</span><br>
+<span class="sql-keyword">SELECT</span> schemaname, tablename, indexname, idx_scan<br>
+<span class="sql-keyword">FROM</span> pg_stat_user_indexes<br>
+<span class="sql-keyword">WHERE</span> idx_scan = <span class="sql-string">0</span>; <span class="sql-comment">-- 未使用インデックス</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- トランザクション -->
+        <section id="transactions" class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-blue-600 mb-6">
+                    <i class="fas fa-shield-alt mr-2"></i>トランザクション管理とACID特性
+                </h2>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">ACID特性の理解</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                            <h4 class="font-semibold text-red-600 mb-2">
+                                <i class="fas fa-atom mr-2"></i>Atomicity（原子性）
+                            </h4>
+                            <p class="text-sm">トランザクション内の全ての操作が完全に実行されるか、全く実行されないかのどちらかになること</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                            <h4 class="font-semibold text-green-600 mb-2">
+                                <i class="fas fa-balance-scale mr-2"></i>Consistency（一貫性）
+                            </h4>
+                            <p class="text-sm">トランザクション実行前後でデータベースの整合性制約が維持されること</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-semibold text-blue-600 mb-2">
+                                <i class="fas fa-user-secret mr-2"></i>Isolation（分離性）
+                            </h4>
+                            <p class="text-sm">同時実行されるトランザクション同士が互いに影響を与えないこと</p>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                            <h4 class="font-semibold text-yellow-600 mb-2">
+                                <i class="fas fa-save mr-2"></i>Durability（永続性）
+                            </h4>
+                            <p class="text-sm">コミットされたトランザクションの結果が永続的に保存されること</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">基本的なトランザクション制御</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold mb-3">銀行口座間の送金処理例</h4>
+                        <div class="code-block">
+<span class="sql-comment">-- トランザクション開始</span><br>
+<span class="sql-keyword">BEGIN</span>;<br>
+<br>
+<span class="sql-comment">-- 送金元口座から減額</span><br>
+<span class="sql-keyword">UPDATE</span> accounts<br>
+<span class="sql-keyword">SET</span> balance = balance - <span class="sql-string">1000</span><br>
+<span class="sql-keyword">WHERE</span> account_id = <span class="sql-string">'A001'</span>;<br>
+<br>
+<span class="sql-comment">-- 残高チェック</span><br>
+<span class="sql-keyword">SELECT</span> balance <span class="sql-keyword">FROM</span> accounts <span class="sql-keyword">WHERE</span> account_id = <span class="sql-string">'A001'</span>;<br>
+<br>
+<span class="sql-comment">-- 送金先口座へ加算</span><br>
+<span class="sql-keyword">UPDATE</span> accounts<br>
+<span class="sql-keyword">SET</span> balance = balance + <span class="sql-string">1000</span><br>
+<span class="sql-keyword">WHERE</span> account_id = <span class="sql-string">'A002'</span>;<br>
+<br>
+<span class="sql-comment">-- 取引履歴を記録</span><br>
+<span class="sql-keyword">INSERT INTO</span> transactions (from_account, to_account, amount, transaction_date)<br>
+<span class="sql-keyword">VALUES</span> (<span class="sql-string">'A001'</span>, <span class="sql-string">'A002'</span>, <span class="sql-string">1000</span>, <span class="sql-keyword">NOW</span>());<br>
+<br>
+<span class="sql-comment">-- すべて成功した場合にコミット</span><br>
+<span class="sql-keyword">COMMIT</span>;<br>
+<br>
+<span class="sql-comment">-- エラーが発生した場合はロールバック</span><br>
+<span class="sql-comment">-- ROLLBACK;</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">分離レベルとロック</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold mb-3">分離レベルの設定</h4>
+                        <div class="code-block">
+<span class="sql-comment">-- 分離レベルの設定</span><br>
+<span class="sql-keyword">BEGIN</span>;<br>
+<span class="sql-keyword">SET TRANSACTION ISOLATION LEVEL</span> <span class="sql-keyword">SERIALIZABLE</span>;<br>
+<br>
+<span class="sql-comment">-- クリティカルな処理</span><br>
+<span class="sql-keyword">SELECT</span> * <span class="sql-keyword">FROM</span> inventory<br>
+<span class="sql-keyword">WHERE</span> product_id = <span class="sql-string">123</span><br>
+<span class="sql-keyword">FOR UPDATE</span>; <span class="sql-comment">-- 行ロック</span><br>
+<br>
+<span class="sql-keyword">UPDATE</span> inventory<br>
+<span class="sql-keyword">SET</span> quantity = quantity - <span class="sql-string">1</span><br>
+<span class="sql-keyword">WHERE</span> product_id = <span class="sql-string">123</span> <span class="sql-keyword">AND</span> quantity > <span class="sql-string">0</span>;<br>
+<br>
+<span class="sql-keyword">COMMIT</span>;
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold mb-4">デッドロック対策</h3>
+                    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-500">
+                        <h4 class="font-semibold text-yellow-600 mb-2">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>デッドロック防止のベストプラクティス
+                        </h4>
+                        <ul class="space-y-2 text-sm">
+                            <li>• 常に同じ順序でテーブルにアクセスする</li>
+                            <li>• トランザクションの実行時間を最小限に抑える</li>
+                            <li>• 必要以上に多くの行をロックしない</li>
+                            <li>• インデックスを適切に設定してロック範囲を最小化する</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 実践演習 -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-blue-600 mb-6">
+                    <i class="fas fa-laptop-code mr-2"></i>実践演習
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-blue-600 mb-3">
+                            <i class="fas fa-tasks mr-2"></i>演習1: 複雑なJOINクエリ
+                        </h3>
+                        <p class="text-sm mb-3">顧客、注文、商品の3つのテーブルを結合して、月別の売上ランキングを作成してください。</p>
+                        <button onclick="toggleSolution('solution1')" class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600">
+                            解答例を表示
+                        </button>
+                        <div id="solution1" class="hidden mt-3">
+                            <div class="code-block text-xs">
+<span class="sql-keyword">SELECT</span> <br>
+&nbsp;&nbsp;<span class="sql-keyword">DATE_TRUNC</span>(<span class="sql-string">'month'</span>, o.order_date) <span class="sql-keyword">AS</span> month,<br>
+&nbsp;&nbsp;p.product_name,<br>
+&nbsp;&nbsp;<span class="sql-keyword">SUM</span>(oi.quantity * p.price) <span class="sql-keyword">AS</span> total_sales,<br>
+&nbsp;&nbsp;<span class="sql-keyword">RANK</span>() <span class="sql-keyword">OVER</span> (<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-keyword">PARTITION BY</span> <span class="sql-keyword">DATE_TRUNC</span>(<span class="sql-string">'month'</span>, o.order_date)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="sql-keyword">ORDER BY</span> <span class="sql-keyword">SUM</span>(oi.quantity * p.price) <span class="sql-keyword">DESC</span><br>
+&nbsp;&nbsp;) <span class="sql-keyword">AS</span> sales_rank<br>
+<span class="sql-keyword">FROM</span> orders o<br>
+<span class="sql-keyword">JOIN</span> order_items oi <span class="sql-keyword">ON</span> o.id = oi.order_id<br>
+<span class="sql-keyword">JOIN</span> products p <span class="sql-keyword">ON</span> oi.product_id = p.id<br>
+<span class="sql-keyword">GROUP BY</span> <br>
+&nbsp;&nbsp;<span class="sql-keyword">DATE_TRUNC</span>(<span class="sql-string">'month'</span>, o.order_date), p.product_name<br>
+<span class="sql-keyword">ORDER BY</span> month, sales_rank;
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-green-600 mb-3">
+                            <i class="fas fa-database mr-2"></i>演習2: トランザクション処理
+                        </h3>
+                        <p class="text-sm mb-3">在庫管理システムで商品の発注処理を安全に実行するトランザクションを作成してください。</p>
+                        <button onclick="toggleSolution('solution2')" class="bg-green-500 text-white px-4 py-2 rounded text-sm hover:bg-green-600">
+                            解答例を表示
+                        </button>
+                        <div id="solution2" class="hidden mt-3">
+                            <div class="code-block text-xs">
+<span class="sql-keyword">BEGIN</span>;<br>
+<br>
+<span class="sql-comment">-- 在庫確認と更新</span><br>
+<span class="sql-keyword">UPDATE</span> inventory<br>
+<span class="sql-keyword">SET</span> quantity = quantity - <span class="sql-string">5</span><br>
+<span class="sql-keyword">WHERE</span> product_id = <span class="sql-string">101</span> <span class="sql-keyword">AND</span> quantity >= <span class="sql-string">5</span>;<br>
+<br>
+<span class="sql-comment">-- 更新行数チェック</span><br>
+<span class="sql-keyword">GET DIAGNOSTICS</span> affected_rows = <span class="sql-keyword">ROW_COUNT</span>;<br>
+<br>
+<span class="sql-comment">-- 注文記録の挿入</span><br>
+<span class="sql-keyword">INSERT INTO</span> orders (customer_id, product_id, quantity, order_date)<br>
+<span class="sql-keyword">VALUES</span> (<span class="sql-string">1</span>, <span class="sql-string">101</span>, <span class="sql-string">5</span>, <span class="sql-keyword">NOW</span>());<br>
+<br>
+<span class="sql-keyword">COMMIT</span>;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- まとめ -->
+        <section class="mb-12">
+            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold mb-4">
+                    <i class="fas fa-graduation-cap mr-2"></i>本日のまとめ
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">習得したスキル</h3>
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <i class="fas fa-check mr-2"></i>
+                                複雑なJOIN操作とサブクエリの活用
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check mr-2"></i>
+                                集計関数とウィンドウ関数の実践的使用
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check mr-2"></i>
+                                インデックスによるパフォーマンス最適化
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check mr-2"></i>
+                                トランザクション管理とACID特性の理解
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">次のステップ</h3>
+                        <p class="mb-3">明日はサーバーサイド開発入門として、Webアプリケーションの基本構造について学習します。</p>
+                        <div class="bg-white bg-opacity-20 p-3 rounded">
+                            <p class="text-sm">
+                                <strong>Day 44予習ポイント:</strong><br>
+                                • HTTPプロトコルの基本<br>
+                                • WebサーバーとAPサーバーの違い<br>
+                                • MVC アーキテクチャの概念
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSolution(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('hidden');
+        }
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDnu2DH0TdTYJOpa95vWpBJ36MbuVfrCgqNy4FBTY%2BbXnVJ8aVp000%2FFPPy9%2BDAlyVt6JuN4LwGqmsX1J7o8pBRVhvxUSXS1dk1KQgkZefJUpRcQT4kL%2BLur2j8gpTGEpED%2BkUEPceodltjthn0HIHwfgjlNw16HS9T7xWX0m1CnKH%2F%2BNDDKW4IBZVZnjU%2FR7mx%2BvQwW62Bh1QXxA7xu%2FQjdcydKrhd4aRbGNAgslf1llxHqDu12miOyv78zlz2rMY6jfWXGhd1quCaU%2Fmuxpeu%2BYS36c%2Fd3H0K0bqKMfxclrAGSMb3pdqpgOnD8sz5pc%2BwzLYfVAkPGmC4g5nR2JDRKG2FvZpT%2BACpY0xY2Y4M%2B%2BIMrIPI8m9RtEAfDWtiEybEavQY2sbUVE3bQtQVYrAU3NYg0YZvWt81TD8OxyWcpaThzsZ49xu461M0OrHcgdbtLvJK63NXHF96vFPojiRoTG%2BB6m1KkmrLpOQqCTXkEWJQx3HNDxRLFVyYanl4O4FA%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDnu2DH0TdTYJOpa95vWpBJ36MbuVfrCgqNy4FBTY+bXnVJ8aVp000/FPPy9+DAlyVt6JuN4LwGqmsX1J7o8pBRVhvxUSXS1dk1KQgkZefJUpRcQT4kL+Lur2j8gpTGEpED+kUEPceodltjthn0HIHwfgjlNw16HS9T7xWX0m1CnKH/+NDDKW4IBZVZnjU/R7mx+vQwW62Bh1QXxA7xu/QjdcydKrhd4aRbGNAgslf1llxHqDu12miOyv78zlz2rMY6jfWXGhd1quCaU/muxpeu+YS36c/d3H0K0bqKMfxclrAGSMb3pdqpgOnD8sz5pc+wzLYfVAkPGmC4g5nR2JDRKG2FvZpT+ACpY0xY2Y4M++IMrIPI8m9RtEAfDWtiEybEavQY2sbUVE3bQtQVYrAU3NYg0YZvWt81TD8OxyWcpaThzsZ49xu461M0OrHcgdbtLvJK63NXHF96vFPojiRoTG+B6m1KkmrLpOQqCTXkEWJQx3HNDxRLFVyYanl4O4FA==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

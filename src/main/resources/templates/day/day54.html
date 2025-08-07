@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム - Day54: プロジェクト発表・総合振り返り・キャリア形成</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .achievement-badge {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000;
+            border: 2px solid #ffd700;
+        }
+        .final-day-banner {
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+            background-size: 400% 400%;
+            animation: gradient 3s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .celebration-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        .celebration-effect::before {
+            content: "🎉";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 24px;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <script defer src="../../js/day-navigation.js"></script>
+    <!-- Header -->
+    <header class="final-day-banner text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-graduation-cap text-3xl"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold">ITエンジニア育成カリキュラム</h1>
+                        <p class="text-lg">第12週第6日目 - 最終日</p>
+                    </div>
+                </div>
+                <div class="achievement-badge px-6 py-3 rounded-full font-bold text-lg celebration-effect">
+                    <i class="fas fa-trophy mr-2"></i>完走達成！
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- Final Day Special Message -->
+        <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-lg mb-8">
+            <div class="text-center">
+                <i class="fas fa-star text-4xl mb-4"></i>
+                <h2 class="text-3xl font-bold mb-2">🎊 おめでとうございます！ 🎊</h2>
+                <p class="text-xl mb-4">54日間の学習プログラムを完走されました！</p>
+                <p class="text-lg">今日は皆さんの成果を発表し、新たなキャリアへの第一歩を踏み出す特別な日です。</p>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-target text-blue-600 mr-3"></i>学習目標
+            </h2>
+            <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                    <i class="fas fa-presentation text-green-500 mr-3 mt-1"></i>
+                    完成したプロジェクトを効果的にプレゼンテーションできる
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-chart-line text-green-500 mr-3 mt-1"></i>
+                    3ヶ月間の学習成果を客観的に評価・分析できる
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-portfolio text-green-500 mr-3 mt-1"></i>
+                    採用担当者に訴求力の高いポートフォリオを完成させる
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-road text-green-500 mr-3 mt-1"></i>
+                    今後のキャリア戦略と学習計画を具体的に策定できる
+                </li>
+            </ul>
+        </section>
+
+        <!-- Achievement Criteria -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-medal text-yellow-600 mr-3"></i>達成基準
+            </h2>
+            <ul class="space-y-3 text-gray-700">
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                    技術的な課題と解決策を明確に説明できる
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                    習得した技術スキルを体系的に整理できている
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                    GitHub リポジトリが採用基準レベルに整備されている
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                    具体的な転職・キャリア戦略を策定できている
+                </li>
+            </ul>
+        </section>
+
+        <!-- Detailed Schedule -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-clock text-purple-600 mr-3"></i>詳細スケジュール
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="border-l-4 border-blue-500 pl-4 py-2">
+                    <h3 class="font-bold text-lg text-blue-700">10:00-10:30 最終日オープニング・3ヶ月振り返り</h3>
+                    <p class="text-gray-600">カリキュラム総括と個人成長の確認、プログラム完走セレモニー</p>
+                </div>
+                
+                <div class="border-l-4 border-green-500 pl-4 py-2">
+                    <h3 class="font-bold text-lg text-green-700">10:30-12:00 プロジェクト発表会（前半）</h3>
+                    <p class="text-gray-600">総合演習プロジェクトの成果発表、技術選定理由とアーキテクチャ解説</p>
+                </div>
+                
+                <div class="border-l-4 border-gray-400 pl-4 py-2">
+                    <h3 class="font-bold text-lg text-gray-700">12:00-13:00 昼休憩</h3>
+                    <p class="text-gray-600">最後の昼食時間、同期との交流と思い出作り</p>
+                </div>
+                
+                <div class="border-l-4 border-orange-500 pl-4 py-2">
+                    <h3 class="font-bold text-lg text-orange-700">13:00-14:30 プロジェクト発表会（後半）・ピアレビュー</h3>
+                    <p class="text-gray-600">実装デモと質疑応答、相互評価とフィードバック交換</p>
+                </div>
+                
+                <div class="border-l-4 border-purple-500 pl-4 py-2">
+                    <h3 class="font-bold text-lg text-purple-700">14:30-15:15 ポートフォリオ完成・キャリア戦略</h3>
+                    <p class="text-gray-600">GitHub整備、職務経歴書更新、転職活動準備、面接対策</p>
+                </div>
+                
+                <div class="border-l-4 border-red-500 pl-4 py-2">
+                    <h3 class="font-bold text-lg text-red-700">15:15-16:00 継続学習計画・ネットワーキング・卒業セレモニー</h3>
+                    <p class="text-gray-600">今後の学習ロードマップ、コミュニティ参加、修了証授与、記念撮影</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme Details -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-rocket text-indigo-600 mr-3"></i>テーマ詳細
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-indigo-700 mb-3">
+                    <i class="fas fa-graduation-cap mr-2"></i>最終日：プロジェクト発表・総合振り返り・キャリア形成
+                </h3>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    本日は54日間の学習プログラムの集大成となる特別な日です。これまでに習得したHTML5、CSS3、JavaScript、React、TypeScript、Node.js、Express.js、Spring Boot、データベース技術を統合した総合演習プロジェクトの成果発表を行い、技術的な成長を振り返るとともに、ITエンジニアとしての新たなキャリアへの第一歩を踏み出すための準備を完了します。
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg">
+                    <h4 class="font-bold text-blue-800 mb-3 flex items-center">
+                        <i class="fas fa-presentation mr-2"></i>プロジェクト発表の重要ポイント
+                    </h4>
+                    <ul class="text-sm text-blue-700 space-y-2">
+                        <li>• 技術選定理由の明確な説明</li>
+                        <li>• アーキテクチャ設計の論理性</li>
+                        <li>• 課題解決プロセスの詳細</li>
+                        <li>• 実装上の工夫と最適化</li>
+                        <li>• ユーザビリティへの配慮</li>
+                        <li>• セキュリティ対策の実装</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg">
+                    <h4 class="font-bold text-green-800 mb-3 flex items-center">
+                        <i class="fas fa-chart-bar mr-2"></i>技術習得度評価項目
+                    </h4>
+                    <ul class="text-sm text-green-700 space-y-2">
+                        <li>• フロントエンド技術の理解度</li>
+                        <li>• バックエンド開発スキル</li>
+                        <li>• データベース設計・操作</li>
+                        <li>• API設計・実装能力</li>
+                        <li>• セキュリティ実装レベル</li>
+                        <li>• デバッグ・トラブルシューティング</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-tools text-orange-600 mr-3"></i>使用教材・リソース
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div>
+                    <h4 class="font-bold text-orange-700 mb-3 flex items-center">
+                        <i class="fas fa-laptop mr-2"></i>発表・評価ツール
+                    </h4>
+                    <ul class="text-gray-700 space-y-1 text-sm">
+                        <li>• プレゼンテーション資料</li>
+                        <li>• デモ環境</li>
+                        <li>• 振り返りシート</li>
+                        <li>• スキル評価チェックリスト</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-purple-700 mb-3 flex items-center">
+                        <i class="fas fa-briefcase mr-2"></i>キャリア資料
+                    </h4>
+                    <ul class="text-gray-700 space-y-1 text-sm">
+                        <li>• 職務経歴書テンプレート</li>
+                        <li>• ポートフォリオガイドライン</li>
+                        <li>• 面接対策資料</li>
+                        <li>• 転職サイト情報</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-red-700 mb-3 flex items-center">
+                        <i class="fas fa-book mr-2"></i>継続学習リソース
+                    </h4>
+                    <ul class="text-gray-700 space-y-1 text-sm">
+                        <li>• 技術書推薦リスト</li>
+                        <li>• オンライン学習プラットフォーム</li>
+                        <li>• エンジニアコミュニティ情報</li>
+                        <li>• 資格取得ガイド</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comprehension Check -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-clipboard-check text-teal-600 mr-3"></i>理解度確認項目
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-bold text-teal-700 mb-3 flex items-center">
+                        <i class="fas fa-star mr-2"></i>基本レベル
+                    </h4>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1 text-sm"></i>
+                            プロジェクトの概要を明確に説明できる
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1 text-sm"></i>
+                            使用した技術の基本的な特徴を理解している
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1 text-sm"></i>
+                            開発過程で遭遇した課題を整理できている
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1 text-sm"></i>
+                            3ヶ月間の学習成果を振り返ることができる
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1 text-sm"></i>
+                            今後の学習方向性を認識している
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-teal-700 mb-3 flex items-center">
+                        <i class="fas fa-trophy mr-2"></i>応用レベル
+                    </h4>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1 text-sm"></i>
+                            技術選定理由を論理的に説明できる
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1 text-sm"></i>
+                            アーキテクチャ設計の妥当性を検証できる
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1 text-sm"></i>
+                            プロジェクトの改善点を具体的に提案できる
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1 text-sm"></i>
+                            採用レベルのポートフォリオを作成できる
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1 text-sm"></i>
+                            戦略的なキャリア計画を策定できる
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Graduation Message -->
+        <section class="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 text-white rounded-lg shadow-md p-8 mb-8">
+            <div class="text-center">
+                <i class="fas fa-heart text-4xl mb-4"></i>
+                <h2 class="text-3xl font-bold mb-4">🌟 卒業おめでとうございます！ 🌟</h2>
+                <p class="text-xl mb-4">皆さんはこの54日間で、ITエンジニアとして必要な基礎技術をしっかりと身につけました。</p>
+                <p class="text-lg mb-4">
+                    これからはこの学習を基盤として、実際の開発現場で活躍し、
+                    更なる技術向上と成長を続けていってください。
+                </p>
+                <p class="text-lg font-bold">
+                    未来のエンジニアライフが素晴らしいものになることを心から願っています！
+                </p>
+            </div>
+        </section>
+
+        <!-- Career Next Steps -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-route text-blue-600 mr-3"></i>今後のステップ
+            </h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg text-center">
+                    <i class="fas fa-search text-blue-600 text-3xl mb-3"></i>
+                    <h4 class="font-bold text-blue-800 mb-2">転職活動</h4>
+                    <p class="text-sm text-blue-700">求人検索、応募書類作成、面接対策の開始</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg text-center">
+                    <i class="fas fa-code text-green-600 text-3xl mb-3"></i>
+                    <h4 class="font-bold text-green-800 mb-2">技術向上</h4>
+                    <p class="text-sm text-green-700">最新技術の習得、OSS貢献、技術ブログ執筆</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg text-center">
+                    <i class="fas fa-users text-purple-600 text-3xl mb-3"></i>
+                    <h4 class="font-bold text-purple-800 mb-2">コミュニティ</h4>
+                    <p class="text-sm text-purple-700">勉強会参加、エンジニア仲間とのネットワーキング</p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-red-50 to-red-100 p-4 rounded-lg text-center">
+                    <i class="fas fa-certificate text-red-600 text-3xl mb-3"></i>
+                    <h4 class="font-bold text-red-800 mb-2">資格取得</h4>
+                    <p class="text-sm text-red-700">AWS、Azure、各種技術資格の取得計画</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Message -->
+        <section class="text-center py-8">
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg p-8">
+                <i class="fas fa-infinity text-4xl mb-4"></i>
+                <h2 class="text-2xl font-bold mb-4">学習は継続、成長は無限大</h2>
+                <p class="text-lg mb-4">
+                    技術は日々進歩します。今日学んだことを基盤に、
+                    常に新しい技術にチャレンジし続けてください。
+                </p>
+                <p class="text-xl font-bold">
+                    皆さんの輝かしいエンジニアキャリアを応援しています！ 🚀
+                </p>
+            </div>
+        </section>
+
+        <!-- Feedback Section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-comment-dots text-blue-600 mr-3"></i>フィードバック
+            </h2>
+            <p class="text-gray-700 mb-4">54日間のプログラムについてのご感想をお聞かせください。</p>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-star mr-1"></i>総合満足度
+                    </label>
+                    <div class="flex space-x-2">
+                        <button class="text-2xl text-gray-300 hover:text-yellow-400" onclick="setRating(1)">⭐</button>
+                        <button class="text-2xl text-gray-300 hover:text-yellow-400" onclick="setRating(2)">⭐</button>
+                        <button class="text-2xl text-gray-300 hover:text-yellow-400" onclick="setRating(3)">⭐</button>
+                        <button class="text-2xl text-gray-300 hover:text-yellow-400" onclick="setRating(4)">⭐</button>
+                        <button class="text-2xl text-gray-300 hover:text-yellow-400" onclick="setRating(5)">⭐</button>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-message mr-1"></i>感想・要望
+                    </label>
+                    <textarea class="w-full p-3 border border-gray-300 rounded-md" rows="4" 
+                        placeholder="54日間の学習プログラムの感想や今後への要望をお聞かせください..."></textarea>
+                </div>
+                
+                <button class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200">
+                    <i class="fas fa-paper-plane mr-2"></i>フィードバックを送信
+                </button>
+            </div>
+        </section>
+
+        <!-- Progress Tracker -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-chart-line text-green-600 mr-3"></i>学習進捗
+            </h3>
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-sm text-gray-600">54日目 / 54日間</span>
+                <span class="text-sm font-bold text-green-600">100%完了 🎉</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-4">
+                <div class="bg-gradient-to-r from-green-400 to-green-600 h-4 rounded-full w-full"></div>
+            </div>
+            <p class="text-center text-green-600 font-bold mt-2">プログラム完全制覇！おめでとうございます！</p>
+        </section>
+
+        <!-- Navigation -->
+        <section class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="flex space-x-4">
+                    <h3 class="text-lg font-bold text-gray-800 flex items-center">
+                        <i class="fas fa-list text-blue-600 mr-2"></i>目次
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">プロジェクト発表</a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">総合振り返り</a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">キャリア形成</a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">継続学習計画</a>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-2">
+                    <a href="day53.html" class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i>前の日
+                    </a>
+                    <span class="bg-green-600 text-white px-4 py-2 rounded-md font-bold">
+                        <i class="fas fa-flag-checkered mr-2"></i>最終日
+                    </span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4">
+                <i class="fas fa-graduation-cap text-3xl mb-2"></i>
+                <p class="text-lg">ITエンジニア育成カリキュラムは、未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+            </div>
+            <div class="border-t border-white border-opacity-20 pt-4">
+                <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function setRating(rating) {
+            const stars = document.querySelectorAll('button[onclick^="setRating"]');
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.remove('text-gray-300');
+                    star.classList.add('text-yellow-400');
+                } else {
+                    star.classList.remove('text-yellow-400');
+                    star.classList.add('text-gray-300');
+                }
+            });
+        }
+
+        // Celebration animation
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff'];
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = '10px';
+            confetti.style.height = '10px';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = Math.random() * window.innerWidth + 'px';
+            confetti.style.top = '-10px';
+            confetti.style.zIndex = '1000';
+            confetti.style.borderRadius = '50%';
+            document.body.appendChild(confetti);
+
+            let pos = -10;
+            const fall = setInterval(() => {
+                pos += 5;
+                confetti.style.top = pos + 'px';
+                if (pos > window.innerHeight) {
+                    clearInterval(fall);
+                    document.body.removeChild(confetti);
+                }
+            }, 50);
+        }
+
+        // Create confetti on page load
+        window.addEventListener('load', () => {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => createConfetti(), i * 100);
+            }
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDu2Dc4GxT%2Bxc5OWrZxsZDhhp%2B%2BmQ3OPN77Pcx%2B8oyRsFUsSXpUXFfOkCQyIrOIlyE0VPPjLn9MNTzEVFoaMnzX87oV%2FDVWpG6p952jNv9JWGYmOHtoDdnIOe6JqoMYSsPZ82qxA6pK919JVgtinRu0O5%2BetRn%2FTBHXZLikmsNXz9b%2B5COdOZ65iO2AjyRJ1NW4Ts4YXDPw%2B6GquA8My5JrXrLIJ%2BDyMx39yGk3i8YbtIjKGpA3Af53BA9t0A9H%2BSP8YWGoU1YkTRL0MT4y44wPtuWTUuep%2BfCH3LK7jh0QvTyMyiD20A4AC91mN31psrdxOMJTqCLp1RENZlrowaukUdivGDp4RYhUrjiC%2B4dzR96gAGL6p1v7V58RPcAoMUHK3A1%2Bqn9T%2BJOwv5zAFx1ims%2BtuIYAut8Xx6h0wHODTLowK2x7p6bZu9AV7mb5UKfQokzUoDjU7lCrUvPDHQ0wdXmg3z3dkdzm%2B9Yc8CdG9i";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDu2Dc4GxT+xc5OWrZxsZDhhp++mQ3OPN77Pcx+8oyRsFUsSXpUXFfOkCQyIrOIlyE0VPPjLn9MNTzEVFoaMnzX87oV/DVWpG6p952jNv9JWGYmOHtoDdnIOe6JqoMYSsPZ82qxA6pK919JVgtinRu0O5+etRn/TBHXZLikmsNXz9b+5COdOZ65iO2AjyRJ1NW4Ts4YXDPw+6GquA8My5JrXrLIJ+DyMx39yGk3i8YbtIjKGpA3Af53BA9t0A9H+SP8YWGoU1YkTRL0MT4y44wPtuWTUuep+fCH3LK7jh0QvTyMyiD20A4AC91mN31psrdxOMJTqCLp1RENZlrowaukUdivGDp4RYhUrjiC+4dzR96gAGL6p1v7V58RPcAoMUHK3A1+qn9T+JOwv5zAFx1ims+tuIYAut8Xx6h0wHODTLowK2x7p6bZu9AV7mb5UKfQokzUoDjU7lCrUvPDHQ0wdXmg3z3dkdzm+9Yc8CdG9i";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

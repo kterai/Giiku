@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 44: サーバーサイド開発入門</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <script defer src="../../js/day-navigation.js"></script>
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-6">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold mb-2">
+                <i class="fas fa-server mr-3"></i>Day 44: サーバーサイド開発入門
+            </h1>
+            <p class="text-blue-100">Webアプリケーションの基本構造、Servlet・JSP基礎、HTTPリクエスト・レスポンス処理、JDBCによるデータベース連携</p>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- Learning Objectives -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-600">
+                <i class="fas fa-target mr-2"></i>学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <i class="fas fa-globe text-blue-600 mb-2"></i>
+                    <p class="font-semibold">Webアプリケーションの基本構造を理解し、クライアント・サーバー間の通信の仕組みを習得する</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <i class="fas fa-code text-green-600 mb-2"></i>
+                    <p class="font-semibold">Servlet・JSPの基礎概念と実装方法を理解し、動的Webページを作成できる</p>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <i class="fas fa-exchange-alt text-purple-600 mb-2"></i>
+                    <p class="font-semibold">HTTPリクエスト・レスポンスの詳細な仕組みと適切な処理方法を実装できる</p>
+                </div>
+                <div class="bg-orange-50 p-4 rounded-lg">
+                    <i class="fas fa-database text-orange-600 mb-2"></i>
+                    <p class="font-semibold">JDBCを使用したデータベース連携とCRUD操作を安全に実装できる</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievement Criteria -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-green-600">
+                <i class="fas fa-check-circle mr-2"></i>達成基準
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-blue-600">基本レベル</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>Webアプリケーションの3層構造（プレゼンテーション・ビジネス・データ）を説明できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>ServletとJSPの役割の違いを理解し、基本的な実装ができる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>HTTPのGET・POSTメソッドを適切に使い分けできる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span>JDBCを使用して基本的なデータベース操作（SELECT・INSERT・UPDATE・DELETE）ができる</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-purple-600">応用レベル</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-purple-500 mt-1 mr-2"></i>
+                            <span>MVCパターンに基づいたWebアプリケーション設計ができる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-purple-500 mt-1 mr-2"></i>
+                            <span>セッション・Cookieの仕組みを理解し、状態管理を実装できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-purple-500 mt-1 mr-2"></i>
+                            <span>SQLインジェクション対策等のセキュリティ実装ができる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-purple-500 mt-1 mr-2"></i>
+                            <span>トランザクション処理を含む堅牢なデータベース操作を実装できる</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-600">
+                <i class="fas fa-clock mr-2"></i>詳細スケジュール
+            </h2>
+            <div class="space-y-4">
+                <div class="border-l-4 border-blue-500 pl-4 py-2">
+                    <h3 class="font-semibold text-blue-600">10:00-10:15 オリエンテーション・前日復習</h3>
+                    <p class="text-gray-600">PostgreSQL・応用SQLの復習とサーバーサイド開発概要説明</p>
+                </div>
+                <div class="border-l-4 border-green-500 pl-4 py-2">
+                    <h3 class="font-semibold text-green-600">10:15-11:00 Webアプリケーション基本構造</h3>
+                    <p class="text-gray-600">3層構造、MVCパターン、リクエスト・レスポンスサイクルの理解</p>
+                </div>
+                <div class="border-l-4 border-purple-500 pl-4 py-2">
+                    <h3 class="font-semibold text-purple-600">11:00-11:45 Servlet基礎・HTTP処理</h3>
+                    <p class="text-gray-600">Servletライフサイクル、doGet・doPostメソッド、パラメータ処理</p>
+                </div>
+                <div class="border-l-4 border-gray-400 pl-4 py-2">
+                    <h3 class="font-semibold text-gray-600">11:45-12:45 昼休憩</h3>
+                    <p class="text-gray-600">休憩時間です。昼食をとり、リフレッシュしましょう。</p>
+                </div>
+                <div class="border-l-4 border-orange-500 pl-4 py-2">
+                    <h3 class="font-semibold text-orange-600">12:45-13:30 JSP基礎・動的コンテンツ</h3>
+                    <p class="text-gray-600">JSP構文、EL式・JSTLタグライブラリ、Servlet・JSP連携</p>
+                </div>
+                <div class="border-l-4 border-red-500 pl-4 py-2">
+                    <h3 class="font-semibold text-red-600">13:30-14:15 JDBC・データベース連携</h3>
+                    <p class="text-gray-600">Connection・PreparedStatement、CRUD操作、トランザクション管理</p>
+                </div>
+                <div class="border-l-4 border-yellow-500 pl-4 py-2">
+                    <h3 class="font-semibold text-yellow-600">14:15-15:00 実践演習・総合理解</h3>
+                    <p class="text-gray-600">簡単なWebアプリケーション作成、セキュリティ対策、理解度確認</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Details -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-blue-600">
+                <i class="fas fa-cogs mr-2"></i>テーマ詳細
+            </h2>
+
+            <!-- Web Application Architecture -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 text-green-600">
+                    <i class="fas fa-layer-group mr-2"></i>Webアプリケーションの基本構造
+                </h3>
+                <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                    <h4 class="font-semibold mb-3">3層アーキテクチャ</h4>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-blue-100 p-3 rounded text-center">
+                            <i class="fas fa-desktop text-2xl text-blue-600 mb-2"></i>
+                            <h5 class="font-semibold">プレゼンテーション層</h5>
+                            <p class="text-sm">HTML, CSS, JavaScript<br>JSP, テンプレートエンジン</p>
+                        </div>
+                        <div class="bg-green-100 p-3 rounded text-center">
+                            <i class="fas fa-gears text-2xl text-green-600 mb-2"></i>
+                            <h5 class="font-semibold">ビジネスロジック層</h5>
+                            <p class="text-sm">Servlet, EJB<br>ビジネスルール処理</p>
+                        </div>
+                        <div class="bg-orange-100 p-3 rounded text-center">
+                            <i class="fas fa-database text-2xl text-orange-600 mb-2"></i>
+                            <h5 class="font-semibold">データ層</h5>
+                            <p class="text-sm">JDBC, JPA<br>データベース操作</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h4 class="font-semibold mb-2 text-yellow-800">
+                        <i class="fas fa-lightbulb mr-2"></i>重要ポイント
+                    </h4>
+                    <ul class="list-disc list-inside space-y-1 text-sm">
+                        <li>各層の責任分離により保守性・拡張性を向上</li>
+                        <li>MVCパターンによる構造化されたコード設計</li>
+                        <li>HTTPステートレス通信の理解と状態管理</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Servlet Basics -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 text-purple-600">
+                    <i class="fas fa-code mr-2"></i>Servlet基礎・HTTP処理
+                </h3>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <h4 class="font-semibold mb-3">基本的なServletクラス</h4>
+                    <pre class="bg-gray-800 text-white p-4 rounded text-sm overflow-x-auto"><code>// 基本的なServletの実装例
+@WebServlet("/hello")
+public class HelloServlet extends HttpServlet {
+    
+    // GETリクエストの処理
+    protected void doGet(HttpServletRequest request, 
+                        HttpServletResponse response) 
+                        throws ServletException, IOException {
+        
+        // リクエストパラメータの取得
+        String name = request.getParameter("name");
+        if (name == null || name.trim().isEmpty()) {
+            name = "ゲスト";
+        }
+        
+        // レスポンスの設定
+        response.setContentType("text/html; charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        
+        // HTMLレスポンスの生成
+        out.println("&lt;html&gt;");
+        out.println("&lt;head&gt;&lt;title&gt;Hello Servlet&lt;/title&gt;&lt;/head&gt;");
+        out.println("&lt;body&gt;");
+        out.println("&lt;h1&gt;こんにちは、" + name + "さん！&lt;/h1&gt;");
+        out.println("&lt;/body&gt;");
+        out.println("&lt;/html&gt;");
+    }
+    
+    // POSTリクエストの処理
+    protected void doPost(HttpServletRequest request, 
+                         HttpServletResponse response) 
+                         throws ServletException, IOException {
+        
+        // 文字エンコーディングの設定
+        request.setCharacterEncoding("UTF-8");
+        
+        // フォームデータの取得
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        
+        // 入力バリデーション
+        List&lt;String&gt; errors = new ArrayList&lt;&gt;();
+        if (username == null || username.trim().isEmpty()) {
+            errors.add("ユーザー名は必須です");
+        }
+        if (email == null || !email.contains("@")) {
+            errors.add("有効なメールアドレスを入力してください");
+        }
+        
+        if (errors.isEmpty()) {
+            // 正常処理：次のページにリダイレクト
+            response.sendRedirect("success.jsp");
+        } else {
+            // エラー処理：エラー情報をリクエストに設定
+            request.setAttribute("errors", errors);
+            request.getRequestDispatcher("form.jsp").forward(request, response);
+        }
+    }
+}</code></pre>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold mb-3 text-blue-800">Servletライフサイクル</h4>
+                        <ol class="list-decimal list-inside space-y-1 text-sm">
+                            <li><code>init()</code> - 初期化処理</li>
+                            <li><code>service()</code> - リクエスト処理</li>
+                            <li><code>doGet()/doPost()</code> - HTTP メソッド別処理</li>
+                            <li><code>destroy()</code> - 終了処理</li>
+                        </ol>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold mb-3 text-green-800">HTTPメソッドの使い分け</h4>
+                        <ul class="space-y-1 text-sm">
+                            <li><strong>GET:</strong> データの取得・表示</li>
+                            <li><strong>POST:</strong> データの送信・更新</li>
+                            <li><strong>PUT:</strong> データの作成・置換</li>
+                            <li><strong>DELETE:</strong> データの削除</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JSP Basics -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 text-orange-600">
+                    <i class="fas fa-file-code mr-2"></i>JSP基礎・動的コンテンツ
+                </h3>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <h4 class="font-semibold mb-3">JSPの基本構文とEL式</h4>
+                    <pre class="bg-gray-800 text-white p-4 rounded text-sm overflow-x-auto"><code>&lt;%-- JSPの基本的な書き方 --%&gt;
+&lt;%@ page language="java" contentType="text/html; charset=UTF-8" 
+         pageEncoding="UTF-8" %&gt;
+&lt;%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %&gt;
+&lt;%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;ユーザー一覧&lt;/title&gt;
+    &lt;style&gt;
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;ユーザー管理システム&lt;/h1&gt;
+    
+    &lt;%-- EL式でリクエスト属性を表示 --%&gt;
+    &lt;p&gt;現在の時刻: &lt;fmt:formatDate value="${currentTime}" 
+                            pattern="yyyy-MM-dd HH:mm:ss" /&gt;&lt;/p&gt;
+    
+    &lt;%-- エラーメッセージの表示 --%&gt;
+    &lt;c:if test="${not empty errors}"&gt;
+        &lt;div style="color: red; margin: 10px 0;"&gt;
+            &lt;ul&gt;
+                &lt;c:forEach var="error" items="${errors}"&gt;
+                    &lt;li&gt;${error}&lt;/li&gt;
+                &lt;/c:forEach&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+    &lt;/c:if&gt;
+    
+    &lt;%-- 条件分岐の例 --%&gt;
+    &lt;c:choose&gt;
+        &lt;c:when test="${empty userList}"&gt;
+            &lt;p&gt;登録されているユーザーはありません。&lt;/p&gt;
+        &lt;/c:when&gt;
+        &lt;c:otherwise&gt;
+            &lt;table&gt;
+                &lt;thead&gt;
+                    &lt;tr&gt;
+                        &lt;th&gt;ID&lt;/th&gt;
+                        &lt;th&gt;名前&lt;/th&gt;
+                        &lt;th&gt;メール&lt;/th&gt;
+                        &lt;th&gt;登録日&lt;/th&gt;
+                        &lt;th&gt;操作&lt;/th&gt;
+                    &lt;/tr&gt;
+                &lt;/thead&gt;
+                &lt;tbody&gt;
+                    &lt;c:forEach var="user" items="${userList}" varStatus="status"&gt;
+                        &lt;tr style="${status.index % 2 == 0 ? 'background-color: #f9f9f9;' : ''}"&gt;
+                            &lt;td&gt;${user.id}&lt;/td&gt;
+                            &lt;td&gt;${user.name}&lt;/td&gt;
+                            &lt;td&gt;${user.email}&lt;/td&gt;
+                            &lt;td&gt;&lt;fmt:formatDate value="${user.createdAt}" 
+                                               pattern="yyyy-MM-dd" /&gt;&lt;/td&gt;
+                            &lt;td&gt;
+                                &lt;a href="edit?id=${user.id}"&gt;編集&lt;/a&gt; | 
+                                &lt;a href="delete?id=${user.id}" 
+                                   onclick="return confirm('削除してもよろしいですか？')"&gt;削除&lt;/a&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                    &lt;/c:forEach&gt;
+                &lt;/tbody&gt;
+            &lt;/table&gt;
+        &lt;/c:otherwise&gt;
+    &lt;/c:choose&gt;
+    
+    &lt;%-- フォームの例 --%&gt;
+    &lt;h2&gt;新規ユーザー登録&lt;/h2&gt;
+    &lt;form action="register" method="post"&gt;
+        &lt;p&gt;
+            &lt;label for="name"&gt;名前:&lt;/label&gt;
+            &lt;input type="text" id="name" name="name" 
+                   value="${param.name}" required&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;label for="email"&gt;メール:&lt;/label&gt;
+            &lt;input type="email" id="email" name="email" 
+                   value="${param.email}" required&gt;
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;input type="submit" value="登録"&gt;
+        &lt;/p&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold mb-3 text-blue-800">JSP構文要素</h4>
+                        <ul class="space-y-1 text-sm">
+                            <li><code>&lt;% %&gt;</code> - Scriptlet</li>
+                            <li><code>&lt;%= %&gt;</code> - Expression</li>
+                            <li><code>&lt;%! %&gt;</code> - Declaration</li>
+                            <li><code>&lt;%-- --%&gt;</code> - Comment</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold mb-3 text-green-800">EL式（Expression Language）</h4>
+                        <ul class="space-y-1 text-sm">
+                            <li><code>${param.name}</code> - パラメータ</li>
+                            <li><code>${sessionScope.user}</code> - セッション</li>
+                            <li><code>${requestScope.data}</code> - リクエスト</li>
+                            <li><code>${empty list}</code> - 条件判定</li>
+                        </ul>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h4 class="font-semibold mb-3 text-purple-800">JSTLタグライブラリ</h4>
+                        <ul class="space-y-1 text-sm">
+                            <li><code>&lt;c:if&gt;</code> - 条件分岐</li>
+                            <li><code>&lt;c:forEach&gt;</code> - 繰り返し</li>
+                            <li><code>&lt;c:choose&gt;</code> - 複数条件</li>
+                            <li><code>&lt;fmt:formatDate&gt;</code> - 日付書式</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JDBC Database Integration -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4 text-red-600">
+                    <i class="fas fa-database mr-2"></i>JDBC・データベース連携
+                </h3>
+                <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                    <h4 class="font-semibold mb-3">JDBCを使ったデータベース操作</h4>
+                    <pre class="bg-gray-800 text-white p-4 rounded text-sm overflow-x-auto"><code>// データベース接続とCRUD操作の完全実装例
+public class UserDAO {
+    // データベース接続情報
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/webapp_db";
+    private static final String DB_USER = "webapp_user";
+    private static final String DB_PASSWORD = "password";
+    
+    // 接続プールの使用（実運用での推奨方法）
+    private static final String JNDI_NAME = "java:comp/env/jdbc/webapp_db";
+    
+    /**
+     * データベース接続を取得する（トランザクション対応）
+     */
+    private Connection getConnection() throws SQLException {
+        try {
+            // JNDIを使用した接続プールからの取得
+            Context ctx = new InitialContext();
+            DataSource ds = (DataSource) ctx.lookup(JNDI_NAME);
+            return ds.getConnection();
+        } catch (NamingException e) {
+            // 開発環境用：直接接続
+            return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+        }
+    }
+    
+    /**
+     * ユーザー一覧の取得（ページネーション対応）
+     */
+    public List&lt;User&gt; findAllUsers(int offset, int limit) throws SQLException {
+        List&lt;User&gt; users = new ArrayList&lt;&gt;();
+        String sql = """
+            SELECT id, name, email, created_at 
+            FROM users 
+            ORDER BY created_at DESC 
+            OFFSET ? LIMIT ?
+            """;
+        
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setInt(1, offset);
+            stmt.setInt(2, limit);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    User user = new User();
+                    user.setId(rs.getLong("id"));
+                    user.setName(rs.getString("name"));
+                    user.setEmail(rs.getString("email"));
+                    user.setCreatedAt(rs.getTimestamp("created_at"));
+                    users.add(user);
+                }
+            }
+        }
+        return users;
+    }
+    
+    /**
+     * ユーザーの新規登録（トランザクション使用）
+     */
+    public boolean insertUser(User user) throws SQLException {
+        String sql = """
+            INSERT INTO users (name, email, password_hash, created_at) 
+            VALUES (?, ?, ?, NOW())
+            """;
+        
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            conn.setAutoCommit(false); // トランザクション開始
+            
+            try (PreparedStatement stmt = conn.prepareStatement(sql, 
+                                      Statement.RETURN_GENERATED_KEYS)) {
+                
+                stmt.setString(1, user.getName());
+                stmt.setString(2, user.getEmail());
+                stmt.setString(3, hashPassword(user.getPassword()));
+                
+                int result = stmt.executeUpdate();
+                
+                if (result == 1) {
+                    // 生成されたIDを取得
+                    try (ResultSet rs = stmt.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            user.setId(rs.getLong(1));
+                        }
+                    }
+                    
+                    // 関連テーブルへの挿入（例：ユーザープロファイル）
+                    insertUserProfile(conn, user.getId());
+                    
+                    conn.commit(); // トランザクション確定
+                    return true;
+                } else {
+                    conn.rollback(); // ロールバック
+                    return false;
+                }
+            }
+        } catch (SQLException e) {
+            if (conn != null) {
+                try {
+                    conn.rollback(); // エラー時のロールバック
+                } catch (SQLException rollbackEx) {
+                    e.addSuppressed(rollbackEx);
+                }
+            }
+            throw e;
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.setAutoCommit(true); // デフォルトに戻す
+                    conn.close();
+                } catch (SQLException closeEx) {
+                    // ログ出力など
+                }
+            }
+        }
+    }
+    
+    /**
+     * ユーザー情報の更新
+     */
+    public boolean updateUser(User user) throws SQLException {
+        String sql = """
+            UPDATE users 
+            SET name = ?, email = ?, updated_at = NOW() 
+            WHERE id = ?
+            """;
+        
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, user.getName());
+            stmt.setString(2, user.getEmail());
+            stmt.setLong(3, user.getId());
+            
+            return stmt.executeUpdate() == 1;
+        }
+    }
+    
+    /**
+     * ユーザーの削除（論理削除）
+     */
+    public boolean deleteUser(Long userId) throws SQLException {
+        String sql = """
+            UPDATE users 
+            SET is_deleted = true, deleted_at = NOW() 
+            WHERE id = ? AND is_deleted = false
+            """;
+        
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setLong(1, userId);
+            return stmt.executeUpdate() == 1;
+        }
+    }
+    
+    /**
+     * セキュアなパスワードハッシュ化
+     */
+    private String hashPassword(String password) {
+        // BCryptなどの安全なハッシュ化アルゴリズムを使用
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+    
+    /**
+     * リソースの確実な解放
+     */
+    public static void closeQuietly(AutoCloseable... resources) {
+        for (AutoCloseable resource : resources) {
+            if (resource != null) {
+                try {
+                    resource.close();
+                } catch (Exception e) {
+                    // ログ出力など
+                }
+            }
+        }
+    }
+}</code></pre>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-semibold mb-3 text-red-800">
+                            <i class="fas fa-shield-alt mr-2"></i>セキュリティ対策
+                        </h4>
+                        <ul class="space-y-2 text-sm">
+                            <li><strong>SQLインジェクション対策:</strong> PreparedStatementの使用</li>
+                            <li><strong>パスワード保護:</strong> ハッシュ化・ソルト使用</li>
+                            <li><strong>入力検証:</strong> バリデーション処理の実装</li>
+                            <li><strong>接続情報保護:</strong> 設定ファイルやJNDIの活用</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold mb-3 text-green-800">
+                            <i class="fas fa-sync-alt mr-2"></i>トランザクション管理
+                        </h4>
+                        <ul class="space-y-2 text-sm">
+                            <li><strong>ACID特性:</strong> 原子性・整合性・分離性・持続性</li>
+                            <li><strong>自動コミット制御:</strong> setAutoCommit(false)</li>
+                            <li><strong>明示的コミット:</strong> commit()/rollback()</li>
+                            <li><strong>例外処理:</strong> try-catch-finallyでの確実な処理</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-gray-700">
+                <i class="fas fa-book mr-2"></i>使用教材・リソース
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-blue-600">開発ツール</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-code text-blue-500 mr-2"></i>
+                            <span>Eclipse IDE for Enterprise Java Developers</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-server text-green-500 mr-2"></i>
+                            <span>Apache Tomcat 10.x</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-database text-purple-500 mr-2"></i>
+                            <span>PostgreSQL 15.x & pgAdmin</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-bug text-red-500 mr-2"></i>
+                            <span>Browser Developer Tools</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-purple-600">参考資料</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-globe text-blue-500 mr-2"></i>
+                            <span>Oracle Java EE Documentation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-book text-green-500 mr-2"></i>
+                            <span>Servlet & JSP チュートリアル</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-database text-purple-500 mr-2"></i>
+                            <span>JDBC API Documentation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-shield-alt text-red-500 mr-2"></i>
+                            <span>OWASP セキュリティガイド</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Assessment -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-600">
+                <i class="fas fa-clipboard-check mr-2"></i>理解度確認項目
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-green-600">基本レベル</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox text-green-600">
+                            <span>Webアプリケーションの3層構造を説明できる</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox text-green-600">
+                            <span>ServletとJSPの役割の違いを理解している</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox text-green-600">
+                            <span>HTTP GET・POSTメソッドを使い分けできる</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox text-green-600">
+                            <span>基本的なJDBC操作（CRUD）を実装できる</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox text-green-600">
+                            <span>JSPでEL式・JSTLタグを使用できる</span>
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-purple-600">応用レベル</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox text-purple-600">
+                            <span>MVCパターンに基づく設計ができる</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox text-purple-600">
+                            <span>セッション・Cookie による状態管理を実装できる</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox text-purple-600">
+                            <span>SQLインジェクション対策を適用できる</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox text-purple-600">
+                            <span>トランザクション処理を適切に実装できる</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox text-purple-600">
+                            <span>エラーハンドリングとログ出力を実装できる</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-arrow-right mr-2"></i>次のステップ
+            </h2>
+            <div class="bg-white bg-opacity-10 rounded-lg p-4">
+                <h3 class="text-xl font-semibold mb-2">次の日: Day45 - Spring Boot入門</h3>
+                <p class="mb-4">明日はSpring Bootフレームワークを使用したモダンなJavaWeb開発を学習します。 依存性注入（DI）、自動設定、組み込みサーバーなど、Spring Bootの強力な機能を活用した効率的な開発手法を習得します。</p>
+                <h4 class="font-semibold mb-2">予習のポイント:</h4>
+                <ul class="space-y-1 text-sm">
+                    <li>• Spring Frameworkの基本概念と特徴を調べる</li>
+                    <li>• 依存性注入（DI）・制御の逆転（IoC）の概念を理解する</li>
+                    <li>• RESTful APIの設計原則を復習する</li>
+                    <li>• アノテーションベースの設定方法を予習する</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Progress tracking
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+                    const total = checkboxes.length;
+                    const progress = Math.round((checked / total) * 100);
+                    console.log(`学習進捗: ${progress}% (${checked}/${total})`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDr4yMnfyWm77Gal3kPNbjBVHqHjnNeDNPe634R3LbH%2FmYNo%2BrM34Ql42l1hNDn8BjwNbcqX2JcKnUlGIt58ubQFmAjWjEVQEg%2BZAvQ6Rj8kNdqrMqAhYL3mUejwyJ%2B%2BvSreJBwpI4nVGeAu44m%2FQPBSf4gnOzqpUelOHJK7BitOcEs2F3T84zELCyxP4Do%2FqBVn9OCAESTGRSZ7e8MSQcjKudKGMhqJEJukD2y%2FBhxdU8oaTDesOzVMFsRJwmqpo9eyxptmFVx6ll6ggTKpXbIGaCVhTb%2BTn24rt9UT%2FNz73gomy6pWTTSwDK50IiFr57DfqICb57fks1b7WRSsfmUWvp%2Fnw82AeLIn4wOSi78Mx5VLIxurWGzFtg%2FB0oliqqFTTYU5kYbTZSKUKHo3sfJhY%2BRxTQbj%2FbHjyNyygr4YdfNro8sX3GiwMCp7VgjW%2FYKkTV9B8esQ62Fc36PKplOVl3%2B%2FD3BLC4jPTs7xhsV6QIj1MdnP7Pnz43eju6xXlGA%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDr4yMnfyWm77Gal3kPNbjBVHqHjnNeDNPe634R3LbH/mYNo+rM34Ql42l1hNDn8BjwNbcqX2JcKnUlGIt58ubQFmAjWjEVQEg+ZAvQ6Rj8kNdqrMqAhYL3mUejwyJ++vSreJBwpI4nVGeAu44m/QPBSf4gnOzqpUelOHJK7BitOcEs2F3T84zELCyxP4Do/qBVn9OCAESTGRSZ7e8MSQcjKudKGMhqJEJukD2y/BhxdU8oaTDesOzVMFsRJwmqpo9eyxptmFVx6ll6ggTKpXbIGaCVhTb+Tn24rt9UT/Nz73gomy6pWTTSwDK50IiFr57DfqICb57fks1b7WRSsfmUWvp/nw82AeLIn4wOSi78Mx5VLIxurWGzFtg/B0oliqqFTTYU5kYbTZSKUKHo3sfJhY+RxTQbj/bHjyNyygr4YdfNro8sX3GiwMCp7VgjW/YKkTV9B8esQ62Fc36PKplOVl3+/D3BLC4jPTs7xhsV6QIj1MdnP7Pnz43eju6xXlGA==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

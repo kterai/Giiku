@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 31: セキュリティ基礎と対策（暗号化・認証・最新の脅威）| ITエンジニア育成カリキュラム</title>
+    <link rel="stylesheet" href="../../css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/lib/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+        }
+        
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0.75rem 0;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .section-title {
+            border-left: 4px solid #dc3545;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .schedule-item {
+            border-left: 3px solid #dc3545;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .time-label {
+            font-weight: bold;
+            color: #dc3545;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+        
+        .badge-custom {
+            background-color: #dc3545;
+            color: white;
+            font-weight: normal;
+            padding: 0.5em 0.7em;
+            border-radius: 5px;
+        }
+        
+        .next-step-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 5px solid #28a745;
+        }
+        
+        .feedback-form {
+            background-color: #f1f8ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        
+        .security-concept {
+            background: linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%);
+            border: 1px solid #feb2b2;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .threat-alert {
+            background-color: #ffeaea;
+            border-left: 4px solid #e53e3e;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        footer {
+            background-color: #343a40;
+            color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links h5 {
+            color: white;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 767.98px) {
+            .page-header {
+                padding: 1.5rem 0;
+            }
+            
+            .content-card {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+        }
+        
+        /* 印刷用スタイル */
+         {
+            .no-print {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+            }
+            
+            .content-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            footer {
+                background-color: white;
+                color: black;
+            }
+            
+            a {
+                text-decoration: none;
+                color: black;
+            }
+            
+            .footer-links ul li a {
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script defer src="../../js/day-navigation.js"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                ITエンジニア育成カリキュラム
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="monthDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="monthDropdown">
+                            <li><a class="dropdown-item" href="../month/month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="../month/month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="weekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="weekDropdown">
+                            <li><a class="dropdown-item" href="../week/week5.html">第5週: コンピュータシステム</a></li>
+                            <li><a class="dropdown-item" href="../week/week6.html">第6週: ネットワーク・データベース</a></li>
+                            <li><a class="dropdown-item" href="../week/week7.html">第7週: アルゴリズム・セキュリティ・マネジメント</a></li>
+                            <li><a class="dropdown-item" href="../week/week8.html">第8週: ストラテジ系と総合対策</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/resources.html">学習リソース</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/faq.html">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">ホーム</a></li>
+                <li class="breadcrumb-item"><a href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                <li class="breadcrumb-item"><a href="../week/week7.html">第7週: アルゴリズム・セキュリティ・マネジメント</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Day 31: セキュリティ基礎と対策</li>
+            </ol>
+        </nav>
+    </div>
+
+    <header class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-shield-alt"></i> Day 31: セキュリティ基礎と対策（暗号化・認証・最新の脅威）</h1>
+            <p class="lead">情報セキュリティの基本概念と対策技術、最新のサイバー攻撃への対応方法を学習します</p>
+            <div class="mt-3">
+                <span class="badge badge-custom"><i class="fas fa-calendar-day"></i> 2ヶ月目・第7週・3日目</span>
+                <span class="badge badge-custom"><i class="fas fa-clock"></i> 学習時間: 7時間45分</span>
+                <span class="badge badge-custom"><i class="fas fa-users"></i> 第7週: アルゴリズム・セキュリティ・マネジメント</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <section>
+                    <h2 class="section-title"><i class="fas fa-target"></i> 学習目標</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> 情報セキュリティの3要素（機密性・完全性・可用性）を理解し説明できる</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> 共通鍵暗号方式と公開鍵暗号方式の仕組みと特徴を理解する</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> ハッシュ関数と電子署名の概念と用途を説明できる</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> 各種認証技術（パスワード、多要素認証、生体認証）の特性を理解する</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> マルウェア対策とネットワークセキュリティ技術を説明できる</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success"></i> 最新のサイバー攻撃とインシデント対応の基本を理解する</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title"><i class="fas fa-trophy"></i> 達成基準</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-star text-warning"></i> 情報セキュリティの基本概念を80%以上正答できる</li>
+                            <li class="list-group-item"><i class="fas fa-star text-warning"></i> 暗号化技術の特徴と用途を適切に選択できる</li>
+                            <li class="list-group-item"><i class="fas fa-star text-warning"></i> 認証システムの設計要件を検討できる</li>
+                            <li class="list-group-item"><i class="fas fa-star text-warning"></i> セキュリティ脅威に対する適切な対策を提案できる</li>
+                            <li class="list-group-item"><i class="fas fa-star text-warning"></i> 基本情報技術者試験のセキュリティ分野で70%以上正答できる</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title"><i class="fas fa-calendar-alt"></i> 詳細スケジュール</h2>
+                    <div class="content-card">
+                        <div class="accordion" id="scheduleAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="time-label">10:00-10:15</div> <div class="ms-3"><i class="fas fa-handshake"></i> オリエンテーション・前日復習</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        前日のアルゴリズムとデータ構造の学習内容を復習し、本日のセキュリティ学習への導入を行います。情報セキュリティの重要性と基本情報技術者試験における出題傾向を説明します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="fas fa-info-circle"></i> セキュリティ分野は基本情報技術者試験で重要な分野です
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <div class="time-label">10:15-11:00</div> <div class="ms-3"><i class="fas fa-shield-alt"></i> 情報セキュリティの基本概念</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        情報セキュリティの3要素（CIA）：機密性（Confidentiality）、完全性（Integrity）、可用性（Availability）について詳しく学習します。セキュリティポリシーとリスク評価の基本概念も含めます。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義: セキュリティの基礎理論
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <div class="time-label">11:00-11:45</div> <div class="ms-3"><i class="fas fa-key"></i> 暗号化技術の基礎</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        共通鍵暗号方式（AES、DES）と公開鍵暗号方式（RSA）の仕組み、特徴、用途について学習します。暗号化の強度や鍵管理の重要性についても扱います。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習: 暗号化アルゴリズムの比較
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        <div class="time-label">11:45-12:45</div> <div class="ms-3"><i class="fas fa-utensils"></i> 昼休憩</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        休憩時間です。昼食をとり、リフレッシュしましょう。午後のセキュリティ対策技術の学習に向けて準備します。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        <div class="time-label">12:45-13:30</div> <div class="ms-3"><i class="fas fa-signature"></i> ハッシュ関数と電子署名</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ハッシュ関数（MD5、SHA-256）の特性と用途、電子署名の仕組みと証明書の役割について学習します。デジタル証明書とPKI（公開鍵基盤）についても解説します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義: データの完全性確保技術
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSix">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        <div class="time-label">13:30-14:15</div> <div class="ms-3"><i class="fas fa-user-shield"></i> 認証技術</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        パスワード認証、多要素認証（2FA/MFA）、生体認証（バイオメトリクス）、シングルサインオン（SSO）などの認証技術について学習します。各認証方式の特徴と適用場面を理解します。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習: 認証システムの設計検討
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSeven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                        <div class="time-label">14:15-15:00</div> <div class="ms-3"><i class="fas fa-bug"></i> マルウェア対策とネットワークセキュリティ</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ウイルス、ワーム、トロイの木馬、ランサムウェアなどのマルウェアの種類と対策、ファイアウォール、IDS/IPS、WAFなどのネットワークセキュリティ技術について学習します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義: セキュリティ対策技術の実装
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEight">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                        <div class="time-label">15:00-15:10</div> <div class="ms-3"><i class="fas fa-coffee"></i> 午後休憩</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        短い休憩時間です。リフレッシュしましょう。最新のサイバー攻撃とインシデント対応の学習に向けて準備します。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingNine">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                        <div class="time-label">15:10-15:55</div> <div class="ms-3"><i class="fas fa-exclamation-triangle"></i> 最新のサイバー攻撃とインシデント対応</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        標的型攻撃、SQL インジェクション、クロスサイトスクリプティング（XSS）、DDoS攻撃などの最新の脅威と、インシデント対応計画、CSIRT（Computer Security Incident Response Team）の役割について学習します。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習: インシデント対応シミュレーション
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTen">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                        <div class="time-label">15:55-17:00</div> <div class="ms-3"><i class="fas fa-clipboard-check"></i> 理解度チェック</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        本日学習したセキュリティ基礎と対策技術に関する理解度チェックテストを実施します。暗号化技術、認証システム、セキュリティ脅威への対策など、総合的な問題に取り組みます。
+                                        <div class="alert alert-warning mt-2">
+                                            <i class="bi bi-patch-question-fill"></i> テスト: セキュリティ分野（目標正答率: 80%）
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEleven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                                        <div class="time-label">17:00-17:45</div> <div class="ms-3"><i class="fas fa-comments"></i> 振り返り・質疑応答</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        本日の学習内容を振り返り、理解度チェックの解説を行います。セキュリティ技術に関する疑問点や実務での適用方法について質疑応答を実施し、明日のプロジェクトマネジメント学習への準備を行います。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="theme-details">
+                    <h2 class="section-title"><i class="fas fa-shield-alt"></i> 情報セキュリティの詳細</h2>
+                    <div class="content-card">
+                        <h3><i class="fas fa-lock"></i> 情報セキュリティの3要素（CIA）</h3>
+                        <p>情報セキュリティの基盤となる3つの重要な要素について理解を深めます。これらは情報システムの設計・運用において必ず考慮すべき要素です。</p>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <div class="security-concept">
+                                    <h4><i class="fas fa-eye-slash text-danger"></i> 機密性（Confidentiality）</h4>
+                                    <p>権限のない者が情報にアクセスできないようにする性質。暗号化、アクセス制御、認証などで実現。</p>
+                                    <strong>実現技術：</strong>
+                                    <ul>
+                                        <li>暗号化（AES、RSA）</li>
+                                        <li>アクセス制御リスト（ACL）</li>
+                                        <li>ユーザー認証</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="security-concept">
+                                    <h4><i class="fas fa-check-circle text-success"></i> 完全性（Integrity）</h4>
+                                    <p>情報が正確で改ざんされていないことを保証する性質。ハッシュ関数、電子署名などで実現。</p>
+                                    <strong>実現技術：</strong>
+                                    <ul>
+                                        <li>ハッシュ関数（SHA-256）</li>
+                                        <li>電子署名</li>
+                                        <li>チェックサム</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="security-concept">
+                                    <h4><i class="fas fa-server text-primary"></i> 可用性（Availability）</h4>
+                                    <p>必要な時に情報やシステムが利用可能である性質。冗長化、バックアップなどで実現。</p>
+                                    <strong>実現技術：</strong>
+                                    <ul>
+                                        <li>システム冗長化</li>
+                                        <li>負荷分散</li>
+                                        <li>定期バックアップ</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-4 mb-3">
+                            <div class="card-header bg-danger text-white">
+                                <h4 class="mb-0"><i class="fas fa-key"></i> 暗号化技術</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5>共通鍵暗号方式</h5>
+                                        <p>暗号化と復号に同じ鍵を使用する方式。処理が高速だが、鍵の配布・管理が課題。</p>
+                                        <ul>
+                                            <li><strong>AES（Advanced Encryption Standard）</strong>: 現在の標準暗号</li>
+                                            <li><strong>DES（Data Encryption Standard）</strong>: 従来の標準（現在は非推奨）</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5>公開鍵暗号方式</h5>
+                                        <p>公開鍵と秘密鍵のペアを使用する方式。鍵配布問題を解決するが、処理が重い。</p>
+                                        <ul>
+                                            <li><strong>RSA</strong>: 最も広く使われる公開鍵暗号</li>
+                                            <li><strong>楕円曲線暗号（ECC）</strong>: 軽量で高いセキュリティ</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header bg-warning text-dark">
+                                <h4 class="mb-0"><i class="fas fa-user-check"></i> 認証技術</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5>知識認証（Something you know）</h5>
+                                        <ul>
+                                            <li>パスワード</li>
+                                            <li>PIN（Personal Identification Number）</li>
+                                            <li>秘密の質問</li>
+                                        </ul>
+                                        
+                                        <h5 class="mt-3">所有認証（Something you have）</h5>
+                                        <ul>
+                                            <li>ICカード</li>
+                                            <li>ワンタイムパスワード（OTP）</li>
+                                            <li>スマートフォン</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5>生体認証（Something you are）</h5>
+                                        <ul>
+                                            <li>指紋認証</li>
+                                            <li>虹彩認証</li>
+                                            <li>顔認証</li>
+                                            <li>声紋認証</li>
+                                        </ul>
+                                        
+                                        <h5 class="mt-3">多要素認証（MFA）</h5>
+                                        <p>上記の要素を2つ以上組み合わせることで、セキュリティを大幅に向上させる認証方式。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header bg-dark text-white">
+                                <h4 class="mb-0"><i class="fas fa-exclamation-triangle"></i> 最新のサイバー攻撃</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="threat-alert">
+                                    <h5><i class="fas fa-virus"></i> ランサムウェア攻撃</h5>
+                                    <p>ファイルを暗号化し、復号の対価として身代金を要求する攻撃。定期的なバックアップと従業員教育が重要。</p>
+                                </div>
+                                
+                                <div class="threat-alert">
+                                    <h5><i class="fas fa-fishing"></i> フィッシング攻撃</h5>
+                                    <p>偽のメールやWebサイトを用いて個人情報を詐取する攻撃。メール認証技術と利用者教育で対策。</p>
+                                </div>
+                                
+                                <div class="threat-alert">
+                                    <h5><i class="fas fa-code"></i> SQLインジェクション</h5>
+                                    <p>Webアプリケーションの脆弱性を突いてデータベースを不正操作する攻撃。入力値検証とパラメータ化クエリで対策。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="resources">
+                    <h2 class="section-title"><i class="fas fa-book-open"></i> 使用教材・リソース</h2>
+                    <div class="content-card">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-book-fill text-primary"></i> 主要教材
+                                        </h5>
+                                        <ul class="card-text">
+                                            <li>IPA 基本情報技術者試験シラバス Ver.7.3</li>
+                                            <li>情報セキュリティ白書 2024</li>
+                                            <li>暗号技術入門（結城浩著）</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-laptop-fill text-success"></i> 実習環境
+                                        </h5>
+                                        <ul class="card-text">
+                                            <li>OpenSSL（暗号化実習）</li>
+                                            <li>Wireshark（ネットワーク解析）</li>
+                                            <li>VirtualBox（セキュリティ検証環境）</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-journal-code text-warning"></i> 参考サイト
+                                        </h5>
+                                        <ul class="card-text">
+                                            <li>JPCERT/CC セキュリティ情報</li>
+                                            <li>NISC サイバーセキュリティ戦略</li>
+                                            <li>OWASP Top 10</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="comprehension-check">
+                    <h2 class="section-title"><i class="fas fa-tasks"></i> 理解度確認項目</h2>
+                    <div class="content-card">
+                        <div class="mb-4">
+                            <h4><i class="bi bi-star-fill text-warning"></i> 基本レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check1">
+                                        <label class="form-check-label" for="check1">
+                                            情報セキュリティの3要素（機密性・完全性・可用性）を説明できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check2">
+                                        <label class="form-check-label" for="check2">
+                                            共通鍵暗号と公開鍵暗号の違いと特徴を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check3">
+                                        <label class="form-check-label" for="check3">
+                                            ハッシュ関数と電子署名の用途を説明できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check4">
+                                        <label class="form-check-label" for="check4">
+                                            各種認証技術の特性と適用場面を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check5">
+                                        <label class="form-check-label" for="check5">
+                                            代表的なマルウェアの種類と対策を知っている
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4><i class="bi bi-stars text-primary"></i> 応用レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check6">
+                                        <label class="form-check-label" for="check6">
+                                            適切な暗号化方式を選択し、実装要件を検討できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check7">
+                                        <label class="form-check-label" for="check7">
+                                            多要素認証システムを設計し、セキュリティレベルを評価できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check8">
+                                        <label class="form-check-label" for="check8">
+                                            セキュリティインシデントの対応計画を策定できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check9">
+                                        <label class="form-check-label" for="check9">
+                                            脆弱性評価とリスク分析を実施できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check10">
+                                        <label class="form-check-label" for="check10">
+                                            最新のサイバー攻撃に対する対策を提案できる
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="next-steps">
+                    <h2 class="section-title"><i class="fas fa-arrow-right"></i> 次のステップ</h2>
+                    <div class="content-card next-step-card">
+                        <h3><i class="fas fa-project-diagram"></i> Day 32: プロジェクトマネジメント（PMBOK、WBS、開発プロセス）</h3>
+                        <p>次の日は、プロジェクト管理の基本概念と手法について学習します。PMBOK、WBS、ガントチャート、リスク管理など、ITプロジェクトを成功に導くための管理手法を習得します。</p>
+                        <div class="alert alert-info mt-3">
+                            <h5><i class="fas fa-lightbulb"></i> 予習のポイント</h5>
+                            <ul class="mb-0">
+                                <li>プロジェクト管理の基本概念（プロジェクトとは何か）</li>
+                                <li>PMBOKの5つのプロセス群と10の知識エリア</li>
+                                <li>WBS（Work Breakdown Structure）の考え方</li>
+                                <li>開発プロセスモデル（ウォーターフォール、アジャイル）の概要</li>
+                            </ul>
+                        </div>
+                        <a href="day32.html" class="btn btn-success mt-2">
+                            <i class="bi bi-arrow-right-circle-fill"></i> Day 32の詳細を見る
+                        </a>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title"><i class="fas fa-comment-dots"></i> フィードバック</h2>
+                    <div class="content-card feedback-form">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle-fill"></i> 本日のセキュリティ学習についてフィードバックをお寄せください。
+                        </div>
+                        <form id="feedback-form" class="mt-3">
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">理解度</label>
+                                <select class="form-select" id="rating">
+                                    <option value="5">とても理解できた</option>
+                                    <option value="4">理解できた</option>
+                                    <option value="3">普通</option>
+                                    <option value="2">あまり理解できなかった</option>
+                                    <option value="1">理解できなかった</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="difficulty" class="form-label">難易度</label>
+                                <select class="form-select" id="difficulty">
+                                    <option value="1">易しい</option>
+                                    <option value="2">やや易しい</option>
+                                    <option value="3">適切</option>
+                                    <option value="4">やや難しい</option>
+                                    <option value="5">難しい</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="feedbackText" class="form-label">コメント</label>
+                                <textarea class="form-control" id="feedbackText" rows="3" placeholder="セキュリティ学習に関するご感想やご質問をお聞かせください"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">送信</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top: 100px;">
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-calendar-check"></i> 学習進捗</h3>
+                        <div class="progress-container">
+                            <p>Day 31の学習進捗</p>
+                            <div class="progress" style="height: 20px;">
+                                <div id="day-progress" class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>
+                            <p class="text-end mt-2" id="progress-text">0/10 完了</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="progressChart"></canvas>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button id="resetProgress" class="btn btn-outline-warning btn-sm">
+                                <i class="bi bi-arrow-counterclockwise"></i> 進捗をリセット
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-journal-text"></i> 目次</h3>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#scheduleAccordion">詳細スケジュール</a>
+                            <a class="nav-link" href="#theme-details">情報セキュリティの詳細</a>
+                            <a class="nav-link" href="#resources">使用教材・リソース</a>
+                            <a class="nav-link" href="#comprehension-check">理解度確認項目</a>
+                            <a class="nav-link" href="#next-steps">次のステップ</a>
+                        </nav>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-link-45deg"></i> 関連リンク</h3>
+                        <div class="list-group">
+                            <a href="../week/week7.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-calendar-week"></i> 第7週の概要
+                            </a>
+                            <a href="../month/month2.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-calendar-month"></i> 第2ヶ月目の概要
+                            </a>
+                            <a href="../../resources/resources.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-book"></i> 学習リソース
+                            </a>
+                            <a href="../../resources/faq.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-question-circle"></i> よくある質問
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <h3><i class="bi bi-arrow-left-right"></i> ナビゲーション</h3>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="day30.html" class="btn btn-outline-primary">
+                                <i class="bi bi-arrow-left"></i> Day 30
+                            </a>
+                            <a href="day32.html" class="btn btn-outline-primary">
+                                Day 32 <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-light mt-5">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="footer-logo">
+                        <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                    </div>
+                    <p>ITエンジニア育成カリキュラムは、未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>カリキュラム</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../month/month1.html">第1ヶ月目</a></li>
+                        <li><a href="../month/month2.html">第2ヶ月目</a></li>
+                        <li><a href="../month/month3.html">第3ヶ月目</a></li>
+                        <li><a href="../../resources/advanced.html">応用コース</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>リソース</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../resources/resources.html">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html">よくある質問</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>お問い合わせ</h5>
+                    <p>本カリキュラムについてのお問い合わせは下記までお願いします。</p>
+                    <a href="mailto:info@apsa.co.jp" class="btn btn-outline-light">
+                        <i class="bi bi-envelope"></i> メールでのお問い合わせ
+                    </a>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="text-light"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/lib/jquery.min.js"></script>
+    <script src="../../js/lib/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // チェックボックスのイベントリスナーを設定
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+            
+            // 進捗リセットボタン
+            document.getElementById('resetProgress').addEventListener('click', function() {
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                updateProgress();
+            });
+            
+            // 初期進捗更新
+            updateProgress();
+            
+            // プログレスチャートの初期化
+            initProgressChart();
+            
+            // フィードバックフォーム
+            document.getElementById('feedback-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('フィードバックを送信しました。ありがとうございます！');
+                this.reset();
+            });
+        });
+        
+        // 進捗を更新する関数
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            const totalChecks = checkboxes.length;
+            let checkedCount = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    checkedCount++;
+                }
+            });
+            
+            const progressPercent = totalChecks > 0 ? Math.round((checkedCount / totalChecks) * 100) : 0;
+            
+            // プログレスバーを更新
+            const progressBar = document.getElementById('day-progress');
+            progressBar.style.width = `${progressPercent}%`;
+            progressBar.textContent = `${progressPercent}%`;
+            progressBar.setAttribute('aria-valuenow', progressPercent);
+            
+            // プログレステキストを更新
+            document.getElementById('progress-text').textContent = `${checkedCount}/${totalChecks} 完了`;
+            
+            // チャートを更新
+            updateProgressChart(checkedCount, totalChecks - checkedCount);
+            
+            // ローカルストレージに保存
+            localStorage.setItem('day31Progress', JSON.stringify({
+                checked: checkedCount,
+                total: totalChecks,
+                percent: progressPercent
+            }));
+        }
+        
+        // チャートの初期化
+        function initProgressChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            window.progressChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['完了', '未完了'],
+                    datasets: [{
+                        data: [0, 10],
+                        backgroundColor: ['#dc3545', '#e9ecef'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // チャートの更新
+        function updateProgressChart(completed, remaining) {
+            if (window.progressChart) {
+                window.progressChart.data.datasets[0].data = [completed, remaining];
+                window.progressChart.update();
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDiKjDgMc87wiKExBE2sMjKcI5GHVCq0gbUMM7cQ8lSEkH5sanZ2IkWCX%2FraUPn9DNZai8p0j%2B7WGNfDTgHCZBiKOfpQHW20nQzUVQ2u%2BZlweXJWfKCrtPb39Qje2P9BreWkEh%2FkCrph5at9iQKKcOq7%2BPyu8g04K8ekltT5NU4GGDAQ3tt7v8aF2PvlCfT8cUAMa6leKmA1SxwUWZ9Qy%2FnjAe6EsVhQK%2FUZhRVx3604qAp0xqx9m5S2Bmm1yHr0ht8ZvC1Qy31HGPR1JRxA%2F7pE0IW8GVJglQgSJxhwDXVhTUOAMhwd8pw%2BizS7ZWIUrvPj1P229r94c05FkqvwjfqtqrVc%2Bm2ETmhogdOo3YlPjGvWPQWHIxMAQIl8ohdmzmLreZ5tYlvGOrgSEGtw83thOm3VxY6HElSGlal5IjZ8I0pQP9ZCaBinmDRT5qqR0YxR523CB5eBhW5n60SduC4%2Blahk4ttYo2swR7FzXxcnsLts06o7VjTT%2Btp41Npl1pQ%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDiKjDgMc87wiKExBE2sMjKcI5GHVCq0gbUMM7cQ8lSEkH5sanZ2IkWCX/raUPn9DNZai8p0j+7WGNfDTgHCZBiKOfpQHW20nQzUVQ2u+ZlweXJWfKCrtPb39Qje2P9BreWkEh/kCrph5at9iQKKcOq7+Pyu8g04K8ekltT5NU4GGDAQ3tt7v8aF2PvlCfT8cUAMa6leKmA1SxwUWZ9Qy/njAe6EsVhQK/UZhRVx3604qAp0xqx9m5S2Bmm1yHr0ht8ZvC1Qy31HGPR1JRxA/7pE0IW8GVJglQgSJxhwDXVhTUOAMhwd8pw+izS7ZWIUrvPj1P229r94c05FkqvwjfqtqrVc+m2ETmhogdOo3YlPjGvWPQWHIxMAQIl8ohdmzmLreZ5tYlvGOrgSEGtw83thOm3VxY6HElSGlal5IjZ8I0pQP9ZCaBinmDRT5qqR0YxR523CB5eBhW5n60SduC4+lahk4ttYo2swR7FzXxcnsLts06o7VjTT+tp41Npl1pQ==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

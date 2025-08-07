@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day47講義作成用プロンプト - Spring Boot基礎・RESTfulサービス開発完全ガイド</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-blue-600 mb-2">
+                ITエンジニア育成カリキュラム - Day47: Spring Boot基礎・RESTfulサービス開発（改良版）
+            </h1>
+            <p class="text-gray-600">講義ページ作成用の詳細指示書</p>
+        </header>
+
+        <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-8">
+            <h2 class="text-xl font-bold text-red-800 mb-3"><i class="fas fa-exclamation-triangle mr-2"></i>重要な改善指針</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3"><i class="fas fa-table mr-2"></i>表・まとめの分かりやすさ重視</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li><strong>Spring専門用語は必ず日本語説明を併記</strong>（例：DI（依存性注入）、IoC（制御の反転））</li>
+                    <li><strong>アノテーション概念は具体例で補足</strong>（@Component → 「Springが管理するクラス」）</li>
+                    <li><strong>「適用場面」は実際の開発例を記載</strong>（「ユーザー管理API」「商品検索システム」など）</li>
+                    <li><strong>まとめは具体的なメリットを明示</strong>（「開発効率30%向上」「コード量50%削減」など）</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3"><i class="fas fa-code mr-2"></i>Spring専門用語の扱い</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li><strong>初出時は（日本語説明）を併記</strong>（「Bean（Springが管理するオブジェクト）では...」）</li>
+                    <li><strong>略語は正式名称を明記</strong>（DI → Dependency Injection、IoC → Inversion of Control）</li>
+                    <li><strong>「なぜSpringを使うのか」の理由を説明</strong>（「なぜDIが必要かというと...」）</li>
+                    <li><strong>実生活の比喩を積極活用</strong>（「DIは工場の組み立てライン」など）</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-folder mr-2"></i>参照ファイル</h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                <li>Training/pages/day/day47.html</li>
+                <li>Training/pages/lecture/Template_dayX_lecture.html</li>
+            </ul>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-cogs mr-2"></i>共通仕様</h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                <li>HTML5 / lang="ja" / UTF-8</li>
+                <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                <li>Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                <li>レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                <li>コードブロックは <code>&lt;pre&gt;&lt;code class="language-java"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                <li>開発環境として IntelliJ IDEA + Spring Boot Starter を記載</li>
+                <li>フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+            </ul>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-bullseye mr-2"></i>学習目標</h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                <li>Spring Bootの基本概念（DI・IoC・AOP）を<strong>具体例とともに</strong>理解する</li>
+                <li>RESTful API設計原則を<strong>実際のプロジェクト</strong>で適用できる</li>
+                <li>Spring MVC・JPA・Hibernateを<strong>統合的に</strong>活用できる</li>
+                <li>Spring Securityによる<strong>認証・認可システム</strong>を実装できる</li>
+            </ul>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-lightbulb mr-2"></i>Spring概念の分かりやすさ改善指針</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-red-700 mb-3">❌ 改善前の問題例</h3>
+                <div class="bg-red-50 p-4 rounded">
+                    <p class="text-red-700"><strong>問題：</strong>「DI」「IoC」「Bean」「AOP」など、専門用語のみで初心者には理解困難</p>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3">✅ 改善後の指針</h3>
+                
+                <h4 class="font-semibold text-gray-800 mb-2">Spring概念の説明強化</h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-2 mb-4">
+                    <li><strong>DI（依存性注入）</strong> → 「必要なオブジェクトを自動で渡す仕組み」</li>
+                    <li><strong>IoC（制御の反転）</strong> → 「オブジェクト作成をフレームワークが代行」</li>
+                    <li><strong>Bean</strong> → 「Springが管理する部品（オブジェクト）」</li>
+                    <li><strong>AOP</strong> → 「共通処理を横断的に適用する技術」</li>
+                </ul>
+
+                <h4 class="font-semibold text-gray-800 mb-2">具体例の追加</h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li><strong>「DI」</strong>→「レストランで注文すると料理が自動で運ばれる」</li>
+                    <li><strong>「@Controller」</strong>→「窓口担当者がリクエストを受け付ける」</li>
+                    <li><strong>「@Service」</strong>→「実際の業務処理を行う部門」</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-list mr-2"></i>ページ構成（改良版）</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3">1. ヘッダー & ページング</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li>左に前日 <code>day46_lecture.html</code> へのリンク（FontAwesome <code>fa-chevron-left</code>）</li>
+                    <li>右に翌日 <code>day48_lecture.html</code> へのリンク（<code>fa-chevron-right</code>）</li>
+                    <li>中央タイトル：<code>ITエンジニア育成カリキュラム - Day47: Spring Boot基礎・RESTfulサービス開発</code></li>
+                    <li>サブタイトル：<code>DI・IoC・MVC・JPA・セキュリティ統合実装</code></li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3">2. メイン講義（改良版指針）</h3>
+                
+                <h4 class="font-semibold text-gray-800 mb-2">Spring Boot基礎概念の詳細説明</h4>
+                <p class="text-gray-700 mb-4">
+                    <strong>❗ 具体例重視：</strong><br>
+                    「Spring BootはJavaの料理セット、必要な材料（ライブラリ）が全て揃っている」<br>
+                    「DIは工場の組み立てライン、必要な部品が自動で運ばれる」<br>
+                    「@Autowiredは魔法の杖、必要なオブジェクトを自動召喚」
+                </p>
+
+                <h4 class="font-semibold text-gray-800 mb-2">Spring アノテーション比較表（重要改良箇所）</h4>
+                <div class="bg-yellow-50 p-4 rounded mb-4">
+                    <p class="text-yellow-800 font-semibold">⚠️ 必須改良事項：</p>
+                    <p class="text-yellow-700 mt-2"><strong>表の各項目に詳細説明を追加：</strong></p>
+                    <ul class="list-disc list-inside text-yellow-700 mt-2 space-y-1">
+                        <li><strong>@Controller：</strong>「HTTPリクエストの受付窓口（例：ユーザー登録画面）」</li>
+                        <li><strong>@Service：</strong>「ビジネスロジック処理（例：会員登録の妥当性チェック）」</li>
+                        <li><strong>@Repository：</strong>「データベース操作（例：ユーザー情報の保存・取得）」</li>
+                        <li><strong>適用場面：</strong>「Webアプリ開発」→「ECサイトの商品管理システム」など具体例</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded">
+                    <p class="text-green-800 font-semibold">比較表に「実用例」列を追加：</p>
+                    <ul class="list-disc list-inside text-green-700 mt-2 space-y-1">
+                        <li>@Controller: 「ユーザー管理画面、商品検索API」</li>
+                        <li>@Service: 「注文処理、在庫管理ロジック」</li>
+                        <li>@Repository: 「ユーザーDAO、商品マスタDAO」</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-tasks mr-2"></i>演習問題・理解度クイズ（表示仕様）</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3">演習問題</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li>問題文：<strong>常に表示</strong></li>
+                    <li>回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+                    <li>詳細解説を削減しないよう注意</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3">理解度クイズ</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li>問題・選択肢：<strong>常に表示</strong></li>
+                    <li>正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+                    <li>JavaScript showAnswer()関数を実装</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-check-circle mr-2"></i>まとめセクション改善指針</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-red-700 mb-3">❌ 避けるべき抽象的表現</h3>
+                <ul class="list-disc list-inside text-red-700 space-y-2">
+                    <li>「Spring Bootを理解した」</li>
+                    <li>「DIの概念を把握した」</li>
+                    <li>「RESTful APIを学習した」</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3">✅ 推奨する具体的表現</h3>
+                <ul class="list-disc list-inside text-green-700 space-y-2">
+                    <li>「Spring BootでDIを活用し、コード結合度を50%削減してメンテナンス性向上」</li>
+                    <li>「@Controller・@Service・@Repositoryで3層アーキテクチャを実装し、責任分離を実現」</li>
+                    <li>「JPA・Hibernateでデータベース操作を簡素化し、SQL記述量を70%削減」</li>
+                    <li>「Spring Securityで認証システムを構築し、セキュアなAPIを5分で実装」</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-clipboard-check mr-2"></i>分かりやすさチェックリスト</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3"><i class="fas fa-table mr-2"></i>表・図解</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li>Spring専門用語に必ず日本語説明を併記</li>
+                    <li>アノテーションには実行結果（「@GetMappingでGETリクエスト受付」）</li>
+                    <li>適用場面は実際の開発例で説明</li>
+                    <li>比較表には「実用例」列を追加</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3"><i class="fas fa-file-alt mr-2"></i>文章・説明</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li>略語は正式名称を併記</li>
+                    <li>「なぜ」の理由を必ず説明</li>
+                    <li>日常例・比喩を積極活用</li>
+                    <li>まとめは具体的なメリットを明示</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-star mr-2"></i>Day47特有の追加指針</h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3">Spring Boot特化項目</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li><strong>実際のコード例を豊富に：</strong>「よく使うアノテーションと実装パターン」セクション必須</li>
+                    <li><strong>IntelliJ IDEAでのSpring Boot開発環境：</strong>プロジェクト作成、設定、デバッグ方法を詳述</li>
+                    <li><strong>RESTful API設計の具体例：</strong>実際のエンドポイント例を複数提示</li>
+                    <li><strong>段階的学習：</strong>基本概念→DI実装→Web API作成→DB連携の順序を明確に</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-green-700 mb-3">理解促進要素</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li><strong>従来Javaとの比較：</strong>同じ機能のPlain Java版とSpring Boot版を併記</li>
+                    <li><strong>DIの恩恵：</strong>「コード量削減の実例」を具体的に紹介</li>
+                    <li><strong>開発効率向上：</strong>「Spring Boot Starterによる設定簡素化効果」を体感できる例</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8">
+            <h2 class="text-xl font-bold text-blue-800 mb-3"><i class="fas fa-upload mr-2"></i>出力形式</h2>
+            <div class="text-blue-700">
+                <p class="font-semibold mb-2">⚠️ 重要事項：</p>
+                <ul class="list-disc list-inside space-y-2">
+                    <li><strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                    <li>特に「Spring概念とアノテーション比較表」は<strong>必ず詳細説明付きで改良</strong>すること</li>
+                    <li>Spring専門用語の初出時は<strong>日本語説明を併記</strong>すること</li>
+                    <li>まとめセクションは<strong>具体的なメリット</strong>で記載すること</li>
+                    <li>HTMLの見やすさとSpring詳細解説を<strong>両立</strong>すること</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer class="text-center mt-8 text-gray-500">
+            <p>© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDkI%2BrGHVnLnlx8hmb9c%2Fi1RWXxt%2F5qW39Pk%2F3sKJ6EDC9ciEzTvgxEvJCfKT9ZfJdu0Z9WFv4je%2FVFP53eQJtvUP9EqXjpKAhC098EpV3hfuNdTIXB59acu6Y%2BYuR3nWGFtMp0GUIdPXN6y5phu9dfG1aylWgWPGQCfHYrvKe6Yev8pX5iT4%2Bqw9ni4xYk7FBwLZF1NXlp8CM4fqirV1TMzUNujJQVu%2BDXrQu3UdDqgpycO8XdKc8fFqSQg5GxmRjtUM23x%2F596ZpgLS9rEhMPl2hRycpgQH1%2FDInaUzXFyI1mQSoIyPjbSD5Ozn4I21OFScaSpEJ7xzsOageXOl5HiNxTeOrlplBwtIA8wFdgmu05uISMQuZwrL0QXreeDrlyMjKP8x19noMFJpXNPty9uqFLTFwbIGHC%2BlE47PbIpO471rRvxC1o4txjjqoN%2FHVAsg56LUJvIgVvALojTje8xZZr5GehfsuDfQ%2FQz8LGbQhMTqQvD3DR7WbGWdZDUHnA%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDkI+rGHVnLnlx8hmb9c/i1RWXxt/5qW39Pk/3sKJ6EDC9ciEzTvgxEvJCfKT9ZfJdu0Z9WFv4je/VFP53eQJtvUP9EqXjpKAhC098EpV3hfuNdTIXB59acu6Y+YuR3nWGFtMp0GUIdPXN6y5phu9dfG1aylWgWPGQCfHYrvKe6Yev8pX5iT4+qw9ni4xYk7FBwLZF1NXlp8CM4fqirV1TMzUNujJQVu+DXrQu3UdDqgpycO8XdKc8fFqSQg5GxmRjtUM23x/596ZpgLS9rEhMPl2hRycpgQH1/DInaUzXFyI1mQSoIyPjbSD5Ozn4I21OFScaSpEJ7xzsOageXOl5HiNxTeOrlplBwtIA8wFdgmu05uISMQuZwrL0QXreeDrlyMjKP8x19noMFJpXNPty9uqFLTFwbIGHC+lE47PbIpO471rRvxC1o4txjjqoN/HVAsg56LUJvIgVvALojTje8xZZr5GehfsuDfQ/Qz8LGbQhMTqQvD3DR7WbGWdZDUHnA==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

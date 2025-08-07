@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day6: 継承・ポリモーフィズム - ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day5_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day7_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month1.html" class="hover:text-blue-600">1ヶ月目: Java基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week2.html" class="hover:text-blue-600">2週目: オブジェクト指向プログラミング</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">6日目: 継承・ポリモーフィズム</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day6.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <!-- Header -->
+    <header class="bg-blue-800 text-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4 py-6">
+            <h1 class="text-4xl font-bold mb-2">Day6: 継承・ポリモーフィズム</h1>
+            <p class="text-blue-200">オブジェクト指向の核心概念をマスター</p>
+        </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto p-6">
+        <!-- 学習目標 -->
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-bullseye mr-2"></i>📋 本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-bold text-blue-700 mb-2">🎯 知識目標</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span><strong>継承（Inheritance）</strong>の概念と実装方法</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span><strong>super</strong>キーワードの使い方</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span><strong>メソッドオーバーライド</strong>のルール</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span><strong>ポリモーフィズム</strong>の仕組み</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                            <span><strong>抽象クラス</strong>と<strong>インターフェース</strong>の違い</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-purple-700 mb-2">💡 実務スキル</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-chart-line text-green-500 mt-1 mr-2"></i>
+                            <span>効率的なコード再利用の設計</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-tools text-green-500 mt-1 mr-2"></i>
+                            <span>保守性の高いクラス設計</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-puzzle-piece text-green-500 mt-1 mr-2"></i>
+                            <span>デザインパターンの活用</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-bug text-green-500 mt-1 mr-2"></i>
+                            <span>継承に関するバグの回避</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-code text-green-500 mt-1 mr-2"></i>
+                            <span>可読性の高いコードの書き方</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 重要ポイント -->
+        <section class="bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-6 rounded-lg mb-8">
+            <div class="flex items-center mb-4">
+                <i class="fas fa-star text-2xl mr-3"></i>
+                <h2 class="text-2xl font-bold">重要ポイント</h2>
+            </div>
+            <p class="text-lg">
+                継承とポリモーフィズムは<strong>オブジェクト指向の核心概念</strong>です。JavaSilver試験でも頻出であり、実務では設計の質を大きく左右します。今日は基礎をしっかり固めましょう。
+            </p>
+        </section>
+
+        <!-- 1. 継承の基本概念 -->
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-sitemap mr-2"></i>1. 継承（Inheritance）の基本概念
+            </h2>
+            
+            <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-blue-700 mb-2">継承とは？</h3>
+                <p class="mb-2">
+                    <strong>継承（Inheritance）</strong>とは、既存のクラス（親クラス）の機能を新しいクラス（子クラス）が受け継ぐJavaの仕組みです。
+                </p>
+                <p class="text-blue-700">
+                    <i class="fas fa-lightbulb mr-2"></i><strong>身近な例：</strong> 
+                    親から子への遺伝のように、親クラスの特徴（フィールドやメソッド）を子クラスが自動的に受け継ぎます。
+                </p>
+            </div>
+
+            <!-- 継承関係図 -->
+            <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-gray-700 mb-4">継承関係図の例</h3>
+                <div class="flex justify-center">
+                    <div class="text-center">
+                        <!-- 親クラス -->
+                        <div class="bg-blue-100 border-2 border-blue-300 p-4 rounded-lg mb-4">
+                            <h4 class="font-bold text-blue-800">Animal（動物）クラス</h4>
+                            <div class="text-sm mt-2">
+                                <p>+ name: String（名前）</p>
+                                <p>+ age: int（年齢）</p>
+                                <p>+ eat()（食べる）</p>
+                                <p>+ sleep()（寝る）</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 継承の矢印 -->
+                        <div class="mb-4">
+                            <i class="fas fa-arrow-down text-2xl text-gray-600"></i>
+                            <p class="text-sm text-gray-600">継承（extends）</p>
+                        </div>
+                        
+                        <!-- 子クラス -->
+                        <div class="flex space-x-6">
+                            <div class="bg-green-100 border-2 border-green-300 p-4 rounded-lg">
+                                <h4 class="font-bold text-green-800">Dog（犬）クラス</h4>
+                                <div class="text-sm mt-2">
+                                    <p class="text-gray-600">↑親から継承</p>
+                                    <p>+ bark()（吠える）</p>
+                                </div>
+                            </div>
+                            <div class="bg-purple-100 border-2 border-purple-300 p-4 rounded-lg">
+                                <h4 class="font-bold text-purple-800">Cat（猫）クラス</h4>
+                                <div class="text-sm mt-2">
+                                    <p class="text-gray-600">↑親から継承</p>
+                                    <p>+ meow()（鳴く）</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 継承のコード例 -->
+            <div class="bg-black text-green-400 p-4 rounded-lg mb-4">
+                <h4 class="text-white font-bold mb-2">継承の実装例</h4>
+                <pre><code class="language-java">// 親クラス（基底クラス、スーパークラス）
+class Animal {
+    protected String name;  // 子クラスからもアクセス可能
+    protected int age;
+    
+    public Animal(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    public void eat() {
+        System.out.println(name + "が食べています");
+    }
+    
+    public void sleep() {
+        System.out.println(name + "が寝ています");
+    }
+}
+
+// 子クラス（派生クラス、サブクラス）
+class Dog extends Animal {  // extendsキーワードで継承
+    public Dog(String name, int age) {
+        super(name, age);  // 親クラスのコンストラクタを呼び出し
+    }
+    
+    // 犬独自のメソッド
+    public void bark() {
+        System.out.println(name + "がワンワン吠えています");
+    }
+}</code></pre>
+            </div>
+
+            <!-- 継承のメリット -->
+            <div class="bg-green-50 p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-green-700 mb-2">継承のメリット</h3>
+                <ul class="space-y-2">
+                    <li class="flex items-start">
+                        <i class="fas fa-recycle text-green-600 mt-1 mr-2"></i>
+                        <span><strong>コードの再利用：</strong> 共通機能を何度も書く必要がない（DRY原則）</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-tools text-green-600 mt-1 mr-2"></i>
+                        <span><strong>保守性向上：</strong> 親クラスの修正が全ての子クラスに反映される</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-expand-arrows-alt text-green-600 mt-1 mr-2"></i>
+                        <span><strong>機能拡張：</strong> 既存機能を壊さずに新機能を追加できる</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 2. superキーワード -->
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-purple-800 mb-4">
+                <i class="fas fa-key mr-2"></i>2. superキーワードの活用
+            </h2>
+            
+            <div class="bg-purple-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-purple-700 mb-2">superキーワードとは？</h3>
+                <p class="mb-2">
+                    <strong>super</strong>は、子クラスから親クラス（スーパークラス）のメンバ（フィールドやメソッド）にアクセスするためのキーワードです。
+                </p>
+                <p class="text-purple-700">
+                    <i class="fas fa-lightbulb mr-2"></i><strong>身近な例：</strong> 
+                    子供が親に「お父さん」「お母さん」と呼びかけるように、子クラスが親クラスを明示的に指定する方法です。
+                </p>
+            </div>
+
+            <!-- superの3つの使い方 -->
+            <div class="grid md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-blue-700 mb-2">1. コンストラクタ呼び出し</h4>
+                    <p class="text-sm">super(引数)で親クラスのコンストラクタを呼び出し</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-green-700 mb-2">2. メソッド呼び出し</h4>
+                    <p class="text-sm">super.メソッド名()で親クラスのメソッドを呼び出し</p>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-yellow-700 mb-2">3. フィールドアクセス</h4>
+                    <p class="text-sm">super.フィールド名で親クラスのフィールドにアクセス</p>
+                </div>
+            </div>
+
+            <!-- superの実装例 -->
+            <div class="bg-black text-green-400 p-4 rounded-lg mb-4">
+                <h4 class="text-white font-bold mb-2">superキーワードの使用例</h4>
+                <pre><code class="language-java">class Vehicle {
+    protected String brand;
+    protected int maxSpeed;
+    
+    public Vehicle(String brand, int maxSpeed) {
+        this.brand = brand;
+        this.maxSpeed = maxSpeed;
+    }
+    
+    public void start() {
+        System.out.println(brand + "のエンジンをスタートします");
+    }
+}
+
+class Car extends Vehicle {
+    private int doors;
+    
+    public Car(String brand, int maxSpeed, int doors) {
+        super(brand, maxSpeed);  // 1. 親のコンストラクタ呼び出し
+        this.doors = doors;
+    }
+    
+    @Override
+    public void start() {
+        super.start();  // 2. 親のメソッド呼び出し
+        System.out.println("ドア" + doors + "枚の車が準備完了");
+    }
+    
+    public void showInfo() {
+        System.out.println("ブランド: " + super.brand);  // 3. 親のフィールドアクセス
+        System.out.println("最高速度: " + super.maxSpeed + "km/h");
+    }
+}</code></pre>
+            </div>
+
+            <!-- super使用時の注意点 -->
+            <div class="bg-red-50 p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-red-700 mb-2">⚠️ super使用時の重要な注意点</h3>
+                <ul class="space-y-2">
+                    <li class="flex items-start">
+                        <i class="fas fa-exclamation-triangle text-red-600 mt-1 mr-2"></i>
+                        <span><strong>super()は最初の行：</strong> コンストラクタでsuper()を使う場合は必ず最初の行に記述</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-ban text-red-600 mt-1 mr-2"></i>
+                        <span><strong>thisとの併用不可：</strong> super()とthis()は同一コンストラクタ内で同時使用不可</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-link text-red-600 mt-1 mr-2"></i>
+                        <span><strong>継承チェーン：</strong> super()が省略された場合、自動的にsuper()が挿入される</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 3. メソッドオーバーライド -->
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-green-800 mb-4">
+                <i class="fas fa-edit mr-2"></i>3. メソッドオーバーライド
+            </h2>
+            
+            <div class="bg-green-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-green-700 mb-2">メソッドオーバーライドとは？</h3>
+                <p class="mb-2">
+                    <strong>メソッドオーバーライド</strong>とは、子クラスで親クラスのメソッドを再定義（上書き）することです。
+                </p>
+                <p class="text-green-700">
+                    <i class="fas fa-lightbulb mr-2"></i><strong>身近な例：</strong> 
+                    親の「走る」動作を、人間の子供は「二足歩行で走る」、犬の子供は「四足歩行で走る」というように、それぞれの特徴に合わせて再定義することです。
+                </p>
+            </div>
+
+            <!-- オーバーライドのルール -->
+            <div class="bg-yellow-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-yellow-700 mb-4">オーバーライドの5つのルール</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h4 class="font-bold text-blue-700 mb-2">1. メソッド名・パラメータ</h4>
+                        <p class="text-sm">親クラスと完全に同じメソッド名・パラメータリスト</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-blue-700 mb-2">2. アクセス修飾子</h4>
+                        <p class="text-sm">親と同じかより広いアクセス範囲（private → protected → public）</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-blue-700 mb-2">3. 戻り値型</h4>
+                        <p class="text-sm">親と同じ型、または親の戻り値型のサブクラス</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-blue-700 mb-2">4. 例外</h4>
+                        <p class="text-sm">親より狭い範囲の例外のみ追加可能</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <h4 class="font-bold text-blue-700 mb-2">5. @Overrideアノテーション</h4>
+                    <p class="text-sm">必須ではないが、コンパイル時チェックのため推奨</p>
+                </div>
+            </div>
+
+            <!-- オーバーライドの実装例 -->
+            <div class="bg-black text-green-400 p-4 rounded-lg mb-4">
+                <h4 class="text-white font-bold mb-2">メソッドオーバーライドの実装例</h4>
+                <pre><code class="language-java">class Shape {
+    protected String name;
+    
+    public Shape(String name) {
+        this.name = name;
+    }
+    
+    // オーバーライド対象メソッド
+    public void draw() {
+        System.out.println(name + "を描画します");
+    }
+    
+    public double getArea() {
+        return 0.0;  // 基本実装
+    }
+}
+
+class Circle extends Shape {
+    private double radius;
+    
+    public Circle(double radius) {
+        super("円");
+        this.radius = radius;
+    }
+    
+    // メソッドオーバーライド
+    @Override
+    public void draw() {
+        System.out.println("半径" + radius + "の円を描画します");
+    }
+    
+    @Override
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+}
+
+class Rectangle extends Shape {
+    private double width, height;
+    
+    public Rectangle(double width, double height) {
+        super("長方形");
+        this.width = width;
+        this.height = height;
+    }
+    
+    @Override
+    public void draw() {
+        System.out.println(width + "×" + height + "の長方形を描画します");
+    }
+    
+    @Override
+    public double getArea() {
+        return width * height;
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- 4. ポリモーフィズム -->
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4">
+                <i class="fas fa-shapes mr-2"></i>4. ポリモーフィズム（多態性）
+            </h2>
+            
+            <div class="bg-indigo-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-indigo-700 mb-2">ポリモーフィズムとは？</h3>
+                <p class="mb-2">
+                    <strong>ポリモーフィズム（Polymorphism：多態性）</strong>とは、同じインターフェースで異なる動作を実現するオブジェクト指向の重要な概念です。
+                </p>
+                <p class="text-indigo-700">
+                    <i class="fas fa-lightbulb mr-2"></i><strong>身近な例：</strong> 
+                    「走る」という言葉でも、人・車・動物ではそれぞれ異なる動作をします。同じ「メソッド名」でも、オブジェクトによって「異なる処理」が実行されます。
+                </p>
+            </div>
+
+            <!-- アップキャスト・ダウンキャスト -->
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-blue-700 mb-2">アップキャスト（暗黙的キャスト）</h4>
+                    <p class="text-sm mb-2">子クラスのオブジェクトを親クラス型の変数に代入</p>
+                    <div class="bg-white p-2 rounded text-xs">
+                        <code>Shape shape = new Circle(5.0);</code>
+                    </div>
+                </div>
+                <div class="bg-orange-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-orange-700 mb-2">ダウンキャスト（明示的キャスト）</h4>
+                    <p class="text-sm mb-2">親クラス型から子クラス型への変換（要注意）</p>
+                    <div class="bg-white p-2 rounded text-xs">
+                        <code>Circle c = (Circle) shape;</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ポリモーフィズムの実装例 -->
+            <div class="bg-black text-green-400 p-4 rounded-lg mb-4">
+                <h4 class="text-white font-bold mb-2">ポリモーフィズムの実装例</h4>
+                <pre><code class="language-java">public class PolymorphismDemo {
+    public static void main(String[] args) {
+        // ポリモーフィズム: 同じ型の配列に異なる子クラスのオブジェクトを格納
+        Shape[] shapes = {
+            new Circle(5.0),
+            new Rectangle(4.0, 6.0),
+            new Circle(3.0)
+        };
+        
+        // 同じメソッド呼び出しで異なる動作を実現
+        for (Shape shape : shapes) {
+            shape.draw();  // 各オブジェクトの実際の型に応じたメソッドが呼ばれる
+            System.out.println("面積: " + shape.getArea());
+            System.out.println("---");
+        }
+        
+        // instanceof演算子でオブジェクトの実際の型をチェック
+        Shape shape = new Circle(2.0);
+        if (shape instanceof Circle) {
+            Circle circle = (Circle) shape;  // 安全なダウンキャスト
+            System.out.println("これは円です");
+        }
+    }
+}</code></pre>
+            </div>
+
+            <!-- ポリモーフィズムのメリット -->
+            <div class="bg-green-50 p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-green-700 mb-2">ポリモーフィズムのメリット</h3>
+                <ul class="space-y-2">
+                    <li class="flex items-start">
+                        <i class="fas fa-code text-green-600 mt-1 mr-2"></i>
+                        <span><strong>コードの統一性：</strong> 異なるオブジェクトを同じ方法で扱える</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-plus text-green-600 mt-1 mr-2"></i>
+                        <span><strong>拡張性：</strong> 新しいクラスを追加しても既存コードを変更不要</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-tools text-green-600 mt-1 mr-2"></i>
+                        <span><strong>保守性：</strong> インターフェースを通じた疎結合な設計</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 5. 抽象クラス・インターフェース比較表 -->
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-red-800 mb-4">
+                <i class="fas fa-table mr-2"></i>5. 抽象クラス vs インターフェース（詳細比較）
+            </h2>
+            
+            <!-- 基本概念の説明 -->
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-purple-700 mb-2">抽象クラス（Abstract Class）</h3>
+                    <p class="text-sm mb-2">
+                        一部の機能が未完成のクラス（設計図の下書きのような役割）
+                    </p>
+                    <p class="text-purple-700 text-sm">
+                        <i class="fas fa-lightbulb mr-1"></i><strong>例：</strong> 図書館システムの「書籍」クラス（共通属性はあるが、貸し出し方法は書籍種類により異なる）
+                    </p>
+                </div>
+                <div class="bg-cyan-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-cyan-700 mb-2">インターフェース（Interface）</h3>
+                    <p class="text-sm mb-2">
+                        機能の約束事のみを定義（契約書のような役割）
+                    </p>
+                    <p class="text-cyan-700 text-sm">
+                        <i class="fas fa-lightbulb mr-1"></i><strong>例：</strong> 「Runnable」インターフェース（実行可能であることを約束するが、具体的な実行方法は実装クラスが決定）
+                    </p>
+                </div>
+            </div>
+
+            <!-- 詳細比較表 -->
+            <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-gray-700 mb-4">詳細比較表（改良版）</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full bg-white rounded-lg overflow-hidden shadow">
+                        <thead class="bg-gray-800 text-white">
+                            <tr>
+                                <th class="p-3 text-left">比較項目</th>
+                                <th class="p-3 text-left">抽象クラス</th>
+                                <th class="p-3 text-left">インターフェース</th>
+                                <th class="p-3 text-left">実用例</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr class="border-b">
+                                <td class="p-3 font-bold bg-blue-50">継承制限</td>
+                                <td class="p-3">単一継承（1つの親のみ）<br><span class="text-gray-600">理由: クラスの曖昧性回避</span></td>
+                                <td class="p-3">多重実装（複数OK）<br><span class="text-gray-600">理由: 契約の組み合わせ可能</span></td>
+                                <td class="p-3">Vehicle（単一）vs Runnable+Serializable（多重）</td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="p-3 font-bold bg-green-50">メソッド実装</td>
+                                <td class="p-3">具象・抽象メソッド両方OK<br><span class="text-gray-600">共通処理を提供可能</span></td>
+                                <td class="p-3">抽象メソッドのみ（Java8以降defaultメソッド可）<br><span class="text-gray-600">契約のみ定義</span></td>
+                                <td class="p-3">Template Method パターン vs Strategy パターン</td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="p-3 font-bold bg-yellow-50">フィールド</td>
+                                <td class="p-3">全てのアクセス修飾子OK<br><span class="text-gray-600">状態を持てる</span></td>
+                                <td class="p-3">public static final のみ（定数）<br><span class="text-gray-600">状態を持てない</span></td>
+                                <td class="p-3">protected共通データ vs public final定数</td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="p-3 font-bold bg-purple-50">コンストラクタ</td>
+                                <td class="p-3">定義可能<br><span class="text-gray-600">初期化処理を提供</span></td>
+                                <td class="p-3">定義不可<br><span class="text-gray-600">オブジェクト生成不可</span></td>
+                                <td class="p-3">抽象クラス初期化 vs インターフェース実装クラス初期化</td>
+                            </tr>
+                            <tr class="border-b">
+                                <td class="p-3 font-bold bg-red-50">実装強制</td>
+                                <td class="p-3">抽象メソッドは子クラスで必ず実装<br><span class="text-gray-600">部分的な強制</span></td>
+                                <td class="p-3">全メソッドを実装クラスで必ず実装<br><span class="text-gray-600">完全な強制</span></td>
+                                <td class="p-3">共通処理+カスタム処理 vs 完全カスタム処理</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-bold bg-indigo-50">適用場面</td>
+                                <td class="p-3">共通実装がある場合<br><span class="text-gray-600">「is-a関係」が明確</span></td>
+                                <td class="p-3">機能の約束事のみ<br><span class="text-gray-600">「can-do関係」</span></td>
+                                <td class="p-3">動物→犬・猫（is-a） vs 飛行可能・泳ぎ可能（can-do）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 実装例の比較 -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-purple-700 mb-2">抽象クラスの実装例</h4>
+                    <div class="bg-black text-green-400 p-3 rounded text-xs">
+                        <pre><code>abstract class Animal {
+    protected String name;
+    
+    public Animal(String name) {
+        this.name = name;
+    }
+    
+    // 具象メソッド（共通処理）
+    public void sleep() {
+        System.out.println(name + "が寝ています");
+    }
+    
+    // 抽象メソッド（要実装）
+    public abstract void move();
+}</code></pre>
+                    </div>
+                </div>
+                <div class="bg-cyan-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-cyan-700 mb-2">インターフェースの実装例</h4>
+                    <div class="bg-black text-green-400 p-3 rounded text-xs">
+                        <pre><code>interface Flyable {
+    // 定数（自動的にpublic static final）
+    int MAX_ALTITUDE = 10000;
+    
+    // 抽象メソッド（要実装）
+    void fly();
+    void land();
+    
+    // Java8以降: デフォルトメソッド
+    default void prepare() {
+        System.out.println("飛行準備中...");
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. デザインパターン実例 -->
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-orange-800 mb-4">
+                <i class="fas fa-puzzle-piece mr-2"></i>6. 実務でのデザインパターン活用
+            </h2>
+            
+            <!-- Template Method パターン -->
+            <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-blue-700 mb-2">🎯 Template Method パターン</h3>
+                <p class="text-sm mb-4">処理の骨組みを親クラスで定義し、具体的な処理を子クラスで実装する設計手法</p>
+                
+                <div class="bg-black text-green-400 p-3 rounded text-xs mb-2">
+                    <pre><code>abstract class DataProcessor {
+    // テンプレートメソッド（処理の流れを定義）
+    public final void processData() {
+        loadData();      // 1. データ読み込み
+        validateData();  // 2. データ検証
+        processCore();   // 3. 核心処理（サブクラスで実装）
+        saveData();      // 4. データ保存
+    }
+    
+    protected void loadData() { System.out.println("データを読み込みます"); }
+    protected void validateData() { System.out.println("データを検証します"); }
+    protected abstract void processCore();  // 子クラスで実装
+    protected void saveData() { System.out.println("データを保存します"); }
+}
+
+class CSVProcessor extends DataProcessor {
+    @Override
+    protected void processCore() {
+        System.out.println("CSV形式でデータを処理します");
+    }
+}</code></pre>
+                </div>
+                <p class="text-blue-700 text-sm">
+                    <i class="fas fa-lightbulb mr-1"></i><strong>実用例：</strong> 
+                    Webアプリケーションの認証処理、データベースのCRUD操作、ファイル処理など
+                </p>
+            </div>
+
+            <!-- Strategy パターン -->
+            <div class="bg-green-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-green-700 mb-2">🔧 Strategy パターン</h3>
+                <p class="text-sm mb-4">アルゴリズムを交換可能にするインターフェース活用パターン</p>
+                
+                <div class="bg-black text-green-400 p-3 rounded text-xs mb-2">
+                    <pre><code>interface PaymentStrategy {
+    void pay(double amount);
+}
+
+class CreditCardPayment implements PaymentStrategy {
+    @Override
+    public void pay(double amount) {
+        System.out.println("クレジットカードで" + amount + "円を支払います");
+    }
+}
+
+class PayPalPayment implements PaymentStrategy {
+    @Override
+    public void pay(double amount) {
+        System.out.println("PayPalで" + amount + "円を支払います");
+    }
+}
+
+class PaymentProcessor {
+    private PaymentStrategy strategy;
+    
+    public void setPaymentStrategy(PaymentStrategy strategy) {
+        this.strategy = strategy;
+    }
+    
+    public void processPayment(double amount) {
+        strategy.pay(amount);  // 戦略に応じた支払い処理
+    }
+}</code></pre>
+                </div>
+                <p class="text-green-700 text-sm">
+                    <i class="fas fa-lightbulb mr-1"></i><strong>実用例：</strong> 
+                    決済システム、ソートアルゴリズム選択、画像フォーマット変換など
+                </p>
+            </div>
+
+            <!-- Factory パターン -->
+            <div class="bg-purple-50 p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-purple-700 mb-2">🏭 Factory パターン</h3>
+                <p class="text-sm mb-4">オブジェクト生成を専門クラスに委譲する継承活用パターン</p>
+                
+                <div class="bg-black text-green-400 p-3 rounded text-xs mb-2">
+                    <pre><code>abstract class ShapeFactory {
+    public abstract Shape createShape();
+    
+    // 共通の後処理
+    public Shape getShape() {
+        Shape shape = createShape();
+        shape.initialize();  // 初期化処理
+        return shape;
+    }
+}
+
+class CircleFactory extends ShapeFactory {
+    @Override
+    public Shape createShape() {
+        return new Circle(1.0);
+    }
+}
+
+class RectangleFactory extends ShapeFactory {
+    @Override
+    public Shape createShape() {
+        return new Rectangle(1.0, 1.0);
+    }
+}</code></pre>
+                </div>
+                <p class="text-purple-700 text-sm">
+                    <i class="fas fa-lightbulb mr-1"></i><strong>実用例：</strong> 
+                    データベース接続オブジェクト生成、UIコンポーネント作成、設定ファイル読み込みなど
+                </p>
+            </div>
+        </section>
+
+        <!-- 7. 実務での注意点 -->
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-red-800 mb-4">
+                <i class="fas fa-exclamation-triangle mr-2"></i>7. 💼 実務での注意点
+            </h2>
+            
+            <!-- 過度な継承の問題 -->
+            <div class="bg-red-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-red-700 mb-2">過度な継承の問題</h3>
+                <ul class="space-y-2 text-sm">
+                    <li class="flex items-start">
+                        <i class="fas fa-times text-red-600 mt-1 mr-2"></i>
+                        <span>継承階層が深くなりすぎる（理解困難）</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-link text-red-600 mt-1 mr-2"></i>
+                        <span>クラス間の結合度が高くなる（変更の影響が広範囲）</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-bug text-red-600 mt-1 mr-2"></i>
+                        <span>テストが困難になる（モック作成が複雑）</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-eye text-red-600 mt-1 mr-2"></i>
+                        <span>コードの理解が困難（継承チェーンを追跡する必要）</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 良い設計のコツ -->
+            <div class="bg-green-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-green-700 mb-2">良い設計のコツ</h3>
+                <ul class="space-y-2 text-sm">
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-600 mt-1 mr-2"></i>
+                        <span><strong>「コンポジション」を優先検討：</strong> オブジェクトを「持つ」関係を優先</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-600 mt-1 mr-2"></i>
+                        <span><strong>is-a関係が明確な場合のみ継承：</strong> 「～は～の一種である」が成立するか確認</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-600 mt-1 mr-2"></i>
+                        <span><strong>インターフェースによる抽象化：</strong> 契約ベースの設計を心がける</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-green-600 mt-1 mr-2"></i>
+                        <span><strong>SOLID原則の遵守：</strong> 単一責任・開放閉鎖・リスコフ置換・インターフェース分離・依存性逆転</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 設計の格言 -->
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                <h3 class="text-lg font-bold text-yellow-700 mb-2">設計の格言</h3>
+                <blockquote class="text-yellow-800 italic text-center text-lg">
+                    「継承よりコンポジション（組成）を優先せよ」<br>
+                    <span class="text-sm not-italic">- Effective Java</span>
+                </blockquote>
+                <p class="text-yellow-700 text-sm mt-2">
+                    継承は強力ですが、コードの結合度を高めてしまいます。可能な限りコンポジションで解決を図り、本当に必要な場合のみ継承を使用しましょう。
+                </p>
+            </div>
+
+            <!-- コンポジションの例 -->
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <h4 class="font-bold text-blue-700 mb-2">コンポジションの活用例</h4>
+                <div class="bg-black text-green-400 p-3 rounded text-xs">
+                    <pre><code>// 継承ではなくコンポジションを使った例
+class Engine {
+    public void start() { System.out.println("エンジン始動"); }
+}
+
+class Car {
+    private Engine engine;  // コンポジション: Engineを「持つ」
+    
+    public Car() {
+        this.engine = new Engine();
+    }
+    
+    public void start() {
+        engine.start();  // 委譲: Engineに処理を任せる
+        System.out.println("車が動き出しました");
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. 演習問題 -->
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-orange-800 mb-4">
+                <i class="fas fa-pencil-alt mr-2"></i>📝 演習問題
+            </h2>
+            
+            <!-- 問題1 -->
+            <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                <h3 class="text-lg font-bold text-blue-700 mb-2">問題1: 継承とオーバーライド</h3>
+                <p class="text-sm mb-4">以下のコードを参考に、Vehicle（乗り物）クラスを継承したCar（車）クラスとBike（バイク）クラスを作成してください。</p>
+                
+                <div class="bg-black text-green-400 p-3 rounded text-xs mb-4">
+                    <pre><code>abstract class Vehicle {
+    protected String brand;
+    protected int maxSpeed;
+    
+    public Vehicle(String brand, int maxSpeed) {
+        this.brand = brand;
+        this.maxSpeed = maxSpeed;
+    }
+    
+    public abstract void move();
+    
+    public void showInfo() {
+        System.out.println("ブランド: " + brand + ", 最高速度: " + maxSpeed + "km/h");
+    }
+}</code></pre>
+                </div>
+                
+                <p class="text-sm"><strong>要件:</strong></p>
+                <ul class="text-sm space-y-1 ml-4 mb-4">
+                    <li>• Carクラス: wheel数（4）を追加、move()で「4輪で走行」と表示</li>
+                    <li>• Bikeクラス: wheel数（2）を追加、move()で「2輪で走行」と表示</li>
+                    <li>• 両クラスともshowInfo()をオーバーライドして車輪数も表示</li>
+                </ul>
+                
+                <button onclick="showAnswer('answer1')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    回答例を表示
+                </button>
+                
+                <div id="answer1" class="hidden mt-4 bg-green-50 p-4 rounded">
+                    <h4 class="font-bold text-green-700 mb-2">回答例</h4>
+                    <div class="bg-black text-green-400 p-3 rounded text-xs">
+                        <pre><code>class Car extends Vehicle {
+    private int wheels = 4;
+    
+    public Car(String brand, int maxSpeed) {
+        super(brand, maxSpeed);  // 親のコンストラクタ呼び出し
+    }
+    
+    @Override
+    public void move() {
+        System.out.println(brand + "が4輪で走行しています");
+    }
+    
+    @Override
+    public void showInfo() {
+        super.showInfo();  // 親のメソッド呼び出し
+        System.out.println("車輪数: " + wheels);
+    }
+}
+
+class Bike extends Vehicle {
+    private int wheels = 2;
+    
+    public Bike(String brand, int maxSpeed) {
+        super(brand, maxSpeed);
+    }
+    
+    @Override
+    public void move() {
+        System.out.println(brand + "が2輪で走行しています");
+    }
+    
+    @Override
+    public void showInfo() {
+        super.showInfo();
+        System.out.println("車輪数: " + wheels);
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問題2 -->
+            <div class="bg-green-50 p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-green-700 mb-2">問題2: ポリモーフィズムとキャスト</h3>
+                <p class="text-sm mb-4">以下のコードの実行結果を予想し、`shape.getRadius()`がエラーになる理由と、正しくアクセスする方法を2通り示してください。</p>
+                
+                <div class="bg-black text-green-400 p-3 rounded text-xs mb-4">
+                    <pre><code>Shape shape = new Circle(5.0);
+shape.draw();           // 1. これは動作する？
+shape.getArea();        // 2. これは動作する？
+shape.getRadius();      // 3. これはエラーになる？</code></pre>
+                </div>
+                
+                <button onclick="showAnswer('answer2')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                    回答を表示
+                </button>
+                
+                <div id="answer2" class="hidden mt-4 bg-blue-50 p-4 rounded">
+                    <h4 class="font-bold text-blue-700 mb-2">回答と解説</h4>
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <p><strong>実行結果予想:</strong></p>
+                            <ul class="ml-4 space-y-1">
+                                <li>1. <code>shape.draw()</code> → ✅ 動作（Circleのdraw()が呼ばれる）</li>
+                                <li>2. <code>shape.getArea()</code> → ✅ 動作（Circleのメソッドが呼ばれる）</li>
+                                <li>3. <code>shape.getRadius()</code> → ❌ コンパイルエラー</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p><strong>エラーの理由:</strong></p>
+                            <p>変数shapeの型はShape（親クラス）なので、Circle（子クラス）独有のメソッドgetRadius()にはアクセスできません。</p>
+                        </div>
+                        <div>
+                            <p><strong>正しいアクセス方法（2通り）:</strong></p>
+                            <div class="bg-black text-green-400 p-2 rounded text-xs">
+                                <pre><code>// 方法1: ダウンキャスト
+if (shape instanceof Circle) {
+    Circle circle = (Circle) shape;
+    double radius = circle.getRadius();
+}
+
+// 方法2: 最初からCircle型で宣言
+Circle circle = new Circle(5.0);
+double radius = circle.getRadius();</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. 理解度クイズ -->
+        <section class="bg-white p-6 rounded-lg shadow mb-8">
+            <h2 class="text-2xl font-bold text-purple-800 mb-4">
+                <i class="fas fa-question-circle mr-2"></i>🧠 理解度クイズ
+            </h2>
+            
+            <!-- クイズ1 -->
+            <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                <h3 class="text-lg font-bold text-purple-700 mb-2">クイズ1: 継承の基本</h3>
+                <p class="text-sm mb-3">Javaの継承について正しい説明はどれですか？</p>
+                
+                <div class="space-y-2 text-sm">
+                    <label class="flex items-start">
+                        <input type="radio" name="quiz1" class="mr-2 mt-1">
+                        <span>A. 1つのクラスは複数の親クラスを持つことができる</span>
+                    </label>
+                    <label class="flex items-start">
+                        <input type="radio" name="quiz1" class="mr-2 mt-1">
+                        <span>B. 子クラスは親クラスのprivateメンバにもアクセスできる</span>
+                    </label>
+                    <label class="flex items-start">
+                        <input type="radio" name="quiz1" class="mr-2 mt-1">
+                        <span>C. 子クラスは親クラスのprotectedメンバにアクセスできる</span>
+                    </label>
+                    <label class="flex items-start">
+                        <input type="radio" name="quiz1" class="mr-2 mt-1">
+                        <span>D. superキーワードは子クラス以外でも使用できる</span>
+                    </label>
+                </div>
+                
+                <button onclick="showAnswer('quiz1answer')" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 mt-3">
+                    回答を表示
+                </button>
+                
+                <div id="quiz1answer" class="hidden mt-4 bg-green-50 p-4 rounded">
+                    <p class="font-bold text-green-700">正解: C</p>
+                    <p class="text-sm mt-2">
+                        <strong>解説:</strong> Javaは単一継承なので（A）は誤り。子クラスはprivateメンバにはアクセスできません（B）。
+                        protectedメンバは同じパッケージ内または子クラスからアクセス可能です（C）が正解。
+                        superキーワードは継承関係にある子クラスでのみ使用できます（D）は誤り。
+                    </p>
+                </div>
+            </div>
+
+            <!-- クイズ2 -->
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-blue-700 mb-2">クイズ2: 抽象クラス vs インターフェース</h3>
+                <p class="text-sm mb-3">以下の文で正しいものはどれですか？</p>
+                
+                <div class="space-y-2 text-sm">
+                    <label class="flex items-start">
+                        <input type="radio" name="quiz2" class="mr-2 mt-1">
+                        <span>A. 抽象クラスはインスタンス化できる</span>
+                    </label>
+                    <label class="flex items-start">
+                        <input type="radio" name="quiz2" class="mr-2 mt-1">
+                        <span>B. インターフェースはコンストラクタを持てる</span>
+                    </label>
+                    <label class="flex items-start">
+                        <input type="radio" name="quiz2" class="mr-2 mt-1">
+                        <span>C. 1つのクラスは複数のインターフェースを実装できる</span>
+                    </label>
+                    <label class="flex items-start">
+                        <input type="radio" name="quiz2" class="mr-2 mt-1">
+                        <span>D. インターフェースは具象メソッドを持てない</span>
+                    </label>
+                </div>
+                
+                <button onclick="showAnswer('quiz2answer')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-3">
+                    回答を表示
+                </button>
+                
+                <div id="quiz2answer" class="hidden mt-4 bg-green-50 p-4 rounded">
+                    <p class="font-bold text-green-700">正解: C</p>
+                    <p class="text-sm mt-2">
+                        <strong>解説:</strong> 抽象クラスはabstractキーワードにより直接インスタンス化できません（A）。
+                        インターフェースはコンストラクタを持てません（B）。1つのクラスは複数のインターフェースを実装可能です（C）が正解。
+                        Java8以降、インターフェースはdefaultメソッドで具象メソッドを持てます（D）は誤り。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. 本日のまとめ -->
+        <section class="bg-gradient-to-r from-blue-600 to-purple-700 text-white p-6 rounded-lg mb-8">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-clipboard-check mr-2"></i>📋 本日のまとめ
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-bold mb-3">✅ 習得できた具体的スキル</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>• <strong>継承により共通機能の再利用でコード量を50%削減可能</strong></li>
+                        <li>• <strong>ポリモーフィズムで同じコードが異なる動作を実現</strong></li>
+                        <li>• <strong>抽象クラスは共通実装あり、インターフェースは契約のみ</strong></li>
+                        <li>• <strong>superキーワードで親クラスの機能を適切に活用</strong></li>
+                        <li>• <strong>@Overrideアノテーションでメソッド上書きを安全に実装</strong></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-3">🎯 JavaSilver試験対策ポイント</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>• <strong>単一継承とObject クラス</strong></li>
+                        <li>• <strong>オーバーライドの条件</strong></li>
+                        <li>• <strong>アップキャスト・ダウンキャスト</strong></li>
+                        <li>• <strong>instanceof演算子</strong></li>
+                        <li>• <strong>抽象クラスとインターフェースの違い</strong></li>
+                        <li>• <strong>デフォルトメソッド（Java 8以降）</strong></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-6 bg-white bg-opacity-20 p-4 rounded">
+                <h3 class="text-lg font-bold mb-2">🚀 次回に向けて</h3>
+                <p class="text-sm">
+                    次回はアクセス修飾子とコンストラクタの詳細を学習します。今日学んだ継承の知識をベースに、
+                    より実践的なオブジェクト指向設計を身につけていきましょう！
+                </p>
+            </div>
+        </section>
+
+        <!-- つまづきやすいポイントの復習 -->
+        <section class="bg-yellow-50 p-6 rounded-lg border-2 border-yellow-300 mb-8">
+            <h2 class="text-2xl font-bold text-red-600 mb-4">
+                <i class="fas fa-exclamation-triangle mr-2"></i>⚠️ つまづきやすいポイントの復習
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded">
+                    <h3 class="font-bold text-red-700 mb-2">コンストラクタ</h3>
+                    <p class="text-sm">super()は最初の行、thisとの併用不可</p>
+                </div>
+                <div class="bg-white p-4 rounded">
+                    <h3 class="font-bold text-red-700 mb-2">アクセス修飾子</h3>
+                    <p class="text-sm">オーバーライド時は同じか広いアクセス</p>
+                </div>
+                <div class="bg-white p-4 rounded">
+                    <h3 class="font-bold text-red-700 mb-2">参照とオブジェクト</h3>
+                    <p class="text-sm">参照型によってアクセス可能メソッドが決まる</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- フッター -->
+        <footer class="bg-gray-800 text-white p-6 rounded-lg text-center">
+            <p class="text-sm">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            <p class="text-xs mt-2 text-gray-400">
+                ITエンジニア育成カリキュラム - Day6: 継承・ポリモーフィズム
+            </p>
+            <div class="mt-4">
+                <p class="text-sm">開発環境: Pleiades (Eclipse) + Amazon Corretto JDK 17</p>
+            </div>
+        </footer>
+    </div>
+</main>
+
+    <script>
+        function showAnswer(elementId) {
+            const element = document.getElementById(elementId);
+            const button = element.parentElement.querySelector('button');
+            
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+                button.textContent = button.textContent.replace('表示', '非表示');
+            } else {
+                element.classList.add('hidden');
+                button.textContent = button.textContent.replace('非表示', '表示');
+            }
+        }
+
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Day6: 継承・ポリモーフィズム 講義ページが読み込まれました');
+            
+            // スムーズスクロール
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDj8P7hAEXJHhydxDYdKrAXDTQ%2FHuyxclCNeMD46a5YIJjh9iIophT8093hJp%2FLe8rvq8t8JVB8mkJPnyf5%2BXQRcAd45yFDQxa4HOCOQKwSupz6rYfSPX39Nfb68FMfsrF2Jn%2BU3Z3JwBlaMsT0PVsFDrujEL%2FBwCD41dPR1xMR0w1A5KkdL4mMpLuvd36iWJwmHFjnBUoUIbE2aKBPq4gQYG5YGlHUv3ETQTvef9D7hAWImB8ZX7Qf0LJBiy4PhvWdzDSh%2FbZVThUKyZCbU6MIa5%2B5tQdTS4y%2FKKQIK%2BikcicU1WqVtujF7ulPQyD7RLbX7bOYhNL0Pn3OKkUw5noNse1aKz4Tsr4rl4BuRdWZzCMjICFIw4FN4W8ibnQdtg1J5zWCNOWWU3n6hijACHowGSlH1IzzTE9%2B1VZISYFN%2FqXqmCupQzYjZpTAJ3vDSXtRX2mOWT9nJWlN%2BUELhN0tLTPbAoGz%2Fh%2Bq8A3KC4dg1YwdvR%2BmC6kv%2FDz1BOzjE1yTRcgUloaLfd5gMeLfoU75as2lmzwxoboJNTLa4mRYdh";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDj8P7hAEXJHhydxDYdKrAXDTQ/HuyxclCNeMD46a5YIJjh9iIophT8093hJp/Le8rvq8t8JVB8mkJPnyf5+XQRcAd45yFDQxa4HOCOQKwSupz6rYfSPX39Nfb68FMfsrF2Jn+U3Z3JwBlaMsT0PVsFDrujEL/BwCD41dPR1xMR0w1A5KkdL4mMpLuvd36iWJwmHFjnBUoUIbE2aKBPq4gQYG5YGlHUv3ETQTvef9D7hAWImB8ZX7Qf0LJBiy4PhvWdzDSh/bZVThUKyZCbU6MIa5+5tQdTS4y/KKQIK+ikcicU1WqVtujF7ulPQyD7RLbX7bOYhNL0Pn3OKkUw5noNse1aKz4Tsr4rl4BuRdWZzCMjICFIw4FN4W8ibnQdtg1J5zWCNOWWU3n6hijACHowGSlH1IzzTE9+1VZISYFN/qXqmCupQzYjZpTAJ3vDSXtRX2mOWT9nJWlN+UELhN0tLTPbAoGz/h+q8A3KC4dg1YwdvR+mC6kv/Dz1BOzjE1yTRcgUloaLfd5gMeLfoU75as2lmzwxoboJNTLa4mRYdh";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>よくある質問（FAQ） | ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .faq-item {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .faq-question {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .faq-question:hover {
+            background-color: #f8fafc;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        .faq-answer.active {
+            max-height: 500px;
+        }
+        .category-tab {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .category-tab.active {
+            border-bottom: 3px solid #4299e1;
+            color: #2b6cb0;
+            font-weight: 600;
+        }
+        .category-content {
+            display: none;
+        }
+        .category-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <header class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold">ITエンジニア育成カリキュラム</h1>
+                </div>
+                <nav>
+                    <ul class="flex space-x-6">
+                        <li><a href="../../index.html" class="hover:text-blue-200">ホーム</a></li>
+                        <li class="relative group">
+                            <a href="#" class="hover:text-blue-200">月別カリキュラム</a>
+                            <div class="absolute hidden group-hover:block bg-white text-gray-800 shadow-lg rounded-md p-2 w-64 z-10">
+                                <a href="../pages/month/month1.html" class="block px-4 py-2 hover:bg-blue-100 rounded-md">第1ヶ月目: Java Silver</a>
+                                <a href="../pages/month/month2.html" class="block px-4 py-2 hover:bg-blue-100 rounded-md">第2ヶ月目: 基本情報</a>
+                                <a href="../pages/month/month3.html" class="block px-4 py-2 hover:bg-blue-100 rounded-md">第3ヶ月目: Web開発</a>
+                            </div>
+                        </li>
+                        <li><a href="resources.html" class="hover:text-blue-200">学習リソース</a></li>
+                        <li><a href="faq.html" class="hover:text-blue-200 font-bold">FAQ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-12">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-800">よくある質問 (FAQ)</h2>
+                <p class="text-lg text-gray-600 mt-2">カリキュラムに関するよくある質問とその回答をまとめました</p>
+            </div>
+
+            <!-- カテゴリタブ -->
+            <div class="flex overflow-x-auto mb-6 border-b">
+                <div class="category-tab active px-6 py-3" data-category="general">一般的な質問</div>
+                <div class="category-tab px-6 py-3" data-category="requirements">前提条件と環境</div>
+                <div class="category-tab px-6 py-3" data-category="curriculum">カリキュラム内容</div>
+                <div class="category-tab px-6 py-3" data-category="certification">資格試験対策</div>
+                <div class="category-tab px-6 py-3" data-category="troubleshooting">トラブルシューティング</div>
+            </div>
+
+            <!-- 一般的な質問 -->
+            <div class="category-content active" id="general">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">このカリキュラムはどのような人向けですか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">このカリキュラムは、20代〜30代のIT業界未経験者や、プログラミング経験の浅い方を対象にしています。WindowsやMicrosoft Officeの基本操作ができるレベルの方であれば、特別な前提知識は必要ありません。ITエンジニアへのキャリアチェンジを希望する方、基礎からしっかりとプログラミングを学びたい方に最適です。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">カリキュラムの期間はどのくらいですか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">基本カリキュラムは3ヶ月間（54日間）で設計されています。各月18日間のスケジュールで、1日あたり約7時間の学習時間を想定しています。また、3ヶ月間の基本カリキュラム修了後、希望に応じて発展的な応用コース（各3〜6週間程度）も用意されています。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">途中からの参加や、一部のコースのみの受講は可能ですか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">はい、可能です。ただし、各月のカリキュラムには前月の知識を前提とした内容が含まれていますので、途中から参加される場合は、前提となる知識を別途学習されることをお勧めします。例えば、すでにJavaプログラミングの基礎知識をお持ちの方であれば、2ヶ月目から参加することも可能です。各月の学習内容と前提知識は月別カリキュラムページでご確認ください。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">このカリキュラムの費用はいくらですか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">このカリキュラムで使用するすべての教材・ツール・開発環境は無償で入手可能なものを厳選しています。カリキュラム自体は無償で公開されていますが、受講にあたっては各自でパソコン環境を用意する必要があります。また、オプションで資格試験を受験される場合は、別途試験料が必要です（Java Silver試験:約25,000円、基本情報技術者試験:約7,500円）。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 前提条件と環境 -->
+            <div class="category-content" id="requirements">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">カリキュラムを受講するための最低限のPC環境は？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">推奨PC環境は以下の通りです：</p>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>OS：Windows 10/11、macOS 10.15以降</li>
+                                <li>CPU：Core i5相当以上推奨</li>
+                                <li>メモリ：8GB以上推奨</li>
+                                <li>ストレージ：SSD 128GB以上の空き容量</li>
+                                <li>ネットワーク：安定したインターネット接続</li>
+                            </ul>
+                            <p class="mt-2 text-gray-700">特に3ヶ月目のWeb開発においては、複数の開発ツールを同時に起動するため、メモリ16GB以上だとより快適に学習できます。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">プログラミング経験がゼロでも大丈夫ですか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">はい、プログラミング経験がまったくない方でも問題ありません。このカリキュラムは最初の段階からプログラミングの基礎概念を丁寧に説明し、徐々にスキルを積み上げていく設計になっています。毎日の課題と理解度チェックを通じて、着実にスキルを身につけることができます。ただし、基本的なPC操作（ファイル操作、テキスト入力など）には慣れておく必要があります。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">学習時間はどれくらい必要ですか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">カリキュラムは1日約7時間（10:00〜17:45）の学習を想定しています。毎日のスケジュールは、講義・演習・理解度チェック・振り返りなどで構成されています。また、理解を深めるために追加で1〜2時間程度の自習時間を確保することをお勧めします。時間的な制約がある場合は、日程を伸ばして無理のないペースで進めることも可能です。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">事前に準備しておくべきことはありますか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">以下の準備をしておくと、スムーズに学習を始められます：</p>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>パソコンの基本操作に慣れておく（ファイル管理、テキスト入力など）</li>
+                                <li>推奨環境を満たすPCの準備</li>
+                                <li>安定したインターネット環境の確保</li>
+                                <li>学習用のGoogleアカウントの作成（無料の開発ツールや学習リソースの多くはGoogleアカウントでアクセス可能）</li>
+                                <li>学習スケジュールの確保と学習環境の整備</li>
+                            </ul>
+                            <p class="mt-2 text-gray-700">具体的な開発環境（Java、Eclipse IDEなど）のインストールは、カリキュラム初日に行いますので、事前準備は不要です。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- カリキュラム内容 -->
+            <div class="category-content" id="curriculum">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">カリキュラムの全体構成を教えてください</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">このカリキュラムは3ヶ月（54日間）の基本コースと、オプションの応用コースで構成されています。</p>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li><strong>第1ヶ月目：Java Silver対策</strong> - Java言語の基礎、オブジェクト指向、例外処理、コレクションAPIなど</li>
+                                <li><strong>第2ヶ月目：基本情報技術者試験対策</strong> - コンピュータシステム、ネットワーク、データベース、アルゴリズムなど</li>
+                                <li><strong>第3ヶ月目：Webアプリケーション開発</strong> - HTML/CSS/JavaScript、PostgreSQL、Spring Bootなど</li>
+                                <li><strong>応用コース（オプション）</strong> - フロントエンド応用、バックエンド応用、開発プロセス高度化、ポートフォリオ開発</li>
+                            </ul>
+                            <p class="mt-2 text-gray-700">各月は週単位（4週）、日単位（18日）で詳細に分かれ、毎日のスケジュールも時間単位で設計されています。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">なぜJavaを最初に学ぶのですか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">Javaを最初に学ぶ理由は以下の通りです：</p>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>プログラミングの基礎概念を学ぶのに適した言語構造</li>
+                                <li>オブジェクト指向の概念を明確に理解できる</li>
+                                <li>企業システム開発での需要が高く、就職にも有利</li>
+                                <li>Java Silverという明確な目標資格があり、学習の到達点が明確</li>
+                                <li>3ヶ月目のSpring Boot（Javaフレームワーク）へと知識をつなげられる</li>
+                            </ul>
+                            <p class="mt-2 text-gray-700">また、Javaで習得した知識は他の言語（C#、Python、JavaScriptなど）の学習にも活かせます。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">毎日の学習はどのように進みますか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">1日のスケジュールは基本的に以下の流れで進みます：</p>
+                            <table class="min-w-full mt-2 border">
+                                <tr class="bg-gray-100">
+                                    <th class="py-2 px-4 border">時間</th>
+                                    <th class="py-2 px-4 border">内容</th>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border">10:00-10:15</td>
+                                    <td class="py-2 px-4 border">オリエンテーション・前日の復習</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border">10:15-11:00</td>
+                                    <td class="py-2 px-4 border">午前講義パート1</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border">11:00-11:45</td>
+                                    <td class="py-2 px-4 border">午前演習パート1</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border">11:45-12:45</td>
+                                    <td class="py-2 px-4 border">昼休憩</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border">12:45-13:30</td>
+                                    <td class="py-2 px-4 border">午後講義パート1</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border">13:30-14:15</td>
+                                    <td class="py-2 px-4 border">午後演習パート1</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border">14:15-15:00</td>
+                                    <td class="py-2 px-4 border">午後講義パート2</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border">15:00-15:10</td>
+                                    <td class="py-2 px-4 border">午後休憩</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border">15:10-15:55</td>
+                                    <td class="py-2 px-4 border">午後演習パート2</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border">15:55-17:00</td>
+                                    <td class="py-2 px-4 border">理解度チェック</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-4 border">17:00-17:45</td>
+                                    <td class="py-2 px-4 border">振り返り・質疑応答</td>
+                                </tr>
+                            </table>
+                            <p class="mt-2 text-gray-700">講義と演習を交互に繰り返しながら、着実に理解を深める設計になっています。また、週の最終日には週次の総合テストも実施します。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">学習教材はどのように提供されますか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">このカリキュラムでは、すべて無償で入手可能な教材・リソース・ツールを使用します。主な学習リソースは以下の通りです：</p>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li><strong>Javaプログラミング</strong>: Oracle公式ドキュメント、Java Tutorials、Baeldung、W3Schools</li>
+                                <li><strong>基本情報技術者試験</strong>: IPA公式シラバス、過去問題集、情報処理教科書</li>
+                                <li><strong>Web開発</strong>: MDN Web Docs、Spring公式ドキュメント、PostgreSQL Documentation</li>
+                                <li><strong>演習問題</strong>: HackerRank、Exercism、Project Euler、GitHub演習リポジトリ</li>
+                                <li><strong>開発環境</strong>: AdoptOpenJDK、Eclipse IDE、Visual Studio Code、PostgreSQL</li>
+                            </ul>
+                            <p class="mt-2 text-gray-700">詳細な教材リストとリンクは「<a href="resources.html" class="text-blue-600 hover:underline">学習リソース</a>」ページで確認できます。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 資格試験対策 -->
+            <div class="category-content" id="certification">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">Java Silver試験とは何ですか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">Java Silver試験（正式名称：Oracle Certified Professional Java SE 17 Developer）は、Oracle社が認定するJavaプログラミング言語の資格試験です。この資格は、Java言語の基本構文、オブジェクト指向概念、例外処理、コレクションAPI、モジュールシステムなどの知識と技術を証明するものです。IT業界でJava開発者としてのキャリアを築く上で価値のある資格として広く認知されています。</p>
+                            <p class="mt-2 text-gray-700">試験は、多肢選択式の問題で構成され、合格ラインは約65%です。1ヶ月目のカリキュラムでは、この試験に必要な知識を体系的に学び、模擬試験を繰り返し実施することで、確実に合格レベルに到達することを目指します。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">基本情報技術者試験とは何ですか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">基本情報技術者試験は、情報処理推進機構（IPA）が実施する国家資格試験です。ITエンジニアとして必要な基礎的な知識と技能を評価する試験で、IT業界で広く認知されています。試験範囲は、コンピュータシステム、ハードウェア、ソフトウェア、ネットワーク、データベース、セキュリティ、プロジェクトマネジメント、経営戦略など多岐にわたります。</p>
+                            <p class="mt-2 text-gray-700">試験は、午前の多肢選択式問題と午後の記述式問題で構成されており、それぞれ60%以上の正答率で合格です。2ヶ月目のカリキュラムでは、この試験範囲を体系的に学習し、特に苦手とされる午後問題の解答技法も習得します。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">資格試験の受験は必須ですか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">資格試験の受験は必須ではありません。カリキュラムは資格取得を一つの目標としていますが、実際に試験を受けるかどうかは各自の判断に委ねられます。ただし、以下の理由から資格取得を強くお勧めします：</p>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>客観的なスキル証明となり、就職・転職に有利</li>
+                                <li>試験対策を通じて、より体系的・網羅的に知識を習得できる</li>
+                                <li>明確な目標があることで、学習のモチベーション維持につながる</li>
+                                <li>特にIT未経験者にとって、最初のキャリアステップとして有効</li>
+                            </ul>
+                            <p class="mt-2 text-gray-700">カリキュラムを修了すれば、資格試験に合格するために必要な知識と技能は十分に身についているはずです。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">資格試験合格のコツはありますか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">資格試験合格のためのコツは以下の通りです：</p>
+                            <ol class="list-decimal pl-6 mt-2">
+                                <li><strong>体系的な学習：</strong>本カリキュラムに沿って、範囲を網羅的に学習する</li>
+                                <li><strong>反復練習：</strong>多くの問題に取り組み、解答パターンに慣れる</li>
+                                <li><strong>模擬試験の活用：</strong>カリキュラムで提供される模擬試験で本番の感覚をつかむ</li>
+                                <li><strong>弱点分析：</strong>間違えた問題を徹底的に復習し、弱点を克服する</li>
+                                <li><strong>時間管理：</strong>本番を想定した時間配分で問題を解く練習をする</li>
+                            </ol>
+                            <p class="mt-2 text-gray-700">特にJava Silverでは、コードの細かい動作の違いを問う問題が多いため、実際にコードを書いて動作確認する演習も重要です。基本情報試験では、午後問題の解答テクニック（設問文の読み方、解答の書き方）も習得しましょう。</p>
+                            <p class="mt-2 text-gray-700">両試験とも、カリキュラムの最終週で行う総合模擬試験と弱点強化で、合格レベルに到達できるよう設計されています。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- トラブルシューティング -->
+            <div class="category-content" id="troubleshooting">
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">開発環境のセットアップでエラーが発生した場合はどうすればよいですか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">開発環境のセットアップでエラーが発生した場合は、以下の手順で対処してください：</p>
+                            <ol class="list-decimal pl-6 mt-2">
+                                <li>エラーメッセージを正確に記録する</li>
+                                <li>各ツールの公式ドキュメントの「よくあるトラブル」セクションを確認する</li>
+                                <li>検索エンジンでエラーメッセージを検索する（StackOverflowなどの情報を参考に）</li>
+                                <li>環境変数（JAVA_HOME、PATHなど）の設定を確認する</li>
+                                <li>アンチウイルスソフトや権限の問題がないか確認する</li>
+                            </ol>
+                            <p class="mt-2 text-gray-700">Day 1の開発環境セットアップでは、一般的なトラブルとその解決方法についても解説しています。また、カリキュラム内の「環境構築トラブルシューティングガイド」も参照してください。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">学習内容についていけない場合はどうすればよいですか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">学習内容についていけないと感じた場合は、以下の対策を試してください：</p>
+                            <ol class="list-decimal pl-6 mt-2">
+                                <li><strong>スケジュールを調整する：</strong>無理に先に進まず、理解できていない部分を十分に復習する時間を取りましょう。1日のペースを0.5日に分けるなど、自分のペースに合わせて調整することも可能です。</li>
+                                <li><strong>追加の学習リソースを活用する：</strong>「学習リソース」ページには、難易度別の様々な教材が紹介されています。自分に合った説明を見つけて学習を進めましょう。</li>
+                                <li><strong>実践的なコーディングを増やす：</strong>特にプログラミングは、読むだけでなく実際にコードを書くことで理解が深まります。演習問題をより多く解いてみましょう。</li>
+                                <li><strong>基礎に立ち返る：</strong>応用的な内容で躓いている場合は、その前提となる基礎概念を再確認してみましょう。</li>
+                                <li><strong>オンラインコミュニティを活用する：</strong>プログラミング学習者のコミュニティ（Discord、Slackグループなど）に参加し、質問や相談をすることも効果的です。</li>
+                            </ol>
+                            <p class="mt-2 text-gray-700">プログラミング学習は一朝一夕には身につかないものです。焦らず、着実に進めることが大切です。「理解度チェック」の結果をもとに、自分の弱点を把握し、重点的に復習するサイクルを作りましょう。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">理解度チェックで良い結果が出ない場合はどうすればよいですか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">理解度チェックで良い結果が出ない場合は、以下のアプローチを試してください：</p>
+                            <ol class="list-decimal pl-6 mt-2">
+                                <li><strong>間違えた問題を分析する：</strong>どのような問題で間違えたのかを分析し、苦手な分野や概念を特定しましょう。</li>
+                                <li><strong>該当部分の講義内容を復習する：</strong>苦手な分野に関連する講義資料や教材を再度確認します。</li>
+                                <li><strong>追加の演習問題に取り組む：</strong>学習リソースページにある追加の演習問題で、その概念の理解を深めます。</li>
+                                <li><strong>実際にコードを書いて検証する：</strong>特にプログラミングの問題は、実際にコードを書いて動作を確認することで理解が深まります。</li>
+                                <li><strong>次の日に再チャレンジする：</strong>一度寝かせることで、脳が情報を整理し、翌日には理解が進んでいることがあります。</li>
+                            </ol>
+                            <p class="mt-2 text-gray-700">理解度チェックの目的は、あなたの弱点を発見し、改善することです。結果が悪いこと自体を悪いこととは考えず、どこを改善すべきかを知る機会と捉えましょう。また、同じ内容の復習テストが「復習資料」セクションにありますので、理解できるまで繰り返し挑戦してください。</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question p-4 flex justify-between items-center">
+                            <h3 class="text-lg font-medium text-gray-800">カリキュラムの学習中に見つかったバグやエラーはどこに報告すればよいですか？</h3>
+                            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+                        </div>
+                        <div class="faq-answer bg-blue-50 px-4 py-3">
+                            <p class="text-gray-700">カリキュラムの内容やサンプルコードにバグやエラーを見つけた場合は、以下の方法で報告してください：</p>
+                            <ol class="list-decimal pl-6 mt-2">
+                                <li>カリキュラムの各ページ下部にある「フィードバック送信」フォームを使用する</li>
+                                <li>問題の詳細（ページ番号、該当箇所、エラー内容など）を具体的に記載する</li>
+                                <li>可能であれば、スクリーンショットやエラーメッセージのコピーを添付する</li>
+                                <li>自分で解決策を見つけた場合は、その方法も記載する</li>
+                            </ol>
+                            <p class="mt-2 text-gray-700">報告いただいた内容は確認後、カリキュラムの改善に活用させていただきます。みなさんのフィードバックは、カリキュラムの質向上に大変役立ちますので、ぜひご協力ください。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">ITエンジニア育成カリキュラム</h3>
+                    <p class="text-gray-300">未経験から3ヶ月でITエンジニアを目指す総合カリキュラム。Java、基本情報技術、Web開発を体系的に学びます。</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">カリキュラム</h3>
+                    <ul class="space-y-2">
+                        <li><a href="../pages/month/month1.html" class="text-gray-300 hover:text-white">第1ヶ月目: Java Silver</a></li>
+                        <li><a href="../pages/month/month2.html" class="text-gray-300 hover:text-white">第2ヶ月目: 基本情報</a></li>
+                        <li><a href="../pages/month/month3.html" class="text-gray-300 hover:text-white">第3ヶ月目: Web開発</a></li>
+                        <li><a href="advanced.html" class="text-gray-300 hover:text-white">応用コース</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">リソース</h3>
+                    <ul class="space-y-2">
+                        <li><a href="resources.html" class="text-gray-300 hover:text-white">学習リソース</a></li>
+                        <li><a href="faq.html" class="text-gray-300 hover:text-white">FAQ</a></li>
+                        <li><a href="../../index.html" class="text-gray-300 hover:text-white">ホーム</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400">&copy; 2025 ITエンジニア育成カリキュラム All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQのトグル機能
+        document.addEventListener('DOMContentLoaded', function() {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    answer.classList.toggle('active');
+                    if (answer.classList.contains('active')) {
+                        icon.style.transform = 'rotate(180deg)';
+                    } else {
+                        icon.style.transform = 'rotate(0)';
+                    }
+                });
+            });
+            
+            // カテゴリタブ切り替え
+            const categoryTabs = document.querySelectorAll('.category-tab');
+            const categoryContents = document.querySelectorAll('.category-content');
+            
+            categoryTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    
+                    // タブのアクティブ状態を切り替え
+                    categoryTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // コンテンツの表示を切り替え
+                    categoryContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === category) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhjfPD%2BjbVh2PwG3T%2FUe8DXZDH%2BMh6Wh4e8oZY71zZFxkURg5MiHy%2BOJnfU1QR3ad5ymZ4%2BhQR%2BEPbVyHIMkGKvWZXByCPpaMtb8Q6Rw%2Fw1P7V9s%2FAmPzZGAQihH7JJqG%2Bv1rASxiXnhilN%2BCPxiGQzgGeeUOQ8eFlTJVIgfkDd0THvWxVOi98N0Tw68tHYtMjhHt%2Bi6%2Fi67%2FhW8jJpsTmLWi3OjO5uZRMvzEZVdVdt3KydcZMqnIE8ob1iHP52N3hn4LQdO2gwGCfpW7cGinDKafWhMyuOFTdM3FbT%2Fw0kc2VlHuxKpE3b%2FCNcUrLZOTn1int8nju0drPWCCq4bjeSvcQMEI7UQ0uS8Q1HFlXB59pwwUOpCrBD7KnuOFUJHpylkpR%2F1F5dua8yjicUIRbPYYu9UVq2IodqZiLMAUp2PI6PyoCGCNZmbn8wbuPOV7aY5Gq14a6oZ4iaJ1EtAwTuN0U3J%2B0zxZNCfgGcyMIDo";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhjfPD+jbVh2PwG3T/Ue8DXZDH+Mh6Wh4e8oZY71zZFxkURg5MiHy+OJnfU1QR3ad5ymZ4+hQR+EPbVyHIMkGKvWZXByCPpaMtb8Q6Rw/w1P7V9s/AmPzZGAQihH7JJqG+v1rASxiXnhilN+CPxiGQzgGeeUOQ8eFlTJVIgfkDd0THvWxVOi98N0Tw68tHYtMjhHt+i6/i67/hW8jJpsTmLWi3OjO5uZRMvzEZVdVdt3KydcZMqnIE8ob1iHP52N3hn4LQdO2gwGCfpW7cGinDKafWhMyuOFTdM3FbT/w0kc2VlHuxKpE3b/CNcUrLZOTn1int8nju0drPWCCq4bjeSvcQMEI7UQ0uS8Q1HFlXB59pwwUOpCrBD7KnuOFUJHpylkpR/1F5dua8yjicUIRbPYYu9UVq2IodqZiLMAUp2PI6PyoCGCNZmbn8wbuPOV7aY5Gq14a6oZ4iaJ1EtAwTuN0U3J+0zxZNCfgGcyMIDo";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

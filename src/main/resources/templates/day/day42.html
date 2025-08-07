@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 42: RDBの基礎・PostgreSQL</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .code-block {
+            background-color: #1a202c;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+        .sql-highlight {
+            color: #68d391;
+        }
+        .keyword-highlight {
+            color: #fbb6ce;
+        }
+        .string-highlight {
+            color: #90cdf4;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <script defer src="../../js/day-navigation.js"></script>
+    <!-- Header -->
+    <header class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-4xl font-bold mb-2">
+                        <i class="fas fa-database mr-3"></i>Day 42: RDBの基礎・PostgreSQL
+                    </h1>
+                    <p class="text-xl opacity-90">関係データベースの概念理解とPostgreSQLによる実践的データベース操作</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-2xl font-bold">42日目</div>
+                    <div class="text-sm opacity-75">第10週第2日目</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex space-x-8 py-4">
+                <a href="#objectives" class="text-blue-600 hover:text-blue-800 font-medium">学習目標</a>
+                <a href="#schedule" class="text-blue-600 hover:text-blue-800 font-medium">スケジュール</a>
+                <a href="#rdb-concepts" class="text-blue-600 hover:text-blue-800 font-medium">RDB概念</a>
+                <a href="#postgresql" class="text-blue-600 hover:text-blue-800 font-medium">PostgreSQL</a>
+                <a href="#sql-basics" class="text-blue-600 hover:text-blue-800 font-medium">SQL基礎</a>
+                <a href="#exercises" class="text-blue-600 hover:text-blue-800 font-medium">演習</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Main Content -->
+            <div class="lg:col-span-3">
+                <!-- Learning Objectives -->
+                <section id="objectives" class="mb-12">
+                    <h2 class="text-3xl font-bold text-blue-800 mb-6">
+                        <i class="fas fa-target mr-3"></i>学習目標
+                    </h2>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                    <div>
+                                        <h3 class="font-semibold">関係データベースの概念理解</h3>
+                                        <p class="text-gray-600 text-sm">RDBMS、テーブル、リレーションの基本概念を理解する</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                    <div>
+                                        <h3 class="font-semibold">データベース設計の基本原則</h3>
+                                        <p class="text-gray-600 text-sm">正規化、エンティティ関連図（ER図）の作成方法を習得する</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                    <div>
+                                        <h3 class="font-semibold">PostgreSQL環境構築</h3>
+                                        <p class="text-gray-600 text-sm">PostgreSQLのインストールと基本設定を実践する</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3">
+                                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                    <div>
+                                        <h3 class="font-semibold">基本的なSQL操作</h3>
+                                        <p class="text-gray-600 text-sm">CRUD操作、制約、インデックスの実装を理解する</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Schedule -->
+                <section id="schedule" class="mb-12">
+                    <h2 class="text-3xl font-bold text-blue-800 mb-6">
+                        <i class="fas fa-clock mr-3"></i>詳細スケジュール
+                    </h2>
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="divide-y divide-gray-200">
+                            <div class="p-6 bg-blue-50">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-lg font-semibold text-blue-800">10:00-10:15 オリエンテーション</h3>
+                                    <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">15分</span>
+                                </div>
+                                <p class="text-gray-600 mt-2">データベースの重要性と本日の学習内容説明</p>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-lg font-semibold">10:15-11:00 関係データベースの概念</h3>
+                                    <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">45分</span>
+                                </div>
+                                <p class="text-gray-600 mt-2">RDBMS、テーブル、リレーションシップ、ACID特性の理解</p>
+                            </div>
+                            <div class="p-6 bg-gray-50">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-lg font-semibold">11:00-11:45 データベース設計の基本原則</h3>
+                                    <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">45分</span>
+                                </div>
+                                <p class="text-gray-600 mt-2">正規化（第1～3正規形）、ER図の作成、制約の設計</p>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-lg font-semibold">12:45-13:30 PostgreSQL環境構築</h3>
+                                    <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">45分</span>
+                                </div>
+                                <p class="text-gray-600 mt-2">PostgreSQLインストール、pgAdmin設定、初期設定</p>
+                            </div>
+                            <div class="p-6 bg-gray-50">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-lg font-semibold">13:30-14:15 基本的なSQL操作実習</h3>
+                                    <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">45分</span>
+                                </div>
+                                <p class="text-gray-600 mt-2">データベース・テーブル作成、CRUD操作の実践</p>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-lg font-semibold">14:15-15:00 制約・インデックス・演習</h3>
+                                    <span class="bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">45分</span>
+                                </div>
+                                <p class="text-gray-600 mt-2">主キー・外部キー制約、インデックス作成、総合演習</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RDB Concepts -->
+                <section id="rdb-concepts" class="mb-12">
+                    <h2 class="text-3xl font-bold text-blue-800 mb-6">
+                        <i class="fas fa-sitemap mr-3"></i>関係データベースの基本概念
+                    </h2>
+
+                    <!-- RDBMS Overview -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4">RDBMS（関係データベース管理システム）とは</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-blue-700 mb-3">基本特徴</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-start space-x-2">
+                                        <i class="fas fa-table text-blue-500 mt-1"></i>
+                                        <span><strong>テーブル構造：</strong>データを行と列の形式で格納</span>
+                                    </li>
+                                    <li class="flex items-start space-x-2">
+                                        <i class="fas fa-link text-blue-500 mt-1"></i>
+                                        <span><strong>リレーションシップ：</strong>テーブル間の関係を定義</span>
+                                    </li>
+                                    <li class="flex items-start space-x-2">
+                                        <i class="fas fa-code text-blue-500 mt-1"></i>
+                                        <span><strong>SQL言語：</strong>標準化されたクエリ言語</span>
+                                    </li>
+                                    <li class="flex items-start space-x-2">
+                                        <i class="fas fa-shield-alt text-blue-500 mt-1"></i>
+                                        <span><strong>データ整合性：</strong>制約による整合性保証</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-700 mb-3">ACID特性</h4>
+                                <div class="space-y-3">
+                                    <div class="border-l-4 border-green-400 pl-4">
+                                        <div class="font-semibold">Atomicity（原子性）</div>
+                                        <div class="text-sm text-gray-600">トランザクションは全て実行されるか、全て実行されないか</div>
+                                    </div>
+                                    <div class="border-l-4 border-blue-400 pl-4">
+                                        <div class="font-semibold">Consistency（一貫性）</div>
+                                        <div class="text-sm text-gray-600">データベースは常に整合性のとれた状態を保つ</div>
+                                    </div>
+                                    <div class="border-l-4 border-purple-400 pl-4">
+                                        <div class="font-semibold">Isolation（独立性）</div>
+                                        <div class="text-sm text-gray-600">同時実行されるトランザクションは互いに影響しない</div>
+                                    </div>
+                                    <div class="border-l-4 border-red-400 pl-4">
+                                        <div class="font-semibold">Durability（永続性）</div>
+                                        <div class="text-sm text-gray-600">確定したトランザクションの結果は永続的に保存</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Database Design -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4">データベース設計の基本原則（正規化）</h3>
+                        <div class="space-y-6">
+                            <div class="bg-red-50 border-l-4 border-red-400 p-4">
+                                <h4 class="font-semibold text-red-800 mb-2">第1正規形（1NF）</h4>
+                                <p class="text-red-700 mb-3">各列には原子値（分割不可能な値）のみを格納する</p>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                                    <div>
+                                        <div class="font-semibold text-red-600 mb-2">❌ 非正規化テーブル</div>
+                                        <div class="code-block p-3 text-white">
+                                            <div>学生ID | 学生名 | 履修科目</div>
+                                            <div>001    | 田中   | 数学,物理,化学</div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold text-green-600 mb-2">✅ 1NF対応</div>
+                                        <div class="code-block p-3 text-white">
+                                            <div>学生ID | 学生名 | 履修科目</div>
+                                            <div>001    | 田中   | 数学</div>
+                                            <div>001    | 田中   | 物理</div>
+                                            <div>001    | 田中   | 化学</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                                <h4 class="font-semibold text-yellow-800 mb-2">第2正規形（2NF）</h4>
+                                <p class="text-yellow-700 mb-3">1NFかつ非キー属性が主キーに完全関数従属する</p>
+                                <p class="text-sm text-yellow-600">部分関数従属を排除し、テーブルを分割する</p>
+                            </div>
+
+                            <div class="bg-green-50 border-l-4 border-green-400 p-4">
+                                <h4 class="font-semibold text-green-800 mb-2">第3正規形（3NF）</h4>
+                                <p class="text-green-700 mb-3">2NFかつ非キー属性間の推移的関数従属がない</p>
+                                <p class="text-sm text-green-600">間接的な依存関係を解消し、データの重複を最小化</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PostgreSQL -->
+                <section id="postgresql" class="mb-12">
+                    <h2 class="text-3xl font-bold text-blue-800 mb-6">
+                        <i class="fas fa-elephant mr-3"></i>PostgreSQL環境構築
+                    </h2>
+
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4">PostgreSQLとは</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-blue-700 mb-3">特徴</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-center space-x-2">
+                                        <i class="fas fa-check text-green-500"></i>
+                                        <span>オープンソースの高性能RDBMS</span>
+                                    </li>
+                                    <li class="flex items-center space-x-2">
+                                        <i class="fas fa-check text-green-500"></i>
+                                        <span>SQL標準への高い準拠性</span>
+                                    </li>
+                                    <li class="flex items-center space-x-2">
+                                        <i class="fas fa-check text-green-500"></i>
+                                        <span>拡張性とカスタマイズ性</span>
+                                    </li>
+                                    <li class="flex items-center space-x-2">
+                                        <i class="fas fa-check text-green-500"></i>
+                                        <span>多様なデータ型サポート</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-700 mb-3">主な用途</h4>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-center space-x-2">
+                                        <i class="fas fa-globe text-blue-500"></i>
+                                        <span>Webアプリケーション</span>
+                                    </li>
+                                    <li class="flex items-center space-x-2">
+                                        <i class="fas fa-chart-bar text-blue-500"></i>
+                                        <span>データ分析システム</span>
+                                    </li>
+                                    <li class="flex items-center space-x-2">
+                                        <i class="fas fa-building text-blue-500"></i>
+                                        <span>エンタープライズアプリ</span>
+                                    </li>
+                                    <li class="flex items-center space-x-2">
+                                        <i class="fas fa-map text-blue-500"></i>
+                                        <span>地理情報システム</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4">インストール手順</h3>
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                <h4 class="font-semibold text-blue-800 mb-2">
+                                    <i class="fab fa-windows mr-2"></i>Windows
+                                </h4>
+                                <ol class="list-decimal list-inside space-y-1 text-sm text-blue-700">
+                                    <li>PostgreSQL公式サイトからインストーラーをダウンロード</li>
+                                    <li>インストーラーを実行し、指示に従ってインストール</li>
+                                    <li>スーパーユーザー（postgres）のパスワードを設定</li>
+                                    <li>pgAdmin 4も同時にインストール</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-semibold text-gray-800 mb-2">
+                                    <i class="fab fa-apple mr-2"></i>macOS
+                                </h4>
+                                <div class="code-block p-3 text-white text-sm">
+                                    <div class="sql-highlight"># Homebrewを使用</div>
+                                    <div>brew install postgresql</div>
+                                    <div>brew services start postgresql</div>
+                                </div>
+                            </div>
+
+                            <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                                <h4 class="font-semibold text-orange-800 mb-2">
+                                    <i class="fab fa-linux mr-2"></i>Ubuntu/Debian
+                                </h4>
+                                <div class="code-block p-3 text-white text-sm">
+                                    <div>sudo apt update</div>
+                                    <div>sudo apt install postgresql postgresql-contrib</div>
+                                    <div>sudo systemctl start postgresql</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-4">基本設定と接続確認</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold mb-2">1. PostgreSQLサービスの確認</h4>
+                                <div class="code-block p-4 text-white">
+                                    <div class="sql-highlight"># PostgreSQLサービス状態確認</div>
+                                    <div>sudo systemctl status postgresql</div>
+                                    <div></div>
+                                    <div class="sql-highlight"># PostgreSQLに接続</div>
+                                    <div>sudo -u postgres psql</div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold mb-2">2. 基本コマンド</h4>
+                                <div class="code-block p-4 text-white">
+                                    <div class="keyword-highlight">\l</div>           <span class="sql-highlight">-- データベース一覧表示</span>
+                                    <div class="keyword-highlight">\dt</div>          <span class="sql-highlight">-- テーブル一覧表示</span>
+                                    <div class="keyword-highlight">\d テーブル名</div> <span class="sql-highlight">-- テーブル構造表示</span>
+                                    <div class="keyword-highlight">\q</div>           <span class="sql-highlight">-- PostgreSQL終了</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold mb-2">3. 新しいデータベースとユーザーの作成</h4>
+                                <div class="code-block p-4 text-white">
+                                    <div class="sql-highlight">-- 新しいデータベースを作成</div>
+                                    <div><span class="keyword-highlight">CREATE DATABASE</span> <span class="string-highlight">learning_db</span>;</div>
+                                    <div></div>
+                                    <div class="sql-highlight">-- 新しいユーザーを作成</div>
+                                    <div><span class="keyword-highlight">CREATE USER</span> <span class="string-highlight">student</span> <span class="keyword-highlight">WITH PASSWORD</span> <span class="string-highlight">'password123'</span>;</div>
+                                    <div></div>
+                                    <div class="sql-highlight">-- ユーザーに権限を付与</div>
+                                    <div><span class="keyword-highlight">GRANT ALL PRIVILEGES ON DATABASE</span> <span class="string-highlight">learning_db</span> <span class="keyword-highlight">TO</span> <span class="string-highlight">student</span>;</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SQL Basics -->
+                <section id="sql-basics" class="mb-12">
+                    <h2 class="text-3xl font-bold text-blue-800 mb-6">
+                        <i class="fas fa-code mr-3"></i>基本的なSQL操作
+                    </h2>
+
+                    <!-- Database and Table Creation -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4">データベース・テーブル作成</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold mb-2">1. データベース作成</h4>
+                                <div class="code-block p-4 text-white">
+                                    <div class="sql-highlight">-- データベース作成</div>
+                                    <div><span class="keyword-highlight">CREATE DATABASE</span> <span class="string-highlight">company_db</span> <span class="keyword-highlight">WITH ENCODING</span> <span class="string-highlight">'UTF8'</span>;</div>
+                                    <div></div>
+                                    <div class="sql-highlight">-- データベースに接続</div>
+                                    <div><span class="keyword-highlight">\c</span> <span class="string-highlight">company_db</span></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold mb-2">2. テーブル作成例</h4>
+                                <div class="code-block p-4 text-white">
+                                    <div class="sql-highlight">-- 社員テーブル作成</div>
+                                    <div><span class="keyword-highlight">CREATE TABLE</span> employees (</div>
+                                    <div>    employee_id <span class="keyword-highlight">SERIAL PRIMARY KEY</span>,</div>
+                                    <div>    first_name <span class="keyword-highlight">VARCHAR</span>(50) <span class="keyword-highlight">NOT NULL</span>,</div>
+                                    <div>    last_name <span class="keyword-highlight">VARCHAR</span>(50) <span class="keyword-highlight">NOT NULL</span>,</div>
+                                    <div>    email <span class="keyword-highlight">VARCHAR</span>(100) <span class="keyword-highlight">UNIQUE NOT NULL</span>,</div>
+                                    <div>    hire_date <span class="keyword-highlight">DATE DEFAULT CURRENT_DATE</span>,</div>
+                                    <div>    salary <span class="keyword-highlight">DECIMAL</span>(10, 2) <span class="keyword-highlight">CHECK</span> (salary > 0),</div>
+                                    <div>    department_id <span class="keyword-highlight">INTEGER</span></div>
+                                    <div>);</div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold mb-2">3. 部門テーブル作成</h4>
+                                <div class="code-block p-4 text-white">
+                                    <div class="sql-highlight">-- 部門テーブル作成</div>
+                                    <div><span class="keyword-highlight">CREATE TABLE</span> departments (</div>
+                                    <div>    department_id <span class="keyword-highlight">SERIAL PRIMARY KEY</span>,</div>
+                                    <div>    department_name <span class="keyword-highlight">VARCHAR</span>(100) <span class="keyword-highlight">NOT NULL</span>,</div>
+                                    <div>    location <span class="keyword-highlight">VARCHAR</span>(100)</div>
+                                    <div>);</div>
+                                    <div></div>
+                                    <div class="sql-highlight">-- 外部キー制約追加</div>
+                                    <div><span class="keyword-highlight">ALTER TABLE</span> employees</div>
+                                    <div><span class="keyword-highlight">ADD CONSTRAINT</span> fk_department</div>
+                                    <div><span class="keyword-highlight">FOREIGN KEY</span> (department_id) <span class="keyword-highlight">REFERENCES</span> departments(department_id);</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CRUD Operations -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4">CRUD操作（作成・読取・更新・削除）</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-green-600 mb-2">
+                                    <i class="fas fa-plus-circle mr-2"></i>CREATE（挿入）
+                                </h4>
+                                <div class="code-block p-3 text-white text-sm">
+                                    <div class="sql-highlight">-- 部門データ挿入</div>
+                                    <div><span class="keyword-highlight">INSERT INTO</span> departments</div>
+                                    <div>(department_name, location)</div>
+                                    <div><span class="keyword-highlight">VALUES</span></div>
+                                    <div>(<span class="string-highlight">'営業部'</span>, <span class="string-highlight">'東京'</span>),</div>
+                                    <div>(<span class="string-highlight">'開発部'</span>, <span class="string-highlight">'大阪'</span>);</div>
+                                    <div></div>
+                                    <div class="sql-highlight">-- 社員データ挿入</div>
+                                    <div><span class="keyword-highlight">INSERT INTO</span> employees</div>
+                                    <div>(first_name, last_name, email, salary, department_id)</div>
+                                    <div><span class="keyword-highlight">VALUES</span>(<span class="string-highlight">'太郎'</span>, <span class="string-highlight">'田中'</span>, <span class="string-highlight">'tanaka@company.com'</span>, 350000, 1);</div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold text-blue-600 mb-2">
+                                    <i class="fas fa-search mr-2"></i>READ（読取）
+                                </h4>
+                                <div class="code-block p-3 text-white text-sm">
+                                    <div class="sql-highlight">-- 全データ取得</div>
+                                    <div><span class="keyword-highlight">SELECT</span> * <span class="keyword-highlight">FROM</span> employees;</div>
+                                    <div></div>
+                                    <div class="sql-highlight">-- 条件付き取得</div>
+                                    <div><span class="keyword-highlight">SELECT</span> first_name, last_name, salary</div>
+                                    <div><span class="keyword-highlight">FROM</span> employees</div>
+                                    <div><span class="keyword-highlight">WHERE</span> salary > 300000;</div>
+                                    <div></div>
+                                    <div class="sql-highlight">-- 結合（JOIN）</div>
+                                    <div><span class="keyword-highlight">SELECT</span> e.first_name, d.department_name</div>
+                                    <div><span class="keyword-highlight">FROM</span> employees e</div>
+                                    <div><span class="keyword-highlight">JOIN</span> departments d</div>
+                                    <div><span class="keyword-highlight">ON</span> e.department_id = d.department_id;</div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold text-yellow-600 mb-2">
+                                    <i class="fas fa-edit mr-2"></i>UPDATE（更新）
+                                </h4>
+                                <div class="code-block p-3 text-white text-sm">
+                                    <div class="sql-highlight">-- 単一レコード更新</div>
+                                    <div><span class="keyword-highlight">UPDATE</span> employees</div>
+                                    <div><span class="keyword-highlight">SET</span> salary = 380000</div>
+                                    <div><span class="keyword-highlight">WHERE</span> employee_id = 1;</div>
+                                    <div></div>
+                                    <div class="sql-highlight">-- 条件付き一括更新</div>
+                                    <div><span class="keyword-highlight">UPDATE</span> employees</div>
+                                    <div><span class="keyword-highlight">SET</span> salary = salary * 1.05</div>
+                                    <div><span class="keyword-highlight">WHERE</span> department_id = 1;</div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold text-red-600 mb-2">
+                                    <i class="fas fa-trash mr-2"></i>DELETE（削除）
+                                </h4>
+                                <div class="code-block p-3 text-white text-sm">
+                                    <div class="sql-highlight">-- 条件付き削除</div>
+                                    <div><span class="keyword-highlight">DELETE FROM</span> employees</div>
+                                    <div><span class="keyword-highlight">WHERE</span> salary < 200000;</div>
+                                    <div></div>
+                                    <div class="sql-highlight">-- 全データ削除（注意！）</div>
+                                    <div><span class="keyword-highlight">DELETE FROM</span> employees;</div>
+                                    <div></div>
+                                    <div class="sql-highlight">-- テーブル削除</div>
+                                    <div><span class="keyword-highlight">DROP TABLE</span> employees;</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Constraints and Indexes -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-4">制約とインデックス</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-semibold text-blue-700 mb-3">主要な制約の種類</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="space-y-3">
+                                        <div class="border-l-4 border-blue-400 pl-4">
+                                            <div class="font-semibold">PRIMARY KEY</div>
+                                            <div class="text-sm text-gray-600">主キー制約（一意かつ非NULL）</div>
+                                        </div>
+                                        <div class="border-l-4 border-green-400 pl-4">
+                                            <div class="font-semibold">FOREIGN KEY</div>
+                                            <div class="text-sm text-gray-600">外部キー制約（参照整合性）</div>
+                                        </div>
+                                        <div class="border-l-4 border-purple-400 pl-4">
+                                            <div class="font-semibold">UNIQUE</div>
+                                            <div class="text-sm text-gray-600">一意制約（重複値不可）</div>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-3">
+                                        <div class="border-l-4 border-yellow-400 pl-4">
+                                            <div class="font-semibold">NOT NULL</div>
+                                            <div class="text-sm text-gray-600">非NULL制約（空値不可）</div>
+                                        </div>
+                                        <div class="border-l-4 border-red-400 pl-4">
+                                            <div class="font-semibold">CHECK</div>
+                                            <div class="text-sm text-gray-600">チェック制約（条件指定）</div>
+                                        </div>
+                                        <div class="border-l-4 border-gray-400 pl-4">
+                                            <div class="font-semibold">DEFAULT</div>
+                                            <div class="text-sm text-gray-600">デフォルト値設定</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold text-blue-700 mb-3">インデックスの作成</h4>
+                                <div class="code-block p-4 text-white">
+                                    <div class="sql-highlight">-- 単一カラムインデックス</div>
+                                    <div><span class="keyword-highlight">CREATE INDEX</span> idx_employee_email <span class="keyword-highlight">ON</span> employees(email);</div>
+                                    <div></div>
+                                    <div class="sql-highlight">-- 複合インデックス</div>
+                                    <div><span class="keyword-highlight">CREATE INDEX</span> idx_name_dept <span class="keyword-highlight">ON</span> employees(last_name, department_id);</div>
+                                    <div></div>
+                                    <div class="sql-highlight">-- ユニークインデックス</div>
+                                    <div><span class="keyword-highlight">CREATE UNIQUE INDEX</span> idx_unique_email <span class="keyword-highlight">ON</span> employees(email);</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Exercises -->
+                <section id="exercises" class="mb-12">
+                    <h2 class="text-3xl font-bold text-blue-800 mb-6">
+                        <i class="fas fa-dumbbell mr-3"></i>実践演習
+                    </h2>
+
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4">演習1: 図書館管理システムの設計</h3>
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                            <h4 class="font-semibold text-blue-800 mb-2">要件</h4>
+                            <ul class="text-blue-700 space-y-1 text-sm">
+                                <li>• 図書情報（書籍ID、タイトル、著者、出版社、出版年、ISBN）</li>
+                                <li>• 利用者情報（利用者ID、氏名、メールアドレス、電話番号、登録日）</li>
+                                <li>• 貸出情報（貸出ID、書籍ID、利用者ID、貸出日、返却予定日、返却日）</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold mb-2">課題1: テーブル設計</h4>
+                                <div class="bg-gray-100 p-4 rounded">
+                                    <p class="text-gray-700 mb-2">上記要件に基づいて、適切な正規化を行ったテーブル構造を設計してください。</p>
+                                    <div class="mt-4">
+                                        <button onclick="toggleAnswer('answer1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm">
+                                            回答例を表示
+                                        </button>
+                                        <div id="answer1" class="hidden mt-4">
+                                            <div class="code-block p-4 text-white text-sm">
+                                                <div class="sql-highlight">-- 図書テーブル</div>
+                                                <div><span class="keyword-highlight">CREATE TABLE</span> books (</div>
+                                                <div>    book_id <span class="keyword-highlight">SERIAL PRIMARY KEY</span>,</div>
+                                                <div>    title <span class="keyword-highlight">VARCHAR</span>(200) <span class="keyword-highlight">NOT NULL</span>,</div>
+                                                <div>    author <span class="keyword-highlight">VARCHAR</span>(100) <span class="keyword-highlight">NOT NULL</span>,</div>
+                                                <div>    publisher <span class="keyword-highlight">VARCHAR</span>(100),</div>
+                                                <div>    publication_year <span class="keyword-highlight">INTEGER</span>,</div>
+                                                <div>    isbn <span class="keyword-highlight">VARCHAR</span>(20) <span class="keyword-highlight">UNIQUE</span></div>
+                                                <div>);</div>
+                                                <div></div>
+                                                <div class="sql-highlight">-- 利用者テーブル</div>
+                                                <div><span class="keyword-highlight">CREATE TABLE</span> users (</div>
+                                                <div>    user_id <span class="keyword-highlight">SERIAL PRIMARY KEY</span>,</div>
+                                                <div>    name <span class="keyword-highlight">VARCHAR</span>(100) <span class="keyword-highlight">NOT NULL</span>,</div>
+                                                <div>    email <span class="keyword-highlight">VARCHAR</span>(100) <span class="keyword-highlight">UNIQUE NOT NULL</span>,</div>
+                                                <div>    phone <span class="keyword-highlight">VARCHAR</span>(20),</div>
+                                                <div>    registration_date <span class="keyword-highlight">DATE DEFAULT CURRENT_DATE</span></div>
+                                                <div>);</div>
+                                                <div></div>
+                                                <div class="sql-highlight">-- 貸出テーブル</div>
+                                                <div><span class="keyword-highlight">CREATE TABLE</span> loans (</div>
+                                                <div>    loan_id <span class="keyword-highlight">SERIAL PRIMARY KEY</span>,</div>
+                                                <div>    book_id <span class="keyword-highlight">INTEGER REFERENCES</span> books(book_id),</div>
+                                                <div>    user_id <span class="keyword-highlight">INTEGER REFERENCES</span> users(user_id),</div>
+                                                <div>    loan_date <span class="keyword-highlight">DATE DEFAULT CURRENT_DATE</span>,</div>
+                                                <div>    due_date <span class="keyword-highlight">DATE NOT NULL</span>,</div>
+                                                <div>    return_date <span class="keyword-highlight">DATE</span></div>
+                                                <div>);</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold mb-2">課題2: データ操作クエリ</h4>
+                                <div class="bg-gray-100 p-4 rounded">
+                                    <p class="text-gray-700 mb-2">以下のクエリを作成してください：</p>
+                                    <ol class="list-decimal list-inside text-gray-600 space-y-1 text-sm mb-4">
+                                        <li>現在貸出中の図書一覧（返却日がNULL）</li>
+                                        <li>特定の利用者の貸出履歴</li>
+                                        <li>延滞中の貸出（返却予定日を過ぎて未返却）</li>
+                                    </ol>
+                                    <div class="mt-4">
+                                        <button onclick="toggleAnswer('answer2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 text-sm">
+                                            回答例を表示
+                                        </button>
+                                        <div id="answer2" class="hidden mt-4">
+                                            <div class="code-block p-4 text-white text-sm">
+                                                <div class="sql-highlight">-- 1. 現在貸出中の図書一覧</div>
+                                                <div><span class="keyword-highlight">SELECT</span> b.title, b.author, u.name, l.loan_date, l.due_date</div>
+                                                <div><span class="keyword-highlight">FROM</span> loans l</div>
+                                                <div><span class="keyword-highlight">JOIN</span> books b <span class="keyword-highlight">ON</span> l.book_id = b.book_id</div>
+                                                <div><span class="keyword-highlight">JOIN</span> users u <span class="keyword-highlight">ON</span> l.user_id = u.user_id</div>
+                                                <div><span class="keyword-highlight">WHERE</span> l.return_date <span class="keyword-highlight">IS NULL</span>;</div>
+                                                <div></div>
+                                                <div class="sql-highlight">-- 2. 特定利用者の貸出履歴</div>
+                                                <div><span class="keyword-highlight">SELECT</span> b.title, l.loan_date, l.due_date, l.return_date</div>
+                                                <div><span class="keyword-highlight">FROM</span> loans l</div>
+                                                <div><span class="keyword-highlight">JOIN</span> books b <span class="keyword-highlight">ON</span> l.book_id = b.book_id</div>
+                                                <div><span class="keyword-highlight">WHERE</span> l.user_id = 1</div>
+                                                <div><span class="keyword-highlight">ORDER BY</span> l.loan_date <span class="keyword-highlight">DESC</span>;</div>
+                                                <div></div>
+                                                <div class="sql-highlight">-- 3. 延滞中の貸出</div>
+                                                <div><span class="keyword-highlight">SELECT</span> b.title, u.name, l.due_date</div>
+                                                <div><span class="keyword-highlight">FROM</span> loans l</div>
+                                                <div><span class="keyword-highlight">JOIN</span> books b <span class="keyword-highlight">ON</span> l.book_id = b.book_id</div>
+                                                <div><span class="keyword-highlight">JOIN</span> users u <span class="keyword-highlight">ON</span> l.user_id = u.user_id</div>
+                                                <div><span class="keyword-highlight">WHERE</span> l.return_date <span class="keyword-highlight">IS NULL</span></div>
+                                                <div><span class="keyword-highlight">AND</span> l.due_date < <span class="keyword-highlight">CURRENT_DATE</span>;</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quiz -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-4">理解度クイズ</h3>
+                        <div class="space-y-6">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3">Q1. ACID特性について、正しい説明を選択してください。</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="q1" value="a" class="text-blue-600">
+                                        <span>A. Atomicity（原子性）は、データベースが常に整合性のとれた状態を保つ特性</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="q1" value="b" class="text-blue-600">
+                                        <span>B. Consistency（一貫性）は、トランザクションが全て実行されるか全て実行されないかの特性</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="q1" value="c" class="text-blue-600">
+                                        <span>C. Isolation（独立性）は、同時実行されるトランザクションが互いに影響しない特性</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="q1" value="d" class="text-blue-600">
+                                        <span>D. Durability（永続性）は、データの重複を排除する特性</span>
+                                    </label>
+                                </div>
+                                <button onclick="showQuizAnswer('q1-answer')" class="mt-3 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 text-sm">
+                                    回答を表示
+                                </button>
+                                <div id="q1-answer" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded">
+                                    <p class="font-semibold text-green-800">正解: C</p>
+                                    <p class="text-green-700 text-sm mt-2">
+                                        Isolation（独立性）は、同時に実行される複数のトランザクションが互いに影響を与えない特性です。
+                                        他の選択肢は各特性の説明が間違っています。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <h4 class="font-semibold mb-3">Q2. 第1正規形（1NF）の条件として正しいものはどれですか？</h4>
+                                <div class="space-y-2">
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="q2" value="a" class="text-blue-600">
+                                        <span>A. 全ての非キー属性が主キーに完全関数従属する</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="q2" value="b" class="text-blue-600">
+                                        <span>B. 各列には原子値（分割不可能な値）のみを格納する</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="q2" value="c" class="text-blue-600">
+                                        <span>C. 非キー属性間の推移的関数従属がない</span>
+                                    </label>
+                                    <label class="flex items-center space-x-2">
+                                        <input type="radio" name="q2" value="d" class="text-blue-600">
+                                        <span>D. 全ての属性が主キーの一部である</span>
+                                    </label>
+                                </div>
+                                <button onclick="showQuizAnswer('q2-answer')" class="mt-3 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 text-sm">
+                                    回答を表示
+                                </button>
+                                <div id="q2-answer" class="hidden mt-4 p-4 bg-green-50 border border-green-200 rounded">
+                                    <p class="font-semibold text-green-800">正解: B</p>
+                                    <p class="text-green-700 text-sm mt-2">
+                                        第1正規形（1NF）の条件は、各列に原子値（分割不可能な値）のみを格納することです。
+                                        例えば、「数学,物理,化学」のような複数値は1NFに違反します。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-1">
+                <div class="sticky top-20">
+                    <!-- Progress -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="font-semibold mb-4">学習進捗</h3>
+                        <div class="text-center mb-4">
+                            <div class="text-3xl font-bold text-blue-600">42/54</div>
+                            <div class="text-gray-600">日目</div>
+                        </div>
+                        <div class="bg-gray-200 rounded-full h-3 mb-4">
+                            <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full" style="width: 77.8%"></div>
+                        </div>
+                        <div class="text-center text-gray-600 text-sm">77.8% 完了</div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <h3 class="font-semibold mb-4">クイックリンク</h3>
+                        <div class="space-y-3">
+                            <a href="#postgresql" class="flex items-center space-x-3 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-database w-4"></i>
+                                <span>PostgreSQL設定</span>
+                            </a>
+                            <a href="#sql-basics" class="flex items-center space-x-3 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-code w-4"></i>
+                                <span>SQL基本操作</span>
+                            </a>
+                            <a href="#exercises" class="flex items-center space-x-3 text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-dumbbell w-4"></i>
+                                <span>実践演習</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Resources -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="font-semibold mb-4">参考資料</h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-book text-blue-500"></i>
+                                <span>PostgreSQL公式ドキュメント</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-video text-red-500"></i>
+                                <span>SQL基礎チュートリアル</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-tools text-green-500"></i>
+                                <span>pgAdmin使用ガイド</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-database text-purple-500"></i>
+                                <span>データベース設計ベストプラクティス</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">次のステップ</h3>
+                    <p class="text-gray-300 mb-4">明日はPostgreSQLの応用SQL、JOIN操作、トランザクション管理について学習します。</p>
+                    <a href="#" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 inline-block">
+                        Day 43へ進む →
+                    </a>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">重要ポイント</h3>
+                    <ul class="text-gray-300 space-y-2 text-sm">
+                        <li>• 関係データベースの基本概念</li>
+                        <li>• 正規化によるデータ整合性</li>
+                        <li>• PostgreSQLの基本操作</li>
+                        <li>• 制約による品質保証</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">学習サポート</h3>
+                    <p class="text-gray-300 text-sm">
+                        質問や疑問点があれば、いつでもサポートチームにお気軽にお問い合わせください。
+                    </p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAnswer(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('hidden');
+        }
+
+        function showQuizAnswer(id) {
+            const element = document.getElementById(id);
+            element.classList.remove('hidden');
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDgafQZ5fyqzGN796CVyodOubs0tvTjgYCuIvOpeJ8AMv3yhRVkSaDBYONoGkYav9yqABg9VqQOcFxgbNF8aCKeUXNw7C6ad1%2FJDNW9tv6dUIPLZ85RrX7aYQ0L0W9EBim2AiwlPIlZqUxBV53QhoF8043Q7ZJiMLLO6Ija74n3x2CINo1lj8veSMR%2FWWdqXuvqReieNY%2FuJ4nPImJB4GuNOELD3JeVnQnE%2FqfIE6l4MeCz%2FUuWHjMcywwMCux8MbRhYWNk51nmmvyt%2FqOINFYXAwmeWiHRoctQhhiLs%2F2mKppeEzQKHFpABS91V1HmBJbsn2v3iICsZpNka9QQTwNZ2PgII4bhHxpLV5EagJdp2YJ9Kfh50DxzT48zPB%2FZ7aXHZQAnbTkvqPDXJpFhKBTihBt7AjT%2BJd8GWuB6PXuy0cXVxh6mSinBnElTS4%2Fk0JPd1pvNnlZJUl0r6xuuzy2L8AgF2qDj8%2BqXcDAEV1AkleZiQ2Cbm5SY%2Bi4s%2FVdHC93A%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDgafQZ5fyqzGN796CVyodOubs0tvTjgYCuIvOpeJ8AMv3yhRVkSaDBYONoGkYav9yqABg9VqQOcFxgbNF8aCKeUXNw7C6ad1/JDNW9tv6dUIPLZ85RrX7aYQ0L0W9EBim2AiwlPIlZqUxBV53QhoF8043Q7ZJiMLLO6Ija74n3x2CINo1lj8veSMR/WWdqXuvqReieNY/uJ4nPImJB4GuNOELD3JeVnQnE/qfIE6l4MeCz/UuWHjMcywwMCux8MbRhYWNk51nmmvyt/qOINFYXAwmeWiHRoctQhhiLs/2mKppeEzQKHFpABS91V1HmBJbsn2v3iICsZpNka9QQTwNZ2PgII4bhHxpLV5EagJdp2YJ9Kfh50DxzT48zPB/Z7aXHZQAnbTkvqPDXJpFhKBTihBt7AjT+Jd8GWuB6PXuy0cXVxh6mSinBnElTS4/k0JPd1pvNnlZJUl0r6xuuzy2L8AgF2qDj8+qXcDAEV1AkleZiQ2Cbm5SY+i4s/VdHC93A==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

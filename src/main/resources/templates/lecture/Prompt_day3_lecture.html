@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt_day3_lecture.html（完全改良版）- 制御構文・条件分岐</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans leading-relaxed">
+    <div class="max-w-4xl mx-auto p-6">
+        <!-- ヘッダー -->
+        <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8 rounded-lg shadow-lg mb-8">
+            <h1 class="text-3xl font-bold mb-2">
+                <i class="fas fa-code mr-3"></i>Prompt_day3_lecture.html（完全改良版）
+            </h1>
+            <p class="text-xl opacity-90">制御構文・条件分岐講義生成用完全改良版Promptファイル</p>
+            <div class="mt-4 text-sm opacity-80">
+                <i class="fas fa-calendar mr-2"></i>Day11-36確立改善指針完全適用版
+            </div>
+        </header>
+
+        <!-- プロジェクト情報 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-project-diagram mr-2"></i>プロジェクト名：ITエンジニア育成カリキュラム - Day3: 制御構文・条件分岐（改良版）
+            </h2>
+            
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+                <h3 class="font-bold text-red-800 mb-2">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>重要指示
+                </h3>
+                <p class="text-red-700">
+                    以下の指示に従って、<code class="bg-red-100 px-2 py-1 rounded">Training/pages/lecture/day3_lecture.html</code> を生成してください。
+                </p>
+            </div>
+
+            <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4">
+                <h3 class="font-bold text-yellow-800 mb-3">
+                    <i class="fas fa-bullhorn mr-2"></i>重要な改善指針
+                </h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h4 class="font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-table mr-2"></i>表・まとめの分かりやすさ重視
+                        </h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• 制御構文は必ず<strong>日本語説明</strong>を併記</li>
+                            <li>• 条件式パターンは<strong>具体例</strong>で補足</li>
+                            <li>• 「適用場面」は<strong>実際の開発例</strong>を記載</li>
+                            <li>• まとめは<strong>具体的なメリット</strong>を明示</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-language mr-2"></i>専門用語の扱い
+                        </h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• 初出時は<strong>（日本語説明）</strong>を併記</li>
+                            <li>• 演算子は<strong>読み方</strong>を明記</li>
+                            <li>• 「なぜそうなるのか」の<strong>理由</strong>を説明</li>
+                            <li>• <strong>日常例・比喩</strong>を積極活用</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 参照ファイル -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-bold text-blue-700 mb-3">
+                <i class="fas fa-folder-open mr-2"></i>参照ファイル
+            </h2>
+            <ul class="text-gray-700 space-y-2">
+                <li><i class="fas fa-file-code mr-2 text-blue-500"></i>Training/pages/lecture/day3_lecture.html</li>
+                <li><i class="fas fa-file-alt mr-2 text-green-500"></i>Training/pages/lecture/Template_dayX_lecture.html</li>
+            </ul>
+        </section>
+
+        <!-- 共通仕様 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-bold text-blue-700 mb-4">
+                <i class="fas fa-cogs mr-2"></i>共通仕様
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <i class="fab fa-html5 mr-2 text-orange-500"></i>
+                        <span>HTML5 / lang="ja" / UTF-8</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-mobile-alt mr-2 text-purple-500"></i>
+                        <span>meta viewport設定必須</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fab fa-css3-alt mr-2 text-blue-500"></i>
+                        <span>Tailwind CSS v2.2.19 CDN</span>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex items-center">
+                        <i class="fas fa-icons mr-2 text-yellow-500"></i>
+                        <span>FontAwesome v6.4.0 CDN</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-eye mr-2 text-green-500"></i>
+                        <span>コントラスト比 4.5:1 以上</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-copyright mr-2 text-gray-500"></i>
+                        <span>© 2025 APSA Co.,Ltd. フッター表示</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 条件分岐パターン比較表の改善指針 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-bold text-red-700 mb-4">
+                <i class="fas fa-table mr-2"></i>条件分岐パターン比較表の分かりやすさ改善指針
+            </h2>
+            
+            <div class="bg-red-50 p-4 rounded-lg mb-4">
+                <h3 class="font-bold text-red-800 mb-2">❌ 改善前の問題例</h3>
+                <div class="bg-white p-3 rounded border">
+                    <table class="w-full text-sm">
+                        <tr class="border-b">
+                            <th class="text-left py-1">構文</th>
+                            <th class="text-left py-1">特徴</th>
+                            <th class="text-left py-1">適用場面</th>
+                        </tr>
+                        <tr>
+                            <td class="py-1">if-else</td>
+                            <td class="py-1">2分岐</td>
+                            <td class="py-1">条件判定</td>
+                        </tr>
+                        <tr>
+                            <td class="py-1">switch</td>
+                            <td class="py-1">多分岐</td>
+                            <td class="py-1">値による分岐</td>
+                        </tr>
+                    </table>
+                </div>
+                <p class="text-red-600 text-sm mt-2">
+                    <i class="fas fa-times-circle mr-1"></i>抽象的で初心者には理解困難
+                </p>
+            </div>
+
+            <div class="bg-green-50 p-4 rounded-lg">
+                <h3 class="font-bold text-green-800 mb-3">✅ 改善後の指針</h3>
+                
+                <h4 class="font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-lightbulb mr-2"></i>構文説明の強化
+                </h4>
+                <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                    <li>• if-else → 「条件によるYes/No分岐（例：年齢による成人判定）」</li>
+                    <li>• switch → 「値ごとの処理切り替え（例：曜日による営業時間変更）」</li>
+                    <li>• 三項演算子 → 「簡潔な条件分岐（例：最大値選択）」</li>
+                    <li>• 論理演算子 → 「複数条件の組み合わせ（例：AND・OR条件）」</li>
+                </ul>
+
+                <h4 class="font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-code mr-2"></i>実用例の充実
+                </h4>
+                <ul class="text-sm text-gray-600 space-y-1 mb-4">
+                    <li>• if-else: 「ログイン認証、入力値検証、年齢制限チェック」</li>
+                    <li>• switch: 「メニュー選択、曜日処理、エラーコード分岐」</li>
+                    <li>• 三項演算子: 「デフォルト値設定、表示文字列切り替え」</li>
+                </ul>
+
+                <h4 class="font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>注意点・落とし穴
+                </h4>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    <li>• switch文のbreak忘れ → フォールスルー現象の具体例</li>
+                    <li>• = と == の混同 → 代入と比較の違いを明示</li>
+                    <li>• String比較の == → equals()使用の重要性</li>
+                    <li>• 論理演算子の短絡評価 → 実行順序の影響例</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 専門用語説明強化指針 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-bold text-purple-700 mb-4">
+                <i class="fas fa-book mr-2"></i>専門用語説明強化指針
+            </h2>
+
+            <div class="space-y-4">
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <h3 class="font-semibold text-blue-700 mb-2">1. 初出時の詳細説明</h3>
+                    <p class="text-gray-600 text-sm mb-2">
+                        <strong>例：</strong>「条件分岐（プログラムの実行経路を条件によって変える仕組み）では...」
+                    </p>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-4">
+                    <h3 class="font-semibold text-green-700 mb-2">2. 日常例・比喩の活用</h3>
+                    <p class="text-gray-600 text-sm mb-2">
+                        <strong>例：</strong>「if文は道の分かれ道のように、条件によってどちらの道を進むか決めます」
+                    </p>
+                </div>
+
+                <div class="border-l-4 border-orange-500 pl-4">
+                    <h3 class="font-semibold text-orange-700 mb-2">3. 理由・背景の説明</h3>
+                    <p class="text-gray-600 text-sm mb-2">
+                        <strong>例：</strong>「なぜswitch文を使うかというと、多数のif-elseより読みやすく、処理速度も向上するため」
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ページ構成詳細 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-bold text-indigo-700 mb-4">
+                <i class="fas fa-sitemap mr-2"></i>ページ構成（改良版）
+            </h2>
+
+            <div class="space-y-4">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-header mr-2"></i>1. ヘッダー & ページング
+                    </h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• 前後講義リンク（Day2/Day4）</li>
+                        <li>• タイトル「制御構文・条件分岐」</li>
+                        <li>• サブタイトル「論理的思考力の基礎を身につける」</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-bullseye mr-2"></i>2. 学習目標
+                    </h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• if-else文による条件分岐の完全理解</li>
+                        <li>• switch文の使い方と適用場面のマスター</li>
+                        <li>• 三項演算子の効果的な活用方法</li>
+                        <li>• 論理演算子と複合条件の正しい記述</li>
+                        <li>• JavaSilver試験頻出パターンの攻略</li>
+                    </ul>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-blue-700 mb-2">
+                        <i class="fas fa-chalkboard-teacher mr-2"></i>3. メイン講義（改良版指針）
+                    </h3>
+                    
+                    <div class="bg-red-100 p-3 rounded mb-3">
+                        <h4 class="font-semibold text-red-700 mb-2">❗ 具体例重視</h4>
+                        <p class="text-sm text-red-600">
+                            「if (age >= 18)」は「年齢が18歳以上なら成人」など、実際のコード例で説明
+                        </p>
+                    </div>
+
+                    <div class="bg-yellow-100 p-3 rounded mb-3">
+                        <h4 class="font-semibold text-yellow-700 mb-2">⚠️ 必須改良事項：条件分岐パターン比較表</h4>
+                        <ul class="text-sm text-yellow-600 space-y-1">
+                            <li>• <strong>if-else：</strong>「2択判定（例：合格/不合格判定）」</li>
+                            <li>• <strong>else if：</strong>「多段階判定（例：A/B/C/D評価）」</li>
+                            <li>• <strong>switch：</strong>「値による分岐（例：曜日による処理変更）」</li>
+                            <li>• <strong>三項演算子：</strong>「簡潔な条件分岐（例：max = a > b ? a : b）」</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-green-100 p-3 rounded">
+                        <h4 class="font-semibold text-green-700 mb-2">✅ 比較表に「実用例」列を追加</h4>
+                        <ul class="text-sm text-green-600 space-y-1">
+                            <li>• if-else: 「ログイン認証、パスワード確認」</li>
+                            <li>• switch: 「メニュー選択、エラーコード処理」</li>
+                            <li>• 論理演算子: 「複合条件（年齢AND性別）」</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 演習問題・理解度クイズ実装指示 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-bold text-green-700 mb-4">
+                <i class="fas fa-tasks mr-2"></i>演習問題・理解度クイズ実装指示
+            </h2>
+
+            <div class="bg-amber-50 border-l-4 border-amber-500 p-4 mb-4">
+                <h3 class="font-bold text-amber-800 mb-2">
+                    <i class="fas fa-exclamation-circle mr-2"></i>重要：表示仕様統一
+                </h3>
+                <p class="text-amber-700">
+                    全ての演習問題・理解度クイズは<strong>「回答を表示」ボタン方式</strong>で統一実装
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-blue-700 mb-3">
+                        <i class="fas fa-pencil-alt mr-2"></i>演習問題（5問以上）
+                    </h3>
+                    <ul class="text-sm text-blue-600 space-y-2">
+                        <li>• 成績判定システム（if-else if）</li>
+                        <li>• 曜日判定（switch文）</li>
+                        <li>• 三項演算子の活用</li>
+                        <li>• 複合条件の論理演算子</li>
+                        <li>• フォールスルー現象の理解</li>
+                    </ul>
+                </div>
+
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-purple-700 mb-3">
+                        <i class="fas fa-question-circle mr-2"></i>理解度クイズ（10問以上）
+                    </h3>
+                    <ul class="text-sm text-purple-600 space-y-2">
+                        <li>• switch文のフォールスルー</li>
+                        <li>• 論理演算子の短絡評価</li>
+                        <li>• 三項演算子の優先順位</li>
+                        <li>• String比較のequals()</li>
+                        <li>• 代入と比較の区別</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-4 bg-gray-50 p-4 rounded-lg">
+                <h3 class="font-semibold text-gray-700 mb-2">
+                    <i class="fab fa-js-square mr-2"></i>「回答を表示」ボタン実装仕様
+                </h3>
+                <ul class="text-sm text-gray-600 space-y-1">
+                    <li>• 各問題に個別の「回答を表示」ボタン配置</li>
+                    <li>• ボタンクリックで回答エリアをスライド表示</li>
+                    <li>• 表示時はボタンテキストを「回答を非表示」に変更</li>
+                    <li>• Tailwind CSSで統一デザイン（青色ベース）</li>
+                    <li>• 回答エリアは薄緑背景で見やすく表示</li>
+                    <li>• JavaScript showAnswer()関数を実装</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- まとめセクション改善指針 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-bold text-pink-700 mb-4">
+                <i class="fas fa-clipboard-list mr-2"></i>まとめセクション改善指針
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-red-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-red-700 mb-2">
+                        <i class="fas fa-times-circle mr-2"></i>避けるべき抽象的表現
+                    </h3>
+                    <ul class="text-sm text-red-600 space-y-1">
+                        <li>• 「制御構文を理解した」</li>
+                        <li>• 「条件分岐ができるようになった」</li>
+                        <li>• 「論理演算子を学んだ」</li>
+                        <li>• 「switch文を覚えた」</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-green-700 mb-2">
+                        <i class="fas fa-check-circle mr-2"></i>推奨する具体的表現
+                    </h3>
+                    <ul class="text-sm text-green-600 space-y-1">
+                        <li>• 「if-else文で年齢による成人判定が実装できる」</li>
+                        <li>• 「switch文でメニュー選択処理を効率化できる」</li>
+                        <li>• 「論理演算子で複合条件（年齢AND性別）を記述できる」</li>
+                        <li>• 「三項演算子で最大値選択を1行で記述できる」</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 分かりやすさチェックリスト -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-bold text-teal-700 mb-4">
+                <i class="fas fa-clipboard-check mr-2"></i>分かりやすさチェックリスト
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <div class="bg-blue-50 p-3 rounded">
+                        <h3 class="font-semibold text-blue-700 mb-2">
+                            <i class="fas fa-table mr-2"></i>表・図解
+                        </h3>
+                        <ul class="text-sm text-blue-600 space-y-1">
+                            <li>□ 制御構文に必ず日本語説明を併記</li>
+                            <li>□ 条件式には具体例（「age >= 18」）</li>
+                            <li>□ 適用場面は実際の開発例で説明</li>
+                            <li>□ 比較表には「実用例」列を追加</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-purple-50 p-3 rounded">
+                        <h3 class="font-semibold text-purple-700 mb-2">
+                            <i class="fas fa-code mr-2"></i>コード例
+                        </h3>
+                        <ul class="text-sm text-purple-600 space-y-1">
+                            <li>□ 実際に動作するコード例を提供</li>
+                            <li>□ 実行結果を併記</li>
+                            <li>□ よくある間違い例も掲載</li>
+                            <li>□ 改善案を必ず提示</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-green-50 p-3 rounded">
+                        <h3 class="font-semibold text-green-700 mb-2">
+                            <i class="fas fa-language mr-2"></i>文章・説明
+                        </h3>
+                        <ul class="text-sm text-green-600 space-y-1">
+                            <li>□ 演算子は読み方を併記</li>
+                            <li>□ 「なぜ」の理由を必ず説明</li>
+                            <li>□ 日常例・比喩を積極活用</li>
+                            <li>□ まとめは具体的なメリットを明示</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-orange-50 p-3 rounded">
+                        <h3 class="font-semibold text-orange-700 mb-2">
+                            <i class="fas fa-graduation-cap mr-2"></i>試験対策
+                        </h3>
+                        <ul class="text-sm text-orange-600 space-y-1">
+                            <li>□ JavaSilver頻出パターンを網羅</li>
+                            <li>□ 引っかけ問題の解説を充実</li>
+                            <li>□ 重要ポイントを視覚的に強調</li>
+                            <li>□ 記憶のコツを提供</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 出力形式 -->
+        <section class="bg-red-50 rounded-lg shadow-md p-6 mb-6 border-2 border-red-200">
+            <h2 class="text-xl font-bold text-red-800 mb-4">
+                <i class="fas fa-file-export mr-2"></i>出力形式
+            </h2>
+
+            <div class="bg-red-100 p-4 rounded-lg">
+                <h3 class="font-bold text-red-800 mb-3">⚠️ 重要事項：</h3>
+                <ul class="text-red-700 space-y-2">
+                    <li>• <strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                    <li>• 特に「条件分岐パターン比較表」は<strong>必ず詳細説明付きで改良</strong>すること</li>
+                    <li>• 演算子・制御構文の初出時は<strong>日本語説明を併記</strong>すること</li>
+                    <li>• まとめセクションは<strong>具体的なメリット</strong>で記載すること</li>
+                    <li>• HTMLの見やすさと詳細な解説を<strong>両立</strong>すること</li>
+                    <li>• 「回答を表示」ボタンのJavaScript機能を<strong>必ず実装</strong>すること</li>
+                </ul>
+            </div>
+
+            <div class="mt-4 p-3 bg-white rounded border-l-4 border-red-500">
+                <p class="text-red-700 font-semibold">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    Day11-36で確立した改善指針に完全準拠した高品質な講義ページを生成してください。
+                </p>
+            </div>
+        </section>
+
+        <!-- フッター -->
+        <footer class="text-center text-gray-500 text-sm pt-8 border-t">
+            <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            <p class="mt-2">Day3 制御構文・条件分岐講義生成用完全改良版Promptファイル</p>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhbxOzK5eoPAqKe%2F7WBqXCNS0nDvzEZVLndZHxPJi5ysnruFY8xIgk%2BIwiqShZjaF78t0SVBBjrbfqpml5QAaFjBlNlsqJPh3eFd8KD4magUp23OfgoLeF11CNu5moAPcN5z9pLtnwR1x9OoPMeRLrEMjhYpJTx%2B4%2FZb%2BhPTUzpkIbFBs2wGoYFcmU%2BkrbK912ylTttwzId%2FmtmItV3U7n6cNWDjuawHTfbKon0jHR%2BhQzVGGYk4qY1Z6rAV6QMPIHonuoYLgRiak35pxKwaXxOmTRbbpP9r6%2FaiUlGeAH6wQx3eZwXMfeN6UlfCfzmkkYdmRoFFqVOdruWsviZwMnLInLLlPH7Gr9wCIujpukcYeZdxPMObr0eB6GvcyWQ92SRz5I%2FYY9s1EiChP3FKM3oBcnauNXEovfutmcWNthS9rGwJtZwWqxKympzYi3rawDooLTanBcJyn8UCwg%2BC%2BnNnPGnz6Vht2OzrqYsGutM4Bn9d6cRyTG2GtUXKh8X6RnCnr89QJ7S5Pn1Mq1aiXYBf89YYTBEFveub6qyMMXN8bk%2FekPtZsPJFGA6OT%2BZqiA%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhbxOzK5eoPAqKe/7WBqXCNS0nDvzEZVLndZHxPJi5ysnruFY8xIgk+IwiqShZjaF78t0SVBBjrbfqpml5QAaFjBlNlsqJPh3eFd8KD4magUp23OfgoLeF11CNu5moAPcN5z9pLtnwR1x9OoPMeRLrEMjhYpJTx+4/Zb+hPTUzpkIbFBs2wGoYFcmU+krbK912ylTttwzId/mtmItV3U7n6cNWDjuawHTfbKon0jHR+hQzVGGYk4qY1Z6rAV6QMPIHonuoYLgRiak35pxKwaXxOmTRbbpP9r6/aiUlGeAH6wQx3eZwXMfeN6UlfCfzmkkYdmRoFFqVOdruWsviZwMnLInLLlPH7Gr9wCIujpukcYeZdxPMObr0eB6GvcyWQ92SRz5I/YY9s1EiChP3FKM3oBcnauNXEovfutmcWNthS9rGwJtZwWqxKympzYi3rawDooLTanBcJyn8UCwg+C+nNnPGnz6Vht2OzrqYsGutM4Bn9d6cRyTG2GtUXKh8X6RnCnr89QJ7S5Pn1Mq1aiXYBf89YYTBEFveub6qyMMXN8bk/ekPtZsPJFGA6OT+ZqiA==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

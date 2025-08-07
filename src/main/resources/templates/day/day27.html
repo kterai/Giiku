@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 27: データベース応用・最新技術（トランザクション、NoSQL、ビッグデータ）| ITエンジニア育成カリキュラム</title>
+    <link rel="stylesheet" href="../../css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/lib/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+        }
+        
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0.75rem 0;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #0056b3 0%, #007bff 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .section-title {
+            border-left: 4px solid #007bff;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .schedule-item {
+            border-left: 3px solid #007bff;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .time-label {
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+        
+        .badge-custom {
+            background-color: #17a2b8;
+            color: white;
+            font-weight: normal;
+            padding: 0.5em 0.7em;
+            border-radius: 5px;
+        }
+        
+        .next-step-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 5px solid #28a745;
+        }
+        
+        .feedback-form {
+            background-color: #f1f8ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        
+        footer {
+            background-color: #343a40;
+            color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links h5 {
+            color: white;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .sql-code {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+        }
+        
+        .nosql-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .nosql-card {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            background-color: #fff;
+        }
+        
+        .database-concept {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 767.98px) {
+            .page-header {
+                padding: 1.5rem 0;
+            }
+            
+            .content-card {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+        }
+        
+        /* 印刷用スタイル */
+         {
+            .no-print {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+            }
+            
+            .content-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            footer {
+                background-color: white;
+                color: black;
+            }
+            
+            a {
+                text-decoration: none;
+                color: black;
+            }
+            
+            .footer-links ul li a {
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script defer src="../../js/day-navigation.js"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../../index.html">
+                <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                ITエンジニア育成カリキュラム
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="monthDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="monthDropdown">
+                            <li><a class="dropdown-item" href="../month/month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="../month/month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="weekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="weekDropdown">
+                            <li><a class="dropdown-item" href="../week/week5.html">第5週: コンピュータシステム</a></li>
+                            <li><a class="dropdown-item" href="../week/week6.html">第6週: ネットワーク・データベース</a></li>
+                            <li><a class="dropdown-item" href="../week/week7.html">第7週: アルゴリズム・セキュリティ</a></li>
+                            <li><a class="dropdown-item" href="../week/week8.html">第8週: ストラテジ系・総合対策</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/resources.html">学習リソース</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../resources/faq.html">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../index.html">ホーム</a></li>
+                <li class="breadcrumb-item"><a href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                <li class="breadcrumb-item"><a href="../week/week6.html">第6週: ネットワーク・データベース</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Day 27</li>
+            </ol>
+        </nav>
+    </div>
+
+    <header class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-database text-white me-3"></i>Day 27: データベース応用・最新技術</h1>
+            <p class="lead">トランザクション処理、NoSQL、ビッグデータ - データベースの高度な機能と最新技術を習得</p>
+            <div class="d-flex flex-wrap gap-2 mt-3">
+                <span class="badge bg-primary fs-6"><i class="fas fa-code-branch me-1"></i>SQL応用</span>
+                <span class="badge bg-success fs-6"><i class="fas fa-lock me-1"></i>トランザクション</span>
+                <span class="badge bg-warning text-dark fs-6"><i class="fas fa-layer-group me-1"></i>NoSQL</span>
+                <span class="badge bg-info fs-6"><i class="fas fa-chart-line me-1"></i>ビッグデータ</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <section>
+                    <h2 class="section-title"><i class="fas fa-bullseye text-primary me-2"></i>学習目標</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-join text-primary me-2"></i>SQL応用構文（JOIN句、サブクエリ、集計関数）を使いこなせる</li>
+                            <li class="list-group-item"><i class="fas fa-exchange-alt text-success me-2"></i>トランザクション処理とACID特性を理解し説明できる</li>
+                            <li class="list-group-item"><i class="fas fa-shield-alt text-warning me-2"></i>並行制御とデッドロック対策の仕組みを習得する</li>
+                            <li class="list-group-item"><i class="fas fa-cubes text-info me-2"></i>NoSQLデータベースの種類と特徴を理解し使い分けできる</li>
+                            <li class="list-group-item"><i class="fas fa-chart-bar text-danger me-2"></i>ビッグデータ処理の基本概念と技術を理解する</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title"><i class="fas fa-trophy text-warning me-2"></i>達成基準</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>複数テーブルを結合した複雑なSQLクエリを記述できる</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>トランザクションの特性（ACID）を具体例で説明できる</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>デッドロックの発生条件と回避策を説明できる</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>4種類のNoSQLデータベースの特徴と適用場面を説明できる</li>
+                            <li class="list-group-item"><i class="fas fa-check-circle text-success me-2"></i>ビッグデータ処理の基本的な手法と技術を説明できる</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title"><i class="fas fa-clock text-primary me-2"></i>詳細スケジュール</h2>
+                    <div class="content-card">
+                        <div class="accordion" id="scheduleAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="time-label">10:00-10:15</div> <div class="ms-3"><i class="fas fa-play-circle me-2"></i>オリエンテーション・前日復習</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        前日のデータベース基礎（関係モデル、ER図、SQL基本構文）の復習を行い、本日学習する応用技術への準備を整えます。
+                                        <div class="alert alert-primary mt-2">
+                                            <i class="fas fa-info-circle"></i> 昨日学習したSQLの基本構文を確認し、今日の応用構文学習への準備を行います
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <div class="time-label">10:15-11:00</div> <div class="ms-3"><i class="fas fa-code me-2"></i>SQL応用構文（JOIN句・サブクエリ）</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        複数テーブルを効率的に結合するJOIN句（INNER JOIN、LEFT JOIN、RIGHT JOIN、FULL OUTER JOIN）とサブクエリの記述方法を学習します。
+                                        <div class="sql-code">
+                                            SELECT c.customer_name, o.order_date, p.product_name<br>
+                                            FROM customers c<br>
+                                            INNER JOIN orders o ON c.customer_id = o.customer_id<br>
+                                            LEFT JOIN products p ON o.product_id = p.product_id;
+                                        </div>
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義 - JOIN句の種類と使い分け
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <div class="time-label">11:00-11:45</div> <div class="ms-3"><i class="fas fa-calculator me-2"></i>集計関数とインデックス最適化</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        COUNT、SUM、AVG、MAX、MINなどの集計関数とGROUP BY、HAVINGを使ったデータ分析、インデックスを活用したクエリ最適化を実習します。
+                                        <div class="sql-code">
+                                            SELECT department, COUNT(*) as employee_count, AVG(salary) as avg_salary<br>
+                                            FROM employees<br>
+                                            GROUP BY department<br>
+                                            HAVING COUNT(*) > 5;
+                                        </div>
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習 - 集計関数を使ったデータ分析
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        <div class="time-label">11:45-12:45</div> <div class="ms-3"><i class="fas fa-utensils me-2"></i>昼休憩</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        休憩時間です。昼食をとり、リフレッシュしましょう。午後はトランザクション処理について学習します。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        <div class="time-label">12:45-13:30</div> <div class="ms-3"><i class="fas fa-exchange-alt me-2"></i>トランザクション処理とACID特性</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        トランザクションの概念とACID特性（原子性・一貫性・独立性・持続性）について学習し、実際のトランザクション制御文を実践します。
+                                        <div class="database-concept">
+                                            <h5><i class="fas fa-atom me-2"></i>ACID特性</h5>
+                                            <ul>
+                                                <li><strong>Atomicity (原子性)</strong>: トランザクションは全て実行されるか、全て実行されないか</li>
+                                                <li><strong>Consistency (一貫性)</strong>: データベースの整合性制約を維持</li>
+                                                <li><strong>Isolation (独立性)</strong>: 同時実行されるトランザクションが互いに影響しない</li>
+                                                <li><strong>Durability (持続性)</strong>: コミットされたトランザクションの結果は永続的</li>
+                                            </ul>
+                                        </div>
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義 - トランザクション処理の基本概念
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSix">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        <div class="time-label">13:30-14:15</div> <div class="ms-3"><i class="fas fa-shield-alt me-2"></i>並行制御とデッドロック対策</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        複数のトランザクションが同時実行される際の排他制御（ロック機能）とデッドロックの発生メカニズム・回避策を学習します。
+                                        <div class="alert alert-warning mt-2">
+                                            <i class="fas fa-exclamation-triangle"></i> デッドロック：複数のトランザクションが互いのロック解除を待ち続ける状態
+                                        </div>
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習 - 並行制御とロック機能の実習
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSeven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                        <div class="time-label">14:15-15:00</div> <div class="ms-3"><i class="fas fa-cubes me-2"></i>NoSQLデータベースの種類と特徴</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        従来のRDBでは対応困難な大規模データや非構造化データを扱うNoSQLデータベースの4つの主要タイプについて学習します。
+                                        <div class="nosql-comparison">
+                                            <div class="nosql-card">
+                                                <h5><i class="fas fa-file-alt text-primary"></i> ドキュメント指向</h5>
+                                                <p>MongoDB、CouchDB<br>JSONドキュメントを格納</p>
+                                            </div>
+                                            <div class="nosql-card">
+                                                <h5><i class="fas fa-key text-success"></i> キーバリュー型</h5>
+                                                <p>Redis、DynamoDB<br>シンプルなキーと値のペア</p>
+                                            </div>
+                                            <div class="nosql-card">
+                                                <h5><i class="fas fa-columns text-warning"></i> カラム指向</h5>
+                                                <p>Cassandra、HBase<br>カラムファミリー構造</p>
+                                            </div>
+                                            <div class="nosql-card">
+                                                <h5><i class="fas fa-project-diagram text-info"></i> グラフ型</h5>
+                                                <p>Neo4j、Amazon Neptune<br>ノードとエッジでデータを表現</p>
+                                            </div>
+                                        </div>
+                                        <div class="alert alert-info mt-2">
+                                            <i class="bi bi-info-circle-fill"></i> 講義 - NoSQL各タイプの特徴と使い分け
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEight">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                        <div class="time-label">15:00-15:10</div> <div class="ms-3"><i class="fas fa-coffee me-2"></i>午後休憩</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        短い休憩時間です。リフレッシュしましょう。この後はビッグデータ処理について学習します。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingNine">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                        <div class="time-label">15:10-15:55</div> <div class="ms-3"><i class="fas fa-chart-line me-2"></i>ビッグデータ処理の基礎</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ビッグデータの3V特性（Volume・Velocity・Variety）と、Hadoop、Spark、MapReduceなどの分散処理フレームワークの基本概念を学習します。
+                                        <div class="database-concept">
+                                            <h5><i class="fas fa-database me-2"></i>ビッグデータの3V</h5>
+                                            <ul>
+                                                <li><strong>Volume (量)</strong>: 大容量のデータ</li>
+                                                <li><strong>Velocity (速度)</strong>: 高速に生成・処理されるデータ</li>
+                                                <li><strong>Variety (多様性)</strong>: 構造化・非構造化データの混在</li>
+                                            </ul>
+                                        </div>
+                                        <div class="alert alert-success mt-2">
+                                            <i class="bi bi-code-square"></i> 演習 - ビッグデータ処理の基本概念理解
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTen">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                        <div class="time-label">15:55-17:00</div> <div class="ms-3"><i class="fas fa-clipboard-check me-2"></i>理解度チェック</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        SQL応用構文、トランザクション処理、NoSQL、ビッグデータ処理に関する理解度を確認するテストを実施します。
+                                        <div class="alert alert-warning mt-2">
+                                            <i class="bi bi-patch-question-fill"></i> テスト - データベース応用技術の総合理解度確認
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEleven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                                        <div class="time-label">17:00-17:45</div> <div class="ms-3"><i class="fas fa-comments me-2"></i>振り返り・質疑応答</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        本日学習したデータベース応用技術の理解度チェック結果を解説し、疑問点について質問・回答を行います。明日の模擬試験に向けた重要ポイントも確認します。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="theme-details">
+                    <h2 class="section-title"><i class="fas fa-database text-primary me-2"></i>データベース応用技術の詳細</h2>
+                    <div class="content-card">
+                        <h3><i class="fas fa-code me-2"></i>SQL応用構文マスター</h3>
+                        <p>実務で使用される高度なSQL構文を習得し、複雑なデータ抽出や分析クエリを記述できるようになります。JOIN句による複数テーブル結合、サブクエリによる条件指定、集計関数を使ったデータ分析手法を実践的に学習します。</p>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header">
+                                <h4 class="mb-0"><i class="fas fa-link me-2"></i>JOIN句の種類と使い分け</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>INNER JOIN、LEFT JOIN、RIGHT JOIN、FULL OUTER JOINの動作原理と適用場面を理解し、複数テーブルから効率的にデータを取得する手法を習得します。実際のビジネスデータを使った演習で実践力を身につけます。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header">
+                                <h4 class="mb-0"><i class="fas fa-exchange-alt me-2"></i>トランザクション制御の実践</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>ACID特性を満たすトランザクション処理の仕組みを理解し、BEGIN、COMMIT、ROLLBACKを使った実際のトランザクション制御を実習します。データの整合性を保証する重要な概念を実践的に学習します。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header">
+                                <h4 class="mb-0"><i class="fas fa-cubes me-2"></i>NoSQLデータベースの世界</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>従来のRDBでは対応困難な大規模データや柔軟なスキーマが必要な場面で活用されるNoSQLデータベースについて学習します。ドキュメント指向、キーバリュー型、カラム指向、グラフ型の4つのタイプの特徴と適用場面を理解します。</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="resources">
+                    <h2 class="section-title"><i class="fas fa-book text-primary me-2"></i>使用教材・リソース</h2>
+                    <div class="content-card">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-book-fill text-primary"></i> SQL参考書
+                                        </h5>
+                                        <p class="card-text">「達人に学ぶSQL徹底指南書」「SQL実践入門」などの実践的なSQL学習書籍とオンライン演習環境。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-laptop-fill text-success"></i> データベース環境
+                                        </h5>
+                                        <p class="card-text">MySQL、PostgreSQL、MongoDB等のデータベース実習環境とサンプルデータセット。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="bi bi-journal-code text-warning"></i> 演習サイト
+                                        </h5>
+                                        <p class="card-text">SQLBolt、W3Schools SQL Tutorial、MongoDB Universityなどのオンライン学習プラットフォーム。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="comprehension-check">
+                    <h2 class="section-title"><i class="fas fa-check-circle text-primary me-2"></i>理解度確認項目</h2>
+                    <div class="content-card">
+                        <div class="mb-4">
+                            <h4><i class="bi bi-star-fill text-warning"></i> 基本レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check1">
+                                        <label class="form-check-label" for="check1">
+                                            JOIN句（INNER、LEFT、RIGHT）の違いを理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check2">
+                                        <label class="form-check-label" for="check2">
+                                            サブクエリとEXISTS句の使い方を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check3">
+                                        <label class="form-check-label" for="check3">
+                                            集計関数（COUNT、SUM、AVG等）とGROUP BYを理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check4">
+                                        <label class="form-check-label" for="check4">
+                                            トランザクションのACID特性を説明できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check5">
+                                        <label class="form-check-label" for="check5">
+                                            NoSQLの4つのタイプの特徴を説明できる
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4><i class="bi bi-stars text-primary"></i> 応用レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check6">
+                                        <label class="form-check-label" for="check6">
+                                            複雑なJOINとサブクエリを組み合わせたSQLを記述できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check7">
+                                        <label class="form-check-label" for="check7">
+                                            トランザクション制御文を使って実際の処理を実装できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check8">
+                                        <label class="form-check-label" for="check8">
+                                            デッドロックの発生パターンと回避策を設計できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check9">
+                                        <label class="form-check-label" for="check9">
+                                            要件に応じてRDBとNoSQLの使い分けを判断できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check10">
+                                        <label class="form-check-label" for="check10">
+                                            ビッグデータ処理の基本的な設計方針を説明できる
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="next-steps">
+                    <h2 class="section-title"><i class="fas fa-arrow-right text-success me-2"></i>次のステップ</h2>
+                    <div class="content-card next-step-card">
+                        <h3><i class="fas fa-clipboard-list me-2"></i>Day 28: 模擬試験②と総合演習（ネットワーク・データベース分野）</h3>
+                        <p>明日は第6週の総仕上げとして、ネットワークとデータベース分野の総合的な模擬試験を実施します。OSI参照モデル、TCP/IP、サブネット計算、SQL、データベース設計など、2日間で学んだ内容の理解度を確認し、弱点分析と補強を行います。</p>
+                        <div class="alert alert-info mt-3">
+                            <i class="fas fa-lightbulb me-2"></i><strong>予習のポイント：</strong>
+                            <ul class="mb-0 mt-2">
+                                <li>JOIN句を使った複雑なSQLクエリの復習</li>
+                                <li>トランザクション処理の基本概念の確認</li>
+                                <li>NoSQLの4つのタイプと特徴の整理</li>
+                                <li>ネットワーク基礎知識との関連性の理解</li>
+                            </ul>
+                        </div>
+                        <a href="day28.html" class="btn btn-success mt-2">
+                            <i class="bi bi-arrow-right-circle-fill"></i> Day 28の詳細を見る
+                        </a>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title"><i class="fas fa-comment-dots text-primary me-2"></i>フィードバック</h2>
+                    <div class="content-card feedback-form">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle-fill"></i> 本日のデータベース応用技術学習についてフィードバックをお寄せください。
+                        </div>
+                        <form id="feedback-form" class="mt-3">
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">理解度</label>
+                                <select class="form-select" id="rating">
+                                    <option value="5">とても理解できた</option>
+                                    <option value="4">理解できた</option>
+                                    <option value="3">普通</option>
+                                    <option value="2">あまり理解できなかった</option>
+                                    <option value="1">理解できなかった</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="feedbackText" class="form-label">コメント</label>
+                                <textarea class="form-control" id="feedbackText" rows="3" placeholder="SQL応用構文、トランザクション処理、NoSQL等についてのご感想やご質問をお聞かせください"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane me-2"></i>送信
+                            </button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top: 100px;">
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-calendar-check"></i> 学習進捗</h3>
+                        <div class="progress-container">
+                            <p>Day 27の学習進捗</p>
+                            <div class="progress" style="height: 20px;">
+                                <div id="day-progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>
+                            <p class="text-end mt-2" id="progress-text">0/10 完了</p>
+                        </div>
+                        <div class="chart-container" style="height: 300px;">
+                            <canvas id="progressChart"></canvas>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button id="resetProgress" class="btn btn-outline-warning btn-sm">
+                                <i class="bi bi-arrow-counterclockwise"></i> 進捗をリセット
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-journal-text"></i> 目次</h3>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#scheduleAccordion">詳細スケジュール</a>
+                            <a class="nav-link" href="#theme-details">テーマ詳細</a>
+                            <a class="nav-link" href="#resources">使用教材・リソース</a>
+                            <a class="nav-link" href="#comprehension-check">理解度確認項目</a>
+                            <a class="nav-link" href="#next-steps">次のステップ</a>
+                        </nav>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="bi bi-link-45deg"></i> 関連リンク</h3>
+                        <div class="list-group">
+                            <a href="../week/week6.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-calendar-week"></i> 第6週の概要
+                            </a>
+                            <a href="../month/month2.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-calendar-month"></i> 第2ヶ月目の概要
+                            </a>
+                            <a href="../../resources/resources.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-book"></i> データベース学習リソース
+                            </a>
+                            <a href="../../resources/faq.html" class="list-group-item list-group-item-action">
+                                <i class="bi bi-question-circle"></i> よくある質問
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <h3><i class="bi bi-arrow-left-right"></i> ナビゲーション</h3>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="day26.html" class="btn btn-outline-primary">
+                                <i class="bi bi-arrow-left"></i> Day 26
+                            </a>
+                            <a href="day28.html" class="btn btn-outline-primary">
+                                Day 28 <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-light mt-5">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="footer-logo">
+                        <img src="../../images/logo/apsa_logo.png" alt="APSA Logo">
+                    </div>
+                    <p>ITエンジニア育成カリキュラムは、未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>カリキュラム</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../month/month1.html">第1ヶ月目</a></li>
+                        <li><a href="../month/month2.html">第2ヶ月目</a></li>
+                        <li><a href="../month/month3.html">第3ヶ月目</a></li>
+                        <li><a href="../../resources/advanced.html">応用コース</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>リソース</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../../resources/resources.html">学習リソース</a></li>
+                        <li><a href="../../resources/faq.html">よくある質問</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>お問い合わせ</h5>
+                    <p>本カリキュラムについてのお問い合わせは下記までお願いします。</p>
+                    <a href="mailto:info@apsa.co.jp" class="btn btn-outline-light">
+                        <i class="bi bi-envelope"></i> メールでのお問い合わせ
+                    </a>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-light me-3"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="text-light"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/lib/jquery.min.js"></script>
+    <script src="../../js/lib/bootstrap.bundle.min.js"></script>
+    <script src="../../js/lib/chart.umd.min.js"></script>
+    <script src="../../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // チェックボックスのイベントリスナーを設定
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+            
+            // 進捗リセットボタン
+            document.getElementById('resetProgress').addEventListener('click', function() {
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                updateProgress();
+            });
+            
+            // 初期進捗更新
+            updateProgress();
+            
+            // プログレスチャートの初期化
+            initProgressChart();
+            
+            // フィードバックフォーム
+            document.getElementById('feedback-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('フィードバックを送信しました。ありがとうございます！');
+                this.reset();
+            });
+        });
+        
+        // 進捗を更新する関数
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            const totalChecks = checkboxes.length;
+            let checkedCount = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    checkedCount++;
+                }
+            });
+            
+            const progressPercent = totalChecks > 0 ? Math.round((checkedCount / totalChecks) * 100) : 0;
+            
+            // プログレスバーを更新
+            const progressBar = document.getElementById('day-progress');
+            progressBar.style.width = `${progressPercent}%`;
+            progressBar.textContent = `${progressPercent}%`;
+            progressBar.setAttribute('aria-valuenow', progressPercent);
+            
+            // プログレステキストを更新
+            document.getElementById('progress-text').textContent = `${checkedCount}/${totalChecks} 完了`;
+            
+            // チャートを更新
+            updateProgressChart(checkedCount, totalChecks - checkedCount);
+            
+            // ローカルストレージに保存
+            localStorage.setItem('day27Progress', JSON.stringify({
+                checked: checkedCount,
+                total: totalChecks,
+                percent: progressPercent
+            }));
+        }
+        
+        // チャートの初期化
+        function initProgressChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            window.progressChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['完了', '未完了'],
+                    datasets: [{
+                        data: [0, 10],
+                        backgroundColor: ['#198754', '#e9ecef'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // チャートの更新
+        function updateProgressChart(completed, remaining) {
+            if (window.progressChart) {
+                window.progressChart.data.datasets[0].data = [completed, remaining];
+                window.progressChart.update();
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDl5Jfv5D2YOeQR0Bp%2FaJJnNFTf%2FJk0LswsKjaYMNIxdfGj0UTJwy5AK5W8m7JwSk6DgeE6bMxoQLrRm2%2B7%2FSHiy%2BX16MpSU2pY4LJVcZVdP04tXqviieTtrdnMpWP31%2BkqU5E3nwGYqqsny8s91nlQJz2yAqOU3Mjx7YGbe45D4vUF0lhSI2gm61aQiCeLDQufCSkApUTJs5m4jfJqAVgzhYiXP%2BdQMZx8QDyPSYmLFYZw6YkPhMQHEX0nz0mNdymgPS%2FK9kqYeJ9NcsusVIboKKBhX5McY8MbsK6Mk5yA%2Fn9S6BqYjWuRwBGMdY8nHlxzHqydTTJs%2Fgncat%2BsJLtiXrPy5ln2J4LQ%2BarG3hmgWKZh9wfpjUYoxkHU0IG%2FBB81tYwBtNkZYQpS5i99RSRB16v01Ezf0A%2BmQ40SE68U%2BqBGDGP4G5sFhcLw%2F8YeDu1Tu2v7PSX25FoKhKznUFUpZ2pxkPuL1sxp09cSrxN3Ny68dQdjHz0gYNW85I7J7RKg%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDl5Jfv5D2YOeQR0Bp/aJJnNFTf/Jk0LswsKjaYMNIxdfGj0UTJwy5AK5W8m7JwSk6DgeE6bMxoQLrRm2+7/SHiy+X16MpSU2pY4LJVcZVdP04tXqviieTtrdnMpWP31+kqU5E3nwGYqqsny8s91nlQJz2yAqOU3Mjx7YGbe45D4vUF0lhSI2gm61aQiCeLDQufCSkApUTJs5m4jfJqAVgzhYiXP+dQMZx8QDyPSYmLFYZw6YkPhMQHEX0nz0mNdymgPS/K9kqYeJ9NcsusVIboKKBhX5McY8MbsK6Mk5yA/n9S6BqYjWuRwBGMdY8nHlxzHqydTTJs/gncat+sJLtiXrPy5ln2J4LQ+arG3hmgWKZh9wfpjUYoxkHU0IG/BB81tYwBtNkZYQpS5i99RSRB16v01Ezf0A+mQ40SE68U+qBGDGP4G5sFhcLw/8YeDu1Tu2v7PSX25FoKhKznUFUpZ2pxkPuL1sxp09cSrxN3Ny68dQdjHz0gYNW85I7J7RKg==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
