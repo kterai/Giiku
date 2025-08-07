@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム - Day51: 総合演習プロジェクト設計・要件定義</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .progress-bar { background: linear-gradient(90deg, #4f46e5 0%, #06b6d4 100%); }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <script defer src="../js/day-navigation.js"></script>
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-code text-2xl"></i>
+                    <h1 class="text-2xl font-bold">ITエンジニア育成カリキュラム</h1>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm opacity-90">第12週第3日目</p>
+                    <p class="text-lg font-semibold">Day 51</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between mb-2">
+                <span class="text-sm font-medium text-gray-600">学習進捗</span>
+                <span class="text-sm font-medium text-gray-600">51日目 / 54日間 (94.4%完了)</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="progress-bar h-2 rounded-full" style="width: 94.4%"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Title Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-3">
+                <i class="fas fa-project-diagram text-blue-600 mr-3"></i>
+                総合演習プロジェクト設計・要件定義
+            </h2>
+            <p class="text-gray-600 text-lg">これまで学習した全技術を統合した本格的なWebアプリケーション開発プロジェクトの企画・設計段階</p>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8 card-hover">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-bullseye text-green-600 mr-2"></i>
+                学習目標
+            </h3>
+            <ul class="space-y-3">
+                <li class="flex items-start space-x-3">
+                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                    <span>プロジェクト企画から要件定義まで一連の工程を理解し実践できる</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                    <span>ユーザー中心設計（UCD）の手法を用いたシステム設計ができる</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                    <span>技術選定とアーキテクチャ設計の根拠を明確に説明できる</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                    <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                    <span>プロジェクト管理の基本概念と実践手法を習得する</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Achievement Criteria -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8 card-hover">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-trophy text-yellow-600 mr-2"></i>
+                達成基準
+            </h3>
+            <ul class="space-y-3">
+                <li class="flex items-start space-x-3">
+                    <i class="fas fa-star text-yellow-500 mt-1"></i>
+                    <span>具体的な機能要件・非機能要件を定義した要件定義書を作成できる</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                    <i class="fas fa-star text-yellow-500 mt-1"></i>
+                    <span>ユーザーストーリーと受け入れ基準を適切に記述できる</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                    <i class="fas fa-star text-yellow-500 mt-1"></i>
+                    <span>システムアーキテクチャ図とデータベース設計書を作成できる</span>
+                </li>
+                <li class="flex items-start space-x-3">
+                    <i class="fas fa-star text-yellow-500 mt-1"></i>
+                    <span>プロジェクトスケジュールとリスク管理表を作成できる</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Detailed Schedule -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8 card-hover">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-clock text-blue-600 mr-2"></i>
+                詳細スケジュール
+            </h3>
+            <div class="space-y-4">
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <h4 class="font-semibold text-gray-800">10:00-10:30 プロジェクト企画</h4>
+                    <p class="text-gray-600">アイデア発想、市場調査、競合分析、価値提案の検討</p>
+                </div>
+                <div class="border-l-4 border-green-500 pl-4">
+                    <h4 class="font-semibold text-gray-800">10:30-11:30 要件定義</h4>
+                    <p class="text-gray-600">機能要件・非機能要件の洗い出しとユーザーストーリー作成</p>
+                </div>
+                <div class="border-l-4 border-yellow-500 pl-4">
+                    <h4 class="font-semibold text-gray-800">11:30-12:30 ユーザー分析・UI/UX設計</h4>
+                    <p class="text-gray-600">ペルソナ設定、ユーザージャーニーマップ、ワイヤーフレーム作成</p>
+                </div>
+                <div class="border-l-4 border-gray-400 pl-4">
+                    <h4 class="font-semibold text-gray-800">12:30-13:30 昼休憩</h4>
+                    <p class="text-gray-600">休憩時間です。昼食をとり、リフレッシュしましょう。</p>
+                </div>
+                <div class="border-l-4 border-purple-500 pl-4">
+                    <h4 class="font-semibold text-gray-800">13:30-14:30 システム設計</h4>
+                    <p class="text-gray-600">アーキテクチャ設計、技術選定、データベース・API設計</p>
+                </div>
+                <div class="border-l-4 border-red-500 pl-4">
+                    <h4 class="font-semibold text-gray-800">14:30-15:15 セキュリティ・品質管理</h4>
+                    <p class="text-gray-600">セキュリティ要件定義、テスト戦略、CI/CD設計</p>
+                </div>
+                <div class="border-l-4 border-indigo-500 pl-4">
+                    <h4 class="font-semibold text-gray-800">15:15-16:00 プロジェクト管理・発表準備</h4>
+                    <p class="text-gray-600">開発計画、リスク管理、設計書まとめ、発表資料作成</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme Details -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8 card-hover">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-book-open text-purple-600 mr-2"></i>
+                テーマ詳細
+            </h3>
+            <div class="space-y-6">
+                <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">総合演習プロジェクト設計・要件定義</h4>
+                    <p class="text-gray-600 mb-4">
+                        これまでの学習内容を統合し、実際の開発現場で求められるプロジェクト企画から設計までの工程を体験します。
+                        単なる技術演習ではなく、ビジネス価値を創出するWebアプリケーションの企画・設計を通じて、
+                        ITエンジニアとしての総合的な能力を向上させます。
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h5 class="font-semibold text-blue-800 mb-2">
+                                <i class="fas fa-lightbulb mr-2"></i>プロジェクト企画
+                            </h5>
+                            <ul class="text-sm text-blue-700 space-y-1">
+                                <li>• アイデア発想手法（ブレインストーミング、マインドマップ）</li>
+                                <li>• 市場調査とSWOT分析</li>
+                                <li>• 競合分析とベンチマーキング</li>
+                                <li>• 価値提案キャンバス作成</li>
+                                <li>• ビジネスモデル設計</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h5 class="font-semibold text-green-800 mb-2">
+                                <i class="fas fa-clipboard-list mr-2"></i>要件定義
+                            </h5>
+                            <ul class="text-sm text-green-700 space-y-1">
+                                <li>• 機能要件・非機能要件の洗い出し</li>
+                                <li>• ユーザーストーリーマッピング</li>
+                                <li>• 受け入れ基準とテスト条件</li>
+                                <li>• 優先度設定とMVP定義</li>
+                                <li>• 要件トレーサビリティ管理</li>
+                            </ul>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-lg">
+                            <h5 class="font-semibold text-yellow-800 mb-2">
+                                <i class="fas fa-users mr-2"></i>ユーザー分析・UI/UX設計
+                            </h5>
+                            <ul class="text-sm text-yellow-700 space-y-1">
+                                <li>• ペルソナ設定とユーザー調査</li>
+                                <li>• ユーザージャーニーマップ作成</li>
+                                <li>• 情報アーキテクチャ設計</li>
+                                <li>• ワイヤーフレーム・プロトタイプ作成</li>
+                                <li>• ユーザビリティテスト計画</li>
+                            </ul>
+                        </div>
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h5 class="font-semibold text-purple-800 mb-2">
+                                <i class="fas fa-cogs mr-2"></i>システム設計
+                            </h5>
+                            <ul class="text-sm text-purple-700 space-y-1">
+                                <li>• システムアーキテクチャ設計</li>
+                                <li>• 技術選定と根拠説明</li>
+                                <li>• データベース設計（論理・物理）</li>
+                                <li>• API設計とOpenAPI仕様</li>
+                                <li>• インフラ構成とデプロイ戦略</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h5 class="font-semibold text-gray-800 mb-3">
+                        <i class="fas fa-shield-alt mr-2"></i>重要ポイント
+                    </h5>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start space-x-2">
+                            <i class="fas fa-check text-green-500 mt-1"></i>
+                            <span>ユーザー視点を常に意識した設計アプローチ</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i class="fas fa-check text-green-500 mt-1"></i>
+                            <span>技術選定における明確な根拠と比較検討</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i class="fas fa-check text-green-500 mt-1"></i>
+                            <span>スケーラビリティと保守性を考慮した設計</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <i class="fas fa-check text-green-500 mt-1"></i>
+                            <span>セキュリティとパフォーマンスの早期検討</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8 card-hover">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-tools text-orange-600 mr-2"></i>
+                使用教材・リソース
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-3">
+                        <i class="fas fa-laptop-code mr-2"></i>設計ツール
+                    </h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>• Figma（UI/UXデザイン）</li>
+                        <li>• Draw.io（システム図作成）</li>
+                        <li>• Miro（マインドマップ・ブレスト）</li>
+                        <li>• Notion（ドキュメント管理）</li>
+                        <li>• MySQL Workbench（DB設計）</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-3">
+                        <i class="fas fa-book mr-2"></i>参考資料
+                    </h4>
+                    <ul class="space-y-2 text-gray-600">
+                        <li>• アジャイル開発手法資料</li>
+                        <li>• UI/UXデザインガイドライン</li>
+                        <li>• システム設計パターン集</li>
+                        <li>• セキュリティ要件チェックリスト</li>
+                        <li>• プロジェクト管理テンプレート</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comprehension Check -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8 card-hover">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-clipboard-check text-red-600 mr-2"></i>
+                理解度確認項目
+            </h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-3">基本レベル</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start space-x-2">
+                            <input type="checkbox" class="mt-1 rounded">
+                            <span class="text-gray-700">プロジェクト企画の基本手順を理解している</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <input type="checkbox" class="mt-1 rounded">
+                            <span class="text-gray-700">機能要件と非機能要件の違いを説明できる</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <input type="checkbox" class="mt-1 rounded">
+                            <span class="text-gray-700">ユーザーストーリーの書き方を理解している</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <input type="checkbox" class="mt-1 rounded">
+                            <span class="text-gray-700">基本的なシステム構成図を読める</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <input type="checkbox" class="mt-1 rounded">
+                            <span class="text-gray-700">プロジェクト管理の基本概念を理解している</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-3">応用レベル</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start space-x-2">
+                            <input type="checkbox" class="mt-1 rounded">
+                            <span class="text-gray-700">技術選定の根拠を明確に説明できる</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <input type="checkbox" class="mt-1 rounded">
+                            <span class="text-gray-700">スケーラブルなアーキテクチャを設計できる</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <input type="checkbox" class="mt-1 rounded">
+                            <span class="text-gray-700">セキュリティリスクを評価・対策できる</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <input type="checkbox" class="mt-1 rounded">
+                            <span class="text-gray-700">効果的なユーザビリティテストを計画できる</span>
+                        </li>
+                        <li class="flex items-start space-x-2">
+                            <input type="checkbox" class="mt-1 rounded">
+                            <span class="text-gray-700">プロジェクト全体の品質管理ができる</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8 card-hover">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-arrow-right text-indigo-600 mr-2"></i>
+                次のステップ
+            </h3>
+            <div class="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-lg">
+                <h4 class="text-lg font-semibold text-gray-800 mb-3">
+                    次の日: Day52 - 総合演習プロジェクト開発実装①
+                </h4>
+                <p class="text-gray-600 mb-4">
+                    設計したプロジェクトの実装フェーズに入ります。フロントエンド・バックエンドの
+                    コーディング作業を通じて、実際の開発経験を積みます。
+                </p>
+                <div class="bg-white p-4 rounded-lg mb-4">
+                    <h5 class="font-semibold text-gray-800 mb-2">予習のポイント:</h5>
+                    <ul class="text-gray-600 space-y-1">
+                        <li>• 設計ドキュメントの最終確認</li>
+                        <li>• 開発環境のセットアップ準備</li>
+                        <li>• 実装優先順位の再確認</li>
+                        <li>• Git フロー戦略の検討</li>
+                    </ul>
+                </div>
+                <a href="#" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+                    <span>詳細を見る</span>
+                    <i class="fas fa-external-link-alt ml-2"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Feedback Section -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8 card-hover">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-comment-dots text-blue-600 mr-2"></i>
+                フィードバック
+            </h3>
+            <p class="text-gray-600 mb-4">このページの内容についてフィードバックをお寄せください。</p>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">理解度</label>
+                    <select class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option>選択してください</option>
+                        <option>完全に理解できた</option>
+                        <option>概ね理解できた</option>
+                        <option>部分的に理解できた</option>
+                        <option>理解が困難だった</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">コメント</label>
+                    <textarea class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" placeholder="ご意見・ご感想をお聞かせください"></textarea>
+                </div>
+            </div>
+            <div class="mt-4">
+                <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                    <i class="fas fa-paper-plane mr-2"></i>
+                    送信
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Table of Contents -->
+    <div class="fixed right-6 top-1/2 transform -translate-y-1/2 bg-white rounded-lg shadow-lg p-4 hidden lg:block">
+        <h4 class="font-semibold text-gray-800 mb-3">
+            <i class="fas fa-list mr-2"></i>
+            目次
+        </h4>
+        <nav class="space-y-2 text-sm">
+            <a href="#" class="block text-blue-600 hover:text-blue-800">学習目標</a>
+            <a href="#" class="block text-blue-600 hover:text-blue-800">達成基準</a>
+            <a href="#" class="block text-blue-600 hover:text-blue-800">詳細スケジュール</a>
+            <a href="#" class="block text-blue-600 hover:text-blue-800">テーマ詳細</a>
+            <a href="#" class="block text-blue-600 hover:text-blue-800">使用教材・リソース</a>
+            <a href="#" class="block text-blue-600 hover:text-blue-800">理解度確認項目</a>
+            <a href="#" class="block text-blue-600 hover:text-blue-800">次のステップ</a>
+        </nav>
+    </div>
+
+    <!-- Related Links -->
+    <div class="bg-gray-100 py-8">
+        <div class="container mx-auto px-4">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">
+                <i class="fas fa-link mr-2"></i>
+                関連リンク
+            </h3>
+            <div class="grid md:grid-cols-3 gap-4">
+                <a href="#" class="bg-white p-4 rounded-lg shadow hover:shadow-md transition text-center">
+                    <i class="fas fa-calendar-alt text-blue-600 text-2xl mb-2"></i>
+                    <p class="font-semibold">学習カレンダー</p>
+                </a>
+                <a href="#" class="bg-white p-4 rounded-lg shadow hover:shadow-md transition text-center">
+                    <i class="fas fa-question-circle text-green-600 text-2xl mb-2"></i>
+                    <p class="font-semibold">FAQ</p>
+                </a>
+                <a href="#" class="bg-white p-4 rounded-lg shadow hover:shadow-md transition text-center">
+                    <i class="fas fa-comments text-purple-600 text-2xl mb-2"></i>
+                    <p class="font-semibold">コミュニティ</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="flex items-center space-x-2 hover:text-gray-300 transition">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Day50: フルスタック連携</span>
+                </a>
+                <a href="#" class="flex items-center space-x-2 hover:text-gray-300 transition">
+                    <span>Day52: 総合演習実装①</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <p class="text-gray-400 mb-4">
+                    ITエンジニア育成カリキュラムは、未経験からITエンジニアを目指す方のための体系的な学習プログラムです。
+                </p>
+                <hr class="border-gray-700 my-4">
+                <p class="text-gray-500 text-sm">
+                    © 2025 APSA Co.,Ltd. All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Progress tracking
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const completed = document.querySelectorAll('input[type="checkbox"]:checked').length;
+                const total = checkboxes.length;
+                console.log(`Progress: ${completed}/${total} (${Math.round(completed/total*100)}%)`);
+            });
+        });
+
+        // Interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-hover');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-4px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDk%2B0nRDa%2FCBZ1esHW3vX3QsIYItJ7QO7Y5EuY0uL8TnWtjLYrEm9cRkVzJqKNQW5q9DEqFiF5KQpaUT9BxYSr%2BDe%2FsC0QHt9LjhXOZX8piJxDHPIeYfHZCGhaXbv%2BvKrqOrWdglBPGblKVJvPyTWsfSfkVz%2BKgUWnZiLOhjrxui90kAf%2FdusXxMIpeuRqA39o8ROzVRNIq9hdXOYXbjBEmz8pLp2pdOd2uQ8vVvO87v4ZeHgmiuYo0rN%2F4uy7tB7YpkfqrBJBgOXZMqEQTYIXiSGKcVTGfiFRpOg0klkUFcHAq0oJudMa0eZ6Za0AoojeUJxZegs5s%2BkokHbIaIk4hUvlTMUYCh8VivMSpp%2F2vRpGiSyP8qb5HrJuT8dQ4gHULurGjLid2sDijMXAlSj6VGwjn%2BblgG6AqiJANK2R1RKRO2KlZE0zAfZloVN0L9BEZuICDSDOfN%2FXtSepugolYfik6xthSM5VmceYIohgkT5";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDk+0nRDa/CBZ1esHW3vX3QsIYItJ7QO7Y5EuY0uL8TnWtjLYrEm9cRkVzJqKNQW5q9DEqFiF5KQpaUT9BxYSr+De/sC0QHt9LjhXOZX8piJxDHPIeYfHZCGhaXbv+vKrqOrWdglBPGblKVJvPyTWsfSfkVz+KgUWnZiLOhjrxui90kAf/dusXxMIpeuRqA39o8ROzVRNIq9hdXOYXbjBEmz8pLp2pdOd2uQ8vVvO87v4ZeHgmiuYo0rN/4uy7tB7YpkfqrBJBgOXZMqEQTYIXiSGKcVTGfiFRpOg0klkUFcHAq0oJudMa0eZ6Za0AoojeUJxZegs5s+kokHbIaIk4hUvlTMUYCh8VivMSpp/2vRpGiSyP8qb5HrJuT8dQ4gHULurGjLid2sDijMXAlSj6VGwjn+blgG6AqiJANK2R1RKRO2KlZE0zAfZloVN0L9BEZuICDSDOfN/XtSepugolYfik6xthSM5VmceYIohgkT5";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

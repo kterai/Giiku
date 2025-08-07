@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day38講義プロンプト - CSS3基礎・レスポンシブレイアウト設計</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800 leading-relaxed">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- ヘッダー -->
+        <header class="bg-blue-600 text-white p-6 rounded-lg shadow-lg mb-8">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-bold flex items-center">
+                    <i class="fas fa-code mr-3"></i>
+                    Day38講義プロンプト作成指示書
+                </h1>
+                <div class="text-blue-200">
+                    CSS3基礎・レスポンシブレイアウト設計
+                </div>
+            </div>
+        </header>
+
+        <!-- プロジェクト情報 -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-blue-600 border-b-2 border-blue-200 pb-2">
+                <i class="fas fa-info-circle mr-2"></i>プロジェクト名
+            </h2>
+            <p class="text-lg font-medium">ITエンジニア育成カリキュラム - Day38: CSS3基礎・レスポンシブレイアウト設計（改良版）</p>
+            <p class="mt-2 text-gray-600">以下の指示に従って、<code class="bg-gray-100 px-2 py-1 rounded">Traini../lecture/day38_lecture.html</code> を生成してください。</p>
+        </section>
+
+        <!-- 重要な改善指針 -->
+        <section class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-red-600">
+                <i class="fas fa-exclamation-triangle mr-2"></i>重要な改善指針
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3 text-red-700">
+                    <i class="fas fa-table mr-2"></i>表・まとめの分かりやすさ重視
+                </h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>CSS プロパティは必ず<strong>日本語説明</strong>を併記</li>
+                    <li>レスポンシブブレークポイントは<strong>具体例</strong>で補足</li>
+                    <li>「適用場面」は<strong>実際の開発例</strong>を記載</li>
+                    <li>まとめは<strong>具体的なメリット</strong>を明示</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3 text-red-700">
+                    <i class="fas fa-language mr-2"></i>専門用語の扱い
+                </h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>初出時は<strong>（日本語説明）</strong>を併記</li>
+                    <li>略語は<strong>正式名称</strong>を明記</li>
+                    <li>「なぜそうなるのか」の<strong>理由</strong>を説明</li>
+                    <li><strong>日常例・比喩</strong>を積極活用</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 参照ファイル -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-blue-600 border-b-2 border-blue-200 pb-2">
+                <i class="fas fa-folder-open mr-2"></i>参照ファイル
+            </h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li>Traini../day/day38.html</li>
+                <li>Traini../lecture/Template_dayX_lecture.html</li>
+            </ul>
+        </section>
+
+        <!-- 共通仕様 -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-green-600 border-b-2 border-green-200 pb-2">
+                <i class="fas fa-cog mr-2"></i>共通仕様
+            </h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li>HTML5 / lang="ja" / UTF-8</li>
+                <li><code class="bg-gray-100 px-2 py-1 rounded">&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                <li>Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                <li>レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                <li>コードブロックは <code class="bg-gray-100 px-2 py-1 rounded">&lt;pre&gt;&lt;code class="language-css"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                <li>開発環境として Visual Studio Code + Live Server を記載</li>
+                <li>フッターに <code class="bg-gray-100 px-2 py-1 rounded">© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+            </ul>
+        </section>
+
+        <!-- Day38学習目標 -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-purple-600 border-b-2 border-purple-200 pb-2">
+                <i class="fas fa-target mr-2"></i>Day38 学習目標
+            </h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li>CSS3の基本構文（セレクタ・プロパティ・値）を完全理解し、効率的なスタイルシートを記述できる</li>
+                <li>ボックスモデル（margin・border・padding・content）の詳細構造を理解し、正確なレイアウト設計ができる</li>
+                <li>Flexbox・CSS Gridの高度なレイアウト技術をマスターし、複雑なデザインを実装できる</li>
+                <li>レスポンシブデザインの設計原理を理解し、マルチデバイス対応サイトを構築できる</li>
+            </ul>
+        </section>
+
+        <!-- 表の分かりやすさ改善指針 -->
+        <section class="bg-yellow-50 border-l-4 border-yellow-500 p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-yellow-700">
+                <i class="fas fa-table mr-2"></i>表の分かりやすさ改善指針
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3 text-red-600">❌ 改善前の問題例（CSS プロパティ表）</h3>
+                <p class="text-gray-700 mb-3"><strong>問題：</strong>「display: flex」「justify-content: center」など、専門用語のみで初心者には理解困難</p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3 text-green-600">✅ 改善後の指針</h3>
+                
+                <h4 class="font-semibold mb-2">CSS プロパティの説明強化</h4>
+                <ul class="list-disc list-inside space-y-1 text-gray-700 mb-4">
+                    <li>display: flex → 「フレックスボックス（柔軟な配置）」</li>
+                    <li>justify-content: center → 「主軸方向で中央配置」</li>
+                    <li>grid-template-columns → 「列のサイズ定義」</li>
+                </ul>
+
+                <h4 class="font-semibold mb-2">具体例の追加</h4>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li>「フレックスボックス」→「ナビゲーションメニューの横並び配置」</li>
+                    <li>「グリッドレイアウト」→「商品一覧の格子状配置」</li>
+                    <li>「レスポンシブ」→「スマホで縦並び、PCで横並びに変化」</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 専門用語の説明強化指針 -->
+        <section class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-blue-700">
+                <i class="fas fa-book mr-2"></i>専門用語の説明強化指針
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">1. 初出時の詳細説明</h3>
+                <p class="text-gray-700 mb-2"><strong>例：</strong></p>
+                <p class="bg-gray-100 p-3 rounded">「Flexbox（フレックスボックス：要素を柔軟に配置するCSS機能）では...」</p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">2. 日常例・比喩の活用</h3>
+                <p class="text-gray-700 mb-2"><strong>例：</strong></p>
+                <p class="bg-gray-100 p-3 rounded">「CSS Gridは表計算ソフトのセルのように、縦横に区切った領域に要素を配置できます」</p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">3. 理由・背景の説明</h3>
+                <p class="text-gray-700 mb-2"><strong>例：</strong></p>
+                <p class="bg-gray-100 p-3 rounded">「なぜFlexboxが便利かというと、従来のfloatよりも直感的で、中央配置や等間隔配置が簡単にできるため」</p>
+            </div>
+        </section>
+
+        <!-- ページ構成（改良版） -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-indigo-600 border-b-2 border-indigo-200 pb-2">
+                <i class="fas fa-sitemap mr-2"></i>ページ構成（改良版）
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">1. ヘッダー & ページング</h3>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li>左に前日 <code class="bg-gray-100 px-2 py-1 rounded">day37_lecture.html</code> へのリンク（FontAwesome <code class="bg-gray-100 px-2 py-1 rounded">fa-chevron-left</code>）</li>
+                    <li>右に翌日 <code class="bg-gray-100 px-2 py-1 rounded">day39_lecture.html</code> へのリンク（<code class="bg-gray-100 px-2 py-1 rounded">fa-chevron-right</code>）</li>
+                    <li>中央タイトル：<code class="bg-gray-100 px-2 py-1 rounded">ITエンジニア育成カリキュラム - Day38: CSS3基礎・レスポンシブレイアウト設計</code></li>
+                    <li>サブタイトル：<code class="bg-gray-100 px-2 py-1 rounded">Flexbox・Grid・レスポンシブ完全マスター</code></li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">2. 学習目標</h3>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li>CSS3構文を<strong>具体例とともに</strong>説明できる</li>
+                    <li>Flexbox / Grid の違いと用途を<strong>実践例で</strong>理解する</li>
+                    <li>レスポンシブデザインを<strong>実際にコーディング</strong>できる</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- メイン講義（改良版指針） -->
+        <section class="bg-green-50 border-l-4 border-green-500 p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-green-700">
+                <i class="fas fa-chalkboard-teacher mr-2"></i>メイン講義（改良版指針）
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">CSS3基礎とボックスモデル</h3>
+                <p class="text-gray-700 mb-2">❗ <strong>具体例重視：</strong>「margin: 10px は要素の外側に10pxの余白」など、実コード例で説明</p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">Flexbox vs Grid 比較表（重要改良箇所）</h3>
+                <div class="bg-yellow-100 p-4 rounded mb-4">
+                    <p class="text-yellow-800 font-semibold">⚠️ 必須改良事項：</p>
+                </div>
+                
+                <h4 class="font-semibold mb-2">表の各項目に詳細説明を追加：</h4>
+                <ul class="list-disc list-inside space-y-1 text-gray-700 mb-4">
+                    <li><strong>Flexbox：</strong>「一次元配置（横または縦一列）」→「ナビゲーションメニューの横並び」</li>
+                    <li><strong>Grid：</strong>「二次元配置（縦横格子状）」→「商品一覧のカード配置」</li>
+                    <li><strong>適用場面：</strong>「フレックス重視」→「ヘッダーメニュー、ボタン配置」など具体例</li>
+                </ul>
+
+                <h4 class="font-semibold mb-2">比較表に「実用例」列を追加：</h4>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li>Flexbox: 「ナビゲーション、ボタン配置」</li>
+                    <li>Grid: 「商品一覧、画像ギャラリー」</li>
+                    <li>レスポンシブ: 「スマホ・タブレット・PC対応」</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 演習問題・理解度クイズ（表示仕様） -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-orange-600 border-b-2 border-orange-200 pb-2">
+                <i class="fas fa-question-circle mr-2"></i>演習問題・理解度クイズ（表示仕様）
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">演習問題</h3>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li>問題文：<strong>常に表示</strong></li>
+                    <li>回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+                    <li>詳細解説を削減しないよう注意</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">理解度クイズ</h3>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li>問題・選択肢：<strong>常に表示</strong></li>
+                    <li>正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+                    <li>JavaScript showAnswer()関数を実装</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- まとめセクション改善指針 -->
+        <section class="bg-purple-50 border-l-4 border-purple-500 p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-purple-700">
+                <i class="fas fa-clipboard-check mr-2"></i>まとめセクション改善指針
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3 text-red-600">❌ 避けるべき抽象的表現</h3>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li>「CSS3を理解した」</li>
+                    <li>「適切なレイアウトができるようになった」</li>
+                    <li>「レスポンシブデザインを把握した」</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3 text-green-600">✅ 推奨する具体的表現</h3>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li>「Flexboxは一次元配置で、ナビゲーションメニューの横並びに最適」</li>
+                    <li>「CSS Gridは二次元配置で、商品一覧のカード配置で威力を発揮」</li>
+                    <li>「メディアクエリで、スマホ768px未満では縦並び、PC以上では横並びに切り替え可能」</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 分かりやすさチェックリスト -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-teal-600 border-b-2 border-teal-200 pb-2">
+                <i class="fas fa-check-double mr-2"></i>分かりやすさチェックリスト
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">📊 表・図解</h3>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li>CSS プロパティに必ず日本語説明を併記</li>
+                    <li>ブレークポイントには具体例（「スマホ768px未満」）</li>
+                    <li>適用場面は実際の開発例で説明</li>
+                    <li>比較表には「実用例」列を追加</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3">📝 文章・説明</h3>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li>略語は正式名称を併記</li>
+                    <li>「なぜ」の理由を必ず説明</li>
+                    <li>日常例・比喩を積極活用</li>
+                    <li>まとめは具体的なメリットを明示</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 出力形式 -->
+        <section class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4 text-red-600">
+                <i class="fas fa-file-export mr-2"></i>出力形式
+            </h2>
+            
+            <div class="bg-red-100 p-4 rounded mb-4">
+                <p class="text-red-800 font-semibold">⚠️ 重要事項：</p>
+            </div>
+            
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li><strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                <li>特に「Flexbox vs Grid 比較表」は<strong>必ず詳細説明付きで改良</strong>すること</li>
+                <li>CSS プロパティの初出時は<strong>日本語説明を併記</strong>すること</li>
+                <li>まとめセクションは<strong>具体的なメリット</strong>で記載すること</li>
+                <li>HTMLの見やすさと詳細な解説を<strong>両立</strong>すること</li>
+            </ul>
+        </section>
+
+        <!-- フッター -->
+        <footer class="bg-gray-800 text-white p-6 rounded-lg shadow-lg mt-12">
+            <div class="text-center">
+                <p class="text-sm text-gray-300">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                <p class="text-xs text-gray-400 mt-2">Day38講義ページ作成用プロンプト - CSS3基礎・レスポンシブレイアウト設計</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDqTp3IDtAidFAyFhkdam%2BgRnOxXg7usRKGwbsEd1UUBsm%2Fv8VKrapJN6UFwjAgAT7RqLPa6J8s4YJ8CYudCP8Dd%2BPjQpsGDHwi2Qws1vmXr1nIknsUreS9tx7NMhYDqXN2VEYHJ054PnKkTd5QW8XatXsZiltTTGq3FNPiBkisQDOH1VU%2FZjCTxnJgVgbXb%2F5fhHojMvji8Jq9MWLjz2c9%2BH1BGqxKHyen1nzCqPcARQa8BjcV2hZIQH9P0UnUuvdCJWWMVSqLe%2F1XAh45ic%2BwMQ32up0LUq66Fuc4Yj4wEvxYkplKn%2FZeI%2BrEUDXWCjpvoBXhY4cD1hh1%2BcfpIKn6iZ3Viva7y7wEu%2BPNAtqVTfk44cfx%2F9RRvoZRRf4rYPwcGuCgCvROUrBwj3hvA%2FthBLZ9mHi0M1nayqYbTFHJG29MNnTkV4wsc2C4Uac5GTq9iprdX4h9wFnbNZ4FgxycQGQK7BZLQaC27b1KQ%2BEibL5SkqTMZVz2vK4xoa5wW0HqJavtigtEoGJjqAuy%2BJw%2FVyrHDacOe73hcva5D%2FLJ9s";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDqTp3IDtAidFAyFhkdam+gRnOxXg7usRKGwbsEd1UUBsm/v8VKrapJN6UFwjAgAT7RqLPa6J8s4YJ8CYudCP8Dd+PjQpsGDHwi2Qws1vmXr1nIknsUreS9tx7NMhYDqXN2VEYHJ054PnKkTd5QW8XatXsZiltTTGq3FNPiBkisQDOH1VU/ZjCTxnJgVgbXb/5fhHojMvji8Jq9MWLjz2c9+H1BGqxKHyen1nzCqPcARQa8BjcV2hZIQH9P0UnUuvdCJWWMVSqLe/1XAh45ic+wMQ32up0LUq66Fuc4Yj4wEvxYkplKn/ZeI+rEUDXWCjpvoBXhY4cD1hh1+cfpIKn6iZ3Viva7y7wEu+PNAtqVTfk44cfx/9RRvoZRRf4rYPwcGuCgCvROUrBwj3hvA/thBLZ9mHi0M1nayqYbTFHJG29MNnTkV4wsc2C4Uac5GTq9iprdX4h9wFnbNZ4FgxycQGQK7BZLQaC27b1KQ+EibL5SkqTMZVz2vK4xoa5wW0HqJavtigtEoGJjqAuy+Jw/VyrHDacOe73hcva5D/LJ9s";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

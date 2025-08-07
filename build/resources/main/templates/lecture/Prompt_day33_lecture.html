@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day33 総合演習② 講義プロンプト - 改良版</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeIn 0.6s ease-out; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .answer-box { 
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .section-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            border-left-color: #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-book-open text-3xl"></i>
+                    <h1 class="text-2xl font-bold">Day33 総合演習② 講義プロンプト - 改良版</h1>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">プロンプト指示書</span>
+                    <span class="bg-white bg-opacity-20 px-3 py-1 rounded-full text-sm">改良版</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center space-x-6 text-sm">
+                <a href="#overview" class="text-blue-600 hover:text-blue-800 flex items-center space-x-1">
+                    <i class="fas fa-eye"></i><span>概要</span>
+                </a>
+                <a href="#improvements" class="text-blue-600 hover:text-blue-800 flex items-center space-x-1">
+                    <i class="fas fa-arrow-up"></i><span>改善指針</span>
+                </a>
+                <a href="#content" class="text-blue-600 hover:text-blue-800 flex items-center space-x-1">
+                    <i class="fas fa-list"></i><span>講義構成</span>
+                </a>
+                <a href="#exercises" class="text-blue-600 hover:text-blue-800 flex items-center space-x-1">
+                    <i class="fas fa-tasks"></i><span>演習・試験</span>
+                </a>
+                <a href="#technical" class="text-blue-600 hover:text-blue-800 flex items-center space-x-1">
+                    <i class="fas fa-cog"></i><span>技術仕様</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- 重要注意事項 -->
+        <div class="bg-red-50 border-l-4 border-red-500 p-6 mb-8 fade-in">
+            <div class="flex items-start">
+                <i class="fas fa-exclamation-triangle text-red-500 text-xl mr-3 mt-1"></i>
+                <div>
+                    <h2 class="text-xl font-bold text-red-800 mb-3">重要な注意事項</h2>
+                    <div class="space-y-2 text-red-700">
+                        <p>このファイルはHTMLファイル生成用のプロンプト指示書です。実際のHTMLファイルではなく、<strong>day33_lecture.html</strong>を生成するための詳細な指示内容が記載されています。</p>
+                        <p>本改良版では、<strong>分かりやすさ改善指針</strong>を適用し、講師が説明しやすく受講者が理解しやすい内容構成を実現します。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 基本仕様 -->
+        <section id="overview" class="mb-12 fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-info-circle text-blue-500 mr-3"></i>基本仕様
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="section-card bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-code text-green-500 mr-2"></i>技術スタック
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>HTML5準拠の構造でレスポンシブデザインを実装</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Tailwind CSS（CDN）とFontAwesome（CDN）を使用</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>ナビゲーション機能（前日・翌日への移動）</li>
+                        <li class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>演習問題・模擬試験の回答表示ボタン機能を実装</li>
+                    </ul>
+                </div>
+                <div class="section-card bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-file-alt text-blue-500 mr-2"></i>生成ファイル情報
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="bg-blue-50 p-3 rounded">
+                            <strong class="text-blue-800">ファイル名:</strong> day33_lecture.html
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded">
+                            <strong class="text-blue-800">タイトル:</strong> ITエンジニア育成カリキュラム - Day33: 総合演習② - 実際の業務シナリオでの実践
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded">
+                            <strong class="text-blue-800">ファイルサイズ目安:</strong> 30KB以上（詳細で充実した内容）
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 分かりやすさ改善指針 -->
+        <section id="improvements" class="mb-12 fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-arrow-up text-purple-500 mr-3"></i>分かりやすさ改善指針（改良版の特徴）
+            </h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- 講師向け改善 -->
+                <div class="section-card bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-purple-800 mb-4 flex items-center">
+                        <i class="fas fa-chalkboard-teacher text-purple-500 mr-2"></i>講師向け改善点
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-purple-200 pl-4">
+                            <h4 class="font-semibold text-gray-800">詳細な指導ポイント</h4>
+                            <p class="text-gray-600 text-sm">各業務シナリオでの教え方、受講者がつまずきやすいポイント、効果的な説明方法を詳細に記載</p>
+                        </div>
+                        <div class="border-l-4 border-purple-200 pl-4">
+                            <h4 class="font-semibold text-gray-800">実践例の豊富化</h4>
+                            <p class="text-gray-600 text-sm">具体的なプロンプト例、Before/After比較、段階的解説を多数掲載</p>
+                        </div>
+                        <div class="border-l-4 border-purple-200 pl-4">
+                            <h4 class="font-semibold text-gray-800">チーム指導のコツ</h4>
+                            <p class="text-gray-600 text-sm">グループワーク進行方法、役割分担の指導、協働促進の技術</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 受講者向け改善 -->
+                <div class="section-card bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-green-800 mb-4 flex items-center">
+                        <i class="fas fa-user-graduate text-green-500 mr-2"></i>受講者向け改善点
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-green-200 pl-4">
+                            <h4 class="font-semibold text-gray-800">段階的理解促進</h4>
+                            <p class="text-gray-600 text-sm">基礎→応用→実践の順序立てた構成、複雑な概念の丁寧な分解説明</p>
+                        </div>
+                        <div class="border-l-4 border-green-200 pl-4">
+                            <h4 class="font-semibold text-gray-800">視覚的理解支援</h4>
+                            <p class="text-gray-600 text-sm">フローチャート、比較表、チェックリストによる理解促進</p>
+                        </div>
+                        <div class="border-l-4 border-green-200 pl-4">
+                            <h4 class="font-semibold text-gray-800">実務直結性</h4>
+                            <p class="text-gray-600 text-sm">実際の業務場面での活用イメージを具体的に描けるよう支援</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 統一仕様 -->
+            <div class="mt-8 bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-lg">
+                <h3 class="text-lg font-semibold text-yellow-800 mb-4 flex items-center">
+                    <i class="fas fa-sync-alt text-yellow-500 mr-2"></i>統一された仕様改善
+                </h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="text-center p-4 bg-white rounded">
+                        <i class="fas fa-mouse-pointer text-blue-500 text-2xl mb-2"></i>
+                        <h4 class="font-semibold text-gray-800">回答表示ボタン</h4>
+                        <p class="text-gray-600 text-sm">全問題で統一されたボタン方式</p>
+                    </div>
+                    <div class="text-center p-4 bg-white rounded">
+                        <i class="fas fa-comments text-green-500 text-2xl mb-2"></i>
+                        <h4 class="font-semibold text-gray-800">詳細解説</h4>
+                        <p class="text-gray-600 text-sm">300-500文字の充実した解説</p>
+                    </div>
+                    <div class="text-center p-4 bg-white rounded">
+                        <i class="fas fa-book text-purple-500 text-2xl mb-2"></i>
+                        <h4 class="font-semibold text-gray-800">事前説明必須</h4>
+                        <p class="text-gray-600 text-sm">講義で全問題内容を事前解説</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 講義構成 -->
+        <section id="content" class="mb-12 fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-list text-indigo-500 mr-3"></i>講義構成（詳細版）
+            </h2>
+
+            <!-- ITエンジニア豆知識 -->
+            <div class="section-card bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-6 rounded-lg mb-8 shadow-lg">
+                <h3 class="text-xl font-bold mb-4 flex items-center">
+                    <i class="fas fa-lightbulb mr-2"></i>1. ITエンジニア豆知識
+                </h3>
+                <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                    <h4 class="font-bold text-lg mb-3">テーマ: 「実業務でのプロンプトエンジニアリング活用事例」</h4>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <p class="flex items-start"><i class="fas fa-building mr-2 mt-1"></i>企業でのAI導入時の課題と解決策</p>
+                            <p class="flex items-start"><i class="fas fa-users mr-2 mt-1"></i>チーム開発でのプロンプト共有・管理手法</p>
+                            <p class="flex items-start"><i class="fas fa-chart-line mr-2 mt-1"></i>業務効率化のための実践的設計のコツ</p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="flex items-start"><i class="fas fa-industry mr-2 mt-1"></i>業界別のプロンプトエンジニアリング適用例</p>
+                            <p class="flex items-start"><i class="fas fa-network-wired mr-2 mt-1"></i>システム統合時のプロンプト設計</p>
+                            <p class="flex items-start"><i class="fas fa-shield-alt mr-2 mt-1"></i>セキュリティを考慮した運用ガイドライン</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 本日の講義内容 -->
+            <div class="section-card bg-white p-8 rounded-lg shadow-sm mb-8">
+                <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+                    <i class="fas fa-book-open text-blue-500 mr-2"></i>2. 本日の講義内容（超詳細版）
+                </h3>
+
+                <!-- 学習目標 -->
+                <div class="bg-green-50 border-l-4 border-green-500 p-6 mb-6 rounded-lg">
+                    <h4 class="text-lg font-semibold text-green-800 mb-4">学習目標</h4>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <ul class="space-y-2 text-green-700">
+                            <li class="flex items-start"><i class="fas fa-check-circle mr-2 mt-1"></i>実際の業務シナリオでプロンプト技術を統合して活用できる</li>
+                            <li class="flex items-start"><i class="fas fa-check-circle mr-2 mt-1"></i>複数のプロンプト手法を組み合わせた複合的解決策を設計できる</li>
+                        </ul>
+                        <ul class="space-y-2 text-green-700">
+                            <li class="flex items-start"><i class="fas fa-check-circle mr-2 mt-1"></i>チーム開発での協働型プロンプト開発手法を習得する</li>
+                            <li class="flex items-start"><i class="fas fa-check-circle mr-2 mt-1"></i>業務効率化と品質向上を両立するプロンプト設計ができる</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 達成基準 -->
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-6 rounded-lg">
+                    <h4 class="text-lg font-semibold text-blue-800 mb-4">達成基準</h4>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <ul class="space-y-2 text-blue-700">
+                            <li class="flex items-start"><i class="fas fa-target mr-2 mt-1"></i>実業務シナリオで80%以上の精度を達成するプロンプトを設計</li>
+                            <li class="flex items-start"><i class="fas fa-target mr-2 mt-1"></i>チームでの協働プロンプト開発プロセスを完全実行</li>
+                        </ul>
+                        <ul class="space-y-2 text-blue-700">
+                            <li class="flex items-start"><i class="fas fa-target mr-2 mt-1"></i>3つ以上の技術を統合した複合プロンプトを作成</li>
+                            <li class="flex items-start"><i class="fas fa-target mr-2 mt-1"></i>品質評価基準に基づく改善プロセスを実践</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 詳細講義項目 -->
+                <div class="space-y-8">
+                    <!-- 2.1 総合演習の意義と実践アプローチ -->
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-bullseye text-red-500 mr-2"></i>2.1 総合演習の意義と実践アプローチ（60分）
+                        </h5>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded">
+                                <h6 class="font-semibold text-gray-800 mb-2">実業務での複合的スキル要求</h6>
+                                <p class="text-gray-700 mb-2">現代の業務環境では単一技術ではなく、複数のプロンプト技術を組み合わせた統合的アプローチが求められます。</p>
+                                <ul class="text-sm text-gray-600 space-y-1 ml-4">
+                                    <li>• Chain of Thought + データ分析プロンプトの組み合わせ</li>
+                                    <li>• 要約技術 + コード生成の実践的統合</li>
+                                    <li>• リスク評価 + 意思決定支援の複合活用</li>
+                                </ul>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded">
+                                <h6 class="font-semibold text-gray-800 mb-2">システム思考によるプロンプト設計</h6>
+                                <p class="text-gray-700 mb-2">個々の問題を孤立して解決するのではなく、業務プロセス全体を俯瞰した設計アプローチを学習します。</p>
+                                <div class="flex items-center justify-center bg-white p-4 rounded border mt-2">
+                                    <div class="text-center">
+                                        <i class="fas fa-arrow-right text-blue-500 text-xl"></i>
+                                        <p class="text-sm text-gray-600 mt-1">入力 → 処理 → 出力 → フィードバック → 改善</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2.2 実際の業務シナリオ分析 -->
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-briefcase text-blue-500 mr-2"></i>2.2 実際の業務シナリオ分析（90分）
+                        </h5>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <h6 class="font-semibold text-blue-800 mb-2">顧客サポート自動化シナリオ</h6>
+                                    <p class="text-blue-700 text-sm mb-2">問い合わせ内容の分類から解決案提示まで</p>
+                                    <div class="text-xs text-blue-600 space-y-1">
+                                        <p>• 感情分析 + 意図理解</p>
+                                        <p>• ナレッジベース検索 + 回答生成</p>
+                                        <p>• エスカレーション判定</p>
+                                    </div>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-lg">
+                                    <h6 class="font-semibold text-green-800 mb-2">マーケティング分析シナリオ</h6>
+                                    <p class="text-green-700 text-sm mb-2">顧客データ分析から施策提案まで</p>
+                                    <div class="text-xs text-green-600 space-y-1">
+                                        <p>• データ前処理 + 統計分析</p>
+                                        <p>• トレンド抽出 + 予測モデル</p>
+                                        <p>• 施策立案 + ROI計算</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-purple-50 p-4 rounded-lg">
+                                    <h6 class="font-semibold text-purple-800 mb-2">システム開発支援シナリオ</h6>
+                                    <p class="text-purple-700 text-sm mb-2">要件定義からテスト設計まで</p>
+                                    <div class="text-xs text-purple-600 space-y-1">
+                                        <p>• 要件抽出 + 機能分解</p>
+                                        <p>• コード生成 + レビュー</p>
+                                        <p>• テストケース作成</p>
+                                    </div>
+                                </div>
+                                <div class="bg-red-50 p-4 rounded-lg">
+                                    <h6 class="font-semibold text-red-800 mb-2">リスク管理シナリオ</h6>
+                                    <p class="text-red-700 text-sm mb-2">リスク特定から対策立案まで</p>
+                                    <div class="text-xs text-red-600 space-y-1">
+                                        <p>• リスク評価 + 影響度分析</p>
+                                        <p>• 対策案生成 + 優先順位付け</p>
+                                        <p>• モニタリング設計</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2.3 チーム開発での協働手法 -->
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-users text-green-500 mr-2"></i>2.3 チーム開発での協働手法（75分）
+                        </h5>
+                        <div class="space-y-6">
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h6 class="font-semibold text-green-800 mb-3">プロンプト開発の役割分担</h6>
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <div class="text-center p-3 bg-white rounded">
+                                        <i class="fas fa-user-tie text-blue-500 text-xl mb-2"></i>
+                                        <h6 class="font-semibold text-gray-800">プロンプト設計者</h6>
+                                        <p class="text-xs text-gray-600">全体アーキテクチャ設計</p>
+                                    </div>
+                                    <div class="text-center p-3 bg-white rounded">
+                                        <i class="fas fa-code text-green-500 text-xl mb-2"></i>
+                                        <h6 class="font-semibold text-gray-800">実装担当者</h6>
+                                        <p class="text-xs text-gray-600">詳細プロンプト作成</p>
+                                    </div>
+                                    <div class="text-center p-3 bg-white rounded">
+                                        <i class="fas fa-check-circle text-purple-500 text-xl mb-2"></i>
+                                        <h6 class="font-semibold text-gray-800">品質管理者</h6>
+                                        <p class="text-xs text-gray-600">テスト・評価・改善</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h6 class="font-semibold text-blue-800 mb-3">協働プロセスフロー</h6>
+                                <div class="flex items-center justify-between bg-white p-4 rounded">
+                                    <div class="text-center">
+                                        <i class="fas fa-lightbulb text-yellow-500 text-lg"></i>
+                                        <p class="text-xs mt-1">アイデア共有</p>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400"></i>
+                                    <div class="text-center">
+                                        <i class="fas fa-drafting-compass text-blue-500 text-lg"></i>
+                                        <p class="text-xs mt-1">設計合意</p>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400"></i>
+                                    <div class="text-center">
+                                        <i class="fas fa-code text-green-500 text-lg"></i>
+                                        <p class="text-xs mt-1">分担実装</p>
+                                    </div>
+                                    <i class="fas fa-arrow-right text-gray-400"></i>
+                                    <div class="text-center">
+                                        <i class="fas fa-check text-purple-500 text-lg"></i>
+                                        <p class="text-xs mt-1">統合テスト</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2.4 複合的プロンプト技術の統合 -->
+                    <div class="border border-gray-200 rounded-lg p-6">
+                        <h5 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-puzzle-piece text-purple-500 mr-2"></i>2.4 複合的プロンプト技術の統合（90分）
+                        </h5>
+                        <div class="space-y-4">
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <h6 class="font-semibold text-purple-800 mb-2">技術統合の原則</h6>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div class="space-y-2">
+                                        <p class="flex items-start text-purple-700"><i class="fas fa-check mr-2 mt-1"></i>各技術の特性理解</p>
+                                        <p class="flex items-start text-purple-700"><i class="fas fa-check mr-2 mt-1"></i>適切な組み合わせ選択</p>
+                                        <p class="flex items-start text-purple-700"><i class="fas fa-check mr-2 mt-1"></i>シナジー効果の最大化</p>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <p class="flex items-start text-purple-700"><i class="fas fa-check mr-2 mt-1"></i>パフォーマンス最適化</p>
+                                        <p class="flex items-start text-purple-700"><i class="fas fa-check mr-2 mt-1"></i>エラーハンドリング</p>
+                                        <p class="flex items-start text-purple-700"><i class="fas fa-check mr-2 mt-1"></i>保守性の確保</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 演習・模擬試験仕様 -->
+        <section id="exercises" class="mb-12 fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-tasks text-orange-500 mr-3"></i>演習・模擬試験仕様
+            </h2>
+
+            <!-- 重要な制約 -->
+            <div class="bg-red-50 border-l-4 border-red-500 p-6 mb-8 rounded-lg">
+                <h3 class="text-lg font-semibold text-red-800 mb-4 flex items-center">
+                    <i class="fas fa-exclamation-circle mr-2"></i>重要な制約事項
+                </h3>
+                <div class="space-y-2 text-red-700">
+                    <p class="font-semibold">演習問題・模擬試験の内容は全て上記講義内容で事前に説明済みの内容から出題する</p>
+                    <p>学習者が講義を読めば、全ての問題に答えられるよう、講義パートで関連する全ての知識・技術・概念を詳しく解説してください。</p>
+                </div>
+            </div>
+
+            <!-- 演習問題 -->
+            <div class="section-card bg-white p-6 rounded-lg shadow-sm mb-8">
+                <h3 class="text-xl font-semibold text-orange-800 mb-4 flex items-center">
+                    <i class="fas fa-dumbbell text-orange-500 mr-2"></i>演習問題（詳細仕様）
+                </h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="bg-orange-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-orange-800 mb-2">問題構成（8-10問）</h4>
+                            <ul class="space-y-2 text-orange-700 text-sm">
+                                <li class="flex items-start"><i class="fas fa-circle text-xs mr-2 mt-2"></i>実際の業務シナリオ設定（2-3問）</li>
+                                <li class="flex items-start"><i class="fas fa-circle text-xs mr-2 mt-2"></i>複合技術統合問題（3-4問）</li>
+                                <li class="flex items-start"><i class="fas fa-circle text-xs mr-2 mt-2"></i>チーム協働手法問題（2-3問）</li>
+                            </ul>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">回答表示機能</h4>
+                            <div class="text-blue-700 text-sm space-y-1">
+                                <p>• 「回答を表示」ボタンの実装</p>
+                                <p>• 正解と400-500文字の詳細解説</p>
+                                <p>• 講義内容との関連付け説明</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-gray-800 mb-3">演習問題例の構成</h4>
+                        <div class="bg-white p-3 rounded border text-sm">
+                            <p class="font-semibold text-gray-800 mb-2">問題1: 顧客サポート自動化設計</p>
+                            <p class="text-gray-700 mb-2">EC企業の顧客問い合わせ対応を自動化するプロンプトシステムを設計する場合、最も重要な考慮事項は？</p>
+                            <div class="text-xs text-gray-600 space-y-1">
+                                <p>a) 処理速度の最大化</p>
+                                <p>b) 感情分析と意図理解の精度</p>
+                                <p>c) システム構築コストの最小化</p>
+                                <p>d) UIデザインの美しさ</p>
+                            </div>
+                            <button class="mt-2 bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600">
+                                回答を表示
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 模擬試験 -->
+            <div class="section-card bg-white p-6 rounded-lg shadow-sm">
+                <h3 class="text-xl font-semibold text-purple-800 mb-4 flex items-center">
+                    <i class="fas fa-graduation-cap text-purple-500 mr-2"></i>模擬試験（総合評価）
+                </h3>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-purple-800 mb-2">選択式問題（10-12問）</h4>
+                        <ul class="space-y-1 text-purple-700 text-sm">
+                            <li>• 理論理解度確認（4問）</li>
+                            <li>• 実践応用力評価（4問）</li>
+                            <li>• 統合的思考力測定（4問）</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-green-800 mb-2">記述式問題（3-4問）</h4>
+                        <ul class="space-y-1 text-green-700 text-sm">
+                            <li>• シナリオ設計問題（2問）</li>
+                            <li>• 改善提案問題（1問）</li>
+                            <li>• 協働プロセス問題（1問）</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 mb-2">評価基準</h4>
+                        <ul class="space-y-1 text-blue-700 text-sm">
+                            <li>• 80%以上：優秀</li>
+                            <li>• 70-79%：良好</li>
+                            <li>• 60-69%：合格</li>
+                            <li>• 60%未満：要復習</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技術仕様 -->
+        <section id="technical" class="mb-12 fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-cog text-gray-500 mr-3"></i>技術仕様・実装要件
+            </h2>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- HTML5構造 -->
+                <div class="section-card bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-code text-blue-500 mr-2"></i>HTML5構造
+                    </h3>
+                    <div class="bg-gray-50 p-4 rounded text-sm">
+                        <pre class="text-gray-700"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Day33: 総合演習② - 実際の業務シナリオでの実践&lt;/title&gt;
+    &lt;link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"&gt;
+    &lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"&gt;
+&lt;/head&gt;</code></pre>
+                    </div>
+                </div>
+
+                <!-- ナビゲーション機能 -->
+                <div class="section-card bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-arrows-alt text-green-500 mr-2"></i>ナビゲーション機能
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="bg-green-50 p-3 rounded">
+                            <strong class="text-green-800">前日リンク:</strong> day32_lecture.html
+                        </div>
+                        <div class="bg-green-50 p-3 rounded">
+                            <strong class="text-green-800">翌日リンク:</strong> day34_lecture.html
+                        </div>
+                        <div class="bg-green-50 p-3 rounded">
+                            <strong class="text-green-800">トップページリンク:</strong> ../index.html
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JavaScript機能 -->
+                <div class="section-card bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-code text-yellow-500 mr-2"></i>JavaScript機能
+                    </h3>
+                    <div class="bg-gray-50 p-4 rounded text-sm">
+                        <pre class="text-gray-700"><code>function toggleAnswer(questionId) {
+    const element = document.getElementById(questionId + '-answer');
+    const button = event.target;
+    
+    if (element.classList.contains('hidden')) {
+        element.classList.remove('hidden');
+        button.textContent = '回答を非表示';
+        button.classList.add('bg-red-500', 'hover:bg-red-600');
+        button.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+    } else {
+        element.classList.add('hidden');
+        button.textContent = '回答を表示';
+        button.classList.add('bg-blue-500', 'hover:bg-blue-600');
+        button.classList.remove('bg-red-500', 'hover:bg-red-600');
+    }
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- レスポンシブデザイン -->
+                <div class="section-card bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-mobile-alt text-purple-500 mr-2"></i>レスポンシブデザイン
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="bg-purple-50 p-3 rounded">
+                            <strong class="text-purple-800">モバイル (sm):</strong> 単一カラムレイアウト
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded">
+                            <strong class="text-purple-800">タブレット (md):</strong> 2カラムレイアウト
+                        </div>
+                        <div class="bg-purple-50 p-3 rounded">
+                            <strong class="text-purple-800">デスクトップ (lg):</strong> 3カラムレイアウト
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 品質保証チェックリスト -->
+        <section class="mb-12 fade-in">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-clipboard-check text-teal-500 mr-3"></i>品質保証チェックリスト
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="section-card bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-teal-800 mb-4">必須確認項目</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-teal-600">
+                            <span class="text-gray-700">ファイルサイズ30KB以上</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-teal-600">
+                            <span class="text-gray-700">全デバイス対応確認</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-teal-600">
+                            <span class="text-gray-700">JavaScript機能動作確認</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-teal-600">
+                            <span class="text-gray-700">回答表示ボタン動作確認</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="section-card bg-white p-6 rounded-lg shadow-sm">
+                    <h3 class="text-lg font-semibold text-teal-800 mb-4">内容確認項目</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-teal-600">
+                            <span class="text-gray-700">講義内容の詳細度</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-teal-600">
+                            <span class="text-gray-700">演習・模擬試験の事前説明</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-teal-600">
+                            <span class="text-gray-700">ITエンジニア豆知識の追記</span>
+                        </label>
+                        <label class="flex items-center space-x-3">
+                            <input type="checkbox" class="form-checkbox h-5 w-5 text-teal-600">
+                            <span class="text-gray-700">問題と解説の品質</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 生成指示の最終確認 -->
+        <section class="mb-12 fade-in">
+            <div class="answer-box text-center">
+                <i class="fas fa-rocket text-4xl mb-4"></i>
+                <h2 class="text-2xl font-bold mb-4">生成指示の最終確認</h2>
+                <p class="text-lg mb-6">この改良版プロンプト指示書に従って、高品質で分かりやすい「day33_lecture.html」を生成してください。</p>
+                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                    <div class="bg-white bg-opacity-20 p-3 rounded">
+                        <i class="fas fa-check-circle text-xl mb-2"></i>
+                        <p>実践的な業務シナリオ</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 p-3 rounded">
+                        <i class="fas fa-users text-xl mb-2"></i>
+                        <p>チーム協働手法</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 p-3 rounded">
+                        <i class="fas fa-puzzle-piece text-xl mb-2"></i>
+                        <p>複合技術統合</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-300">© 2025 ITエンジニア育成カリキュラム. All rights reserved.</p>
+            <p class="text-gray-400 text-sm mt-2">Day33 総合演習② - 改良版プロンプト指示書</p>
+        </div>
+    </footer>
+
+    <script>
+        // アニメーション効果
+        function observeElements() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            });
+
+            document.querySelectorAll('section').forEach((section) => {
+                observer.observe(section);
+            });
+        }
+
+        // スムーズスクロール
+        function setupSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        // チェックリスト機能
+        function setupCheckboxes() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const label = this.parentElement;
+                    if (this.checked) {
+                        label.classList.add('line-through', 'text-gray-500');
+                    } else {
+                        label.classList.remove('line-through', 'text-gray-500');
+                    }
+                });
+            });
+        }
+
+        // 初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            observeElements();
+            setupSmoothScroll();
+            setupCheckboxes();
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDlSRzNdteW7toJtaOxkMg32TpuCGyYmFL2AGDPKjyVJVtVL9ZHkN%2BOTaeKrPgamfVx5ugdQG1wku8i71MG7Bzkag3CgtXUvvvdPnzXsCchIEzoJHXKycM3qrgjx4sV%2BO0sZXABknj0CLfsmsi%2BgzdkKPwEEOwBm4k6JEpn5WrCSqXj3vPaHG4rQEm7qQMV3kkhUQn0%2BL8G4xM89LcRoohF2nXXr67zuJ2BQCR7xDc3DPUOYDGBo%2Fp7THRYad%2Be2wKDcYGElUUsqVAcu%2BejUu9dSE61Pguc3C2tPlSgYDZUTTWX7Uf2pW9OPN6HFFhxXAiHHuz60gmJ87b11GUMbtEHWwjWfwb%2BR1up8uDnUdrRMyTTvSB8pCjF40z9RsAUt9qNlArOByPqyVi6rnlG4NOutsPG%2BppiyuLzotqZhBN70veOctjDvq6%2B5Z6QKiU6JJqnfr9jUltOjKP%2BOHThsDKnDYuJOpV8y8iO%2FomHRxPUpK8FAfEkMA26bhQVDLK8HYOpXdXL82L4scIjclxV09jLF3N8TCDqsXKa9Z44NqBU7jeA5eGZpeHA2IjCWO5whFHA%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDlSRzNdteW7toJtaOxkMg32TpuCGyYmFL2AGDPKjyVJVtVL9ZHkN+OTaeKrPgamfVx5ugdQG1wku8i71MG7Bzkag3CgtXUvvvdPnzXsCchIEzoJHXKycM3qrgjx4sV+O0sZXABknj0CLfsmsi+gzdkKPwEEOwBm4k6JEpn5WrCSqXj3vPaHG4rQEm7qQMV3kkhUQn0+L8G4xM89LcRoohF2nXXr67zuJ2BQCR7xDc3DPUOYDGBo/p7THRYad+e2wKDcYGElUUsqVAcu+ejUu9dSE61Pguc3C2tPlSgYDZUTTWX7Uf2pW9OPN6HFFhxXAiHHuz60gmJ87b11GUMbtEHWwjWfwb+R1up8uDnUdrRMyTTvSB8pCjF40z9RsAUt9qNlArOByPqyVi6rnlG4NOutsPG+ppiyuLzotqZhBN70veOctjDvq6+5Z6QKiU6JJqnfr9jUltOjKP+OHThsDKnDYuJOpV8y8iO/omHRxPUpK8FAfEkMA26bhQVDLK8HYOpXdXL82L4scIjclxV09jLF3N8TCDqsXKa9Z44NqBU7jeA5eGZpeHA2IjCWO5whFHA==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day1: Java概要・環境構築・Hello World</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .answer-content {
+            display: none;
+        }
+        .code-highlight {
+            background: linear-gradient(90deg, #f3f4f6 0%, #e5e7eb 100%);
+        }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 leading-relaxed">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="px-3 py-1 rounded text-sm text-gray-400 cursor-not-allowed">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </span>
+                        <a href="./day2_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month1.html" class="hover:text-blue-600">1ヶ月目: Java基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week1.html" class="hover:text-blue-600">1週目: Java言語基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">1日目: Java概要・環境構築・Hello World</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day1.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <header class="bg-blue-800 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <h1 class="text-2xl md:text-3xl font-bold text-center mb-2">
+                <i class="fas fa-coffee mr-2"></i>
+                Day1: Java概要・環境構築・Hello World
+            </h1>
+            <p class="text-center text-blue-200 text-lg">プログラミングの第一歩</p>
+            <div class="mt-3 text-center text-sm">
+                <span class="bg-blue-700 px-3 py-1 rounded-full mr-2">所要時間: 4時間</span>
+                <span class="bg-blue-700 px-3 py-1 rounded-full mr-2">対象: プログラミング初心者</span>
+                <span class="bg-blue-700 px-3 py-1 rounded-full">JavaSilver17試験対応</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- 学習目標 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-target mr-2"></i>本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-bold text-green-600 mb-3">🎯 知識目標</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                            <span><strong>Java言語の特徴と歴史</strong>を理解し、なぜ企業システム開発で選ばれるかを説明できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                            <span><strong>JDK（Java開発キット）</strong>とIDE（統合開発環境）の役割と必要性を理解</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                            <span><strong>コンパイル（機械語変換）→実行</strong>の流れとJVM（Java仮想マシン）の仕組み</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-blue-600 mb-3">💡 実践スキル</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-cog text-blue-500 mr-2 mt-1"></i>
+                            <span><strong>開発環境構築</strong>：Amazon Corretto JDK 17 + Pleiades Eclipse のセットアップ</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-cog text-blue-500 mr-2 mt-1"></i>
+                            <span><strong>Hello Worldプログラム</strong>の作成・コンパイル・実行</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-cog text-blue-500 mr-2 mt-1"></i>
+                            <span><strong>トラブルシューティング</strong>：よくあるエラーの対処法</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Java言語の特徴と歴史 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-purple-800 mb-4">
+                <i class="fas fa-history mr-2"></i>1. Java言語の特徴と歴史
+            </h2>
+            
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-6">
+                <h3 class="font-bold text-blue-700 mb-2">
+                    <i class="fas fa-lightbulb mr-2"></i>講師向けポイント
+                </h3>
+                <p class="text-sm">Javaの「Write Once, Run Anywhere（一度書けばどこでも動く）」という特徴を、身近な例（スマートフォンアプリが異なる機種で動く）で説明し、なぜ企業システム開発で重宝されるかを具体的に伝えましょう。</p>
+            </div>
+
+            <h3 class="text-xl font-bold mb-4">Javaの主要特徴</h3>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full border-collapse border border-gray-300 bg-white">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 p-3 text-left">特徴</th>
+                            <th class="border border-gray-300 p-3 text-left">詳細説明</th>
+                            <th class="border border-gray-300 p-3 text-left">実際のメリット</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-gray-300 p-3 font-medium">
+                                プラットフォーム独立<br>
+                                <span class="text-sm text-gray-600">（Platform Independent）</span>
+                            </td>
+                            <td class="border border-gray-300 p-3">
+                                JVM（Java仮想マシン：Javaコードを実行する環境）上で動作するため、Windows、Mac、Linuxなど異なるOS上で同じプログラムが動作
+                            </td>
+                            <td class="border border-gray-300 p-3">
+                                銀行システムをWindows開発→Linuxサーバーで運用が可能。開発コスト大幅削減
+                            </td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 p-3 font-medium">
+                                オブジェクト指向<br>
+                                <span class="text-sm text-gray-600">（Object-Oriented）</span>
+                            </td>
+                            <td class="border border-gray-300 p-3">
+                                現実世界のモノ（オブジェクト）の概念でプログラムを設計。カプセル化（データ保護）、継承（機能拡張）、ポリモーフィズム（柔軟な処理）を実現
+                            </td>
+                            <td class="border border-gray-300 p-3">
+                                「顧客」クラスを作成→「法人顧客」「個人顧客」に拡張可能。大規模システムの保守性向上
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-3 font-medium">
+                                メモリ自動管理<br>
+                                <span class="text-sm text-gray-600">（Garbage Collection）</span>
+                            </td>
+                            <td class="border border-gray-300 p-3">
+                                ガベージコレクション（不要メモリ自動回収機能）により、プログラマーがメモリ管理を意識する必要がない
+                            </td>
+                            <td class="border border-gray-300 p-3">
+                                メモリリーク（メモリ不足）によるシステムクラッシュを防止。24時間稼働システムの安定性確保
+                            </td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 p-3 font-medium">
+                                豊富なライブラリ<br>
+                                <span class="text-sm text-gray-600">（Rich Standard Library）</span>
+                            </td>
+                            <td class="border border-gray-300 p-3">
+                                標準API（アプリケーションプログラミングインターフェース：機能を呼び出すための仕組み）が充実。データベース接続、ネットワーク通信、GUI作成などが標準で利用可能
+                            </td>
+                            <td class="border border-gray-300 p-3">
+                                ECサイト開発で決済処理、在庫管理、ユーザー認証などの機能を短期間で実装可能
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <h4 class="font-bold text-yellow-800 mb-2">
+                    <i class="fas fa-quote-left mr-2"></i>日常例での理解
+                </h4>
+                <p>Javaは「翻訳アプリ」のような存在です。あなたが日本語で書いた文章（Javaコード）を、世界中のどの国の人（Windows、Mac、Linux）でも理解できる共通言語（バイトコード）に翻訳してくれます。そのため、一度プログラムを作れば、どんなコンピュータでも動かすことができるのです。</p>
+            </div>
+        </section>
+
+        <!-- 開発環境構築 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-green-800 mb-4">
+                <i class="fas fa-tools mr-2"></i>2. 開発環境構築
+            </h2>
+
+            <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
+                <h3 class="font-bold text-red-700 mb-2">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>講師向け重要ポイント
+                </h3>
+                <p class="text-sm">環境構築は初心者が最も躓きやすい箇所です。各手順で「なぜこの作業が必要なのか」を説明し、エラーが発生した場合の対処法も事前に準備しておきましょう。特にPATH設定（環境変数）の概念は丁寧に説明してください。</p>
+            </div>
+
+            <h3 class="text-xl font-bold mb-4">必要なツールの概要</h3>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-blue-700 mb-2">
+                        <i class="fas fa-cube mr-2"></i>JDK（Java Development Kit）
+                    </h4>
+                    <p class="text-sm mb-2"><strong>正式名称：</strong>Java開発キット</p>
+                    <p class="text-sm mb-2"><strong>役割：</strong>Javaプログラムを作成・実行するために必要なツール一式</p>
+                    <p class="text-sm"><strong>比喩：</strong>料理を作るための基本的な調理器具セット（包丁、まな板、鍋など）</p>
+                </div>
+                
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-green-700 mb-2">
+                        <i class="fas fa-edit mr-2"></i>IDE（Integrated Development Environment）
+                    </h4>
+                    <p class="text-sm mb-2"><strong>正式名称：</strong>統合開発環境</p>
+                    <p class="text-sm mb-2"><strong>役割：</strong>コード作成、デバッグ、実行を効率化するツール</p>
+                    <p class="text-sm"><strong>比喩：</strong>料理の際の電子レンジやフードプロセッサー（作業を自動化・効率化）</p>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-bold mb-4">環境構築手順</h3>
+
+            <div class="space-y-6">
+                <!-- 手順1: JDK導入 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-bold text-blue-600 mb-3">
+                        <span class="bg-blue-100 px-2 py-1 rounded-full text-sm mr-2">手順1</span>
+                        JDK導入：Amazon Corretto 17のインストール
+                    </h4>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                        <h5 class="font-semibold mb-2">なぜAmazon Corretto 17を選ぶのか？</h5>
+                        <ul class="text-sm space-y-1">
+                            <li>• <strong>LTS（Long Term Support：長期サポート版）</strong>：2029年まで安定サポート</li>
+                            <li>• <strong>無料：</strong>商用利用も含めて完全無料</li>
+                            <li>• <strong>高性能：</strong>Amazon社による最適化済み</li>
+                            <li>• <strong>企業採用実績：</strong>Netflix、Airbnbなど大手企業が採用</li>
+                        </ul>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse border border-gray-300">
+                            <thead>
+                                <tr class="bg-blue-100">
+                                    <th class="border border-gray-300 p-3 text-left">作業項目</th>
+                                    <th class="border border-gray-300 p-3 text-left">詳細手順</th>
+                                    <th class="border border-gray-300 p-3 text-left">確認方法</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="border border-gray-300 p-3 font-medium">ダウンロード</td>
+                                    <td class="border border-gray-300 p-3">
+                                        1. Amazon Corretto公式サイトにアクセス<br>
+                                        2. 「Amazon Corretto 17」を選択<br>
+                                        3. お使いのOS（Windows/Mac/Linux）用をダウンロード<br>
+                                        <span class="text-sm text-gray-600">※ファイルサイズ：約200MB</span>
+                                    </td>
+                                    <td class="border border-gray-300 p-3">
+                                        ダウンロードフォルダに<br>
+                                        「amazon-corretto-17...」ファイルがあることを確認
+                                    </td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="border border-gray-300 p-3 font-medium">インストール</td>
+                                    <td class="border border-gray-300 p-3">
+                                        1. ダウンロードしたファイルを実行<br>
+                                        2. インストールウィザードの指示に従う<br>
+                                        3. インストール先は標準設定を推奨<br>
+                                        <span class="text-sm text-gray-600">※所要時間：約5分</span>
+                                    </td>
+                                    <td class="border border-gray-300 p-3">
+                                        コマンドプロンプト（Terminal）で<br>
+                                        <code class="bg-gray-200 px-1">java -version</code><br>
+                                        を実行し、バージョンが表示される
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-gray-300 p-3 font-medium">PATH設定<br><span class="text-sm text-gray-600">（環境変数設定）</span></td>
+                                    <td class="border border-gray-300 p-3">
+                                        <strong>環境変数とは：</strong>OSがプログラムの場所を覚えておく仕組み<br><br>
+                                        <strong>Windows：</strong><br>
+                                        1. 「システムの詳細設定」を開く<br>
+                                        2. 「環境変数」をクリック<br>
+                                        3. JAVA_HOMEを新規作成<br><br>
+                                        <strong>Mac/Linux：</strong><br>
+                                        ~/.bashrc または ~/.zshrc に追記
+                                    </td>
+                                    <td class="border border-gray-300 p-3">
+                                        新しいコマンドプロンプトで<br>
+                                        <code class="bg-gray-200 px-1">javac -version</code><br>
+                                        が正常実行される
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 手順2: IDE設定 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-bold text-green-600 mb-3">
+                        <span class="bg-green-100 px-2 py-1 rounded-full text-sm mr-2">手順2</span>
+                        IDE設定：Pleiades All in Oneの導入
+                    </h4>
+
+                    <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                        <h5 class="font-semibold mb-2">なぜPleiades All in Oneなのか？</h5>
+                        <ul class="text-sm space-y-1">
+                            <li>• <strong>日本語化済み：</strong>メニューやエラーメッセージが日本語</li>
+                            <li>• <strong>設定不要：</strong>Java開発に必要な設定が事前完了</li>
+                            <li>• <strong>豊富なプラグイン：</strong>便利な開発支援機能が標準搭載</li>
+                            <li>• <strong>無料：</strong>個人・商用問わず無料利用可能</li>
+                        </ul>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <span class="flex-shrink-0 bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm font-medium mr-3">1</span>
+                            <div>
+                                <p class="font-medium">ダウンロード</p>
+                                <p class="text-sm text-gray-600">Pleiades公式サイトから「Full Edition」をダウンロード（約1.5GB）</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="flex-shrink-0 bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm font-medium mr-3">2</span>
+                            <div>
+                                <p class="font-medium">解凍・配置</p>
+                                <p class="text-sm text-gray-600">Cドライブ直下など、パスに日本語が含まれない場所に解凍</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="flex-shrink-0 bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm font-medium mr-3">3</span>
+                            <div>
+                                <p class="font-medium">起動確認</p>
+                                <p class="text-sm text-gray-600">eclipse.exe（Windows）またはEclipse.app（Mac）を実行</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="flex-shrink-0 bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm font-medium mr-3">4</span>
+                            <div>
+                                <p class="font-medium">ワークスペース設定</p>
+                                <p class="text-sm text-gray-600">プロジェクトファイルを保存する場所を指定（例：C:\workspace）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 手順3: 動作確認 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-bold text-purple-600 mb-3">
+                        <span class="bg-purple-100 px-2 py-1 rounded-full text-sm mr-2">手順3</span>
+                        動作確認：Hello Worldプログラムの作成
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-4">環境構築が正しく完了したかを確認するため、最初のJavaプログラムを作成します</p>
+                    
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <p class="text-sm"><strong>確認項目：</strong></p>
+                        <ul class="text-sm space-y-1 mt-2">
+                            <li>✓ プロジェクト作成ができる</li>
+                            <li>✓ Javaファイル作成ができる</li>
+                            <li>✓ コンパイル（.java → .class変換）が成功する</li>
+                            <li>✓ 実行して「Hello, World!」が表示される</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- トラブルシューティング -->
+            <div class="mt-6 bg-orange-50 border-l-4 border-orange-400 p-4">
+                <h4 class="font-bold text-orange-700 mb-3">
+                    <i class="fas fa-wrench mr-2"></i>よくあるトラブルと対処法
+                </h4>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300 text-sm">
+                        <thead>
+                            <tr class="bg-orange-100">
+                                <th class="border border-gray-300 p-2 text-left">エラー症状</th>
+                                <th class="border border-gray-300 p-2 text-left">原因</th>
+                                <th class="border border-gray-300 p-2 text-left">対処法</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 p-2">'javac' は、内部コマンドまたは外部コマンドとして認識されていません</td>
+                                <td class="border border-gray-300 p-2">PATH設定が正しくない</td>
+                                <td class="border border-gray-300 p-2">
+                                    1. JDKインストール先を確認<br>
+                                    2. JAVA_HOME環境変数を再設定<br>
+                                    3. コマンドプロンプトを再起動
+                                </td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 p-2">日本語コメントが文字化けする</td>
+                                <td class="border border-gray-300 p-2">文字エンコーディング設定</td>
+                                <td class="border border-gray-300 p-2">
+                                    Eclipse設定：<br>
+                                    ウィンドウ→設定→一般→ワークスペース→テキストファイルエンコーディング→UTF-8に変更
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 p-2">Eclipseが起動しない</td>
+                                <td class="border border-gray-300 p-2">メモリ不足またはJava不整合</td>
+                                <td class="border border-gray-300 p-2">
+                                    1. eclipse.iniファイルでメモリ設定を確認<br>
+                                    2. JDKバージョンとEclipseの対応確認<br>
+                                    3. ワークスペースを別の場所に変更
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hello Worldプログラム -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-800 mb-4">
+                <i class="fas fa-code mr-2"></i>3. Hello Worldプログラムの作成
+            </h2>
+
+            <div class="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
+                <h3 class="font-bold text-green-700 mb-2">
+                    <i class="fas fa-info-circle mr-2"></i>講師向けポイント
+                </h3>
+                <p class="text-sm">Hello Worldは単純に見えますが、実はJavaプログラミングの重要な概念（クラス、メソッド、引数、出力）が全て含まれています。各行の意味を丁寧に説明し、「なぜこう書くのか」を理解させることが重要です。</p>
+            </div>
+
+            <h3 class="text-xl font-bold mb-4">プロジェクト作成からプログラム実行まで</h3>
+
+            <div class="space-y-6">
+                <!-- Step 1: プロジェクト作成 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-bold text-blue-600 mb-3">
+                        <span class="bg-blue-100 px-2 py-1 rounded-full text-sm mr-2">Step 1</span>
+                        Javaプロジェクトの作成
+                    </h4>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                        <p class="text-sm mb-2"><strong>プロジェクトとは：</strong>関連するファイルをまとめて管理する仕組み（フォルダのようなもの）</p>
+                        <p class="text-sm"><strong>なぜ必要：</strong>複数のJavaファイルを整理し、設定を共有するため</p>
+                    </div>
+
+                    <ol class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium mr-3 mt-0.5">1</span>
+                            <span>Eclipseメニューから「ファイル」→「新規」→「Javaプロジェクト」を選択</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium mr-3 mt-0.5">2</span>
+                            <span>プロジェクト名に「HelloWorld」と入力</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium mr-3 mt-0.5">3</span>
+                            <span>JREバージョンで「JavaSE-17」が選択されていることを確認</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium mr-3 mt-0.5">4</span>
+                            <span>「完了」ボタンをクリック</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Step 2: Javaクラス作成 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-bold text-green-600 mb-3">
+                        <span class="bg-green-100 px-2 py-1 rounded-full text-sm mr-2">Step 2</span>
+                        Javaクラスの作成
+                    </h4>
+
+                    <div class="bg-green-50 p-4 rounded-lg mb-4">
+                        <p class="text-sm mb-2"><strong>クラスとは：</strong>Javaプログラムの基本単位（設計図のようなもの）</p>
+                        <p class="text-sm"><strong>ファイル名の約束：</strong>クラス名とファイル名は必ず同じにする（HelloWorld.java）</p>
+                    </div>
+
+                    <ol class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium mr-3 mt-0.5">1</span>
+                            <span>作成したプロジェクト「HelloWorld」を右クリック</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium mr-3 mt-0.5">2</span>
+                            <span>「新規」→「クラス」を選択</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium mr-3 mt-0.5">3</span>
+                            <span>クラス名に「HelloWorld」と入力</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium mr-3 mt-0.5">4</span>
+                            <span>「public static void main(String[] args)」にチェック</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="flex-shrink-0 bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium mr-3 mt-0.5">5</span>
+                            <span>「完了」ボタンをクリック</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Step 3: コード入力 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-bold text-purple-600 mb-3">
+                        <span class="bg-purple-100 px-2 py-1 rounded-full text-sm mr-2">Step 3</span>
+                        Hello Worldコードの入力
+                    </h4>
+
+                    <div class="code-highlight rounded-lg p-4 mb-4">
+                        <pre><code class="language-java">public class HelloWorld {
+    public static void main(String[] args) {
+        // 画面に「Hello, World!」を表示
+        System.out.println("Hello, World!");
+        
+        // 追加メッセージの表示
+        System.out.println("私の最初のJavaプログラムです！");
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h5 class="font-semibold mb-2">コードの詳細解説</h5>
+                        <div class="space-y-3 text-sm">
+                            <div>
+                                <p class="font-medium text-purple-700">public class HelloWorld {</p>
+                                <p class="ml-4 text-gray-600">「HelloWorld」という名前のクラス（プログラムの入れ物）を定義。publicは「どこからでもアクセス可能」という意味</p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-purple-700">public static void main(String[] args) {</p>
+                                <p class="ml-4 text-gray-600">プログラムの開始地点（エントリーポイント）。Javaプログラムは必ずここから実行開始される</p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-purple-700">System.out.println("Hello, World!");</p>
+                                <p class="ml-4 text-gray-600">画面（コンソール）に文字を表示する命令。printlnは「print line（行を印刷）」の意味</p>
+                            </div>
+                            <div>
+                                <p class="font-medium text-purple-700">// コメント</p>
+                                <p class="ml-4 text-gray-600">プログラムの説明文。実行時には無視される。コードの理解を助けるために記述</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: コンパイル・実行 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-bold text-orange-600 mb-3">
+                        <span class="bg-orange-100 px-2 py-1 rounded-full text-sm mr-2">Step 4</span>
+                        コンパイル・実行
+                    </h4>
+
+                    <div class="bg-orange-50 p-4 rounded-lg mb-4">
+                        <h5 class="font-semibold mb-2">コンパイル・実行の流れ</h5>
+                        <div class="flex items-center space-x-4 text-sm">
+                            <div class="bg-white p-2 rounded border">HelloWorld.java<br><span class="text-xs text-gray-500">（人間が読める）</span></div>
+                            <i class="fas fa-arrow-right text-blue-500"></i>
+                            <div class="bg-blue-100 p-2 rounded border">javac<br><span class="text-xs text-gray-500">（コンパイラ）</span></div>
+                            <i class="fas fa-arrow-right text-blue-500"></i>
+                            <div class="bg-white p-2 rounded border">HelloWorld.class<br><span class="text-xs text-gray-500">（バイトコード）</span></div>
+                            <i class="fas fa-arrow-right text-blue-500"></i>
+                            <div class="bg-green-100 p-2 rounded border">JVM<br><span class="text-xs text-gray-500">（実行）</span></div>
+                            <i class="fas fa-arrow-right text-green-500"></i>
+                            <div class="bg-yellow-100 p-2 rounded border">出力結果</div>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h5 class="font-semibold mb-2 text-blue-600">Eclipse使用の場合</h5>
+                            <ol class="space-y-1 text-sm">
+                                <li>1. ファイルを保存（Ctrl+S）</li>
+                                <li>2. HelloWorld.javaを右クリック</li>
+                                <li>3. 「実行」→「Javaアプリケーション」</li>
+                                <li>4. コンソールに結果が表示される</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold mb-2 text-green-600">コマンドライン使用の場合</h5>
+                            <ol class="space-y-1 text-sm">
+                                <li>1. <code class="bg-gray-200 px-1">javac HelloWorld.java</code></li>
+                                <li>2. HelloWorld.classファイル生成確認</li>
+                                <li>3. <code class="bg-gray-200 px-1">java HelloWorld</code></li>
+                                <li>4. Hello, World! が表示される</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 bg-green-100 border border-green-300 rounded p-3">
+                        <h5 class="font-semibold text-green-700 mb-1">期待される実行結果</h5>
+                        <pre class="text-sm text-green-800">Hello, World!
+私の最初のJavaプログラムです！</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 演習問題 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4">
+                <i class="fas fa-dumbbell mr-2"></i>4. 演習問題
+            </h2>
+
+            <!-- 演習問題1 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-6">
+                <h3 class="font-bold text-blue-600 mb-3">演習問題1: Javaの特徴理解</h3>
+                <p class="mb-3">以下の質問に答えてください：</p>
+                <ol class="space-y-2 mb-4">
+                    <li>1. Javaが「Write Once, Run Anywhere」と呼ばれる理由を、具体例を交えて説明してください。</li>
+                    <li>2. JDK、JRE、JVMの違いと役割を説明してください。</li>
+                    <li>3. なぜJavaでメモリ管理を意識する必要が少ないのか説明してください。</li>
+                </ol>
+                
+                <button onclick="toggleAnswer('answer1')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <i class="fas fa-eye mr-2"></i>回答例を表示
+                </button>
+                
+                <div id="answer1" class="answer-content mt-4 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                    <h4 class="font-semibold mb-2">回答例：</h4>
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <p class="font-medium">1. 「Write Once, Run Anywhere」の理由：</p>
+                            <p>Javaコードは一度コンパイルするとバイトコードという中間言語に変換され、JVM（Java仮想マシン）上で実行される。JVMが各OS（Windows、Mac、Linux）に対応しているため、同じバイトコードがどのプラットフォームでも動作する。例：銀行のオンラインバンキングシステムをWindows環境で開発し、LinuxサーバーやMacの管理画面で同じプログラムを動かすことができる。</p>
+                        </div>
+                        <div>
+                            <p class="font-medium">2. JDK、JRE、JVMの違い：</p>
+                            <ul class="ml-4 mt-1 space-y-1">
+                                <li>• <strong>JVM（Java Virtual Machine）</strong>：Javaプログラムを実行する仮想マシン</li>
+                                <li>• <strong>JRE（Java Runtime Environment）</strong>：JVM + 実行に必要なライブラリ</li>
+                                <li>• <strong>JDK（Java Development Kit）</strong>：JRE + 開発ツール（コンパイラなど）</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p class="font-medium">3. メモリ管理が不要な理由：</p>
+                            <p>Javaにはガベージコレクション（GC）機能があり、使用されなくなったオブジェクトを自動的にメモリから削除する。これにより、プログラマーが手動でメモリを解放する必要がなく、メモリリークによるシステムクラッシュを防げる。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 演習問題2 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-6">
+                <h3 class="font-bold text-green-600 mb-3">演習問題2: Hello Worldの改良</h3>
+                <p class="mb-3">以下の要件を満たすプログラムを作成してください：</p>
+                <ul class="space-y-1 mb-4">
+                    <li>• 自分の名前を表示する</li>
+                    <li>• 今日の日付を表示する</li>
+                    <li>• 好きなプログラミング言語を表示する</li>
+                    <li>• 罫線（*印）で出力を装飾する</li>
+                </ul>
+
+                <button onclick="toggleAnswer('answer2')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
+                    <i class="fas fa-eye mr-2"></i>回答例を表示
+                </button>
+
+                <div id="answer2" class="answer-content mt-4 bg-green-50 border-l-4 border-green-400 p-4 rounded">
+                    <h4 class="font-semibold mb-2">回答例：</h4>
+                    <pre class="bg-white p-3 rounded text-sm"><code class="language-java">public class MyProfile {
+    public static void main(String[] args) {
+        // 罫線で装飾
+        System.out.println("*************************");
+        System.out.println("*    自己紹介プログラム    *");
+        System.out.println("*************************");
+        
+        // 個人情報の表示
+        System.out.println("名前: 田中 太郎");
+        System.out.println("日付: 2025年8月3日");
+        System.out.println("好きな言語: Java");
+        
+        System.out.println("*************************");
+        System.out.println("* Java学習を頑張ります！ *");
+        System.out.println("*************************");
+    }
+}</code></pre>
+                    <p class="text-sm mt-2 text-gray-600"><strong>ポイント：</strong>複数のSystem.out.println()を使用して、見やすい形式で情報を表示しています。</p>
+                </div>
+            </div>
+
+            <!-- 演習問題3 -->
+            <div class="border border-gray-200 rounded-lg p-4">
+                <h3 class="font-bold text-purple-600 mb-3">演習問題3: エラー修正</h3>
+                <p class="mb-3">以下のコードにはいくつかのエラーがあります。エラーを見つけて修正してください：</p>
+                
+                <pre class="bg-red-50 p-3 rounded text-sm mb-4"><code>public class helloworld {
+    public static void Main(String[] args) {
+        system.out.println("Hello World")
+        System.out.println("Welcome to Java!)
+    }
+</code></pre>
+
+                <button onclick="toggleAnswer('answer3')" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
+                    <i class="fas fa-eye mr-2"></i>回答例を表示
+                </button>
+
+                <div id="answer3" class="answer-content mt-4 bg-purple-50 border-l-4 border-purple-400 p-4 rounded">
+                    <h4 class="font-semibold mb-2">修正版コード：</h4>
+                    <pre class="bg-white p-3 rounded text-sm mb-3"><code class="language-java">public class HelloWorld {  // クラス名は大文字で開始
+    public static void main(String[] args) {  // mainは小文字
+        System.out.println("Hello World");  // Systemは大文字、セミコロン必須
+        System.out.println("Welcome to Java!");  // 閉じダブルクォート修正
+    }
+}</code></pre>
+                    <h4 class="font-semibold mb-2">エラー箇所の解説：</h4>
+                    <ul class="text-sm space-y-1">
+                        <li>• <strong>クラス名：</strong>「helloworld」→「HelloWorld」（大文字で開始、キャメルケース）</li>
+                        <li>• <strong>mainメソッド：</strong>「Main」→「main」（小文字）</li>
+                        <li>• <strong>System：</strong>「system」→「System」（大文字で開始）</li>
+                        <li>• <strong>セミコロン：</strong>文の最後に「;」が必要</li>
+                        <li>• <strong>文字列：</strong>ダブルクォートの閉じ忘れ</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 理解度クイズ -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-800 mb-4">
+                <i class="fas fa-question-circle mr-2"></i>5. 理解度クイズ
+            </h2>
+
+            <!-- クイズ1 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                <h3 class="font-bold text-blue-600 mb-3">クイズ1: Javaの特徴</h3>
+                <p class="mb-3">Javaの主要な特徴として正しいものはどれですか？</p>
+                <div class="space-y-2 mb-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz1" value="a" class="mr-2">
+                        <span>A) プラットフォーム依存である</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz1" value="b" class="mr-2">
+                        <span>B) メモリ管理を手動で行う必要がある</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz1" value="c" class="mr-2">
+                        <span>C) Write Once, Run Anywhereを実現している</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz1" value="d" class="mr-2">
+                        <span>D) オブジェクト指向をサポートしていない</span>
+                    </label>
+                </div>
+
+                <button onclick="toggleAnswer('quiz1Answer')" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition-colors">
+                    <i class="fas fa-check mr-2"></i>回答を表示
+                </button>
+
+                <div id="quiz1Answer" class="answer-content mt-4 bg-red-50 border-l-4 border-red-400 p-4 rounded">
+                    <p class="font-semibold text-red-700 mb-2">正解: C) Write Once, Run Anywhereを実現している</p>
+                    <p class="text-sm"><strong>解説：</strong>JavaはJVM上で動作するため、一度コンパイルしたプログラムが異なるプラットフォーム（Windows、Mac、Linux）で実行可能です。これがJavaの最大の特徴の一つです。</p>
+                </div>
+            </div>
+
+            <!-- クイズ2 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                <h3 class="font-bold text-green-600 mb-3">クイズ2: コンパイルプロセス</h3>
+                <p class="mb-3">Javaプログラムの実行プロセスで正しい順序はどれですか？</p>
+                <div class="space-y-2 mb-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz2" value="a" class="mr-2">
+                        <span>A) .java → JVM → .class → 実行結果</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz2" value="b" class="mr-2">
+                        <span>B) .java → javac → .class → JVM → 実行結果</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz2" value="c" class="mr-2">
+                        <span>C) .class → javac → .java → JVM → 実行結果</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz2" value="d" class="mr-2">
+                        <span>D) JVM → .java → .class → 実行結果</span>
+                    </label>
+                </div>
+
+                <button onclick="toggleAnswer('quiz2Answer')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
+                    <i class="fas fa-check mr-2"></i>回答を表示
+                </button>
+
+                <div id="quiz2Answer" class="answer-content mt-4 bg-green-50 border-l-4 border-green-400 p-4 rounded">
+                    <p class="font-semibold text-green-700 mb-2">正解: B) .java → javac → .class → JVM → 実行結果</p>
+                    <p class="text-sm"><strong>解説：</strong>Javaソースファイル(.java)をjavacコンパイラでバイトコード(.class)に変換し、JVMがそれを実行して結果を出力します。この2段階プロセスがJavaの特徴です。</p>
+                </div>
+            </div>
+
+            <!-- クイズ3 -->
+            <div class="border border-gray-200 rounded-lg p-4">
+                <h3 class="font-bold text-purple-600 mb-3">クイズ3: Hello Worldコード</h3>
+                <p class="mb-3">以下のコードで間違っている箇所はどれですか？</p>
+                <pre class="bg-gray-100 p-3 rounded text-sm mb-3"><code>public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}</code></pre>
+                <div class="space-y-2 mb-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz3" value="a" class="mr-2">
+                        <span>A) クラス名が間違っている</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz3" value="b" class="mr-2">
+                        <span>B) mainメソッドの引数が間違っている</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz3" value="c" class="mr-2">
+                        <span>C) System.out.printlnの構文が間違っている</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="quiz3" value="d" class="mr-2">
+                        <span>D) コードに間違いはない</span>
+                    </label>
+                </div>
+
+                <button onclick="toggleAnswer('quiz3Answer')" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
+                    <i class="fas fa-check mr-2"></i>回答を表示
+                </button>
+
+                <div id="quiz3Answer" class="answer-content mt-4 bg-purple-50 border-l-4 border-purple-400 p-4 rounded">
+                    <p class="font-semibold text-purple-700 mb-2">正解: D) コードに間違いはない</p>
+                    <p class="text-sm"><strong>解説：</strong>このコードは完全に正しいHello Worldプログラムです。クラス名、mainメソッドの宣言、System.out.println文、すべて正しく記述されています。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- まとめ -->
+        <section class="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-check-double mr-2"></i>6. 本日のまとめ
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-blue-600 mb-3">
+                        <i class="fas fa-lightbulb mr-2"></i>習得した知識
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span><strong>Javaは一度書けばどこでも動く特徴</strong>で、銀行システムやECサイトなど企業システム開発に最適な言語</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span><strong>JDK 17とPleiades IDE</strong>で快適な開発環境を構築し、効率的なプログラミングが可能</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span><strong>コンパイル→実行の2段階プロセス</strong>により、プラットフォーム独立性を実現</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-green-600 mb-3">
+                        <i class="fas fa-tools mr-2"></i>身につけた技術
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-cog text-blue-500 mr-2 mt-1"></i>
+                            <span><strong>開発環境構築スキル</strong>：JDK導入からIDE設定まで完全マスター</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-cog text-blue-500 mr-2 mt-1"></i>
+                            <span><strong>Hello Worldプログラム作成</strong>で、Javaプログラミングの基本的な流れを体験</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-cog text-blue-500 mr-2 mt-1"></i>
+                            <span><strong>エラー対処能力</strong>：よくあるトラブルの原因と解決方法を習得</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                <h3 class="font-bold text-yellow-800 mb-2">
+                    <i class="fas fa-arrow-right mr-2"></i>次回への準備
+                </h3>
+                <p class="text-sm">次回Day2では「基本データ型・変数・演算子」を学習します。今日構築した環境でより実践的なプログラミングに挑戦し、データを扱う基礎技術を身につけましょう。Hello Worldが正常に動作することを確認してから次に進んでください。</p>
+            </div>
+        </section>
+
+        <!-- JavaSilver試験対策 -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-orange-800 mb-4">
+                <i class="fas fa-certificate mr-2"></i>7. JavaSilver試験対策ポイント
+            </h2>
+
+            <div class="bg-orange-50 border-l-4 border-orange-400 p-4 mb-6">
+                <h3 class="font-bold text-orange-700 mb-2">
+                    <i class="fas fa-star mr-2"></i>頻出ポイント
+                </h3>
+                <p class="text-sm">JavaSilver SE 17試験では、Java言語の基本概念やコンパイル・実行プロセスが頻繁に出題されます。特に「なぜそうなるのか」の理由を理解することが重要です。</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-blue-600 mb-3">重要キーワード</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>• <strong>JVM（Java Virtual Machine）</strong>：バイトコード実行環境</li>
+                        <li>• <strong>JDK vs JRE</strong>：開発キット vs 実行環境の違い</li>
+                        <li>• <strong>プラットフォーム独立性</strong>：Write Once, Run Anywhere</li>
+                        <li>• <strong>ガベージコレクション</strong>：自動メモリ管理</li>
+                        <li>• <strong>バイトコード</strong>：.classファイルの中身</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-green-600 mb-3">試験対策のコツ</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>• <strong>概念の理解：</strong>暗記ではなく「なぜ」を重視</li>
+                        <li>• <strong>実際の体験：</strong>環境構築で得た実体験を活用</li>
+                        <li>• <strong>用語の正確性：</strong>JDK、JRE、JVMの違いを明確に</li>
+                        <li>• <strong>プロセス理解：</strong>コンパイル→実行の流れを図解で覚える</li>
+                        <li>• <strong>エラーパターン：</strong>よくある間違いを事前に体験</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-2">ITエンジニア育成カリキュラム - Day1: Java概要・環境構築・Hello World</p>
+            <p class="text-gray-400 text-sm">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAnswer(answerId) {
+            const answerElement = document.getElementById(answerId);
+            const button = answerElement.previousElementSibling;
+            
+            if (answerElement.style.display === 'none' || answerElement.style.display === '') {
+                answerElement.style.display = 'block';
+                button.innerHTML = '<i class="fas fa-eye-slash mr-2"></i>回答を非表示';
+            } else {
+                answerElement.style.display = 'none';
+                button.innerHTML = '<i class="fas fa-eye mr-2"></i>回答を表示';
+            }
+        }
+
+        // ページ読み込み時に全ての回答を非表示にする
+        document.addEventListener('DOMContentLoaded', function() {
+            const answers = document.querySelectorAll('.answer-content');
+            answers.forEach(answer => {
+                answer.style.display = 'none';
+            });
+        });
+    </script>
+    </main>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDvmcycL4Jxhv%2FwP%2BPaOXTBHpGCUUv7UGssjYJ8C5QmzwiX9mfg8xqNHP%2B4KxbDjTML7m1hiM2L0D5HxPpTb6RZC4uVvgWfPuWp%2BQ9JfhV2Pc8ZQqczq1GpQZWU6Ckw2jw38WylGIF7ZaIr%2BVQeAxecMfWaXQ4S6CUzqUiIPrRWiR2jMq0jto0Ysz3cXnpDzlU0KX3TcXdKrwYmW45nsXdDzaIQIQpsHbKPnyQilwfGB6NBWTcj%2F%2BhgxnrhOO5PHF1rofqPcdGZUINw5q9wrNaQgPF6MNWHsF6xYh4lofUS91dawcQklZxEu5HxdrcwAcd7rvqCdndCu%2F6sBQ3k08P8RzBdX6o9vj0HLKBCWXvdcR6qeVtaoDvPkouMO4VbrhcOjkFJLZ5ySc7TF71p10VdQyl0hIrJeY4wsnCYm%2FEQHQKRtNvODD%2Fwvv6pGExVhlV6Dz6RSyJmzq26XXsUS8J04gflDEfC0YOv0RTCBxzPfbEd%2BMiEcJ2iN%2F826wcu%2Fi%2Fw%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDvmcycL4Jxhv/wP+PaOXTBHpGCUUv7UGssjYJ8C5QmzwiX9mfg8xqNHP+4KxbDjTML7m1hiM2L0D5HxPpTb6RZC4uVvgWfPuWp+Q9JfhV2Pc8ZQqczq1GpQZWU6Ckw2jw38WylGIF7ZaIr+VQeAxecMfWaXQ4S6CUzqUiIPrRWiR2jMq0jto0Ysz3cXnpDzlU0KX3TcXdKrwYmW45nsXdDzaIQIQpsHbKPnyQilwfGB6NBWTcj/+hgxnrhOO5PHF1rofqPcdGZUINw5q9wrNaQgPF6MNWHsF6xYh4lofUS91dawcQklZxEu5HxdrcwAcd7rvqCdndCu/6sBQ3k08P8RzBdX6o9vj0HLKBCWXvdcR6qeVtaoDvPkouMO4VbrhcOjkFJLZ5ySc7TF71p10VdQyl0hIrJeY4wsnCYm/EQHQKRtNvODD/wvv6pGExVhlV6Dz6RSyJmzq26XXsUS8J04gflDEfC0YOv0RTCBxzPfbEd+MiEcJ2iN/826wcu/i/w==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

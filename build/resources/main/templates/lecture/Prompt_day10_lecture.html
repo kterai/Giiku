@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt_day10_lecture.html（完全改良版）- Java17新機能・模擬テスト②</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-6 mb-8">
+            <div class="flex items-center gap-4">
+                <i class="fas fa-code text-3xl"></i>
+                <div>
+                    <h1 class="text-3xl font-bold">Prompt_day10_lecture.html（完全改良版）</h1>
+                    <p class="text-blue-100 text-lg">Java17新機能・模擬テスト② - Day11-36改善指針完全適用版</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- プロジェクト概要 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-blue-500 pb-2">
+                <i class="fas fa-project-diagram text-blue-500 mr-2"></i>プロジェクト名：ITエンジニア育成カリキュラム - Day10: Java17新機能・模擬テスト②（改良版）
+            </h2>
+            <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                <p class="text-lg font-semibold text-blue-800">以下の指示に従って、<code class="bg-blue-200 px-2 py-1 rounded">Traini../lecture/day10_lecture.html</code> を生成してください。</p>
+            </div>
+        </section>
+
+        <!-- 重要な改善指針 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-600 mb-4">
+                <i class="fas fa-exclamation-triangle mr-2"></i>🚨 重要な改善指針
+            </h2>
+
+            <!-- 表・まとめの分かりやすさ重視 -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-gray-700 mb-3">
+                    <i class="fas fa-table text-green-500 mr-2"></i>📊 表・まとめの分かりやすさ重視
+                </h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                    <li>• 専門用語は必ず<strong class="text-blue-600">日本語説明</strong>を併記</li>
+                    <li>• Java17新機能は<strong class="text-blue-600">具体的なコード例</strong>で補足</li>
+                    <li>• 「適用場面」は<strong class="text-blue-600">実際の開発例</strong>を記載</li>
+                    <li>• まとめは<strong class="text-blue-600">具体的なメリット</strong>を明示</li>
+                </ul>
+            </div>
+
+            <!-- 専門用語の扱い -->
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-gray-700 mb-3">
+                    <i class="fas fa-spell-check text-purple-500 mr-2"></i>🔤 専門用語の扱い
+                </h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                    <li>• 初出時は<strong class="text-purple-600">（日本語説明）</strong>を併記</li>
+                    <li>• 略語は<strong class="text-purple-600">正式名称</strong>を明記</li>
+                    <li>• 「なぜそうなるのか」の<strong class="text-purple-600">理由</strong>を説明</li>
+                    <li>• <strong class="text-purple-600">日常例・比喩</strong>を積極活用</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 参照ファイル -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-folder-open text-orange-500 mr-2"></i>📁 参照ファイル
+            </h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <li>Traini../day/day10.html</li>
+                <li>Traini../lecture/Template_dayX_lecture.html</li>
+                <li>Traini../lecture/month1.html</li>
+            </ul>
+        </section>
+
+        <!-- 共通仕様 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-cogs text-gray-600 mr-2"></i>⚙️ 共通仕様
+            </h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <li>HTML5 / lang="ja" / UTF-8</li>
+                <li><code class="bg-gray-200 px-2 py-1 rounded">&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                <li>Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                <li>レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                <li>コードブロックは <code class="bg-gray-200 px-2 py-1 rounded">&lt;pre&gt;&lt;code class="language-java"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                <li>開発環境として Pleiades (Eclipse) + Amazon Corretto JDK 17 を記載</li>
+                <li>フッターに <code class="bg-gray-200 px-2 py-1 rounded">© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+            </ul>
+        </section>
+
+        <!-- Java17新機能表の分かりやすさ改善指針 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-table text-green-600 mr-2"></i>📊 Java17新機能表の分かりやすさ改善指針
+            </h2>
+
+            <!-- 改善前問題例 -->
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+                <h3 class="text-lg font-bold text-red-700 mb-2">❌ 改善前問題例</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-300">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-2 border text-left">機能名</th>
+                                <th class="px-4 py-2 border text-left">説明</th>
+                                <th class="px-4 py-2 border text-left">適用場面</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="px-4 py-2 border">Sealed Classes</td>
+                                <td class="px-4 py-2 border">継承制限</td>
+                                <td class="px-4 py-2 border">API設計</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2 border">Pattern Matching</td>
+                                <td class="px-4 py-2 border">型判定簡略化</td>
+                                <td class="px-4 py-2 border">条件分岐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-red-600 mt-2">→ 専門用語の説明不足、具体例なし、実用性不明</p>
+            </div>
+
+            <!-- 改善後の指針 -->
+            <div class="bg-green-50 border-l-4 border-green-500 p-4">
+                <h3 class="text-lg font-bold text-green-700 mb-4">✅ 改善後の指針</h3>
+
+                <h4 class="font-bold text-gray-700 mb-2">Java17新機能の詳細説明強化</h4>
+                <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4 mb-4">
+                    <li>• Sealed Classes → 「密封クラス（継承を指定したクラスのみに制限）」</li>
+                    <li>• Pattern Matching → 「パターンマッチング（instanceof後の自動キャスト機能）」</li>
+                    <li>• Text Blocks → 「テキストブロック（複数行文字列の記述簡略化）」</li>
+                    <li>• Records → 「レコード（データホルダークラスの自動生成）」</li>
+                </ul>
+
+                <h4 class="font-bold text-gray-700 mb-2">具体的なコード例を必須追加</h4>
+                <div class="bg-gray-100 p-3 rounded text-sm mb-4">
+                    <pre><code>// Pattern Matching for instanceof（改善前後比較）
+// 改善前（Java16以前）
+if (obj instanceof String) {
+    String str = (String) obj;
+    System.out.println(str.length());
+}
+
+// 改善後（Java17）
+if (obj instanceof String str) {
+    System.out.println(str.length()); // 自動キャスト
+}</code></pre>
+                </div>
+
+                <h4 class="font-bold text-gray-700 mb-2">実用例を具体的に記載</h4>
+                <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                    <li>Sealed Classes: 「決済方法クラス（CreditCard, PayPal, BankTransferのみ継承可能）」</li>
+                    <li>Pattern Matching: 「ユーザー入力の型判定処理で型安全性向上」</li>
+                    <li>Text Blocks: 「JSON文字列、SQL文、HTMLタグの記述簡略化」</li>
+                    <li>Records: 「設定データ、API応答データの簡潔な表現」</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 専門用語の説明強化指針 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-spell-check text-purple-600 mr-2"></i>📚 専門用語の説明強化指針
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- 初出時の詳細説明 -->
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-purple-700 mb-2">1. 初出時の詳細説明</h3>
+                    <p class="text-gray-700 mb-2"><strong>例：</strong></p>
+                    <p class="text-sm bg-white p-2 rounded border">「Sealed Classes（密封クラス：継承を指定したクラスのみに制限するJava17の新機能）では...」</p>
+                </div>
+
+                <!-- 日常例・比喩の活用 -->
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-blue-700 mb-2">2. 日常例・比喩の活用</h3>
+                    <p class="text-gray-700 mb-2"><strong>例：</strong></p>
+                    <p class="text-sm bg-white p-2 rounded border">「Recordsは設計書のように、必要な情報を自動的に整理してくれます」</p>
+                </div>
+
+                <!-- 理由・背景の説明 -->
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-green-700 mb-2">3. 理由・背景の説明</h3>
+                    <p class="text-gray-700 mb-2"><strong>例：</strong></p>
+                    <p class="text-sm bg-white p-2 rounded border">「なぜPattern Matchingが有用かというと、型チェックとキャストを同時に行うため、コードがより安全で簡潔になるため」</p>
+                </div>
+
+                <!-- バージョン比較 -->
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-yellow-700 mb-2">4. バージョン比較の明示</h3>
+                    <p class="text-gray-700 mb-2"><strong>例：</strong></p>
+                    <p class="text-sm bg-white p-2 rounded border">「Java8→11→17の進化により、関数型→モジュール→型安全性強化の流れ」</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ページ構成（改良版） -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-sitemap text-indigo-600 mr-2"></i>📋 ページ構成（改良版）
+            </h2>
+
+            <div class="space-y-6">
+                <!-- ヘッダー & ページング -->
+                <div class="bg-indigo-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-indigo-700 mb-2">1. ヘッダー & ページング</h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                        <li>前後ページリンク（Day9 ← → 第2週まとめ）</li>
+                        <li>タイトル：「Day10: Java17新機能・模擬テスト②」</li>
+                        <li>サブタイトル：「最新機能習得と理解度確認」</li>
+                    </ul>
+                </div>
+
+                <!-- 学習目標 -->
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-blue-700 mb-2">2. 学習目標</h3>
+                    <p class="text-gray-700">具体的行動可能性を提示：「○○ができるようになる」形式</p>
+                </div>
+
+                <!-- メイン講義 -->
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-green-700 mb-3">3. メイン講義（改良版指針）</h3>
+                    
+                    <h4 class="font-bold text-gray-700 mb-2">Java17新機能詳細（重要改良箇所）</h4>
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-3 mb-3">
+                        <p class="text-sm text-yellow-800">⚠️ 必須改良事項：</p>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4 mt-2">
+                            <li><strong>新機能比較表に詳細説明を追加：</strong></li>
+                            <li>• <strong>Sealed Classes：</strong>「継承制限でAPI設計の堅牢性向上（例：決済方法の限定継承）」</li>
+                            <li>• <strong>Pattern Matching：</strong>「instanceof後の自動キャスト（例：Object型から具体型への安全変換）」</li>
+                            <li>• <strong>適用場面：</strong>「型安全性重視」→「ユーザー入力バリデーション、API応答処理」など具体例</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-green-100 border-l-4 border-green-500 p-3">
+                        <p class="text-sm text-green-800"><strong>比較表に「実用例」列を追加：</strong></p>
+                        <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4 mt-2">
+                            <li>Sealed Classes: 「決済システム、状態管理」</li>
+                            <li>Pattern Matching: 「型判定処理、条件分岐簡略化」</li>
+                            <li>Text Blocks: 「JSON生成、SQL文記述」</li>
+                            <li>Records: 「設定データ、DTOクラス」</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 模擬テスト問題 -->
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-purple-700 mb-2">4. 模擬テスト問題（表示仕様）</h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                        <li>• 問題文：<strong class="text-blue-600">常に表示</strong></li>
+                        <li>• 選択肢：<strong class="text-blue-600">常に表示</strong></li>
+                        <li>• 正解・解説：<strong class="text-red-600">「回答を表示」ボタン</strong>でクリック表示</li>
+                        <li>• JavaScript showAnswer()関数を実装</li>
+                    </ul>
+                </div>
+
+                <!-- 総復習チェックリスト -->
+                <div class="bg-orange-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-orange-700 mb-2">5. 総復習チェックリスト</h3>
+                    <p class="text-gray-700">第1週（Day1-10）の学習内容を振り返る具体的チェック項目</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- まとめセクション改善指針 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-clipboard-check text-teal-600 mr-2"></i>📝 まとめセクション改善指針
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- 避けるべき抽象的表現 -->
+                <div class="bg-red-50 border-l-4 border-red-500 p-4">
+                    <h3 class="text-lg font-bold text-red-700 mb-2">❌ 避けるべき抽象的表現</h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                        <li>• 「Java17の新機能を理解した」</li>
+                        <li>• 「模擬テストで実力を確認した」</li>
+                        <li>• 「第1週の内容を復習した」</li>
+                        <li>• 「次週に向けて準備完了」</li>
+                    </ul>
+                </div>
+
+                <!-- 推奨する具体的表現 -->
+                <div class="bg-green-50 border-l-4 border-green-500 p-4">
+                    <h3 class="text-lg font-bold text-green-700 mb-2">✅ 推奨する具体的表現</h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700 ml-4">
+                        <li>• 「Sealed Classesで継承制限によるAPI堅牢性を習得」</li>
+                        <li>• 「Pattern Matchingで型安全なキャスト処理を実装可能」</li>
+                        <li>• 「Text Blocksで複数行文字列を簡潔に記述」</li>
+                        <li>• 「Recordsでデータクラスの実装工数を大幅削減」</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 分かりやすさチェックリスト -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-tasks text-emerald-600 mr-2"></i>✅ 分かりやすさチェックリスト
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- 表・図解 -->
+                <div class="bg-emerald-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-emerald-700 mb-2">📊 表・図解</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2" disabled>
+                            <span class="text-gray-700">専門用語に必ず日本語説明を併記</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2" disabled>
+                            <span class="text-gray-700">新機能には実際のコード例（「従来vs新機能」）</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2" disabled>
+                            <span class="text-gray-700">適用場面は実際の開発例で説明</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2" disabled>
+                            <span class="text-gray-700">比較表には「実用例」列を追加</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 文章・説明 -->
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-blue-700 mb-2">📝 文章・説明</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2" disabled>
+                            <span class="text-gray-700">略語は正式名称を併記</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2" disabled>
+                            <span class="text-gray-700">「なぜ」の理由を必ず説明</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2" disabled>
+                            <span class="text-gray-700">日常例・比喩を積極活用</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2" disabled>
+                            <span class="text-gray-700">まとめは具体的なメリットを明示</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 出力形式 -->
+        <section class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-600 mb-4">
+                <i class="fas fa-file-export mr-2"></i>📤 出力形式
+            </h2>
+            <div class="bg-red-100 p-4 rounded-lg">
+                <p class="text-red-800 font-bold mb-2">⚠️ 重要事項：</p>
+                <ul class="list-disc list-inside space-y-1 text-red-700 ml-4">
+                    <li>• <strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                    <li>• 特に「Java17新機能比較表」は<strong>必ず詳細説明付きで改良</strong>すること</li>
+                    <li>• 専門用語の初出時は<strong>日本語説明を併記</strong>すること</li>
+                    <li>• まとめセクションは<strong>具体的なメリット</strong>で記載すること</li>
+                    <li>• 模擬テスト問題の「回答を表示」ボタンを<strong>必ず実装</strong>すること</li>
+                    <li>• HTMLの見やすさと詳細な解説を<strong>両立</strong>すること</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white rounded-lg p-6 text-center">
+            <p class="text-gray-300 mb-2">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            <p class="text-sm text-gray-400">ITエンジニア育成カリキュラム - Day10講義生成用改良版Promptファイル</p>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDjlJUbXfbOvJm1WE23G6j4OZzntEwGRdl3WMWzmAEX2gyuIKpGm2MyApiSShggAYbn2H%2BcjRV5xiXmqjL41yM4ktQX5bTpIVhiT6qFrjgAqvtxvLPmxBrwwkrbhEObS%2FHzXsrnBCLSx8DCsGQG5CA%2FgUuyqZynfjsok5AUjFga7k8fDANZAL86pNQTnBOiXrtIM8k4eawbn25t7bhBG8g6rbS41DJdbOHTN16nM6tlOc61ou2ijuTwehTbeFLQVyQAjruXhaHaRPaNEYm5D50yVUBBvqNtAI9mZN9M4Z%2BXt9msxMsOfpgIjlxAF0fCYglDBPqaQUngVJxpVv8z5hs4Z4wvZxqdiGTEoMV6Aw9pLzg%2BkADZsX7dgWY00z1I9m9paA1kh9jcl4UcrAnC%2FoUSH%2Bp485D7my6qO%2FJQMPkJYkNgtWLRe2rsA2spXHbAUQ%2BS8%2FYYjs1earnreC4vqoUOyFX1l7fpYpLccNO0iNpbQLiCOwrYXQPVgperLwNAF06tkHJI3KuojzdB40WdPc1iM%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDjlJUbXfbOvJm1WE23G6j4OZzntEwGRdl3WMWzmAEX2gyuIKpGm2MyApiSShggAYbn2H+cjRV5xiXmqjL41yM4ktQX5bTpIVhiT6qFrjgAqvtxvLPmxBrwwkrbhEObS/HzXsrnBCLSx8DCsGQG5CA/gUuyqZynfjsok5AUjFga7k8fDANZAL86pNQTnBOiXrtIM8k4eawbn25t7bhBG8g6rbS41DJdbOHTN16nM6tlOc61ou2ijuTwehTbeFLQVyQAjruXhaHaRPaNEYm5D50yVUBBvqNtAI9mZN9M4Z+Xt9msxMsOfpgIjlxAF0fCYglDBPqaQUngVJxpVv8z5hs4Z4wvZxqdiGTEoMV6Aw9pLzg+kADZsX7dgWY00z1I9m9paA1kh9jcl4UcrAnC/oUSH+p485D7my6qO/JQMPkJYkNgtWLRe2rsA2spXHbAUQ+S8/YYjs1earnreC4vqoUOyFX1l7fpYpLccNO0iNpbQLiCOwrYXQPVgperLwNAF06tkHJI3KuojzdB40WdPc1iM=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

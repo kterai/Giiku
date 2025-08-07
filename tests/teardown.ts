@@ -8,7 +8,7 @@ export default async function globalTeardown() {
   const port = process.env.DB_PORT || '5432';
   const user = process.env.DB_USER || 'postgres';
   const password = process.env.DB_PASSWORD || 'postgres';
-  const db = process.env.DB_NAME || 'unryu_db_autotest';
+  const db = process.env.DB_NAME || 'giiku_db_autotest';
 
   const sqlFile = path.resolve(__dirname, '../src/test/resources/db/testdata/autotest_sample_data_cleanup.sql');
   const cmd = `psql -h ${host} -p ${port} -U ${user} -d ${db} -f "${sqlFile}"`;

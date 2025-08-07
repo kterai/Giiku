@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day53講義作成用プロンプト - CI/CD・Docker・Kubernetes・DevOps完全ガイド</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-5xl">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-cogs mr-3"></i>
+                ITエンジニア育成カリキュラム - Day53講義作成用プロンプト
+            </h1>
+            <h2 class="text-2xl font-semibold text-gray-700 mb-2">
+                CI/CD・Docker・Kubernetes・DevOps完全ガイド
+            </h2>
+            <p class="text-lg text-gray-600">
+                モダン開発運用・Infrastructure as Code・コンテナオーケストレーション
+            </p>
+        </header>
+
+        <!-- Project Information -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-project-diagram mr-2"></i>プロジェクト名
+            </h2>
+            <p class="text-blue-700 text-lg">
+                <strong>ITエンジニア育成カリキュラム - Day53: CI/CD・Docker・Kubernetes・DevOps（改良版）</strong>
+            </p>
+            <p class="text-blue-600 mt-2">
+                以下の指示に従って、<code class="bg-blue-100 px-2 py-1 rounded">Traini../lecture/day53_lecture.html</code> を生成してください。
+            </p>
+        </div>
+
+        <!-- Critical Improvement Guidelines -->
+        <div class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-800 mb-4">
+                <i class="fas fa-exclamation-triangle mr-2"></i>重要な改善指針
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-red-700 mb-3">
+                    <i class="fas fa-chart-bar mr-2"></i>表・まとめの分かりやすさ重視
+                </h3>
+                <ul class="list-disc list-inside text-red-700 space-y-2">
+                    <li>DevOps専門用語は必ず<strong>日本語説明</strong>を併記</li>
+                    <li>CI/CDパイプライン概念は<strong>具体例・フロー図</strong>で補足</li>
+                    <li>「適用場面」は<strong>実際の開発チーム例</strong>を記載</li>
+                    <li>まとめは<strong>具体的な運用改善効果</strong>を明示</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-red-700 mb-3">
+                    <i class="fas fa-language mr-2"></i>DevOps専門用語の扱い
+                </h3>
+                <ul class="list-disc list-inside text-red-700 space-y-2">
+                    <li>初出時は<strong>（日本語説明）</strong>を併記</li>
+                    <li>略語は<strong>正式名称</strong>を明記（CI = Continuous Integration）</li>
+                    <li>「なぜそうなるのか」の<strong>理由</strong>を説明</li>
+                    <li><strong>日常例・比喩</strong>を積極活用（工場の生産ライン等）</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Reference Files -->
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-green-800 mb-4">
+                <i class="fas fa-folder-open mr-2"></i>参照ファイル
+            </h2>
+            <ul class="list-disc list-inside text-green-700 space-y-2">
+                <li><code class="bg-green-100 px-2 py-1 rounded">Traini../day/day53.html</code></li>
+                <li><code class="bg-green-100 px-2 py-1 rounded">Traini../lecture/Template_dayX_lecture.html</code></li>
+            </ul>
+        </div>
+
+        <!-- Common Specifications -->
+        <div class="bg-gray-50 border-l-4 border-gray-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-cog mr-2"></i>共通仕様
+            </h2>
+            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                <li>HTML5 / lang="ja" / UTF-8</li>
+                <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                <li>Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                <li>レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                <li>コードブロックは <code>&lt;pre&gt;&lt;code class="language-yaml"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                <li>開発環境として Visual Studio Code + Docker Desktop + kubectl を記載</li>
+                <li>フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+            </ul>
+        </div>
+
+        <!-- Learning Objectives -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-target mr-2"></i>学習目標
+            </h2>
+            <ul class="list-disc list-inside text-blue-700 space-y-3">
+                <li>CI/CD（継続的インテグレーション・デプロイメント）の概念と実装を<strong>具体的なパイプライン例とともに</strong>理解する</li>
+                <li>Dockerコンテナ技術とKubernetesオーケストレーションを<strong>実践的なマイクロサービス例で</strong>習得する</li>
+                <li>Infrastructure as Code（IaC）とDevOps文化を<strong>実際のチーム運用例で</strong>学習する</li>
+                <li>監視・ログ管理・セキュリティ対策を<strong>実装レベル</strong>で実践できる</li>
+            </ul>
+        </div>
+
+        <!-- Achievement Criteria -->
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-green-800 mb-4">
+                <i class="fas fa-check-circle mr-2"></i>達成基準
+            </h2>
+            <ul class="list-disc list-inside text-green-700 space-y-3">
+                <li>GitHubActions・Jenkins等を使用したCI/CDパイプラインを構築できる</li>
+                <li>Dockerコンテナの作成・管理とKubernetesクラスターでのデプロイができる</li>
+                <li>Terraform・Ansible等によるインフラ自動化を実装できる</li>
+                <li>Prometheus・Grafana等による監視システムを構築できる</li>
+            </ul>
+        </div>
+
+        <!-- DevOps Concept Improvement Guidelines -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-4">
+                <i class="fas fa-lightbulb mr-2"></i>DevOps概念の分かりやすさ改善指針
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-yellow-700 mb-3">❌ 改善前の問題例</h3>
+                <p class="text-yellow-700 mb-2">
+                    <strong>問題：</strong>「CI/CD」「Kubernetes」「Infrastructure as Code」など、専門用語のみで初心者には理解困難
+                </p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-yellow-700 mb-3">✅ 改善後の指針</h3>
+                
+                <h4 class="font-semibold text-yellow-700 mb-2">DevOps概念の説明強化</h4>
+                <ul class="list-disc list-inside text-yellow-700 space-y-1 mb-4">
+                    <li><strong>CI/CD</strong> → 「継続的な統合・デプロイ（自動テスト・自動リリース）」</li>
+                    <li><strong>Docker</strong> → 「アプリケーションのパッケージ化（仮想化よりも軽量）」</li>
+                    <li><strong>Kubernetes</strong> → 「コンテナの管理・運用システム（オーケストレーター）」</li>
+                    <li><strong>IaC</strong> → 「インフラをコードで管理（手作業の自動化）」</li>
+                </ul>
+
+                <h4 class="font-semibold text-yellow-700 mb-2">具体例の追加</h4>
+                <ul class="list-disc list-inside text-yellow-700 space-y-1">
+                    <li>「CI/CDパイプライン」→「コード変更から本番リリースまでの自動化フロー」</li>
+                    <li>「コンテナオーケストレーション」→「複数のWebサーバーを自動で管理・負荷分散」</li>
+                    <li>「Infrastructure as Code」→「サーバー設定をYAMLファイルで管理」</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- DevOps Terminology Enhancement -->
+        <div class="bg-purple-50 border-l-4 border-purple-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-purple-800 mb-4">
+                <i class="fas fa-book mr-2"></i>DevOps専門用語の説明強化指針
+            </h2>
+            
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-purple-700 mb-2">1. 初出時の詳細説明</h3>
+                <p class="text-purple-700 bg-purple-100 p-3 rounded">
+                    <strong>例：</strong>「DevOps（Development and Operations - 開発と運用の連携文化）では...」
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-purple-700 mb-2">2. 日常例・比喩の活用</h3>
+                <p class="text-purple-700 bg-purple-100 p-3 rounded">
+                    <strong>例：</strong>「CI/CDパイプラインは工場の生産ラインのように、各工程を自動化して品質を保ちます」
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold text-purple-700 mb-2">3. 理由・背景の説明</h3>
+                <p class="text-purple-700 bg-purple-100 p-3 rounded">
+                    <strong>例：</strong>「なぜコンテナ化が重要かというと、環境の違いによるトラブルを防ぐため」
+                </p>
+            </div>
+        </div>
+
+        <!-- Page Structure Guidelines -->
+        <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4">
+                <i class="fas fa-sitemap mr-2"></i>ページ構成（改良版）
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-indigo-700 mb-3">1. ヘッダー & ページング</h3>
+                <ul class="list-disc list-inside text-indigo-700 space-y-2">
+                    <li>左に前日 <code>day52_lecture.html</code> へのリンク（FontAwesome <code>fa-chevron-left</code>）</li>
+                    <li>右に翌日 <code>day54_lecture.html</code> へのリンク（<code>fa-chevron-right</code>）</li>
+                    <li>中央タイトル：<code>ITエンジニア育成カリキュラム - Day53: CI/CD・Docker・Kubernetes・DevOps</code></li>
+                    <li>サブタイトル：<code>モダン開発運用・Infrastructure as Code・コンテナオーケストレーション</code></li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-indigo-700 mb-3">2. メイン講義（改良版指針）</h3>
+                
+                <h4 class="font-semibold text-indigo-700 mb-2">CI/CDパイプライン構築</h4>
+                <p class="text-indigo-700 mb-3">
+                    <strong>❗ 具体例重視：</strong>「GitHubにpushするとテスト・ビルド・デプロイが自動実行」など、実際のフロー例で説明
+                </p>
+
+                <h4 class="font-semibold text-indigo-700 mb-2">Docker・Kubernetes実践（重要改良箇所）</h4>
+                <div class="bg-indigo-100 p-4 rounded mb-3">
+                    <p class="text-indigo-700 mb-2"><strong>⚠️ 必須改良事項：</strong></p>
+                    
+                    <p class="text-indigo-700 mb-2"><strong>表の各項目に詳細説明を追加：</strong></p>
+                    <ul class="list-disc list-inside text-indigo-600 space-y-1 mb-3">
+                        <li><strong>Docker：</strong>「アプリケーションのパッケージ化（例：Webアプリ + 依存関係を1つのコンテナに）」</li>
+                        <li><strong>Kubernetes：</strong>「コンテナの自動管理（例：負荷に応じてサーバー数を自動調整）」</li>
+                        <li><strong>適用場面：</strong>「マイクロサービス運用」→「ECサイトのユーザー管理・商品管理・決済システムの個別デプロイ」など具体例</li>
+                    </ul>
+
+                    <p class="text-indigo-700"><strong>比較表に「実用例」列を追加：</strong></p>
+                    <ul class="list-disc list-inside text-indigo-600 space-y-1">
+                        <li>Docker: 「Webアプリ配布、開発環境統一」</li>
+                        <li>Kubernetes: 「負荷分散、自動復旧、スケーリング」</li>
+                        <li>CI/CD: 「自動テスト、品質保証、迅速リリース」</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise and Quiz Display Specifications -->
+        <div class="bg-teal-50 border-l-4 border-teal-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-teal-800 mb-4">
+                <i class="fas fa-question-circle mr-2"></i>演習問題・理解度クイズ（表示仕様）
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-teal-700 mb-3">演習問題</h3>
+                <ul class="list-disc list-inside text-teal-700 space-y-2">
+                    <li>問題文：<strong>常に表示</strong></li>
+                    <li>回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+                    <li>詳細解説を削減しないよう注意</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-teal-700 mb-3">理解度クイズ</h3>
+                <ul class="list-disc list-inside text-teal-700 space-y-2">
+                    <li>問題・選択肢：<strong>常に表示</strong></li>
+                    <li>正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+                    <li>JavaScript showAnswer()関数を実装</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Summary Section Improvement Guidelines -->
+        <div class="bg-orange-50 border-l-4 border-orange-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-orange-800 mb-4">
+                <i class="fas fa-edit mr-2"></i>まとめセクション改善指針
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-orange-700 mb-3">❌ 避けるべき抽象的表現</h3>
+                <ul class="list-disc list-inside text-orange-700 space-y-2">
+                    <li>「DevOpsを理解した」</li>
+                    <li>「CI/CDを把握した」</li>
+                    <li>「コンテナ技術を習得した」</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-orange-700 mb-3">✅ 推奨する具体的表現</h3>
+                <ul class="list-disc list-inside text-orange-700 space-y-2">
+                    <li>「CI/CDパイプラインで自動テスト・デプロイを実現し、リリース時間を80%短縮」</li>
+                    <li>「Dockerコンテナ化により環境依存問題を解決し、デプロイの安定性を向上」</li>
+                    <li>「Kubernetesで負荷に応じた自動スケーリングを実装し、可用性を確保」</li>
+                    <li>「Infrastructure as Codeでインフラ変更を自動化し、運用コストを削減」</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Understandability Checklist -->
+        <div class="bg-pink-50 border-l-4 border-pink-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-pink-800 mb-4">
+                <i class="fas fa-check-square mr-2"></i>分かりやすさチェックリスト
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-pink-700 mb-3">📊 表・図解</h3>
+                <ul class="list-disc list-inside text-pink-700 space-y-2">
+                    <li>DevOps専門用語に必ず日本語説明を併記</li>
+                    <li>CI/CDフローには具体例（「コードpush → テスト → ビルド → デプロイ」）</li>
+                    <li>適用場面は実際の開発チーム例で説明</li>
+                    <li>比較表には「実用例」列を追加</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-pink-700 mb-3">📝 文章・説明</h3>
+                <ul class="list-disc list-inside text-pink-700 space-y-2">
+                    <li>略語は正式名称を併記</li>
+                    <li>「なぜ」の理由を必ず説明</li>
+                    <li>日常例・比喩を積極活用</li>
+                    <li>まとめは具体的な運用改善効果を明示</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Day53 Specific Guidelines -->
+        <div class="bg-cyan-50 border-l-4 border-cyan-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-cyan-800 mb-4">
+                <i class="fas fa-rocket mr-2"></i>Day53特有の追加指針
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-cyan-700 mb-3">DevOps特化項目</h3>
+                <ul class="list-disc list-inside text-cyan-700 space-y-2">
+                    <li><strong>実際のYAML設定例を豊富に：</strong>「GitHubActions・Dockerfileの実例」セクション必須</li>
+                    <li><strong>チーム運用での効果測定：</strong>デプロイ頻度・リードタイム・障害復旧時間等の指標説明</li>
+                    <li><strong>段階的導入戦略：</strong>小規模チーム→大規模組織への段階的DevOps導入方法</li>
+                    <li><strong>トラブルシューティング：</strong>「よくある問題と解決法」を具体的に紹介</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-cyan-700 mb-3">理解促進要素</h3>
+                <ul class="list-disc list-inside text-cyan-700 space-y-2">
+                    <li><strong>従来手法との比較：</strong>手動デプロイ vs 自動化の工数・品質比較</li>
+                    <li><strong>コスト効果の可視化：</strong>「人的コスト削減効果」を数値例で紹介</li>
+                    <li><strong>セキュリティ強化：</strong>「DevSecOps」としてのセキュリティ組み込み手法</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Output Format Requirements -->
+        <div class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-800 mb-4">
+                <i class="fas fa-file-export mr-2"></i>出力形式
+            </h2>
+            
+            <div class="bg-red-100 p-4 rounded">
+                <p class="text-red-800 font-semibold mb-4">⚠️ 重要事項：</p>
+                <ul class="list-disc list-inside text-red-700 space-y-2">
+                    <li><strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                    <li>特に「CI/CDパイプラインとコンテナオーケストレーション」は<strong>必ず詳細説明付きで改良</strong>すること</li>
+                    <li>DevOps専門用語の初出時は<strong>日本語説明を併記</strong>すること</li>
+                    <li>まとめセクションは<strong>具体的な運用改善効果</strong>で記載すること</li>
+                    <li>HTMLの見やすさと詳細なDevOps解説を<strong>両立</strong>すること</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 pt-8 border-t border-gray-300">
+            <p class="text-gray-600 mb-4">
+                <i class="fas fa-graduation-cap mr-2"></i>
+                高品質な教育コンテンツ作成のための詳細指示書
+            </p>
+            <p class="text-gray-500">
+                © 2025 APSA Co.,Ltd. All Rights Reserved.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDm%2B1vAvHDxtKUl8aUxMZZy56jXxr98oSZiisv22aPI%2FynIIEKRpRqgyXWuYr4I92KdU4neDG9QzM6w84xALiDGRD20HqgE7jFRi5QSNGqlYSwjXygmeXgz8xfGiuXvgIAfaDH4Oxn05vGjw6H2YixuNUNjyJH1zlvD1%2BHocGB4xyfoncC2xlIidX4o04chtOfkdv%2BCoQY%2Bh9vcOepZGSwd8xJ3JWb%2FfOPVJ0RxBAiDkZQc2RXtOYZvKq0Qp4UnW3XOrXijkRy9dfVRo8X4Gh%2BwM0isZyAEfxOaCqoFiIe8N3C0zGrQA0Ih8mvQ8YbNDAQdItmBrxAt1INa%2BIcCfH1JMUm7ZEWvqwZxFjQlKy4V%2Fll%2BGb08KML%2BuzlFEjKQrlJu7eyZlalhWWs5PaJN8i2sJWZWOg7SVGH5duMpW0oOMfWAqcEnxEEUylAiCsvB3oirQrECAwh8LDT5jQxbBui2k3eyi8EKp1bcb99dhgtW29FFOTOkb%2Fw2wm8fJfMdP55g%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDm+1vAvHDxtKUl8aUxMZZy56jXxr98oSZiisv22aPI/ynIIEKRpRqgyXWuYr4I92KdU4neDG9QzM6w84xALiDGRD20HqgE7jFRi5QSNGqlYSwjXygmeXgz8xfGiuXvgIAfaDH4Oxn05vGjw6H2YixuNUNjyJH1zlvD1+HocGB4xyfoncC2xlIidX4o04chtOfkdv+CoQY+h9vcOepZGSwd8xJ3JWb/fOPVJ0RxBAiDkZQc2RXtOYZvKq0Qp4UnW3XOrXijkRy9dfVRo8X4Gh+wM0isZyAEfxOaCqoFiIe8N3C0zGrQA0Ih8mvQ8YbNDAQdItmBrxAt1INa+IcCfH1JMUm7ZEWvqwZxFjQlKy4V/ll+Gb08KML+uzlFEjKQrlJu7eyZlalhWWs5PaJN8i2sJWZWOg7SVGH5duMpW0oOMfWAqcEnxEEUylAiCsvB3oirQrECAwh8LDT5jQxbBui2k3eyi8EKp1bcb99dhgtW29FFOTOkb/w2wm8fJfMdP55g==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

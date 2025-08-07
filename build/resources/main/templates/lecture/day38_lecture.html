@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム - Day38: CSS3基礎・レスポンシブレイアウト設計</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .code-block { background-color: #f8f9fa; border-left: 4px solid #007bff; }
+        .quiz-answer, .exercise-answer { display: none; }
+        .table-responsive { font-size: 0.9rem; }
+        pre code { font-size: 0.85rem; line-height: 1.4; }
+         { body { font-size: 11px; } .no-print { display: none; } }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200 no-print">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day37_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day39_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month3.html" class="hover:text-blue-600">3ヶ月目: Webアプリケーション開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week9.html" class="hover:text-blue-600">9週目: フロントエンド基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">38日目: CSS3基礎・レスポンシブレイアウト設計</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day38.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <!-- Header Navigation -->
+    <header class="bg-blue-600 text-white py-4 px-6 no-print">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="day37_lecture.html" class="flex items-center space-x-2 bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded-lg transition-colors">
+                <i class="fas fa-chevron-left"></i>
+                <span>Day37</span>
+            </a>
+            <div class="text-center">
+                <h1 class="text-xl font-bold">ITエンジニア育成カリキュラム - Day38</h1>
+                <p class="text-blue-200">CSS3基礎・レスポンシブレイアウト設計</p>
+                <p class="text-blue-300 text-sm">Flexbox・Grid・レスポンシブ完全マスター</p>
+            </div>
+            <a href="day39_lecture.html" class="flex items-center space-x-2 bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded-lg transition-colors">
+                <span>Day39</span>
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-6 py-8">
+        <!-- Learning Objectives -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4 flex items-center">
+                <i class="fas fa-bullseye mr-3"></i>本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-blue-800 mb-2">CSS3構文を<span class="text-red-600">具体例とともに</span>説明できる</h3>
+                    <p class="text-sm text-gray-700">セレクタ・プロパティ・値の基本構文から、実際のWebサイトでの活用方法まで理解</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-green-800 mb-2">Flexbox / Grid の違いと用途を<span class="text-red-600">実践例で</span>理解する</h3>
+                    <p class="text-sm text-gray-700">一次元・二次元レイアウトの特性を理解し、適切な選択ができる</p>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-purple-800 mb-2">レスポンシブデザインを<span class="text-red-600">実際にコーディング</span>できる</h3>
+                    <p class="text-sm text-gray-700">モバイルファーストアプローチでマルチデバイス対応サイトを構築</p>
+                </div>
+                <div class="bg-orange-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-orange-800 mb-2">CSS3アニメーション機能を活用した動的UIを作成できる</h3>
+                    <p class="text-sm text-gray-700">Transform・Transition・Animationによる現代的なUI実装</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Environment -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-green-600 mb-4 flex items-center">
+                <i class="fas fa-tools mr-3"></i>推奨開発環境
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="font-bold text-green-800 mb-2 flex items-center">
+                        <i class="fas fa-code mr-2"></i>エディタ
+                    </h3>
+                    <p class="text-gray-700">Visual Studio Code + Live Server拡張機能</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-green-800 mb-2 flex items-center">
+                        <i class="fas fa-globe mr-2"></i>ブラウザ
+                    </h3>
+                    <p class="text-gray-700">Google Chrome + 開発者ツール</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-green-800 mb-2 flex items-center">
+                        <i class="fas fa-check-circle mr-2"></i>検証ツール
+                    </h3>
+                    <p class="text-gray-700">W3C Validator + Lighthouse</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: CSS3 Basic Syntax -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6 flex items-center">
+                <i class="fas fa-code mr-3"></i>1. CSS3基礎構文とセレクタの詳細理解
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">CSS（Cascading Style Sheets：カスケーディング・スタイル・シート）とは？</h3>
+                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700"><strong>初心者向け解説：</strong>CSSとは、HTMLで作った骨組みに「色・形・配置」などの見た目を設定する言語です。HTMLが「家の骨組み」なら、CSSは「内装・外装」のようなものです。</p>
+                    
+                    <p class="text-gray-700 mt-2"><strong>日常例：</strong>本の文章（HTML）に、文字の大きさ・色・レイアウト（CSS）を設定して、読みやすい雑誌に仕上げるイメージです。</p>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">CSS基本構文</h3>
+                <div class="code-block p-4 rounded-lg mb-4">
+                    <pre><code class="language-css">/* セレクタ { プロパティ: 値; } */
+h1 {
+    color: #3b82f6;        /* 文字色: 青色 */
+    font-size: 24px;       /* 文字サイズ: 24ピクセル */
+    text-align: center;    /* 文字配置: 中央寄せ */
+}
+
+.button {
+    background-color: #10b981;  /* 背景色: 緑色 */
+    padding: 12px 24px;         /* 内側余白: 上下12px、左右24px */
+    border-radius: 6px;         /* 角の丸み: 6ピクセル */
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">セレクタの種類と使い分け</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300 table-responsive">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-300 p-3 text-left">セレクタ種類</th>
+                                <th class="border border-gray-300 p-3 text-left">記述方法</th>
+                                <th class="border border-gray-300 p-3 text-left">用途（日本語説明）</th>
+                                <th class="border border-gray-300 p-3 text-left">実用例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 p-3">要素セレクタ</td>
+                                <td class="border border-gray-300 p-3"><code>h1, p, div</code></td>
+                                <td class="border border-gray-300 p-3">HTML要素全体にスタイル適用</td>
+                                <td class="border border-gray-300 p-3">すべての見出し（h1）を青色に設定</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 p-3">クラスセレクタ</td>
+                                <td class="border border-gray-300 p-3"><code>.button, .card</code></td>
+                                <td class="border border-gray-300 p-3">特定の部品にスタイル適用</td>
+                                <td class="border border-gray-300 p-3">ボタン部品、カード部品のデザイン統一</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 p-3">IDセレクタ</td>
+                                <td class="border border-gray-300 p-3"><code>#header, #main</code></td>
+                                <td class="border border-gray-300 p-3">ページ内唯一の要素に適用</td>
+                                <td class="border border-gray-300 p-3">ヘッダー部分、メイン部分の個別設定</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 p-3">擬似クラス</td>
+                                <td class="border border-gray-300 p-3"><code>:hover, :focus</code></td>
+                                <td class="border border-gray-300 p-3">マウス操作時の状態変化</td>
+                                <td class="border border-gray-300 p-3">ボタンにマウスを乗せた時の色変化</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">実践例：企業サイトのヘッダー</h3>
+                <div class="code-block p-4 rounded-lg">
+                    <pre><code class="language-css">/* 企業サイトのヘッダー設計例 */
+.header {
+    background-color: #1f2937;     /* 背景色: ダークグレー */
+    color: white;                  /* 文字色: 白 */
+    padding: 16px 0;              /* 内側余白: 上下16px */
+    position: sticky;             /* 位置: スクロール時に固定 */
+    top: 0;                       /* 上端に固定 */
+    z-index: 1000;               /* 重なり順: 最前面 */
+}
+
+.nav-menu {
+    display: flex;                /* フレックスボックス（横並び配置） */
+    justify-content: space-between; /* 主軸方向で両端寄せ */
+    align-items: center;          /* 交差軸方向で中央配置 */
+    max-width: 1200px;           /* 最大幅: 1200ピクセル */
+    margin: 0 auto;              /* 中央配置 */
+    padding: 0 20px;             /* 左右余白: 20ピクセル */
+}
+
+.logo:hover {
+    transform: scale(1.05);       /* ホバー時: 5%拡大 */
+    transition: transform 0.3s;   /* 変化時間: 0.3秒 */
+}</code></pre>
+                </div>
+                <p class="text-sm text-gray-600 mt-2"><strong>解説：</strong>position: stickyによりスクロール時にヘッダーが上部に固定され、transform: scale(1.05)でロゴにマウスを乗せた時に1.05倍（5%）拡大するホバー効果を実現</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Box Model -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-green-600 mb-6 flex items-center">
+                <i class="fas fa-cube mr-3"></i>2. ボックスモデルの実践的理解
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">ボックスモデルとは？</h3>
+                <div class="bg-green-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700"><strong>初心者向け解説：</strong>ボックスモデルとは、HTML要素を「箱」として考える仕組みです。それぞれの箱は、中身（content）、内側の余白（padding）、枠線（border）、外側の余白（margin）の4つの層から構成されています。</p>
+                    
+                    <p class="text-gray-700 mt-2"><strong>日常例：</strong>プレゼント箱に例えると、商品（content）、緩衝材（padding）、箱の壁（border）、箱と箱の間の空間（margin）のようなものです。</p>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">ボックスモデルの視覚的説明</h3>
+                <div class="border-4 border-red-500 p-6 bg-yellow-100 mb-4">
+                    <div class="border-4 border-blue-500 p-4 bg-green-100">
+                        <div class="border-4 border-green-500 p-4 bg-blue-100">
+                            <div class="bg-white p-4 text-center border-2 border-gray-400">
+                                <strong>Content Area</strong><br>
+                                実際の内容が表示される領域<br>
+                                width: 200px, height: 100px
+                            </div>
+                        </div>
+                        <p class="text-center text-sm mt-2 text-green-700"><strong>Padding</strong>: 内側余白（緑色の部分）</p>
+                    </div>
+                    <p class="text-center text-sm mt-2 text-blue-700"><strong>Border</strong>: 境界線（青色の部分）</p>
+                </div>
+                <p class="text-center text-sm text-red-700"><strong>Margin</strong>: 外側余白（赤色の部分）</p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">box-sizing プロパティの重要性</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-red-800 mb-2">content-box（デフォルト）</h4>
+                        <div class="code-block p-3 rounded mb-2">
+                            <pre><code class="language-css">.box {
+    width: 200px;
+    padding: 20px;
+    border: 5px solid;
+}
+/* 実際の幅 = 200 + 40 + 10 = 250px */</code></pre>
+                        </div>
+                        <p class="text-sm text-gray-700">widthにpaddingとborderが<strong>追加</strong>される</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-green-800 mb-2">border-box（推奨）</h4>
+                        <div class="code-block p-3 rounded mb-2">
+                            <pre><code class="language-css">.box {
+    box-sizing: border-box;
+    width: 200px;
+    padding: 20px;
+    border: 5px solid;
+}
+/* 実際の幅 = 200px（固定）*/</code></pre>
+                        </div>
+                        <p class="text-sm text-gray-700">widthにpaddingとborderが<strong>含まれる</strong></p>
+                    </div>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg mt-4">
+                    <p class="text-gray-700"><strong>なぜborder-boxが推奨？</strong> レイアウト設計時に幅の計算が簡単になり、paddingやborderを後から変更しても全体の幅が変わらないため、デザインが崩れにくくなります。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Flexbox vs Grid Comparison -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-purple-600 mb-6 flex items-center">
+                <i class="fas fa-th-large mr-3"></i>3. Flexbox vs CSS Grid 完全比較
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">なぜFlexboxとGridを使い分けるのか？</h3>
+                <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700"><strong>初心者向け解説：</strong>Flexbox（フレックスボックス）は「一列」の配置が得意で、Grid（グリッド）は「格子状」の配置が得意です。</p>
+                    
+                    <p class="text-gray-700 mt-2"><strong>日常例：</strong>Flexboxは「電車の座席（一列に並ぶ）」、Gridは「碁盤の目（縦横に区切られた格子）」のようなイメージです。</p>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">詳細比較表</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300 table-responsive">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-300 p-3 text-left">項目</th>
+                                <th class="border border-gray-300 p-3 text-left">Flexbox（フレックスボックス）</th>
+                                <th class="border border-gray-300 p-3 text-left">CSS Grid（グリッド）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 p-3 font-semibold">配置の次元</td>
+                                <td class="border border-gray-300 p-3">一次元（横または縦一列）</td>
+                                <td class="border border-gray-300 p-3">二次元（縦横格子状）</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 p-3 font-semibold">得意な用途</td>
+                                <td class="border border-gray-300 p-3">アイテムの並び順制御、中央配置</td>
+                                <td class="border border-gray-300 p-3">複雑なレイアウト、エリア分割</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 p-3 font-semibold">実用例</td>
+                                <td class="border border-gray-300 p-3">ナビゲーションメニュー、ボタン配置、カード内レイアウト</td>
+                                <td class="border border-gray-300 p-3">商品一覧、画像ギャラリー、ページ全体レイアウト</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 p-3 font-semibold">適用場面の具体例</td>
+                                <td class="border border-gray-300 p-3">「ヘッダーメニューの横並び」「フォームボタンの右寄せ」</td>
+                                <td class="border border-gray-300 p-3">「ECサイトの商品一覧」「ダッシュボードのウィジェット配置」</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 p-3 font-semibold">学習の優先度</td>
+                                <td class="border border-gray-300 p-3">🟢 まず最初に習得推奨</td>
+                                <td class="border border-gray-300 p-3">🟡 Flexbox習得後に学習</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-blue-800 mb-3">Flexbox実装例：ナビゲーションメニュー</h4>
+                    <div class="code-block p-3 rounded mb-3">
+                        <pre><code class="language-css">/* HTML: <nav class="nav-menu">
+  <a href="/">ホーム</a>
+  <a href="/about">概要</a>
+  <a href="/contact">連絡先</a>
+</nav> */
+
+.nav-menu {
+    display: flex;              /* フレックスボックス有効化 */
+    justify-content: space-around; /* 均等配置 */
+    align-items: center;        /* 縦方向中央配置 */
+    background-color: #f3f4f6;  /* 背景色 */
+    padding: 16px;              /* 内側余白 */
+}
+
+.nav-menu a {
+    padding: 8px 16px;          /* リンクの余白 */
+    text-decoration: none;      /* 下線削除 */
+    border-radius: 4px;         /* 角丸 */
+}
+
+.nav-menu a:hover {
+    background-color: #3b82f6;  /* ホバー時背景色 */
+    color: white;               /* ホバー時文字色 */
+}</code></pre>
+                    </div>
+                    <p class="text-sm text-gray-600"><strong>結果：</strong>横一列に等間隔で配置されたナビゲーションメニュー</p>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-green-800 mb-3">CSS Grid実装例：商品一覧レイアウト</h4>
+                    <div class="code-block p-3 rounded mb-3">
+                        <pre><code class="language-css">/* HTML: <div class="product-grid">
+  <div class="product-card">商品1</div>
+  <div class="product-card">商品2</div>
+  <div class="product-card">商品3</div>
+</div> */
+
+.product-grid {
+    display: grid;                    /* グリッド有効化 */
+    grid-template-columns: repeat(3, 1fr); /* 3列均等分割 */
+    gap: 20px;                        /* 要素間の間隔 */
+    padding: 20px;                    /* 外側余白 */
+}
+
+.product-card {
+    background-color: white;          /* 背景色 */
+    border: 1px solid #e5e7eb;       /* 境界線 */
+    border-radius: 8px;               /* 角丸 */
+    padding: 16px;                    /* 内側余白 */
+    text-align: center;               /* 文字中央配置 */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 影効果 */
+}</code></pre>
+                    </div>
+                    <p class="text-sm text-gray-600"><strong>結果：</strong>3列の格子状に配置された商品カード一覧</p>
+                </div>
+            </div>
+
+            <div class="bg-yellow-50 p-4 rounded-lg">
+                <h4 class="font-bold text-yellow-800 mb-2">使い分けの判断基準</h4>
+                <ul class="list-disc pl-6 text-gray-700">
+                    <li><strong>Flexboxを選ぶ場合：</strong>「横一列のメニュー」「ボタンの配置」「カード内の要素整理」など、一方向の配置</li>
+                    <li><strong>Gridを選ぶ場合：</strong>「商品一覧」「画像ギャラリー」「ダッシュボード」など、格子状の複雑なレイアウト</li>
+                    <li><strong>併用する場合：</strong>Gridでページ全体のレイアウトを作り、各エリア内でFlexboxを使用</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 4: Responsive Design -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-600 mb-6 flex items-center">
+                <i class="fas fa-mobile-alt mr-3"></i>4. レスポンシブデザインの実践的実装
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">レスポンシブデザインとは？</h3>
+                <div class="bg-red-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700"><strong>初心者向け解説：</strong>レスポンシブデザインとは、スマホ・タブレット・PCなど、様々な画面サイズに自動で適応するWebサイトの設計手法です。</p>
+                    
+                    <p class="text-gray-700 mt-2"><strong>日常例：</strong>水が容器の形に合わせて変化するように、Webサイトも画面サイズに合わせてレイアウトが変化します。新聞が「朝刊（大判）」「夕刊（小判）」で紙面構成を変えるイメージです。</p>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">ブレークポイント設計戦略</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300 table-responsive">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-300 p-3 text-left">デバイス種類</th>
+                                <th class="border border-gray-300 p-3 text-left">画面幅（ブレークポイント）</th>
+                                <th class="border border-gray-300 p-3 text-left">CSS メディアクエリ</th>
+                                <th class="border border-gray-300 p-3 text-left">レイアウトの特徴</th>
+                                <th class="border border-gray-300 p-3 text-left">実際の適用例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 p-3">スマートフォン</td>
+                                <td class="border border-gray-300 p-3">～767px</td>
+                                <td class="border border-gray-300 p-3"><code>@media (max-width: 767px)</code></td>
+                                <td class="border border-gray-300 p-3">縦一列配置、大きなボタン</td>
+                                <td class="border border-gray-300 p-3">メニューはハンバーガー、1列の商品表示</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 p-3">タブレット</td>
+                                <td class="border border-gray-300 p-3">768px～1023px</td>
+                                <td class="border border-gray-300 p-3"><code>@media (min-width: 768px)</code></td>
+                                <td class="border border-gray-300 p-3">2列配置、中程度の余白</td>
+                                <td class="border border-gray-300 p-3">2列の商品表示、サイドバー表示</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 p-3">デスクトップ</td>
+                                <td class="border border-gray-300 p-3">1024px～1199px</td>
+                                <td class="border border-gray-300 p-3"><code>@media (min-width: 1024px)</code></td>
+                                <td class="border border-gray-300 p-3">3列配置、横メニュー</td>
+                                <td class="border border-gray-300 p-3">3列の商品表示、フルメニュー</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 p-3">大画面</td>
+                                <td class="border border-gray-300 p-3">1200px～</td>
+                                <td class="border border-gray-300 p-3"><code>@media (min-width: 1200px)</code></td>
+                                <td class="border border-gray-300 p-3">4列以上、最大幅制限</td>
+                                <td class="border border-gray-300 p-3">4列の商品表示、コンテンツ中央配置</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">モバイルファーストアプローチの実装</h3>
+                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700"><strong>なぜモバイルファーストが重要？</strong> 現在のWebトラフィックの約60%がモバイルデバイスからのアクセスです。小さい画面から設計することで、本当に必要な要素だけを残し、ユーザビリティの高いサイトを作れます。</p>
+                </div>
+
+                <div class="code-block p-4 rounded-lg">
+                    <pre><code class="language-css">/* モバイルファーストのレスポンシブ実装例 */
+
+/* 1. 基本スタイル（スマートフォン：～767px） */
+.container {
+    width: 100%;                    /* 画面幅いっぱい */
+    padding: 15px;                  /* 左右余白 */
+    font-size: 16px;                /* 読みやすい文字サイズ */
+}
+
+.product-grid {
+    display: flex;                  /* フレックスボックス */
+    flex-direction: column;         /* 縦一列配置 */
+    gap: 15px;                      /* 要素間隔 */
+}
+
+.nav-menu {
+    flex-direction: column;         /* メニューを縦並び */
+    position: fixed;                /* 画面に固定 */
+    background-color: white;        /* 背景色 */
+    width: 100%;                    /* 画面幅いっぱい */
+}
+
+/* 2. タブレット対応（768px以上） */
+@media (min-width: 768px) {
+    .container {
+        max-width: 750px;           /* 最大幅制限 */
+        margin: 0 auto;             /* 中央配置 */
+        padding: 20px;              /* 余白拡大 */
+    }
+    
+    .product-grid {
+        flex-direction: row;        /* 横並びに変更 */
+        flex-wrap: wrap;            /* 折り返し許可 */
+    }
+    
+    .product-card {
+        flex: 0 0 calc(50% - 10px); /* 2列配置（50%幅 - 間隔調整）*/
+    }
+    
+    .nav-menu {
+        flex-direction: row;        /* メニューを横並び */
+        position: static;           /* 通常配置に戻す */
+        justify-content: space-around; /* 均等配置 */
+    }
+}
+
+/* 3. デスクトップ対応（1024px以上） */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1140px;          /* さらに幅拡大 */
+        padding: 30px 20px;         /* 上下余白増加 */
+    }
+    
+    .product-card {
+        flex: 0 0 calc(33.333% - 14px); /* 3列配置 */
+    }
+    
+    .sidebar {
+        display: block;             /* サイドバー表示 */
+        width: 250px;               /* サイドバー幅 */
+    }
+}
+
+/* 4. 大画面対応（1200px以上） */
+@media (min-width: 1200px) {
+    .product-card {
+        flex: 0 0 calc(25% - 15px); /* 4列配置 */
+    }
+    
+    .hero-section {
+        font-size: 24px;           /* 大きな文字サイズ */
+        padding: 60px 0;           /* 上下余白増加 */
+    }
+}</code></pre>
+                </div>
+            </div>
+
+            <div class="bg-green-50 p-4 rounded-lg">
+                <h4 class="font-bold text-green-800 mb-2">レスポンシブデザインのメリット</h4>
+                <ul class="list-disc pl-6 text-gray-700">
+                    <li><strong>ユーザビリティ向上：</strong>どのデバイスでも最適な表示で快適な閲覧体験</li>
+                    <li><strong>SEO効果：</strong>Googleのモバイルファーストインデックスに対応</li>
+                    <li><strong>開発効率：</strong>1つのコードベースで全デバイス対応</li>
+                    <li><strong>メンテナンス性：</strong>デバイス別に別々のサイトを作る必要がない</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 5: CSS3 Animations -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-indigo-600 mb-6 flex items-center">
+                <i class="fas fa-magic mr-3"></i>5. CSS3アニメーション・動的UI実装
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Transform（変形）・Transition（遷移）・Animation（アニメーション）の違い</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300 table-responsive">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-300 p-3 text-left">機能</th>
+                                <th class="border border-gray-300 p-3 text-left">用途（日本語説明）</th>
+                                <th class="border border-gray-300 p-3 text-left">実装方法</th>
+                                <th class="border border-gray-300 p-3 text-left">実用例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 p-3">Transform</td>
+                                <td class="border border-gray-300 p-3">要素の形状・位置変更（移動・回転・拡縮）</td>
+                                <td class="border border-gray-300 p-3"><code>transform: translateX(10px)</code></td>
+                                <td class="border border-gray-300 p-3">ボタンの浮き上がり効果、画像の拡大</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 p-3">Transition</td>
+                                <td class="border border-gray-300 p-3">状態変化の滑らかな遷移効果</td>
+                                <td class="border border-gray-300 p-3"><code>transition: all 0.3s ease</code></td>
+                                <td class="border border-gray-300 p-3">ホバー時の色変化、サイズ変更</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 p-3">Animation</td>
+                                <td class="border border-gray-300 p-3">複雑で繰り返し可能な動作</td>
+                                <td class="border border-gray-300 p-3"><code>@keyframes + animation</code></td>
+                                <td class="border border-gray-300 p-3">ローディングスピナー、フェードイン</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-blue-800 mb-3">実装例1：ボタンのホバーエフェクト</h4>
+                    <div class="code-block p-3 rounded mb-3">
+                        <pre><code class="language-css">.button {
+    background-color: #3b82f6;     /* 基本背景色: 青 */
+    color: white;                  /* 文字色: 白 */
+    padding: 12px 24px;            /* 内側余白 */
+    border: none;                  /* 境界線なし */
+    border-radius: 6px;            /* 角丸 */
+    cursor: pointer;               /* マウスカーソル: 手のひら */
+    
+    /* トランジション設定 */
+    transition: all 0.3s ease-in-out; /* 全変化を0.3秒で滑らか遷移 */
+    transform: translateY(0);      /* 初期位置 */
+}
+
+.button:hover {
+    background-color: #1d4ed8;     /* ホバー時背景色: 濃い青 */
+    transform: translateY(-2px);   /* 2px上に移動（浮き上がり効果）*/
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); /* 影効果 */
+}
+
+.button:active {
+    transform: translateY(0);      /* クリック時: 元の位置に戻る */
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);  /* 影を小さく */
+}</code></pre>
+                    </div>
+                    <p class="text-sm text-gray-600"><strong>効果：</strong>マウスを乗せると浮き上がり、クリックすると押し込まれる自然な操作感</p>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-bold text-green-800 mb-3">実装例2：カードの出現アニメーション</h4>
+                    <div class="code-block p-3 rounded mb-3">
+                        <pre><code class="language-css">/* キーフレーム定義 */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;                /* 透明状態 */
+        transform: translateY(30px); /* 30px下の位置 */
+    }
+    100% {
+        opacity: 1;                /* 完全表示 */
+        transform: translateY(0);  /* 元の位置 */
+    }
+}
+
+.card {
+    background-color: white;       /* 背景色 */
+    border-radius: 8px;            /* 角丸 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 影 */
+    padding: 20px;                 /* 内側余白 */
+    
+    /* アニメーション適用 */
+    animation: fadeInUp 0.6s ease-out; /* fadeInUpを0.6秒で実行 */
+}
+
+/* 遅延アニメーション（順次表示）*/
+.card:nth-child(1) { animation-delay: 0s; }    /* 1枚目：即時 */
+.card:nth-child(2) { animation-delay: 0.2s; }  /* 2枚目：0.2秒後 */
+.card:nth-child(3) { animation-delay: 0.4s; }  /* 3枚目：0.4秒後 */</code></pre>
+                    </div>
+                    <p class="text-sm text-gray-600"><strong>効果：</strong>カードが下から順次フェードインで出現する印象的な演出</p>
+                </div>
+            </div>
+
+            <div class="bg-yellow-50 p-4 rounded-lg">
+                <h4 class="font-bold text-yellow-800 mb-2">アニメーション実装時の注意点</h4>
+                <ul class="list-disc pl-6 text-gray-700">
+                    <li><strong>パフォーマンス：</strong>transform・opacityを使用（位置・サイズ変更はGPU処理で高速）</li>
+                    <li><strong>アクセシビリティ：</strong>motion-reduceメディアクエリで動きを抑制する選択肢を提供</li>
+                    <li><strong>ユーザビリティ：</strong>過度なアニメーションは避け、機能性を重視</li>
+                    <li><strong>ブラウザ対応：</strong>ベンダープレフィックス（-webkit-等）の確認</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Exercises -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-orange-600 mb-6 flex items-center">
+                <i class="fas fa-pencil-alt mr-3"></i>6. 演習問題
+            </h2>
+
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">演習問題1: Flexboxを使ったナビゲーションバー作成</h3>
+                <div class="bg-orange-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700 mb-2"><strong>要件：</strong></p>
+                    <ul class="list-disc pl-6 text-gray-700 mb-4">
+                        <li>左側にロゴ（会社名）、右側にメニューリンク（ホーム、サービス、お問い合わせ）を配置</li>
+                        <li>メニューリンクにホバー効果（背景色変化・0.3秒のトランジション）を実装</li>
+                        <li>スマートフォン（768px未満）では縦並びメニューに変更</li>
+                        <li>背景色は企業らしいダークブルー（#1f2937）を使用</li>
+                    </ul>
+                </div>
+                
+                <button onclick="toggleAnswer('exercise1')" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-colors mb-4">
+                    回答例を表示
+                </button>
+                
+                <div id="exercise1" class="exercise-answer">
+                    <div class="code-block p-4 rounded-lg">
+                        <pre><code class="language-css">/* HTML構造 */
+&lt;nav class="navbar"&gt;
+    &lt;div class="logo"&gt;会社名&lt;/div&gt;
+    &lt;ul class="nav-links"&gt;
+        &lt;li&gt;&lt;a href="/"&gt;ホーム&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="/services"&gt;サービス&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="/contact"&gt;お問い合わせ&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+
+/* CSS実装 */
+.navbar {
+    display: flex;                    /* フレックスボックス有効化 */
+    justify-content: space-between;   /* 左右両端寄せ */
+    align-items: center;              /* 縦方向中央配置 */
+    background-color: #1f2937;        /* ダークブルー背景 */
+    color: white;                     /* 白文字 */
+    padding: 16px 24px;               /* 内側余白 */
+    position: sticky;                 /* スクロール時固定 */
+    top: 0;                          /* 上端固定 */
+    z-index: 1000;                   /* 最前面表示 */
+}
+
+.logo {
+    font-size: 24px;                 /* ロゴサイズ */
+    font-weight: bold;                /* 太字 */
+    color: #60a5fa;                   /* ライトブルー */
+}
+
+.nav-links {
+    display: flex;                    /* 横並び配置 */
+    list-style: none;                 /* リストマーカー削除 */
+    margin: 0;                        /* 外側余白リセット */
+    padding: 0;                       /* 内側余白リセット */
+    gap: 20px;                        /* リンク間隔 */
+}
+
+.nav-links a {
+    color: white;                     /* 文字色：白 */
+    text-decoration: none;            /* 下線削除 */
+    padding: 10px 16px;               /* 内側余白 */
+    border-radius: 6px;               /* 角丸 */
+    transition: background-color 0.3s ease; /* 背景色変化を0.3秒で遷移 */
+}
+
+.nav-links a:hover {
+    background-color: #3b82f6;        /* ホバー時：青背景 */
+    transform: translateY(-1px);      /* 微細な浮き上がり効果 */
+}
+
+/* スマートフォン対応（768px未満）*/
+@media (max-width: 767px) {
+    .navbar {
+        flex-direction: column;       /* 縦並びに変更 */
+        align-items: flex-start;      /* 左寄せ */
+        padding: 16px;                /* 余白調整 */
+    }
+    
+    .nav-links {
+        flex-direction: column;       /* メニューも縦並び */
+        width: 100%;                  /* 幅いっぱい */
+        gap: 10px;                    /* 間隔縮小 */
+        margin-top: 16px;             /* 上部余白 */
+    }
+    
+    .nav-links a {
+        display: block;               /* ブロック要素化 */
+        padding: 12px;                /* 余白拡大（タップしやすく）*/
+        text-align: center;           /* 中央配置 */
+    }
+}</code></pre>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg mt-4">
+                        <p class="text-gray-700"><strong>解説ポイント：</strong></p>
+                        <ul class="list-disc pl-6 text-gray-700">
+                            <li><strong>justify-content: space-between</strong> で左右両端寄せを実現</li>
+                            <li><strong>position: sticky</strong> でスクロール時にナビバーが上部固定</li>
+                            <li><strong>メディアクエリ</strong>でスマホ時は縦並びレイアウトに変更</li>
+                            <li><strong>transition</strong>でホバー効果に滑らかな変化を付与</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">演習問題2: CSS Gridを使った商品一覧レイアウト</h3>
+                <div class="bg-orange-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700 mb-2"><strong>要件：</strong></p>
+                    <ul class="list-disc pl-6 text-gray-700 mb-4">
+                        <li>PCでは3列、タブレットでは2列、スマートフォンでは1列で商品表示</li>
+                        <li>各商品カードには画像・商品名・価格・「詳細を見る」ボタンを配置</li>
+                        <li>カード間の間隔は20px、カードにホバー時の浮き上がり効果を実装</li>
+                        <li>「詳細を見る」ボタンにグラデーション背景とアニメーション効果</li>
+                    </ul>
+                </div>
+                
+                <button onclick="toggleAnswer('exercise2')" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-colors mb-4">
+                    回答例を表示
+                </button>
+                
+                <div id="exercise2" class="exercise-answer">
+                    <div class="code-block p-4 rounded-lg">
+                        <pre><code class="language-css">/* HTML構造例 */
+&lt;div class="product-container"&gt;
+    &lt;div class="product-card"&gt;
+        &lt;img src="product1.jpg" alt="商品1" class="product-image"&gt;
+        &lt;h3 class="product-name"&gt;商品名1&lt;/h3&gt;
+        &lt;p class="product-price"&gt;¥1,200&lt;/p&gt;
+        &lt;button class="product-button"&gt;詳細を見る&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;!-- 他の商品カード... --&gt;
+&lt;/div&gt;
+
+/* CSS実装 */
+.product-container {
+    display: grid;                         /* グリッドレイアウト有効化 */
+    grid-template-columns: repeat(3, 1fr); /* 3列等分割 */
+    gap: 20px;                             /* 要素間隔：20px */
+    padding: 40px 20px;                    /* コンテナ余白 */
+    max-width: 1200px;                     /* 最大幅制限 */
+    margin: 0 auto;                        /* 中央配置 */
+}
+
+.product-card {
+    background-color: white;               /* 背景色：白 */
+    border-radius: 12px;                   /* 角丸：12px */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 基本影効果 */
+    overflow: hidden;                      /* 内容のはみ出し隠す */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 変形・影の遷移 */
+    display: flex;                         /* カード内もフレックス */
+    flex-direction: column;                /* 縦並び */
+}
+
+.product-card:hover {
+    transform: translateY(-8px);           /* ホバー時：8px浮き上がり */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); /* 影を大きく */
+}
+
+.product-image {
+    width: 100%;                          /* 幅：100% */
+    height: 200px;                        /* 高さ固定 */
+    object-fit: cover;                    /* 画像比率維持・切り抜き */
+    background-color: #f3f4f6;            /* 読み込み前背景色 */
+}
+
+.product-name {
+    font-size: 18px;                      /* 文字サイズ */
+    font-weight: 600;                     /* 少し太字 */
+    color: #1f2937;                       /* ダークグレー */
+    margin: 16px 16px 8px;                /* 余白調整 */
+}
+
+.product-price {
+    font-size: 20px;                      /* 価格文字サイズ */
+    font-weight: bold;                    /* 太字 */
+    color: #dc2626;                       /* 赤色（価格強調）*/
+    margin: 0 16px 16px;                  /* 余白調整 */
+}
+
+.product-button {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8); /* グラデーション背景 */
+    color: white;                         /* 文字色：白 */
+    border: none;                         /* 境界線なし */
+    padding: 12px 20px;                   /* 内側余白 */
+    margin: 0 16px 16px;                  /* 外側余白 */
+    border-radius: 8px;                   /* 角丸 */
+    font-weight: 600;                     /* 文字：少し太字 */
+    cursor: pointer;                      /* カーソル：手のひら */
+    transition: all 0.3s ease;           /* 全変化を滑らか遷移 */
+    position: relative;                   /* 相対位置指定 */
+    overflow: hidden;                     /* はみ出し隠す */
+}
+
+.product-button:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af); /* ホバー時グラデーション */
+    transform: translateY(-2px);         /* 浮き上がり */
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4); /* 青い影効果 */
+}
+
+.product-button:active {
+    transform: translateY(0);             /* クリック時：元の位置 */
+    box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3); /* 影を小さく */
+}
+
+/* タブレット対応（768px〜1023px）*/
+@media (min-width: 768px) and (max-width: 1023px) {
+    .product-container {
+        grid-template-columns: repeat(2, 1fr); /* 2列配置 */
+        gap: 16px;                           /* 間隔縮小 */
+        padding: 30px 15px;                  /* 余白調整 */
+    }
+}
+
+/* スマートフォン対応（767px以下）*/
+@media (max-width: 767px) {
+    .product-container {
+        grid-template-columns: 1fr;         /* 1列配置 */
+        gap: 15px;                          /* 間隔さらに縮小 */
+        padding: 20px 15px;                 /* 余白縮小 */
+    }
+    
+    .product-image {
+        height: 180px;                      /* 画像高さ調整 */
+    }
+    
+    .product-name {
+        font-size: 16px;                    /* 文字サイズ縮小 */
+    }
+    
+    .product-price {
+        font-size: 18px;                    /* 価格文字サイズ縮小 */
+    }
+}</code></pre>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg mt-4">
+                        <p class="text-gray-700"><strong>解説ポイント：</strong></p>
+                        <ul class="list-disc pl-6 text-gray-700">
+                            <li><strong>repeat(3, 1fr)</strong> でグリッドを3列等分割で定義</li>
+                            <li><strong>メディアクエリ</strong>で画面サイズ別にカラム数を調整</li>
+                            <li><strong>linear-gradient</strong>でグラデーションボタンを実装</li>
+                            <li><strong>object-fit: cover</strong>で画像比率を維持しつつサイズ統一</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quizzes -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-purple-600 mb-6 flex items-center">
+                <i class="fas fa-question-circle mr-3"></i>7. 理解度クイズ
+            </h2>
+
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">クイズ1: CSS Flexboxの主軸配置について</h3>
+                <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700 mb-4">以下のCSSが適用された要素で、中の子要素が左右両端に配置されるのはどれですか？</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <span class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-sm mr-3">A</span>
+                            <span>justify-content: center;</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-sm mr-3">B</span>
+                            <span>justify-content: space-between;</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-sm mr-3">C</span>
+                            <span>justify-content: space-around;</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-sm mr-3">D</span>
+                            <span>justify-content: flex-end;</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="toggleAnswer('quiz1')" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition-colors mb-4">
+                    回答を表示
+                </button>
+                
+                <div id="quiz1" class="quiz-answer">
+                    <div class="bg-green-100 border-l-4 border-green-500 p-4">
+                        <p class="font-bold text-green-800 mb-2">正解：B. justify-content: space-between;</p>
+                        <p class="text-gray-700 mb-2"><strong>解説：</strong></p>
+                        <ul class="list-disc pl-6 text-gray-700">
+                            <li><strong>center：</strong>中央配置（子要素が中央に集まる）</li>
+                            <li><strong>space-between：</strong>両端寄せ（最初と最後の要素が端に配置）</li>
+                            <li><strong>space-around：</strong>均等配置（各要素の周りに同じ幅の余白）</li>
+                            <li><strong>flex-end：</strong>右寄せ（すべての要素が右側に配置）</li>
+                        </ul>
+                        <p class="text-gray-700 mt-2"><strong>実用例：</strong>ヘッダーでロゴを左端、メニューを右端に配置する場合によく使用</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">クイズ2: CSS Gridのレスポンシブ実装について</h3>
+                <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700 mb-4">PC（1024px以上）では3列、タブレット（768px-1023px）では2列、スマホ（767px以下）では1列で表示したい場合、最も適切な実装方法はどれですか？</p>
+                    <div class="space-y-2">
+                        <div class="flex items-start">
+                            <span class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-sm mr-3 mt-1">A</span>
+                            <div>
+                                <p>基本: grid-template-columns: 1fr;</p>
+                                <p>@media (min-width: 768px) { grid-template-columns: repeat(2, 1fr); }</p>
+                                <p>@media (min-width: 1024px) { grid-template-columns: repeat(3, 1fr); }</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-sm mr-3 mt-1">B</span>
+                            <div>
+                                <p>基本: grid-template-columns: repeat(3, 1fr);</p>
+                                <p>@media (max-width: 1023px) { grid-template-columns: repeat(2, 1fr); }</p>
+                                <p>@media (max-width: 767px) { grid-template-columns: 1fr; }</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="toggleAnswer('quiz2')" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition-colors mb-4">
+                    回答を表示
+                </button>
+                
+                <div id="quiz2" class="quiz-answer">
+                    <div class="bg-green-100 border-l-4 border-green-500 p-4">
+                        <p class="font-bold text-green-800 mb-2">正解：A. モバイルファーストアプローチ</p>
+                        <p class="text-gray-700 mb-2"><strong>解説：</strong></p>
+                        <ul class="list-disc pl-6 text-gray-700">
+                            <li><strong>モバイルファースト（A）：</strong>小さい画面から順に拡張していく設計手法</li>
+                            <li><strong>デスクトップファースト（B）：</strong>大きい画面から縮小していく従来手法</li>
+                        </ul>
+                        <p class="text-gray-700 mt-2"><strong>Aが推奨される理由：</strong></p>
+                        <ul class="list-disc pl-6 text-gray-700">
+                            <li>モバイルトラフィックが約60%を占める現在の状況に適合</li>
+                            <li>小さい画面で必要な要素だけを残す設計になり、UX向上</li>
+                            <li>パフォーマンス面でモバイル優先の最適化が可能</li>
+                            <li>Google等の検索エンジンもモバイルファーストインデックスを採用</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">クイズ3: CSS アニメーションの最適化について</h3>
+                <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700 mb-4">ボタンのホバー効果でパフォーマンスが最も良い実装方法はどれですか？</p>
+                    <div class="space-y-2">
+                        <div class="flex items-start">
+                            <span class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-sm mr-3 mt-1">A</span>
+                            <div>
+                                <p>.button:hover { left: 10px; top: 5px; }</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-sm mr-3 mt-1">B</span>
+                            <div>
+                                <p>.button:hover { margin-left: 10px; margin-top: 5px; }</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-sm mr-3 mt-1">C</span>
+                            <div>
+                                <p>.button:hover { transform: translate(10px, 5px); }</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center text-sm mr-3 mt-1">D</span>
+                            <div>
+                                <p>.button:hover { width: calc(100% + 10px); height: calc(100% + 5px); }</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button onclick="toggleAnswer('quiz3')" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition-colors mb-4">
+                    回答を表示
+                </button>
+                
+                <div id="quiz3" class="quiz-answer">
+                    <div class="bg-green-100 border-l-4 border-green-500 p-4">
+                        <p class="font-bold text-green-800 mb-2">正解：C. transform: translate(10px, 5px);</p>
+                        <p class="text-gray-700 mb-2"><strong>解説：</strong></p>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse border border-gray-300 text-sm">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="border border-gray-300 p-2 text-left">実装方法</th>
+                                        <th class="border border-gray-300 p-2 text-left">処理方式</th>
+                                        <th class="border border-gray-300 p-2 text-left">パフォーマンス</th>
+                                        <th class="border border-gray-300 p-2 text-left">レイアウトへの影響</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-gray-300 p-2">left/top</td>
+                                        <td class="border border-gray-300 p-2">CPU処理</td>
+                                        <td class="border border-gray-300 p-2">❌ 低い</td>
+                                        <td class="border border-gray-300 p-2">❌ 他要素に影響</td>
+                                    </tr>
+                                    <tr class="bg-gray-50">
+                                        <td class="border border-gray-300 p-2">margin</td>
+                                        <td class="border border-gray-300 p-2">CPU処理</td>
+                                        <td class="border border-gray-300 p-2">❌ 低い</td>
+                                        <td class="border border-gray-300 p-2">❌ レイアウト再計算</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 p-2">transform</td>
+                                        <td class="border border-gray-300 p-2">GPU処理</td>
+                                        <td class="border border-gray-300 p-2">✅ 高い</td>
+                                        <td class="border border-gray-300 p-2">✅ 影響なし</td>
+                                    </tr>
+                                    <tr class="bg-gray-50">
+                                        <td class="border border-gray-300 p-2">width/height</td>
+                                        <td class="border border-gray-300 p-2">CPU処理</td>
+                                        <td class="border border-gray-300 p-2">❌ 最も低い</td>
+                                        <td class="border border-gray-300 p-2">❌ 大幅な再計算</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="text-gray-700 mt-2"><strong>transformが最適な理由：</strong></p>
+                        <ul class="list-disc pl-6 text-gray-700">
+                            <li>GPU（Graphics Processing Unit）で処理されるため高速</li>
+                            <li>他の要素のレイアウトに影響を与えない</li>
+                            <li>ブラウザの最適化が進んでいる</li>
+                            <li>60FPSの滑らかなアニメーションが実現可能</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6 flex items-center">
+                <i class="fas fa-check-circle mr-3"></i>8. まとめ
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">習得した重要ポイント</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-blue-800 mb-3">基本知識</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li><strong>CSS3基礎構文：</strong>セレクタ・プロパティ・値の体系的理解により、効率的なスタイルシート記述が可能</li>
+                            <li><strong>ボックスモデル：</strong>border-box設定により、padding・borderを含めた正確な幅計算でレイアウト設計が安定</li>
+                            <li><strong>セレクタ活用：</strong>擬似クラス（:hover）・擬似要素（::before）により、JavaScriptなしで動的表現を実現</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-green-800 mb-3">応用知識</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li><strong>Flexbox活用：</strong>一次元配置で、ナビゲーションメニューの横並びや中央配置を簡単実装</li>
+                            <li><strong>CSS Grid活用：</strong>二次元配置で、商品一覧のカード配置や複雑なレイアウトを効率的に構築</li>
+                            <li><strong>アニメーション最適化：</strong>transform・opacityのGPU処理により、60FPSの滑らかな動的UIを実現</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">実務での具体的なメリット</h3>
+                
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-purple-800 mb-2">レスポンシブ対応効果</h4>
+                        <ul class="list-disc pl-4 text-sm text-gray-700">
+                            <li>モバイルファーストアプローチで、スマホトラフィック60%に最適対応</li>
+                            <li>メディアクエリで、スマホ768px未満では縦並び、PC以上では横並びに自動切り替え</li>
+                            <li>Google モバイルファーストインデックスでSEO効果向上</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-orange-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-orange-800 mb-2">開発効率・保守性向上</h4>
+                        <ul class="list-disc pl-4 text-sm text-gray-700">
+                            <li>FlexboxとGridの適切な使い分けで、コード量30%削減</li>
+                            <li>CSS Variables活用で、テーマカラー変更が一括対応可能</li>
+                            <li>BEM記法等の設計手法で、チーム開発での可読性向上</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-red-800 mb-2">ユーザーエクスペリエンス向上</h4>
+                        <ul class="list-disc pl-4 text-sm text-gray-700">
+                            <li>transform・transitionによる滑らかなホバー効果で操作感向上</li>
+                            <li>適切なアニメーション（0.3秒程度）でユーザーの注意を自然に誘導</li>
+                            <li>レスポンシブデザインで全デバイスでの統一された体験提供</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-yellow-50 p-4 rounded-lg">
+                <h3 class="text-xl font-semibold text-yellow-800 mb-3">次回の学習内容</h3>
+                <p class="text-gray-700 mb-3">次回は、本日作成した美しいUIに動的な機能を追加する<strong>JavaScript基礎・DOM操作</strong>を学習します。</p>
+                
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h4 class="font-bold text-yellow-800 mb-2">学習予定トピック：</h4>
+                        <ul class="list-disc pl-6 text-gray-700 text-sm">
+                            <li>JavaScript基本構文（変数・関数・制御構文）</li>
+                            <li>DOM操作による要素の動的変更</li>
+                            <li>イベント処理（クリック・フォーム送信等）</li>
+                            <li>非同期処理（fetch API・Ajax）の基礎</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-yellow-800 mb-2">予習推奨事項：</h4>
+                        <ul class="list-disc pl-6 text-gray-700 text-sm">
+                            <li>動的なWebサイト（SNS・ECサイト等）の機能観察</li>
+                            <li>ブラウザコンソール（F12 → Console）の基本操作</li>
+                            <li>プログラミングの基本概念（変数・関数）の復習</li>
+                            <li>HTML要素とJavaScriptの関係性について調査</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="text-center text-gray-500 text-sm py-8">
+            <p><strong>お疲れ様でした！</strong></p>
+            <p>本日の学習内容を復習し、実際にコードを書いて理解を深めましょう。</p>
+            <p><strong>復習推奨時間:</strong> 90分 | <strong>追加学習:</strong> MDN CSS Grid・Flexbox リファレンス</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAnswer(id) {
+            const element = document.getElementById(id);
+            if (element.style.display === 'none' || element.style.display === '') {
+                element.style.display = 'block';
+            } else {
+                element.style.display = 'none';
+            }
+        }
+        
+        function showAnswer(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+        
+        // Initialize all answers as hidden
+        document.addEventListener('DOMContentLoaded', function() {
+            const answers = document.querySelectorAll('.quiz-answer, .exercise-answer');
+            answers.forEach(answer => {
+                answer.style.display = 'none';
+            });
+        });
+    </script>
+    </main>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDpoZ9UsFRXeIalKCNOR8bhgSb73RpqitFe%2BSgoTxH2yds8kiOupoe2LimHeCLrT6lPWcinUVqvy7ssCeYJOlwmUMOmUVxL3x%2FK0qfmHgUOG2%2Fy%2FdeWydC6WQoYoHvwgTgyZ2xrFeYDF88%2BTAPK7eWxpH5%2Faj%2BBVGVjaGzHMVFVyXsPz7fb9AMPiuJxB2SzONvpYVrMHcUUqj%2Fd85d8yPbHrT%2FVPbZTzsjX9PPwvmgkyb4zcfoJwl6xOKVCNz71rrxQ%2Bo5PA2VLcsEMbARwhtpwWx8bLZ8BabBiog8SLRU7q4Uxw5VF5TEXMdXhlg8TrVPy1IEcn5sk%2B4Pk9U5OmQHrRwniAiEBKaT2qkcnLY5FaIGfKyTCeaMbOHy%2B5dy4VeuZaDtZr9JECBUi5cLqO35EMiT%2BO4nAYkf3uWNzQdfHIMp8ArX0pSk31UlgHXH3hwurtC5Gm0PfoC1wGPOzEHT%2Bmh5fAG4RRMkgZYZubie2ghZ70IeDffCa%2F5FjYKxwYIpA%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDpoZ9UsFRXeIalKCNOR8bhgSb73RpqitFe+SgoTxH2yds8kiOupoe2LimHeCLrT6lPWcinUVqvy7ssCeYJOlwmUMOmUVxL3x/K0qfmHgUOG2/y/deWydC6WQoYoHvwgTgyZ2xrFeYDF88+TAPK7eWxpH5/aj+BVGVjaGzHMVFVyXsPz7fb9AMPiuJxB2SzONvpYVrMHcUUqj/d85d8yPbHrT/VPbZTzsjX9PPwvmgkyb4zcfoJwl6xOKVCNz71rrxQ+o5PA2VLcsEMbARwhtpwWx8bLZ8BabBiog8SLRU7q4Uxw5VF5TEXMdXhlg8TrVPy1IEcn5sk+4Pk9U5OmQHrRwniAiEBKaT2qkcnLY5FaIGfKyTCeaMbOHy+5dy4VeuZaDtZr9JECBUi5cLqO35EMiT+O4nAYkf3uWNzQdfHIMp8ArX0pSk31UlgHXH3hwurtC5Gm0PfoC1wGPOzEHT+mh5fAG4RRMkgZYZubie2ghZ70IeDffCa/5FjYKxwYIpA==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

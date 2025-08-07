@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt_day1_lecture.html（完全改良版）- Java概要・環境構築・Hello World</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-900 leading-relaxed">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-blue-800 mb-2">
+                <i class="fas fa-file-code mr-2"></i>
+                Prompt_day1_lecture.html（完全改良版）
+            </h1>
+            <p class="text-lg text-gray-600">Java概要・環境構築・Hello World講義生成用</p>
+        </header>
+
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold text-red-600 mb-4">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                プロジェクト名：ITエンジニア育成カリキュラム - Day1: Java概要・環境構築・Hello World（改良版）
+            </h2>
+            
+            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+                <p class="font-medium text-yellow-800">
+                    以下の指示に従って、<code class="bg-gray-200 px-2 py-1 rounded">Traini../lecture/day1_lecture.html</code> を生成してください。
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-red-50 border-2 border-red-200 rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold text-red-700 mb-4">
+                <i class="fas fa-fire mr-2"></i>
+                🚨 重要な改善指針
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-blue-600 mb-3">
+                        <i class="fas fa-table mr-2"></i>
+                        📊 表・まとめの分かりやすさ重視
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>• 専門用語は必ず<strong>日本語説明</strong>を併記</li>
+                        <li>• バージョン情報は<strong>具体例</strong>で補足</li>
+                        <li>• 「適用場面」は<strong>実際の開発例</strong>を記載</li>
+                        <li>• まとめは<strong>具体的なメリット</strong>を明示</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-green-600 mb-3">
+                        <i class="fas fa-language mr-2"></i>
+                        🔤 専門用語の扱い
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>• 初出時は<strong>（日本語説明）</strong>を併記</li>
+                        <li>• 略語は<strong>正式名称</strong>を明記</li>
+                        <li>• 「なぜそうなるのか」の<strong>理由</strong>を説明</li>
+                        <li>• <strong>日常例・比喩</strong>を積極活用</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">
+                <i class="fas fa-folder-open mr-2"></i>
+                📁 参照ファイル
+            </h2>
+            <ul class="space-y-2">
+                <li>• <code class="bg-gray-200 px-2 py-1 rounded">Traini../lecture/day1_lecture.html</code></li>
+                <li>• <code class="bg-gray-200 px-2 py-1 rounded">Traini../lecture/Template_dayX_lecture.html</code></li>
+            </ul>
+        </div>
+
+        <div class="bg-gray-50 border-2 border-gray-200 rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold text-gray-700 mb-4">
+                <i class="fas fa-cog mr-2"></i>
+                ⚙️ 共通仕様
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <ul class="space-y-2 text-sm">
+                    <li>• HTML5 / lang="ja" / UTF-8</li>
+                    <li>• <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                    <li>• Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                    <li>• レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                </ul>
+                <ul class="space-y-2 text-sm">
+                    <li>• コードブロックは <code>&lt;pre&gt;&lt;code class="language-java"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                    <li>• 開発環境として Pleiades (Eclipse) + Amazon Corretto JDK 17 を記載</li>
+                    <li>• フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-green-50 border-2 border-green-200 rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold text-green-700 mb-4">
+                <i class="fas fa-chart-bar mr-2"></i>
+                📊 表の分かりやすさ改善指針
+            </h2>
+            
+            <div class="bg-red-100 border border-red-300 rounded-lg p-4 mb-4">
+                <h3 class="font-bold text-red-700 mb-2">❌ 改善前問題例</h3>
+                <div class="text-sm">
+                    <p class="mb-2"><strong>Java特徴表:</strong></p>
+                    <table class="w-full border-collapse border border-gray-300 text-xs">
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 p-2">特徴</th>
+                            <th class="border border-gray-300 p-2">概要</th>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-2">プラットフォーム独立</td>
+                            <td class="border border-gray-300 p-2">JVM上で動作</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-2">オブジェクト指向</td>
+                            <td class="border border-gray-300 p-2">カプセル化、継承、ポリモーフィズム</td>
+                        </tr>
+                    </table>
+                    <p class="text-red-600 mt-2">→ 専門用語のみで初心者には理解困難</p>
+                </div>
+            </div>
+
+            <div class="bg-green-100 border border-green-300 rounded-lg p-4">
+                <h3 class="font-bold text-green-700 mb-2">✅ 改善後の指針</h3>
+                
+                <h4 class="font-semibold mb-2">バージョン・環境情報の説明強化</h4>
+                <ul class="space-y-1 text-sm mb-4">
+                    <li>• <strong>JDK 17 →</strong> 「Java開発キット17版（2021年リリース、長期サポート版）」</li>
+                    <li>• <strong>JVM →</strong> 「Java仮想マシン（Javaコードを実行する環境）」</li>
+                    <li>• <strong>IDE →</strong> 「統合開発環境（コード作成を支援するツール）」</li>
+                    <li>• <strong>コンパイル →</strong> 「人間が書いたコードを機械が理解できる形に変換」</li>
+                </ul>
+
+                <h4 class="font-semibold mb-2">環境構築手順の具体化</h4>
+                <ul class="space-y-1 text-sm">
+                    <li>• <strong>手順1: JDK導入 →</strong> 「Amazon Corretto 17をダウンロード・インストール（約200MB）」</li>
+                    <li>• <strong>手順2: IDE設定 →</strong> 「Pleiades All in Oneをダウンロード（約1.5GB、日本語化済み）」</li>
+                    <li>• <strong>手順3: 動作確認 →</strong> 「Hello Worldプログラムの作成・実行で環境確認」</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-purple-50 border-2 border-purple-200 rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold text-purple-700 mb-4">
+                <i class="fas fa-book mr-2"></i>
+                📚 専門用語の説明強化指針
+            </h2>
+
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-blue-600 mb-2">1. 初出時の詳細説明</h3>
+                    <p class="text-sm mb-2"><strong>例：</strong></p>
+                    <p class="bg-gray-100 p-2 rounded text-sm">
+                        「JDK（Java Development Kit：Java開発キット）は、Javaプログラムを作成・実行するために必要なツール一式です...」
+                    </p>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-green-600 mb-2">2. 日常例・比喩の活用</h3>
+                    <p class="text-sm mb-2"><strong>例：</strong></p>
+                    <p class="bg-gray-100 p-2 rounded text-sm">
+                        「IDEは料理でいう包丁セットのようなもの。一つ一つの道具（エディタ、デバッガ、コンパイラ）が一つのツールに統合されています」
+                    </p>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-orange-600 mb-2">3. 理由・背景の説明</h3>
+                    <p class="text-sm mb-2"><strong>例：</strong></p>
+                    <p class="bg-gray-100 p-2 rounded text-sm">
+                        「なぜコンパイルが必要かというと、人間が理解しやすいJavaコードを、コンピュータが直接実行できるバイトコードに変換するため」
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-indigo-50 border-2 border-indigo-200 rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">
+                <i class="fas fa-sitemap mr-2"></i>
+                📋 ページ構成（改良版）
+            </h2>
+
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold mb-2">1. ヘッダー & ページング</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• 前後の日程へのナビゲーションリンク</li>
+                        <li>• 講義タイトル「Day1: Java概要・環境構築・Hello World」</li>
+                        <li>• サブタイトル「プログラミングの第一歩」</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold mb-2">2. 学習目標</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• Javaの特徴と歴史を理解</li>
+                        <li>• 開発環境（JDK + IDE）の構築</li>
+                        <li>• Hello Worldプログラムの作成・実行</li>
+                        <li>• コンパイル・実行の仕組み理解</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold mb-2">4. メイン講義（改良版指針）</h3>
+                    
+                    <h4 class="font-semibold mt-3 mb-2">Java言語の特徴と歴史</h4>
+                    <div class="bg-yellow-50 p-3 rounded text-sm">
+                        <p><strong>❗ 具体例重視：</strong>「Write Once, Run Anywhere（一度書けばどこでも動く）」の実例提示など、実際のメリットを具体的に説明</p>
+                    </div>
+
+                    <h4 class="font-semibold mt-3 mb-2">開発環境構築（重要改良箇所）</h4>
+                    <div class="bg-red-50 p-3 rounded text-sm">
+                        <p><strong>⚠️ 必須改良事項：</strong></p>
+                        <p><strong>環境構築手順表に詳細説明を追加：</strong></p>
+                        <ul class="mt-2 space-y-1">
+                            <li>• <strong>JDK導入：</strong>「Amazon Corretto 17ダウンロード→インストール→PATH設定（環境変数の説明含む）」</li>
+                            <li>• <strong>IDE設定：</strong>「Pleiades All in One解凍→ワークスペース設定→プロジェクト作成」</li>
+                            <li>• <strong>動作確認：</strong>「Hello World作成→コンパイル（javac）→実行（java）→結果確認」</li>
+                        </ul>
+                        <p class="mt-2"><strong>トラブルシューティング表に「実用例」列を追加：</strong></p>
+                        <ul class="mt-1 space-y-1">
+                            <li>• PATH設定エラー: 「javacコマンドが認識されない場合の対処法」</li>
+                            <li>• 文字化け問題: 「日本語コメントが正しく表示されない場合」</li>
+                            <li>• ポート競合: 「他のJavaアプリケーションとの競合時の対応」</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-teal-50 border-2 border-teal-200 rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold text-teal-700 mb-4">
+                <i class="fas fa-tasks mr-2"></i>
+                📝 演習問題・理解度クイズ（表示仕様）
+            </h2>
+
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-blue-600 mb-2">演習問題</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• 問題文：<strong>常に表示</strong></li>
+                        <li>• 回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+                        <li>• 詳細解説を削減しないよう注意</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-green-600 mb-2">理解度クイズ</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• 問題・選択肢：<strong>常に表示</strong></li>
+                        <li>• 正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+                        <li>• JavaScript showAnswer()関数を実装</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-orange-50 border-2 border-orange-200 rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold text-orange-700 mb-4">
+                <i class="fas fa-lightbulb mr-2"></i>
+                📝 まとめセクション改善指針
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-red-100 p-4 rounded-lg">
+                    <h3 class="font-bold text-red-700 mb-2">❌ 避けるべき抽象的表現</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• 「Javaの概要を理解した」</li>
+                        <li>• 「環境構築ができるようになった」</li>
+                        <li>• 「Hello Worldを実行した」</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-100 p-4 rounded-lg">
+                    <h3 class="font-bold text-green-700 mb-2">✅ 推奨する具体的表現</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• 「Javaは一度書けばどこでも動く特徴で、企業システム開発に最適」</li>
+                        <li>• 「JDK 17とPleiades IDEで快適な開発環境を構築完了」</li>
+                        <li>• 「Hello Worldでコンパイル→実行の流れを体験し、Java開発の基礎を習得」</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-100 border-2 border-gray-300 rounded-lg p-6 mb-6">
+            <h2 class="text-2xl font-bold text-gray-700 mb-4">
+                <i class="fas fa-check-double mr-2"></i>
+                ✅ 分かりやすさチェックリスト
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-blue-600 mb-3">📊 表・図解</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>□ 専門用語に必ず日本語説明を併記</li>
+                        <li>□ バージョン情報には具体例（「JDK 17は長期サポート版」）</li>
+                        <li>□ 適用場面は実際の開発例で説明</li>
+                        <li>□ 環境構築表には「手順詳細」列を追加</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="font-bold text-green-600 mb-3">📝 文章・説明</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li>□ 略語は正式名称を併記</li>
+                        <li>□ 「なぜ」の理由を必ず説明</li>
+                        <li>□ 日常例・比喩を積極活用</li>
+                        <li>□ まとめは具体的なメリットを明示</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-red-100 border-2 border-red-300 rounded-lg p-6">
+            <h2 class="text-2xl font-bold text-red-700 mb-4">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                📤 出力形式
+            </h2>
+            
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h3 class="font-bold text-red-600 mb-3">⚠️ 重要事項：</h3>
+                <ul class="space-y-2 text-sm">
+                    <li>• <strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                    <li>• 特に「Java特徴・環境構築手順」の表は<strong>必ず詳細説明付きで改良</strong>すること</li>
+                    <li>• 専門用語の初出時は<strong>日本語説明を併記</strong>すること</li>
+                    <li>• まとめセクションは<strong>具体的なメリット</strong>で記載すること</li>
+                    <li>• HTMLの見やすさと詳細な解説を<strong>両立</strong>すること</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer class="mt-8 text-center text-gray-500 text-sm">
+            © 2025 APSA Co.,Ltd. All Rights Reserved.
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDkHakkIGMYIFWhKCWK2BWM0bxnxRGB%2F7gCGqG1cCKkfbxBmkyQpY7lEtHCTBfK145wPEak0OQAhVTWX%2F%2F%2BiATig6t0eP2JJ4WELW74MNsoQFxV4vjqqfllH7cW0%2B2KahkNPdX1w6R3JjWeA8TnvtSxa1m9XH4vxUzZAT6dwUkLwR27SD6Y99exkcI28QJlZOD0B0eSN6%2FotiFpTzKCTNeyfSxNIDXP%2BotZZcUbLImunYJeKKEg6J8aQq2MmoGOr5cMHxjcTLojuCQE9XEME26bXc%2B2eoKw7byyvx8fLv4cqHVbmzJmaQUUS5bRLOcTSOP8CEDfCoa0Fy5EggzbyxlEZRAjliYgFIfnsOGtpSceqRSlnTsLcdjTOTWBd20htXMwuh1OrjDtlq83Qfd5U8goXAQ%2FW%2Bf3TlPofNpZAe69d28RB5%2FSssCmvHMqu%2BKZBA5X1kdUegDFFSe2CTkpeUGXhoLWk1UhCvIelAElhQBa3LipC3nZgv6Cr09nij3%2FnV2K%2FgauvPb%2B%2Fb0j8qbiBWEPY%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDkHakkIGMYIFWhKCWK2BWM0bxnxRGB/7gCGqG1cCKkfbxBmkyQpY7lEtHCTBfK145wPEak0OQAhVTWX//+iATig6t0eP2JJ4WELW74MNsoQFxV4vjqqfllH7cW0+2KahkNPdX1w6R3JjWeA8TnvtSxa1m9XH4vxUzZAT6dwUkLwR27SD6Y99exkcI28QJlZOD0B0eSN6/otiFpTzKCTNeyfSxNIDXP+otZZcUbLImunYJeKKEg6J8aQq2MmoGOr5cMHxjcTLojuCQE9XEME26bXc+2eoKw7byyvx8fLv4cqHVbmzJmaQUUS5bRLOcTSOP8CEDfCoa0Fy5EggzbyxlEZRAjliYgFIfnsOGtpSceqRSlnTsLcdjTOTWBd20htXMwuh1OrjDtlq83Qfd5U8goXAQ/W+f3TlPofNpZAe69d28RB5/SssCmvHMqu+KZBA5X1kdUegDFFSe2CTkpeUGXhoLWk1UhCvIelAElhQBa3LipC3nZgv6Cr09nij3/nV2K/gauvPb+/b0j8qbiBWEPY=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

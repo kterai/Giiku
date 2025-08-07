@@ -1,5 +1,5 @@
 {
-  "name": "unryu-system",
+  "name": "giiku-system",
   "private": true,
   "devDependencies": {
     "@playwright/test": "^1.43.1",

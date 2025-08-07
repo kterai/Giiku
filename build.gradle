@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2024 APSA Co.,Ltd. All rights reserved.
- * 雲流システム - Gradle Build Configuration
+ * 技育システム - Gradle Build Configuration
  */
 
 plugins {
@@ -135,8 +135,8 @@ jacocoTestCoverageVerification {
 // Eclipse設定
 eclipse {
     project {
-        name = 'Unryu'
-        comment = '雲流システム - APSA Co.,Ltd.'
+        name = 'Giiku'
+        comment = '技育システム - APSA Co.,Ltd.'
         buildCommand 'org.eclipse.jdt.core.javabuilder'
         natures 'org.eclipse.jdt.core.javanature'
     }
@@ -175,10 +175,10 @@ jar {
 }
 
 bootJar {
-    archiveFileName = 'unryu-system.jar'
+    archiveFileName = 'giiku-system.jar'
     manifest {
         attributes(
-            'Implementation-Title': 'Unryu System',
+            'Implementation-Title': 'Giiku System',
             'Implementation-Version': project.version,
             'Implementation-Vendor': 'APSA Co.,Ltd.',
             'Built-By': System.getProperty('user.name'),

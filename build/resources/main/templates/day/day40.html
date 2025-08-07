@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム - Day39: JavaScript基礎構文・DOM操作・イベント処理</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .code-block {
+            background-color: #1a1a1a;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .highlight {
+            background-color: #fef3cd;
+            padding: 0.25rem;
+            border-radius: 0.25rem;
+        }
+        .practice-area {
+            border: 2px dashed #d1d5db;
+            background-color: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <script defer src="../js/day-navigation.js"></script>
+    <!-- ヘッダー -->
+    <header class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold">ITエンジニア育成カリキュラム</h1>
+                    <p class="text-blue-200 mt-2">第9週第3日目 - JavaScript基礎構文・DOM操作・イベント処理</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-blue-200">Day 39 / 54</div>
+                    <div class="w-48 bg-blue-800 rounded-full h-2 mt-2">
+                        <div class="bg-white h-2 rounded-full" style="width: 72.2%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- メインコンテンツ -->
+            <main class="lg:col-span-3">
+                <!-- 学習目標 -->
+                <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-bullseye text-blue-600 mr-2"></i>学習目標
+                    </h2>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                            JavaScript基礎構文（変数、データ型、演算子、制御構文）を完全に理解する
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                            関数とオブジェクトの高度な概念（クロージャ、プロトタイプ、class）をマスターする
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                            DOM操作とイベント処理システムを実践的に活用できる
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                            非同期処理（Promise、async/await）の概念と実装方法を習得する
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- 達成基準 -->
+                <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-trophy text-yellow-600 mr-2"></i>達成基準
+                    </h2>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-500 mr-2 mt-1"></i>
+                            JavaScript構文エラーを自力で特定・修正できる
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-500 mr-2 mt-1"></i>
+                            配列操作メソッド（map、filter、reduce）を適切に使い分けできる
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-500 mr-2 mt-1"></i>
+                            DOM要素の動的な作成・削除・属性変更を実装できる
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-500 mr-2 mt-1"></i>
+                            イベントデリゲーションを使った効率的なイベント処理を実装できる
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- 詳細スケジュール -->
+                <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-clock text-purple-600 mr-2"></i>詳細スケジュール
+                    </h2>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <h3 class="font-semibold text-lg text-gray-800">10:00-10:15 オリエンテーション</h3>
+                            <p class="text-gray-600">JavaScript概要と開発環境確認、前日のCSS復習</p>
+                        </div>
+                        <div class="border-l-4 border-green-500 pl-4">
+                            <h3 class="font-semibold text-lg text-gray-800">10:15-11:00 JavaScript基礎構文</h3>
+                            <p class="text-gray-600">変数宣言、データ型、演算子、制御構文の詳細解説</p>
+                        </div>
+                        <div class="border-l-4 border-yellow-500 pl-4">
+                            <h3 class="font-semibold text-lg text-gray-800">11:00-11:45 関数とオブジェクト</h3>
+                            <p class="text-gray-600">関数の種類、クロージャ、プロトタイプ、class構文</p>
+                        </div>
+                        <div class="border-l-4 border-gray-500 pl-4">
+                            <h3 class="font-semibold text-lg text-gray-800">11:45-12:45 昼休憩</h3>
+                            <p class="text-gray-600">休憩時間です。昼食をとり、リフレッシュしましょう。</p>
+                        </div>
+                        <div class="border-l-4 border-red-500 pl-4">
+                            <h3 class="font-semibold text-lg text-gray-800">12:45-13:30 DOM操作実習</h3>
+                            <p class="text-gray-600">要素の取得・作成・削除、属性操作、スタイル変更</p>
+                        </div>
+                        <div class="border-l-4 border-indigo-500 pl-4">
+                            <h3 class="font-semibold text-lg text-gray-800">13:30-14:15 イベント処理</h3>
+                            <p class="text-gray-600">addEventListener、イベントオブジェクト、デリゲーション</p>
+                        </div>
+                        <div class="border-l-4 border-pink-500 pl-4">
+                            <h3 class="font-semibold text-lg text-gray-800">14:15-15:00 非同期処理・総合演習</h3>
+                            <p class="text-gray-600">Promise、async/await、実践的なプロジェクト開発</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- テーマ詳細 -->
+                <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                        <i class="fas fa-code text-green-600 mr-2"></i>JavaScript基礎構文・DOM操作・イベント処理
+                    </h2>
+                    
+                    <div class="space-y-8">
+                        <!-- JavaScript基礎構文 -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">1. JavaScript基礎構文</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-lg text-gray-700 mb-2">変数宣言と基本概念</h4>
+                                    <div class="code-block">
+// 変数宣言の種類と特徴
+let name = "太郎";          // ブロックスコープ、再代入可能
+const age = 25;            // ブロックスコープ、再代入不可
+var city = "東京";         // 関数スコープ、再代入可能（非推奨）
+
+// データ型の詳細
+let number = 42;           // Number型
+let text = "Hello World";  // String型
+let isActive = true;       // Boolean型
+let data = null;           // null型
+let undefinedVar;          // undefined型
+let symbol = Symbol('id'); // Symbol型（ES6）
+let bigintNum = 123n;      // BigInt型（ES2020）
+
+// オブジェクトと配列
+let person = {
+    name: "田中",
+    age: 30,
+    skills: ["JavaScript", "React", "Node.js"]
+};
+
+let numbers = [1, 2, 3, 4, 5];
+                    </div>
+                                </div>
+
+                                <div>
+                                    <h4 class="font-semibold text-lg text-gray-700 mb-2">演算子と制御構文</h4>
+                                    <div class="code-block">
+// 算術演算子
+let a = 10, b = 3;
+console.log(a + b);  // 加算: 13
+console.log(a - b);  // 減算: 7
+console.log(a * b);  // 乗算: 30
+console.log(a / b);  // 除算: 3.333...
+console.log(a % b);  // 剰余: 1
+console.log(a ** b); // べき乗: 1000
+
+// 比較演算子と厳密等価
+console.log(5 == "5");   // true（型変換あり）
+console.log(5 === "5");  // false（厳密比較）
+console.log(5 != "5");   // false
+console.log(5 !== "5");  // true
+
+// 条件分岐（三項演算子とif文）
+let score = 85;
+let grade = score >= 90 ? "A" : score >= 80 ? "B" : "C";
+
+if (score >= 90) {
+    console.log("優秀です");
+} else if (score >= 70) {
+    console.log("良好です");
+} else {
+    console.log("努力が必要です");
+}
+
+// ループ処理
+for (let i = 0; i < 5; i++) {
+    console.log(`カウント: ${i}`);
+}
+
+// for...of（配列の値を取得）
+let fruits = ["apple", "banana", "orange"];
+for (let fruit of fruits) {
+    console.log(fruit);
+}
+
+// for...in（オブジェクトのキーを取得）
+let user = {name: "佐藤", age: 28, city: "大阪"};
+for (let key in user) {
+    console.log(`${key}: ${user[key]}`);
+}
+                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 関数の詳細 -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">2. 関数の詳細とクロージャ</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-lg text-gray-700 mb-2">関数宣言とアロー関数</h4>
+                                    <div class="code-block">
+// 1. 関数宣言（ホイスティングあり）
+function greet(name) {
+    return `こんにちは、${name}さん！`;
+}
+
+// 2. 関数式（ホイスティングなし）
+const add = function(a, b) {
+    return a + b;
+};
+
+// 3. アロー関数（ES6）
+const multiply = (a, b) => a * b;
+
+// 4. 高階関数（関数を引数として受け取る）
+function processNumbers(numbers, callback) {
+    return numbers.map(callback);
+}
+
+const doubled = processNumbers([1, 2, 3, 4], x => x * 2);
+console.log(doubled); // [2, 4, 6, 8]
+
+// 5. クロージャの活用
+function createCounter() {
+    let count = 0;
+    return function() {
+        count++;
+        return count;
+    };
+}
+
+const counter1 = createCounter();
+const counter2 = createCounter();
+console.log(counter1()); // 1
+console.log(counter1()); // 2
+console.log(counter2()); // 1（独立したスコープ）
+
+// 6. IIFE（即座に実行される関数式）
+(function() {
+    console.log("すぐに実行されます");
+})();
+
+// 7. デフォルト引数とレストパラメータ
+function calculateSum(base = 0, ...numbers) {
+    return base + numbers.reduce((sum, num) => sum + num, 0);
+}
+
+console.log(calculateSum(10, 1, 2, 3, 4)); // 20
+                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- オブジェクトとプロトタイプ -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">3. オブジェクトとプロトタイプ</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-lg text-gray-700 mb-2">オブジェクト操作とclass構文</h4>
+                                    <div class="code-block">
+// オブジェクトリテラル
+const student = {
+    name: "山田太郎",
+    age: 20,
+    subjects: ["数学", "物理", "化学"],
+    
+    // メソッド定義
+    introduce() {
+        return `私は${this.name}です。${this.age}歳です。`;
+    },
+    
+    // ゲッター・セッター
+    get fullInfo() {
+        return `${this.name} (${this.age}歳)`;
+    },
+    
+    set updateAge(newAge) {
+        if (newAge > 0 && newAge < 120) {
+            this.age = newAge;
+        }
+    }
+};
+
+// プロパティの動的追加・削除
+student.grade = "A";
+delete student.subjects;
+
+// Object.keys, Object.values, Object.entries
+console.log(Object.keys(student));     // キー一覧
+console.log(Object.values(student));   // 値一覧
+console.log(Object.entries(student));  // [キー, 値]ペア
+
+// コンストラクタ関数（ES5スタイル）
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+}
+
+Person.prototype.greet = function() {
+    return `こんにちは、${this.name}です`;
+};
+
+const person1 = new Person("佐藤", 25);
+
+// ES6 class構文
+class Animal {
+    constructor(name, species) {
+        this.name = name;
+        this.species = species;
+    }
+    
+    speak() {
+        return `${this.name}が鳴いています`;
+    }
+    
+    static getSpeciesCount() {
+        return "動物の種類は数え切れません";
+    }
+}
+
+class Dog extends Animal {
+    constructor(name, breed) {
+        super(name, "犬");
+        this.breed = breed;
+    }
+    
+    speak() {
+        return `${this.name}がワンワン吠えています`;
+    }
+    
+    fetch() {
+        return `${this.name}がボールを取ってきました`;
+    }
+}
+
+const myDog = new Dog("ポチ", "柴犬");
+console.log(myDog.speak());    // ポチがワンワン吠えています
+console.log(myDog.fetch());    // ポチがボールを取ってきました
+                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 配列操作メソッド -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">4. 配列操作メソッドの完全マスター</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-lg text-gray-700 mb-2">高階関数による配列操作</h4>
+                                    <div class="code-block">
+const products = [
+    {name: "ノートPC", price: 80000, category: "電子機器", inStock: true},
+    {name: "マウス", price: 3000, category: "電子機器", inStock: true},
+    {name: "キーボード", price: 8000, category: "電子機器", inStock: false},
+    {name: "デスク", price: 25000, category: "家具", inStock: true},
+    {name: "チェア", price: 15000, category: "家具", inStock: true}
+];
+
+// map: 各要素を変換した新しい配列を作成
+const productNames = products.map(product => product.name);
+console.log(productNames); // ["ノートPC", "マウス", "キーボード", "デスク", "チェア"]
+
+const discountedPrices = products.map(product => ({
+    ...product,
+    discountPrice: product.price * 0.9
+}));
+
+// filter: 条件に合う要素だけを抽出
+const inStockProducts = products.filter(product => product.inStock);
+const electronicsOver5000 = products.filter(product => 
+    product.category === "電子機器" && product.price > 5000
+);
+
+// reduce: 配列を単一の値に集約
+const totalValue = products.reduce((sum, product) => sum + product.price, 0);
+console.log(`総額: ${totalValue}円`); // 総額: 131000円
+
+const groupedByCategory = products.reduce((groups, product) => {
+    const category = product.category;
+    if (!groups[category]) {
+        groups[category] = [];
+    }
+    groups[category].push(product);
+    return groups;
+}, {});
+
+// find: 条件に合う最初の要素を取得
+const expensiveItem = products.find(product => product.price > 50000);
+
+// some: 条件に合う要素が1つでもあるかチェック
+const hasOutOfStock = products.some(product => !product.inStock);
+
+// every: 全ての要素が条件に合うかチェック
+const allInStock = products.every(product => product.inStock);
+
+// forEach: 各要素に対して処理を実行（戻り値なし）
+products.forEach((product, index) => {
+    console.log(`${index + 1}. ${product.name}: ${product.price}円`);
+});
+
+// sort: 配列をソート（元の配列を変更）
+const sortedByPrice = [...products].sort((a, b) => a.price - b.price);
+
+// 配列のメソッドチェーン
+const result = products
+    .filter(product => product.inStock)
+    .map(product => ({
+        name: product.name,
+        discountPrice: product.price * 0.9
+    }))
+    .sort((a, b) => a.discountPrice - b.discountPrice);
+
+console.log(result);
+                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- DOM操作 -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">5. DOM操作の完全マスター</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-lg text-gray-700 mb-2">要素の取得・作成・操作</h4>
+                                    <div class="code-block">
+// 要素の取得方法
+const elementById = document.getElementById('myId');
+const elementsByClass = document.getElementsByClassName('myClass');
+const elementsByTag = document.getElementsByTagName('div');
+const queryElement = document.querySelector('.myClass');
+const queryElements = document.querySelectorAll('div.myClass');
+
+// 要素の作成と属性設定
+const newDiv = document.createElement('div');
+newDiv.className = 'dynamic-content';
+newDiv.id = 'dynamicDiv';
+newDiv.textContent = 'Hello, World!';
+newDiv.innerHTML = '<strong>太字テキスト</strong>';
+
+// 属性の操作
+newDiv.setAttribute('data-id', '123');
+newDiv.setAttribute('title', 'ツールチップテキスト');
+const dataId = newDiv.getAttribute('data-id');
+newDiv.removeAttribute('title');
+
+// データ属性の操作（HTML5）
+newDiv.dataset.userId = '456';
+newDiv.dataset.productName = 'ノートPC';
+console.log(newDiv.dataset.userId); // '456'
+
+// スタイルの操作
+newDiv.style.backgroundColor = '#f0f0f0';
+newDiv.style.padding = '10px';
+newDiv.style.borderRadius = '5px';
+newDiv.style.cssText = 'color: blue; font-size: 16px; margin: 10px;';
+
+// クラスの操作
+newDiv.classList.add('highlight');
+newDiv.classList.remove('old-class');
+newDiv.classList.toggle('active');
+const hasClass = newDiv.classList.contains('highlight');
+
+// 要素の挿入
+const container = document.getElementById('container');
+container.appendChild(newDiv);                    // 末尾に追加
+container.insertBefore(newDiv, container.firstChild); // 先頭に挿入
+
+// 新しい挿入メソッド（ES6）
+container.prepend(newDiv);                        // 先頭に追加
+container.append(newDiv);                         // 末尾に追加
+newDiv.before(document.createElement('hr'));      // 前に挿入
+newDiv.after(document.createElement('hr'));       // 後に挿入
+
+// 要素の削除
+newDiv.remove();                                  // 直接削除
+container.removeChild(newDiv);                    // 親から削除
+
+// innerHTML vs textContent vs innerText
+const content = document.getElementById('content');
+content.innerHTML = '<p>HTMLタグが<strong>解釈</strong>されます</p>';
+content.textContent = '<p>HTMLタグがそのまま表示されます</p>';
+content.innerText = 'スタイルを考慮したテキスト（非表示要素は除外）';
+
+// フォーム要素の操作
+const input = document.querySelector('input[type="text"]');
+input.value = '入力値';
+input.placeholder = 'プレースホルダー';
+input.disabled = true;
+input.focus();                                    // フォーカス設定
+input.blur();                                     // フォーカス解除
+                    </div>
+                                </div>
+
+                                <div class="practice-area">
+                                    <h4 class="font-semibold text-lg text-gray-700 mb-2">実践演習エリア</h4>
+                                    <div id="practice-container" class="border p-4 bg-white rounded">
+                                        <button id="add-item" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">アイテム追加</button>
+                                        <button id="remove-item" class="bg-red-500 text-white px-4 py-2 rounded mr-2">アイテム削除</button>
+                                        <button id="toggle-style" class="bg-green-500 text-white px-4 py-2 rounded">スタイル切替</button>
+                                        <ul id="item-list" class="mt-4"></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- イベント処理 -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">6. イベント処理システム</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-lg text-gray-700 mb-2">イベントハンドリングとデリゲーション</h4>
+                                    <div class="code-block">
+// 基本的なイベントリスナー
+const button = document.getElementById('myButton');
+
+// 複数の方法でイベントを追加
+button.onclick = function() {
+    console.log('onclick経由');
+};
+
+button.addEventListener('click', function(event) {
+    console.log('addEventListener経由');
+    console.log('クリックされた要素:', event.target);
+    console.log('イベントタイプ:', event.type);
+    console.log('マウス座標:', event.clientX, event.clientY);
+});
+
+// アロー関数でのイベントハンドラー
+button.addEventListener('click', (e) => {
+    e.preventDefault();    // デフォルト動作を阻止
+    e.stopPropagation();   // イベントの伝播を停止
+    console.log('アロー関数でのハンドリング');
+});
+
+// イベントの削除
+function clickHandler(e) {
+    console.log('削除可能なハンドラー');
+}
+button.addEventListener('click', clickHandler);
+button.removeEventListener('click', clickHandler);
+
+// 様々なイベントタイプ
+const input = document.querySelector('input');
+
+input.addEventListener('focus', () => console.log('フォーカス取得'));
+input.addEventListener('blur', () => console.log('フォーカス離脱'));
+input.addEventListener('input', (e) => console.log('入力値:', e.target.value));
+input.addEventListener('change', (e) => console.log('値変更:', e.target.value));
+
+// キーボードイベント
+document.addEventListener('keydown', (e) => {
+    console.log('押されたキー:', e.key);
+    if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        console.log('Ctrl+S が押されました');
+    }
+});
+
+// マウスイベント
+const area = document.getElementById('mouseArea');
+area.addEventListener('mouseenter', () => console.log('マウス入場'));
+area.addEventListener('mouseleave', () => console.log('マウス退場'));
+area.addEventListener('mousemove', (e) => {
+    area.style.backgroundColor = `hsl(${e.clientX % 360}, 50%, 80%)`;
+});
+
+// イベントデリゲーション（動的要素にも対応）
+const list = document.getElementById('dynamicList');
+list.addEventListener('click', (e) => {
+    if (e.target.tagName === 'LI') {
+        console.log('リストアイテムがクリックされました:', e.target.textContent);
+        e.target.classList.toggle('selected');
+    }
+});
+
+// カスタムイベントの作成と発火
+const customEvent = new CustomEvent('myCustomEvent', {
+    detail: { message: 'カスタムイベントが発火しました' }
+});
+
+document.addEventListener('myCustomEvent', (e) => {
+    console.log(e.detail.message);
+});
+
+document.dispatchEvent(customEvent);
+
+// イベントの一度だけ実行
+button.addEventListener('click', function() {
+    console.log('一度だけ実行されます');
+}, { once: true });
+
+// パッシブリスナー（パフォーマンス向上）
+document.addEventListener('touchstart', function(e) {
+    // preventDefault()は呼べません
+    console.log('タッチ開始');
+}, { passive: true });
+                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 非同期処理 -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-4">7. 非同期処理とPromise</h3>
+                            
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-lg text-gray-700 mb-2">Promise、async/await の完全理解</h4>
+                                    <div class="code-block">
+// 基本的なPromise
+const promise1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        const success = Math.random() > 0.5;
+        if (success) {
+            resolve('成功しました！');
+        } else {
+            reject(new Error('失敗しました'));
+        }
+    }, 1000);
+});
+
+// Promiseの使用方法
+promise1
+    .then(result => {
+        console.log(result);
+        return '次の処理へ';
+    })
+    .then(result => {
+        console.log(result);
+    })
+    .catch(error => {
+        console.error('エラー:', error.message);
+    })
+    .finally(() => {
+        console.log('処理完了');
+    });
+
+// async/await を使った非同期処理
+async function fetchUserData(userId) {
+    try {
+        console.log('ユーザーデータを取得中...');
+        
+        // 模擬API呼び出し
+        const response = await new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({
+                    id: userId,
+                    name: '田中太郎',
+                    email: 'tanaka@example.com'
+                });
+            }, 1500);
+        });
+        
+        console.log('ユーザーデータ取得完了:', response);
+        return response;
+    } catch (error) {
+        console.error('データ取得エラー:', error);
+        throw error;
+    }
+}
+
+// async関数の呼び出し
+async function main() {
+    try {
+        const userData = await fetchUserData(123);
+        console.log('取得したデータ:', userData);
+    } catch (error) {
+        console.log('エラーをキャッチしました');
+    }
+}
+
+// 複数のPromiseを並列処理
+async function fetchMultipleData() {
+    try {
+        const [user, posts, comments] = await Promise.all([
+            fetchUserData(1),
+            fetchPosts(1),
+            fetchComments(1)
+        ]);
+        
+        return { user, posts, comments };
+    } catch (error) {
+        console.error('並列処理でエラー:', error);
+    }
+}
+
+// Promise.allSettled（ES2020）- 一部失敗しても続行
+async function fetchAllData() {
+    const results = await Promise.allSettled([
+        fetchUserData(1),
+        fetchUserData(2),
+        fetchUserData(3)
+    ]);
+    
+    results.forEach((result, index) => {
+        if (result.status === 'fulfilled') {
+            console.log(`ユーザー${index + 1}:`, result.value);
+        } else {
+            console.log(`ユーザー${index + 1} エラー:`, result.reason);
+        }
+    });
+}
+
+// タイムアウト付きのfetch実装
+function fetchWithTimeout(url, timeout = 5000) {
+    return Promise.race([
+        fetch(url),
+        new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('タイムアウト')), timeout)
+        )
+    ]);
+}
+
+// 実践的なAPI呼び出し例
+async function apiCall(endpoint, options = {}) {
+    const defaultOptions = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+    
+    const config = { ...defaultOptions, ...options };
+    
+    try {
+        const response = await fetch(endpoint, config);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('API呼び出しエラー:', error);
+        throw error;
+    }
+}
+
+// 使用例
+async function loadUserProfile(userId) {
+    try {
+        const profile = await apiCall(`/api/users/${userId}`);
+        const posts = await apiCall(`/api/users/${userId}/posts`);
+        
+        return { profile, posts };
+    } catch (error) {
+        console.error('プロフィール読み込みエラー:', error);
+        return null;
+    }
+}
+                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 使用教材・リソース -->
+                <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-book text-indigo-600 mr-2"></i>使用教材・リソース
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-3">開発ツール</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <i class="fas fa-code text-blue-500 mr-2"></i>
+                                    Visual Studio Code
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-globe text-green-500 mr-2"></i>
+                                    Google Chrome DevTools
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-terminal text-gray-500 mr-2"></i>
+                                    Node.js（練習環境）
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-plug text-purple-500 mr-2"></i>
+                                    Live Server拡張機能
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-3">参考資料</h3>
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <i class="fas fa-book-open text-red-500 mr-2"></i>
+                                    MDN Web Docs（JavaScript）
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-graduation-cap text-yellow-500 mr-2"></i>
+                                    JavaScript.info
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-video text-pink-500 mr-2"></i>
+                                    実践的コード例集
+                                </li>
+                                <li class="flex items-center">
+                                    <i class="fas fa-puzzle-piece text-cyan-500 mr-2"></i>
+                                    Codepen（練習場）
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 理解度確認項目 -->
+                <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                        <i class="fas fa-check-double text-green-600 mr-2"></i>理解度確認項目
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4">基本レベル</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>変数宣言（let、const、var）の違いを理解している</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>JavaScriptのデータ型を理解している</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>関数の作成と呼び出しができる</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>基本的なDOM操作ができる</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>イベントリスナーの追加ができる</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>配列とオブジェクトの操作を理解している</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>条件分岐とループ処理を理解している</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>エラーの基本的なデバッグができる</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>console.logでの確認ができる</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>簡単なユーザーインタラクションを実装できる</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4">応用レベル</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="space-y-2">
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>クロージャの概念を理解し活用できる</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>配列の高階関数（map、filter、reduce）を使える</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>プロトタイプとclass構文を理解している</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>イベントデリゲーションを実装できる</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>Promise と async/await を理解している</span>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>動的なDOM要素の作成・削除ができる</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>エラーハンドリング（try-catch）を適切に使える</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>モジュールシステムの基本を理解している</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>デバッガーツールを使った詳細なデバッグができる</span>
+                                    </div>
+                                    <div class="flex items-start">
+                                        <input type="checkbox" class="mt-1 mr-2">
+                                        <span>実践的なWebアプリケーション機能を実装できる</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 次のステップ -->
+                <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-arrow-right text-blue-600 mr-2"></i>次のステップ
+                    </h2>
+                    
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-3">次の日: Day40 - React基礎・コンポーネント・JSX・Props・State</h3>
+                        <p class="text-gray-700 mb-4">
+                            明日はReact.jsの基礎を学習します。今日学んだJavaScriptの知識を活用して、
+                            モダンなフロントエンド開発の世界に入門します。
+                        </p>
+                        
+                        <div class="mb-4">
+                            <h4 class="font-semibold text-gray-700 mb-2">予習のポイント:</h4>
+                            <ul class="list-disc list-inside space-y-1 text-gray-600 ml-4">
+                                <li>JavaScriptのアロー関数とオブジェクト操作を復習する</li>
+                                <li>ES6の分割代入（デストラクチャリング）を練習する</li>
+                                <li>コンポーネントベース開発の概念を調べる</li>
+                                <li>Reactの公式ドキュメントを眺める</li>
+                            </ul>
+                        </div>
+                        
+                        <a href="day40.html" class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                            <span>詳細を見る</span>
+                            <i class="fas fa-chevron-right ml-2"></i>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- フィードバック -->
+                <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-comments text-green-600 mr-2"></i>フィードバック
+                    </h2>
+                    <p class="text-gray-600 mb-4">このページの内容についてフィードバックをお寄せください。</p>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">理解度</label>
+                            <select class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                <option>選択してください</option>
+                                <option>完全に理解できた</option>
+                                <option>概ね理解できた</option>
+                                <option>部分的に理解できた</option>
+                                <option>理解が困難だった</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">コメント</label>
+                            <textarea class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="4" placeholder="改善点や感想をお聞かせください"></textarea>
+                        </div>
+                        
+                        <button class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition duration-300">
+                            <i class="fas fa-paper-plane mr-2"></i>送信
+                        </button>
+                    </div>
+                </section>
+            </main>
+
+            <!-- サイドバー -->
+            <aside class="lg:col-span-1">
+                <!-- 学習進捗 -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6 sticky top-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">学習進捗</h3>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-blue-600 mb-2">39日目 / 54日間</div>
+                        <div class="text-gray-600 mb-4">(72.2%完了)</div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-blue-600 h-3 rounded-full" style="width: 72.2%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 目次 -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">目次</h3>
+                    <nav class="space-y-2">
+                        <a href="#" class="block text-blue-600 hover:text-blue-800 text-sm">学習目標</a>
+                        <a href="#" class="block text-blue-600 hover:text-blue-800 text-sm">達成基準</a>
+                        <a href="#" class="block text-blue-600 hover:text-blue-800 text-sm">詳細スケジュール</a>
+                        <a href="#" class="block text-blue-600 hover:text-blue-800 text-sm">JavaScript基礎構文</a>
+                        <a href="#" class="block text-blue-600 hover:text-blue-800 text-sm">DOM操作</a>
+                        <a href="#" class="block text-blue-600 hover:text-blue-800 text-sm">イベント処理</a>
+                        <a href="#" class="block text-blue-600 hover:text-blue-800 text-sm">非同期処理</a>
+                        <a href="#" class="block text-blue-600 hover:text-blue-800 text-sm">理解度確認</a>
+                    </nav>
+                </div>
+
+                <!-- 関連リンク -->
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">関連リンク</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="day38.html" class="text-blue-600 hover:text-blue-800 text-sm flex items-center">
+                                <i class="fas fa-arrow-left mr-2"></i>前日: CSS基礎・レイアウト
+                            </a>
+                        </li>
+                        <li>
+                            <a href="day40.html" class="text-blue-600 hover:text-blue-800 text-sm flex items-center">
+                                <i class="fas fa-arrow-right mr-2"></i>翌日: React基礎
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../lecture/day39_lecture.html" class="text-blue-600 hover:text-blue-800 text-sm flex items-center">
+                                <i class="fas fa-chalkboard-teacher mr-2"></i>講師向け資料
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- ナビゲーション -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">ナビゲーション</h3>
+                    <div class="space-y-3">
+                        <a href="../index.html" class="flex items-center text-gray-600 hover:text-blue-600 transition duration-300">
+                            <i class="fas fa-home mr-3"></i>ホーム
+                        </a>
+                        <a href="../calendar.html" class="flex items-center text-gray-600 hover:text-blue-600 transition duration-300">
+                            <i class="fas fa-calendar mr-3"></i>カレンダー
+                        </a>
+                        <a href="../progress.html" class="flex items-center text-gray-600 hover:text-blue-600 transition duration-300">
+                            <i class="fas fa-chart-line mr-3"></i>進捗管理
+                        </a>
+                        <a href="../resources.html" class="flex items-center text-gray-600 hover:text-blue-600 transition duration-300">
+                            <i class="fas fa-book mr-3"></i>リソース
+                        </a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">ITエンジニア育成カリキュラム</h3>
+                    <p class="text-gray-300">未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">リンク</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">カリキュラム概要</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">学習リソース</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">よくある質問</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">サポート</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">お問い合わせ</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">技術サポート</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">コミュニティ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for interactive functionality -->
+    <script>
+        // 実践演習エリアのJavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const addButton = document.getElementById('add-item');
+            const removeButton = document.getElementById('remove-item');
+            const toggleButton = document.getElementById('toggle-style');
+            const itemList = document.getElementById('item-list');
+            let itemCount = 0;
+            let isStyleToggled = false;
+
+            // アイテム追加機能
+            addButton.addEventListener('click', function() {
+                itemCount++;
+                const li = document.createElement('li');
+                li.className = 'p-2 bg-blue-100 rounded mb-2 cursor-pointer';
+                li.textContent = `アイテム ${itemCount}`;
+                li.dataset.id = itemCount;
+                
+                // クリックで選択状態を切り替え
+                li.addEventListener('click', function() {
+                    this.classList.toggle('bg-yellow-200');
+                });
+                
+                itemList.appendChild(li);
+            });
+
+            // アイテム削除機能（最後のアイテムを削除）
+            removeButton.addEventListener('click', function() {
+                const lastItem = itemList.lastElementChild;
+                if (lastItem) {
+                    lastItem.remove();
+                }
+            });
+
+            // スタイル切替機能
+            toggleButton.addEventListener('click', function() {
+                isStyleToggled = !isStyleToggled;
+                const items = itemList.querySelectorAll('li');
+                
+                items.forEach(item => {
+                    if (isStyleToggled) {
+                        item.style.transform = 'scale(1.1)';
+                        item.style.transition = 'transform 0.3s ease';
+                        item.style.fontWeight = 'bold';
+                    } else {
+                        item.style.transform = 'scale(1)';
+                        item.style.fontWeight = 'normal';
+                    }
+                });
+                
+                toggleButton.textContent = isStyleToggled ? 'スタイル解除' : 'スタイル切替';
+            });
+        });
+
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDkDBwhQSxt4o3LjXbKjJ0bsy3QYQXw0zPYu7%2Big7MUZjGJiPpRGOXmm7uvJAGrAN26KT4KGiuJ5Qvmh3efgKNm7QbQgAX93VAviA5rrlL32UTlAlT0gTzf4jElA7SGY0coGP5U%2FxsF7DumtrZtEpa1jiG05I%2FZodZUP91M0iWkdzWQqBpVe1HVQ1IMwi8hMqvSwVL2TccbzeYGMpaFgmygmrvCn2P1R9DaU8eqNiNE%2B8cKeWIQkTpZ6CQaE0RLxVXoq9ULsSFmub8tME6pRPfCjRGQv%2Fk53xr5liCSacOiZvrhLM22N%2FHNsRTajUqE83lUFu6m7GRTWmQZTusQ2B2viBOarGY642bIykX%2FAqJHENForSXb2BcBeDNNdYzSxHomyGBpr4q5wX%2FJrcTUeiqfTdh0CGxVdOtB0dsyQH33oM7A8NV8zzIdfSQpesZdy33qh68jQLMuKA3giD2T9dD4UZeDrQ64yPqWrL7jW%2BJ3OJ";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDkDBwhQSxt4o3LjXbKjJ0bsy3QYQXw0zPYu7+ig7MUZjGJiPpRGOXmm7uvJAGrAN26KT4KGiuJ5Qvmh3efgKNm7QbQgAX93VAviA5rrlL32UTlAlT0gTzf4jElA7SGY0coGP5U/xsF7DumtrZtEpa1jiG05I/ZodZUP91M0iWkdzWQqBpVe1HVQ1IMwi8hMqvSwVL2TccbzeYGMpaFgmygmrvCn2P1R9DaU8eqNiNE+8cKeWIQkTpZ6CQaE0RLxVXoq9ULsSFmub8tME6pRPfCjRGQv/k53xr5liCSacOiZvrhLM22N/HNsRTajUqE83lUFu6m7GRTWmQZTusQ2B2viBOarGY642bIykX/AqJHENForSXb2BcBeDNNdYzSxHomyGBpr4q5wX/JrcTUeiqfTdh0CGxVdOtB0dsyQH33oM7A8NV8zzIdfSQpesZdy33qh68jQLMuKA3giD2T9dD4UZeDrQ64yPqWrL7jW+J3OJ";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

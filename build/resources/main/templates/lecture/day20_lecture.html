@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day20: オペレーティングシステム基礎 | ITエンジニア育成講座</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .section-bg {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .knowledge-bg {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .exercise-bg {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        .quiz-bg {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        .hidden {
+            display: none;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .analogy-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-left: 5px solid #ff6b6b;
+        }
+        .tech-detail {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-left: 5px solid #4ecdc4;
+        }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day19_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day21_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month1.html" class="hover:text-blue-600">1ヶ月目: Java基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week4.html" class="hover:text-blue-600">4週目: 総仕上げ</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">20日目: オペレーティングシステム基礎</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day20.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+        <!-- Header -->
+        <header class="gradient-bg text-white py-8">
+            <div class="container mx-auto px-4">
+                <div class="text-center">
+                    <h1 class="text-4xl font-bold mb-2">
+                        <i class="fas fa-desktop mr-3"></i>Day20: オペレーティングシステム基礎
+                    </h1>
+                    <p class="text-xl opacity-90">コンピュータの心臓部を理解しよう</p>
+                    <div class="mt-4 flex justify-center space-x-4 text-sm">
+                        <span><i class="fas fa-clock mr-1"></i>学習時間: 90分</span>
+                        <span><i class="fas fa-star mr-1"></i>難易度: 基礎</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container mx-auto px-4 py-8">
+            <!-- 学習目標 -->
+            <div class="section-bg text-white rounded-lg p-6 mb-8 shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">
+                    <i class="fas fa-target mr-2"></i>本日の学習目標
+                </h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle mr-2 text-green-300"></i>
+                            <span>OSの4つの基本機能を理解し説明できる</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle mr-2 text-green-300"></i>
+                            <span>プロセス管理の仕組みを日常例で説明できる</span>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle mr-2 text-green-300"></i>
+                            <span>メモリ管理とファイルシステムの重要性を理解する</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle mr-2 text-green-300"></i>
+                            <span>実際のシステム運用への応用方法を習得する</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITエンジニア豆知識 -->
+            <div class="knowledge-bg text-white rounded-lg p-6 mb-8 shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">
+                    <i class="fas fa-lightbulb mr-2"></i>ITエンジニア豆知識
+                </h2>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h3 class="font-semibold mb-2">OSの歴史と進化</h3>
+                        <p class="text-sm">1960年代の単純なバッチ処理から現代のマルチタスクOSまで、コンピュータの進化とともにOSも大きく発展してきました。</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h3 class="font-semibold mb-2">スケジューリング最適化</h3>
+                        <p class="text-sm">現代のOSは数百のプロセスを同時管理。効率的なスケジューリングにより、体感的にはすべてが同時実行されているように感じられます。</p>
+                    </div>
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h3 class="font-semibold mb-2">仮想記憶の革新</h3>
+                        <p class="text-sm">仮想記憶技術により、物理メモリより大きなプログラムも実行可能。この技術なしには現代のアプリケーションは存在しません。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- メイン講義内容 -->
+            <div class="space-y-8">
+                <!-- 1. OSとは何か -->
+                <div class="bg-white rounded-lg p-6 shadow-lg">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                        <i class="fas fa-cogs mr-2"></i>1. オペレーティングシステム（OS）とは
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div class="tech-detail p-4 rounded">
+                            <h3 class="text-lg font-semibold mb-2">基本定義</h3>
+                            <p class="mb-2"><strong>オペレーティングシステム（Operating System: OS）</strong>とは、コンピュータのハードウェアとソフトウェアを管理し、ユーザーが効率的にコンピュータを使用できるようにする基盤ソフトウェアです。</p>
+                        </div>
+
+                        <div class="analogy-box p-4 rounded">
+                            <h3 class="text-lg font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>日常生活での例え</h3>
+                            <p>OSは<strong>「ホテルの支配人」</strong>のような存在です：</p>
+                            <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li><strong>客室管理</strong> → メモリ管理（どの部屋を誰に割り当てるか）</li>
+                                <li><strong>スタッフ調整</strong> → プロセス管理（どの作業を誰がいつ行うか）</li>
+                                <li><strong>設備管理</strong> → ハードウェア管理（エレベーター、電気など）</li>
+                                <li><strong>予約システム</strong> → ファイル管理（情報の整理・保管）</li>
+                            </ul>
+                        </div>
+
+                        <h3 class="text-lg font-semibold text-blue-700 mb-2">OSの必要性</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-blue-50 p-3 rounded">
+                                <h4 class="font-semibold">OSがない場合</h4>
+                                <ul class="text-sm list-disc list-inside space-y-1">
+                                    <li>一度に一つのプログラムしか実行できない</li>
+                                    <li>ハードウェアを直接制御する必要がある</li>
+                                    <li>メモリの衝突でシステムが不安定</li>
+                                </ul>
+                            </div>
+                            <div class="bg-green-50 p-3 rounded">
+                                <h4 class="font-semibold">OSがある場合</h4>
+                                <ul class="text-sm list-disc list-inside space-y-1">
+                                    <li>複数アプリケーションの同時実行</li>
+                                    <li>安全で効率的なリソース管理</li>
+                                    <li>ユーザーフレンドリーな操作環境</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. OSの4つの基本機能 -->
+                <div class="bg-white rounded-lg p-6 shadow-lg">
+                    <h2 class="text-2xl font-bold text-green-800 mb-4">
+                        <i class="fas fa-puzzle-piece mr-2"></i>2. OSの4つの基本機能
+                    </h2>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="border-l-4 border-blue-500 pl-4">
+                                <h3 class="text-lg font-semibold text-blue-700">1. プロセス管理</h3>
+                                <p class="text-sm text-gray-700 mb-2">実行中のプログラム（プロセス）を効率的に管理し、CPUの処理時間を適切に割り当てる機能</p>
+                                <div class="analogy-box p-3 rounded text-sm">
+                                    <strong>例：</strong>レストランの注文管理システム。複数の注文を効率よく調理する順番を決めて、お客様を待たせない工夫
+                                </div>
+                            </div>
+
+                            <div class="border-l-4 border-green-500 pl-4">
+                                <h3 class="text-lg font-semibold text-green-700">2. メモリ管理</h3>
+                                <p class="text-sm text-gray-700 mb-2">限られたメモリ（RAM）を各プログラムに適切に配分し、効率的に使用する機能</p>
+                                <div class="analogy-box p-3 rounded text-sm">
+                                    <strong>例：</strong>図書館の本棚管理。限られた棚スペースに多くの本を効率よく配置し、必要な時にすぐ取り出せるシステム
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="border-l-4 border-orange-500 pl-4">
+                                <h3 class="text-lg font-semibold text-orange-700">3. ファイル管理</h3>
+                                <p class="text-sm text-gray-700 mb-2">データを階層的に整理・保管し、必要な時に素早くアクセスできるようにする機能</p>
+                                <div class="analogy-box p-3 rounded text-sm">
+                                    <strong>例：</strong>オフィスの書類整理システム。部署別・年度別・種類別に書類を分類し、必要な時にすぐ見つけられる仕組み
+                                </div>
+                            </div>
+
+                            <div class="border-l-4 border-purple-500 pl-4">
+                                <h3 class="text-lg font-semibold text-purple-700">4. I/O管理</h3>
+                                <p class="text-sm text-gray-700 mb-2">キーボード、マウス、プリンターなどの入出力デバイスとの通信を制御する機能</p>
+                                <div class="analogy-box p-3 rounded text-sm">
+                                    <strong>例：</strong>郵便局の窓口業務。様々な種類の郵便物（手紙、小包、速達など）を適切な方法で処理・配送
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-gray-50 p-4 rounded">
+                        <h3 class="text-lg font-semibold mb-2">なぜこの4つの機能が重要なのか</h3>
+                        <p class="text-sm text-gray-700">これら4つの機能が連携することで、私たちは複数のアプリケーション（ブラウザ、音楽プレーヤー、文書作成ソフトなど）を同時に快適に使用できます。どれか一つでも不具合があると、システム全体の性能や安定性に影響します。</p>
+                    </div>
+                </div>
+
+                <!-- 3. プロセス管理とスケジューリング -->
+                <div class="bg-white rounded-lg p-6 shadow-lg">
+                    <h2 class="text-2xl font-bold text-purple-800 mb-4">
+                        <i class="fas fa-tasks mr-2"></i>3. プロセス管理とスケジューリング
+                    </h2>
+
+                    <div class="space-y-4">
+                        <div class="tech-detail p-4 rounded">
+                            <h3 class="text-lg font-semibold mb-2">プロセスとは</h3>
+                            <p><strong>プロセス</strong>とは、実際にメモリ上で実行されているプログラムのことです。同じプログラムでも複数回起動すれば、それぞれが独立したプロセスになります。</p>
+                        </div>
+
+                        <h3 class="text-lg font-semibold text-purple-700 mb-2">主要なスケジューリング方式</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse border border-gray-300">
+                                <thead>
+                                    <tr class="bg-purple-100">
+                                        <th class="border border-gray-300 p-3 text-left">方式名</th>
+                                        <th class="border border-gray-300 p-3 text-left">動作方法</th>
+                                        <th class="border border-gray-300 p-3 text-left">日常例</th>
+                                        <th class="border border-gray-300 p-3 text-left">適用場面</th>
+                                        <th class="border border-gray-300 p-3 text-left">なぜ重要か</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-gray-300 p-3"><strong>FCFS</strong><br>（先入先出）</td>
+                                        <td class="border border-gray-300 p-3">到着順に処理</td>
+                                        <td class="border border-gray-300 p-3">銀行の番号札システム</td>
+                                        <td class="border border-gray-300 p-3">バッチ処理</td>
+                                        <td class="border border-gray-300 p-3">公平性を保てる</td>
+                                    </tr>
+                                    <tr class="bg-gray-50">
+                                        <td class="border border-gray-300 p-3"><strong>SJF</strong><br>（短い順）</td>
+                                        <td class="border border-gray-300 p-3">処理時間が短い順</td>
+                                        <td class="border border-gray-300 p-3">コンビニのレジ（商品数が少ない人優先）</td>
+                                        <td class="border border-gray-300 p-3">効率重視の処理</td>
+                                        <td class="border border-gray-300 p-3">全体の待ち時間を最小化</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 p-3"><strong>Round Robin</strong><br>（時分割）</td>
+                                        <td class="border border-gray-300 p-3">一定時間ずつ交代</td>
+                                        <td class="border border-gray-300 p-3">遊園地のアトラクション（時間制限あり）</td>
+                                        <td class="border border-gray-300 p-3">対話型システム</td>
+                                        <td class="border border-gray-300 p-3">レスポンス性を向上</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="analogy-box p-4 rounded">
+                            <h3 class="text-lg font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>病院での診察順の例</h3>
+                            <p class="mb-2">プロセススケジューリングは病院の診察順決めと似ています：</p>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>先着順（FCFS）</strong>：受付順に診察（予約なしの一般診療）</li>
+                                <li><strong>短い順（SJF）</strong>：症状が軽い人を優先（効率重視）</li>
+                                <li><strong>優先度順</strong>：緊急患者を最優先（Priority Scheduling）</li>
+                                <li><strong>時分割</strong>：各患者に一定時間を配分（長時間診察を避ける）</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. メモリ管理システム -->
+                <div class="bg-white rounded-lg p-6 shadow-lg">
+                    <h2 class="text-2xl font-bold text-red-800 mb-4">
+                        <i class="fas fa-memory mr-2"></i>4. メモリ管理システム
+                    </h2>
+
+                    <div class="space-y-4">
+                        <div class="tech-detail p-4 rounded">
+                            <h3 class="text-lg font-semibold mb-2">メモリ管理の重要性</h3>
+                            <p>コンピュータのメモリ（RAM）は限られたリソースです。複数のプログラムが同時に実行される現代のシステムでは、効率的なメモリ管理が不可欠です。</p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="border-l-4 border-blue-500 pl-4">
+                                <h3 class="text-lg font-semibold text-blue-700">物理メモリ</h3>
+                                <p class="text-sm text-gray-700 mb-2">実際に存在するRAMのメモリ容量。例：8GB、16GB、32GBなど</p>
+                                <div class="analogy-box p-3 rounded text-sm">
+                                    <strong>例：</strong>図書館の実際の本棚スペース
+                                </div>
+                            </div>
+
+                            <div class="border-l-4 border-green-500 pl-4">
+                                <h3 class="text-lg font-semibold text-green-700">仮想メモリ</h3>
+                                <p class="text-sm text-gray-700 mb-2">プログラムから見える論理的なメモリ空間。物理メモリより大きくても可能</p>
+                                <div class="analogy-box p-3 rounded text-sm">
+                                    <strong>例：</strong>予約システムで管理される仮想的な本棚（倉庫含む）
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="text-lg font-semibold text-red-700 mb-2">メモリ管理の主要技術</h3>
+                        <div class="space-y-3">
+                            <div class="bg-red-50 p-4 rounded">
+                                <h4 class="font-semibold mb-2">1. ページング（Paging）</h4>
+                                <p class="text-sm mb-2">メモリを固定サイズの「ページ」に分割し、必要な部分だけを物理メモリに読み込む技術</p>
+                                <div class="analogy-box p-3 rounded text-sm">
+                                    <strong>例：</strong>大きな辞書を必要なページだけ机に広げて作業する方法
+                                </div>
+                            </div>
+
+                            <div class="bg-yellow-50 p-4 rounded">
+                                <h4 class="font-semibold mb-2">2. スワッピング（Swapping）</h4>
+                                <p class="text-sm mb-2">メモリ不足時に、使用頻度の低いデータを一時的にハードディスクに退避させる技術</p>
+                                <div class="analogy-box p-3 rounded text-sm">
+                                    <strong>例：</strong>机が狭い時に、しばらく使わない書類を棚に一時保管する方法
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 bg-gray-50 p-4 rounded">
+                            <h3 class="text-lg font-semibold mb-2">実務での活用例</h3>
+                            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+                                <li><strong>サーバー運用</strong>：メモリ使用量の監視とパフォーマンスチューニング</li>
+                                <li><strong>アプリケーション開発</strong>：メモリリークの防止と効率的なデータ構造の選択</li>
+                                <li><strong>システム設計</strong>：適切なメモリ容量の見積もりと拡張計画</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. ファイルシステム -->
+                <div class="bg-white rounded-lg p-6 shadow-lg">
+                    <h2 class="text-2xl font-bold text-orange-800 mb-4">
+                        <i class="fas fa-folder-open mr-2"></i>5. ファイルシステム
+                    </h2>
+
+                    <div class="space-y-4">
+                        <div class="tech-detail p-4 rounded">
+                            <h3 class="text-lg font-semibold mb-2">ファイルシステムとは</h3>
+                            <p>データを階層構造で整理・管理し、効率的なアクセスを可能にするシステムです。ファイル名、場所、アクセス権限、作成日時などの情報も管理します。</p>
+                        </div>
+
+                        <div class="analogy-box p-4 rounded">
+                            <h3 class="text-lg font-semibold mb-2"><i class="fas fa-lightbulb mr-2"></i>会社の書類管理システムの例</h3>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="font-semibold mb-2">従来の紙書類</h4>
+                                    <ul class="text-sm list-disc list-inside space-y-1">
+                                        <li>部署別のキャビネット</li>
+                                        <li>年度別のフォルダ</li>
+                                        <li>種類別のファイル</li>
+                                        <li>アクセス権限管理</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-2">コンピュータファイル</h4>
+                                    <ul class="text-sm list-disc list-inside space-y-1">
+                                        <li>ドライブ（C:, D:など）</li>
+                                        <li>フォルダ（ディレクトリ）</li>
+                                        <li>ファイル（データの実体）</li>
+                                        <li>ユーザー権限制御</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="text-lg font-semibold text-orange-700 mb-2">主要なファイルシステム</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full border-collapse border border-gray-300">
+                                <thead>
+                                    <tr class="bg-orange-100">
+                                        <th class="border border-gray-300 p-3 text-left">ファイルシステム</th>
+                                        <th class="border border-gray-300 p-3 text-left">特徴</th>
+                                        <th class="border border-gray-300 p-3 text-left">使用OS</th>
+                                        <th class="border border-gray-300 p-3 text-left">適用場面</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border border-gray-300 p-3"><strong>NTFS</strong></td>
+                                        <td class="border border-gray-300 p-3">高機能、大容量対応、セキュリティ機能</td>
+                                        <td class="border border-gray-300 p-3">Windows</td>
+                                        <td class="border border-gray-300 p-3">企業システム、サーバー</td>
+                                    </tr>
+                                    <tr class="bg-gray-50">
+                                        <td class="border border-gray-300 p-3"><strong>ext4</strong></td>
+                                        <td class="border border-gray-300 p-3">安定性、パフォーマンス重視</td>
+                                        <td class="border border-gray-300 p-3">Linux</td>
+                                        <td class="border border-gray-300 p-3">サーバー、組み込みシステム</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border border-gray-300 p-3"><strong>APFS</strong></td>
+                                        <td class="border border-gray-300 p-3">暗号化、スナップショット機能</td>
+                                        <td class="border border-gray-300 p-3">macOS</td>
+                                        <td class="border border-gray-300 p-3">Mac、iPhone、iPad</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3 class="text-lg font-semibold text-orange-700 mb-2">ファイルシステムの重要機能</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-orange-50 p-4 rounded">
+                                <h4 class="font-semibold mb-2">基本機能</h4>
+                                <ul class="text-sm list-disc list-inside space-y-1">
+                                    <li>ファイルの作成・削除・移動・コピー</li>
+                                    <li>フォルダ（ディレクトリ）の階層管理</li>
+                                    <li>ファイル属性の管理（サイズ、作成日時など）</li>
+                                    <li>空き容量の管理</li>
+                                </ul>
+                            </div>
+                            <div class="bg-yellow-50 p-4 rounded">
+                                <h4 class="font-semibold mb-2">高度な機能</h4>
+                                <ul class="text-sm list-disc list-inside space-y-1">
+                                    <li>アクセス権限制御（読み込み・書き込み・実行）</li>
+                                    <li>データの暗号化</li>
+                                    <li>バックアップ・復元機能</li>
+                                    <li>障害時の自動修復</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 理解度チェック -->
+            <div class="quiz-bg text-white rounded-lg p-6 mb-8 shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">
+                    <i class="fas fa-question-circle mr-2"></i>理解度チェック
+                </h2>
+                <p class="mb-4">以下の問題に答えて、理解度を確認しましょう。</p>
+
+                <div class="space-y-6">
+                    <!-- 問題1 -->
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h3 class="font-semibold mb-2">問題1: OSの基本機能</h3>
+                        <p class="mb-3">オペレーティングシステムの4つの基本機能として正しい組み合わせはどれですか？</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="q1" value="a" class="mr-2">
+                                <span>A) プロセス管理、メモリ管理、ネットワーク管理、セキュリティ管理</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q1" value="b" class="mr-2">
+                                <span>B) プロセス管理、メモリ管理、ファイル管理、I/O管理</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q1" value="c" class="mr-2">
+                                <span>C) CPU管理、RAM管理、HDD管理、GPU管理</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q1" value="d" class="mr-2">
+                                <span>D) アプリ管理、データ管理、通信管理、表示管理</span>
+                            </label>
+                        </div>
+                        <button onclick="toggleAnswer('q1')" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                            回答を表示
+                        </button>
+                        <div id="q1-answer" class="hidden mt-3 bg-white bg-opacity-90 text-gray-800 p-3 rounded animate-fade-in">
+                            <p><strong>正解: B) プロセス管理、メモリ管理、ファイル管理、I/O管理</strong></p>
+                            <p class="mt-2 text-sm">OSの4つの基本機能は、プロセス管理（実行中のプログラム管理）、メモリ管理（RAMの効率的使用）、ファイル管理（データの整理・保管）、I/O管理（入出力デバイス制御）です。これらが連携してコンピュータの基盤を支えています。</p>
+                        </div>
+                    </div>
+
+                    <!-- 問題2 -->
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h3 class="font-semibold mb-2">問題2: プロセススケジューリング</h3>
+                        <p class="mb-3">FCFS（First Come First Served）スケジューリングの特徴として最も適切なのはどれですか？</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="q2" value="a" class="mr-2">
+                                <span>A) 処理時間が短いプロセスを優先的に実行する</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q2" value="b" class="mr-2">
+                                <span>B) 到着順にプロセスを実行し、公平性を重視する</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q2" value="c" class="mr-2">
+                                <span>C) 一定時間ごとにプロセスを切り替えて実行する</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q2" value="d" class="mr-2">
+                                <span>D) 優先度の高いプロセスを最初に実行する</span>
+                            </label>
+                        </div>
+                        <button onclick="toggleAnswer('q2')" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                            回答を表示
+                        </button>
+                        <div id="q2-answer" class="hidden mt-3 bg-white bg-opacity-90 text-gray-800 p-3 rounded animate-fade-in">
+                            <p><strong>正解: B) 到着順にプロセスを実行し、公平性を重視する</strong></p>
+                            <p class="mt-2 text-sm">FCFS（先入先出）は、プロセスが到着した順番に実行するシンプルなスケジューリング方式です。銀行の番号札システムのように公平性は保てますが、長時間のプロセスが先頭にあると後続プロセスの待ち時間が長くなるデメリットがあります。</p>
+                        </div>
+                    </div>
+
+                    <!-- 問題3 -->
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h3 class="font-semibold mb-2">問題3: 仮想メモリ</h3>
+                        <p class="mb-3">仮想メモリ技術の主な利点として正しいものはどれですか？</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="q3" value="a" class="mr-2">
+                                <span>A) 物理メモリの容量を実際に増やすことができる</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q3" value="b" class="mr-2">
+                                <span>B) 物理メモリより大きなプログラムでも実行可能になる</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q3" value="c" class="mr-2">
+                                <span>C) CPUの処理速度が向上する</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q3" value="d" class="mr-2">
+                                <span>D) ハードディスクの容量が増加する</span>
+                            </label>
+                        </div>
+                        <button onclick="toggleAnswer('q3')" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                            回答を表示
+                        </button>
+                        <div id="q3-answer" class="hidden mt-3 bg-white bg-opacity-90 text-gray-800 p-3 rounded animate-fade-in">
+                            <p><strong>正解: B) 物理メモリより大きなプログラムでも実行可能になる</strong></p>
+                            <p class="mt-2 text-sm">仮想メモリ技術により、プログラムは物理メモリの容量を超えたメモリ空間を使用できます。必要な部分だけを物理メモリに読み込み、使用頻度の低い部分はディスクに退避させることで、限られた物理メモリを効率的に活用できます。</p>
+                        </div>
+                    </div>
+
+                    <!-- 問題4 -->
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h3 class="font-semibold mb-2">問題4: ファイルシステム</h3>
+                        <p class="mb-3">ファイルシステムが提供する機能として含まれないものはどれですか？</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="q4" value="a" class="mr-2">
+                                <span>A) ファイルの階層的な管理</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q4" value="b" class="mr-2">
+                                <span>B) アクセス権限の制御</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q4" value="c" class="mr-2">
+                                <span>C) ネットワーク通信の暗号化</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q4" value="d" class="mr-2">
+                                <span>D) ファイル属性の管理</span>
+                            </label>
+                        </div>
+                        <button onclick="toggleAnswer('q4')" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                            回答を表示
+                        </button>
+                        <div id="q4-answer" class="hidden mt-3 bg-white bg-opacity-90 text-gray-800 p-3 rounded animate-fade-in">
+                            <p><strong>正解: C) ネットワーク通信の暗号化</strong></p>
+                            <p class="mt-2 text-sm">ネットワーク通信の暗号化はファイルシステムの機能ではなく、ネットワーク層やアプリケーション層の機能です。ファイルシステムは、ファイルの階層管理、アクセス権限制御、ファイル属性管理（サイズ、作成日時など）を担当します。</p>
+                        </div>
+                    </div>
+
+                    <!-- 問題5 -->
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h3 class="font-semibold mb-2">問題5: 実務応用</h3>
+                        <p class="mb-3">サーバー運用において、OSの知識が最も重要になる場面はどれですか？</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="q5" value="a" class="mr-2">
+                                <span>A) Webページのデザインを作成する時</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q5" value="b" class="mr-2">
+                                <span>B) データベースのクエリを最適化する時</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q5" value="c" class="mr-2">
+                                <span>C) システムのパフォーマンス問題を解決する時</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="q5" value="d" class="mr-2">
+                                <span>D) プログラミング言語を選択する時</span>
+                            </label>
+                        </div>
+                        <button onclick="toggleAnswer('q5')" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                            回答を表示
+                        </button>
+                        <div id="q5-answer" class="hidden mt-3 bg-white bg-opacity-90 text-gray-800 p-3 rounded animate-fade-in">
+                            <p><strong>正解: C) システムのパフォーマンス問題を解決する時</strong></p>
+                            <p class="mt-2 text-sm">システムのパフォーマンス問題解決には、プロセス管理、メモリ使用状況、ディスクI/O、CPUスケジューリングなど、OSの各機能に関する深い理解が必要です。リソース使用率の監視、ボトルネックの特定、適切な設定変更を行うためには、OSの動作原理を理解していることが重要です。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 演習問題 -->
+            <div class="exercise-bg text-white rounded-lg p-6 mb-8 shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">
+                    <i class="fas fa-pencil-alt mr-2"></i>演習問題
+                </h2>
+                <p class="mb-4">実践的な問題に取り組んで、知識を定着させましょう。</p>
+
+                <div class="space-y-8">
+                    <!-- 演習1 -->
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h3 class="font-semibold mb-3">演習1: プロセススケジューリングの比較分析</h3>
+                        <div class="bg-white bg-opacity-90 text-gray-800 p-4 rounded mb-3">
+                            <p class="mb-3"><strong>状況：</strong>以下の3つのプロセスが順番に到着したとします。</p>
+                            <ul class="list-disc list-inside mb-3">
+                                <li>プロセスA: 到着時刻 0秒、実行時間 8秒</li>
+                                <li>プロセスB: 到着時刻 1秒、実行時間 4秒</li>
+                                <li>プロセスC: 到着時刻 2秒、実行時間 2秒</li>
+                            </ul>
+                            <p><strong>課題：</strong>FCFS（先入先出）とSJF（短い順）のそれぞれで、各プロセスの待ち時間と平均待ち時間を計算し、どちらの方式が効率的か分析してください。</p>
+                        </div>
+                        <button onclick="toggleAnswer('ex1')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                            回答例を表示
+                        </button>
+                        <div id="ex1-answer" class="hidden mt-3 bg-white bg-opacity-90 text-gray-800 p-4 rounded animate-fade-in">
+                            <h4 class="font-semibold mb-2">回答例：</h4>
+                            
+                            <div class="mb-4">
+                                <h5 class="font-semibold">FCFS（先入先出）の場合：</h5>
+                                <p class="text-sm mb-2">実行順序: A → B → C</p>
+                                <ul class="text-sm list-disc list-inside mb-2">
+                                    <li>プロセスA: 待ち時間 0秒（0秒から実行開始）</li>
+                                    <li>プロセスB: 待ち時間 7秒（8秒から実行開始、到着は1秒）</li>
+                                    <li>プロセスC: 待ち時間 10秒（12秒から実行開始、到着は2秒）</li>
+                                </ul>
+                                <p class="text-sm"><strong>平均待ち時間: (0 + 7 + 10) ÷ 3 = 5.67秒</strong></p>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h5 class="font-semibold">SJF（短い順）の場合：</h5>
+                                <p class="text-sm mb-2">実行順序: A → C → B（Aは既に開始しているため）</p>
+                                <ul class="text-sm list-disc list-inside mb-2">
+                                    <li>プロセスA: 待ち時間 0秒</li>
+                                    <li>プロセスC: 待ち時間 6秒（8秒から実行開始、到着は2秒）</li>
+                                    <li>プロセスB: 待ち時間 9秒（10秒から実行開始、到着は1秒）</li>
+                                </ul>
+                                <p class="text-sm"><strong>平均待ち時間: (0 + 9 + 6) ÷ 3 = 5.0秒</strong></p>
+                            </div>
+                            
+                            <div class="bg-yellow-100 p-3 rounded">
+                                <h5 class="font-semibold">分析結果：</h5>
+                                <p class="text-sm">SJFの方が平均待ち時間が短く効率的です。ただし、FCFSは公平性が高く、実装が簡単というメリットがあります。実際のシステムでは、応答性と公平性のバランスを考慮して選択します。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 演習2 -->
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h3 class="font-semibold mb-3">演習2: メモリ管理問題の解決</h3>
+                        <div class="bg-white bg-opacity-90 text-gray-800 p-4 rounded mb-3">
+                            <p class="mb-3"><strong>状況：</strong>Webサーバーで以下の問題が発生しています。</p>
+                            <ul class="list-disc list-inside mb-3">
+                                <li>物理メモリ: 8GB</li>
+                                <li>現在のメモリ使用量: 7.5GB</li>
+                                <li>新しいWebアプリケーション（2GB必要）を追加したい</li>
+                                <li>既存アプリは重要なため停止できない</li>
+                            </ul>
+                            <p><strong>課題：</strong>この状況で新しいアプリケーションを動作させるために、OSのメモリ管理機能をどのように活用できるか、具体的な解決策を3つ提案してください。</p>
+                        </div>
+                        <button onclick="toggleAnswer('ex2')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                            回答例を表示
+                        </button>
+                        <div id="ex2-answer" class="hidden mt-3 bg-white bg-opacity-90 text-gray-800 p-4 rounded animate-fade-in">
+                            <h4 class="font-semibold mb-2">回答例：</h4>
+                            
+                            <div class="space-y-3">
+                                <div class="bg-blue-50 p-3 rounded">
+                                    <h5 class="font-semibold text-blue-700">解決策1: 仮想メモリとスワッピングの活用</h5>
+                                    <p class="text-sm">OSの仮想メモリ機能により、使用頻度の低いデータを一時的にディスクに退避（スワップ）させる。これにより物理メモリに余裕を作り、新しいアプリケーションを起動可能にする。</p>
+                                </div>
+                                
+                                <div class="bg-green-50 p-3 rounded">
+                                    <h5 class="font-semibold text-green-700">解決策2: メモリ使用量の最適化</h5>
+                                    <p class="text-sm">既存アプリケーションのメモリ使用量を分析し、不要なキャッシュの削除やガベージコレクションの実行により、メモリ使用量を削減する。また、メモリ使用量の監視を強化し、効率的な運用を図る。</p>
+                                </div>
+                                
+                                <div class="bg-orange-50 p-3 rounded">
+                                    <h5 class="font-semibold text-orange-700">解決策3: 段階的なメモリ配分</h5>
+                                    <p class="text-sm">新しいアプリケーションを最小構成（1GB未満）で起動し、必要に応じて段階的にメモリを割り当てる。同時に、システム全体のメモリ使用パターンを分析し、ピーク時間を避けた運用スケジュールを検討する。</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 bg-yellow-100 p-3 rounded">
+                                <h5 class="font-semibold">実務での考慮点：</h5>
+                                <ul class="text-sm list-disc list-inside">
+                                    <li>スワッピングは性能低下を招く可能性があるため、監視が重要</li>
+                                    <li>根本的解決には物理メモリの増設も検討すべき</li>
+                                    <li>負荷分散やコンテナ技術の活用も有効な選択肢</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 演習3 -->
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h3 class="font-semibold mb-3">演習3: ファイルシステム設計</h3>
+                        <div class="bg-white bg-opacity-90 text-gray-800 p-4 rounded mb-3">
+                            <p class="mb-3"><strong>状況：</strong>新しいプロジェクト管理システムのファイル構造を設計する必要があります。</p>
+                            <ul class="list-disc list-inside mb-3">
+                                <li>複数の部署（開発、営業、総務）が使用</li>
+                                <li>プロジェクトごとに資料を管理</li>
+                                <li>機密レベルの異なる文書が混在</li>
+                                <li>バックアップとアクセス履歴が必要</li>
+                            </ul>
+                            <p><strong>課題：</strong>効率的で安全なファイル構造を設計し、必要なアクセス権限設定を含めて提案してください。</p>
+                        </div>
+                        <button onclick="toggleAnswer('ex3')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                            回答例を表示
+                        </button>
+                        <div id="ex3-answer" class="hidden mt-3 bg-white bg-opacity-90 text-gray-800 p-4 rounded animate-fade-in">
+                            <h4 class="font-semibold mb-2">回答例：</h4>
+                            
+                            <div class="mb-4">
+                                <h5 class="font-semibold mb-2">推奨ファイル構造：</h5>
+                                <div class="bg-gray-100 p-3 rounded font-mono text-sm">
+                                    <div>/ProjectManagement/</div>
+                                    <div>├── Departments/</div>
+                                    <div>│   ├── Development/</div>
+                                    <div>│   ├── Sales/</div>
+                                    <div>│   └── GeneralAffairs/</div>
+                                    <div>├── Projects/</div>
+                                    <div>│   ├── ProjectA/</div>
+                                    <div>│   │   ├── Public/</div>
+                                    <div>│   │   ├── Internal/</div>
+                                    <div>│   │   └── Confidential/</div>
+                                    <div>├── Shared/</div>
+                                    <div>│   ├── Templates/</div>
+                                    <div>│   └── CommonDocs/</div>
+                                    <div>└── Archive/</div>
+                                    <div>    ├── Backup/</div>
+                                    <div>    └── Logs/</div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h5 class="font-semibold mb-2">アクセス権限設定：</h5>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm border-collapse border border-gray-300">
+                                        <thead>
+                                            <tr class="bg-gray-100">
+                                                <th class="border border-gray-300 p-2">フォルダ</th>
+                                                <th class="border border-gray-300 p-2">開発部</th>
+                                                <th class="border border-gray-300 p-2">営業部</th>
+                                                <th class="border border-gray-300 p-2">総務部</th>
+                                                <th class="border border-gray-300 p-2">管理者</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="border border-gray-300 p-2">Public</td>
+                                                <td class="border border-gray-300 p-2">読書可</td>
+                                                <td class="border border-gray-300 p-2">読書可</td>
+                                                <td class="border border-gray-300 p-2">読書可</td>
+                                                <td class="border border-gray-300 p-2">フル権限</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border border-gray-300 p-2">Internal</td>
+                                                <td class="border border-gray-300 p-2">読書可</td>
+                                                <td class="border border-gray-300 p-2">読書可</td>
+                                                <td class="border border-gray-300 p-2">読み込みのみ</td>
+                                                <td class="border border-gray-300 p-2">フル権限</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border border-gray-300 p-2">Confidential</td>
+                                                <td class="border border-gray-300 p-2">部署メンバーのみ</td>
+                                                <td class="border border-gray-300 p-2">部署メンバーのみ</td>
+                                                <td class="border border-gray-300 p-2">アクセス不可</td>
+                                                <td class="border border-gray-300 p-2">フル権限</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-blue-100 p-3 rounded">
+                                <h5 class="font-semibold mb-2">追加機能の実装：</h5>
+                                <ul class="text-sm list-disc list-inside space-y-1">
+                                    <li><strong>自動バックアップ</strong>: 毎日深夜にArchive/Backupに自動保存</li>
+                                    <li><strong>アクセスログ</strong>: 全てのファイルアクセスをArchive/Logsに記録</li>
+                                    <li><strong>バージョン管理</strong>: 重要ファイルの変更履歴を自動保存</li>
+                                    <li><strong>暗号化</strong>: Confidentialフォルダは暗号化して保存</li>
+                                    <li><strong>容量制限</strong>: 各部署に容量制限を設定し、効率的な使用を促進</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- まとめ -->
+            <div class="bg-white rounded-lg p-6 mb-8 shadow-lg border-l-4 border-indigo-500">
+                <h2 class="text-2xl font-bold text-indigo-800 mb-4">
+                    <i class="fas fa-check-circle mr-2"></i>本日のまとめ
+                </h2>
+
+                <div class="space-y-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-indigo-50 p-4 rounded">
+                            <h3 class="font-semibold text-indigo-700 mb-2">学習した重要概念</h3>
+                            <ul class="text-sm list-disc list-inside space-y-1">
+                                <li>OSの4つの基本機能（プロセス・メモリ・ファイル・I/O管理）</li>
+                                <li>プロセススケジューリングの方式と特徴</li>
+                                <li>仮想メモリとメモリ管理技術</li>
+                                <li>ファイルシステムの構造と機能</li>
+                            </ul>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded">
+                            <h3 class="font-semibold text-green-700 mb-2">実務での活用例</h3>
+                            <ul class="text-sm list-disc list-inside space-y-1">
+                                <li>サーバー監視とパフォーマンスチューニング</li>
+                                <li>システム障害の原因調査と対策</li>
+                                <li>効率的なシステム設計と容量計画</li>
+                                <li>セキュリティ設定とアクセス制御</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 p-4 rounded">
+                        <h3 class="font-semibold text-yellow-700 mb-2">今後の学習につながるポイント</h3>
+                        <p class="text-sm text-gray-700 mb-2">本日学んだOS基礎知識は以下の分野で活用されます：</p>
+                        <ul class="text-sm list-disc list-inside space-y-1">
+                            <li><strong>ネットワーク</strong>：プロセス間通信やネットワークI/O管理</li>
+                            <li><strong>データベース</strong>：メモリ管理とファイルシステムの最適化</li>
+                            <li><strong>セキュリティ</strong>：アクセス制御とプロセス分離</li>
+                            <li><strong>クラウド</strong>：仮想化技術とリソース管理</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded">
+                        <h3 class="font-semibold text-blue-700 mb-2">次回への準備</h3>
+                        <p class="text-sm text-gray-700">次回は「ネットワーク基礎」を学習します。OSがどのようにネットワーク通信を管理しているかという観点で復習しておくと、理解が深まります。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 最終確認チェックリスト -->
+            <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg p-6 shadow-lg">
+                <h2 class="text-2xl font-bold mb-4">
+                    <i class="fas fa-clipboard-check mr-2"></i>最終確認チェックリスト
+                </h2>
+                <p class="mb-4">以下の項目を確認して、学習成果を自己評価してください。</p>
+                
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h3 class="font-semibold mb-2">基本理解</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">OSの役割と必要性を説明できる</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">4つの基本機能を理解し、例を挙げられる</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">スケジューリング方式の違いが分かる</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">仮想メモリの仕組みを理解している</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h3 class="font-semibold mb-2">応用力</h3>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">実務問題にOS知識を応用できる</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">システム設計時の考慮点が分かる</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">パフォーマンス問題の原因を推測できる</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="mr-2">
+                                <span class="text-sm">次の学習分野とのつながりを理解している</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ナビゲーション -->
+            <div class="mt-8 flex justify-between items-center">
+                <a href="day19_lecture.html" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>前日 (Day19)
+                </a>
+                <div class="text-center">
+                    <a href="week4_index.html" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mx-2 transition-colors">Week4一覧</a>
+                    <a href="month2_index.html" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded mx-2 transition-colors">Month2一覧</a>
+                </div>
+                <a href="day21_lecture.html" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded-lg transition-colors">
+                    翌日 (Day21) <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-6 mt-12">
+            <div class="container mx-auto px-4 text-center">
+                <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                <p class="text-sm text-gray-400 mt-2">Day20: オペレーティングシステム基礎 - コンピュータの心臓部を理解する</p>
+            </div>
+        </footer>
+    </div>
+    </main>
+
+    <script>
+        function toggleAnswer(questionId) {
+            const element = document.getElementById(questionId + '-answer');
+            const button = event.target;
+            
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+                element.classList.add('animate-fade-in');
+                button.textContent = '回答を非表示';
+                button.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+                button.classList.add('bg-gray-500', 'hover:bg-gray-600');
+            } else {
+                element.classList.add('hidden');
+                button.textContent = '回答を表示';
+                button.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+                button.classList.add('bg-blue-500', 'hover:bg-blue-600');
+            }
+        }
+
+        // ページ読み込み時のアニメーション
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.bg-white, .gradient-bg, .section-bg, .knowledge-bg, .exercise-bg, .quiz-bg');
+            sections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDs14iY0MMXOWoaeEXGHa%2F%2F8jKeIgrpUWw9rv5Lb53v9Z23MJJyJI9Wmf%2BNdKBLXZkpWhIeuEB6TXB1H%2FpeiQzwPDr5qwZEzl7p%2Fr6P%2FMn5TsEVgi%2BUgAOKZRxKHazMLrmBW%2FI0CHTByhugitwGKz8ibYqhDjhpZccntsIV6uPRTAIJEHE3JuowQsOR9kBR3DMvTAVC3T7FG1OuaNmz6aXvEy42anGR5sTwh0T1kcO3XjdPMqwRWVGmTssRYjOkBjzPHyQmlUYQ23vp3EJUAJf5VVpBGvmaqn%2BuO5BQLhwPC2K4EddDA%2FM5KVeZ%2BFzFUdfwilt5opRqFV4l1L9ke0cbOAsVALszBbXBISKuA%2B8%2BNyHA1i7TTuRwAzfAanH9OTUzF5u3SuHDrQvYG08m22kpdl24MBUGN6YKKbrjngTkXuR3j5B0vEg5lH45%2FT%2FtYrj9%2B%2FX0jRrJQhkczfaHCZQB03iSjt5ub6WeLtC6Bj6T9ptQ7vi1E8yMZe9FjOmlSplDxzJZGaqfO6rmFhhZ4wNfVlMAvwKvpx5dGgO%2B7GWNQG";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDs14iY0MMXOWoaeEXGHa//8jKeIgrpUWw9rv5Lb53v9Z23MJJyJI9Wmf+NdKBLXZkpWhIeuEB6TXB1H/peiQzwPDr5qwZEzl7p/r6P/Mn5TsEVgi+UgAOKZRxKHazMLrmBW/I0CHTByhugitwGKz8ibYqhDjhpZccntsIV6uPRTAIJEHE3JuowQsOR9kBR3DMvTAVC3T7FG1OuaNmz6aXvEy42anGR5sTwh0T1kcO3XjdPMqwRWVGmTssRYjOkBjzPHyQmlUYQ23vp3EJUAJf5VVpBGvmaqn+uO5BQLhwPC2K4EddDA/M5KVeZ+FzFUdfwilt5opRqFV4l1L9ke0cbOAsVALszBbXBISKuA+8+NyHA1i7TTuRwAzfAanH9OTUzF5u3SuHDrQvYG08m22kpdl24MBUGN6YKKbrjngTkXuR3j5B0vEg5lH45/T/tYrj9+/X0jRrJQhkczfaHCZQB03iSjt5ub6WeLtC6Bj6T9ptQ7vi1E8yMZe9FjOmlSplDxzJZGaqfO6rmFhhZ4wNfVlMAvwKvpx5dGgO+7GWNQG";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

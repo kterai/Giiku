@@ -1,5 +1,5 @@
 # ======================================
-# 雲流システム - 本番環境設定
+# 技育システム - 本番環境設定
 # Copyright (c) 2024 株式会社アプサ
 # ======================================
 
@@ -78,12 +78,12 @@ server:
 logging:
   level:
     root: WARN
-    jp.co.apsa.unryu: INFO
+    jp.co.apsa.giiku: INFO
     org.springframework.security: WARN
     org.hibernate: WARN
     org.flywaydb: INFO
   file:
-    name: /var/log/unryu/application.log
+    name: /var/log/giiku/application.log
   logback:
     rollingpolicy:
       max-file-size: 100MB
@@ -97,11 +97,11 @@ audit:
   retention:
     days: 730
 
-# 雲流システム設定（本番環境）
-unryu:
+# 技育システム設定（本番環境）
+giiku:
   # ファイル設定
   file:
-    upload-dir: ${UPLOAD_DIR:/var/unryu/uploads}
+    upload-dir: ${UPLOAD_DIR:/var/giiku/uploads}
     
   # Slack通知（本番環境）
   slack:

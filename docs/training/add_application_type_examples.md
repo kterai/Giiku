@@ -10,7 +10,7 @@
 
 1. 申請種別マスタへ `OvertimeRequest` を登録し、コードに `OT` を割り当てます。
 2. 承認ルートを 2 ステップで設定し、最初に所属長、次に総務部が承認する流れとします。
-3. `jp.co.apsa.unryu.domain.entity` 配下に `OvertimeRequestDetails` を作成し、残業理由や時間を保持できるようにします。
+3. `jp.co.apsa.giiku.domain.entity` 配下に `OvertimeRequestDetails` を作成し、残業理由や時間を保持できるようにします。
 4. `OvertimeRequestService` を実装し、申請作成から承認までを扱えるようにします。
 5. `ApplicationNumber` の `isValidTypeCode` と `getTypeName` に `OT` を追加します。
 

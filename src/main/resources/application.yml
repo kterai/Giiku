@@ -1,11 +1,11 @@
 # ======================================
-# 雲流システム - Spring Boot基本設定
+# 技育システム - Spring Boot基本設定
 # Copyright (c) 2024 株式会社アプサ
 # ======================================
 
 spring:
   application:
-    name: unryu
+    name: giiku
   
   # プロファイル設定
   profiles:
@@ -13,7 +13,7 @@ spring:
   
   # データソース基本設定
   datasource:
-    url: jdbc:postgresql://localhost:5432/unryu_db
+    url: jdbc:postgresql://localhost:5432/giiku_db
     username: ${DATABASE_USERNAME:postgres}
     password: ${DATABASE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
@@ -108,7 +108,7 @@ server:
 logging:
   config: classpath:logback-spring.xml
   level:
-    jp.co.apsa.unryu: INFO
+    jp.co.apsa.giiku: INFO
     org.springframework.security: WARN
     org.hibernate: WARN
     org.flywaydb: INFO
@@ -129,8 +129,8 @@ audit:
   retention:
     days: 365
 
-# 雲流システム独自設定
-unryu:
+# 技育システム独自設定
+giiku:
   # ファイル保存設定
   file:
     upload-dir: ${UPLOAD_DIR:./uploads}
@@ -157,7 +157,7 @@ unryu:
     
   # JWT設定
   jwt:
-    secret: ${JWT_SECRET:unryu-secret-key-change-in-production}
+    secret: ${JWT_SECRET:giiku-secret-key-change-in-production}
     expiration: 86400 # 24時間
 
 # Management/Actuator設定

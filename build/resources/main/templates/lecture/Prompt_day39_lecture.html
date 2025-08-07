@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 39 講義プロンプト: レスポンシブデザイン・Bootstrap完全マスター</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .code-block {
+            background-color: #1a202c;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+        .prompt-section {
+            border-left: 4px solid #3b82f6;
+            padding-left: 1rem;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
+    
+    <div class="max-w-6xl mx-auto p-6">
+        
+        <!-- ヘッダー -->
+        <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-8 rounded-lg shadow-lg mb-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold mb-4">
+                    <i class="fas fa-mobile-alt mr-3"></i>
+                    Day 39: レスポンシブデザイン・Bootstrap完全マスター
+                </h1>
+                <p class="text-lg opacity-90">講義ページ生成用プロンプト指示書</p>
+                <div class="mt-4 text-sm bg-blue-800 bg-opacity-50 inline-block px-4 py-2 rounded">
+                    <i class="fas fa-calendar-day mr-2"></i>第9週第3日目 - フロントエンド基礎
+                </div>
+            </div>
+        </header>
+
+        <!-- プロジェクト概要 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-700">
+                <i class="fas fa-project-diagram mr-2"></i>プロジェクト名
+            </h2>
+            <div class="prompt-section">
+                <p class="text-lg font-semibold text-green-700">ITエンジニア育成カリキュラム - Day39: レスポンシブデザイン・Bootstrap完全マスター</p>
+                <p class="mt-2">以下の指示に従って、<code class="bg-gray-200 px-2 py-1 rounded">Traini../lecture/day39_lecture.html</code> を生成してください。</p>
+            </div>
+        </section>
+
+        <!-- 重要な改善指針 -->
+        <section class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-red-700">
+                <i class="fas fa-exclamation-triangle mr-2"></i>重要な改善指針
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold mb-3 text-blue-600">
+                        <i class="fas fa-desktop mr-2"></i>レスポンシブWebデザイン特化
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>モバイルファースト</strong>設計思想の解説</li>
+                        <li><strong>メディアクエリ</strong>の実践的活用方法</li>
+                        <li><strong>フレキシブルグリッド</strong>システムの構築</li>
+                        <li><strong>画像の最適化</strong>とレスポンシブ対応</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold mb-3 text-purple-600">
+                        <i class="fas fa-layer-group mr-2"></i>Bootstrap フレームワーク習得
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>グリッドシステム</strong>の完全理解</li>
+                        <li><strong>コンポーネント</strong>の効果的活用</li>
+                        <li><strong>ユーティリティクラス</strong>による効率化</li>
+                        <li><strong>カスタマイズ</strong>技法の習得</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-white p-4 rounded-lg shadow">
+                <h3 class="text-lg font-bold mb-3 text-green-600">
+                    <i class="fas fa-lightbulb mr-2"></i>実践・演習重視
+                </h3>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li><strong>段階的なハンズオン</strong>形式で構成</li>
+                    <li><strong>実用的なレイアウト</strong>を複数実装</li>
+                    <li><strong>ブレークポイント</strong>設計の実践指導</li>
+                    <li><strong>ベストプラクティス</strong>の具体例提示</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 参照ファイル -->
+        <section class="bg-yellow-50 border-l-4 border-yellow-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-yellow-700">
+                <i class="fas fa-folder-open mr-2"></i>参照ファイル
+            </h2>
+            <ul class="list-disc pl-5 space-y-2">
+                <li><code class="bg-gray-200 px-2 py-1 rounded">Traini../day/day39.html</code></li>
+                <li><code class="bg-gray-200 px-2 py-1 rounded">Traini../lecture/Template_dayX_lecture.html</code></li>
+            </ul>
+        </section>
+
+        <!-- 学習目標 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-700">
+                <i class="fas fa-target mr-2"></i>本日の学習目標
+            </h2>
+            <ul class="list-disc pl-5 space-y-2">
+                <li>レスポンシブデザインの<strong>基本原理</strong>（フルードグリッド・メディアクエリ・フレキシブルメディア）を理解する</li>
+                <li>Bootstrapグリッドシステムを使った<strong>レスポンシブレイアウト</strong>を構築できる</li>
+                <li>Bootstrap コンポーネントを活用した<strong>モダンなUI</strong>を実装できる</li>
+                <li>モバイルファースト設計で<strong>全デバイス対応</strong>のWebサイトを作成できる</li>
+            </ul>
+        </section>
+
+        <!-- 達成基準 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-green-700">
+                <i class="fas fa-check-circle mr-2"></i>達成基準
+            </h2>
+            <ul class="list-disc pl-5 space-y-2">
+                <li>メディアクエリを使った<strong>ブレークポイント設計</strong>ができる</li>
+                <li>Bootstrapグリッドシステムで<strong>複雑なレイアウト</strong>を構築できる</li>
+                <li>コンポーネントをカスタマイズした<strong>独自デザイン</strong>を実装できる</li>
+                <li>パフォーマンスを考慮した<strong>最適化技術</strong>を適用できる</li>
+            </ul>
+        </section>
+
+        <!-- 講義構成 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-700">
+                <i class="fas fa-list-ol mr-2"></i>講義構成（詳細指針）
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <h3 class="text-lg font-bold mb-2">1. レスポンシブデザインの基礎理論</h3>
+                    <p class="mb-2"><strong>具体例重視：</strong></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>モバイルファースト設計の<strong>具体的な実装例</strong></li>
+                        <li>メディアクエリの<strong>効果的なブレークポイント設定</strong></li>
+                        <li>フルードグリッドの<strong>計算方法と実践</strong></li>
+                    </ul>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-4">
+                    <h3 class="text-lg font-bold mb-2">2. Bootstrap グリッドシステム完全習得</h3>
+                    <p class="mb-2"><strong>⚠️ 必須改良事項：</strong></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>12カラムシステム：</strong>「なぜ12なのか」を数学的根拠で説明</li>
+                        <li><strong>ブレークポイント：</strong>「xs, sm, md, lg, xl, xxl」の使い分け実例</li>
+                        <li><strong>ネスト：</strong>「グリッド内グリッド」の実践パターン</li>
+                    </ul>
+                </div>
+
+                <div class="border-l-4 border-purple-500 pl-4">
+                    <h3 class="text-lg font-bold mb-2">3. Bootstrap コンポーネント実践活用</h3>
+                    <p class="mb-2"><strong>🔧 実践重視：</strong></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>ナビゲーション：</strong>「Navbar vs Nav」の適切な選択</li>
+                        <li><strong>カード・モーダル：</strong>「動的コンテンツ」への対応</li>
+                        <li><strong>フォーム：</strong>「バリデーション」との連携実装</li>
+                    </ul>
+                </div>
+
+                <div class="border-l-4 border-red-500 pl-4">
+                    <h3 class="text-lg font-bold mb-2">4. カスタマイズとベストプラクティス</h3>
+                    <p class="mb-2"><strong>💡 高度テクニック：</strong></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>CSS変数：</strong>「Bootstrap 5のカスタムプロパティ」活用</li>
+                        <li><strong>Sassカスタマイズ：</strong>「変数オーバーライド」の実装</li>
+                        <li><strong>パフォーマンス：</strong>「必要なコンポーネントのみ」の最適化</li>
+                    </ul>
+                </div>
+
+                <div class="border-l-4 border-yellow-500 pl-4">
+                    <h3 class="text-lg font-bold mb-2">5. 実践プロジェクト開発</h3>
+                    <p class="mb-2"><strong>🌐 実用性重視：</strong></p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>ランディングページ：</strong>完全レスポンシブなマーケティングサイト</li>
+                        <li><strong>ダッシュボード：</strong>管理画面レイアウトの実装</li>
+                        <li><strong>Eコマース：</strong>商品一覧・詳細ページの構築</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 演習問題・クイズ仕様 -->
+        <section class="bg-gray-100 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-gray-700">
+                <i class="fas fa-clipboard-check mr-2"></i>演習問題・理解度クイズ（表示仕様）
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold mb-3 text-blue-600">
+                        <i class="fas fa-code mr-2"></i>演習問題
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>問題文：<strong>常に表示</strong></li>
+                        <li>回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+                        <li>詳細解説を削減しないよう注意</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold mb-3 text-green-600">
+                        <i class="fas fa-brain mr-2"></i>理解度クイズ
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>問題・選択肢：<strong>常に表示</strong></li>
+                        <li>正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+                        <li>JavaScript showAnswer()関数を実装</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 専門用語説明指針 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-purple-700">
+                <i class="fas fa-book mr-2"></i>専門用語の説明強化指針
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <h3 class="font-bold mb-2">1. 初出時の詳細説明</h3>
+                    <div class="code-block">
+                        <code>
+「Bootstrap（ブートストラップ - レスポンシブWebサイトを効率的に構築するためのCSSフレームワーク）では...」
+                        </code>
+                    </div>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-4">
+                    <h3 class="font-bold mb-2">2. 日常例・比喩の活用</h3>
+                    <div class="code-block">
+                        <code>
+「グリッドシステムは、新聞のレイアウトのように、ページを規則的な列に分割してコンテンツを配置する仕組みです」
+                        </code>
+                    </div>
+                </div>
+
+                <div class="border-l-4 border-purple-500 pl-4">
+                    <h3 class="font-bold mb-2">3. 理由・背景の説明</h3>
+                    <div class="code-block">
+                        <code>
+「なぜモバイルファーストなのかというと、スマートフォンのアクセスが全体の50%以上を占める現代では、小さな画面から設計する方が効率的だからです」
+                        </code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技術仕様 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-700">
+                <i class="fas fa-cogs mr-2"></i>共通仕様
+            </h2>
+            <ul class="list-disc pl-5 space-y-2">
+                <li>HTML5 / lang="ja" / UTF-8</li>
+                <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                <li>Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                <li>レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                <li>コードブロックは <code>&lt;pre&gt;&lt;code class="language-css"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                <li>開発環境として Visual Studio Code + Chrome DevTools を記載</li>
+                <li>フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+            </ul>
+        </section>
+
+        <!-- 分かりやすさチェックリスト -->
+        <section class="bg-green-50 border-l-4 border-green-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-green-700">
+                <i class="fas fa-check-double mr-2"></i>分かりやすさチェックリスト
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-bold mb-3 text-blue-600">
+                        <i class="fas fa-code mr-2"></i>コード・実装例
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>コード例は段階的に複雑化</li>
+                        <li>Before/After の比較を併記</li>
+                        <li>レスポンシブの動作を図解で視覚化</li>
+                        <li>デバッグ方法を具体的に説明</li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold mb-3 text-green-600">
+                        <i class="fas fa-file-alt mr-2"></i>文章・説明
+                    </h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li>専門用語は必ず日本語説明を併記</li>
+                        <li>「なぜ」の理由を必ず説明</li>
+                        <li>実用例・比喩を積極活用</li>
+                        <li>まとめは具体的なメリットを明示</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 出力形式 -->
+        <section class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-red-700">
+                <i class="fas fa-file-export mr-2"></i>出力形式
+            </h2>
+            <div class="bg-white p-4 rounded-lg">
+                <p class="text-lg font-semibold text-red-600 mb-3">⚠️ 重要事項：</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                    <li>特に「Bootstrap グリッドシステム」は<strong>必ず実践例付きで詳細解説</strong>すること</li>
+                    <li>専門用語の初出時は<strong>日本語説明を併記</strong>すること</li>
+                    <li>コード例は<strong>段階的に複雑化</strong>させること</li>
+                    <li>HTMLの見やすさと詳細な解説を<strong>両立</strong>すること</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- フッター -->
+        <footer class="text-center py-8 border-t border-gray-200 text-gray-600">
+            <p><i class="fas fa-copyright mr-2"></i>© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            <p class="mt-2 text-sm">ITエンジニア育成カリキュラム - プロンプト指示書</p>
+        </footer>
+        
+    </div>
+
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDuXxkCjjCLQMCQM0jHqD%2BPbP1DRY8QMDbza6Jf%2FI8DrZFCySB3j9tREKuzH8bed6TH8lMDVjfuR0DYNjQIMdzIxn87%2Fo1JjVHC9U0Vq31nWzWmiemCpGdIrV6%2BCiFbM3fzQP4NsPzdxhJ%2FbotAU0k%2BL%2F6btVUZwE35xyJ4aQjDKVFuiZNmzPMk8oFGL9ly1wXpwZlPJ%2B54BeOf8iZDU4ZRaHNvIsZxiTfbVswci%2BZcduC7NmvD%2Fklqeqb6SPNnRGZvZP%2BircJOc3wdVNcHgqFfVKTSmr1Dr5Qjazr87jmGNZC38jI3WOZHL1s3M1cWJtQ6iVcWggz78CGqv0rhHaYLxpnCKPrTq251k3EvXmDfNcohK%2FivyDN5t9UERCJ9WhBahtHZ%2BAR9HiJQ73fkM1BkEesb9Fb35IFecMofVtJ7%2FSrOHR4QZAWHyMLLrt98vTgVrC8F%2F4qWzPgLP21MBCpCB9Zbv0if1IkL8DgVuukKhOoDe7teCepfQqDnAb2Dl0wMMc%2BiubykDdMxSij%2BxiKpU%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDuXxkCjjCLQMCQM0jHqD+PbP1DRY8QMDbza6Jf/I8DrZFCySB3j9tREKuzH8bed6TH8lMDVjfuR0DYNjQIMdzIxn87/o1JjVHC9U0Vq31nWzWmiemCpGdIrV6+CiFbM3fzQP4NsPzdxhJ/botAU0k+L/6btVUZwE35xyJ4aQjDKVFuiZNmzPMk8oFGL9ly1wXpwZlPJ+54BeOf8iZDU4ZRaHNvIsZxiTfbVswci+ZcduC7NmvD/klqeqb6SPNnRGZvZP+ircJOc3wdVNcHgqFfVKTSmr1Dr5Qjazr87jmGNZC38jI3WOZHL1s3M1cWJtQ6iVcWggz78CGqv0rhHaYLxpnCKPrTq251k3EvXmDfNcohK/ivyDN5t9UERCJ9WhBahtHZ+AR9HiJQ73fkM1BkEesb9Fb35IFecMofVtJ7/SrOHR4QZAWHyMLLrt98vTgVrC8F/4qWzPgLP21MBCpCB9Zbv0if1IkL8DgVuukKhOoDe7teCepfQqDnAb2Dl0wMMc+iubykDdMxSij+xiKpU=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

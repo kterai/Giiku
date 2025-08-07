@@ -4,7 +4,7 @@ services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_DB: unryu_db_autotest
+      POSTGRES_DB: giiku_db_autotest
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
@@ -16,7 +16,7 @@ services:
     build: .
     environment:
       SPRING_PROFILES_ACTIVE: autotest
-      DATABASE_URL: jdbc:postgresql://db:5432/unryu_db_autotest
+      DATABASE_URL: jdbc:postgresql://db:5432/giiku_db_autotest
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: postgres
     ports:

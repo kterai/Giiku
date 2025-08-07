@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 5: Java Silver模擬テスト①・週次総合テスト | ITエンジニア育成カリキュラム</title>
+    <!-- Bootstrap CSS -->
+    <link href="../css/lib/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/lib/bootstrap-icons.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #6c757d;
+            --accent-color: #ffc107;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #0056b3 0%, #00408c 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            border-left: 5px solid var(--primary-color);
+            padding-left: 15px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            border: none;
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            border: none;
+        }
+        
+        .time-label {
+            font-weight: bold;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.2rem;
+        }
+        
+        .learning-item {
+            background-color: white;
+            border-left: 3px solid var(--primary-color);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+        
+        .progress-card {
+            border: none;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 1rem 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .checklist-item input {
+            margin-right: 10px;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-logo img {
+            height: 30px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links h5 {
+            color: var(--accent-color);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0.5rem 0;
+        }
+        
+         {
+            .navbar, .breadcrumb, footer, .progress-section {
+                display: none;
+            }
+            
+            body {
+                background-color: white;
+            }
+            
+            .card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            @page {
+                margin: 1cm;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .hero-section {
+                padding: 2rem 0;
+            }
+            
+            .navbar-brand img {
+                height: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script defer src="../js/day-navigation.js"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <img src="../images/logo/apsa_logo.png" alt="APSA Logo" class="img-fluid">
+                ITエンジニア育成カリキュラム
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="monthDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="monthDropdown">
+                            <li><a class="dropdown-item" href="../month/month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="../month/month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="weekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="weekDropdown">
+                            <li><a class="dropdown-item" href="../week/week1.html">第1週: Java基礎</a></li>
+                            <li><a class="dropdown-item" href="../week/week2.html">第2週: オブジェクト指向</a></li>
+                            <li><a class="dropdown-item" href="../week/week3.html">第3週: Java応用</a></li>
+                            <li><a class="dropdown-item" href="../week/week4.html">第4週: 総仕上げ</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../resources/resources.html">学習リソース</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../resources/faq.html">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../index.html">ホーム</a></li>
+                <li class="breadcrumb-item"><a href="../month/month1.html">第1ヶ月目</a></li>
+                <li class="breadcrumb-item"><a href="../week/week1.html">第1週</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Day 5</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-5 fw-bold">Day 5: Java Silver模擬テスト①・週次総合テスト</h1>
+            <p class="lead">第1週の学習内容の理解度確認と弱点の洗い出し</p>
+        </div>
+    </section>
+    <div class="container mb-3 text-end">
+        <a href="../lecture/day5_lecture.html" target="_blank" class="btn btn-warning">
+            講義スライドを開く
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- 学習目標 -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">学習目標</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul class="mb-0">
+                            <li>第1週の学習内容の理解度を客観的に評価する</li>
+                            <li>Java Silver試験形式に慣れる</li>
+                            <li>個人の弱点を特定し、重点的に復習する</li>
+                            <li>第2週に向けた学習計画を立てる</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 達成基準 -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">達成基準</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul class="mb-0">
+                            <li>模擬テストで70%以上の正答率を達成</li>
+                            <li>弱点分野を3つ以内に絞り込む</li>
+                            <li>復習計画を具体的に作成する</li>
+                            <li>第2週の学習に対する準備が整う</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 詳細スケジュール -->
+                <h2 class="section-title h3 mt-5 mb-4">詳細スケジュール</h2>
+                
+                <div class="schedule-item mb-4">
+                    <div class="time-label">10:00-10:15 オリエンテーション・前日復習</div>
+                    <div class="learning-item">
+                        <p>前日までの学習内容の振り返り、本日のテスト概要説明</p>
+                        <ul>
+                            <li>基本データ型と変数の復習</li>
+                            <li>演算子と式の優先順位の確認</li>
+                            <li>制御構文の基本的な使い方</li>
+                            <li>配列の操作方法</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="schedule-item mb-4">
+                    <div class="time-label">10:15-11:45 Java Silver模擬テスト（第1部）</div>
+                    <div class="learning-item">
+                        <p class="fw-bold">Java基礎・変数・演算子・制御構文の理解度確認（30問）</p>
+                        <div class="alert alert-warning">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            <strong>重要:</strong> 本試験形式での実施
+                        </div>
+                        <p>テスト内容:</p>
+                        <ul>
+                            <li>基本構文と変数の宣言</li>
+                            <li>基本データ型と参照型</li>
+                            <li>演算子と式の評価</li>
+                            <li>制御構文（if-else, switch, for, while）</li>
+                            <li>配列の宣言と操作</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="schedule-item mb-4">
+                    <div class="time-label">11:45-12:45 昼休憩</div>
+                    <div class="learning-item">
+                        <p>休憩時間です。昼食をとり、リフレッシュしましょう。</p>
+                    </div>
+                </div>
+                
+                <div class="schedule-item mb-4">
+                    <div class="time-label">12:45-14:15 テスト解説・解答分析</div>
+                    <div class="learning-item">
+                        <p>問題解説、正答率分析、よくある間違いの解説</p>
+                        <ul>
+                            <li>各設問の解説と正解の導き方</li>
+                            <li>間違いやすいポイントの確認</li>
+                            <li>全体傾向の分析と弱点分野の特定</li>
+                            <li>個人別の成績分析</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="schedule-item mb-4">
+                    <div class="time-label">14:15-15:10 配列・アルゴリズム総合演習</div>
+                    <div class="learning-item">
+                        <p>配列操作、基本アルゴリズムの実践問題</p>
+                        <ul>
+                            <li>多次元配列の操作演習</li>
+                            <li>配列を使ったソートアルゴリズムの実装</li>
+                            <li>探索アルゴリズム（線形探索、二分探索）の実装</li>
+                            <li>実践的な問題解決演習</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="schedule-item mb-4">
+                    <div class="time-label">15:10-16:00 弱点分析・個別復習</div>
+                    <div class="learning-item">
+                        <p>個人の弱点分野の特定と重点復習</p>
+                        <ul>
+                            <li>テスト結果からの弱点抽出</li>
+                            <li>弱点分野に焦点を当てた追加問題</li>
+                            <li>個別の質問対応</li>
+                            <li>復習リソースの紹介</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="schedule-item mb-4">
+                    <div class="time-label">16:00-16:30 第1週総復習・まとめ</div>
+                    <div class="learning-item">
+                        <p>重要ポイントの再確認、知識の整理</p>
+                        <ul>
+                            <li>Java基礎文法の重要ポイント総まとめ</li>
+                            <li>変数と型変換のルール</li>
+                            <li>制御構文のベストプラクティス</li>
+                            <li>配列とアルゴリズムの基礎</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="schedule-item mb-4">
+                    <div class="time-label">16:30-17:00 第2週学習計画作成</div>
+                    <div class="learning-item">
+                        <p>オブジェクト指向に向けた学習計画立案</p>
+                        <ul>
+                            <li>第2週の学習内容の概要説明</li>
+                            <li>弱点を考慮した個別学習計画の作成</li>
+                            <li>予習すべき内容の確認</li>
+                            <li>推奨学習リソースの案内</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="schedule-item mb-4">
+                    <div class="time-label">17:00-17:45 総評・質疑応答・第2週への準備</div>
+                    <div class="learning-item">
+                        <p>1週間の振り返り、質疑応答、次週への準備</p>
+                        <ul>
+                            <li>第1週の達成度と全体評価</li>
+                            <li>最終質問対応</li>
+                            <li>第2週の予習のアドバイス</li>
+                            <li>学習モチベーションの維持</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 模擬テスト概要 -->
+                <div class="card mb-4 mt-5">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="h5 mb-0">Java Silver模擬テスト概要</h2>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="h6 mb-3">テスト構成</h3>
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <div class="card h-100 bg-light">
+                                    <div class="card-body text-center">
+                                        <h4 class="h6">問題数</h4>
+                                        <p class="display-6 mb-0">30問</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card h-100 bg-light">
+                                    <div class="card-body text-center">
+                                        <h4 class="h6">制限時間</h4>
+                                        <p class="display-6 mb-0">45分</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card h-100 bg-light">
+                                    <div class="card-body text-center">
+                                        <h4 class="h6">合格基準</h4>
+                                        <p class="display-6 mb-0">70%以上</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="card h-100 bg-light">
+                                    <div class="card-body text-center">
+                                        <h4 class="h6">形式</h4>
+                                        <p class="display-6 mb-0">選択式</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 class="h6 mt-4 mb-3">出題範囲</h3>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h4 class="h6">Java基本構文</h4>
+                                        <div class="progress mb-2">
+                                            <div class="progress-bar" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">20%</div>
+                                        </div>
+                                        <p class="small mb-0">基本構文、プログラム構造、パッケージ</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h4 class="h6">変数・データ型</h4>
+                                        <div class="progress mb-2">
+                                            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                        </div>
+                                        <p class="small mb-0">基本型、参照型、型変換、演算子</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h4 class="h6">演算子</h4>
+                                        <div class="progress mb-2">
+                                            <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
+                                        </div>
+                                        <p class="small mb-0">算術、関係、論理、代入演算子</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h4 class="h6">制御構文</h4>
+                                        <div class="progress mb-2">
+                                            <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                                        </div>
+                                        <p class="small mb-0">条件分岐、ループ、switch文</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h4 class="h6">配列・基本アルゴリズム</h4>
+                                        <div class="progress mb-2">
+                                            <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
+                                        </div>
+                                        <p class="small mb-0">配列操作、多次元配列、アルゴリズム</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 理解度確認項目 -->
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">理解度確認項目</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-lg-6">
+                                <h3 class="h6 mb-3">基本レベル</h3>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="basic1">
+                                    <label for="basic1">Javaの基本構文を理解している</label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="basic2">
+                                    <label for="basic2">変数の宣言と初期化ができる</label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="basic3">
+                                    <label for="basic3">基本的な演算子を使用できる</label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="basic4">
+                                    <label for="basic4">条件分岐（if-else）を記述できる</label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="basic5">
+                                    <label for="basic5">繰り返し処理（for, while）を記述できる</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <h3 class="h6 mb-3">応用レベル</h3>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="adv1">
+                                    <label for="adv1">配列の操作ができる</label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="adv2">
+                                    <label for="adv2">多次元配列を使用できる</label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="adv3">
+                                    <label for="adv3">基本的なソートアルゴリズムを実装できる</label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="adv4">
+                                    <label for="adv4">探索アルゴリズムを実装できる</label>
+                                </div>
+                                <div class="checklist-item">
+                                    <input type="checkbox" id="adv5">
+                                    <label for="adv5">複雑な問題を分解して解決できる</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 次のステップ -->
+                <div class="card mb-5">
+                    <div class="card-header bg-success text-white">
+                        <h2 class="h5 mb-0">次のステップ</h2>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="h5">第2週: オブジェクト指向プログラミング</h3>
+                        <p>第1週で学んだJavaの基礎知識をもとに、オブジェクト指向プログラミングの概念と実装方法を学びます。クラス、オブジェクト、カプセル化、継承、ポリモーフィズムなどの重要な概念を理解し、実践的なプログラムを作成できるようになります。</p>
+                        <a href="../week/week2.html" class="btn btn-primary mt-2">第2週の詳細を見る</a>
+                    </div>
+                </div>
+                
+                <!-- フィードバックフォーム -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="h5 mb-0">フィードバック</h2>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="feedback" class="form-label">このページの内容についてフィードバックをお寄せください</label>
+                                <textarea class="form-control" id="feedback" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">送信</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- サイドバー -->
+            <div class="col-lg-4">
+                <!-- 進捗状況 -->
+                <div class="card mb-4 progress-card">
+                    <div class="card-header">
+                        <h3 class="h5 mb-0">第1週進捗状況</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress mb-3">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">5/5 完了</div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="progressChart"></canvas>
+                        </div>
+                        
+                        <h4 class="h6 mt-4">日別進捗</h4>
+                        <div class="list-group mt-3">
+                            <a href="day1.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Day 1: オリエンテーション・Java概要
+                                <span class="badge bg-success rounded-pill">完了</span>
+                            </a>
+                            <a href="day2.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Day 2: Java基本型・変数・演算子
+                                <span class="badge bg-success rounded-pill">完了</span>
+                            </a>
+                            <a href="day3.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Day 3: 制御構文・配列
+                                <span class="badge bg-success rounded-pill">完了</span>
+                            </a>
+                            <a href="day4.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Day 4: 配列応用・アルゴリズム基礎
+                                <span class="badge bg-success rounded-pill">完了</span>
+                            </a>
+                            <a href="day5.html" class="list-group-item list-group-item-action active d-flex justify-content-between align-items-center">
+                                Day 5: Java Silver模擬テスト①・週次総合テスト
+                                <span class="badge bg-light text-dark rounded-pill">今日</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 学習リソース -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="h5 mb-0">学習リソース</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            <a href="https://docs.oracle.com/javase/tutorial/" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center">
+                                <i class="bi bi-book me-2"></i>
+                                Oracle Java チュートリアル
+                            </a>
+                            <a href="https://www.oracle.com/java/technologies/javase-downloads.html" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center">
+                                <i class="bi bi-download me-2"></i>
+                                JDK ダウンロード
+                            </a>
+                            <a href="https://www.jetbrains.com/idea/download/" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center">
+                                <i class="bi bi-code-square me-2"></i>
+                                IntelliJ IDEA
+                            </a>
+                            <a href="https://www.hackerrank.com/domains/java" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center">
+                                <i class="bi bi-code me-2"></i>
+                                HackerRank Java 練習問題
+                            </a>
+                            <a href="../resources/resources.html" class="list-group-item list-group-item-action d-flex align-items-center">
+                                <i class="bi bi-list-ul me-2"></i>
+                                すべてのリソースを見る
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ナビゲーション -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="h5 mb-0">ナビゲーション</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <a href="day4.html" class="btn btn-outline-primary">
+                                <i class="bi bi-arrow-left"></i> 前の日: 配列応用・アルゴリズム基礎
+                            </a>
+                            <a href="../week/week2.html" class="btn btn-outline-primary">
+                                次の週: オブジェクト指向プログラミング <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 印刷 -->
+                <div class="d-grid">
+                    <button class="btn btn-secondary" onclick="window.print()">
+                        <i class="bi bi-printer"></i> このページを印刷
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white mt-5 pt-5 pb-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="footer-logo">
+                        <img src="../images/logo/apsa_logo.png" alt="APSA Logo" class="img-fluid">
+                    </div>
+                    <p>ITエンジニア育成のための総合的なカリキュラムを提供します。Java Silver、基本情報技術者、Webアプリ開発までを3ヶ月で習得。</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5 class="mb-3">カリキュラム</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../month/month1.html">第1ヶ月目</a></li>
+                        <li><a href="../month/month2.html">第2ヶ月目</a></li>
+                        <li><a href="../month/month3.html">第3ヶ月目</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5 class="mb-3">リソース</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../resources/resources.html">学習リソース</a></li>
+                        <li><a href="../resources/faq.html">よくある質問</a></li>
+                        <li><a href="../resources/advanced.html">応用コース</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 class="mb-3">お問い合わせ</h5>
+                    <p>カリキュラムについてのご質問やお問い合わせは下記までご連絡ください。</p>
+                    <p><i class="bi bi-envelope me-2"></i> contact@apsa.co.jp</p>
+                    <p><i class="bi bi-telephone me-2"></i> 03-XXXX-XXXX</p>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/bootstrap.bundle.min.js"></script>
+    <script src="../js/lib/chart.umd.min.js"></script>
+    
+    <script>
+        // 進捗グラフの初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            const progressChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['完了', '残り'],
+                    datasets: [{
+                        data: [5, 0],
+                        backgroundColor: [
+                            '#28a745',
+                            '#e9ecef'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        title: {
+                            display: true,
+                            text: '第1週の進捗状況',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // チェックボックスのイベントリスナー
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    // ローカルストレージに保存するなどの処理を追加可能
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDug5do4YqcSb7y70TXcSgxfry3%2B7rEpCsHk3OyynJth0foT%2Fkr80Ait7aJx8AM2tZieMTQ4A59GpXZGolknoh8YGq7s4l26LSL2ufm8%2BkhP2FcblqdH9buIHz6PvSFQIAsAecWH%2BGUdAYomCunkcbbDA4yqDeKoPmzn6zATWpDaNZ90hZb4AWUXnSy8S2X%2BC4cciEo5d2JTKauurEfmwJVTBExVDKQ4tWEp44NzNnnPjNNrs0BBc6icaQgNHFegtiXQPme%2BbPAyQG1By%2FH8QH%2BXe6WDi61rbQxa95hDDd6xH1mZ%2F2yBw6ExK35P1uYBSvIGsYAPiYQ7K8OnG0vS0L9Gj1rPqClT1ohh87EH2UQ0HvKIMKklm%2BvNT29qvkCjjZ%2FTyLUHupu1lQObBF1um7T3Ip24swihn7T2MlzByRuGE13%2B1wMI9QbzjK6X9aQtpuakKgr8vP68WKZn5LWXsDsPENRoGk24gvce%2B6hoUfNg2";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDug5do4YqcSb7y70TXcSgxfry3+7rEpCsHk3OyynJth0foT/kr80Ait7aJx8AM2tZieMTQ4A59GpXZGolknoh8YGq7s4l26LSL2ufm8+khP2FcblqdH9buIHz6PvSFQIAsAecWH+GUdAYomCunkcbbDA4yqDeKoPmzn6zATWpDaNZ90hZb4AWUXnSy8S2X+C4cciEo5d2JTKauurEfmwJVTBExVDKQ4tWEp44NzNnnPjNNrs0BBc6icaQgNHFegtiXQPme+bPAyQG1By/H8QH+Xe6WDi61rbQxa95hDDd6xH1mZ/2yBw6ExK35P1uYBSvIGsYAPiYQ7K8OnG0vS0L9Gj1rPqClT1ohh87EH2UQ0HvKIMKklm+vNT29qvkCjjZ/TyLUHupu1lQObBF1um7T3Ip24swihn7T2MlzByRuGE13+1wMI9QbzjK6X9aQtpuakKgr8vP68WKZn5LWXsDsPENRoGk24gvce+6hoUfNg2";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

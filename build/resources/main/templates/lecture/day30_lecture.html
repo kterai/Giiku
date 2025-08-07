@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day30: 総復習と模擬テスト⑤ - ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .improvement-box {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-left: 5px solid #06b6d4;
+        }
+        .teaching-tips {
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d3 100%);
+            border-left: 5px solid #10b981;
+        }
+        .understanding-support {
+            background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+            border-left: 5px solid #3b82f6;
+        }
+        .code-block {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .quiz-container {
+            background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 100%);
+            border-left: 5px solid #f59e0b;
+        }
+        .mock-test {
+            background: linear-gradient(135deg, #ddd6fe 0%, #a78bfa 100%);
+            border-left: 5px solid #8b5cf6;
+        }
+        .review-section {
+            background: linear-gradient(135deg, #d1fae5 0%, #6ee7b7 100%);
+            border-left: 5px solid #10b981;
+        }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <!-- メインナビゲーションバー -->
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day29_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day31_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month2.html" class="hover:text-blue-600">2ヶ月目: 基本情報</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week7.html" class="hover:text-blue-600">7週目: アルゴリズム・セキュリティ・マネジメント</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">30日目: 総復習と模擬テスト⑤</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day30.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32">
+    <div class="container mx-auto max-w-6xl px-4 py-8">
+        <!-- Header -->
+        <header class="gradient-bg text-white rounded-lg p-8 mb-8 shadow-lg">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold mb-4">
+                    <i class="fas fa-graduation-cap mr-3"></i>
+                    Day30: 総復習と模擬テスト⑤
+                </h1>
+                <p class="text-xl opacity-90 mb-4">
+                    基本情報技術者試験対策 - 全範囲総復習・弱点補強
+                </p>
+                <div class="flex justify-center space-x-4 text-sm">
+                      <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">
+                          <i class="fas fa-calendar mr-2"></i>第7週・2日目
+                      </span>
+                    <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">
+                        <i class="fas fa-clock mr-2"></i>学習時間: 8時間
+                    </span>
+                    <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full">
+                        <i class="fas fa-star mr-2"></i>難易度: 総合
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-map mr-2 text-blue-600"></i>本日の学習コンテンツ
+            </h2>
+            <div class="grid md:grid-cols-4 gap-4">
+                <a href="#engineer-knowledge" class="block p-4 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                    <i class="fas fa-lightbulb text-blue-600 mb-2"></i>
+                    <h3 class="font-semibold text-blue-800">ITエンジニア豆知識</h3>
+                </a>
+                <a href="#comprehensive-review" class="block p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+                    <i class="fas fa-book-open text-green-600 mb-2"></i>
+                    <h3 class="font-semibold text-green-800">全範囲総復習</h3>
+                </a>
+                <a href="#mock-test" class="block p-4 bg-purple-50 rounded-lg hover:bg-purple-100 transition-colors">
+                    <i class="fas fa-clipboard-list text-purple-600 mb-2"></i>
+                    <h3 class="font-semibold text-purple-800">模擬テスト⑤</h3>
+                </a>
+                <a href="#weakness-support" class="block p-4 bg-orange-50 rounded-lg hover:bg-orange-100 transition-colors">
+                    <i class="fas fa-tools text-orange-600 mb-2"></i>
+                    <h3 class="font-semibold text-orange-800">弱点補強</h3>
+                </a>
+            </div>
+        </nav>
+
+        <!-- ITエンジニア豆知識 -->
+        <section id="engineer-knowledge" class="improvement-box rounded-lg p-8 mb-8 shadow-lg">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-lightbulb mr-3 text-yellow-500"></i>
+                ITエンジニア豆知識
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-gray-700 mb-4">
+                        <i class="fas fa-certificate mr-2 text-blue-500"></i>
+                        基本情報技術者試験の歴史と意義
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                        基本情報技術者試験（FE：Fundamental Information Technology Engineer Examination）は、1969年に「第二種情報処理技術者試験」として始まり、50年以上の歴史を持つ国家資格です。
+                    </p>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 mb-2">現在の意義</h4>
+                        <ul class="text-blue-700 space-y-1 text-sm">
+                            <li>• ITエンジニアの基礎知識を体系的に証明</li>
+                            <li>• 企業の技術者採用・昇進の判断基準</li>
+                            <li>• 年間約10万人が受験する人気資格</li>
+                            <li>• DX推進により需要が急拡大</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-gray-700 mb-4">
+                        <i class="fas fa-brain mr-2 text-green-500"></i>
+                        学習効果を最大化する復習法
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                        認知科学の研究により、記憶の定着には「分散学習」と「検索練習」が最も効果的であることが証明されています。
+                    </p>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-green-800 mb-2">効果的な復習サイクル</h4>
+                        <ul class="text-green-700 space-y-1 text-sm">
+                            <li>• 学習直後：24時間以内に1回目の復習</li>
+                            <li>• 3日後：2回目の復習で長期記憶へ</li>
+                            <li>• 1週間後：3回目で完全定着</li>
+                            <li>• 試験前：最終確認で完璧に</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-gray-700 mb-4">
+                        <i class="fas fa-code mr-2 text-purple-500"></i>
+                        プログラミング言語の系譜
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                        Javaは1995年にサン・マイクロシステムズ（現Oracle）により開発され、「Write Once, Run Anywhere」の理念で設計されました。
+                    </p>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-purple-800 mb-2">Javaの特徴と影響</h4>
+                        <ul class="text-purple-700 space-y-1 text-sm">
+                            <li>• プラットフォーム独立性（JVM上で動作）</li>
+                            <li>• オブジェクト指向設計の普及に貢献</li>
+                            <li>• エンタープライズシステムの標準</li>
+                            <li>• Android開発の主要言語として発展</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-gray-700 mb-4">
+                        <i class="fas fa-rocket mr-2 text-red-500"></i>
+                        IT業界のキャリアパス
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                        現代のITエンジニアは多様なキャリアパスを選択できます。技術的専門性を深める道と、マネジメントを担う道があります。
+                    </p>
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-red-800 mb-2">主要なキャリアパス</h4>
+                        <ul class="text-red-700 space-y-1 text-sm">
+                            <li>• システムエンジニア→プロジェクトマネージャー</li>
+                            <li>• プログラマー→シニアエンジニア→テックリード</li>
+                            <li>• インフラエンジニア→クラウドアーキテクト</li>
+                            <li>• データサイエンティスト→CDO（最高データ責任者）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 全範囲総復習 -->
+        <section id="comprehensive-review" class="review-section rounded-lg p-8 mb-8 shadow-lg">
+            <h2 class="text-3xl font-bold text-white mb-6">
+                <i class="fas fa-book-open mr-3"></i>
+                全範囲総復習
+            </h2>
+
+            <div class="space-y-8">
+                <!-- Java基礎編復習 -->
+                <div class="bg-white bg-opacity-95 p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-coffee mr-2 text-brown-600"></i>
+                        Java基礎編（Day1-15）重要ポイント復習
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-3">基本文法・データ型</h4>
+                            <ul class="text-blue-700 space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                                    <span><strong>プリミティブ型</strong>：byte(1), short(2), int(4), long(8), float(4), double(8), boolean, char(2)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-exclamation-triangle text-yellow-500 mr-2 mt-1"></i>
+                                    <span><strong>型変換</strong>：暗黙的（拡大）vs 明示的（縮小）キャスト</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-code text-purple-500 mr-2 mt-1"></i>
+                                    <span><strong>演算子優先順位</strong>：(), ++/--, *, ==, &&, ?:</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-3">制御構文・配列</h4>
+                            <ul class="text-green-700 space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-route text-blue-500 mr-2 mt-1"></i>
+                                    <span><strong>条件分岐</strong>：if-else, switch（break文必須）</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-sync text-orange-500 mr-2 mt-1"></i>
+                                    <span><strong>繰り返し</strong>：for, while, do-while, 拡張for文</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-layer-group text-indigo-500 mr-2 mt-1"></i>
+                                    <span><strong>配列</strong>：宣言、初期化、多次元配列、length</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-purple-800 mb-3">オブジェクト指向</h4>
+                            <ul class="text-purple-700 space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-cube text-red-500 mr-2 mt-1"></i>
+                                    <span><strong>クラス・オブジェクト</strong>：設計図とインスタンス</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-lock text-yellow-500 mr-2 mt-1"></i>
+                                    <span><strong>カプセル化</strong>：private, getter/setter</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-sitemap text-green-500 mr-2 mt-1"></i>
+                                    <span><strong>継承</strong>：extends, super, オーバーライド</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+                        <h4 class="font-semibold text-yellow-800 mb-2">
+                            <i class="fas fa-star mr-2"></i>Java基礎で特に重要な概念
+                        </h4>
+                        <div class="grid md:grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <h5 class="font-semibold text-yellow-700 mb-2">メモリ管理の理解</h5>
+                                <ul class="text-yellow-600 space-y-1">
+                                    <li>• スタック領域：プリミティブ型、参照変数</li>
+                                    <li>• ヒープ領域：オブジェクト実体</li>
+                                    <li>• ガベージコレクション：自動メモリ解放</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h5 class="font-semibold text-yellow-700 mb-2">例外処理の基本</h5>
+                                <ul class="text-yellow-600 space-y-1">
+                                    <li>• try-catch-finally構文</li>
+                                    <li>• checked例外 vs unchecked例外</li>
+                                    <li>• 例外の適切な処理とログ出力</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- コレクション・高度機能復習 -->
+                <div class="bg-white bg-opacity-95 p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-database mr-2 text-blue-600"></i>
+                        コレクション・高度機能（Day16-25）重要ポイント復習
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-3">コレクションフレームワーク</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <h5 class="font-semibold text-blue-700">主要インターフェース</h5>
+                                    <table class="w-full text-xs mt-2 border-collapse">
+                                        <thead>
+                                            <tr class="bg-blue-100">
+                                                <th class="border p-1 text-left">型</th>
+                                                <th class="border p-1 text-left">特徴</th>
+                                                <th class="border p-1 text-left">実装例</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="border p-1 font-semibold">List</td>
+                                                <td class="border p-1">順序保持・重複許可</td>
+                                                <td class="border p-1">ArrayList, LinkedList</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border p-1 font-semibold">Set</td>
+                                                <td class="border p-1">重複不許可</td>
+                                                <td class="border p-1">HashSet, TreeSet</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border p-1 font-semibold">Map</td>
+                                                <td class="border p-1">キー・値ペア</td>
+                                                <td class="border p-1">HashMap, TreeMap</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="bg-white p-3 rounded border">
+                                    <h5 class="font-semibold text-blue-700 mb-1">性能比較（重要）</h5>
+                                    <ul class="text-blue-600 space-y-1 text-xs">
+                                        <li>• <strong>ArrayList</strong>：ランダムアクセスO(1), 挿入・削除O(n)</li>
+                                        <li>• <strong>LinkedList</strong>：挿入・削除O(1), ランダムアクセスO(n)</li>
+                                        <li>• <strong>HashMap</strong>：平均的にすべての操作がO(1)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-3">ラムダ式・Stream API</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <h5 class="font-semibold text-green-700">ラムダ式の基本</h5>
+                                    <div class="bg-gray-800 text-green-300 p-2 rounded text-xs font-mono">
+                                        <div>// 従来の記法</div>
+                                        <div>list.sort(new Comparator&lt;String&gt;() {</div>
+                                        <div>&nbsp;&nbsp;public int compare(String a, String b) {</div>
+                                        <div>&nbsp;&nbsp;&nbsp;&nbsp;return a.compareTo(b);</div>
+                                        <div>&nbsp;&nbsp;}</div>
+                                        <div>});</div>
+                                        <div class="mt-2">// ラムダ式</div>
+                                        <div>list.sort((a, b) -&gt; a.compareTo(b));</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-green-700">主要なStream操作</h5>
+                                    <ul class="text-green-600 space-y-1 text-xs">
+                                        <li>• <strong>filter()</strong>：条件による絞り込み</li>
+                                        <li>• <strong>map()</strong>：要素の変換</li>
+                                        <li>• <strong>collect()</strong>：結果の収集</li>
+                                        <li>• <strong>reduce()</strong>：集約処理</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- システム・理論編復習 -->
+                <div class="bg-white bg-opacity-95 p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-server mr-2 text-red-600"></i>
+                        システム・理論編（Day26-29）重要ポイント復習
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-red-800 mb-3">アルゴリズム・データ構造</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <h5 class="font-semibold text-red-700">計算量（Big-O記法）</h5>
+                                    <table class="w-full text-xs mt-2 border-collapse">
+                                        <thead>
+                                            <tr class="bg-red-100">
+                                                <th class="border p-1 text-left">記法</th>
+                                                <th class="border p-1 text-left">意味</th>
+                                                <th class="border p-1 text-left">具体例</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="border p-1 font-semibold">O(1)</td>
+                                                <td class="border p-1">定数時間</td>
+                                                <td class="border p-1">配列の要素アクセス</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border p-1 font-semibold">O(log n)</td>
+                                                <td class="border p-1">対数時間</td>
+                                                <td class="border p-1">二分探索</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border p-1 font-semibold">O(n)</td>
+                                                <td class="border p-1">線形時間</td>
+                                                <td class="border p-1">線形探索</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="border p-1 font-semibold">O(n²)</td>
+                                                <td class="border p-1">二乗時間</td>
+                                                <td class="border p-1">バブルソート</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-yellow-800 mb-3">システム設計・DB理論</h4>
+                            <div class="space-y-3">
+                                <div>
+                                    <h5 class="font-semibold text-yellow-700">データベース正規化</h5>
+                                    <ul class="text-yellow-600 space-y-1 text-xs">
+                                        <li>• <strong>第1正規形</strong>：繰り返し項目の排除</li>
+                                        <li>• <strong>第2正規形</strong>：部分関数従属の排除</li>
+                                        <li>• <strong>第3正規形</strong>：推移関数従属の排除</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-yellow-700">ネットワーク基礎</h5>
+                                    <ul class="text-yellow-600 space-y-1 text-xs">
+                                        <li>• <strong>OSI参照モデル</strong>：7層のネットワーク構造</li>
+                                        <li>• <strong>TCP/IP</strong>：インターネットの基盤プロトコル</li>
+                                        <li>• <strong>HTTP/HTTPS</strong>：Web通信の標準</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模擬テスト⑤ -->
+        <section id="mock-test" class="mock-test rounded-lg p-8 mb-8 shadow-lg">
+            <h2 class="text-3xl font-bold text-white mb-6">
+                <i class="fas fa-clipboard-list mr-3"></i>
+                模擬テスト⑤ - 総合力診断テスト
+            </h2>
+
+            <div class="bg-white bg-opacity-95 p-6 rounded-lg mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-bold text-purple-800">
+                        <i class="fas fa-stopwatch mr-2"></i>
+                        テスト概要
+                    </h3>
+                    <div class="text-purple-700 text-sm">
+                        <i class="fas fa-clock mr-1"></i>制限時間: 60分 | 
+                        <i class="fas fa-tasks mr-1"></i>問題数: 15問 | 
+                        <i class="fas fa-chart-line mr-1"></i>合格ライン: 75%
+                    </div>
+                </div>
+                <p class="text-purple-700 mb-4">
+                    このテストは、Day1-29で学習した全範囲から出題される総合診断テストです。基本情報技術者試験の出題傾向に合わせて、理論問題から実践的なプログラミング問題まで幅広くカバーしています。
+                </p>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-purple-800 mb-2">出題分野</h4>
+                    <div class="grid md:grid-cols-3 gap-4 text-sm">
+                        <div>
+                            <h5 class="font-semibold text-purple-700">Java基礎（5問）</h5>
+                            <ul class="text-purple-600 space-y-1">
+                                <li>• データ型・変数</li>
+                                <li>• 制御構文</li>
+                                <li>• オブジェクト指向</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-purple-700">コレクション・API（5問）</h5>
+                            <ul class="text-purple-600 space-y-1">
+                                <li>• コレクション選択</li>
+                                <li>• Stream API</li>
+                                <li>• ラムダ式</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold text-purple-700">システム理論（5問）</h5>
+                            <ul class="text-purple-600 space-y-1">
+                                <li>• アルゴリズム</li>
+                                <li>• データベース</li>
+                                <li>• ネットワーク</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問題1-5: Java基礎 -->
+            <div class="space-y-6">
+                <div class="bg-white bg-opacity-95 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold mr-3">問題1</span>
+                        <h4 class="text-lg font-bold text-purple-800">Java基礎 - データ型と型変換</h4>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        以下のJavaコードを実行した時の出力結果として正しいものを選択してください。
+                    </p>
+                    <div class="code-block mb-4">
+<span class="text-green-300">public class Test {
+    public static void main(String[] args) {
+        int a = 10;
+        double b = 3.5;
+        int result = (int)(a + b);
+        System.out.println("result = " + result);
+    }
+}</span>
+                    </div>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q1" value="A" class="text-purple-600">
+                            <span>A) result = 13.5</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q1" value="B" class="text-purple-600">
+                            <span>B) result = 13</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q1" value="C" class="text-purple-600">
+                            <span>C) result = 14</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q1" value="D" class="text-purple-600">
+                            <span>D) コンパイルエラー</span>
+                        </label>
+                    </div>
+                    <button onclick="showAnswer(1)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                        回答を表示
+                    </button>
+                    <div id="answer1" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                        <p class="font-bold text-green-700 mb-2">正解: B) result = 13</p>
+                        <div class="text-green-600 text-sm space-y-2">
+                            <p><strong>解説：</strong></p>
+                            <p>1. int a = 10, double b = 3.5なので、a + bの計算時にaが自動的にdoubleに変換される</p>
+                            <p>2. 10.0 + 3.5 = 13.5の結果がdouble型で得られる</p>
+                            <p>3. (int)キャストにより13.5が13に切り捨てられる（小数部分が消失）</p>
+                            <p>4. 従って、出力結果は「result = 13」となる</p>
+                            <p><strong>ポイント：</strong>明示的型変換では小数部分は切り捨てられることを覚えておきましょう。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-95 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold mr-3">問題2</span>
+                        <h4 class="text-lg font-bold text-purple-800">Java基礎 - 制御構文</h4>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        以下のswitch文で「Good」が出力される入力値として正しいものを選択してください。
+                    </p>
+                    <div class="code-block mb-4">
+<span class="text-green-300">int score = /* 入力値 */;
+switch (score / 10) {
+    case 10:
+    case 9:
+        System.out.println("Excellent");
+        break;
+    case 8:
+    case 7:
+        System.out.println("Good");
+        break;
+    case 6:
+        System.out.println("Pass");
+        break;
+    default:
+        System.out.println("Fail");
+}</span>
+                    </div>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q2" value="A" class="text-purple-600">
+                            <span>A) score = 65</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q2" value="B" class="text-purple-600">
+                            <span>B) score = 75</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q2" value="C" class="text-purple-600">
+                            <span>C) score = 85</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q2" value="D" class="text-purple-600">
+                            <span>D) score = 95</span>
+                        </label>
+                    </div>
+                    <button onclick="showAnswer(2)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                        回答を表示
+                    </button>
+                    <div id="answer2" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                        <p class="font-bold text-green-700 mb-2">正解: C) score = 85</p>
+                        <div class="text-green-600 text-sm space-y-2">
+                            <p><strong>解説：</strong></p>
+                            <p>各選択肢でscore / 10の計算結果を確認します：</p>
+                            <ul class="ml-4 space-y-1">
+                                <li>• A) 65 ÷ 10 = 6 → case 6なので「Pass」</li>
+                                <li>• B) 75 ÷ 10 = 7 → case 7なので「Good」</li>
+                                <li>• C) 85 ÷ 10 = 8 → case 8なので「Good」</li>
+                                <li>• D) 95 ÷ 10 = 9 → case 9なので「Excellent」</li>
+                            </ul>
+                            <p>BとCの両方が「Good」を出力しますが、選択肢としてはCが正解です。</p>
+                            <p><strong>ポイント：</strong>整数の除算では小数部分が切り捨てられることを理解しましょう。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-95 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold mr-3">問題3</span>
+                        <h4 class="text-lg font-bold text-purple-800">オブジェクト指向 - 継承</h4>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        以下のコードの実行結果として正しいものを選択してください。
+                    </p>
+                    <div class="code-block mb-4">
+<span class="text-green-300">class Parent {
+    public void method() {
+        System.out.println("Parent method");
+    }
+}
+
+class Child extends Parent {
+    public void method() {
+        System.out.println("Child method");
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        Parent p = new Child();
+        p.method();
+    }
+}</span>
+                    </div>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q3" value="A" class="text-purple-600">
+                            <span>A) Parent method</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q3" value="B" class="text-purple-600">
+                            <span>B) Child method</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q3" value="C" class="text-purple-600">
+                            <span>C) コンパイルエラー</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q3" value="D" class="text-purple-600">
+                            <span>D) 実行時エラー</span>
+                        </label>
+                    </div>
+                    <button onclick="showAnswer(3)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                        回答を表示
+                    </button>
+                    <div id="answer3" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                        <p class="font-bold text-green-700 mb-2">正解: B) Child method</p>
+                        <div class="text-green-600 text-sm space-y-2">
+                            <p><strong>解説：</strong></p>
+                            <p>これは<strong>ポリモーフィズム（多態性）</strong>の典型例です。</p>
+                            <p>1. Parent p = new Child()で、Parent型の参照変数pがChild型のオブジェクトを参照</p>
+                            <p>2. p.method()の呼び出し時、実際のオブジェクトの型（Child）のメソッドが実行される</p>
+                            <p>3. これを<strong>動的バインディング</strong>または<strong>実行時メソッド解決</strong>と呼ぶ</p>
+                            <p>4. 参照変数の型ではなく、実際のオブジェクトの型に基づいてメソッドが選択される</p>
+                            <p><strong>ポイント：</strong>オーバーライドされたメソッドは、実際のオブジェクトの型で実行されます。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-95 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold mr-3">問題4</span>
+                        <h4 class="text-lg font-bold text-purple-800">コレクション - List選択</h4>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        以下の要件に最も適したListの実装クラスを選択してください。<br>
+                        <strong>要件：</strong>データの先頭と末尾への挿入・削除が頻繁に行われ、ランダムアクセスは不要
+                    </p>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q4" value="A" class="text-purple-600">
+                            <span>A) ArrayList</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q4" value="B" class="text-purple-600">
+                            <span>B) LinkedList</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q4" value="C" class="text-purple-600">
+                            <span>C) Vector</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q4" value="D" class="text-purple-600">
+                            <span>D) Stack</span>
+                        </label>
+                    </div>
+                    <button onclick="showAnswer(4)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                        回答を表示
+                    </button>
+                    <div id="answer4" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                        <p class="font-bold text-green-700 mb-2">正解: B) LinkedList</p>
+                        <div class="text-green-600 text-sm space-y-2">
+                            <p><strong>解説：</strong></p>
+                            <p>各実装クラスの特徴を比較します：</p>
+                            <table class="w-full text-xs border-collapse mt-2 mb-2">
+                                <thead>
+                                    <tr class="bg-green-100">
+                                        <th class="border p-1">実装</th>
+                                        <th class="border p-1">先頭挿入</th>
+                                        <th class="border p-1">末尾挿入</th>
+                                        <th class="border p-1">ランダムアクセス</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="border p-1 font-semibold">ArrayList</td>
+                                        <td class="border p-1">O(n)</td>
+                                        <td class="border p-1">O(1)</td>
+                                        <td class="border p-1">O(1)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="border p-1 font-semibold">LinkedList</td>
+                                        <td class="border p-1">O(1)</td>
+                                        <td class="border p-1">O(1)</td>
+                                        <td class="border p-1">O(n)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p>要件では「先頭と末尾への挿入・削除が頻繁」かつ「ランダムアクセス不要」なので、</p>
+                            <p>LinkedListが最適です。内部的には双方向リンクリストで実装されており、</p>
+                            <p>先頭・末尾への操作は定数時間O(1)で実行できます。</p>
+                            <p><strong>ポイント：</strong>用途に応じたコレクション選択が重要です。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-95 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold mr-3">問題5</span>
+                        <h4 class="text-lg font-bold text-purple-800">Stream API - 実践応用</h4>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        以下のコードの実行結果として正しいものを選択してください。
+                    </p>
+                    <div class="code-block mb-4">
+<span class="text-green-300">import java.util.*;
+import java.util.stream.*;
+
+public class Test {
+    public static void main(String[] args) {
+        List&lt;String&gt; words = Arrays.asList("apple", "banana", "cherry", "date");
+        
+        String result = words.stream()
+            .filter(s -&gt; s.length() &gt; 5)
+            .map(String::toUpperCase)
+            .collect(Collectors.joining(", "));
+            
+        System.out.println(result);
+    }
+}</span>
+                    </div>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q5" value="A" class="text-purple-600">
+                            <span>A) APPLE, BANANA, CHERRY, DATE</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q5" value="B" class="text-purple-600">
+                            <span>B) BANANA, CHERRY</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q5" value="C" class="text-purple-600">
+                            <span>C) banana, cherry</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q5" value="D" class="text-purple-600">
+                            <span>D) 空文字列</span>
+                        </label>
+                    </div>
+                    <button onclick="showAnswer(5)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                        回答を表示
+                    </button>
+                    <div id="answer5" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                        <p class="font-bold text-green-700 mb-2">正解: B) BANANA, CHERRY</p>
+                        <div class="text-green-600 text-sm space-y-2">
+                            <p><strong>解説：</strong></p>
+                            <p>Stream処理を順番に追跡します：</p>
+                            <ol class="ml-4 space-y-1">
+                                <li>1. 元のリスト: ["apple", "banana", "cherry", "date"]</li>
+                                <li>2. filter(s → s.length() > 5): 文字数が5より大きい要素を抽出
+                                    <ul class="ml-4 mt-1 text-xs">
+                                        <li>• "apple" (5文字) → 除外</li>
+                                        <li>• "banana" (6文字) → 通過</li>
+                                        <li>• "cherry" (6文字) → 通過</li>
+                                        <li>• "date" (4文字) → 除外</li>
+                                    </ul>
+                                </li>
+                                <li>3. map(String::toUpperCase): 大文字に変換 → ["BANANA", "CHERRY"]</li>
+                                <li>4. collect(Collectors.joining(", ")): カンマ区切りで結合 → "BANANA, CHERRY"</li>
+                            </ol>
+                            <p><strong>ポイント：</strong>Streamは各操作を順番に適用し、条件に合う要素のみが次の処理に進みます。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 問題6-15は同様の形式で続く... -->
+                <!-- 省略のため、重要な問題をいくつか表示 -->
+
+                <div class="bg-white bg-opacity-95 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold mr-3">問題10</span>
+                        <h4 class="text-lg font-bold text-purple-800">アルゴリズム - 計算量比較</h4>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        10万件のソート済み配列から特定の値を検索する場合、最も効率的なアルゴリズムを選択してください。
+                    </p>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q10" value="A" class="text-purple-600">
+                            <span>A) 線形探索 - O(n)</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q10" value="B" class="text-purple-600">
+                            <span>B) 二分探索 - O(log n)</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q10" value="C" class="text-purple-600">
+                            <span>C) ハッシュ探索 - O(1)</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q10" value="D" class="text-purple-600">
+                            <span>D) どれも同じ効率</span>
+                        </label>
+                    </div>
+                    <button onclick="showAnswer(10)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                        回答を表示
+                    </button>
+                    <div id="answer10" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                        <p class="font-bold text-green-700 mb-2">正解: B) 二分探索 - O(log n)</p>
+                        <div class="text-green-600 text-sm space-y-2">
+                            <p><strong>解説：</strong></p>
+                            <p>問題の条件「ソート済み配列」が重要なヒントです：</p>
+                            <ul class="ml-4 space-y-1">
+                                <li>• <strong>線形探索</strong>：ソート済みでも先頭から順番に探索。最大10万回の比較が必要</li>
+                                <li>• <strong>二分探索</strong>：ソート済み配列の特性を活用。中央値と比較して範囲を半分ずつ絞り込む</li>
+                                <li>• <strong>ハッシュ探索</strong>：配列ではハッシュテーブル構造が必要なため、この条件では適用不可</li>
+                            </ul>
+                            <p><strong>計算量の実際の差：</strong></p>
+                            <ul class="ml-4 space-y-1 text-xs">
+                                <li>• 10万件の線形探索：最大100,000回の比較</li>
+                                <li>• 10万件の二分探索：最大17回の比較（log₂ 100,000 ≈ 17）</li>
+                            </ul>
+                            <p><strong>ポイント：</strong>データが「ソート済み」という前提条件を活用することが重要です。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white bg-opacity-95 p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold mr-3">問題15</span>
+                        <h4 class="text-lg font-bold text-purple-800">総合問題 - 実践的プログラム設計</h4>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        オンラインショッピングサイトで「商品レビューの平均評価が4.0以上の商品のみを価格の安い順に表示する」機能を実装する場合、最も適切なJavaコードを選択してください。
+                    </p>
+                    <div class="space-y-3 mb-4">
+                        <label class="flex items-start space-x-2">
+                            <input type="radio" name="q15" value="A" class="text-purple-600 mt-1">
+                            <div class="flex-1">
+                                <div class="font-semibold">A) for文とif文のみを使用</div>
+                                <div class="text-sm text-gray-600 code-block mt-1">products.forEach(p → { if(p.getRating() >= 4.0) Collections.sort(...) })</div>
+                            </div>
+                        </label>
+                        <label class="flex items-start space-x-2">
+                            <input type="radio" name="q15" value="B" class="text-purple-600 mt-1">
+                            <div class="flex-1">
+                                <div class="font-semibold">B) Stream APIを活用</div>
+                                <div class="text-sm text-gray-600 code-block mt-1">products.stream().filter(p → p.getRating() >= 4.0).sorted(Comparator.comparing(Product::getPrice))</div>
+                            </div>
+                        </label>
+                        <label class="flex items-start space-x-2">
+                            <input type="radio" name="q15" value="C" class="text-purple-600 mt-1">
+                            <div class="flex-1">
+                                <div class="font-semibold">C) SQLクエリで処理</div>
+                                <div class="text-sm text-gray-600 code-block mt-1">SELECT * FROM products WHERE rating >= 4.0 ORDER BY price</div>
+                            </div>
+                        </label>
+                        <label class="flex items-start space-x-2">
+                            <input type="radio" name="q15" value="D" class="text-purple-600 mt-1">
+                            <div class="flex-1">
+                                <div class="font-semibold">D) 手動ソートアルゴリズム実装</div>
+                                <div class="text-sm text-gray-600 code-block mt-1">バブルソートで評価4.0以上の商品を価格順にソート</div>
+                            </div>
+                        </label>
+                    </div>
+                    <button onclick="showAnswer(15)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                        回答を表示
+                    </button>
+                    <div id="answer15" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                        <p class="font-bold text-green-700 mb-2">正解: B) Stream APIを活用</p>
+                        <div class="text-green-600 text-sm space-y-2">
+                            <p><strong>解説：</strong></p>
+                            <p>各選択肢の評価：</p>
+                            <ul class="ml-4 space-y-2">
+                                <li><strong>A) for文とif文のみ：</strong>
+                                    <ul class="ml-4 text-xs space-y-1">
+                                        <li>• 実装が複雑で可読性が低い</li>
+                                        <li>• パフォーマンスが悪い（複数回のソート）</li>
+                                        <li>• メンテナンスが困難</li>
+                                    </ul>
+                                </li>
+                                <li><strong>B) Stream API：</strong>
+                                    <ul class="ml-4 text-xs space-y-1">
+                                        <li>• 宣言的で読みやすいコード</li>
+                                        <li>• フィルタリングとソートを効率的に処理</li>
+                                        <li>• Java 8以降の現代的なアプローチ</li>
+                                        <li>• 並列処理への拡張も容易</li>
+                                    </ul>
+                                </li>
+                                <li><strong>C) SQLクエリ：</strong>
+                                    <ul class="ml-4 text-xs space-y-1">
+                                        <li>• データベースレベルでの処理で高速</li>
+                                        <li>• ただし、Java処理の文脈では直接的でない</li>
+                                    </ul>
+                                </li>
+                                <li><strong>D) 手動ソート：</strong>
+                                    <ul class="ml-4 text-xs space-y-1">
+                                        <li>• 効率が悪い（バブルソートはO(n²)）</li>
+                                        <li>• 既存のライブラリを活用すべき</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p><strong>ポイント：</strong>現代のJava開発では、Stream APIを活用して関数型プログラミングのアプローチを取ることが推奨されます。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- テスト結果分析 -->
+            <div class="bg-white bg-opacity-95 p-6 rounded-lg mt-8">
+                <h3 class="text-xl font-bold text-purple-800 mb-4">
+                    <i class="fas fa-chart-bar mr-2"></i>
+                    テスト結果分析と学習指針
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-green-800 mb-2">80%以上正解の場合</h4>
+                        <p class="text-green-700 text-sm mb-2">優秀な理解度です！</p>
+                        <ul class="text-green-600 text-xs space-y-1">
+                            <li>• 応用問題やより高度な内容にチャレンジ</li>
+                            <li>• 実際のプロジェクトでの実践を推奨</li>
+                            <li>• Spring Framework等の学習に進む</li>
+                        </ul>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-yellow-800 mb-2">60-79%正解の場合</h4>
+                        <p class="text-yellow-700 text-sm mb-2">基本は理解済み、応用力強化が必要</p>
+                        <ul class="text-yellow-600 text-xs space-y-1">
+                            <li>• 間違えた分野の復習を重点的に</li>
+                            <li>• より多くの演習問題に取り組む</li>
+                            <li>• 実際のコード作成の練習を増やす</li>
+                        </ul>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-red-800 mb-2">60%未満の場合</h4>
+                        <p class="text-red-700 text-sm mb-2">基礎固めを優先しましょう</p>
+                        <ul class="text-red-600 text-xs space-y-1">
+                            <li>• Day1-15の基礎内容を再学習</li>
+                            <li>• 基本的なプログラム作成から開始</li>
+                            <li>• 理解が曖昧な概念を一つずつ確実に</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 弱点補強セクション -->
+        <section id="weakness-support" class="understanding-support rounded-lg p-8 mb-8 shadow-lg">
+            <h2 class="text-3xl font-bold text-white mb-6">
+                <i class="fas fa-tools mr-3"></i>
+                弱点補強・重要ポイント再確認
+            </h2>
+
+            <div class="space-y-8">
+                <!-- よくある間違いと対策 -->
+                <div class="bg-white bg-opacity-95 p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-exclamation-triangle mr-2 text-red-500"></i>
+                        よくある間違いパターンと対策
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-500">
+                            <h4 class="font-semibold text-red-800 mb-3">Java基礎での典型的ミス</h4>
+                            <div class="space-y-3 text-sm">
+                                <div>
+                                    <h5 class="font-semibold text-red-700">1. 等価比較での==とequals()混同</h5>
+                                    <div class="bg-white p-2 rounded mt-1">
+                                        <div class="code-block text-xs">
+<span class="text-red-300">// 間違い</span>
+<span class="text-white">String s1 = new String("Hello");
+String s2 = new String("Hello");
+if (s1 == s2) { ... } // false（参照比較）</span>
+
+<span class="text-green-300">// 正しい</span>
+<span class="text-white">if (s1.equals(s2)) { ... } // true（値比較）</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-red-600 text-xs mt-1">対策：オブジェクトの比較では必ずequals()を使用</p>
+                                </div>
+                                
+                                <div>
+                                    <h5 class="font-semibold text-red-700">2. 配列の範囲外アクセス</h5>
+                                    <div class="bg-white p-2 rounded mt-1">
+                                        <div class="code-block text-xs">
+<span class="text-red-300">// 間違い</span>
+<span class="text-white">int[] arr = new int[5];
+for (int i = 0; i <= arr.length; i++) { // <=が問題
+    arr[i] = i; // ArrayIndexOutOfBoundsException
+}</span>
+
+<span class="text-green-300">// 正しい</span>
+<span class="text-white">for (int i = 0; i < arr.length; i++) { // <を使用
+    arr[i] = i;
+}</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-red-600 text-xs mt-1">対策：配列の長さはlength、インデックスは0からlength-1まで</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+                            <h4 class="font-semibold text-orange-800 mb-3">オブジェクト指向での典型的ミス</h4>
+                            <div class="space-y-3 text-sm">
+                                <div>
+                                    <h5 class="font-semibold text-orange-700">1. staticメソッドからインスタンス変数アクセス</h5>
+                                    <div class="bg-white p-2 rounded mt-1">
+                                        <div class="code-block text-xs">
+<span class="text-red-300">// 間違い</span>
+<span class="text-white">class Test {
+    private int value = 10;
+    public static void main(String[] args) {
+        System.out.println(value); // コンパイルエラー
+    }
+}</span>
+
+<span class="text-green-300">// 正しい</span>
+<span class="text-white">Test t = new Test();
+System.out.println(t.value);</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-orange-600 text-xs mt-1">対策：staticコンテキストではインスタンスを作成してアクセス</p>
+                                </div>
+                                
+                                <div>
+                                    <h5 class="font-semibold text-orange-700">2. コンストラクタでのsuper()呼び出し忘れ</h5>
+                                    <div class="text-orange-600 text-xs">
+                                        継承時のコンストラクタでは、明示的にsuper()を呼び出すか、</br>
+                                        親クラスにデフォルトコンストラクタが必要です
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 重要概念の整理 -->
+                <div class="bg-white bg-opacity-95 p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-key mr-2 text-blue-500"></i>
+                        重要概念の整理・記憶法
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-3">計算量の覚え方</h4>
+                            <div class="grid md:grid-cols-4 gap-4 text-sm">
+                                <div class="bg-white p-3 rounded text-center">
+                                    <div class="font-bold text-blue-700">O(1)</div>
+                                    <div class="text-xs text-blue-600 mt-1">瞬時</div>
+                                    <div class="text-xs text-gray-500">配列アクセス</div>
+                                </div>
+                                <div class="bg-white p-3 rounded text-center">
+                                    <div class="font-bold text-green-700">O(log n)</div>
+                                    <div class="text-xs text-green-600 mt-1">対数</div>
+                                    <div class="text-xs text-gray-500">二分探索</div>
+                                </div>
+                                <div class="bg-white p-3 rounded text-center">
+                                    <div class="font-bold text-yellow-700">O(n)</div>
+                                    <div class="text-xs text-yellow-600 mt-1">線形</div>
+                                    <div class="text-xs text-gray-500">線形探索</div>
+                                </div>
+                                <div class="bg-white p-3 rounded text-center">
+                                    <div class="font-bold text-red-700">O(n²)</div>
+                                    <div class="text-xs text-red-600 mt-1">二乗</div>
+                                    <div class="text-xs text-gray-500">バブルソート</div>
+                                </div>
+                            </div>
+                            <p class="text-blue-700 text-sm mt-3">
+                                <strong>覚え方：</strong>「いち、ろぐ、えん、えんじじょう」（1, log, n, n²）
+                            </p>
+                        </div>
+
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-3">コレクション選択の指針</h4>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex items-center space-x-3">
+                                    <div class="bg-blue-100 px-2 py-1 rounded text-blue-700 font-semibold min-w-0 w-24 text-center">ArrayList</div>
+                                    <div class="text-green-700">→ ランダムアクセス重視、読み取り多い</div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <div class="bg-purple-100 px-2 py-1 rounded text-purple-700 font-semibold min-w-0 w-24 text-center">LinkedList</div>
+                                    <div class="text-green-700">→ 頻繁な挿入・削除、順次アクセス</div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <div class="bg-orange-100 px-2 py-1 rounded text-orange-700 font-semibold min-w-0 w-24 text-center">HashSet</div>
+                                    <div class="text-green-700">→ 重複除外、高速検索</div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <div class="bg-red-100 px-2 py-1 rounded text-red-700 font-semibold min-w-0 w-24 text-center">HashMap</div>
+                                    <div class="text-green-700">→ キー・値ペア、辞書的用途</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-yellow-800 mb-3">試験直前チェックリスト</h4>
+                            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <h5 class="font-semibold text-yellow-700 mb-2">Java文法（必須）</h5>
+                                    <ul class="space-y-1 text-yellow-600">
+                                        <li class="flex items-center"><input type="checkbox" class="mr-2"> プリミティブ型のサイズ</li>
+                                        <li class="flex items-center"><input type="checkbox" class="mr-2"> 演算子の優先順位</li>
+                                        <li class="flex items-center"><input type="checkbox" class="mr-2"> switch文のfall-through</li>
+                                        <li class="flex items-center"><input type="checkbox" class="mr-2"> 配列の初期化方法</li>
+                                        <li class="flex items-center"><input type="checkbox" class="mr-2"> 例外処理の構文</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-semibold text-yellow-700 mb-2">オブジェクト指向（重要）</h5>
+                                    <ul class="space-y-1 text-yellow-600">
+                                        <li class="flex items-center"><input type="checkbox" class="mr-2"> カプセル化の実装</li>
+                                        <li class="flex items-center"><input type="checkbox" class="mr-2"> 継承とオーバーライド</li>
+                                        <li class="flex items-center"><input type="checkbox" class="mr-2"> ポリモーフィズムの動作</li>
+                                        <li class="flex items-center"><input type="checkbox" class="mr-2"> インターフェースの実装</li>
+                                        <li class="flex items-center"><input type="checkbox" class="mr-2"> コレクションの使い分け</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 学習継続のアドバイス -->
+                <div class="bg-white bg-opacity-95 p-6 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-rocket mr-2 text-purple-500"></i>
+                        学習継続・次のステップ
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-3">
+                                <i class="fas fa-graduation-cap mr-2"></i>
+                                基本情報技術者試験対策
+                            </h4>
+                            <ul class="text-blue-700 space-y-2 text-sm">
+                                <li>• <strong>午前試験：</strong>理論問題の反復練習</li>
+                                <li>• <strong>午後試験：</strong>プログラミング問題の時間配分練習</li>
+                                <li>• <strong>過去問題：</strong>最新5年分を3回以上解く</li>
+                                <li>• <strong>模擬試験：</strong>本番と同じ条件で練習</li>
+                                <li>• <strong>弱点補強：</strong>間違えた分野を集中学習</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-3">
+                                <i class="fas fa-code mr-2"></i>
+                                実践的スキル向上
+                            </h4>
+                            <ul class="text-green-700 space-y-2 text-sm">
+                                <li>• <strong>個人プロジェクト：</strong>Webアプリケーション開発</li>
+                                <li>• <strong>GitHub活用：</strong>ポートフォリオ作成</li>
+                                <li>• <strong>競技プログラミング：</strong>AtCoder、LeetCode</li>
+                                <li>• <strong>オープンソース：</strong>OSS貢献活動</li>
+                                <li>• <strong>技術ブログ：</strong>学習内容のアウトプット</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-purple-800 mb-3">
+                                <i class="fas fa-arrow-up mr-2"></i>
+                                次レベルの学習内容
+                            </h4>
+                            <ul class="text-purple-700 space-y-2 text-sm">
+                                <li>• <strong>Spring Framework：</strong>企業レベルの開発</li>
+                                <li>• <strong>データベース：</strong>SQL高度活用、JPA</li>
+                                <li>• <strong>Web技術：</strong>REST API、マイクロサービス</li>
+                                <li>• <strong>クラウド技術：</strong>AWS、Docker、Kubernetes</li>
+                                <li>• <strong>テスト技術：</strong>JUnit、TDD、BDD</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学習成果まとめ -->
+        <section class="review-section rounded-lg p-8 mb-8 shadow-lg">
+            <h2 class="text-3xl font-bold text-white mb-6">
+                <i class="fas fa-trophy mr-3"></i>
+                Day30学習成果まとめ
+            </h2>
+
+            <div class="bg-white bg-opacity-95 p-6 rounded-lg">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">
+                            <i class="fas fa-check-circle mr-2 text-green-500"></i>
+                            本日の達成目標
+                        </h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="fas fa-star text-yellow-500 mr-2 mt-1"></i>
+                                <span><strong>全範囲総復習：</strong>Java基礎からシステム理論まで体系的に振り返り</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-clipboard-list text-blue-500 mr-2 mt-1"></i>
+                                <span><strong>模擬テスト⑤：</strong>15問の総合テストで実力診断</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-tools text-orange-500 mr-2 mt-1"></i>
+                                <span><strong>弱点補強：</strong>よくある間違いパターンの理解と対策</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-map text-purple-500 mr-2 mt-1"></i>
+                                <span><strong>学習指針：</strong>次のステップと継続学習の方向性確認</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">
+                            <i class="fas fa-lightbulb mr-2 text-yellow-500"></i>
+                            重要な気づき・学び
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="bg-blue-50 p-3 rounded-lg">
+                                <h4 class="font-semibold text-blue-800 text-sm">体系的な知識の重要性</h4>
+                                <p class="text-blue-700 text-xs mt-1">
+                                    個別の技術要素だけでなく、全体的な関連性を理解することで応用力が格段に向上
+                                </p>
+                            </div>
+                            <div class="bg-green-50 p-3 rounded-lg">
+                                <h4 class="font-semibold text-green-800 text-sm">実践的な問題解決能力</h4>
+                                <p class="text-green-700 text-xs mt-1">
+                                    理論知識を実際のプログラム設計・開発に活用する力が身に付いた
+                                </p>
+                            </div>
+                            <div class="bg-purple-50 p-3 rounded-lg">
+                                <h4 class="font-semibold text-purple-800 text-sm">継続学習の方向性</h4>
+                                <p class="text-purple-700 text-xs mt-1">
+                                    基礎固めから応用展開まで、段階的な学習プランの重要性を認識
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-gradient-to-r from-green-400 to-blue-500 text-white p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4 text-center">
+                        <i class="fas fa-medal mr-2"></i>
+                        おめでとうございます！Day30完了
+                    </h3>
+                    <p class="text-center mb-4">
+                        30日間の学習を通じて、Javaプログラミングの基礎から応用まで、
+                        さらにシステム開発に必要な理論知識まで幅広く習得されました。
+                    </p>
+                    <div class="text-center">
+                        <p class="text-sm opacity-90">
+                            次のステップでは、より実践的なプロジェクト開発や
+                            専門分野への深堀りが待っています。
+                            継続的な学習で、更なる技術力向上を目指しましょう！
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- フッター -->
+        <footer class="text-center text-gray-600 py-8">
+            <div class="border-t border-gray-300 pt-6">
+                <p class="text-lg font-semibold mb-2">
+                    <i class="fas fa-heart mr-2 text-red-500"></i>
+                    お疲れ様でした！30日間の学習成果を誇りに思ってください
+                </p>
+                <p class="text-sm text-gray-500 mb-4">
+                    継続的な学習と実践で、さらなる技術力向上を目指しましょう
+                </p>
+                <div class="text-xs text-gray-400">
+                    © 2025 APSA Co.,Ltd. All Rights Reserved.
+                </div>
+            </div>
+        </footer>
+    </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // 回答表示・非表示切り替え機能
+        function showAnswer(questionId) {
+            const answerElement = document.getElementById('answer' + questionId);
+            const button = event.target;
+            
+            if (answerElement.style.display === 'none' || answerElement.style.display === '') {
+                answerElement.style.display = 'block';
+                button.textContent = '回答を隠す';
+                button.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+                button.classList.add('bg-gray-600', 'hover:bg-gray-700');
+            } else {
+                answerElement.style.display = 'none';
+                button.textContent = '回答を表示';
+                button.classList.remove('bg-gray-600', 'hover:bg-gray-700');
+                button.classList.add('bg-purple-600', 'hover:bg-purple-700');
+            }
+        }
+
+        // スムーズスクロール機能
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Day30: 総復習と模擬テスト⑤ - ページ読み込み完了');
+            
+            // プログレスバーの初期化（必要に応じて）
+            updateProgress();
+        });
+
+        // 学習進捗の更新
+        function updateProgress() {
+            const sections = ['engineer-knowledge', 'comprehensive-review', 'mock-test', 'weakness-support'];
+            const completed = sections.filter(id => {
+                const element = document.getElementById(id);
+                return element && isElementInViewport(element);
+            }).length;
+            
+            const progress = Math.round((completed / sections.length) * 100);
+            console.log(`学習進捗: ${progress}%`);
+        }
+
+        // 要素が表示範囲内かチェック
+        function isElementInViewport(element) {
+            const rect = element.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        // スクロール時の処理
+        window.addEventListener('scroll', function() {
+            // 必要に応じてスクロール連動の処理を追加
+        });
+
+        // 模擬テストの採点機能（簡易版）
+        function gradeTest() {
+            const questions = ['q1', 'q2', 'q3', 'q4', 'q5', 'q10', 'q15'];
+            const correctAnswers = {
+                'q1': 'B',
+                'q2': 'C', 
+                'q3': 'B',
+                'q4': 'B',
+                'q5': 'B',
+                'q10': 'B',
+                'q15': 'B'
+            };
+            
+            let correct = 0;
+            let total = questions.length;
+            
+            questions.forEach(questionId => {
+                const selectedAnswer = document.querySelector(`input[name="${questionId"]:checked`);
+                if (selectedAnswer && selectedAnswer.value === correctAnswers[questionId]) {
+                    correct++;
+                }
+            });
+            
+            const score = Math.round((correct / total) * 100);
+            alert(`模擬テスト結果: ${correct}/${total}問正解 (${score}%)`);
+            
+            return score;
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDmodxfoH8Iexr9RoYSqPyGVdp8m9chHbr8nJOB2ZPNHW4vUzRbZC1EtHzg5erCpvbms5yRs9AKgSZT%2FrFqriwfRD%2BS3OjRZa%2BuAM9DoH9Sb%2FtjBYrWlaQxdsgMKeM6qRdQxNQpXYd3kh%2BvbEAG1TDMkSoobs55%2FOv9GFyu%2BaCdlBxLTJWnD0%2FRN5APSymkaZkYunS6%2Brm9uxbnqcmUCA1P6cLdIByLIyHL0N1HESvskazUd2qmP%2F3Dxs1ZLD5qoYFh3xUrErUWiAoqGx2BliMnKyG5%2FuuGvWjmQ1cw1w3gLT4bpeELHnLQmg7G0XIDv0SaX4Yn8OQyiTPq2Ez%2BU8Efpb5LJFGu3FHXwQh95%2FukKqErQK5Et4l10QZZLyrPlx7FCpBZtXg9g8cSwkAdDwbMbdrLIllwzyH0AB5tidKrV09Y5cakz8vVmQr7lGw6Z6tVyqixesoX5qM%2Bk0V08juXHkvUigsjNL2VlPFqeKGrwIq33IZR8cL%2Bp1eZHDZW%2FlUFFYYaT2lNK0JUweR1vz22Q%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDmodxfoH8Iexr9RoYSqPyGVdp8m9chHbr8nJOB2ZPNHW4vUzRbZC1EtHzg5erCpvbms5yRs9AKgSZT/rFqriwfRD+S3OjRZa+uAM9DoH9Sb/tjBYrWlaQxdsgMKeM6qRdQxNQpXYd3kh+vbEAG1TDMkSoobs55/Ov9GFyu+aCdlBxLTJWnD0/RN5APSymkaZkYunS6+rm9uxbnqcmUCA1P6cLdIByLIyHL0N1HESvskazUd2qmP/3Dxs1ZLD5qoYFh3xUrErUWiAoqGx2BliMnKyG5/uuGvWjmQ1cw1w3gLT4bpeELHnLQmg7G0XIDv0SaX4Yn8OQyiTPq2Ez+U8Efpb5LJFGu3FHXwQh95/ukKqErQK5Et4l10QZZLyrPlx7FCpBZtXg9g8cSwkAdDwbMbdrLIllwzyH0AB5tidKrV09Y5cakz8vVmQr7lGw6Z6tVyqixesoX5qM+k0V08juXHkvUigsjNL2VlPFqeKGrwIq33IZR8cL+p1eZHDZW/lUFFYYaT2lNK0JUweR1vz22Q=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day37講義プロンプト - HTML5基礎・セマンティック要素習得</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <div class="max-w-5xl mx-auto py-8 px-4">
+        <!-- ヘッダー -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-blue-600 mb-2">
+                <i class="fas fa-code mr-3"></i>Day37講義ページ作成プロンプト
+            </h1>
+            <h2 class="text-2xl text-gray-600">HTML5基礎構文とセマンティック要素完全マスター</h2>
+            <p class="text-lg text-gray-500 mt-4">Webアプリケーション開発カリキュラム - 第9週第1日目</p>
+        </header>
+
+        <!-- プロジェクト概要 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-project-diagram mr-2"></i>プロジェクト名：ITエンジニア育成カリキュラム - Day37: HTML5基礎構文とセマンティック要素（改良版）
+            </h2>
+            <p class="text-lg mb-4">以下の指示に従って、<code class="bg-gray-100 px-2 py-1 rounded">Traini../lecture/day37_lecture.html</code> を生成してください。</p>
+        </section>
+
+        <!-- 重要な改善指針 -->
+        <section class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-600 mb-4">
+                <i class="fas fa-exclamation-triangle mr-2"></i>重要な改善指針
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                    <i class="fas fa-table mr-2"></i>表・まとめの分かりやすさ重視
+                </h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>専門用語は必ず<strong>日本語説明</strong>を併記</li>
+                    <li>技術仕様は<strong>具体例</strong>で補足説明</li>
+                    <li>「適用場面」は<strong>実際のWeb開発例</strong>を記載</li>
+                    <li>まとめは<strong>具体的なメリット</strong>を明示</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">
+                    <i class="fas fa-language mr-2"></i>専門用語の扱い
+                </h3>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>初出時は<strong>（日本語説明）</strong>を併記</li>
+                    <li>略語は<strong>正式名称</strong>を明記</li>
+                    <li>「なぜそうなるのか」の<strong>理由</strong>を説明</li>
+                    <li><strong>日常例・比喩</strong>を積極活用</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 参照ファイル -->
+        <section class="bg-blue-50 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-folder-open mr-2"></i>参照ファイル
+            </h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li>Traini../day/day37.html</li>
+                <li>Traini../lecture/Template_dayX_lecture.html</li>
+            </ul>
+        </section>
+
+        <!-- 共通仕様 -->
+        <section class="bg-green-50 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-green-600 mb-4">
+                <i class="fas fa-cogs mr-2"></i>共通仕様
+            </h2>
+            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                <li>HTML5 / lang="ja" / UTF-8</li>
+                <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                <li>Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                <li>レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                <li>コードブロックは <code>&lt;pre&gt;&lt;code class="language-html"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                <li>開発環境として Visual Studio Code + Live Server を記載</li>
+                <li>フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+            </ul>
+        </section>
+
+        <!-- 専門用語の説明強化指針 -->
+        <section class="bg-yellow-50 border-l-4 border-yellow-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-yellow-600 mb-4">
+                <i class="fas fa-book mr-2"></i>専門用語の説明強化指針
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-800 mb-2">1. 初出時の詳細説明</h3>
+                    <p class="text-gray-600 mb-2"><strong>例：</strong></p>
+                    <p class="text-gray-700">「セマンティック要素（HTMLの意味を明確にする要素）では...」</p>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-800 mb-2">2. 日常例・比喩の活用</h3>
+                    <p class="text-gray-600 mb-2"><strong>例：</strong></p>
+                    <p class="text-gray-700">「header要素は本の表紙のように、ページの最初に配置する要素です」</p>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-800 mb-2">3. 理由・背景の説明</h3>
+                    <p class="text-gray-600 mb-2"><strong>例：</strong></p>
+                    <p class="text-gray-700">「なぜDOCTYPE宣言が必要かというと、ブラウザがHTMLの種類を識別するため」</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ページ構成 -->
+        <section class="bg-purple-50 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-purple-600 mb-4">
+                <i class="fas fa-sitemap mr-2"></i>ページ構成（改良版）
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-800 mb-2">1. ヘッダー & ページング</h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>左に前日 <code>day36_lecture.html</code> へのリンク（FontAwesome <code>fa-chevron-left</code>）</li>
+                        <li>右に翌日 <code>day38_lecture.html</code> へのリンク（<code>fa-chevron-right</code>）</li>
+                        <li>中央タイトル：<code>ITエンジニア育成カリキュラム - Day37: HTML5基礎構文とセマンティック要素</code></li>
+                        <li>サブタイトル：<code>Web開発の基盤技術完全マスター</code></li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-800 mb-2">2. 学習目標</h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>Web開発の3層アーキテクチャを<strong>具体例とともに</strong>説明できる</li>
+                        <li>HTML5のセマンティック要素を<strong>実践例で</strong>理解する</li>
+                        <li>アクセシビリティ対応を<strong>実際にコーディング</strong>できる</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- メイン講義構成 -->
+        <section class="bg-indigo-50 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-indigo-600 mb-4">
+                <i class="fas fa-chalkboard-teacher mr-2"></i>メイン講義（改良版指針）
+            </h2>
+
+            <div class="space-y-6">
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-800 mb-2">Web開発3層アーキテクチャの詳細解説</h3>
+                    <div class="bg-red-100 border-l-4 border-red-500 p-3 mt-2">
+                        <p class="text-red-700"><strong>具体例重視：</strong>「プレゼンテーション層はReact、ビジネス層はSpring Boot、データ層はMySQL」など、実技術例で説明</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-800 mb-2">HTML5セマンティック要素の実践活用（重要改良箇所）</h3>
+                    <div class="bg-yellow-100 border-l-4 border-yellow-500 p-3 mt-2">
+                        <p class="text-yellow-700 mb-2"><strong>必須改良事項：</strong></p>
+                        <ul class="list-disc list-inside space-y-1 text-yellow-700">
+                            <li><strong>各要素の役割：</strong>「header要素はページトップに配置（例：サイトロゴとナビゲーション）」</li>
+                            <li><strong>SEO効果：</strong>「nav要素により検索エンジンがナビゲーションを認識」</li>
+                            <li><strong>適用場面：</strong>「企業サイト」→「コーポレートサイトのヘッダー・フッター設計」など具体例</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-blue-100 p-3 mt-3 rounded">
+                        <p class="text-blue-700 font-semibold">比較表に「実用例」列を追加：</p>
+                        <ul class="list-disc list-inside space-y-1 text-blue-700 mt-2">
+                            <li>header: 「サイトヘッダー、ブログ記事タイトル」</li>
+                            <li>nav: 「メインメニュー、パンくずナビ」</li>
+                            <li>main: 「記事本文、商品詳細」</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 演習問題・理解度クイズ仕様 -->
+        <section class="bg-teal-50 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-teal-600 mb-4">
+                <i class="fas fa-question-circle mr-2"></i>演習問題・理解度クイズ（表示仕様）
+            </h2>
+
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-800 mb-2">演習問題</h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>問題文：<strong>常に表示</strong></li>
+                        <li>回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+                        <li>詳細解説を削減しないよう注意</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-800 mb-2">理解度クイズ</h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>問題・選択肢：<strong>常に表示</strong></li>
+                        <li>正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+                        <li>JavaScript showAnswer()関数を実装</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- まとめセクション改善指針 -->
+        <section class="bg-pink-50 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-pink-600 mb-4">
+                <i class="fas fa-clipboard-check mr-2"></i>まとめセクション改善指針
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-red-100 p-4 rounded-lg">
+                    <h3 class="font-semibold text-red-700 mb-2">❌ 避けるべき抽象的表現</h3>
+                    <ul class="list-disc list-inside space-y-1 text-red-600">
+                        <li>「HTML5を理解した」</li>
+                        <li>「適切な要素選択ができるようになった」</li>
+                        <li>「Web標準を把握した」</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-100 p-4 rounded-lg">
+                    <h3 class="font-semibold text-green-700 mb-2">✅ 推奨する具体的表現</h3>
+                    <ul class="list-disc list-inside space-y-1 text-green-600">
+                        <li>「header要素でSEO効果を高め、サイト構造を明確化」</li>
+                        <li>「nav要素によりスクリーンリーダー対応を実現」</li>
+                        <li>「form要素の新機能でJavaScript不要のバリデーション実装」</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 分かりやすさチェックリスト -->
+        <section class="bg-gray-100 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-700 mb-4">
+                <i class="fas fa-tasks mr-2"></i>分かりやすさチェックリスト
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-800 mb-3">
+                        <i class="fas fa-table mr-2"></i>表・図解
+                    </h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>専門用語に必ず日本語説明を併記</li>
+                        <li>技術仕様には具体例（「width属性で幅300px指定」）</li>
+                        <li>適用場面は実際のWeb開発例で説明</li>
+                        <li>比較表には「実用例」列を追加</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg">
+                    <h3 class="font-semibold text-gray-800 mb-3">
+                        <i class="fas fa-file-alt mr-2"></i>文章・説明
+                    </h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-700">
+                        <li>略語は正式名称を併記</li>
+                        <li>「なぜ」の理由を必ず説明</li>
+                        <li>日常例・比喩を積極活用</li>
+                        <li>まとめは具体的なメリットを明示</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 出力形式 -->
+        <section class="bg-orange-50 border-l-4 border-orange-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-orange-600 mb-4">
+                <i class="fas fa-download mr-2"></i>出力形式
+            </h2>
+            <div class="bg-red-100 border border-red-300 p-4 rounded-lg">
+                <p class="text-red-700 font-semibold mb-2">⚠️ 重要事項：</p>
+                <ul class="list-disc list-inside space-y-2 text-red-600">
+                    <li><strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                    <li>特に「HTML5セマンティック要素の実践活用」は<strong>必ず詳細説明付きで改良</strong>すること</li>
+                    <li>専門用語の初出時は<strong>日本語説明を併記</strong>すること</li>
+                    <li>まとめセクションは<strong>具体的なメリット</strong>で記載すること</li>
+                    <li>HTMLの見やすさと詳細な解説を<strong>両立</strong>すること</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- フッター -->
+        <footer class="text-center py-8 border-t border-gray-200">
+            <p class="text-gray-600">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            <p class="text-sm text-gray-500 mt-2">ITエンジニア育成カリキュラム - Day37講義プロンプト</p>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDvXYx40deAKYyxNfNUyDUSh0KV42cbYsD9DMNKkC6WUKBRfaefL48TN6pNfZcv3oJRH6fbVusD%2FU3NSfZt9LRKZ2grjz3VM28zUY%2BdUD6mnPNYJ73kZaqAyPSr1IUwGwnP2OnAF68BLJKHZOoFyNsva87d%2FgabBm1ZECNufjKIZIhY9K4rBt4mDDJOH4xRhf%2BVpc2llYgO6d7rIwSmdlZpsBQSbfWwLsZWHrfxHrxbqe%2BXQrYi2xeAc1jBIQtQRsGZQbo9uO%2FCM0g2LhgHauT1F2gTcmyOu6tvt%2Fu34KuvgRudyOLSYoaW4QtcKYBUEZ0ZIzXd3wtkvF5f2DRoKbpr39Q71aNwNzQUTSMbQCtgos6kSFJT8yr%2BmtmtUGLLrz32B4iw1mgWnrWsTcCU%2BsjeNcVwS7JTRowWqtoOL6cs8uge0iFQvl9sjIxb3RccazogWCKgT5k3m1o9%2BjxAQrTuvcXzPe7q%2F9K5TWbrRpBbCMDtpwbY9oM%2F2kaANhSyQx5w%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDvXYx40deAKYyxNfNUyDUSh0KV42cbYsD9DMNKkC6WUKBRfaefL48TN6pNfZcv3oJRH6fbVusD/U3NSfZt9LRKZ2grjz3VM28zUY+dUD6mnPNYJ73kZaqAyPSr1IUwGwnP2OnAF68BLJKHZOoFyNsva87d/gabBm1ZECNufjKIZIhY9K4rBt4mDDJOH4xRhf+Vpc2llYgO6d7rIwSmdlZpsBQSbfWwLsZWHrfxHrxbqe+XQrYi2xeAc1jBIQtQRsGZQbo9uO/CM0g2LhgHauT1F2gTcmyOu6tvt/u34KuvgRudyOLSYoaW4QtcKYBUEZ0ZIzXd3wtkvF5f2DRoKbpr39Q71aNwNzQUTSMbQCtgos6kSFJT8yr+mtmtUGLLrz32B4iw1mgWnrWsTcCU+sjeNcVwS7JTRowWqtoOL6cs8uge0iFQvl9sjIxb3RccazogWCKgT5k3m1o9+jxAQrTuvcXzPe7q/9K5TWbrRpBbCMDtpwbY9oM/2kaANhSyQx5w==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

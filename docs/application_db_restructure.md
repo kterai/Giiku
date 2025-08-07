@@ -29,7 +29,7 @@ erDiagram
 - `TravelRequestDetails` など各種申請エンティティ: サロゲートキー `id` を持ち、`application_id` で applications を参照して個別項目を保持。
 - `ApplicationApprovalRoute`: 承認ルートの実体。`applicationId`、`stepOrder`、`approverId`、`status`、`action`、`comment`、`processedAt` などを持つ。
 
-これらのエンティティはすべて `jp.co.apsa.unryu.domain.entity` 配下に配置します。
+これらのエンティティはすべて `jp.co.apsa.giiku.domain.entity` 配下に配置します。
 
 ## 3. サービス層の役割
 

@@ -7,6 +7,6 @@ RUN ./gradlew bootJar --no-daemon
 
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
-COPY --from=build /workspace/build/libs/unryu-system.jar app.jar
+COPY --from=build /workspace/build/libs/giiku-system.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]

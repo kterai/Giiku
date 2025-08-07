@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Form模擬テスト構築マニュアル - ステップバイステップガイド</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #1a56db;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+            font-weight: 600;
+        }
+        h1 { font-size: 2em; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; }
+        h2 { font-size: 1.75em; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; }
+        h3 { font-size: 1.5em; }
+        h4 { font-size: 1.25em; }
+        p { margin: 1em 0; }
+        code {
+            background: #f1f5f9;
+            border-radius: 4px;
+            padding: 2px 4px;
+            font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+        }
+        pre {
+            background: #f1f5f9;
+            border-radius: 4px;
+            padding: 1em;
+            overflow-x: auto;
+            margin: 1em 0;
+        }
+        .code-block {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+        }
+        .step {
+            margin: 2em 0;
+            padding: 1em;
+            background-color: #f9fafb;
+            border-left: 4px solid #3b82f6;
+            border-radius: 4px;
+        }
+        .step-number {
+            font-size: 1.25em;
+            font-weight: bold;
+            color: #3b82f6;
+            margin-bottom: 0.5em;
+        }
+        .note {
+            background-color: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 1em;
+            margin: 1em 0;
+            border-radius: 4px;
+        }
+        .tip {
+            background-color: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 1em;
+            margin: 1em 0;
+            border-radius: 4px;
+        }
+        .warning {
+            background-color: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 1em;
+            margin: 1em 0;
+            border-radius: 4px;
+        }
+        .screenshot {
+            max-width: 100%;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+            margin: 1em 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f1f5f9;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            margin: 2em 0;
+            height: 400px;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <header class="mb-8">
+        <h1 class="text-3xl font-bold text-center my-6">Google Form模擬テスト構築マニュアル<br><span class="text-xl">Java Silver試験対策のためのステップバイステップガイド</span></h1>
+        <div class="text-center text-gray-600">
+            <p>ITエンジニア育成カリキュラム - Day5向け実装ガイド</p>
+            <p>最終更新: 2025年7月29日</p>
+        </div>
+    </header>
+
+    <div class="bg-blue-50 p-6 rounded-lg mb-8 border-l-4 border-blue-500">
+        <h2 class="text-xl font-semibold border-none p-0 m-0 mb-3">このマニュアルについて</h2>
+        <p>このマニュアルでは、ITエンジニア育成カリキュラムのDay5で実施する「Java Silver模擬テスト①」をGoogle Formを使って作成・実装し、自動採点およびスプレッドシートでの結果管理を行う方法を詳細に解説します。問題作成から受験者管理、結果分析まで、すべての手順を網羅しています。</p>
+    </div>
+
+    <nav class="mb-8">
+        <h2>目次</h2>
+        <ol class="list-decimal list-inside pl-4">
+            <li><a href="#preparation" class="text-blue-600 hover:underline">事前準備</a></li>
+            <li><a href="#form-creation" class="text-blue-600 hover:underline">Google Formの作成と基本設定</a></li>
+            <li><a href="#question-implementation" class="text-blue-600 hover:underline">Java Silver問題の実装方法</a></li>
+            <li><a href="#auto-grading" class="text-blue-600 hover:underline">自動採点の設定</a></li>
+            <li><a href="#form-distribution" class="text-blue-600 hover:underline">テストの配布と実施方法</a></li>
+            <li><a href="#spreadsheet-management" class="text-blue-600 hover:underline">Googleスプレッドシートでの回答管理</a></li>
+            <li><a href="#data-analysis" class="text-blue-600 hover:underline">テスト結果の分析方法</a></li>
+            <li><a href="#advanced-features" class="text-blue-600 hover:underline">高度な機能と活用テクニック</a></li>
+            <li><a href="#troubleshooting" class="text-blue-600 hover:underline">トラブルシューティング</a></li>
+            <li><a href="#appendix" class="text-blue-600 hover:underline">付録：問題例と解答・解説</a></li>
+        </ol>
+    </nav>
+
+    <section id="preparation">
+        <h2>1. 事前準備</h2>
+        
+        <div class="step">
+            <div class="step-number">Step 1: 必要なアカウントと権限の確認</div>
+            <p>Google Formを使用するには、Googleアカウントが必要です。また、組織アカウント（G Suiteなど）を使用している場合は、Formの作成・編集権限があることを確認してください。</p>
+            <div class="note">
+                <p><strong>注意:</strong> 組織のセキュリティポリシーによっては、Google Formの一部機能が制限されている場合があります。管理者に確認してください。</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 2: 模擬テストの構成計画</div>
+            <p>Java Silver模擬テスト①は以下のように構成します：</p>
+            <ul class="list-disc pl-6 mb-4">
+                <li>問題数：30問（Java Silver試験と同等）</li>
+                <li>制限時間：75分（設定可能）</li>
+                <li>出題カテゴリ：
+                    <ul class="list-disc pl-6">
+                        <li>データ型と変数（6問）</li>
+                        <li>演算子と制御構文（8問）</li>
+                        <li>配列操作（8問）</li>
+                        <li>アルゴリズム基礎（4問）</li>
+                        <li>総合問題（4問）</li>
+                    </ul>
+                </li>
+                <li>形式：すべて4択または5択の選択式問題</li>
+                <li>合格ライン：70%以上（21問以上正解）</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 3: 問題データの準備</div>
+            <p>事前に模擬テストの問題、選択肢、正解、解説を準備しておきます。エクセルやスプレッドシートでの管理をお勧めします。以下の情報を含めるとよいでしょう：</p>
+            <ul class="list-disc pl-6">
+                <li>問題文</li>
+                <li>選択肢（A～Eまたは1～5）</li>
+                <li>正解</li>
+                <li>解説（不正解の選択肢に対する説明も含む）</li>
+                <li>出題カテゴリ</li>
+                <li>難易度</li>
+            </ul>
+            <div class="tip">
+                <p><strong>TIP:</strong> 「Java_Silver模擬テスト_問題集.html」ファイルにある30問のサンプル問題を活用して、問題作成を効率化できます。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="form-creation">
+        <h2>2. Google Formの作成と基本設定</h2>
+
+        <div class="step">
+            <div class="step-number">Step 1: 新規フォームの作成</div>
+            <p>Google Formにアクセスし、新しいフォームを作成します。</p>
+            <ol class="list-decimal pl-6">
+                <li>Google Driveにアクセス（<a href="https://drive.google.com" class="text-blue-600 hover:underline">https://drive.google.com</a>）</li>
+                <li>「新規」→「その他」→「Google フォーム」をクリック</li>
+                <li>または直接 <a href="https://forms.google.com" class="text-blue-600 hover:underline">https://forms.google.com</a> にアクセスし、「+」ボタンをクリック</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 2: フォーム基本情報の設定</div>
+            <p>フォームのタイトルと説明を設定します。</p>
+            <ul class="list-disc pl-6">
+                <li>タイトル：「ITエンジニア育成カリキュラム - Java Silver模擬テスト①」</li>
+                <li>説明：テストの概要、出題範囲、制限時間、合格ライン、注意事項などを記載</li>
+            </ul>
+            <div class="code-block">
+                <strong>【説明文例】</strong><br>
+                本テストはITエンジニア育成カリキュラム Day5のJava Silver模擬テスト①です。<br><br>
+                【テスト概要】<br>
+                • 問題数：30問（全て選択式）<br>
+                • 制限時間：75分<br>
+                • 出題範囲：データ型、変数、演算子、制御構文、配列、基本アルゴリズム<br>
+                • 合格ライン：70%以上（21問以上正解）<br><br>
+                【注意事項】<br>
+                • 時間内に解答を送信してください<br>
+                • すべての問題に解答してください<br>
+                • 一度送信した解答は修正できません<br><br>
+                【テスト終了後】<br>
+                • 自動採点により即時に結果が表示されます<br>
+                • 各問題の解説と正解を確認できます
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 3: テーマとデザインの設定</div>
+            <p>見やすく、プロフェッショナルなデザインにカスタマイズします。</p>
+            <ol class="list-decimal pl-6">
+                <li>フォーム右上の「カスタマイズテーマ」アイコンをクリック</li>
+                <li>ヘッダー画像：Java関連の適切な画像を設定（オプション）</li>
+                <li>テーマカラー：青系（#1a56db）を選択（ITエンジニア育成カリキュラムのカラースキームに合わせる）</li>
+                <li>背景色：白（#ffffff）を選択（読みやすさを確保）</li>
+                <li>フォントスタイル：「基本」または「クラシック」を選択（視認性重視）</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 4: 基本設定の構成</div>
+            <p>フォームの設定を適切に構成します。右上の「設定」アイコンをクリックし、以下を設定します。</p>
+
+            <h4>「全般」タブ</h4>
+            <ul class="list-disc pl-6">
+                <li>回答の収集：「回答を受け付けています」を選択</li>
+                <li>メールアドレスを収集：「はい」を選択（受験者の識別に必要）</li>
+                <li>回答の制限：「1人1回の回答」にチェック（重複受験防止）</li>
+            </ul>
+
+            <h4>「プレゼンテーション」タブ</h4>
+            <ul class="list-disc pl-6">
+                <li>進捗バー表示：「はい」を選択（残りの問題数を確認可能）</li>
+                <li>質問のシャッフル：「はい」を選択（カンニング防止）</li>
+                <li>「次へ」「戻る」リンク表示：「いいえ」を選択（カンニング防止）</li>
+                <li>確認メッセージ：適切なメッセージを入力（例：「テスト終了です。お疲れ様でした。」）</li>
+            </ul>
+
+            <h4>「テスト」タブ</h4>
+            <ul class="list-disc pl-6">
+                <li>「テストにする」を「オン」に設定</li>
+                <li>回答後すぐに採点：「はい」を選択</li>
+                <li>未回答の質問：「表示する」を選択</li>
+                <li>不正解の質問：「表示する」を選択</li>
+                <li>回答ごとの点数：「表示する」を選択</li>
+                <li>正解：「解答送信後に表示」を選択</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 5: 受験者情報セクションの作成</div>
+            <p>テスト開始前に受験者の基本情報を収集するためのセクションを作成します。</p>
+            <ol class="list-decimal pl-6">
+                <li>「セクションを追加」ボタンをクリック</li>
+                <li>セクションタイトル：「受験者情報」</li>
+                <li>セクション説明：「以下の情報を入力してからテストを開始してください。」</li>
+                <li>以下の質問を追加：
+                    <ul class="list-disc pl-6">
+                        <li>氏名（記述式・必須）</li>
+                        <li>学籍番号/社員ID（記述式・必須）</li>
+                        <li>所属（ドロップダウン・必須）- 必要に応じてクラスやチームなどの選択肢を用意</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <section id="question-implementation">
+        <h2>3. Java Silver問題の実装方法</h2>
+
+        <div class="step">
+            <div class="step-number">Step 1: 問題セクションの作成</div>
+            <p>テスト本体のセクションを作成します。</p>
+            <ol class="list-decimal pl-6">
+                <li>「セクションを追加」ボタンをクリック</li>
+                <li>セクションタイトル：「Java Silver模擬テスト①」</li>
+                <li>セクション説明：「制限時間75分です。すべての問題に解答してください。」</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 2: 選択式問題の作成</div>
+            <p>Java Silver形式の選択式問題を作成します。</p>
+            <ol class="list-decimal pl-6">
+                <li>「質問を追加」ボタンをクリック</li>
+                <li>質問タイプを「ラジオボタン」に設定</li>
+                <li>問題文を入力：コードを含む場合は等幅フォントになるよう整形</li>
+                <li>選択肢を入力（通常4～5個の選択肢）</li>
+                <li>「必須」にチェック</li>
+                <li>「回答キー」をクリックして正解を設定</li>
+                <li>配点を設定（通常は各問題1点）</li>
+                <li>「解説を追加」をクリックし、問題の解説を入力</li>
+            </ol>
+
+            <div class="code-block">
+                <strong>【問題例】</strong><br>
+                次のコードをコンパイルして実行した場合、結果として出力されるのはどれですか？<br><br>
+                ```java<br>
+                public class Test {<br>
+                &nbsp;&nbsp;public static void main(String[] args) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;int[] array = {1, 2, 3, 4, 5};<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;int sum = 0;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;for(int i = 0; i < array.length; i++) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(array[i] % 2 == 0) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sum += array[i];<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;System.out.println(sum);<br>
+                &nbsp;&nbsp;}<br>
+                }<br>
+                ```<br><br>
+                <strong>選択肢：</strong><br>
+                A. 6<br>
+                B. 9<br>
+                C. 15<br>
+                D. コンパイルエラー<br><br>
+                <strong>解説：</strong><br>
+                正解はA. 6です。<br>
+                配列の偶数要素（2と4）の合計を計算しているため、2 + 4 = 6 が出力されます。<br>
+                if文の条件 array[i] % 2 == 0 は、配列要素を2で割った余りが0、つまり偶数かどうかをチェックしています。
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 3: コードを含む問題の表示方法</div>
+            <p>Java Silverでは多くの問題がコードを含みます。Google Formでコードを読みやすく表示するには、以下のテクニックが有効です。</p>
+            
+            <ul class="list-disc pl-6">
+                <li>等幅フォント：コードブロックの前後に ```java と ``` を追加（Markdown形式）</li>
+                <li>インデント：スペースを使用して適切なインデントを保持</li>
+                <li>行番号：必要に応じてコードの左側に行番号を追加</li>
+                <li>重要部分のハイライト：太字や下線で注目すべき箇所を強調</li>
+            </ul>
+
+            <div class="note">
+                <p><strong>注意:</strong> Google Formはリッチテキスト編集に制限があります。複雑なコード例は、事前に整形してからコピー＆ペーストするのがベストです。</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 4: 問題のカテゴリー分類（オプション）</div>
+            <p>テストを複数のカテゴリーに分けて整理したい場合は、セクションを利用します。</p>
+            <ol class="list-decimal pl-6">
+                <li>「セクションを追加」ボタンをクリック</li>
+                <li>セクションタイトルにカテゴリー名を入力（例：「データ型と変数」）</li>
+                <li>そのセクション内に関連する問題を配置</li>
+            </ol>
+            <div class="tip">
+                <p><strong>TIP:</strong> セクション分けするとカテゴリー別の成績分析が容易になりますが、全問シャッフルを有効にしている場合は意味がなくなります。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="auto-grading">
+        <h2>4. 自動採点の設定</h2>
+
+        <div class="step">
+            <div class="step-number">Step 1: 回答キーの設定</div>
+            <p>各問題の正解を設定します。</p>
+            <ol class="list-decimal pl-6">
+                <li>問題を選択</li>
+                <li>右下の「回答キー」ボタンをクリック</li>
+                <li>正解となる選択肢をクリック</li>
+                <li>配点を入力（通常は各問1点）</li>
+                <li>「完了」をクリック</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 2: 解説の追加</div>
+            <p>各問題に詳細な解説を追加します。</p>
+            <ol class="list-decimal pl-6">
+                <li>回答キーを設定した状態で、「解説を追加」をクリック</li>
+                <li>以下の要素を含む解説を入力：
+                    <ul class="list-disc pl-6">
+                        <li>正解とその理由</li>
+                        <li>不正解の選択肢がなぜ間違っているか</li>
+                        <li>問題の背景知識や関連概念</li>
+                        <li>似た問題への対処法</li>
+                        <li>参考資料やリソースへのリンク（オプション）</li>
+                    </ul>
+                </li>
+            </ol>
+            <div class="tip">
+                <p><strong>TIP:</strong> 解説は学習の重要な機会です。単に正解を示すだけでなく、その背後にある概念や考え方を説明することで、より深い理解を促しましょう。</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 3: 合計点と合格基準の設定</div>
+            <p>テスト全体の配点と合格基準を設定します。</p>
+            <ol class="list-decimal pl-6">
+                <li>各問題に1点を配分した場合、合計30点満点</li>
+                <li>合格基準は70%以上、つまり21点以上</li>
+            </ol>
+            <div class="note">
+                <p><strong>注意:</strong> Google Formでは合格/不合格の自動判定機能はありません。後述するスプレッドシートでの管理で対応します。</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="form-distribution">
+        <h2>5. テストの配布と実施方法</h2>
+
+        <div class="step">
+            <div class="step-number">Step 1: テスト公開準備</div>
+            <p>テスト配布前の最終確認を行います。</p>
+            <ul class="list-disc pl-6">
+                <li>「プレビュー」ボタンをクリックしてテスト全体をレビュー</li>
+                <li>すべての問題、選択肢、正解が適切に設定されているか確認</li>
+                <li>テストの所要時間が適切か確認</li>
+                <li>解説の内容が十分かつ正確か確認</li>
+                <li>必要に応じて問題や設定を調整</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 2: テストURLの取得と配布</div>
+            <p>テストを受験者に配布する方法を選択します。</p>
+            <ol class="list-decimal pl-6">
+                <li>フォーム上部の「送信」ボタンをクリック</li>
+                <li>以下のいずれかの方法で配布：
+                    <ul class="list-disc pl-6">
+                        <li>メール送信：「メール」タブで受験者のメールアドレスを入力</li>
+                        <li>リンク共有：「リンク」タブでURLをコピーし、LMSや共有ドキュメントに貼り付け</li>
+                        <li>埋め込み：「埋め込みHTMLを取得」でコードをコピーし、ウェブサイトに埋め込み</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 3: テスト時間の設定（外部ツール使用）</div>
+            <p>Google Formには直接的な時間制限機能がないため、以下の方法で対応します。</p>
+            
+            <h4>方法1：教室での一斉実施</h4>
+            <ul class="list-disc pl-6">
+                <li>開始時間と終了時間を明示</li>
+                <li>時間経過後はフォームへのアクセスを無効化</li>
+            </ul>
+            
+            <h4>方法2：タイマーの埋め込み</h4>
+            <p>外部タイマーサービス（例：ClassroomScreen, Online-Stopwatch）へのリンクを説明文に追加</p>
+            
+            <h4>方法3：Google Apps Script（上級者向け）</h4>
+            <p>以下のような機能を実装できます：</p>
+            <ul class="list-disc pl-6">
+                <li>指定時間後にフォームを自動的にクローズ</li>
+                <li>残り時間を表示するタイマー</li>
+                <li>時間切れ時の自動送信</li>
+            </ul>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 4: テストモニタリング</div>
+            <p>テスト実施中に監視する方法です。</p>
+            <ul class="list-disc pl-6">
+                <li>リアルタイム回答確認：「回答」タブで現在の回答状況を確認</li>
+                <li>受験者数の確認：「●件の回答」で現在までの提出数を確認</li>
+            </ul>
+            <div class="warning">
+                <p><strong>注意:</strong> 不正防止のためには、以下の対策も検討してください：</p>
+                <ul class="list-disc pl-4">
+                    <li>教室での監視下実施</li>
+                    <li>回答時間の分析（異常に早い回答時間のチェック）</li>
+                    <li>問題と選択肢のシャッフル</li>
+                    <li>同一IPからの複数回答のブロック</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="spreadsheet-management">
+        <h2>6. Googleスプレッドシートでの回答管理</h2>
+
+        <div class="step">
+            <div class="step-number">Step 1: 回答スプレッドシートの作成</div>
+            <p>回答データをスプレッドシートで管理する設定を行います。</p>
+            <ol class="list-decimal pl-6">
+                <li>フォームエディタで「回答」タブをクリック</li>
+                <li>右上の「・・・」（縦に3つ並んだ点）をクリック</li>
+                <li>「スプレッドシートにリンク」を選択</li>
+                <li>「新しいスプレッドシートを作成」または「既存のスプレッドシートを選択」を選択</li>
+                <li>「作成」または「選択」をクリック</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 2: 回答データの整理と追加カラムの設定</div>
+            <p>スプレッドシートに追加の列を作成して、分析を容易にします。</p>
+            <ol class="list-decimal pl-6">
+                <li>スプレッドシートを開く</li>
+                <li>以下の追加列を作成：
+                    <ul class="list-disc pl-6">
+                        <li>合計得点：各問題の点数を合計</li>
+                        <li>正答率：合計得点÷満点×100</li>
+                        <li>合格/不合格：正答率≧70%で「合格」、それ以外は「不合格」</li>
+                        <li>所要時間：終了時間－開始時間</li>
+                        <li>カテゴリー別得点：各カテゴリーごとの得点集計</li>
+                    </ul>
+                </li>
+                <li>最後の列の後に追加列を作成し、以下の数式を入力：</li>
+            </ol>
+            <div class="code-block">
+                <strong>【合計得点の計算式】</strong><br>
+                =SUM(F2:AI2)<br><br>
+                <strong>【正答率の計算式（30点満点の場合）】</strong><br>
+                =AJ2/30*100<br><br>
+                <strong>【合格/不合格判定の計算式】</strong><br>
+                =IF(AK2>=70,"合格","不合格")<br><br>
+                <strong>【所要時間計算（タイムスタンプがある場合）】</strong><br>
+                =TEXT(C2-B2,"h:mm:ss")<br><br>
+                <strong>【カテゴリー別得点（データ型と変数の問題が特定の列にある場合）】</strong><br>
+                =SUM(F2:K2)
+            </div>
+            <div class="tip">
+                <p><strong>TIP:</strong> 数式は1行目に入力し、後はドラッグして複製すると効率的です。</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 3: 条件付き書式の設定</div>
+            <p>視覚的に結果を判断しやすくするために条件付き書式を設定します。</p>
+            <ol class="list-decimal pl-6">
+                <li>該当する列（例：正答率、合否）を選択</li>
+                <li>「書式」→「条件付き書式」をクリック</li>
+                <li>以下のような条件を設定：
+                    <ul class="list-disc pl-6">
+                        <li>正答率が90%以上：緑色</li>
+                        <li>正答率が70-90%：黄色</li>
+                        <li>正答率が70%未満：赤色</li>
+                        <li>「合格」：緑色、「不合格」：赤色</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 4: データ分析の自動化（関数とピボットテーブル）</div>
+            <p>回答データを自動的に分析するための設定を行います。</p>
+            
+            <h4>基本的な統計関数</h4>
+            <div class="code-block">
+                <strong>【平均点の計算】</strong><br>
+                =AVERAGE(AJ:AJ)<br><br>
+                <strong>【最高点の計算】</strong><br>
+                =MAX(AJ:AJ)<br><br>
+                <strong>【最低点の計算】</strong><br>
+                =MIN(AJ:AJ)<br><br>
+                <strong>【標準偏差の計算】</strong><br>
+                =STDEV(AJ:AJ)<br><br>
+                <strong>【合格率の計算】</strong><br>
+                =COUNTIF(AL:AL,"合格")/COUNT(AL:AL)*100
+            </div>
+            
+            <h4>ピボットテーブルの作成</h4>
+            <ol class="list-decimal pl-6">
+                <li>「挿入」→「ピボットテーブル」をクリック</li>
+                <li>データ範囲と新しいシート作成を確認</li>
+                <li>ピボットテーブルエディタで以下を設定：
+                    <ul class="list-disc pl-6">
+                        <li>行：「所属」（クラス/チーム別分析）</li>
+                        <li>値：「合計得点」（平均として集計）、「合格/不合格」（カウントとして集計）</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <section id="data-analysis">
+        <h2>7. テスト結果の分析方法</h2>
+
+        <div class="step">
+            <div class="step-number">Step 1: 全体成績の分析</div>
+            <p>クラス/チーム全体の成績を分析し、傾向を把握します。</p>
+            <div class="chart-container">
+                <canvas id="overallResultsChart"></canvas>
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const ctx = document.getElementById('overallResultsChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['90-100%', '80-89%', '70-79%', '60-69%', '50-59%', '0-49%'],
+                            datasets: [{
+                                label: '得点分布',
+                                data: [5, 8, 12, 6, 3, 1],
+                                backgroundColor: [
+                                    'rgba(0, 200, 0, 0.7)',
+                                    'rgba(100, 200, 0, 0.7)',
+                                    'rgba(200, 200, 0, 0.7)',
+                                    'rgba(200, 100, 0, 0.7)',
+                                    'rgba(200, 50, 0, 0.7)',
+                                    'rgba(200, 0, 0, 0.7)'
+                                ],
+                                borderColor: [
+                                    'rgb(0, 150, 0)',
+                                    'rgb(75, 150, 0)',
+                                    'rgb(150, 150, 0)',
+                                    'rgb(150, 75, 0)',
+                                    'rgb(150, 35, 0)',
+                                    'rgb(150, 0, 0)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: '受験者数'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: '得点率'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Java Silver模擬テスト① 得点分布',
+                                    font: {
+                                        size: 18
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+            </script>
+
+            <h4>基本統計データの分析</h4>
+            <table class="mb-4">
+                <thead>
+                    <tr>
+                        <th>指標</th>
+                        <th>値</th>
+                        <th>評価</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>平均点</td>
+                        <td>22.5/30点 (75%)</td>
+                        <td>良好（合格ライン超え）</td>
+                    </tr>
+                    <tr>
+                        <td>最高点</td>
+                        <td>29/30点 (96.7%)</td>
+                        <td>優秀</td>
+                    </tr>
+                    <tr>
+                        <td>最低点</td>
+                        <td>14/30点 (46.7%)</td>
+                        <td>要フォロー</td>
+                    </tr>
+                    <tr>
+                        <td>標準偏差</td>
+                        <td>3.8点</td>
+                        <td>理解度にばらつきあり</td>
+                    </tr>
+                    <tr>
+                        <td>合格率</td>
+                        <td>72%</td>
+                        <td>概ね良好だが改善の余地あり</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 2: 問題別分析</div>
+            <p>各問題の正答率を分析し、特に理解度が低い分野を特定します。</p>
+            <div class="chart-container">
+                <canvas id="questionAnalysisChart"></canvas>
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const ctx = document.getElementById('questionAnalysisChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: Array.from({length: 30}, (_, i) => `問${i+1}`),
+                            datasets: [{
+                                label: '各問題の正答率',
+                                data: [
+                                    92, 85, 78, 65, 90, 88, 75, 62, 58, 72,
+                                    68, 82, 74, 60, 76, 84, 95, 70, 55, 72,
+                                    80, 76, 68, 45, 82, 78, 64, 72, 85, 70
+                                ],
+                                fill: false,
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                tension: 0.1,
+                                pointBackgroundColor: function(context) {
+                                    var index = context.dataIndex;
+                                    var value = context.dataset.data[index];
+                                    return value < 70 ? 'rgba(255, 99, 132, 1)' : 'rgba(75, 192, 192, 1)';
+                                }
+                            }]
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    min: 0,
+                                    max: 100,
+                                    title: {
+                                        display: true,
+                                        text: '正答率 (%)'
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: '問題番号'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: '問題別正答率分析',
+                                    font: {
+                                        size: 18
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+            </script>
+
+            <h4>特に正答率の低い問題（重点復習ポイント）</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>問題番号</th>
+                        <th>カテゴリ</th>
+                        <th>正答率</th>
+                        <th>問題内容</th>
+                        <th>対策</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>問24</td>
+                        <td>配列操作</td>
+                        <td>45%</td>
+                        <td>多次元配列の初期化と操作</td>
+                        <td>追加演習と解説の強化</td>
+                    </tr>
+                    <tr>
+                        <td>問19</td>
+                        <td>制御構文</td>
+                        <td>55%</td>
+                        <td>ラベル付きbreak文の挙動</td>
+                        <td>実践的なコード例で再解説</td>
+                    </tr>
+                    <tr>
+                        <td>問9</td>
+                        <td>データ型</td>
+                        <td>58%</td>
+                        <td>型変換とオーバーフロー</td>
+                        <td>基本概念の復習セッション</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 3: カテゴリー別分析</div>
+            <p>テーマ別の理解度を分析し、弱点分野を特定します。</p>
+            <div class="chart-container">
+                <canvas id="categoryAnalysisChart"></canvas>
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const ctx = document.getElementById('categoryAnalysisChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: [
+                                'データ型と変数',
+                                '演算子と式',
+                                '制御構文',
+                                '配列基本操作',
+                                '配列応用操作',
+                                'アルゴリズム'
+                            ],
+                            datasets: [{
+                                label: 'クラス平均',
+                                data: [78, 82, 70, 76, 62, 68],
+                                fill: true,
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgb(54, 162, 235)',
+                                pointBackgroundColor: 'rgb(54, 162, 235)',
+                                pointBorderColor: '#fff',
+                                pointHoverBackgroundColor: '#fff',
+                                pointHoverBorderColor: 'rgb(54, 162, 235)'
+                            }]
+                        },
+                        options: {
+                            maintainAspectRatio: false,
+                            elements: {
+                                line: {
+                                    borderWidth: 3
+                                }
+                            },
+                            scales: {
+                                r: {
+                                    angleLines: {
+                                        display: true
+                                    },
+                                    suggestedMin: 0,
+                                    suggestedMax: 100
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'カテゴリー別理解度',
+                                    font: {
+                                        size: 18
+                                    }
+                                }
+                            }
+                        }
+                    });
+                });
+            </script>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 4: 個人別フィードバックの作成</div>
+            <p>各受験者の強み・弱みを分析し、個別フィードバックを提供します。</p>
+            <ol class="list-decimal pl-6">
+                <li>スプレッドシートの各回答行を分析</li>
+                <li>カテゴリー別の得点を計算</li>
+                <li>特に弱点となる分野を特定</li>
+                <li>以下のような個別フィードバックテンプレートを作成：</li>
+            </ol>
+
+            <div class="code-block">
+                <strong>【個別フィードバックテンプレート】</strong><br><br>
+                ＜ITエンジニア育成カリキュラム - Java Silver模擬テスト①結果＞<br><br>
+                氏名：[NAME]<br>
+                学籍/社員ID：[ID]<br>
+                受験日時：[DATE]<br>
+                所要時間：[TIME]<br><br>
+                総合結果：[SCORE]/30点 ([PERCENTAGE]%)<br>
+                判定：[PASS_FAIL]<br><br>
+                ■カテゴリー別成績<br>
+                1. データ型と変数：[CAT1_SCORE]/6点 ([CAT1_PERCENTAGE]%)<br>
+                2. 演算子と制御構文：[CAT2_SCORE]/8点 ([CAT2_PERCENTAGE]%)<br>
+                3. 配列操作：[CAT3_SCORE]/8点 ([CAT3_PERCENTAGE]%)<br>
+                4. アルゴリズム基礎：[CAT4_SCORE]/4点 ([CAT4_PERCENTAGE]%)<br>
+                5. 総合問題：[CAT5_SCORE]/4点 ([CAT5_PERCENTAGE]%)<br><br>
+                ■強み<br>
+                - [STRENGTH1]<br>
+                - [STRENGTH2]<br><br>
+                ■弱点と改善ポイント<br>
+                - [WEAKNESS1]：[IMPROVEMENT1]<br>
+                - [WEAKNESS2]：[IMPROVEMENT2]<br><br>
+                ■推奨学習リソース<br>
+                - [RESOURCE1]<br>
+                - [RESOURCE2]<br><br>
+                ■次回への準備<br>
+                [NEXT_STEPS]
+            </div>
+        </div>
+    </section>
+
+    <section id="advanced-features">
+        <h2>8. 高度な機能と活用テクニック</h2>
+
+        <div class="step">
+            <div class="step-number">Step 1: 条件分岐によるアダプティブテスト</div>
+            <p>回答内容に応じてテストの難易度や内容を変更する高度な機能です。</p>
+            <ol class="list-decimal pl-6">
+                <li>Google Formの「セクション」機能を使用</li>
+                <li>各セクション間に条件分岐を設定：
+                    <ul class="list-disc pl-6">
+                        <li>特定の問題で高得点の場合→応用問題セクションへ</li>
+                        <li>特定の問題で低得点の場合→基本問題セクションへ</li>
+                    </ul>
+                </li>
+                <li>設定方法：「セクション」の後に「▼」アイコンをクリックし、「セクションを移動」を選択</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 2: Google Apps Scriptによる拡張機能</div>
+            <p>プログラミングを利用して、より高度な機能を実装します。</p>
+            <ol class="list-decimal pl-6">
+                <li>スプレッドシートで「ツール」→「スクリプトエディタ」を選択</li>
+                <li>以下のような機能を実装可能：
+                    <ul class="list-disc pl-6">
+                        <li>自動メール送信：テスト結果と個別フィードバックを自動送信</li>
+                        <li>採点結果のPDF生成：個別レポートをPDF形式で作成</li>
+                        <li>時間管理：制限時間の設定と自動送信</li>
+                        <li>進捗管理：特定の成績条件を満たした受験者へのフォローアップ</li>
+                    </ul>
+                </li>
+            </ol>
+            <div class="code-block">
+                <strong>【自動メール送信スクリプト例】</strong><br>
+                ```javascript<br>
+                function sendTestResults() {<br>
+                  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();<br>
+                  var startRow = 2; // データの開始行<br>
+                  var numRows = sheet.getLastRow() - 1; // データ行数<br>
+                  <br>
+                  // データ範囲を取得<br>
+                  var dataRange = sheet.getRange(startRow, 1, numRows, sheet.getLastColumn());<br>
+                  var data = dataRange.getValues();<br>
+                  <br>
+                  for (var i = 0; i < data.length; ++i) {<br>
+                    var row = data[i];<br>
+                    var emailAddress = row[2]; // メールアドレスの列<br>
+                    var name = row[1]; // 氏名の列<br>
+                    var score = row[35]; // 合計得点の列<br>
+                    var percentage = row[36]; // 正答率の列<br>
+                    var passFail = row[37]; // 合否の列<br>
+                    <br>
+                    var subject = "Java Silver模擬テスト① 結果";<br>
+                    var message = <br>
+                      "こんにちは、" + name + "さん\n\n" +<br>
+                      "Java Silver模擬テスト①の結果をお知らせします。\n\n" +<br>
+                      "合計得点: " + score + "/30点\n" +<br>
+                      "正答率: " + percentage + "%\n" +<br>
+                      "判定: " + passFail + "\n\n" +<br>
+                      "詳細なフィードバックは添付のPDFをご確認ください。\n\n" +<br>
+                      "ITエンジニア育成カリキュラム運営チーム";<br>
+                    <br>
+                    // メール送信<br>
+                    MailApp.sendEmail(emailAddress, subject, message);<br>
+                  }<br>
+                }<br>
+                ```
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">Step 3: LMS（学習管理システム）との連携</div>
+            <p>Google FormとLMSを連携させ、学習サイクルを完成させます。</p>
+            <ul class="list-disc pl-6">
+                <li>Google ClassroomとGoogleフォームの統合
+                    <ul class="list-disc pl-6">
+                        <li>Classroomの課題としてフォームを添付</li>
+                        <li>自動で課題として記録・採点</li>
+                    </ul>
+                </li>
+                <li>Moodle/Canvas連携
+                    <ul class="list-disc pl-6">
+                        <li>LTI（Learning Tools Interoperability）を利用</li>
+                        <li>外部ツールとしてGoogle Formをリンク</li>
+                        <li>成績を成績表に自動反映</li>
+                    </ul>
+                </li>
+                <li>Zapier/Microsoft Power Automateでの連携自動化
+                    <ul class="list-disc pl-6">
+                        <li>新規回答が送信された時にLMSにデータを転送</li>
+                        <li>テスト結果に基づいて追加コンテンツを表示</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="troubleshooting">
+        <h2>9. トラブルシューティング</h2>
+
+        <div class="step">
+            <div class="step-number">よくある問題と解決策</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>問題</th>
+                        <th>原因</th>
+                        <th>解決策</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>回答が記録されない</td>
+                        <td>ネットワーク接続の問題、ブラウザの互換性</td>
+                        <td>
+                            <ul class="list-disc pl-4">
+                                <li>安定したインターネット接続の確保</li>
+                                <li>最新のブラウザを使用</li>
+                                <li>複数デバイスでテスト</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>自動採点が正しく機能しない</td>
+                        <td>回答キーの設定ミス、配点の問題</td>
+                        <td>
+                            <ul class="list-disc pl-4">
+                                <li>すべての問題の回答キーを再確認</li>
+                                <li>配点設定を検証</li>
+                                <li>テストモードが有効か確認</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>制限時間が守られない</td>
+                        <td>Google Formには直接的な時間制限機能がない</td>
+                        <td>
+                            <ul class="list-disc pl-4">
+                                <li>外部タイマーを使用</li>
+                                <li>Apps Scriptによる時間管理</li>
+                                <li>監視下での実施</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>コードが正しく表示されない</td>
+                        <td>書式設定の制限</td>
+                        <td>
+                            <ul class="list-disc pl-4">
+                                <li>空白を使用して手動でインデント</li>
+                                <li>画像としてコードを表示</li>
+                                <li>コード共有サービスへのリンク</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>同じユーザーが複数回回答</td>
+                        <td>認証設定の問題</td>
+                        <td>
+                            <ul class="list-disc pl-4">
+                                <li>「1人1回の回答」設定を確認</li>
+                                <li>Googleアカウントでのログインを要求</li>
+                                <li>学籍番号などの一意識別子を確認</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="appendix">
+        <h2>10. 付録：問題例と解答・解説</h2>
+        <p>以下は、Java Silver模擬テストに適した問題例とその解説です。これらを参考に問題を作成してください。</p>
+
+        <div class="code-block">
+            <strong>【問題例1】データ型と変数</strong><br><br>
+            次のコードの実行結果として正しいものはどれですか？<br><br>
+            ```java<br>
+            public class Test {<br>
+                public static void main(String[] args) {<br>
+                    int a = 10;<br>
+                    int b = 3;<br>
+                    double c = a / b;<br>
+                    System.out.println(c);<br>
+                }<br>
+            }<br>
+            ```<br><br>
+            A. 3.0<br>
+            B. 3.3<br>
+            C. 3.3333333333333335<br>
+            D. コンパイルエラー<br><br>
+            <strong>正解：A. 3.0</strong><br><br>
+            <strong>解説：</strong><br>
+            a と b はint型なので、a / b は整数除算となり、結果は3になります。その後、doubleに代入されるので、3.0として表示されます。浮動小数点の結果を得るには、計算前にどちらかをdoubleにキャストする必要があります：<br>
+            double c = (double)a / b; または double c = a / (double)b;
+        </div>
+
+        <div class="code-block">
+            <strong>【問題例2】制御構文</strong><br><br>
+            次のコードの実行結果として正しいものはどれですか？<br><br>
+            ```java<br>
+            public class Test {<br>
+                public static void main(String[] args) {<br>
+                    int x = 1;<br>
+                    while(x < 10) {<br>
+                        if(x > 5) {<br>
+                            break;<br>
+                        } else {<br>
+                            System.out.print(x + " ");<br>
+                            x += 2;<br>
+                            continue;<br>
+                        }<br>
+                    }<br>
+                }<br>
+            }<br>
+            ```<br><br>
+            A. 1 2 3 4 5<br>
+            B. 1 3 5<br>
+            C. 1 3 5 7<br>
+            D. 1 3 5 7 9<br><br>
+            <strong>正解：B. 1 3 5</strong><br><br>
+            <strong>解説：</strong><br>
+            1. 初期値 x = 1 から開始します。<br>
+            2. x < 10 の条件を満たすため、ループに入ります。<br>
+            3. x > 5 ではないので、else ブロックに入ります。<br>
+            4. 「1 」を出力し、x += 2 で x は 3 になります。<br>
+            5. continue により、ループの条件式に戻ります。<br>
+            6. 同様に「3 」を出力し、x は 5 になります。<br>
+            7. 「5 」を出力し、x は 7 になります。<br>
+            8. 次の繰り返しで x > 5 となり、break でループを抜けます。<br>
+            よって出力は「1 3 5」となります。
+        </div>
+
+        <div class="code-block">
+            <strong>【問題例3】配列操作</strong><br><br>
+            次のコードの実行結果として正しいものはどれですか？<br><br>
+            ```java<br>
+            public class Test {<br>
+                public static void main(String[] args) {<br>
+                    int[][] array = {{1, 2, 3}, {4, 5}, {6, 7, 8, 9}};<br>
+                    System.out.println(array[1][1] + array[2][2]);<br>
+                }<br>
+            }<br>
+            ```<br><br>
+            A. 7<br>
+            B. 11<br>
+            C. 13<br>
+            D. 14<br><br>
+            <strong>正解：C. 13</strong><br><br>
+            <strong>解説：</strong><br>
+            array[1][1] は2つ目の配列の2つ目の要素なので5です。<br>
+            array[2][2] は3つ目の配列の3つ目の要素なので8です。<br>
+            よって、5 + 8 = 13 が出力されます。<br>
+            この問題では、Javaの配列がゼロベース（0から始まる）であることと、可変長配列の扱いを理解しているかがポイントです。
+        </div>
+    </section>
+
+    <footer class="mt-10 pt-6 border-t border-gray-300 text-center text-gray-600">
+        <p>ITエンジニア育成カリキュラム - Java Silver模擬テスト Google Form構築マニュアル</p>
+        <p>© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDjcU8zufbD38vEWqJ8k6NaeL5Ihx0VKjQGlPP0eAKHQ55IYVnrv4q78jyU7cmqP%2FlVzXwBj%2BeCE5NV3ygon6MrSm6L2jepm2j%2F5Nm4AJbbxjVaMJYUkxvyh834H2y8F%2Bl4Uce%2FT0LDLfwfklsBLIFlwlJFy8PpAPSZjQl2WLqviYNLbPaOoyYLZxoC80VgInL85t1p9XasRYO2xNDQFK1ECR8ZeRz8FNig5mKNmIbRRXqbjEk4TTisSzHsBEN9cBPmni5c8APHWVAYGOeRI6xOx8BbBgmKhHdfcbAv9HGMGM32fB2aJWyE91b1xUlFp6T8VEtgMZbMEaHw28VHIrbKjxqmJ%2BVjhG%2F4qtxoCTSU2loenx2%2BZvLd6X1kFg62WBYUIjc8Jsek7iuure25y%2FHiuIS%2F3UMC8K1t55LRavL4ssvUJfP9btbMB159cgri7WZQ4EdHUwsZjrVlhDf6y9VzXPfs3UQiD583EO1om2%2FxWBHEOTSFanYibVpGbGWPu6n8lS6PuoXBJRBLlPV9eGi0fET3M%2FGtL4DKo0HkipIkvT";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDjcU8zufbD38vEWqJ8k6NaeL5Ihx0VKjQGlPP0eAKHQ55IYVnrv4q78jyU7cmqP/lVzXwBj+eCE5NV3ygon6MrSm6L2jepm2j/5Nm4AJbbxjVaMJYUkxvyh834H2y8F+l4Uce/T0LDLfwfklsBLIFlwlJFy8PpAPSZjQl2WLqviYNLbPaOoyYLZxoC80VgInL85t1p9XasRYO2xNDQFK1ECR8ZeRz8FNig5mKNmIbRRXqbjEk4TTisSzHsBEN9cBPmni5c8APHWVAYGOeRI6xOx8BbBgmKhHdfcbAv9HGMGM32fB2aJWyE91b1xUlFp6T8VEtgMZbMEaHw28VHIrbKjxqmJ+VjhG/4qtxoCTSU2loenx2+ZvLd6X1kFg62WBYUIjc8Jsek7iuure25y/HiuIS/3UMC8K1t55LRavL4ssvUJfP9btbMB159cgri7WZQ4EdHUwsZjrVlhDf6y9VzXPfs3UQiD583EO1om2/xWBHEOTSFanYibVpGbGWPu6n8lS6PuoXBJRBLlPV9eGi0fET3M/GtL4DKo0HkipIkvT";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day44: サーバーサイド開発入門 - Servlet・JSP・JDBC</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        .highlight-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .success-box {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .danger-box {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .info-box {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .hidden {
+            display: none;
+        }
+        .diagram {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day43_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day45_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month3.html" class="hover:text-blue-600">3ヶ月目: Webアプリケーション開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week10.html" class="hover:text-blue-600">10週目: バックエンド基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">44日目: サーバーサイド開発入門 - Servlet・JSP・JDBC</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day44.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <!-- Header -->
+    <header class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold mb-2">
+                    <i class="fas fa-server mr-3"></i>Day 44
+                </h1>
+                <h2 class="text-2xl font-semibold mb-4">サーバーサイド開発入門</h2>
+                <p class="text-lg opacity-90">Servlet・JSP・JDBCによるWebアプリケーション開発の基礎</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+
+        <!-- Learning Objectives -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-target text-blue-600 mr-2"></i>本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="highlight-box">
+                    <h3 class="font-semibold text-yellow-800 mb-2">Webアプリケーションの基本構造理解</h3>
+                    <p class="text-gray-700">クライアント・サーバー通信の仕組みを<strong>実用レベル</strong>で理解する</p>
+                </div>
+                <div class="highlight-box">
+                    <h3 class="font-semibold text-yellow-800 mb-2">Servlet・JSPマスター</h3>
+                    <p class="text-gray-700">サーブレットとJSPの連携を<strong>具体例とともに</strong>習得する</p>
+                </div>
+                <div class="highlight-box">
+                    <h3 class="font-semibold text-yellow-800 mb-2">HTTPプロトコル完全理解</h3>
+                    <p class="text-gray-700">リクエスト・レスポンス処理を<strong>実践的なWebアプリ</strong>で実装できる</p>
+                </div>
+                <div class="highlight-box">
+                    <h3 class="font-semibold text-yellow-800 mb-2">JDBC活用</h3>
+                    <p class="text-gray-700">データベース連携を<strong>安全かつ効率的</strong>に実装できる</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. Web Application Basic Structure -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-sitemap text-blue-600 mr-2"></i>1. Webアプリケーションの基本構造
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-blue-800 mb-3">クライアント・サーバーモデル</h3>
+                <p class="text-gray-700 mb-4">
+                    Webアプリケーションは、<strong>クライアント（ブラウザ）</strong>と<strong>サーバー（Webサーバー）</strong>が通信を行う仕組みです。
+                    まるでレストランで、お客様（クライアント）が注文を出し、厨房（サーバー）が料理を作って提供するような関係です。
+                </p>
+
+                <div class="diagram">
+                    <div class="flex justify-between items-center">
+                        <div class="text-center">
+                            <i class="fas fa-desktop text-4xl text-blue-600 mb-2"></i>
+                            <p class="font-semibold">クライアント<br>(ブラウザ)</p>
+                        </div>
+                        <div class="flex-1 mx-4">
+                            <div class="flex justify-center items-center">
+                                <i class="fas fa-arrow-right text-2xl text-green-600 mr-2"></i>
+                                <span class="text-sm font-semibold">HTTPリクエスト</span>
+                                <i class="fas fa-arrow-right text-2xl text-green-600 ml-2"></i>
+                            </div>
+                            <div class="flex justify-center items-center mt-2">
+                                <i class="fas fa-arrow-left text-2xl text-red-600 mr-2"></i>
+                                <span class="text-sm font-semibold">HTTPレスポンス</span>
+                                <i class="fas fa-arrow-left text-2xl text-red-600 ml-2"></i>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-server text-4xl text-blue-600 mb-2"></i>
+                            <p class="font-semibold">サーバー<br>(Tomcat + Java)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-blue-800 mb-3">HTTPプロトコルの詳細</h3>
+                <p class="text-gray-700 mb-4">
+                    <strong>HTTP（HyperText Transfer Protocol：ハイパーテキスト転送プロトコル）</strong>は、
+                    WebブラウザとWebサーバー間でデータをやり取りするための約束事（プロトコル）です。
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="info-box">
+                        <h4 class="font-semibold text-blue-800 mb-2">主要なHTTPメソッド</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li><strong>GET</strong>: データの取得（検索、表示）</li>
+                            <li><strong>POST</strong>: データの送信（登録、更新）</li>
+                            <li><strong>PUT</strong>: データの更新</li>
+                            <li><strong>DELETE</strong>: データの削除</li>
+                        </ul>
+                    </div>
+                    <div class="info-box">
+                        <h4 class="font-semibold text-blue-800 mb-2">主要なステータスコード</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li><strong>200</strong>: OK（成功）</li>
+                            <li><strong>404</strong>: Not Found（見つからない）</li>
+                            <li><strong>500</strong>: Internal Server Error（サーバーエラー）</li>
+                            <li><strong>302</strong>: Found（リダイレクト）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-blue-800 mb-3">Webコンテナ（Tomcat）の役割</h3>
+                <p class="text-gray-700 mb-4">
+                    <strong>Apache Tomcat</strong>は、Javaで書かれたWebアプリケーションを実行するための環境（Webコンテナ）です。
+                    HTTPリクエストを受け取り、適切なServletを呼び出して処理結果を返す「仲介役」の役割を果たします。
+                </p>
+
+                <div class="success-box">
+                    <h4 class="font-semibold text-green-800 mb-2">Tomcatの主な機能</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li><strong>HTTPサーバー機能</strong>: HTTPリクエストの受信・レスポンスの送信</li>
+                        <li><strong>Servletコンテナ機能</strong>: Servletの生成・管理・実行</li>
+                        <li><strong>JSPエンジン</strong>: JSPファイルをServletに変換・実行</li>
+                        <li><strong>セッション管理</strong>: ユーザーごとの状態管理</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Servlet Development -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-cogs text-green-600 mr-2"></i>2. Servlet開発の実践
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-green-800 mb-3">Servletとは</h3>
+                <p class="text-gray-700 mb-4">
+                    <strong>Servlet（サーブレット）</strong>は、サーバー側で動作するJavaプログラムで、
+                    HTTPリクエストを処理してHTTPレスポンスを生成する仕組みです。
+                    まるで「注文を受けて料理を作る調理師」のような役割を果たします。
+                </p>
+
+                <div class="code-block">
+<code class="language-java">// 基本的なServletの例
+import javax.servlet.*;
+import javax.servlet.http.*;
+import java.io.*;
+
+@WebServlet("/hello")
+public class HelloServlet extends HttpServlet {
+    
+    // GETリクエストの処理
+    protected void doGet(HttpServletRequest request, 
+                        HttpServletResponse response) 
+                        throws ServletException, IOException {
+        
+        // レスポンスの文字エンコーディング設定
+        response.setContentType("text/html; charset=UTF-8");
+        
+        // HTMLを出力するためのWriterを取得
+        PrintWriter out = response.getWriter();
+        
+        // HTML出力
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head><title>Hello Servlet</title></head>");
+        out.println("<body>");
+        out.println("<h1>Hello, World!</h1>");
+        out.println("<p>現在時刻: " + new java.util.Date() + "</p>");
+        out.println("</body>");
+        out.println("</html>");
+    }
+}</code>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-green-800 mb-3">Servletライフサイクル</h3>
+                <p class="text-gray-700 mb-4">
+                    Servletには<strong>ライフサイクル（生存期間）</strong>があり、3つの主要なフェーズで管理されます。
+                    これは「従業員の入社・勤務・退社」のプロセスに似ています。
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="info-box">
+                        <h4 class="font-semibold text-blue-800 mb-2">1. init()</h4>
+                        <p class="text-gray-700 text-sm">初期化処理<br>（入社時の研修）</p>
+                    </div>
+                    <div class="success-box">
+                        <h4 class="font-semibold text-green-800 mb-2">2. service()</h4>
+                        <p class="text-gray-700 text-sm">リクエスト処理<br>（日々の業務）</p>
+                    </div>
+                    <div class="danger-box">
+                        <h4 class="font-semibold text-red-800 mb-2">3. destroy()</h4>
+                        <p class="text-gray-700 text-sm">終了処理<br>（退社時の片付け）</p>
+                    </div>
+                </div>
+
+                <div class="code-block">
+<code class="language-java">public class LifecycleServlet extends HttpServlet {
+    
+    // 初期化処理（サーバー起動時に1回だけ実行）
+    public void init() throws ServletException {
+        System.out.println("Servlet初期化: データベース接続設定など");
+    }
+    
+    // リクエスト処理（リクエストごとに実行）
+    protected void service(HttpServletRequest request, 
+                          HttpServletResponse response)
+                          throws ServletException, IOException {
+        System.out.println("リクエスト処理中...");
+        // doGet()またはdoPost()が自動的に呼ばれる
+        super.service(request, response);
+    }
+    
+    // 終了処理（サーバー停止時に1回だけ実行）
+    public void destroy() {
+        System.out.println("Servlet終了: リソースの解放など");
+    }
+}</code>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-green-800 mb-3">doGet vs doPost の使い分け</h3>
+                <p class="text-gray-700 mb-4">
+                    HTTPメソッドによって異なる処理メソッドを使い分けることで、適切なWebアプリケーションを作成できます。
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="info-box">
+                        <h4 class="font-semibold text-blue-800 mb-2">doGet() - データ取得用</h4>
+                        <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                            <li>検索結果の表示</li>
+                            <li>商品一覧の表示</li>
+                            <li>ユーザー情報の表示</li>
+                        </ul>
+                        <div class="code-block text-xs mt-2">
+<code class="language-java">protected void doGet(HttpServletRequest request, 
+                    HttpServletResponse response) {
+    // URLパラメータ取得
+    String userId = request.getParameter("id");
+    // データベースから情報取得
+    User user = getUserById(userId);
+    // 結果を画面に表示
+    request.setAttribute("user", user);
+    request.getRequestDispatcher("/user.jsp")
+           .forward(request, response);
+}</code>
+                        </div>
+                    </div>
+                    <div class="success-box">
+                        <h4 class="font-semibold text-green-800 mb-2">doPost() - データ送信用</h4>
+                        <ul class="list-disc list-inside text-gray-700 text-sm space-y-1">
+                            <li>ユーザー登録</li>
+                            <li>ログイン処理</li>
+                            <li>データの更新・削除</li>
+                        </ul>
+                        <div class="code-block text-xs mt-2">
+<code class="language-java">protected void doPost(HttpServletRequest request, 
+                     HttpServletResponse response) {
+    // フォームデータ取得
+    String name = request.getParameter("name");
+    String email = request.getParameter("email");
+    // データベースに保存
+    User user = new User(name, email);
+    userDAO.save(user);
+    // 完了画面にリダイレクト
+    response.sendRedirect("/success.jsp");
+}</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. JSP Dynamic Content -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-file-code text-purple-600 mr-2"></i>3. JSPによる動的コンテンツ生成
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-purple-800 mb-3">JSPとは</h3>
+                <p class="text-gray-700 mb-4">
+                    <strong>JSP（JavaServer Pages）</strong>は、HTMLの中にJavaコードを埋め込んで動的なWebページを作成する技術です。
+                    まるで「料理のレシピ（HTML）に特別な調味料（Java）を加えて、オーダーメイドの料理を作る」ようなものです。
+                </p>
+
+                <div class="code-block">
+<code class="language-jsp">&lt;%-- user.jsp --&gt;
+&lt;%@ page contentType="text/html; charset=UTF-8" %&gt;
+&lt;%@ page import="java.util.*, com.example.User" %&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;ユーザー情報&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;ユーザー情報&lt;/h1&gt;
+    
+    &lt;%-- Java変数の取得 --&gt;
+    &lt;% User user = (User)request.getAttribute("user"); %&gt;
+    
+    &lt;%-- 条件分岐 --&gt;
+    &lt;% if (user != null) { %&gt;
+        &lt;p&gt;名前: &lt;%= user.getName() %&gt;&lt;/p&gt;
+        &lt;p&gt;メール: &lt;%= user.getEmail() %&gt;&lt;/p&gt;
+        &lt;p&gt;登録日: &lt;%= user.getCreatedDate() %&gt;&lt;/p&gt;
+    &lt;% } else { %&gt;
+        &lt;p&gt;ユーザーが見つかりません。&lt;/p&gt;
+    &lt;% } %&gt;
+    
+    &lt;a href="/userList"&gt;一覧に戻る&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-purple-800 mb-3">スクリプトレット vs 式言語（EL）</h3>
+                <p class="text-gray-700 mb-4">
+                    JSPでは従来の<strong>スクリプトレット</strong>と、より読みやすい<strong>式言語（EL: Expression Language）</strong>が使えます。
+                    現代では式言語の使用が推奨されています。
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="danger-box">
+                        <h4 class="font-semibold text-red-800 mb-2">従来の方法（スクリプトレット）</h4>
+                        <div class="code-block text-xs">
+<code class="language-jsp">&lt;%-- 古い書き方 --&gt;
+&lt;% User user = (User)request.getAttribute("user"); %&gt;
+&lt;%= user.getName() %&gt;
+
+&lt;% List&lt;Product&gt; products = (List)request.getAttribute("products"); %&gt;
+&lt;% for(Product p : products) { %&gt;
+    &lt;p&gt;&lt;%= p.getName() %&gt;&lt;/p&gt;
+&lt;% } %&gt;</code>
+                        </div>
+                    </div>
+                    <div class="success-box">
+                        <h4 class="font-semibold text-green-800 mb-2">推奨方法（式言語 + JSTL）</h4>
+                        <div class="code-block text-xs">
+<code class="language-jsp">&lt;%-- 新しい書き方 --&gt;
+&lt;%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %&gt;
+
+${user.name}
+
+&lt;c:forEach var="product" items="${products}"&gt;
+    &lt;p&gt;${product.name}&lt;/p&gt;
+&lt;/c:forEach&gt;</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-purple-800 mb-3">MVCパターンでの役割分担</h3>
+                <p class="text-gray-700 mb-4">
+                    <strong>MVC（Model-View-Controller）パターン</strong>は、Webアプリケーションを3つの役割に分離する設計パターンです。
+                    まるで「レストランでの役割分担」のように、それぞれが専門的な仕事を担当します。
+                </p>
+
+                <div class="diagram">
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="info-box">
+                            <h4 class="font-semibold text-blue-800 mb-2">Model（データ層）</h4>
+                            <p class="text-gray-700 text-sm">JavaBeans, DAO<br>データの管理・処理</p>
+                            <p class="text-xs text-gray-600 mt-2">「食材の管理」</p>
+                        </div>
+                        <div class="success-box">
+                            <h4 class="font-semibold text-green-800 mb-2">View（表示層）</h4>
+                            <p class="text-gray-700 text-sm">JSP<br>画面の表示</p>
+                            <p class="text-xs text-gray-600 mt-2">「料理の盛り付け」</p>
+                        </div>
+                        <div class="highlight-box">
+                            <h4 class="font-semibold text-yellow-800 mb-2">Controller（制御層）</h4>
+                            <p class="text-gray-700 text-sm">Servlet<br>処理の制御</p>
+                            <p class="text-xs text-gray-600 mt-2">「注文の取りまとめ」</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-block">
+<code class="language-java">// Controller (Servlet)
+@WebServlet("/user")
+public class UserController extends HttpServlet {
+    protected void doGet(HttpServletRequest request, 
+                        HttpServletResponse response) {
+        String userId = request.getParameter("id");
+        
+        // Model からデータ取得
+        UserDAO userDAO = new UserDAO();
+        User user = userDAO.findById(userId);
+        
+        // View にデータを渡す
+        request.setAttribute("user", user);
+        request.getRequestDispatcher("/user.jsp")
+               .forward(request, response);
+    }
+}</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. JDBC Database Connection -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-database text-red-600 mr-2"></i>4. JDBCによるデータベース連携
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-red-800 mb-3">JDBCとは</h3>
+                <p class="text-gray-700 mb-4">
+                    <strong>JDBC（Java Database Connectivity）</strong>は、JavaからデータベースにアクセスするためのAPI（仕組み）です。
+                    まるで「異なる言語を話す人同士の通訳者」のような役割で、Javaとデータベースの橋渡しをします。
+                </p>
+
+                <div class="code-block">
+<code class="language-java">// 基本的なJDBC接続例
+import java.sql.*;
+
+public class DatabaseExample {
+    // データベース接続情報
+    private static final String URL = "jdbc:mysql://localhost:3306/myapp";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "password";
+    
+    public void connectAndQuery() {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        try {
+            // 1. データベース接続
+            conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            
+            // 2. SQL文の準備
+            String sql = "SELECT id, name, email FROM users WHERE age > ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, 20); // 年齢20歳以上
+            
+            // 3. SQL実行
+            rs = pstmt.executeQuery();
+            
+            // 4. 結果の処理
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                System.out.println(id + ": " + name + " (" + email + ")");
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // 5. リソースの解放（重要！）
+            try {
+                if (rs != null) rs.close();
+                if (pstmt != null) pstmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}</code>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-red-800 mb-3">PreparedStatementの重要性</h3>
+                <p class="text-gray-700 mb-4">
+                    <strong>PreparedStatement</strong>を使う理由は2つあります：
+                    <strong>SQLインジェクション攻撃の防止</strong>と<strong>実行計画の再利用によるパフォーマンス向上</strong>です。
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="danger-box">
+                        <h4 class="font-semibold text-red-800 mb-2">❌ 危険な方法（Statement）</h4>
+                        <div class="code-block text-xs">
+<code class="language-java">// SQLインジェクション攻撃の危険性
+String userInput = "'; DROP TABLE users; --";
+String sql = "SELECT * FROM users WHERE name = '" + userInput + "'";
+Statement stmt = conn.createStatement();
+ResultSet rs = stmt.executeQuery(sql);
+// → データベースが破壊される可能性！</code>
+                        </div>
+                    </div>
+                    <div class="success-box">
+                        <h4 class="font-semibold text-green-800 mb-2">✅ 安全な方法（PreparedStatement）</h4>
+                        <div class="code-block text-xs">
+<code class="language-java">// SQLインジェクション攻撃を防ぐ
+String userInput = "'; DROP TABLE users; --";
+String sql = "SELECT * FROM users WHERE name = ?";
+PreparedStatement pstmt = conn.prepareStatement(sql);
+pstmt.setString(1, userInput); // 自動的にエスケープされる
+ResultSet rs = pstmt.executeQuery();
+// → 安全に実行される</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-red-800 mb-3">接続プールの活用</h3>
+                <p class="text-gray-700 mb-4">
+                    <strong>接続プール（Connection Pool）</strong>は、データベース接続を使い回す仕組みです。
+                    毎回新しい接続を作るのは「毎回新しい電話回線を引く」ようなもので非効率です。
+                    接続プールは「共用の電話回線を順番に使う」イメージです。
+                </p>
+
+                <div class="info-box">
+                    <h4 class="font-semibold text-blue-800 mb-2">接続プールのメリット</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li><strong>パフォーマンス向上</strong>: 接続作成時間の短縮</li>
+                        <li><strong>リソース節約</strong>: データベースサーバーの負荷軽減</li>
+                        <li><strong>接続数制御</strong>: 同時接続数の上限管理</li>
+                        <li><strong>安定性向上</strong>: 接続エラーの自動回復</li>
+                    </ul>
+                </div>
+
+                <div class="code-block">
+<code class="language-xml">&lt;!-- Tomcatでの接続プール設定例 (context.xml) --&gt;
+&lt;Context&gt;
+    &lt;Resource name="jdbc/MyDB"
+              auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/myapp"
+              username="root"
+              password="password"
+              maxTotal="20"
+              maxIdle="10"
+              maxWaitMillis="10000" /&gt;
+&lt;/Context&gt;</code>
+                </div>
+
+                <div class="code-block">
+<code class="language-java">// 接続プールを使用したDAO例
+public class UserDAO {
+    
+    private DataSource getDataSource() throws NamingException {
+        Context context = new InitialContext();
+        return (DataSource) context.lookup("java:comp/env/jdbc/MyDB");
+    }
+    
+    public User findById(int id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        try {
+            conn = getDataSource().getConnection(); // プールから取得
+            
+            String sql = "SELECT * FROM users WHERE id = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                return new User(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("email")
+                );
+            }
+            
+        } catch (SQLException | NamingException e) {
+            e.printStackTrace();
+        } finally {
+            // finally句でリソース解放
+            closeResources(rs, pstmt, conn);
+        }
+        
+        return null;
+    }
+}</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Session Management and Security -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-shield-alt text-yellow-600 mr-2"></i>5. セッション管理とセキュリティ
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-yellow-800 mb-3">HttpSessionによる状態管理</h3>
+                <p class="text-gray-700 mb-4">
+                    HTTP（ウェブの通信）は本来<strong>ステートレス（状態を保持しない）</strong>プロトコルです。
+                    しかし、ログイン状態やショッピングカートなど「状態」を覚えておく必要があります。
+                    <strong>HttpSession</strong>は、レストランでテーブル番号札を使って注文を管理するような仕組みです。
+                </p>
+
+                <div class="code-block">
+<code class="language-java">// ログイン処理でのセッション活用例
+@WebServlet("/login")
+public class LoginServlet extends HttpServlet {
+    
+    protected void doPost(HttpServletRequest request, 
+                         HttpServletResponse response) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        
+        // ユーザー認証
+        UserDAO userDAO = new UserDAO();
+        User user = userDAO.authenticate(username, password);
+        
+        if (user != null) {
+            // ログイン成功 - セッションに保存
+            HttpSession session = request.getSession();
+            session.setAttribute("loginUser", user);
+            session.setAttribute("loginTime", new Date());
+            
+            // メイン画面にリダイレクト
+            response.sendRedirect("/dashboard");
+            
+        } else {
+            // ログイン失敗
+            request.setAttribute("errorMessage", "ユーザー名またはパスワードが違います");
+            request.getRequestDispatcher("/login.jsp")
+                   .forward(request, response);
+        }
+    }
+}
+
+// ログイン状態をチェックするフィルター
+@WebFilter("/dashboard/*")
+public class LoginCheckFilter implements Filter {
+    
+    public void doFilter(ServletRequest request, ServletResponse response, 
+                        FilterChain chain) {
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        
+        HttpSession session = req.getSession(false);
+        User loginUser = null;
+        
+        if (session != null) {
+            loginUser = (User) session.getAttribute("loginUser");
+        }
+        
+        if (loginUser == null) {
+            // 未ログイン - ログイン画面にリダイレクト
+            res.sendRedirect("/login.jsp");
+        } else {
+            // ログイン済み - 次の処理に進む
+            chain.doFilter(request, response);
+        }
+    }
+}</code>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-yellow-800 mb-3">Cookieの適切な活用</h3>
+                <p class="text-gray-700 mb-4">
+                    <strong>Cookie（クッキー）</strong>は、ブラウザに小さな情報を保存する仕組みです。
+                    「会員カード」のように、次回訪問時に情報を思い出すために使います。
+                    ただし、セキュリティに注意が必要です。
+                </p>
+
+                <div class="code-block">
+<code class="language-java">// 「ログイン状態を記憶」機能の実装
+protected void doPost(HttpServletRequest request, 
+                     HttpServletResponse response) {
+    // ... ログイン処理 ...
+    
+    String rememberMe = request.getParameter("rememberMe");
+    
+    if ("on".equals(rememberMe)) {
+        // 「ログイン状態を記憶」がチェックされた場合
+        Cookie userCookie = new Cookie("rememberedUser", username);
+        userCookie.setMaxAge(30 * 24 * 60 * 60); // 30日間有効
+        userCookie.setHttpOnly(true); // JavaScriptからアクセス不可（セキュリティ）
+        userCookie.setSecure(true);   // HTTPS通信時のみ送信
+        userCookie.setPath("/");      // サイト全体で有効
+        
+        response.addCookie(userCookie);
+    }
+}
+
+// Cookieからユーザー名を取得
+protected void doGet(HttpServletRequest request, 
+                    HttpServletResponse response) {
+    Cookie[] cookies = request.getCookies();
+    String rememberedUser = null;
+    
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if ("rememberedUser".equals(cookie.getName())) {
+                rememberedUser = cookie.getValue();
+                break;
+            }
+        }
+    }
+    
+    // ログインフォームにユーザー名を自動入力
+    request.setAttribute("defaultUsername", rememberedUser);
+    request.getRequestDispatcher("/login.jsp").forward(request, response);
+}</code>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-yellow-800 mb-3">フィルターによる横断的関心事の処理</h3>
+                <p class="text-gray-700 mb-4">
+                    <strong>Filter（フィルター）</strong>は、複数のServletで共通する処理（ログインチェック、文字エンコーディング設定など）を
+                    一箇所にまとめるための仕組みです。まるで「入場ゲート」のように、すべてのリクエストが通る場所で共通処理を行います。
+                </p>
+
+                <div class="code-block">
+<code class="language-java">// 文字エンコーディング設定フィルター
+@WebFilter("/*") // すべてのURLに適用
+public class EncodingFilter implements Filter {
+    
+    public void doFilter(ServletRequest request, ServletResponse response,
+                        FilterChain chain) throws IOException, ServletException {
+        
+        // リクエストの文字エンコーディング設定
+        request.setCharacterEncoding("UTF-8");
+        
+        // レスポンスの文字エンコーディング設定
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        
+        // 次のフィルターまたはServletに処理を渡す
+        chain.doFilter(request, response);
+    }
+}
+
+// アクセスログ記録フィルター
+@WebFilter("/admin/*") // 管理画面のみに適用
+public class AccessLogFilter implements Filter {
+    
+    public void doFilter(ServletRequest request, ServletResponse response,
+                        FilterChain chain) throws IOException, ServletException {
+        
+        HttpServletRequest req = (HttpServletRequest) request;
+        
+        // アクセス情報を記録
+        String clientIP = req.getRemoteAddr();
+        String requestURI = req.getRequestURI();
+        String method = req.getMethod();
+        String userAgent = req.getHeader("User-Agent");
+        
+        System.out.println("ACCESS LOG: " + 
+            clientIP + " " + method + " " + requestURI + " " + userAgent);
+        
+        long startTime = System.currentTimeMillis();
+        
+        // 処理実行
+        chain.doFilter(request, response);
+        
+        long endTime = System.currentTimeMillis();
+        System.out.println("PERFORMANCE: " + requestURI + 
+                          " took " + (endTime - startTime) + "ms");
+    }
+}</code>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exercise Problems -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-laptop-code text-blue-600 mr-2"></i>演習問題
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-blue-800 mb-3">演習1: 簡単なユーザー管理システムの作成</h3>
+                <div class="highlight-box">
+                    <h4 class="font-semibold text-yellow-800 mb-2">課題内容</h4>
+                    <p class="text-gray-700 mb-3">
+                        以下の機能を持つユーザー管理システムを作成してください：
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 mb-3">
+                        <li>ユーザー一覧表示（/userList）</li>
+                        <li>ユーザー詳細表示（/userDetail?id=1）</li>
+                        <li>ユーザー新規登録（/userRegister）</li>
+                        <li>入力値検証とエラーメッセージ表示</li>
+                    </ul>
+                </div>
+                
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" onclick="showAnswer('exercise1')">
+                    回答例を表示
+                </button>
+                
+                <div id="exercise1" class="hidden mt-4">
+                    <div class="success-box">
+                        <h4 class="font-semibold text-green-800 mb-2">回答例</h4>
+                        <div class="code-block text-sm">
+<code class="language-java">// UserServlet.java
+@WebServlet("/user/*")
+public class UserServlet extends HttpServlet {
+    private UserDAO userDAO = new UserDAO();
+    
+    protected void doGet(HttpServletRequest request, 
+                        HttpServletResponse response) {
+        String pathInfo = request.getPathInfo();
+        
+        try {
+            if ("/list".equals(pathInfo)) {
+                handleUserList(request, response);
+            } else if ("/detail".equals(pathInfo)) {
+                handleUserDetail(request, response);
+            } else if ("/register".equals(pathInfo)) {
+                showRegisterForm(request, response);
+            } else {
+                response.sendError(404);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(500);
+        }
+    }
+    
+    private void handleUserList(HttpServletRequest request, 
+                               HttpServletResponse response) {
+        List&lt;User&gt; users = userDAO.findAll();
+        request.setAttribute("users", users);
+        request.getRequestDispatcher("/WEB-INF/views/userList.jsp")
+               .forward(request, response);
+    }
+    
+    protected void doPost(HttpServletRequest request, 
+                         HttpServletResponse response) {
+        String pathInfo = request.getPathInfo();
+        
+        if ("/register".equals(pathInfo)) {
+            handleUserRegister(request, response);
+        }
+    }
+    
+    private void handleUserRegister(HttpServletRequest request, 
+                                   HttpServletResponse response) {
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        
+        // 入力値検証
+        List&lt;String&gt; errors = new ArrayList&lt;&gt;();
+        
+        if (name == null || name.trim().isEmpty()) {
+            errors.add("名前は必須です");
+        }
+        if (email == null || !email.contains("@")) {
+            errors.add("正しいメールアドレスを入力してください");
+        }
+        
+        if (errors.isEmpty()) {
+            // 登録処理
+            User user = new User(name, email);
+            userDAO.save(user);
+            response.sendRedirect("/user/list");
+        } else {
+            // エラー表示
+            request.setAttribute("errors", errors);
+            request.setAttribute("name", name);
+            request.setAttribute("email", email);
+            showRegisterForm(request, response);
+        }
+    }
+}</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-blue-800 mb-3">演習2: ログイン機能付きメモ帳アプリ</h3>
+                <div class="highlight-box">
+                    <h4 class="font-semibold text-yellow-800 mb-2">課題内容</h4>
+                    <p class="text-gray-700 mb-3">
+                        以下の機能を持つメモ帳アプリケーションを作成してください：
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 mb-3">
+                        <li>ユーザーログイン・ログアウト機能</li>
+                        <li>ログインユーザーごとのメモ管理</li>
+                        <li>メモの作成・編集・削除機能</li>
+                        <li>未ログイン時のアクセス制御</li>
+                    </ul>
+                </div>
+                
+                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" onclick="showAnswer('exercise2')">
+                    回答例を表示
+                </button>
+                
+                <div id="exercise2" class="hidden mt-4">
+                    <div class="success-box">
+                        <h4 class="font-semibold text-green-800 mb-2">回答例のポイント</h4>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>LoginServletでセッション管理</li>
+                            <li>MemoServletでCRUD操作</li>
+                            <li>AuthFilterでログインチェック</li>
+                            <li>DAO層でのデータベース操作</li>
+                            <li>JSPでの画面表示とフォーム処理</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-question-circle text-purple-600 mr-2"></i>理解度クイズ
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-purple-800 mb-3">クイズ1: Servletライフサイクル</h3>
+                <div class="info-box">
+                    <p class="text-gray-700 mb-3">
+                        <strong>問題:</strong> Servletのライフサイクルメソッドの正しい実行順序はどれでしょうか？
+                    </p>
+                    <div class="space-y-2">
+                        <label class="block">
+                            <input type="radio" name="quiz1" value="a" class="mr-2">
+                            A) service() → init() → destroy()
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz1" value="b" class="mr-2">
+                            B) init() → service() → destroy()
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz1" value="c" class="mr-2">
+                            C) destroy() → init() → service()
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz1" value="d" class="mr-2">
+                            D) service() → destroy() → init()
+                        </label>
+                    </div>
+                </div>
+                
+                <button class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700" onclick="showAnswer('quiz1')">
+                    回答を表示
+                </button>
+                
+                <div id="quiz1" class="hidden mt-4">
+                    <div class="success-box">
+                        <h4 class="font-semibold text-green-800 mb-2">正解: B) init() → service() → destroy()</h4>
+                        <p class="text-gray-700">
+                            <strong>解説:</strong> Servletは最初にinit()で初期化され、その後リクエストごとにservice()が呼ばれ、
+                            最後にサーバー停止時などにdestroy()で終了処理が行われます。
+                            これは「入社（init）→ 業務（service）→ 退社（destroy）」の流れと同じです。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-purple-800 mb-3">クイズ2: セキュリティ対策</h3>
+                <div class="info-box">
+                    <p class="text-gray-700 mb-3">
+                        <strong>問題:</strong> SQLインジェクション攻撃を防ぐために最も適切な方法はどれでしょうか？
+                    </p>
+                    <div class="space-y-2">
+                        <label class="block">
+                            <input type="radio" name="quiz2" value="a" class="mr-2">
+                            A) Statementを使用する
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz2" value="b" class="mr-2">
+                            B) 文字列連結でSQLを作成する
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz2" value="c" class="mr-2">
+                            C) PreparedStatementを使用する
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz2" value="d" class="mr-2">
+                            D) 入力値をそのまま使用する
+                        </label>
+                    </div>
+                </div>
+                
+                <button class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700" onclick="showAnswer('quiz2')">
+                    回答を表示
+                </button>
+                
+                <div id="quiz2" class="hidden mt-4">
+                    <div class="success-box">
+                        <h4 class="font-semibold text-green-800 mb-2">正解: C) PreparedStatementを使用する</h4>
+                        <p class="text-gray-700">
+                            <strong>解説:</strong> PreparedStatementは、SQLとパラメータを分離することで、
+                            悪意のあるSQL文が実行されることを防ぎます。パラメータは自動的にエスケープされるため、
+                            SQLインジェクション攻撃を効果的に防ぐことができます。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-bookmark text-green-600 mr-2"></i>まとめ
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="success-box">
+                    <h3 class="text-lg font-semibold text-green-800 mb-3">習得した重要技術</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><strong>Servlet:</strong> HTTPリクエスト処理の中核技術</li>
+                        <li><strong>JSP:</strong> 動的Webページ生成の効率的手法</li>
+                        <li><strong>JDBC:</strong> データベース連携の標準的方法</li>
+                        <li><strong>セッション管理:</strong> ユーザー状態の適切な管理</li>
+                        <li><strong>MVCパターン:</strong> 保守性の高い設計手法</li>
+                    </ul>
+                </div>
+                
+                <div class="info-box">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-3">実務での具体的メリット</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li><strong>開発効率の向上:</strong> JSPによる画面開発の迅速化</li>
+                        <li><strong>セキュリティ強化:</strong> PreparedStatementによる攻撃防止</li>
+                        <li><strong>パフォーマンス改善:</strong> 接続プールによる高速化</li>
+                        <li><strong>保守性向上:</strong> MVCパターンによる役割分離</li>
+                        <li><strong>スケーラビリティ:</strong> セッション管理による大規模対応</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box mt-6">
+                <h3 class="text-lg font-semibold text-yellow-800 mb-3">開発環境セットアップのポイント</h3>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li><strong>Eclipse IDE:</strong> 統合開発環境でのServlet/JSP開発</li>
+                    <li><strong>Apache Tomcat:</strong> Webコンテナの設定と運用</li>
+                    <li><strong>MySQL/PostgreSQL:</strong> データベースサーバーとの連携</li>
+                    <li><strong>Maven/Gradle:</strong> ライブラリ依存関係の管理</li>
+                </ul>
+            </div>
+
+            <div class="info-box mt-6">
+                <h3 class="text-lg font-semibold text-blue-800 mb-3">次のステップ</h3>
+                <p class="text-gray-700">
+                    今日学んだ基礎技術をベースに、次回はより高度なWebアプリケーション開発技術
+                    （Spring Framework、RESTful API、マイクロサービス）について学習していきます。
+                    今日の内容をしっかりと理解し、実際にコードを書いて動作確認を行ってください。
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm opacity-80">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showAnswer(elementId) {
+            const element = document.getElementById(elementId);
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+            } else {
+                element.classList.add('hidden');
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+    </div>
+    </main>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDu99O2KRxCmjdIs63Ts%2Fx5pdBtVOoAdit3QAdJ1ML3ji7yTbRdh7tiTalZseG7qeOmNJN0Im9KuE8b6pdHVYzEuH2fW4lIJnA8b3qfSXvPr6endIHFjO04mcgqN748TXnb%2Fyoec4yLbe9x14pkJaCE93vHTlCFJN6PvF1J3Tr23lROfHBkwwuWLXQFmhTHFo2WFnsvYvw9vz9ORdrWOe53IULXuWFdX4Y6P48DTApBUv6v%2Fs27SBvNSltPUh1Ar6O1E3i01NGYIadOvFGK5lA0CnOneNf%2FjFgf0JLtXaFrfuDh1ACAJOVWx1yCglFWt1TaRRQm%2FJUz8WLkyY3FQSPqMrZMgbj4Zfv3SGI6RnwyTphPgECi0aBcPKwOBHM1aCWXyhiSrNQCmrcBqL482rmWRRWyghic58i%2BQtAvGtIePgaWU30NWMoN36gCAdY30U6vK%2FVl4kHERC1s6PoKBBU3m3hks4YIoYI4ZdhX%2B8OnWxyXgLGJOZdAvARyyMy96L0Q%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDu99O2KRxCmjdIs63Ts/x5pdBtVOoAdit3QAdJ1ML3ji7yTbRdh7tiTalZseG7qeOmNJN0Im9KuE8b6pdHVYzEuH2fW4lIJnA8b3qfSXvPr6endIHFjO04mcgqN748TXnb/yoec4yLbe9x14pkJaCE93vHTlCFJN6PvF1J3Tr23lROfHBkwwuWLXQFmhTHFo2WFnsvYvw9vz9ORdrWOe53IULXuWFdX4Y6P48DTApBUv6v/s27SBvNSltPUh1Ar6O1E3i01NGYIadOvFGK5lA0CnOneNf/jFgf0JLtXaFrfuDh1ACAJOVWx1yCglFWt1TaRRQm/JUz8WLkyY3FQSPqMrZMgbj4Zfv3SGI6RnwyTphPgECi0aBcPKwOBHM1aCWXyhiSrNQCmrcBqL482rmWRRWyghic58i+QtAvGtIePgaWU30NWMoN36gCAdY30U6vK/Vl4kHERC1s6PoKBBU3m3hks4YIoYI4ZdhX+8OnWxyXgLGJOZdAvARyyMy96L0Q==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

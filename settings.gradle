@@ -1,9 +1,9 @@
 /*
  * Copyright (c) 2024 APSA Co.,Ltd. All rights reserved.
- * 雲流システム - Gradle Settings
+ * 技育システム - Gradle Settings
  */
 
-rootProject.name = 'unryu-system'
+rootProject.name = 'giiku-system'
 
 // Gradle Enterprise設定（将来の拡張用）
 // gradleEnterprise {

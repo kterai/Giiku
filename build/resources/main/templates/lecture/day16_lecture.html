@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day16: スレッドとマルチスレッド処理</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .header-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .content-section {
+            background: #f8fafc;
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .concept-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+            margin: 16px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .improvement-highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .thread-lifecycle {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+            margin: 16px 0;
+        }
+        .synchronization-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 12px;
+            padding: 20px;
+            color: white;
+            margin: 16px 0;
+        }
+        .answer-hidden {
+            display: none;
+            background: #f0fdf4;
+            border: 2px solid #22c55e;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 10px;
+        }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day15_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day17_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month1.html" class="hover:text-blue-600">1ヶ月目: Java基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week4.html" class="hover:text-blue-600">4週目: 総仕上げ</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">16日目: スレッドとマルチスレッド処理・並行プログラミングの基礎</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day16.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <header class="bg-blue-800 text-white py-4 shadow-lg">
+        <div class="container mx-auto px-4">
+            <h1 class="text-2xl md:text-3xl font-bold text-center mb-2">
+                <i class="fas fa-cogs mr-3"></i>
+                Day16: スレッドとマルチスレッド処理
+            </h1>
+            <p class="text-center text-blue-200 text-lg">スレッドとマルチスレッド処理・並行プログラミングの基礎</p>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        
+        <!-- 学習目標 -->
+        <section class="content-section">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-target text-green-600 mr-2"></i>
+                本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-lg mb-2 text-green-800">知識目標</h3>
+                    <ul class="space-y-2 text-green-700">
+                        <li>• <span class="improvement-highlight">スレッド（Thread）</span>の概念と必要性を理解する</li>
+                        <li>• スレッドのライフサイクル（生成→実行→終了）を把握する</li>
+                        <li>• <span class="improvement-highlight">同期化（Synchronization）</span>の重要性と実装方法</li>
+                        <li>• <span class="improvement-highlight">デッドロック（Deadlock）</span>の原因と予防策</li>
+                        <li>• Java並行プログラミングの基本パターンを習得</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-lg mb-2 text-blue-800">実務スキル目標</h3>
+                    <ul class="space-y-2 text-blue-700">
+                        <li>• Threadクラスとrunnableインターフェースの使い分け</li>
+                        <li>• synchronizedキーワードによる排他制御</li>
+                        <li>• ExecutorServiceを使った効率的なスレッド管理</li>
+                        <li>• スレッドプールの適切な設計と活用</li>
+                        <li>• マルチスレッド環境でのデバッグ技術</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-4 text-center">
+                <span class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-full text-sm font-semibold">
+                    所要時間: 6時間 | 対象: 中級レベル | JavaSilver試験対応
+                </span>
+            </div>
+        </section>
+
+        <!-- スレッドとは何か -->
+        <section class="content-section">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-question-circle text-blue-600 mr-2"></i>
+                1. スレッド（Thread）とは何か？
+            </h2>
+            
+            <div class="concept-box">
+                <h3 class="text-xl font-semibold mb-4">
+                    <i class="fas fa-lightbulb mr-2"></i>
+                    スレッドの基本概念
+                </h3>
+                <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                    <p class="text-lg mb-4">
+                        <strong>スレッド（Thread）</strong>とは、<span class="improvement-highlight text-black">プログラム内で同時に実行される処理の流れ</span>のことです。
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold mb-2">🏠 日常生活での例え</h4>
+                            <p class="text-sm">
+                                料理をしながら洗濯機を回し、同時にテレビを見る。これらは「並行して」行われる作業です。
+                                コンピュータでも同様に、複数の処理を「同時に」実行できます。
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">💻 プログラムでの例</h4>
+                            <p class="text-sm">
+                                Webアプリケーションで、ユーザーからのリクエスト処理をしながら、
+                                同時にデータベースの定期バックアップも実行する。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400">
+                <h3 class="text-lg font-semibold mb-3 text-yellow-800">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    なぜスレッドが必要なのか？
+                </h3>
+                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                    <div class="bg-white p-3 rounded">
+                        <h4 class="font-semibold text-green-700 mb-2">⚡ 応答性の向上</h4>
+                        <p>ユーザーインターフェースが固まることなく、スムーズな操作が可能</p>
+                    </div>
+                    <div class="bg-white p-3 rounded">
+                        <h4 class="font-semibold text-blue-700 mb-2">🚀 処理速度の向上</h4>
+                        <p>複数のCPUコアを活用して、計算集約的な処理を高速化</p>
+                    </div>
+                    <div class="bg-white p-3 rounded">
+                        <h4 class="font-semibold text-purple-700 mb-2">🔄 リソース効率化</h4>
+                        <p>I/O待機時間を他の処理で有効活用</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- スレッドのライフサイクル -->
+        <section class="content-section">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-sync-alt text-purple-600 mr-2"></i>
+                2. スレッドのライフサイクル
+            </h2>
+
+            <div class="thread-lifecycle">
+                <h3 class="text-xl font-semibold mb-4">
+                    <i class="fas fa-circle-play mr-2"></i>
+                    スレッドの状態遷移
+                </h3>
+                <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="bg-white bg-opacity-30">
+                                    <th class="p-3 text-left">状態</th>
+                                    <th class="p-3 text-left">英語名</th>
+                                    <th class="p-3 text-left">説明</th>
+                                    <th class="p-3 text-left">実生活での例え</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white bg-opacity-10">
+                                <tr class="border-b border-white border-opacity-20">
+                                    <td class="p-3 font-semibold">新規作成</td>
+                                    <td class="p-3">NEW</td>
+                                    <td class="p-3">スレッドが作成されたが、まだ開始されていない</td>
+                                    <td class="p-3">レシピを準備したが、まだ料理を始めていない状態</td>
+                                </tr>
+                                <tr class="border-b border-white border-opacity-20">
+                                    <td class="p-3 font-semibold">実行可能</td>
+                                    <td class="p-3">RUNNABLE</td>
+                                    <td class="p-3">実行中または実行待ち（CPUの順番待ち）</td>
+                                    <td class="p-3">料理中、または材料を準備して待機中</td>
+                                </tr>
+                                <tr class="border-b border-white border-opacity-20">
+                                    <td class="p-3 font-semibold">ブロック</td>
+                                    <td class="p-3">BLOCKED</td>
+                                    <td class="p-3">同期化されたリソースへのアクセス待ち</td>
+                                    <td class="p-3">キッチンが使用中で、順番を待っている状態</td>
+                                </tr>
+                                <tr class="border-b border-white border-opacity-20">
+                                    <td class="p-3 font-semibold">待機</td>
+                                    <td class="p-3">WAITING</td>
+                                    <td class="p-3">他のスレッドからの通知を待機</td>
+                                    <td class="p-3">オーブンが温まるまで待っている状態</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-semibold">終了</td>
+                                    <td class="p-3">TERMINATED</td>
+                                    <td class="p-3">スレッドの実行が完了</td>
+                                    <td class="p-3">料理が完成し、片付けも終わった状態</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-indigo-50 p-4 rounded-lg">
+                <h3 class="text-lg font-semibold mb-3 text-indigo-800">
+                    <i class="fas fa-code mr-2"></i>
+                    スレッド状態確認のコード例
+                </h3>
+                <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto"><code class="language-java">public class ThreadStateExample {
+    public static void main(String[] args) {
+        // スレッドを作成（NEW状態）
+        Thread thread = new Thread(() -> {
+            try {
+                System.out.println("スレッド実行中: " + Thread.currentThread().getState());
+                Thread.sleep(2000); // 2秒間待機
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        System.out.println("作成直後: " + thread.getState()); // NEW
+        
+        thread.start(); // スレッド開始
+        System.out.println("開始後: " + thread.getState()); // RUNNABLE
+        
+        try {
+            thread.join(); // スレッドの終了を待機
+            System.out.println("終了後: " + thread.getState()); // TERMINATED
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- スレッドの作成方法 -->
+        <section class="content-section">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-plus-circle text-green-600 mr-2"></i>
+                3. スレッドの作成方法
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="concept-box">
+                    <h3 class="text-xl font-semibold mb-3">
+                        <i class="fas fa-method mr-2"></i>
+                        方法1: Threadクラスの継承
+                    </h3>
+                    <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                        <p class="mb-3">Threadクラスを継承してrunメソッドをオーバーライド</p>
+                        <pre class="bg-black bg-opacity-50 text-green-300 p-3 rounded text-sm overflow-x-auto"><code>public class MyThread extends Thread {
+    @Override
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Thread: " + i);
+            try {
+                Thread.sleep(1000); // 1秒待機
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+// 使用例
+MyThread thread = new MyThread();
+thread.start(); // スレッド開始</code></pre>
+                    </div>
+                </div>
+
+                <div class="synchronization-box">
+                    <h3 class="text-xl font-semibold mb-3">
+                        <i class="fas fa-interface mr-2"></i>
+                        方法2: Runnableインターフェースの実装
+                    </h3>
+                    <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                        <p class="mb-3">Runnableインターフェースを実装（推奨方法）</p>
+                        <pre class="bg-black bg-opacity-50 text-green-300 p-3 rounded text-sm overflow-x-auto"><code>public class MyTask implements Runnable {
+    @Override
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Runnable: " + i);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+// 使用例
+MyTask task = new MyTask();
+Thread thread = new Thread(task);
+thread.start();</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400">
+                <h3 class="text-lg font-semibold mb-3 text-yellow-800">
+                    <i class="fas fa-lightbulb mr-2"></i>
+                    どちらを選ぶべき？Runnableを推奨する理由
+                </h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded">
+                        <h4 class="font-semibold text-green-700 mb-2">🔧 柔軟性</h4>
+                        <p class="text-sm">他のクラスも継承可能（Javaは単一継承のため）</p>
+                    </div>
+                    <div class="bg-white p-4 rounded">
+                        <h4 class="font-semibold text-blue-700 mb-2">🎯 責任分離</h4>
+                        <p class="text-sm">「実行する処理」と「スレッド管理」を分離</p>
+                    </div>
+                    <div class="bg-white p-4 rounded">
+                        <h4 class="font-semibold text-purple-700 mb-2">♻️ 再利用性</h4>
+                        <p class="text-sm">ExecutorServiceなどで再利用しやすい</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 同期化とsynchronized -->
+        <section class="content-section">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-lock text-red-600 mr-2"></i>
+                4. 同期化（Synchronization）と排他制御
+            </h2>
+
+            <div class="synchronization-box">
+                <h3 class="text-xl font-semibold mb-4">
+                    <i class="fas fa-warning mr-2"></i>
+                    なぜ同期化が必要なのか？
+                </h3>
+                <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                    <p class="text-lg mb-4">
+                        複数のスレッドが同じデータ（共有リソース）に同時にアクセスすると、
+                        <span class="improvement-highlight text-black">データの整合性が失われる</span>危険があります。
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold mb-2">🏦 銀行口座の例</h4>
+                            <p class="text-sm">
+                                残高10万円の口座から、同時に5万円ずつ引き出そうとした場合、
+                                正しくは「残高不足」になるべきですが、同期化なしでは両方とも成功してしまう可能性があります。
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">📊 カウンター処理の例</h4>
+                            <p class="text-sm">
+                                複数のスレッドが同時にカウンターを増加させる処理で、
+                                期待値と実際の値が一致しない現象（競合状態・レースコンディション）が発生。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+                <h3 class="text-lg font-semibold mb-3 text-red-800">
+                    <i class="fas fa-bug mr-2"></i>
+                    問題のあるコード例：競合状態（Race Condition）
+                </h3>
+                <pre class="bg-gray-800 text-red-400 p-4 rounded text-sm overflow-x-auto"><code class="language-java">public class UnsafeCounter {
+    private int count = 0;
+    
+    // ⚠️ 危険：同期化されていないメソッド
+    public void increment() {
+        count++; // この処理は実際には3ステップ
+        // 1. countの値を読み取り
+        // 2. 1を加算
+        // 3. 結果をcountに書き戻し
+    }
+    
+    public int getCount() {
+        return count;
+    }
+}
+
+// 複数スレッドで同時実行すると...
+// 期待値: 2000 (2つのスレッドが各1000回実行)
+// 実際値: 1856など、期待値より小さい値になることがある</code></pre>
+            </div>
+
+            <div class="mt-6 bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+                <h3 class="text-lg font-semibold mb-3 text-green-800">
+                    <i class="fas fa-shield-alt mr-2"></i>
+                    解決法：synchronizedキーワード
+                </h3>
+                <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto"><code class="language-java">public class SafeCounter {
+    private int count = 0;
+    
+    // ✅ 安全：同期化されたメソッド
+    public synchronized void increment() {
+        count++; // 一度に一つのスレッドのみが実行可能
+    }
+    
+    public synchronized int getCount() {
+        return count;
+    }
+}
+
+// または、同期化ブロックを使用
+public class SafeCounterWithBlock {
+    private int count = 0;
+    private final Object lock = new Object(); // ロックオブジェクト
+    
+    public void increment() {
+        synchronized(lock) { // このブロック内は排他制御
+            count++;
+        }
+    }
+    
+    public int getCount() {
+        synchronized(lock) {
+            return count;
+        }
+    }
+}</code></pre>
+            </div>
+        </section>
+
+        <!-- デッドロック -->
+        <section class="content-section">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-skull-crossbones text-red-600 mr-2"></i>
+                5. デッドロック（Deadlock）の理解と対策
+            </h2>
+
+            <div class="bg-red-100 p-6 rounded-lg border-l-4 border-red-500">
+                <h3 class="text-xl font-semibold mb-4 text-red-800">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    デッドロックとは？
+                </h3>
+                <p class="text-lg mb-4 text-red-700">
+                    <span class="improvement-highlight">デッドロック（Deadlock）</span>とは、複数のスレッドが互いに相手の持つリソースを待ち続けて、
+                    永続的に実行が停止してしまう状態です。
+                </p>
+                
+                <div class="bg-white p-4 rounded-lg">
+                    <h4 class="font-semibold text-red-800 mb-2">🚗 交通渋滞での例え</h4>
+                    <p class="text-sm text-red-700">
+                        交差点で4台の車が同時に進入し、それぞれが右折しようとして身動きが取れなくなる状況。
+                        各車両が他の車両の移動を待っているが、誰も動けない状態がデッドロックです。
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-gray-50 p-6 rounded-lg">
+                <h3 class="text-lg font-semibold mb-3 text-gray-800">
+                    <i class="fas fa-bug mr-2"></i>
+                    デッドロックが発生するコード例
+                </h3>
+                <pre class="bg-gray-800 text-red-400 p-4 rounded text-sm overflow-x-auto"><code class="language-java">public class DeadlockExample {
+    private static final Object lock1 = new Object();
+    private static final Object lock2 = new Object();
+    
+    public static void main(String[] args) {
+        // スレッド1: lock1 → lock2の順で取得
+        Thread thread1 = new Thread(() -> {
+            synchronized (lock1) {
+                System.out.println("Thread1: lock1を取得");
+                try { Thread.sleep(100); } catch (InterruptedException e) {}
+                
+                System.out.println("Thread1: lock2を待機中...");
+                synchronized (lock2) { // ここでlock2を待機
+                    System.out.println("Thread1: lock2を取得");
+                }
+            }
+        });
+        
+        // スレッド2: lock2 → lock1の順で取得
+        Thread thread2 = new Thread(() -> {
+            synchronized (lock2) {
+                System.out.println("Thread2: lock2を取得");
+                try { Thread.sleep(100); } catch (InterruptedException e) {}
+                
+                System.out.println("Thread2: lock1を待機中...");
+                synchronized (lock1) { // ここでlock1を待機
+                    System.out.println("Thread2: lock1を取得");
+                }
+            }
+        });
+        
+        thread1.start();
+        thread2.start();
+        // → デッドロック発生！両スレッドが永続的に待機
+    }
+}</code></pre>
+            </div>
+
+            <div class="mt-6 bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+                <h3 class="text-lg font-semibold mb-3 text-green-800">
+                    <i class="fas fa-shield-alt mr-2"></i>
+                    デッドロック対策
+                </h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded">
+                        <h4 class="font-semibold text-blue-700 mb-2">🔢 ロック順序の統一</h4>
+                        <p class="text-sm">すべてのスレッドで同じ順序でロックを取得する</p>
+                        <pre class="bg-gray-100 text-xs p-2 rounded mt-2"><code>// 常にlock1 → lock2の順序
+synchronized (lock1) {
+    synchronized (lock2) {
+        // 処理
+    }
+}</code></pre>
+                    </div>
+                    <div class="bg-white p-4 rounded">
+                        <h4 class="font-semibold text-purple-700 mb-2">⏰ タイムアウト機能</h4>
+                        <p class="text-sm">一定時間でロック取得を諦める</p>
+                        <pre class="bg-gray-100 text-xs p-2 rounded mt-2"><code>// tryLockでタイムアウト設定
+if (lock.tryLock(5, TimeUnit.SECONDS)) {
+    try {
+        // 処理
+    } finally {
+        lock.unlock();
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ExecutorServiceとスレッドプール -->
+        <section class="content-section">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-swimming-pool text-blue-600 mr-2"></i>
+                6. ExecutorServiceとスレッドプール
+            </h2>
+
+            <div class="concept-box">
+                <h3 class="text-xl font-semibold mb-4">
+                    <i class="fas fa-cogs mr-2"></i>
+                    スレッドプールの概念
+                </h3>
+                <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                    <p class="text-lg mb-4">
+                        <span class="improvement-highlight text-black">スレッドプール</span>とは、
+                        事前に作成したスレッドを再利用する仕組みです。
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold mb-2">🏊‍♂️ プールでの例え</h4>
+                            <p class="text-sm">
+                                水泳プールに複数のレーンがあり、泳ぎたい人が順番待ちをして空いたレーンを使用。
+                                レーンの数は限定されているが、効率的に多くの人が利用できます。
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">⚡ メリット</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• スレッド作成・破棄のオーバーヘッド削減</li>
+                                <li>• システムリソースの制御</li>
+                                <li>• 処理の効率化とパフォーマンス向上</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-blue-50 p-6 rounded-lg">
+                <h3 class="text-lg font-semibold mb-3 text-blue-800">
+                    <i class="fas fa-code mr-2"></i>
+                    ExecutorServiceの使用例
+                </h3>
+                <pre class="bg-gray-800 text-blue-400 p-4 rounded text-sm overflow-x-auto"><code class="language-java">import java.util.concurrent.*;
+
+public class ExecutorServiceExample {
+    public static void main(String[] args) {
+        // 固定サイズのスレッドプールを作成（3つのスレッド）
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+        
+        // 5つのタスクを投入（3つのスレッドで処理）
+        for (int i = 1; i <= 5; i++) {
+            final int taskId = i;
+            executor.submit(() -> {
+                System.out.println("タスク" + taskId + " 開始 - " + 
+                    Thread.currentThread().getName());
+                try {
+                    Thread.sleep(2000); // 2秒の処理時間をシミュレート
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("タスク" + taskId + " 完了");
+            });
+        }
+        
+        // エグゼキュータをシャットダウン
+        executor.shutdown();
+        try {
+            // 全タスクの完了を最大10秒待機
+            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                executor.shutdownNow(); // 強制終了
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
+        
+        System.out.println("全てのタスクが完了しました");
+    }
+}</code></pre>
+            </div>
+
+            <div class="mt-6 bg-purple-50 p-6 rounded-lg">
+                <h3 class="text-lg font-semibold mb-3 text-purple-800">
+                    <i class="fas fa-list mr-2"></i>
+                    ExecutorServiceの種類と使い分け
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm border-collapse border border-gray-300">
+                        <thead class="bg-purple-100">
+                            <tr>
+                                <th class="border border-gray-300 px-4 py-2 text-left">種類</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">特徴</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">適用場面</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">作成方法</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white">
+                                <td class="border border-gray-300 px-4 py-2 font-semibold">FixedThreadPool</td>
+                                <td class="border border-gray-300 px-4 py-2">固定数のスレッド</td>
+                                <td class="border border-gray-300 px-4 py-2">処理時間が一定、負荷が予測可能</td>
+                                <td class="border border-gray-300 px-4 py-2">newFixedThreadPool(n)</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 font-semibold">CachedThreadPool</td>
+                                <td class="border border-gray-300 px-4 py-2">動的にスレッド数調整</td>
+                                <td class="border border-gray-300 px-4 py-2">短時間タスク、負荷変動大</td>
+                                <td class="border border-gray-300 px-4 py-2">newCachedThreadPool()</td>
+                            </tr>
+                            <tr class="bg-white">
+                                <td class="border border-gray-300 px-4 py-2 font-semibold">SingleThreadExecutor</td>
+                                <td class="border border-gray-300 px-4 py-2">単一スレッドで順次実行</td>
+                                <td class="border border-gray-300 px-4 py-2">順序が重要、シーケンシャル処理</td>
+                                <td class="border border-gray-300 px-4 py-2">newSingleThreadExecutor()</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 font-semibold">ScheduledThreadPool</td>
+                                <td class="border border-gray-300 px-4 py-2">スケジュール実行対応</td>
+                                <td class="border border-gray-300 px-4 py-2">定期実行、遅延実行が必要</td>
+                                <td class="border border-gray-300 px-4 py-2">newScheduledThreadPool(n)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 演習問題 -->
+        <section class="content-section">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-pencil-alt text-orange-600 mr-2"></i>
+                演習問題
+            </h2>
+
+            <div class="space-y-6">
+                <!-- 演習問題1 -->
+                <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+                    <h3 class="text-lg font-semibold mb-3 text-orange-800">
+                        <i class="fas fa-tasks mr-2"></i>
+                        演習問題1: スレッドの基本実装
+                    </h3>
+                    <p class="mb-4">
+                        以下の要件を満たすマルチスレッドプログラムを作成してください：
+                    </p>
+                    <ul class="list-disc pl-6 space-y-2 mb-4">
+                        <li>3つのスレッドを作成し、それぞれ異なるメッセージを5回出力</li>
+                        <li>各出力の間に1秒の待機時間を設ける</li>
+                        <li>Runnableインターフェースを使用すること</li>
+                        <li>全スレッドの完了を待機してから「すべて完了」と出力</li>
+                    </ul>
+                    <button onclick="showExerciseAnswer(1)" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
+                        回答例を表示
+                    </button>
+                    <div id="exerciseAnswer1" class="answer-hidden">
+                        <h4 class="font-semibold mb-2 text-green-800">回答例:</h4>
+                        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto"><code class="language-java">public class MultiThreadExample {
+    static class MessageTask implements Runnable {
+        private String message;
+        
+        public MessageTask(String message) {
+            this.message = message;
+        }
+        
+        @Override
+        public void run() {
+            for (int i = 1; i <= 5; i++) {
+                System.out.println(message + " - " + i + 
+                    " [" + Thread.currentThread().getName() + "]");
+                try {
+                    Thread.sleep(1000); // 1秒待機
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public static void main(String[] args) {
+        // 3つのスレッドを作成
+        Thread thread1 = new Thread(new MessageTask("スレッド1"), "Thread-1");
+        Thread thread2 = new Thread(new MessageTask("スレッド2"), "Thread-2");
+        Thread thread3 = new Thread(new MessageTask("スレッド3"), "Thread-3");
+        
+        // スレッドを開始
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        
+        try {
+            // 全スレッドの完了を待機
+            thread1.join();
+            thread2.join();
+            thread3.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        System.out.println("すべて完了");
+    }
+}</code></pre>
+                        <div class="mt-3 p-3 bg-blue-100 rounded">
+                            <h5 class="font-semibold text-blue-800">ポイント解説:</h5>
+                            <ul class="text-sm text-blue-700 mt-2 space-y-1">
+                                <li>• Runnableインターフェースを実装してスレッドの処理を定義</li>
+                                <li>• Thread.sleep()で待機時間を設定（InterruptedException処理必須）</li>
+                                <li>• join()メソッドで全スレッドの完了を同期的に待機</li>
+                                <li>• Thread名を設定することでデバッグ時の識別が容易</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 演習問題2 -->
+                <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+                    <h3 class="text-lg font-semibold mb-3 text-red-800">
+                        <i class="fas fa-lock mr-2"></i>
+                        演習問題2: 同期化とカウンター
+                    </h3>
+                    <p class="mb-4">
+                        共有カウンターに対して複数スレッドが同時にアクセスする安全なプログラムを作成してください：
+                    </p>
+                    <ul class="list-disc pl-6 space-y-2 mb-4">
+                        <li>5つのスレッドがそれぞれ1000回カウンターをインクリメント</li>
+                        <li>最終的なカウンター値は5000になるべき</li>
+                        <li>synchronizedを使用して競合状態を回避</li>
+                        <li>実行時間も測定して表示</li>
+                    </ul>
+                    <button onclick="showExerciseAnswer(2)" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
+                        回答例を表示
+                    </button>
+                    <div id="exerciseAnswer2" class="answer-hidden">
+                        <h4 class="font-semibold mb-2 text-green-800">回答例:</h4>
+                        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto"><code class="language-java">public class SynchronizedCounterExample {
+    static class SafeCounter {
+        private int count = 0;
+        
+        // 同期化されたインクリメントメソッド
+        public synchronized void increment() {
+            count++;
+        }
+        
+        public synchronized int getCount() {
+            return count;
+        }
+    }
+    
+    static class CounterTask implements Runnable {
+        private SafeCounter counter;
+        private int increments;
+        
+        public CounterTask(SafeCounter counter, int increments) {
+            this.counter = counter;
+            this.increments = increments;
+        }
+        
+        @Override
+        public void run() {
+            for (int i = 0; i < increments; i++) {
+                counter.increment();
+            }
+            System.out.println(Thread.currentThread().getName() + " 完了");
+        }
+    }
+    
+    public static void main(String[] args) {
+        SafeCounter counter = new SafeCounter();
+        Thread[] threads = new Thread[5];
+        
+        long startTime = System.currentTimeMillis();
+        
+        // 5つのスレッドを作成・開始
+        for (int i = 0; i < 5; i++) {
+            threads[i] = new Thread(new CounterTask(counter, 1000), 
+                "Thread-" + (i + 1));
+            threads[i].start();
+        }
+        
+        // 全スレッドの完了を待機
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        long endTime = System.currentTimeMillis();
+        
+        System.out.println("最終カウント値: " + counter.getCount());
+        System.out.println("期待値: 5000");
+        System.out.println("実行時間: " + (endTime - startTime) + "ms");
+    }
+}</code></pre>
+                        <div class="mt-3 p-3 bg-red-100 rounded">
+                            <h5 class="font-semibold text-red-800">ポイント解説:</h5>
+                            <ul class="text-sm text-red-700 mt-2 space-y-1">
+                                <li>• synchronizedでメソッド全体を同期化（メソッドレベル同期）</li>
+                                <li>• getterメソッドも同期化して一貫性のある読み取りを保証</li>
+                                <li>• System.currentTimeMillis()で実行時間を測定</li>
+                                <li>• 配列を使って複数スレッドを効率的に管理</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 演習問題3 -->
+                <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+                    <h3 class="text-lg font-semibold mb-3 text-blue-800">
+                        <i class="fas fa-swimming-pool mr-2"></i>
+                        演習問題3: ExecutorServiceの活用
+                    </h3>
+                    <p class="mb-4">
+                        ExecutorServiceを使用して効率的なタスク処理システムを作成してください：
+                    </p>
+                    <ul class="list-disc pl-6 space-y-2 mb-4">
+                        <li>3つのワーカースレッドを持つ固定スレッドプール</li>
+                        <li>10個のタスクを投入（各タスクは1-3秒のランダムな処理時間）</li>
+                        <li>各タスクの開始・完了時刻を記録</li>
+                        <li>すべてのタスク完了後に統計情報を表示</li>
+                    </ul>
+                    <button onclick="showExerciseAnswer(3)" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
+                        回答例を表示
+                    </button>
+                    <div id="exerciseAnswer3" class="answer-hidden">
+                        <h4 class="font-semibold mb-2 text-green-800">回答例:</h4>
+                        <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto"><code class="language-java">import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class ExecutorServiceExample {
+    static class TimedTask implements Runnable {
+        private int taskId;
+        private static AtomicInteger completedTasks = new AtomicInteger(0);
+        
+        public TimedTask(int taskId) {
+            this.taskId = taskId;
+        }
+        
+        @Override
+        public void run() {
+            long startTime = System.currentTimeMillis();
+            String threadName = Thread.currentThread().getName();
+            
+            System.out.printf("タスク%d 開始 [%s] - %s%n", 
+                taskId, threadName, 
+                java.time.LocalTime.now().toString());
+            
+            try {
+                // 1-3秒のランダムな処理時間
+                int sleepTime = 1000 + (int)(Math.random() * 2000);
+                Thread.sleep(sleepTime);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+            
+            long endTime = System.currentTimeMillis();
+            int completed = completedTasks.incrementAndGet();
+            
+            System.out.printf("タスク%d 完了 [%s] - 処理時間: %dms (%d/10)%n", 
+                taskId, threadName, 
+                endTime - startTime, completed);
+        }
+    }
+    
+    public static void main(String[] args) {
+        // 3つのワーカースレッドを持つ固定スレッドプール
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+        long programStart = System.currentTimeMillis();
+        
+        System.out.println("=== タスク処理開始 ===");
+        
+        // 10個のタスクを投入
+        for (int i = 1; i <= 10; i++) {
+            executor.submit(new TimedTask(i));
+        }
+        
+        // エグゼキュータをシャットダウン
+        executor.shutdown();
+        
+        try {
+            // 最大30秒待機
+            if (!executor.awaitTermination(30, TimeUnit.SECONDS)) {
+                System.err.println("タスクが時間内に完了しませんでした");
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+        
+        long programEnd = System.currentTimeMillis();
+        
+        System.out.println("\n=== 統計情報 ===");
+        System.out.println("総実行時間: " + (programEnd - programStart) + "ms");
+        System.out.println("ワーカースレッド数: 3");
+        System.out.println("処理されたタスク数: 10");
+        System.out.println("平均処理時間: " + 
+            (programEnd - programStart) / 10.0 + "ms/task");
+    }
+}</code></pre>
+                        <div class="mt-3 p-3 bg-blue-100 rounded">
+                            <h5 class="font-semibold text-blue-800">ポイント解説:</h5>
+                            <ul class="text-sm text-blue-700 mt-2 space-y-1">
+                                <li>• AtomicIntegerでスレッドセーフなカウンター実装</li>
+                                <li>• awaitTermination()で適切な終了処理</li>
+                                <li>• LocalTime.now()で読みやすい時刻表示</li>
+                                <li>• 統計情報の計算で処理効率を可視化</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 理解度クイズ -->
+        <section class="content-section">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-question-circle text-purple-600 mr-2"></i>
+                理解度クイズ
+            </h2>
+
+            <div class="space-y-6">
+                <!-- クイズ1 -->
+                <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+                    <h3 class="text-lg font-semibold mb-3 text-purple-800">
+                        <i class="fas fa-quiz mr-2"></i>
+                        問題1: スレッドの状態について
+                    </h3>
+                    <p class="mb-4">
+                        以下のコードを実行した時、<code>thread.getState()</code>の結果として正しいものを選んでください：
+                    </p>
+                    <pre class="bg-gray-100 p-3 rounded text-sm mb-4"><code>Thread thread = new Thread(() -> {
+    try {
+        Thread.sleep(5000);
+    } catch (InterruptedException e) {}
+});
+System.out.println("状態1: " + thread.getState());
+thread.start();
+System.out.println("状態2: " + thread.getState());</code></pre>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="A" class="mr-2">
+                            A) 状態1: RUNNABLE, 状態2: TERMINATED
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="B" class="mr-2">
+                            B) 状態1: NEW, 状態2: RUNNABLE
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="C" class="mr-2">
+                            C) 状態1: NEW, 状態2: WAITING
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="D" class="mr-2">
+                            D) 状態1: BLOCKED, 状態2: RUNNABLE
+                        </label>
+                    </div>
+                    <button onclick="showAnswer(1)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                        回答を表示
+                    </button>
+                    <div id="answer1" class="answer-hidden">
+                        <p class="font-semibold text-green-800">正解: B) 状態1: NEW, 状態2: RUNNABLE</p>
+                        <div class="mt-2 text-sm">
+                            <p><strong>解説:</strong></p>
+                            <ul class="list-disc pl-6 space-y-1">
+                                <li>状態1: スレッドを作成直後はNEW状態</li>
+                                <li>状態2: start()を呼び出すとRUNNABLE状態になる</li>
+                                <li>Thread.sleep()中はTIMED_WAITING状態だが、この時点ではまだRUNNABLE</li>
+                                <li>getState()の呼び出し直後のため、まだsleepに入っていない可能性が高い</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- クイズ2 -->
+                <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+                    <h3 class="text-lg font-semibold mb-3 text-red-800">
+                        <i class="fas fa-quiz mr-2"></i>
+                        問題2: synchronizedの効果について
+                    </h3>
+                    <p class="mb-4">
+                        以下のコードで、10個のスレッドがそれぞれ1000回incrementを実行した場合の最終的なcountの値について正しい説明を選んでください：
+                    </p>
+                    <pre class="bg-gray-100 p-3 rounded text-sm mb-4"><code>class Counter {
+    private int count = 0;
+    
+    public synchronized void increment() {
+        count++;
+    }
+    
+    public int getCount() {
+        return count;
+    }
+}</code></pre>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="A" class="mr-2">
+                            A) 常に10000になる
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="B" class="mr-2">
+                            B) 10000より小さい値になることがある
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="C" class="mr-2">
+                            C) 10000より大きい値になることがある
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="D" class="mr-2">
+                            D) 予測不可能な値になる
+                        </label>
+                    </div>
+                    <button onclick="showAnswer(2)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                        回答を表示
+                    </button>
+                    <div id="answer2" class="answer-hidden">
+                        <p class="font-semibold text-green-800">正解: B) 10000より小さい値になることがある</p>
+                        <div class="mt-2 text-sm">
+                            <p><strong>解説:</strong></p>
+                            <ul class="list-disc pl-6 space-y-1">
+                                <li>increment()メソッドは同期化されているが、getCount()は同期化されていない</li>
+                                <li>読み取り時に競合状態が発生する可能性がある</li>
+                                <li>正しくは以下のようにgetCount()も同期化すべき：</li>
+                            </ul>
+                            <pre class="bg-gray-200 p-2 rounded mt-2"><code>public synchronized int getCount() {
+    return count;
+}</code></pre>
+                            <p class="mt-2">ただし、incrementが同期化されているため、実際には10000になることが多いですが、厳密には保証されません。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- クイズ3 -->
+                <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+                    <h3 class="text-lg font-semibold mb-3 text-blue-800">
+                        <i class="fas fa-quiz mr-2"></i>
+                        問題3: ExecutorServiceについて
+                    </h3>
+                    <p class="mb-4">
+                        <code>Executors.newFixedThreadPool(3)</code>で作成したExecutorServiceの特徴として正しいものを選んでください：
+                    </p>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="A" class="mr-2">
+                            A) スレッド数は必要に応じて自動的に増減する
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="B" class="mr-2">
+                            B) 常に3つのスレッドが維持され、タスクが多い場合はキューで待機する
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="C" class="mr-2">
+                            C) 最大3つまでスレッドを作成し、不要になったら削除される
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="D" class="mr-2">
+                            D) 3秒後に自動的にシャットダウンされる
+                        </label>
+                    </div>
+                    <button onclick="showAnswer(3)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                        回答を表示
+                    </button>
+                    <div id="answer3" class="answer-hidden">
+                        <p class="font-semibold text-green-800">正解: B) 常に3つのスレッドが維持され、タスクが多い場合はキューで待機する</p>
+                        <div class="mt-2 text-sm">
+                            <p><strong>解説:</strong></p>
+                            <ul class="list-disc pl-6 space-y-1">
+                                <li>FixedThreadPoolは固定数のスレッドを維持する</li>
+                                <li>スレッド数は作成時に指定した数で固定（この場合は3）</li>
+                                <li>タスクがスレッド数を超える場合、無制限キューで待機</li>
+                                <li>スレッドは再利用され、削除されない</li>
+                                <li>明示的にshutdown()を呼ぶまで動作し続ける</li>
+                            </ul>
+                            <div class="mt-2 p-2 bg-blue-100 rounded">
+                                <p><strong>他の選択肢の説明:</strong></p>
+                                <p>A: CachedThreadPoolの特徴<br>
+                                C: 一般的なスレッドプールの誤解<br>
+                                D: "3"という数字からの誤解</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- まとめ -->
+        <section class="content-section">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                本日のまとめ
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+                    <h3 class="font-semibold text-lg mb-3 text-green-800">
+                        <i class="fas fa-key mr-2"></i>
+                        重要概念
+                    </h3>
+                    <ul class="space-y-2 text-sm text-green-700">
+                        <li>• <strong>スレッド</strong>: 並行処理の基本単位</li>
+                        <li>• <strong>同期化</strong>: データの整合性を保つ仕組み</li>
+                        <li>• <strong>デッドロック</strong>: 相互待機による停止状態</li>
+                        <li>• <strong>スレッドプール</strong>: 効率的なスレッド管理</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+                    <h3 class="font-semibold text-lg mb-3 text-blue-800">
+                        <i class="fas fa-tools mr-2"></i>
+                        実務での活用
+                    </h3>
+                    <ul class="space-y-2 text-sm text-blue-700">
+                        <li>• Webアプリのリクエスト並列処理</li>
+                        <li>• 大量データの分散処理</li>
+                        <li>• 非同期タスクの効率的実行</li>
+                        <li>• UIの応答性向上（フロントエンド）</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+                    <h3 class="font-semibold text-lg mb-3 text-purple-800">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                        注意点
+                    </h3>
+                    <ul class="space-y-2 text-sm text-purple-700">
+                        <li>• 共有リソースは必ず同期化</li>
+                        <li>• デッドロック回避の設計</li>
+                        <li>• 適切なスレッド数の設定</li>
+                        <li>• リソースリークの防止</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+                <h3 class="text-lg font-semibold mb-3 text-yellow-800">
+                    <i class="fas fa-arrow-right mr-2"></i>
+                    次回予告: Day17 - 基本情報技術者試験対策（アルゴリズム編）
+                </h3>
+                <p class="text-sm text-yellow-700">
+                    スレッド処理の知識を活かして、基本情報技術者試験のアルゴリズム分野を学習します。
+                    特に、並列処理を意識したアルゴリズム設計と効率化テクニックを扱います。
+                </p>
+            </div>
+        </section>
+
+        <!-- フッター -->
+        <footer class="text-center mt-12 py-8 border-t border-gray-200">
+            <p class="text-gray-600">
+                <i class="fas fa-copyright mr-2"></i>
+                © 2025 APSA Co.,Ltd. All Rights Reserved.
+            </p>
+            <p class="text-sm text-gray-500 mt-2">
+                ITエンジニア育成カリキュラム - Day16: スレッドとマルチスレッド処理
+            </p>
+        </footer>
+    </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // 回答表示機能
+        function showAnswer(questionId) {
+            const answerDiv = document.getElementById('answer' + questionId);
+            const button = event.target;
+            
+            if (answerDiv.style.display === 'none' || answerDiv.style.display === '') {
+                answerDiv.style.display = 'block';
+                button.textContent = '回答を非表示';
+                button.className = 'bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition-colors';
+            } else {
+                answerDiv.style.display = 'none';
+                button.textContent = '回答を表示';
+                button.className = 'bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors';
+            }
+        }
+
+        // 演習問題回答表示機能
+        function showExerciseAnswer(exerciseId) {
+            const answerDiv = document.getElementById('exerciseAnswer' + exerciseId);
+            const button = event.target;
+            
+            if (answerDiv.style.display === 'none' || answerDiv.style.display === '') {
+                answerDiv.style.display = 'block';
+                button.textContent = '回答例を非表示';
+                button.className = 'bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition-colors';
+            } else {
+                answerDiv.style.display = 'none';
+                button.textContent = '回答例を表示';
+                button.className = 'bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors';
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDq3%2BVBbwJrCQ82HYxREDisuy8sGXkCWWCL8XBiyq9xxoHGgmuDc%2FGIte%2FF5WJQjW8UHmFZnDFtrRHkbPCGuKRc%2BcWLHCgMJ5YHWi3VIXKZq8JLFyR1%2B9Kx5i%2FEL3xRa9IoPX%2B%2Bi0Pu1o1hpebHTkSCagX828ZgZ4D46jxh23B%2F96vErnrlzEMvVc7twJUYjv8Hkg9CNOBQuKZ7RXx38AC8TsBaeJPhT2OnXh4dL%2BLPeS9Q7j5hlHASW24U8HVt%2FTvHktbkW%2B0tpxd94hpRNY6gJSMkSuA%2FZge4LHgA%2BsJfcycQYICw4Xdseeb%2BluG%2FeucJ3Xnxvh8zag41W4AmHQlDh%2FWFIUe8zzmRaW2k0Pm3t6JCXFB5VUujaqk0A13bG5TrQ3qYqYdotI%2F7eL9VmWRz%2FYseYkbzgcjpKlIaV38iXg5KOufyy9wNyHuhzCVbaeB8PafqYPRVYeoj0%2B%2Bi0lwDnwX72ZN8zwdwDvmjti29XX%2Fvc6TWki4vFkCIXUxOFbaQ%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDq3+VBbwJrCQ82HYxREDisuy8sGXkCWWCL8XBiyq9xxoHGgmuDc/GIte/F5WJQjW8UHmFZnDFtrRHkbPCGuKRc+cWLHCgMJ5YHWi3VIXKZq8JLFyR1+9Kx5i/EL3xRa9IoPX++i0Pu1o1hpebHTkSCagX828ZgZ4D46jxh23B/96vErnrlzEMvVc7twJUYjv8Hkg9CNOBQuKZ7RXx38AC8TsBaeJPhT2OnXh4dL+LPeS9Q7j5hlHASW24U8HVt/TvHktbkW+0tpxd94hpRNY6gJSMkSuA/Zge4LHgA+sJfcycQYICw4Xdseeb+luG/eucJ3Xnxvh8zag41W4AmHQlDh/WFIUe8zzmRaW2k0Pm3t6JCXFB5VUujaqk0A13bG5TrQ3qYqYdotI/7eL9VmWRz/YseYkbzgcjpKlIaV38iXg5KOufyy9wNyHuhzCVbaeB8PafqYPRVYeoj0++i0lwDnwX72ZN8zwdwDvmjti29XX/vc6TWki4vFkCIXUxOFbaQ==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

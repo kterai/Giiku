@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム - Day37: HTML5基礎構文とセマンティック要素</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+     <style>
+        .code-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .semantic-element {
+            border: 2px dashed #3b82f6;
+            background-color: #eff6ff;
+        }
+        .accessibility-tip {
+            background-color: #fef3c7;
+            border-left: 4px solid #f59e0b;
+        }
+        .practical-example {
+            background-color: #f0fdf4;
+            border-left: 4px solid #10b981;
+        }
+        .answer-hidden { display: none; }
+        .answer-visible { display: block; }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 leading-relaxed">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day36_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day38_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month3.html" class="hover:text-blue-600">3ヶ月目: Webアプリケーション開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week9.html" class="hover:text-blue-600">9週目: フロントエンド基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">37日目: HTML5基礎構文とセマンティック要素</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day37.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <!-- ヘッダー & ページング -->
+    <header class="highlight-box text-white py-6 px-4 mb-8">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <a href="day36_lecture.html" class="flex items-center text-white hover:text-blue-200 transition-colors">
+                    <i class="fas fa-chevron-left mr-2"></i>
+                    <span class="hidden sm:inline">前日: Day36</span>
+                </a>
+                <a href="day38_lecture.html" class="flex items-center text-white hover:text-blue-200 transition-colors">
+                    <span class="hidden sm:inline">翌日: Day38</span>
+                    <i class="fas fa-chevron-right ml-2"></i>
+                </a>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold text-center mb-2">
+                ITエンジニア育成カリキュラム - Day37
+            </h1>
+            <h2 class="text-xl md:text-2xl text-center mb-4">
+                HTML5基礎構文とセマンティック要素
+            </h2>
+            <p class="text-center text-lg">
+                Web開発の基盤技術完全マスター
+            </p>
+        </div>
+    </header>
+
+    <div class="max-w-6xl mx-auto px-4 pb-12">
+        <!-- 学習目標 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4 flex items-center">
+                <i class="fas fa-target mr-3"></i>本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                        <p>Web開発の<strong>3層アーキテクチャ</strong>（プレゼンテーション・ビジネス・データ層の役割分離）を<strong>具体例とともに</strong>説明できる</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                        <p>HTML5の<strong>セマンティック要素</strong>（意味を持つHTML要素）を<strong>実践例で</strong>理解し適切に使い分けられる</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                        <p><strong>アクセシビリティ対応</strong>（障害者も利用できるWebサイト作り）を<strong>実際にコーディング</strong>できる</p>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                        <p>HTML5の<strong>新フォーム要素</strong>（email、tel、date等の高機能入力項目）を活用した実用的なフォームを作成できる</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                        <p><strong>ブラウザ開発者ツール</strong>（Chrome DevTools等のWebページ検証機能）でHTML構造を検証・デバッグできる</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 開発環境 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4 flex items-center">
+                <i class="fas fa-code mr-3"></i>推奨開発環境
+            </h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="text-center p-4 bg-blue-50 rounded-lg">
+                    <i class="fas fa-laptop-code text-3xl text-blue-600 mb-2"></i>
+                    <h3 class="font-bold">エディタ</h3>
+                    <p>Visual Studio Code + Live Server拡張機能</p>
+                </div>
+                <div class="text-center p-4 bg-green-50 rounded-lg">
+                    <i class="fab fa-chrome text-3xl text-green-600 mb-2"></i>
+                    <h3 class="font-bold">ブラウザ</h3>
+                    <p>Google Chrome + 開発者ツール</p>
+                </div>
+                <div class="text-center p-4 bg-purple-50 rounded-lg">
+                    <i class="fas fa-check-double text-3xl text-purple-600 mb-2"></i>
+                    <h3 class="font-bold">検証ツール</h3>
+                    <p>W3C Validator + Lighthouse</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. Web開発3層アーキテクチャ -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6 flex items-center">
+                <i class="fas fa-layer-group mr-3"></i>1. Web開発3層アーキテクチャの詳細解説
+            </h2>
+            
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-gray-700 mb-4">なぜ層を分けるのか？</h3>
+                <div class="practical-example p-4 rounded-lg mb-4">
+                    <p class="mb-2"><strong>日常例：</strong>レストランに例えると...</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4">
+                        <li><strong>ホール（プレゼンテーション層）</strong>：お客様への対応、注文受付</li>
+                        <li><strong>厨房（ビジネス層）</strong>：料理の調理、品質管理</li>
+                        <li><strong>倉庫（データ層）</strong>：食材の保管、在庫管理</li>
+                    </ul>
+                    <p class="mt-2 text-sm text-gray-600">それぞれが専門分野に集中することで、効率的で品質の高いサービスを提供できます。</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-1 gap-6">
+                <div class="space-y-6">
+                    <!-- プレゼンテーション層 -->
+                    <div class="border border-blue-300 rounded-lg p-4">
+                        <h3 class="text-lg font-bold text-blue-700 mb-3 flex items-center">
+                            <i class="fas fa-desktop mr-2"></i>プレゼンテーション層（Presentation Layer）
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">責任範囲：</h4>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li>ユーザーインターフェース（画面表示）</li>
+                                    <li>ユーザーエクスペリエンス（操作性）</li>
+                                    <li>レスポンシブデザイン（画面サイズ対応）</li>
+                                    <li>フォームバリデーション（入力チェック）</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">実際の技術例：</h4>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li><strong>HTML5</strong>：ページ構造の定義</li>
+                                    <li><strong>CSS3</strong>：見た目のスタイリング</li>
+                                    <li><strong>JavaScript</strong>：動的な処理</li>
+                                    <li><strong>React/Vue.js</strong>：モダンなUI構築</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="practical-example p-3 rounded mt-3">
+                            <p class="text-sm"><strong>実用例：</strong>ECサイトの商品一覧ページ、お問い合わせフォーム、ユーザー登録画面</p>
+                        </div>
+                    </div>
+
+                    <!-- ビジネス層 -->
+                    <div class="border border-green-300 rounded-lg p-4">
+                        <h3 class="text-lg font-bold text-green-700 mb-3 flex items-center">
+                            <i class="fas fa-cogs mr-2"></i>ビジネス層（Business Logic Layer）
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">責任範囲：</h4>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li>ビジネスルール処理（業務ロジック）</li>
+                                    <li>データ処理ロジック（計算・変換）</li>
+                                    <li>外部API連携（他システムとの通信）</li>
+                                    <li>セキュリティ処理（認証・認可）</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">実際の技術例：</h4>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li><strong>Java Spring Boot</strong>：企業システム</li>
+                                    <li><strong>Node.js</strong>：高速Web API</li>
+                                    <li><strong>Python Django</strong>：データ分析系</li>
+                                    <li><strong>C# .NET</strong>：Microsoft環境</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="practical-example p-3 rounded mt-3">
+                            <p class="text-sm"><strong>実用例：</strong>在庫管理ロジック、決済処理システム、ユーザー認証機能、注文計算処理</p>
+                        </div>
+                    </div>
+
+                    <!-- データ層 -->
+                    <div class="border border-purple-300 rounded-lg p-4">
+                        <h3 class="text-lg font-bold text-purple-700 mb-3 flex items-center">
+                            <i class="fas fa-database mr-2"></i>データ層（Data Access Layer）
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">責任範囲：</h4>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li>データの永続化（保存・更新）</li>
+                                    <li>クエリ処理（データ検索・抽出）</li>
+                                    <li>データ整合性管理（矛盾防止）</li>
+                                    <li>バックアップ・復旧</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">実際の技術例：</h4>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li><strong>MySQL</strong>：一般的なWebアプリ</li>
+                                    <li><strong>PostgreSQL</strong>：高機能が必要な場合</li>
+                                    <li><strong>MongoDB</strong>：NoSQL（柔軟なデータ構造）</li>
+                                    <li><strong>Redis</strong>：高速キャッシュ</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="practical-example p-3 rounded mt-3">
+                            <p class="text-sm"><strong>実用例：</strong>ユーザー情報のCRUD操作（作成・読取・更新・削除）、商品データ管理、注文履歴保存</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-blue-50 p-4 rounded-lg">
+                <h3 class="font-bold text-blue-700 mb-2">MVCパターン（Model-View-Controller設計手法）との関係：</h3>
+                <div class="grid md:grid-cols-3 gap-4 text-sm">
+                    <div class="text-center">
+                        <div class="bg-blue-100 p-2 rounded mb-2">
+                            <strong>Model（モデル）</strong>
+                        </div>
+                        <p>データ層 + ビジネスロジックの一部</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-green-100 p-2 rounded mb-2">
+                            <strong>View（ビュー）</strong>
+                        </div>
+                        <p>プレゼンテーション層のUI部分</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-purple-100 p-2 rounded mb-2">
+                            <strong>Controller（コントローラー）</strong>
+                        </div>
+                        <p>プレゼンテーション層とビジネス層の橋渡し</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. HTML5基盤技術と構造理解 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6 flex items-center">
+                <i class="fas fa-code mr-3"></i>2. HTML5の基盤技術と構造理解
+            </h2>
+
+            <div class="space-y-6">
+                <!-- DOCTYPE宣言 -->
+                <div>
+                    <h3 class="text-xl font-bold text-gray-700 mb-4">DOCTYPE宣言の重要性</h3>
+                    <div class="mb-4">
+                        <p class="mb-3"><strong>初心者向け解説：</strong>DOCTYPE宣言とは、「このHTMLファイルはHTML5で書かれています」とブラウザに教える宣言文です。本の最初にある「この本は日本語で書かれています」という表示のようなものです。</p>
+                        
+                        <div class="practical-example p-4 rounded-lg mb-4">
+                            <p class="font-semibold mb-2">なぜDOCTYPE宣言が必要？</p>
+                            <ul class="list-disc list-inside space-y-1 text-sm">
+                                <li>ブラウザがHTMLの種類を識別するため</li>
+                                <li>標準モード（正しい表示）で動作させるため</li>
+                                <li>古いブラウザでも一貫した表示を保つため</li>
+                            </ul>
+                        </div>
+
+                        <div class="code-block p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">HTML5の簡潔なDOCTYPE宣言：</h4>
+                            <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;ページタイトル&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- ページ内容 --&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- head要素のメタデータ -->
+                <div>
+                    <h3 class="text-xl font-bold text-gray-700 mb-4">head要素内の重要なメタデータ設定</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <div class="border border-gray-200 rounded p-3">
+                                <h4 class="font-semibold text-blue-600 mb-2">charset（文字エンコーディング）</h4>
+                                <div class="code-block p-2 rounded text-sm mb-2">
+                                    <code>&lt;meta charset="UTF-8"&gt;</code>
+                                </div>
+                                <p class="text-sm">文字化け防止のため、UTF-8（世界中の文字を表示できる文字コード）を指定</p>
+                            </div>
+                            
+                            <div class="border border-gray-200 rounded p-3">
+                                <h4 class="font-semibold text-blue-600 mb-2">viewport（画面表示設定）</h4>
+                                <div class="code-block p-2 rounded text-sm mb-2">
+                                    <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code>
+                                </div>
+                                <p class="text-sm">スマホやタブレットで正しく表示するための設定</p>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="border border-gray-200 rounded p-3">
+                                <h4 class="font-semibold text-blue-600 mb-2">description（ページ説明）</h4>
+                                <div class="code-block p-2 rounded text-sm mb-2">
+                                    <code>&lt;meta name="description" content="ページの説明文"&gt;</code>
+                                </div>
+                                <p class="text-sm">検索結果に表示される説明文。SEO（検索エンジン最適化）に重要</p>
+                            </div>
+                            
+                            <div class="border border-gray-200 rounded p-3">
+                                <h4 class="font-semibold text-blue-600 mb-2">lang属性（言語設定）</h4>
+                                <div class="code-block p-2 rounded text-sm mb-2">
+                                    <code>&lt;html lang="ja"&gt;</code>
+                                </div>
+                                <p class="text-sm">スクリーンリーダー（視覚障害者用の読み上げソフト）が正しく読み上げるために必要</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. HTML5セマンティック要素の実践活用 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6 flex items-center">
+                <i class="fas fa-sitemap mr-3"></i>3. HTML5セマンティック要素の実践活用
+            </h2>
+
+            <div class="mb-6">
+                <div class="practical-example p-4 rounded-lg">
+                    <p><strong>初心者向け解説：</strong>セマンティック要素（semantic elements）とは、「意味を持つHTML要素」のことです。従来の&lt;div&gt;や&lt;span&gt;は「ただの箱」でしたが、&lt;header&gt;や&lt;nav&gt;は「ヘッダー部分」「ナビゲーション部分」という明確な意味を持ちます。</p>
+                    <p class="mt-2"><strong>日常例：</strong>新聞に例えると、見出し、本文、広告欄がそれぞれ役割を持っているように、HTMLでも各部分に明確な役割を持たせることができます。</p>
+                </div>
+            </div>
+
+            <!-- セマンティック要素比較表 -->
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full border border-gray-300 text-sm">
+                    <thead class="bg-blue-50">
+                        <tr>
+                            <th class="border border-gray-300 p-3 text-left">要素名</th>
+                            <th class="border border-gray-300 p-3 text-left">役割（日本語説明）</th>
+                            <th class="border border-gray-300 p-3 text-left">実用例</th>
+                            <th class="border border-gray-300 p-3 text-left">SEO効果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 p-3 font-mono font-bold">&lt;header&gt;</td>
+                            <td class="border border-gray-300 p-3">ページやセクションの導入部分</td>
+                            <td class="border border-gray-300 p-3">サイトヘッダー、ブログ記事タイトル</td>
+                            <td class="border border-gray-300 p-3">ページの重要な情報として認識</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 p-3 font-mono font-bold">&lt;nav&gt;</td>
+                            <td class="border border-gray-300 p-3">ナビゲーションリンクの集合</td>
+                            <td class="border border-gray-300 p-3">メインメニュー、パンくずナビ</td>
+                            <td class="border border-gray-300 p-3">サイト構造の理解促進</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 p-3 font-mono font-bold">&lt;main&gt;</td>
+                            <td class="border border-gray-300 p-3">ページの主要コンテンツ</td>
+                            <td class="border border-gray-300 p-3">記事本文、商品詳細</td>
+                            <td class="border border-gray-300 p-3">メインコンテンツの明確化</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 p-3 font-mono font-bold">&lt;article&gt;</td>
+                            <td class="border border-gray-300 p-3">独立したコンテンツ</td>
+                            <td class="border border-gray-300 p-3">ブログ記事、ニュース記事</td>
+                            <td class="border border-gray-300 p-3">コンテンツの独立性アピール</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 p-3 font-mono font-bold">&lt;section&gt;</td>
+                            <td class="border border-gray-300 p-3">テーマごとの内容区分</td>
+                            <td class="border border-gray-300 p-3">章立て、カテゴリ分け</td>
+                            <td class="border border-gray-300 p-3">コンテンツ構造の明確化</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 p-3 font-mono font-bold">&lt;aside&gt;</td>
+                            <td class="border border-gray-300 p-3">補足・関連情報</td>
+                            <td class="border border-gray-300 p-3">サイドバー、関連記事</td>
+                            <td class="border border-gray-300 p-3">メイン以外の情報として区別</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="border border-gray-300 p-3 font-mono font-bold">&lt;footer&gt;</td>
+                            <td class="border border-gray-300 p-3">ページやセクションの末尾情報</td>
+                            <td class="border border-gray-300 p-3">著作権表示、連絡先</td>
+                            <td class="border border-gray-300 p-3">サイト情報の整理</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 実践例：企業サイト構造 -->
+            <div class="semantic-element p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-blue-700 mb-4">実践例：企業サイトのセマンティック構造</h3>
+                <div class="code-block p-4 rounded-lg">
+                    <pre><code class="language-html">&lt;!-- 企業サイトの典型的な構造例 --&gt;
+&lt;header role="banner"&gt;
+    &lt;h1&gt;株式会社サンプル&lt;/h1&gt;
+    &lt;nav aria-label="メインナビゲーション"&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="/"&gt;ホーム&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/about"&gt;会社概要&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/services"&gt;サービス&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/contact"&gt;お問い合わせ&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main id="main-content"&gt;
+    &lt;section&gt;
+        &lt;h2&gt;会社概要&lt;/h2&gt;
+        &lt;article&gt;
+            &lt;h3&gt;私たちの歴史&lt;/h3&gt;
+            &lt;p&gt;1995年の創業以来...&lt;/p&gt;
+        &lt;/article&gt;
+    &lt;/section&gt;
+    
+    &lt;section&gt;
+        &lt;h2&gt;主要サービス&lt;/h2&gt;
+        &lt;article&gt;
+            &lt;h3&gt;Webサイト制作&lt;/h3&gt;
+            &lt;p&gt;レスポンシブデザインに対応...&lt;/p&gt;
+        &lt;/article&gt;
+    &lt;/section&gt;
+&lt;/main&gt;
+
+&lt;aside&gt;
+    &lt;h3&gt;最新情報&lt;/h3&gt;
+    &lt;ul&gt;
+        &lt;li&gt;2024年新サービス開始&lt;/li&gt;
+        &lt;li&gt;採用情報更新&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/aside&gt;
+
+&lt;footer role="contentinfo"&gt;
+    &lt;p&gt;&copy; 2024 株式会社サンプル All Rights Reserved.&lt;/p&gt;
+    &lt;address&gt;
+        東京都渋谷区○○1-1-1
+        TEL: 03-1234-5678
+    &lt;/address&gt;
+&lt;/footer&gt;</code></pre>
+                </div>
+            </div>
+
+            <div class="mt-4 grid md:grid-cols-2 gap-4">
+                <div class="practical-example p-4 rounded-lg">
+                    <h4 class="font-bold text-green-700 mb-2">セマンティック要素のメリット：</h4>
+                    <ul class="list-disc list-inside text-sm space-y-1">
+                        <li><strong>SEO効果：</strong>検索エンジンがページ構造を正確に理解</li>
+                        <li><strong>アクセシビリティ：</strong>スクリーンリーダーが適切に読み上げ</li>
+                        <li><strong>保守性：</strong>コードの意図が明確で修正しやすい</li>
+                        <li><strong>チーム開発：</strong>他の開発者が理解しやすい</li>
+                    </ul>
+                </div>
+                <div class="accessibility-tip p-4 rounded-lg">
+                    <h4 class="font-bold text-amber-700 mb-2">適用場面の具体例：</h4>
+                    <ul class="list-disc list-inside text-sm space-y-1">
+                        <li><strong>コーポレートサイト：</strong>会社情報の構造化</li>
+                        <li><strong>ブログサイト：</strong>記事の論理的な整理</li>
+                        <li><strong>ECサイト：</strong>商品情報の明確な分類</li>
+                        <li><strong>ポートフォリオ：</strong>作品・経歴の整理</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. HTML5新フォーム要素の活用 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6 flex items-center">
+                <i class="fas fa-wpforms mr-3"></i>4. HTML5新フォーム要素の活用
+            </h2>
+
+            <div class="mb-6">
+                <div class="practical-example p-4 rounded-lg mb-4">
+                    <p><strong>初心者向け解説：</strong>HTML5では、従来の&lt;input type="text"&gt;だけでなく、メールアドレス専用の&lt;input type="email"&gt;や日付選択の&lt;input type="date"&gt;など、用途に特化した入力項目が追加されました。これにより、JavaScriptを書かなくても入力チェックや使いやすい入力補助が自動で機能します。</p>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- フォーム要素一覧 -->
+                <div class="overflow-x-auto">
+                    <table class="w-full border border-gray-300 text-sm">
+                        <thead class="bg-green-50">
+                            <tr>
+                                <th class="border border-gray-300 p-3 text-left">要素</th>
+                                <th class="border border-gray-300 p-3 text-left">用途（日本語説明）</th>
+                                <th class="border border-gray-300 p-3 text-left">自動機能</th>
+                                <th class="border border-gray-300 p-3 text-left">モバイル対応</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 p-3 font-mono">type="email"</td>
+                                <td class="border border-gray-300 p-3">メールアドレス入力</td>
+                                <td class="border border-gray-300 p-3">@マーク必須チェック</td>
+                                <td class="border border-gray-300 p-3">@キー付きキーボード表示</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 p-3 font-mono">type="tel"</td>
+                                <td class="border border-gray-300 p-3">電話番号入力</td>
+                                <td class="border border-gray-300 p-3">数値キーボード呼び出し</td>
+                                <td class="border border-gray-300 p-3">電話番号キーボード表示</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 p-3 font-mono">type="url"</td>
+                                <td class="border border-gray-300 p-3">URL入力</td>
+                                <td class="border border-gray-300 p-3">http://形式チェック</td>
+                                <td class="border border-gray-300 p-3">.com/.jpキー付きキーボード</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 p-3 font-mono">type="date"</td>
+                                <td class="border border-gray-300 p-3">日付選択</td>
+                                <td class="border border-gray-300 p-3">カレンダーポップアップ</td>
+                                <td class="border border-gray-300 p-3">日付選択UI表示</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 p-3 font-mono">type="time"</td>
+                                <td class="border border-gray-300 p-3">時刻選択</td>
+                                <td class="border border-gray-300 p-3">時刻選択UI</td>
+                                <td class="border border-gray-300 p-3">時刻入力UI表示</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 p-3 font-mono">type="range"</td>
+                                <td class="border border-gray-300 p-3">数値範囲選択</td>
+                                <td class="border border-gray-300 p-3">スライダー表示</td>
+                                <td class="border border-gray-300 p-3">タッチ操作対応スライダー</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 p-3 font-mono">type="color"</td>
+                                <td class="border border-gray-300 p-3">色選択</td>
+                                <td class="border border-gray-300 p-3">カラーピッカー表示</td>
+                                <td class="border border-gray-300 p-3">色選択UI表示</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 実践例：お問い合わせフォーム -->
+                <div class="semantic-element p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-blue-700 mb-4">実践例：高機能お問い合わせフォーム</h3>
+                    <div class="code-block p-4 rounded-lg">
+                        <pre><code class="language-html">&lt;form action="/contact" method="post" novalidate&gt;
+    &lt;!-- 基本情報 --&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;基本情報&lt;/legend&gt;
+        
+        &lt;label for="name"&gt;お名前（必須）&lt;/label&gt;
+        &lt;input type="text" id="name" name="name" 
+               required 
+               placeholder="山田太郎" 
+               minlength="2" 
+               maxlength="50"&gt;
+        
+        &lt;label for="email"&gt;メールアドレス（必須）&lt;/label&gt;
+        &lt;input type="email" id="email" name="email" 
+               required 
+               placeholder="example@domain.com"
+               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"&gt;
+        
+        &lt;label for="phone"&gt;電話番号&lt;/label&gt;
+        &lt;input type="tel" id="phone" name="phone" 
+               placeholder="090-1234-5678" 
+               pattern="\d{3}-\d{4}-\d{4}"&gt;
+        
+        &lt;label for="website"&gt;ウェブサイト&lt;/label&gt;
+        &lt;input type="url" id="website" name="website" 
+               placeholder="https://example.com"&gt;
+    &lt;/fieldset&gt;
+    
+    &lt;!-- 詳細情報 --&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;詳細情報&lt;/legend&gt;
+        
+        &lt;label for="birth-date"&gt;生年月日&lt;/label&gt;
+        &lt;input type="date" id="birth-date" name="birth-date" 
+               min="1900-01-01" 
+               max="2024-12-31"&gt;
+        
+        &lt;label for="meeting-time"&gt;希望面談時刻&lt;/label&gt;
+        &lt;input type="time" id="meeting-time" name="meeting-time" 
+               min="09:00" 
+               max="18:00"&gt;
+        
+        &lt;label for="budget"&gt;予算（万円）: &lt;span id="budget-value"&gt;50&lt;/span&gt;&lt;/label&gt;
+        &lt;input type="range" id="budget" name="budget" 
+               min="10" 
+               max="500" 
+               step="10" 
+               value="50"
+               oninput="document.getElementById('budget-value').textContent = this.value"&gt;
+        
+        &lt;label for="theme-color"&gt;希望テーマカラー&lt;/label&gt;
+        &lt;input type="color" id="theme-color" name="theme-color" 
+               value="#3b82f6"&gt;
+    &lt;/fieldset&gt;
+    
+    &lt;button type="submit"&gt;送信&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                    </div>
+                </div>
+
+                <!-- バリデーション機能 -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-bold text-blue-600 mb-3">クライアントサイドバリデーション（入力チェック）</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li><strong>required：</strong>必須入力項目の指定</li>
+                            <li><strong>pattern：</strong>正規表現による形式チェック</li>
+                            <li><strong>min/max：</strong>数値・日付の範囲指定</li>
+                            <li><strong>minlength/maxlength：</strong>文字数制限</li>
+                        </ul>
+                        <div class="practical-example p-3 rounded mt-3">
+                            <p class="text-sm"><strong>実用例：</strong>JavaScriptを書かずに「メールアドレスに@が含まれているか」「電話番号がハイフン区切りの11桁か」などをチェック可能</p>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-bold text-blue-600 mb-3">カスタムバリデーション実装例</h4>
+                        <div class="code-block p-3 rounded text-sm">
+                            <pre><code>// JavaScriptでカスタムメッセージ設定
+const emailInput = document.getElementById('email');
+emailInput.addEventListener('invalid', function() {
+    if (this.validity.valueMissing) {
+        this.setCustomValidity('メールアドレスを入力してください');
+    } else if (this.validity.typeMismatch) {
+        this.setCustomValidity('正しいメールアドレス形式で入力してください');
+    }
+});
+
+// CSS疑似クラスでスタイリング
+input:valid { border-color: green; }
+input:invalid { border-color: red; }</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. WAI-ARIAアクセシビリティ対応 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6 flex items-center">
+                <i class="fas fa-universal-access mr-3"></i>5. WAI-ARIAアクセシビリティ対応
+            </h2>
+
+            <div class="mb-6">
+                <div class="accessibility-tip p-4 rounded-lg mb-4">
+                    <p><strong>初心者向け解説：</strong>WAI-ARIA（Web Accessibility Initiative - Accessible Rich Internet Applications）とは、障害者の方がWebサイトを利用しやすくするための仕組みです。目の見えない方が使うスクリーンリーダー（画面読み上げソフト）に、「ここはボタンです」「ここは重要な情報です」と正確に伝える役割を持ちます。</p>
+                    <p class="mt-2"><strong>日常例：</strong>点字ブロックが歩道に設置されているように、Webサイトにも視覚障害者の方のための「道しるべ」を設置するイメージです。</p>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- 基本的なARIA属性 -->
+                <div>
+                    <h3 class="text-xl font-bold text-gray-700 mb-4">基本的なARIA属性の使用方法</h3>
+                    <div class="overflow-x-auto mb-4">
+                        <table class="w-full border border-gray-300 text-sm">
+                            <thead class="bg-purple-50">
+                                <tr>
+                                    <th class="border border-gray-300 p-3 text-left">ARIA属性</th>
+                                    <th class="border border-gray-300 p-3 text-left">用途（日本語説明）</th>
+                                    <th class="border border-gray-300 p-3 text-left">使用例</th>
+                                    <th class="border border-gray-300 p-3 text-left">スクリーンリーダーでの読み上げ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 p-3 font-mono">aria-label</td>
+                                    <td class="border border-gray-300 p-3">要素の説明ラベル</td>
+                                    <td class="border border-gray-300 p-3">検索ボタンの説明</td>
+                                    <td class="border border-gray-300 p-3">「サイト内検索ボタン」</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 p-3 font-mono">aria-describedby</td>
+                                    <td class="border border-gray-300 p-3">詳細説明の参照</td>
+                                    <td class="border border-gray-300 p-3">入力項目のヘルプテキスト</td>
+                                    <td class="border border-gray-300 p-3">「パスワードは8文字以上で入力してください」</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 p-3 font-mono">aria-hidden</td>
+                                    <td class="border border-gray-300 p-3">スクリーンリーダーから隠す</td>
+                                    <td class="border border-gray-300 p-3">装飾用アイコン</td>
+                                    <td class="border border-gray-300 p-3">（読み上げされない）</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 p-3 font-mono">aria-expanded</td>
+                                    <td class="border border-gray-300 p-3">開閉状態の表示</td>
+                                    <td class="border border-gray-300 p-3">メニューの開閉</td>
+                                    <td class="border border-gray-300 p-3">「メニュー展開済み」「メニュー折り畳み済み」</td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border border-gray-300 p-3 font-mono">aria-live</td>
+                                    <td class="border border-gray-300 p-3">動的コンテンツの更新通知</td>
+                                    <td class="border border-gray-300 p-3">エラーメッセージ表示</td>
+                                    <td class="border border-gray-300 p-3">「入力エラーが発生しました」</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ランドマークロール -->
+                <div>
+                    <h3 class="text-xl font-bold text-gray-700 mb-4">ランドマークロール（ページ構造の明確化）</h3>
+                    <div class="semantic-element p-4 rounded-lg">
+                        <div class="code-block p-4 rounded-lg">
+                            <pre><code class="language-html">&lt;!-- ランドマークロールを使用したアクセシブルなページ構造 --&gt;
+&lt;header role="banner"&gt;
+    &lt;h1&gt;サイトタイトル&lt;/h1&gt;
+    &lt;nav role="navigation" aria-label="メインナビゲーション"&gt;
+        &lt;button aria-expanded="false" 
+                aria-controls="menu-list" 
+                aria-label="メニューを開く"&gt;
+            &lt;i class="fas fa-bars" aria-hidden="true"&gt;&lt;/i&gt;
+            メニュー
+        &lt;/button&gt;
+        &lt;ul id="menu-list" aria-hidden="true"&gt;
+            &lt;li&gt;&lt;a href="/"&gt;ホーム&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/about"&gt;概要&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="/contact"&gt;お問い合わせ&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main role="main" id="main-content"&gt;
+    &lt;h1&gt;ページのメインタイトル&lt;/h1&gt;
+    
+    &lt;section aria-labelledby="news-heading"&gt;
+        &lt;h2 id="news-heading"&gt;最新情報&lt;/h2&gt;
+        
+        &lt;!-- 重要なお知らせ（動的に更新される可能性） --&gt;
+        &lt;div role="alert" aria-live="polite" id="important-notice"&gt;
+            システムメンテナンス情報
+        &lt;/div&gt;
+        
+        &lt;article&gt;
+            &lt;h3&gt;新サービス開始のお知らせ&lt;/h3&gt;
+            &lt;time datetime="2024-01-15"&gt;2024年1月15日&lt;/time&gt;
+            &lt;p&gt;このたび新しいサービスを開始いたしました...&lt;/p&gt;
+        &lt;/article&gt;
+    &lt;/section&gt;
+    
+    &lt;!-- アクセシブルなフォーム --&gt;
+    &lt;section aria-labelledby="contact-heading"&gt;
+        &lt;h2 id="contact-heading"&gt;お問い合わせフォーム&lt;/h2&gt;
+        
+        &lt;form&gt;
+            &lt;div class="form-group"&gt;
+                &lt;label for="user-name"&gt;お名前（必須）&lt;/label&gt;
+                &lt;input type="text" 
+                       id="user-name" 
+                       name="name" 
+                       required 
+                       aria-describedby="name-help"&gt;
+                &lt;div id="name-help" class="help-text"&gt;
+                    フルネームでご入力ください
+                &lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;div class="form-group"&gt;
+                &lt;label for="user-email"&gt;メールアドレス（必須）&lt;/label&gt;
+                &lt;input type="email" 
+                       id="user-email" 
+                       name="email" 
+                       required 
+                       aria-invalid="false"
+                       aria-describedby="email-error"&gt;
+                &lt;div id="email-error" 
+                     role="alert" 
+                     aria-live="polite" 
+                     class="error-message" 
+                     style="display: none;"&gt;
+                    &lt;!-- エラーメッセージが動的に表示される --&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;button type="submit" aria-describedby="submit-help"&gt;
+                送信
+            &lt;/button&gt;
+            &lt;div id="submit-help" class="help-text"&gt;
+                入力内容を確認して送信してください
+            &lt;/div&gt;
+        &lt;/form&gt;
+    &lt;/section&gt;
+&lt;/main&gt;
+
+&lt;aside role="complementary" aria-labelledby="sidebar-heading"&gt;
+    &lt;h2 id="sidebar-heading"&gt;関連情報&lt;/h2&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="/faq"&gt;よくある質問&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="/support"&gt;サポート&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/aside&gt;
+
+&lt;footer role="contentinfo"&gt;
+    &lt;p&gt;&copy; 2024 Company Name All Rights Reserved.&lt;/p&gt;
+    &lt;address&gt;
+        &lt;p&gt;住所: 東京都渋谷区○○1-1-1&lt;/p&gt;
+        &lt;p&gt;TEL: &lt;a href="tel:+81312345678"&gt;03-1234-5678&lt;/a&gt;&lt;/p&gt;
+    &lt;/address&gt;
+&lt;/footer&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- アクセシビリティ検証ツール -->
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-bold text-purple-600 mb-3">アクセシビリティ検証ツール</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li><strong>axe DevTools：</strong>Chrome拡張機能、リアルタイム検証</li>
+                            <li><strong>WAVE：</strong>オンライン評価ツール</li>
+                            <li><strong>Lighthouse：</strong>Chrome DevTools統合</li>
+                            <li><strong>スクリーンリーダー：</strong>NVDA (Windows), VoiceOver (Mac)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="accessibility-tip p-4 rounded-lg">
+                        <h4 class="font-bold text-amber-700 mb-3">WCAG 2.1 AA レベル対応のメリット</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li><strong>法的遵守：</strong>障害者差別解消法への対応</li>
+                            <li><strong>ユーザー拡大：</strong>全ての人が利用可能</li>
+                            <li><strong>SEO向上：</strong>検索エンジンも理解しやすい</li>
+                            <li><strong>品質向上：</strong>構造化されたコード</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. ブラウザ開発者ツールの活用 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6 flex items-center">
+                <i class="fas fa-tools mr-3"></i>6. Chrome DevToolsの高度な活用とデバッグ技術
+            </h2>
+
+            <div class="mb-6">
+                <div class="practical-example p-4 rounded-lg mb-4">
+                    <p><strong>初心者向け解説：</strong>Chrome DevTools（Chrome開発者ツール）は、Webページの「内部構造」を見ることができる強力なツールです。医者がレントゲンで体の内部を見るように、開発者はDevToolsでWebページの内部を詳しく調べることができます。</p>
+                    <p class="mt-2"><strong>開き方：</strong>Chrome でページを開いて「F12キー」を押すか、右クリック→「検証」を選択</p>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <!-- DevToolsパネル一覧 -->
+                <div class="overflow-x-auto">
+                    <table class="w-full border border-gray-300 text-sm">
+                        <thead class="bg-indigo-50">
+                            <tr>
+                                <th class="border border-gray-300 p-3 text-left">パネル名</th>
+                                <th class="border border-gray-300 p-3 text-left">機能（日本語説明）</th>
+                                <th class="border border-gray-300 p-3 text-left">実用例</th>
+                                <th class="border border-gray-300 p-3 text-left">習得メリット</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 p-3 font-bold">Elements</td>
+                                <td class="border border-gray-300 p-3">HTML構造とCSS確認・編集</td>
+                                <td class="border border-gray-300 p-3">レイアウト崩れの原因調査</td>
+                                <td class="border border-gray-300 p-3">デザイン修正の効率化</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 p-3 font-bold">Console</td>
+                                <td class="border border-gray-300 p-3">JavaScriptエラー確認・実行</td>
+                                <td class="border border-gray-300 p-3">「クリックが動かない」原因調査</td>
+                                <td class="border border-gray-300 p-3">JavaScript問題の迅速解決</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 p-3 font-bold">Network</td>
+                                <td class="border border-gray-300 p-3">HTTP通信の詳細確認</td>
+                                <td class="border border-gray-300 p-3">「ページが重い」原因分析</td>
+                                <td class="border border-gray-300 p-3">パフォーマンス最適化</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 p-3 font-bold">Lighthouse</td>
+                                <td class="border border-gray-300 p-3">総合的な品質監査</td>
+                                <td class="border border-gray-300 p-3">SEO・アクセシビリティチェック</td>
+                                <td class="border border-gray-300 p-3">高品質サイト構築</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 p-3 font-bold">Device Mode</td>
+                                <td class="border border-gray-300 p-3">モバイル表示シミュレーション</td>
+                                <td class="border border-gray-300 p-3">スマホ対応確認</td>
+                                <td class="border border-gray-300 p-3">レスポンシブデザイン検証</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 実践的なデバッグ手順 -->
+                <div class="semantic-element p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-blue-700 mb-4">実践的なHTML検証・デバッグ手順</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-3">1. Elements パネルでのHTML構造確認</h4>
+                            <ol class="list-decimal list-inside text-sm space-y-2">
+                                <li>F12キーでDevToolsを開く</li>
+                                <li>「Elements」タブを選択</li>
+                                <li>HTML要素をクリックして選択</li>
+                                <li>右側でCSS スタイルを確認</li>
+                                <li>直接編集してリアルタイム確認</li>
+                            </ol>
+                            <div class="practical-example p-3 rounded mt-3">
+                                <p class="text-sm"><strong>実用例：</strong>「この見出しが大きすぎる」→ Elementsで&lt;h1&gt;要素を選択 → 右側のStylesでfont-sizeを変更して調整</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-3">2. Lighthouse での品質監査</h4>
+                            <ol class="list-decimal list-inside text-sm space-y-2">
+                                <li>DevToolsで「Lighthouse」タブを選択</li>
+                                <li>「Generate report」をクリック</li>
+                                <li>Performance、Accessibility、SEOの点数確認</li>
+                                <li>「Opportunities」で改善提案確認</li>
+                                <li>提案に従って修正実施</li>
+                            </ol>
+                            <div class="accessibility-tip p-3 rounded mt-3">
+                                <p class="text-sm"><strong>実用例：</strong>「画像にalt属性がない」「コントラスト比が低い」「メタディスクリプションが未設定」などの具体的な改善点を指摘</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- よくあるHTML問題の解決法 -->
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="border border-red-200 rounded-lg p-4 bg-red-50">
+                        <h4 class="font-bold text-red-700 mb-2">レイアウト崩れ</h4>
+                        <p class="text-sm mb-2"><strong>症状：</strong>要素が意図しない位置に表示</p>
+                        <p class="text-sm mb-2"><strong>確認方法：</strong>Elements → Computed で実際のサイズ確認</p>
+                        <p class="text-sm"><strong>解決策：</strong>CSS の margin、padding、width を調整</p>
+                    </div>
+                    
+                    <div class="border border-yellow-200 rounded-lg p-4 bg-yellow-50">
+                        <h4 class="font-bold text-yellow-700 mb-2">文字化け</h4>
+                        <p class="text-sm mb-2"><strong>症状：</strong>文字が「□」や「?」で表示</p>
+                        <p class="text-sm mb-2"><strong>確認方法：</strong>Elements → &lt;head&gt; → charset 確認</p>
+                        <p class="text-sm"><strong>解決策：</strong>&lt;meta charset="UTF-8"&gt; を追加</p>
+                    </div>
+                    
+                    <div class="border border-blue-200 rounded-lg p-4 bg-blue-50">
+                        <h4 class="font-bold text-blue-700 mb-2">スマホ表示崩れ</h4>
+                        <p class="text-sm mb-2"><strong>症状：</strong>モバイルで文字が小さい、レイアウト崩れ</p>
+                        <p class="text-sm mb-2"><strong>確認方法：</strong>Device Mode でモバイル表示テスト</p>
+                        <p class="text-sm"><strong>解決策：</strong>viewport meta タグを追加</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. 演習問題 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6 flex items-center">
+                <i class="fas fa-tasks mr-3"></i>7. 演習問題
+            </h2>
+
+            <div class="space-y-8">
+                <!-- 演習問題1 -->
+                <div class="border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-bold text-gray-700 mb-4">演習問題1: セマンティック要素を使った企業サイト構造</h3>
+                    <div class="mb-4">
+                        <p class="mb-3">以下の要件を満たす企業ホームページの基本構造をHTML5のセマンティック要素を使って作成してください。</p>
+                        <div class="bg-gray-100 p-4 rounded">
+                            <h4 class="font-semibold mb-2">要件：</h4>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                <li>サイトのタイトルとメインナビゲーション（ホーム、会社概要、サービス、お問い合わせ）</li>
+                                <li>「会社概要」と「主要サービス」の2つのセクション</li>
+                                <li>サイドバーに「最新情報」を3件表示</li>
+                                <li>フッターに著作権とお問い合わせ先を表示</li>
+                                <li>WAI-ARIAのランドマークロールも適切に設定</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button onclick="toggleAnswer('answer1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        回答例を表示
+                    </button>
+                    <div id="answer1" class="answer-hidden mt-4">
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                            <h4 class="font-bold text-green-700 mb-3">回答例：</h4>
+                            <div class="code-block p-4 rounded-lg">
+                                <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;meta name="description" content="株式会社サンプル - 信頼と実績のITソリューション企業"&gt;
+    &lt;title&gt;株式会社サンプル - 企業サイト&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header role="banner"&gt;
+        &lt;h1&gt;株式会社サンプル&lt;/h1&gt;
+        &lt;nav role="navigation" aria-label="メインナビゲーション"&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a href="/"&gt;ホーム&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="/about"&gt;会社概要&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="/services"&gt;サービス&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a href="/contact"&gt;お問い合わせ&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main role="main" id="main-content"&gt;
+        &lt;section aria-labelledby="about-heading"&gt;
+            &lt;h2 id="about-heading"&gt;会社概要&lt;/h2&gt;
+            &lt;article&gt;
+                &lt;h3&gt;私たちの歴史&lt;/h3&gt;
+                &lt;p&gt;1995年の創業以来、ITソリューションを通じて企業の成長を支援してまいりました。&lt;/p&gt;
+            &lt;/article&gt;
+        &lt;/section&gt;
+        
+        &lt;section aria-labelledby="services-heading"&gt;
+            &lt;h2 id="services-heading"&gt;主要サービス&lt;/h2&gt;
+            &lt;article&gt;
+                &lt;h3&gt;Webサイト制作&lt;/h3&gt;
+                &lt;p&gt;レスポンシブデザインに対応した高品質なWebサイトを制作いたします。&lt;/p&gt;
+            &lt;/article&gt;
+            &lt;article&gt;
+                &lt;h3&gt;システム開発&lt;/h3&gt;
+                &lt;p&gt;お客様のニーズに合わせたカスタムシステムを開発いたします。&lt;/p&gt;
+            &lt;/article&gt;
+        &lt;/section&gt;
+    &lt;/main&gt;
+
+    &lt;aside role="complementary" aria-labelledby="news-heading"&gt;
+        &lt;h2 id="news-heading"&gt;最新情報&lt;/h2&gt;
+        &lt;ul&gt;
+            &lt;li&gt;
+                &lt;article&gt;
+                    &lt;h3&gt;&lt;a href="/news/1"&gt;新サービス開始のお知らせ&lt;/a&gt;&lt;/h3&gt;
+                    &lt;time datetime="2024-01-15"&gt;2024年1月15日&lt;/time&gt;
+                &lt;/article&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;article&gt;
+                    &lt;h3&gt;&lt;a href="/news/2"&gt;採用情報を更新しました&lt;/a&gt;&lt;/h3&gt;
+                    &lt;time datetime="2024-01-10"&gt;2024年1月10日&lt;/time&gt;
+                &lt;/article&gt;
+            &lt;/li&gt;
+            &lt;li&gt;
+                &lt;article&gt;
+                    &lt;h3&gt;&lt;a href="/news/3"&gt;年末年始休業のお知らせ&lt;/a&gt;&lt;/h3&gt;
+                    &lt;time datetime="2023-12-25"&gt;2023年12月25日&lt;/time&gt;
+                &lt;/article&gt;
+            &lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/aside&gt;
+
+    &lt;footer role="contentinfo"&gt;
+        &lt;p&gt;&copy; 2024 株式会社サンプル All Rights Reserved.&lt;/p&gt;
+        &lt;address&gt;
+            &lt;p&gt;〒150-0001 東京都渋谷区神宮前1-1-1&lt;/p&gt;
+            &lt;p&gt;TEL: &lt;a href="tel:+81312345678"&gt;03-1234-5678&lt;/a&gt;&lt;/p&gt;
+            &lt;p&gt;Email: &lt;a href="mailto:info@sample.co.jp"&gt;info@sample.co.jp&lt;/a&gt;&lt;/p&gt;
+        &lt;/address&gt;
+    &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                            </div>
+                            <div class="mt-4 p-3 bg-blue-50 rounded">
+                                <h5 class="font-semibold text-blue-700 mb-2">解説ポイント：</h5>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li><strong>セマンティック要素：</strong>&lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;article&gt;, &lt;aside&gt;, &lt;footer&gt;を適切に使用</li>
+                                    <li><strong>WAI-ARIA：</strong>role属性とaria-label/labelledbyで明確な構造化</li>
+                                    <li><strong>アクセシビリティ：</strong>見出しの階層、時刻要素、連絡先リンクを適切に実装</li>
+                                    <li><strong>SEO対策：</strong>meta description、構造化データ対応のマークアップ</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 演習問題2 -->
+                <div class="border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-bold text-gray-700 mb-4">演習問題2: HTML5新フォーム要素を活用した会員登録フォーム</h3>
+                    <div class="mb-4">
+                        <p class="mb-3">HTML5の新しいフォーム要素とバリデーション機能を使って、アクセシブルな会員登録フォームを作成してください。</p>
+                        <div class="bg-gray-100 p-4 rounded">
+                            <h4 class="font-semibold mb-2">要件：</h4>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                <li>氏名（必須）、メールアドレス（必須、形式チェック）、電話番号（形式チェック）</li>
+                                <li>生年月日（日付選択）、ウェブサイト（URL形式チェック）</li>
+                                <li>パスワード（8文字以上）、パスワード確認</li>
+                                <li>興味分野（チェックボックス複数選択）、希望連絡時間（時刻選択）</li>
+                                <li>各項目に適切なラベル、ヘルプテキスト、エラーメッセージを設定</li>
+                                <li>WAI-ARIAを使用したアクセシビリティ対応</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <button onclick="toggleAnswer('answer2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        回答例を表示
+                    </button>
+                    <div id="answer2" class="answer-hidden mt-4">
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                            <h4 class="font-bold text-green-700 mb-3">回答例：</h4>
+                            <div class="code-block p-4 rounded-lg">
+                                <pre><code class="language-html">&lt;form action="/register" method="post" novalidate&gt;
+    &lt;fieldset&gt;
+        &lt;legend&gt;基本情報&lt;/legend&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label for="full-name"&gt;お名前（必須）&lt;/label&gt;
+            &lt;input type="text" 
+                   id="full-name" 
+                   name="full-name" 
+                   required 
+                   minlength="2" 
+                   maxlength="50"
+                   placeholder="山田太郎" 
+                   aria-describedby="name-help"&gt;
+            &lt;div id="name-help" class="help-text"&gt;
+                フルネームでご入力ください（2〜50文字）
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label for="email"&gt;メールアドレス（必須）&lt;/label&gt;
+            &lt;input type="email" 
+                   id="email" 
+                   name="email" 
+                   required 
+                   placeholder="example@domain.com"
+                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                   aria-describedby="email-help email-error"&gt;
+            &lt;div id="email-help" class="help-text"&gt;
+                ログイン時に使用するメールアドレス
+            &lt;/div&gt;
+            &lt;div id="email-error" role="alert" aria-live="polite" class="error-message"&gt;
+                &lt;!-- エラーメッセージが動的に表示される --&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label for="phone"&gt;電話番号&lt;/label&gt;
+            &lt;input type="tel" 
+                   id="phone" 
+                   name="phone" 
+                   placeholder="090-1234-5678" 
+                   pattern="\d{3}-\d{4}-\d{4}"
+                   aria-describedby="phone-help"&gt;
+            &lt;div id="phone-help" class="help-text"&gt;
+                ハイフン区切りで入力してください（例：090-1234-5678）
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label for="birthdate"&gt;生年月日&lt;/label&gt;
+            &lt;input type="date" 
+                   id="birthdate" 
+                   name="birthdate" 
+                   min="1900-01-01" 
+                   max="2024-12-31"&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label for="website"&gt;ウェブサイト&lt;/label&gt;
+            &lt;input type="url" 
+                   id="website" 
+                   name="website" 
+                   placeholder="https://example.com"
+                   aria-describedby="website-help"&gt;
+            &lt;div id="website-help" class="help-text"&gt;
+                個人サイトやブログのURLがあればご入力ください
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/fieldset&gt;
+    
+    &lt;fieldset&gt;
+        &lt;legend&gt;アカウント設定&lt;/legend&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label for="password"&gt;パスワード（必須）&lt;/label&gt;
+            &lt;input type="password" 
+                   id="password" 
+                   name="password" 
+                   required 
+                   minlength="8"
+                   pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$"
+                   aria-describedby="password-help"&gt;
+            &lt;div id="password-help" class="help-text"&gt;
+                8文字以上で、大文字・小文字・数字を含めてください
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label for="password-confirm"&gt;パスワード確認（必須）&lt;/label&gt;
+            &lt;input type="password" 
+                   id="password-confirm" 
+                   name="password-confirm" 
+                   required 
+                   aria-describedby="password-confirm-help"&gt;
+            &lt;div id="password-confirm-help" class="help-text"&gt;
+                上記と同じパスワードを入力してください
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/fieldset&gt;
+    
+    &lt;fieldset&gt;
+        &lt;legend&gt;詳細設定&lt;/legend&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;fieldset&gt;
+                &lt;legend&gt;興味のある分野（複数選択可）&lt;/legend&gt;
+                &lt;div role="group" aria-describedby="interests-help"&gt;
+                    &lt;label&gt;
+                        &lt;input type="checkbox" name="interests" value="web-development"&gt;
+                        Web開発
+                    &lt;/label&gt;
+                    &lt;label&gt;
+                        &lt;input type="checkbox" name="interests" value="mobile-app"&gt;
+                        モバイルアプリ
+                    &lt;/label&gt;
+                    &lt;label&gt;
+                        &lt;input type="checkbox" name="interests" value="data-science"&gt;
+                        データサイエンス
+                    &lt;/label&gt;
+                    &lt;label&gt;
+                        &lt;input type="checkbox" name="interests" value="ai-ml"&gt;
+                        AI・機械学習
+                    &lt;/label&gt;
+                &lt;/div&gt;
+                &lt;div id="interests-help" class="help-text"&gt;
+                    興味のある分野を選択してください（複数選択可）
+                &lt;/div&gt;
+            &lt;/fieldset&gt;
+        &lt;/div&gt;
+        
+        &lt;div class="form-group"&gt;
+            &lt;label for="contact-time"&gt;希望連絡時間&lt;/label&gt;
+            &lt;input type="time" 
+                   id="contact-time" 
+                   name="contact-time" 
+                   min="09:00" 
+                   max="18:00"
+                   value="14:00"
+                   aria-describedby="contact-time-help"&gt;
+            &lt;div id="contact-time-help" class="help-text"&gt;
+                平日9:00〜18:00の間で設定してください
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/fieldset&gt;
+    
+    &lt;div class="form-actions"&gt;
+        &lt;button type="submit" aria-describedby="submit-help"&gt;
+            会員登録
+        &lt;/button&gt;
+        &lt;div id="submit-help" class="help-text"&gt;
+            入力内容を確認して登録ボタンを押してください
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+                            </div>
+                            <div class="mt-4 p-3 bg-blue-50 rounded">
+                                <h5 class="font-semibold text-blue-700 mb-2">解説ポイント：</h5>
+                                <ul class="list-disc list-inside text-sm space-y-1">
+                                    <li><strong>HTML5フォーム要素：</strong>email, tel, url, date, time, password を適切に使用</li>
+                                    <li><strong>バリデーション：</strong>required, pattern, minlength でクライアントサイド検証</li>
+                                    <li><strong>アクセシビリティ：</strong>fieldset/legend, aria-describedby, role="alert" を活用</li>
+                                    <li><strong>ユーザビリティ：</strong>placeholder, help text, エラーメッセージで使いやすさ向上</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. 理解度クイズ -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6 flex items-center">
+                <i class="fas fa-question-circle mr-3"></i>8. 理解度クイズ
+            </h2>
+
+            <div class="space-y-6">
+                <!-- クイズ1 -->
+                <div class="border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-bold text-gray-700 mb-4">クイズ1: Web開発3層アーキテクチャについて</h3>
+                    <p class="mb-4">ECサイトで「商品をカートに追加する」機能を実装する場合、各層の責任について正しい説明はどれですか？</p>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-start">
+                            <input type="radio" name="quiz1" value="a" class="mt-1 mr-2">
+                            <span>A. プレゼンテーション層：データベースへの商品情報保存、ビジネス層：カートボタンの表示、データ層：在庫チェック処理</span>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="quiz1" value="b" class="mt-1 mr-2">
+                            <span>B. プレゼンテーション層：カートボタンの表示と操作、ビジネス層：在庫チェックと価格計算、データ層：商品・カート情報の保存</span>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="quiz1" value="c" class="mt-1 mr-2">
+                            <span>C. プレゼンテーション層：すべての処理を担当、ビジネス層：使用しない、データ層：データベース接続のみ</span>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="quiz1" value="d" class="mt-1 mr-2">
+                            <span>D. 各層の役割は固定されておらず、プロジェクトによって自由に決める</span>
+                        </label>
+                    </div>
+                    <button onclick="showQuizAnswer('quiz1Answer')" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                        回答を表示
+                    </button>
+                    <div id="quiz1Answer" class="answer-hidden mt-4 p-4 bg-green-50 border border-green-200 rounded">
+                        <p class="font-bold text-green-700">正解: B</p>
+                        <p class="mt-2 text-sm"><strong>解説：</strong>3層アーキテクチャでは明確な責任分離が重要です。プレゼンテーション層は UI と UX（カートボタンの表示・クリック処理）、ビジネス層は業務ロジック（在庫確認・価格計算・税計算）、データ層はデータの永続化（商品情報・カート情報の保存・更新）を担当します。この分離により、各層を独立して開発・テスト・保守できます。</p>
+                    </div>
+                </div>
+
+                <!-- クイズ2 -->
+                <div class="border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-bold text-gray-700 mb-4">クイズ2: HTML5セマンティック要素の適切な使用方法</h3>
+                    <p class="mb-4">ブログサイトの記事ページで、以下のマークアップのうち最もセマンティックで適切なものはどれですか？</p>
+                    <div class="space-y-4 mb-4">
+                        <label class="flex items-start">
+                            <input type="radio" name="quiz2" value="a" class="mt-1 mr-2">
+                            <div>
+                                <span class="font-semibold">A.</span>
+                                <div class="code-block p-2 mt-1 text-sm">
+                                    <pre>&lt;div class="article"&gt;
+  &lt;div class="title"&gt;記事タイトル&lt;/div&gt;
+  &lt;div class="content"&gt;記事本文...&lt;/div&gt;
+&lt;/div&gt;</pre>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="quiz2" value="b" class="mt-1 mr-2">
+                            <div>
+                                <span class="font-semibold">B.</span>
+                                <div class="code-block p-2 mt-1 text-sm">
+                                    <pre>&lt;article&gt;
+  &lt;header&gt;
+    &lt;h1&gt;記事タイトル&lt;/h1&gt;
+    &lt;time datetime="2024-01-15"&gt;2024年1月15日&lt;/time&gt;
+  &lt;/header&gt;
+  &lt;p&gt;記事本文...&lt;/p&gt;
+&lt;/article&gt;</pre>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="quiz2" value="c" class="mt-1 mr-2">
+                            <div>
+                                <span class="font-semibold">C.</span>
+                                <div class="code-block p-2 mt-1 text-sm">
+                                    <pre>&lt;section&gt;
+  &lt;h2&gt;記事タイトル&lt;/h2&gt;
+  &lt;div&gt;記事本文...&lt;/div&gt;
+&lt;/section&gt;</pre>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="quiz2" value="d" class="mt-1 mr-2">
+                            <div>
+                                <span class="font-semibold">D.</span>
+                                <div class="code-block p-2 mt-1 text-sm">
+                                    <pre>&lt;main&gt;
+  &lt;h1&gt;記事タイトル&lt;/h1&gt;
+  &lt;p&gt;記事本文...&lt;/p&gt;
+&lt;/main&gt;</pre>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <button onclick="showQuizAnswer('quiz2Answer')" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                        回答を表示
+                    </button>
+                    <div id="quiz2Answer" class="answer-hidden mt-4 p-4 bg-green-50 border border-green-200 rounded">
+                        <p class="font-bold text-green-700">正解: B</p>
+                        <p class="mt-2 text-sm"><strong>解説：</strong>&lt;article&gt;要素は独立したコンテンツ（ブログ記事、ニュース記事等）に最適です。&lt;header&gt;で記事の導入情報（タイトル、日付、著者等）をまとめ、&lt;time&gt;要素で正確な日時を構造化します。これにより検索エンジンは記事として認識し、スクリーンリーダーは適切に読み上げできます。A は意味のない div、C の section は記事の章分けに使用、D の main は1ページに1つだけ使用する要素です。</p>
+                    </div>
+                </div>
+
+                <!-- クイズ3 -->
+                <div class="border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-bold text-gray-700 mb-4">クイズ3: WAI-ARIAアクセシビリティ対応</h3>
+                    <p class="mb-4">お問い合わせフォームで、エラーメッセージを適切にアクセシブルにするための実装方法として正しいものはどれですか？</p>
+                    <div class="space-y-4 mb-4">
+                        <label class="flex items-start">
+                            <input type="radio" name="quiz3" value="a" class="mt-1 mr-2">
+                            <div>
+                                <span class="font-semibold">A.</span>
+                                <div class="code-block p-2 mt-1 text-sm">
+                                    <pre>&lt;input type="email" id="email"&gt;
+&lt;div class="error-message"&gt;
+  メールアドレスの形式が正しくありません
+&lt;/div&gt;</pre>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="quiz3" value="b" class="mt-1 mr-2">
+                            <div>
+                                <span class="font-semibold">B.</span>
+                                <div class="code-block p-2 mt-1 text-sm">
+                                    <pre>&lt;input type="email" id="email" 
+       aria-describedby="email-error"&gt;
+&lt;div id="email-error" role="alert" aria-live="polite"&gt;
+  メールアドレスの形式が正しくありません
+&lt;/div&gt;</pre>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="quiz3" value="c" class="mt-1 mr-2">
+                            <div>
+                                <span class="font-semibold">C.</span>
+                                <div class="code-block p-2 mt-1 text-sm">
+                                    <pre>&lt;input type="email" id="email" title="エラー"&gt;
+&lt;span style="color: red;"&gt;
+  メールアドレスの形式が正しくありません
+&lt;/span&gt;</pre>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="flex items-start">
+                            <input type="radio" name="quiz3" value="d" class="mt-1 mr-2">
+                            <div>
+                                <span class="font-semibold">D.</span>
+                                <div class="code-block p-2 mt-1 text-sm">
+                                    <pre>&lt;input type="email" id="email" placeholder="エラー"&gt;
+&lt;div class="error" hidden&gt;
+  メールアドレスの形式が正しくありません
+&lt;/div&gt;</pre>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <button onclick="showQuizAnswer('quiz3Answer')" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+                        回答を表示
+                    </button>
+                    <div id="quiz3Answer" class="answer-hidden mt-4 p-4 bg-green-50 border border-green-200 rounded">
+                        <p class="font-bold text-green-700">正解: B</p>
+                        <p class="mt-2 text-sm"><strong>解説：</strong>アクセシブルなエラーメッセージには複数の ARIA 属性の組み合わせが必要です。<strong>aria-describedby</strong> で入力項目とエラーメッセージを関連付け、<strong>role="alert"</strong> でエラーメッセージであることを明示、<strong>aria-live="polite"</strong> で動的な変更をスクリーンリーダーに通知します。これにより視覚障害者も即座にエラーを認識できます。A は関連付けなし、C は title 属性だけでは不十分、D は hidden でスクリーンリーダーからも隠されてしまいます。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. まとめ -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6 flex items-center">
+                <i class="fas fa-check-circle mr-3"></i>9. まとめ
+            </h2>
+
+            <div class="space-y-6">
+                <!-- 習得した重要ポイント -->
+                <div>
+                    <h3 class="text-xl font-bold text-gray-700 mb-4">習得した重要ポイント</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-blue-600 mb-3">基本知識</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Web開発3層アーキテクチャ：</strong>プレゼンテーション層（React等のUI）・ビジネス層（Spring Boot等の業務処理）・データ層（MySQL等のデータ管理）の責任分離によるスケーラブルな設計</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>HTML5基盤技術：</strong>DOCTYPE宣言による標準モード、head要素でのUTF-8文字エンコーディング、viewport設定によるモバイル対応の実現</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>セマンティック要素：</strong>header要素でSEO効果向上、nav要素でスクリーンリーダー対応、main要素で検索エンジンのコンテンツ認識改善</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-blue-600 mb-3">応用知識</h4>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>HTML5新フォーム要素：</strong>email・tel・date等の専用input要素により、JavaScriptなしでクライアントサイドバリデーション実装</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>WAI-ARIAアクセシビリティ：</strong>aria-label・role属性・aria-live設定により、視覚障害者も利用可能なWebサイトの構築</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-arrow-right text-green-500 mt-1 mr-2"></i>
+                                    <span><strong>Chrome DevTools活用：</strong>Elements・Lighthouse・Network パネルによる構造検証、パフォーマンス分析、デバッグ作業の効率化</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 実務での具体的なメリット -->
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-bold text-blue-700 mb-4">実務での具体的なメリット</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="practical-example p-4 rounded-lg">
+                            <h4 class="font-bold text-green-700 mb-2">SEO・アクセシビリティ向上</h4>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                <li>Google検索での上位表示実現</li>
+                                <li>全ユーザーが利用可能なサイト構築</li>
+                                <li>法的要件（障害者差別解消法）への対応</li>
+                                <li>企業の社会的責任（CSR）向上</li>
+                            </ul>
+                        </div>
+                        <div class="practical-example p-4 rounded-lg">
+                            <h4 class="font-bold text-green-700 mb-2">開発効率・保守性向上</h4>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                <li>チーム開発でのコード理解促進</li>
+                                <li>機能追加・修正作業の簡素化</li>
+                                <li>バグ発生率の低減</li>
+                                <li>テスト工数の削減</li>
+                            </ul>
+                        </div>
+                        <div class="practical-example p-4 rounded-lg">
+                            <h4 class="font-bold text-green-700 mb-2">ユーザビリティ向上</h4>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                <li>モバイル端末での入力補助機能</li>
+                                <li>フォーム入力エラーの即座通知</li>
+                                <li>直感的な操作による離脱率低下</li>
+                                <li>コンバージョン率（成約率）向上</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 次回予告 -->
+                <div class="border border-blue-200 rounded-lg p-6">
+                    <h3 class="text-lg font-bold text-blue-700 mb-4">次回の学習内容</h3>
+                    <p class="mb-4">次回は、本日作成したHTML5構造に美しいスタイリングを適用する<strong>CSS3基礎・レスポンシブレイアウト設計</strong>を学習します。</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">学習予定トピック：</h4>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                <li>CSS3の基本概念（セレクタ・プロパティ・値）</li>
+                                <li>Flexbox・CSS Grid による現代的レイアウト</li>
+                                <li>レスポンシブデザインの実装技術</li>
+                                <li>CSS アニメーション・トランジション</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">予習推奨事項：</h4>
+                            <ul class="list-disc list-inside text-sm space-y-1">
+                                <li>好きなWebサイトのデザインパターン観察</li>
+                                <li>色彩理論とレイアウトの基本原則調査</li>
+                                <li>Google Fonts の種類確認</li>
+                                <li>Adobe Color 等のカラーパレットツール操作</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white py-8 px-4 mt-12">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-lg mb-2">お疲れ様でした！</p>
+            <p class="text-sm text-gray-300 mb-4">
+                本日の学習内容を復習し、実際にコードを書いて理解を深めましょう。<br>
+                復習推奨時間: 60分 | 追加学習: MDN Web Docs HTML5 リファレンス
+            </p>
+            <p class="text-xs text-gray-400">
+                © 2025 APSA Co.,Ltd. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // 回答例表示切り替え
+        function toggleAnswer(answerId) {
+            const answer = document.getElementById(answerId);
+            if (answer.classList.contains('answer-hidden')) {
+                answer.classList.remove('answer-hidden');
+                answer.classList.add('answer-visible');
+            } else {
+                answer.classList.remove('answer-visible');
+                answer.classList.add('answer-hidden');
+            }
+        }
+
+        // クイズ回答表示
+        function showQuizAnswer(answerId) {
+            const answer = document.getElementById(answerId);
+            answer.classList.remove('answer-hidden');
+            answer.classList.add('answer-visible');
+        }
+
+        // 予算スライダーの値更新（演習問題用の参考コード）
+        function updateBudgetValue(value) {
+            document.getElementById('budget-value').textContent = value;
+        }
+
+        // フォームバリデーション例（参考実装）
+        document.addEventListener('DOMContentLoaded', function() {
+            // カスタムバリデーションメッセージの設定例
+            const emailInputs = document.querySelectorAll('input[type="email"]');
+            emailInputs.forEach(function(input) {
+                input.addEventListener('invalid', function() {
+                    if (this.validity.valueMissing) {
+                        this.setCustomValidity('メールアドレスを入力してください');
+                    } else if (this.validity.typeMismatch) {
+                        this.setCustomValidity('正しいメールアドレス形式で入力してください（例：user@example.com）');
+                    } else {
+                        this.setCustomValidity('');
+                    }
+                });
+                
+                input.addEventListener('input', function() {
+                    this.setCustomValidity('');
+                });
+            });
+        });
+    </script>
+    </main>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDsHd%2BK6Uhr%2BDXuRF4cTuusFeSJvuzU1i58P1RmVBjvqN9lu5qvhzbRJOtJ7Xk1wIhmvw22fpL7Y8i%2FLdcXodLjTd4Y%2BBDSpMKUh9VQtehFWQnkaVtaYUEJxX8w46b744vU8scGuW%2Bnvg3ktzzwXN2tw28Aa5%2Bw2%2FQXvb93%2B0ZKDNaUDgsWuVvXi9LueEInsANAWVQ6ZOaVmGr%2FAyyWbxfVkyhj2zCQ563aRU3bNJpavP82WWgpAsGcyfIHnzwKWz4BVS%2B5yJLvXCGS4Kb%2FFFICACHYzDirD0i9CXZBVJNIsEXTRhMwNCGToSH3lRVOmyWdresSQv8dscPY2IFA1htuwppYwtAc2CUX%2B%2BczuCxqjbOEHavMDZkIxLts%2FE2qWwmvaK41mDSjNPkWToq4tnW9u5OuP72ksbZRq%2BPdXxJ9gvjHNrTPwPfsEVX7vpakS0vrQDth9Ej1QkSly0W3I%2FO81HNKIY%2BI95KedMUS1iiUoY8IKKXMBLfeFRU5h4es4YFQ%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDsHd+K6Uhr+DXuRF4cTuusFeSJvuzU1i58P1RmVBjvqN9lu5qvhzbRJOtJ7Xk1wIhmvw22fpL7Y8i/LdcXodLjTd4Y+BDSpMKUh9VQtehFWQnkaVtaYUEJxX8w46b744vU8scGuW+nvg3ktzzwXN2tw28Aa5+w2/QXvb93+0ZKDNaUDgsWuVvXi9LueEInsANAWVQ6ZOaVmGr/AyyWbxfVkyhj2zCQ563aRU3bNJpavP82WWgpAsGcyfIHnzwKWz4BVS+5yJLvXCGS4Kb/FFICACHYzDirD0i9CXZBVJNIsEXTRhMwNCGToSH3lRVOmyWdresSQv8dscPY2IFA1htuwppYwtAc2CUX++czuCxqjbOEHavMDZkIxLts/E2qWwmvaK41mDSjNPkWToq4tnW9u5OuP72ksbZRq+PdXxJ9gvjHNrTPwPfsEVX7vpakS0vrQDth9Ej1QkSly0W3I/O81HNKIY+I95KedMUS1iiUoY8IKKXMBLfeFRU5h4es4YFQ==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 10: Java 17の新機能と模擬テスト② | ITエンジニア育成カリキュラム</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .code-block {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <script defer src="../js/day-navigation.js"></script>
+    <header class="bg-blue-600 text-white py-6 shadow-lg">
+        <div class="content-section">
+            <h1 class="text-3xl font-bold">Day 10: Java 17の新機能と模擬テスト②</h1>
+            <p class="mt-2">第2週の総括と次世代Javaプログラミングの基礎</p>
+        </div>
+    </header>
+    <div class="content-section text-right mt-4">
+        <a href="../lecture/day10_lecture.html" target="_blank" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">講義スライドを開く</a>
+    </div>
+
+    <main class="content-section my-8 bg-white shadow-md rounded p-6">
+        <section id="learning-objectives" class="mb-10">
+            <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-4">学習目標</h2>
+            <ul class="list-disc pl-6 space-y-2">
+                <li>Java 17の主要な新機能を理解し実装できる</li>
+                <li>レコードクラス、シールドクラス、パターンマッチングなどの新構文を活用できる</li>
+                <li>テキストブロックやスイッチ式などの言語拡張機能を使用できる</li>
+                <li>第2週で学習したオブジェクト指向プログラミングの概念を総合的に理解する</li>
+                <li>Java Silver試験レベルの問題に対応できる知識を身につける</li>
+            </ul>
+        </section>
+
+        <section id="achievement-criteria" class="mb-10">
+            <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-4">達成基準</h2>
+            <ul class="list-disc pl-6 space-y-2">
+                <li>レコードクラスを適切に定義して利用できる</li>
+                <li>シールドクラスとパターンマッチングを組み合わせて使用できる</li>
+                <li>テキストブロックを利用して可読性の高いコードを書ける</li>
+                <li>Java 17の新機能を既存のコードに適用できる</li>
+                <li>模擬テスト②で70%以上の正答率を達成する</li>
+                <li>オブジェクト指向の主要概念を実装に適用できる</li>
+            </ul>
+        </section>
+
+        <section id="schedule" class="mb-10">
+            <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-4">詳細スケジュール</h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">10:00-10:15 オリエンテーション・前日復習</h3>
+                <p class="mb-2">前日学習した例外処理とパッケージの概念を振り返り、本日の学習内容であるJava 17の新機能と総復習の位置づけを理解します。</p>
+                <ul class="list-disc pl-6">
+                    <li>例外処理の復習（try-catch-finally、例外の種類）</li>
+                    <li>パッケージとアクセス修飾子の関係の確認</li>
+                    <li>本日の学習の流れと目標の共有</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">10:15-11:45 講義: Java 17の新機能</h3>
+                <p class="mb-2">Java 17で導入された主要な新機能について学習します。</p>
+                <ul class="list-disc pl-6">
+                    <li>レコードクラス (Java 16+) - データ保持クラスの簡潔な記述</li>
+                    <li>シールドクラス (Java 17) - クラス階層の制限</li>
+                    <li>パターンマッチング for instanceof (Java 16+) - 型チェックとキャストの簡素化</li>
+                    <li>テキストブロック (Java 15+) - 複数行文字列の改善</li>
+                    <li>スイッチ式の拡張 (Java 14+) - 値を返すスイッチと改善された構文</li>
+                    <li>その他のJava 9以降の改善点（モジュールシステム、var型推論など）</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">11:45-12:45 昼休憩</h3>
+                <p>休憩時間です。昼食をとり、リフレッシュしましょう。</p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">12:45-14:15 演習: 新機能を使ったコーディング</h3>
+                <p class="mb-2">午前の講義内容を応用して、Java 17の新機能を活用した実装演習を行います。</p>
+                <ul class="list-disc pl-6">
+                    <li>レコードクラスを使ったデータモデルの実装</li>
+                    <li>シールドクラスとパターンマッチングを組み合わせた実装</li>
+                    <li>テキストブロックを活用したSQL文やHTML生成</li>
+                    <li>スイッチ式を使った条件分岐の改善</li>
+                    <li>既存コードのリファクタリング（新機能の適用）</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">14:15-15:55 模擬テスト②と解説</h3>
+                <p class="mb-2">第2週の学習内容を中心に、オブジェクト指向プログラミングの理解度を確認する模擬テストを実施します。</p>
+                <ul class="list-disc pl-6">
+                    <li>オブジェクト指向の基本概念（カプセル化、継承、ポリモーフィズム）</li>
+                    <li>クラス設計とインスタンス化</li>
+                    <li>抽象クラスとインターフェース</li>
+                    <li>例外処理とパッケージ</li>
+                    <li>Java 17の新機能に関する問題</li>
+                    <li>模擬テスト解説と重要ポイントの解説</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">15:55-17:00 第2週の総復習・弱点補強</h3>
+                <p class="mb-2">模擬テストの結果に基づいて、理解度の低い部分を重点的に復習します。</p>
+                <ul class="list-disc pl-6">
+                    <li>よくある誤答パターンの解説</li>
+                    <li>オブジェクト指向プログラミングの重要概念の再確認</li>
+                    <li>Java 17新機能の活用シナリオ</li>
+                    <li>実践的なコーディングパターンと設計原則</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">17:00-17:45 振り返り・質疑応答</h3>
+                <p class="mb-2">第2週全体の学習内容を振り返り、理解が不十分な点について質問・解説を行います。</p>
+                <ul class="list-disc pl-6">
+                    <li>第2週の学習内容の総括</li>
+                    <li>質疑応答</li>
+                    <li>次週（第3週）の学習内容の予告（コレクション、ジェネリクス、ラムダ式）</li>
+                    <li>週末課題の説明と準備</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="theme-details" class="mb-10">
+            <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-4">テーマ詳細</h2>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4">Java 17の主な新機能</h3>
+
+                <div class="mb-6">
+                    <h4 class="text-lg font-medium mb-2">レコードクラス (Java 16)</h4>
+                    <p class="mb-3">レコードは、データを単純に保持するためのクラスを簡潔に定義するための機能です。equals(), hashCode(), toString()メソッドや、すべてのフィールドに対するコンストラクタとgetterが自動生成されます。</p>
+                    <div class="code-block">
+// 従来の方法（ボイラープレートが多い）
+public class Point {
+    private final int x;
+    private final int y;
+    
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    public int getX() { return x; }
+    public int getY() { return y; }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Point point = (Point) o;
+        return x == point.x && y == point.y;
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+    
+    @Override
+    public String toString() {
+        return "Point[x=" + x + ", y=" + y + "]";
+    }
+}
+
+// レコードを使った方法（簡潔）
+public record Point(int x, int y) {
+    // コンパクト！すべてが自動生成される
+    
+    // コンパクトコンストラクタ（バリデーションなどを追加可能）
+    public Point {
+        if (x < 0 || y < 0) {
+            throw new IllegalArgumentException("座標は正の値である必要があります");
+        }
+    }
+    
+    // 追加メソッドも定義可能
+    public double distance() {
+        return Math.sqrt(x * x + y * y);
+    }
+}
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-lg font-medium mb-2">シールドクラス (Java 17)</h4>
+                    <p class="mb-3">シールドクラスは、どのクラスがそのクラスを継承できるかを制限する機能です。クラス階層を制御し、パターンマッチングと組み合わせることで強力な型安全性を提供します。</p>
+                    <div class="code-block">
+// シールドクラスの定義
+public sealed class Shape permits Circle, Rectangle, Triangle {
+    // 共通のフィールドとメソッド
+    private String color;
+    
+    public Shape(String color) {
+        this.color = color;
+    }
+    
+    public String getColor() {
+        return color;
+    }
+    
+    public abstract double area();
+}
+
+// 許可されたサブクラスの実装
+public final class Circle extends Shape {
+    private double radius;
+    
+    public Circle(String color, double radius) {
+        super(color);
+        this.radius = radius;
+    }
+    
+    @Override
+    public double area() {
+        return Math.PI * radius * radius;
+    }
+}
+
+public final class Rectangle extends Shape {
+    private double width;
+    private double height;
+    
+    public Rectangle(String color, double width, double height) {
+        super(color);
+        this.width = width;
+        this.height = height;
+    }
+    
+    @Override
+    public double area() {
+        return width * height;
+    }
+}
+
+public non-sealed class Triangle extends Shape {
+    // non-sealedにすると、このクラスを継承できるようになる
+    private double base;
+    private double height;
+    
+    public Triangle(String color, double base, double height) {
+        super(color);
+        this.base = base;
+        this.height = height;
+    }
+    
+    @Override
+    public double area() {
+        return 0.5 * base * height;
+    }
+}
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-lg font-medium mb-2">パターンマッチング for instanceof (Java 16)</h4>
+                    <p class="mb-3">instanceofと型キャストを1つのステップで行える構文で、コードをより簡潔で安全にします。</p>
+                    <div class="code-block">
+// 従来の方法
+if (obj instanceof String) {
+    String s = (String) obj;  // キャストが必要
+    System.out.println(s.length());
+}
+
+// パターンマッチング for instanceof
+if (obj instanceof String s) {  // 型チェックとキャストを同時に行う
+    System.out.println(s.length());  // sはString型として使用可能
+}
+
+// シールドクラスとパターンマッチングの組み合わせ
+public double calculateArea(Shape shape) {
+    if (shape instanceof Circle c) {
+        return Math.PI * c.getRadius() * c.getRadius();
+    } else if (shape instanceof Rectangle r) {
+        return r.getWidth() * r.getHeight();
+    } else if (shape instanceof Triangle t) {
+        return 0.5 * t.getBase() * t.getHeight();
+    } else {
+        throw new IllegalArgumentException("未知の図形タイプです");
+    }
+}
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-lg font-medium mb-2">テキストブロック (Java 15)</h4>
+                    <p class="mb-3">複数行の文字列リテラルを、インデントや改行を保持したまま簡潔に表現できる機能です。</p>
+                    <div class="code-block">
+// 従来の方法（読みにくい）
+String html = "&lt;html&gt;\n" +
+             "    &lt;body&gt;\n" +
+             "        &lt;p&gt;Hello, World!&lt;/p&gt;\n" +
+             "    &lt;/body&gt;\n" +
+             "&lt;/html&gt;\n";
+
+// テキストブロック（読みやすい）
+String html = """
+              &lt;html&gt;
+                  &lt;body&gt;
+                      &lt;p&gt;Hello, World!&lt;/p&gt;
+                  &lt;/body&gt;
+              &lt;/html&gt;
+              """;
+
+// SQLクエリの例
+String query = """
+               SELECT id, name, email
+               FROM users
+               WHERE status = 'active'
+               ORDER BY name
+               LIMIT 10
+               """;
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h4 class="text-lg font-medium mb-2">スイッチ式 (Java 14)</h4>
+                    <p class="mb-3">スイッチを式として使用でき、値を返すことが可能になりました。また、アロー演算子（->）を使った簡潔な構文も導入されました。</p>
+                    <div class="code-block">
+// 従来のスイッチ文
+String dayType;
+switch (day) {
+    case "MONDAY":
+    case "TUESDAY":
+    case "WEDNESDAY":
+    case "THURSDAY":
+    case "FRIDAY":
+        dayType = "Weekday";
+        break;
+    case "SATURDAY":
+    case "SUNDAY":
+        dayType = "Weekend";
+        break;
+    default:
+        dayType = "Invalid day";
+}
+
+// 新しいスイッチ式
+String dayType = switch (day) {
+    case "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY" -> "Weekday";
+    case "SATURDAY", "SUNDAY" -> "Weekend";
+    default -> "Invalid day";
+};
+
+// yield を使った複数行の処理
+int numLetters = switch (day) {
+    case "MONDAY", "FRIDAY", "SUNDAY" -> {
+        System.out.println(day + "の処理");
+        yield 6;
+    }
+    case "TUESDAY" -> {
+        yield 7;
+    }
+    case "THURSDAY", "SATURDAY" -> {
+        yield 8;
+    }
+    case "WEDNESDAY" -> {
+        yield 9;
+    }
+    default -> {
+        throw new IllegalArgumentException("不正な曜日: " + day);
+    }
+};
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="resources" class="mb-10">
+            <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-4">使用教材・リソース</h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">開発環境</h3>
+                <ul class="list-disc pl-6">
+                    <li>Pleiades (Eclipse) - 統合開発環境</li>
+                    <li>Amazon Corretto JDK 17 - Java開発キット</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">参考図書</h3>
+                <ul class="list-disc pl-6">
+                    <li>「Java Silver SE 17 対策テキスト」</li>
+                    <li>「Java言語で学ぶデザインパターン入門 第3版」</li>
+                    <li>「Effective Java 第3版」</li>
+                    <li>「モダンJava実践プログラミング」</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">オンラインリソース</h3>
+                <ul class="list-disc pl-6">
+                    <li>Java SE 17 API Documentation</li>
+                    <li>Oracle: Java Language Updates</li>
+                    <li>Inside Java - JDK開発者のブログ</li>
+                    <li>Baeldung - Java 17 New Features</li>
+                    <li>Java Magazine - Java 17の解説記事</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">演習課題</h3>
+                <ul class="list-disc pl-6">
+                    <li>レコードを使用した学生成績管理システム</li>
+                    <li>シールドクラスとパターンマッチングを利用した図形描画アプリケーション</li>
+                    <li>テキストブロックを活用したレポート生成機能</li>
+                    <li>スイッチ式を使った入力バリデーション</li>
+                    <li>Java 17の機能を活用したミニプロジェクト</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="comprehension-check" class="mb-10">
+            <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-4">理解度確認項目</h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-3">基本レベル</h3>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>レコードクラスの基本的な宣言と使用方法を理解している</li>
+                    <li>シールドクラスの基本概念を説明できる</li>
+                    <li>パターンマッチング for instanceofの基本的な使い方を理解している</li>
+                    <li>テキストブロックの基本的な記法を説明できる</li>
+                    <li>スイッチ式の基本構文と従来のスイッチ文との違いを説明できる</li>
+                    <li>Java 17の新機能の主な目的と利点を説明できる</li>
+                </ul>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-3">応用レベル</h3>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>レコードクラスにカスタムメソッドやバリデーションを追加できる</li>
+                    <li>シールドクラスとパターンマッチングを組み合わせて効果的に使用できる</li>
+                    <li>パターンマッチングを使って複雑な型判定処理を簡潔に記述できる</li>
+                    <li>テキストブロックを使って整形された複雑な文字列を作成できる</li>
+                    <li>スイッチ式でyieldを使った高度な処理を実装できる</li>
+                    <li>Java 17の新機能を組み合わせて実用的なアプリケーションを開発できる</li>
+                    <li>レガシーコードをJava 17の新機能を使ってリファクタリングできる</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="next-steps" class="mb-10">
+            <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-4">次のステップ</h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">第3週: コレクション、ジェネリクス、ラムダ式</h3>
+                <p class="mb-3">次週は、Javaの強力なデータ構造であるコレクションフレームワーク、型安全性を高めるジェネリクス、関数型プログラミングの基礎となるラムダ式について学習します。</p>
+                <p class="mb-3">予習として、以下の内容について調べておくと理解が深まります：</p>
+                <ul class="list-disc pl-6">
+                    <li>配列とコレクションの違い</li>
+                    <li>List、Set、Mapの基本的な違いと用途</li>
+                    <li>ジェネリクスの基本概念</li>
+                    <li>関数型インターフェースとは何か</li>
+                </ul>
+                <p class="mt-4">
+                    <a href="#" class="text-blue-600 hover:underline">詳細を見る →</a>
+                </p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">週末課題プロジェクト</h3>
+                <p class="mb-3">第2週で学習したオブジェクト指向プログラミングの概念と、Java 17の新機能を活用して、「シンプル図書管理システム」を実装してください。課題の詳細は週2の概要ページを参照してください。</p>
+            </div>
+        </section>
+
+        <section id="feedback" class="mb-10">
+            <h2 class="text-2xl font-bold border-b-2 border-blue-500 pb-2 mb-4">フィードバック</h2>
+            <p class="mb-4">このページの内容についてフィードバックをお寄せください。</p>
+
+            <div class="mb-4">
+                <p class="font-medium mb-2">理解度</p>
+                <div class="flex space-x-4">
+                    <label class="flex items-center">
+                        <input type="radio" name="understanding" class="mr-1"> とても良く理解できた
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="understanding" class="mr-1"> 理解できた
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="understanding" class="mr-1"> 一部理解できなかった
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="understanding" class="mr-1"> ほとんど理解できなかった
+                    </label>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <p class="font-medium mb-2">コメント</p>
+                <textarea class="w-full p-2 border border-gray-300 rounded" rows="4"></textarea>
+            </div>
+
+            <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">送信する</button>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="content-section">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h3 class="text-xl font-bold mb-2">ITエンジニア育成カリキュラム</h3>
+                    <p>未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+                </div>
+                <div class="text-right">
+                    <p>© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ここにJavaScriptコードを追加
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('ページが読み込まれました');
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDiuw2YJWeVtoQLHwcZeWllECzrZjEwNPpR1wfQ6Zuxgj2IFKz%2FEw%2B5eO91c3%2Bfe1KuLJB4KiZGCvCbMEZj4FGlh6%2FraFQr%2FSjbtq9FheNU4zhwvlLTV4Buj3vOUpwm4BmKB1uQapTK5Rv20gaQvXhcxTlezN5ZOzW0Z4tZrzkXDULAKcTvVIfjKL9SxPZjWyGrdH62FGf%2F43E%2F%2BuNzU34W1iCFGVxfn1EmqYJ9%2FYbz2jprV%2FgGwtO3bP%2BgO%2F7QRpiC%2F1ZGNvu%2FOhwzyOCfONINobBK7K1jZXIs4xKqG6hj%2FrnVHJhto7K2zfYqG2dUYha8%2F%2FRZNyyBN7pEiqJS%2BRpkcjw9i%2Btv8%2BbehQwTsG5zoWa1cMuh268sbgxjIhcnq5Xd65lDU1cAWOt5Ij1T%2F2pdjvmYa3q53pialjRAIZeBSJwY3Y1yEonB5SgOdk5BhyJ4OYveNva07SbJs3fItjPqNySPif%2B4%2F83nY4WK1q%2FuGP";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDiuw2YJWeVtoQLHwcZeWllECzrZjEwNPpR1wfQ6Zuxgj2IFKz/Ew+5eO91c3+fe1KuLJB4KiZGCvCbMEZj4FGlh6/raFQr/Sjbtq9FheNU4zhwvlLTV4Buj3vOUpwm4BmKB1uQapTK5Rv20gaQvXhcxTlezN5ZOzW0Z4tZrzkXDULAKcTvVIfjKL9SxPZjWyGrdH62FGf/43E/+uNzU34W1iCFGVxfn1EmqYJ9/Ybz2jprV/gGwtO3bP+gO/7QRpiC/1ZGNvu/OhwzyOCfONINobBK7K1jZXIs4xKqG6hj/rnVHJhto7K2zfYqG2dUYha8//RZNyyBN7pEiqJS+Rpkcjw9i+tv8+behQwTsG5zoWa1cMuh268sbgxjIhcnq5Xd65lDU1cAWOt5Ij1T/2pdjvmYa3q53pialjRAIZeBSJwY3Y1yEonB5SgOdk5BhyJ4OYveNva07SbJs3fItjPqNySPif+4/83nY4WK1q/uGP";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day2_スライドプロンプトテンプレート</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto bg-white p-8 shadow-md rounded-lg">
+        <h1 class="text-2xl font-bold mb-6 text-blue-700">ITエンジニア育成カリキュラム Day2のスライド作成用GammaAIプロンプト</h1>
+        
+        <div class="border-l-4 border-blue-500 pl-4 mb-8">
+            <p class="text-gray-600 mb-2">このプロンプトをGammaAIに入力すると、Day2（データ型と変数）のスライドが生成されます。</p>
+            <p class="text-gray-600">必要に応じて内容を調整してください。</p>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+            <pre class="whitespace-pre-wrap text-sm">
+プロジェクト名：ITエンジニア育成カリキュラム - Day 2: データ型と変数
+
+以下の指示に従って、プログラミング教育用のプロフェッショナルな講義スライドを作成してください。
+
+## スライド全体の設定
+- プロフェッショナルな教育用テンプレートを使用（青と白のカラースキームが望ましい）
+- 各スライドには明確な見出しをつける
+- すべてのスライドに下部にスライド番号を表示
+- フォントは読みやすく明確なものを選択
+- 必要に応じて関連する画像やアイコン、図解を追加
+- 背景色で文字が見えづらくならないように注意する
+
+## スライドの構成
+
+### タイトルスライド
+- タイトル: 「ITエンジニア育成カリキュラム - Day 2」
+- サブタイトル: 「データ型と変数」
+- 日付: 「2025年」
+- Javaのロゴかデータ型を表す適切な画像を配置
+
+### スライド2：本日の学習目標
+以下の箇条書きリストを含める:
+- Javaの基本データ型と参照型の違いを理解する
+- 変数宣言、初期化、スコープの概念を習得する
+- リテラル表記と型変換のルールを理解する
+- 算術演算子、比較演算子、論理演算子を使いこなす
+- 演算子の優先順位を理解して正しく式を評価できる
+
+### スライド3：1日のスケジュール概要
+時間割を表形式で示す:
+- 10:00-10:15 オリエンテーション・前日の復習
+- 10:15-11:45 データ型と変数
+- 11:45-12:45 昼休憩
+- 12:45-15:00 演算子と型変換
+- 15:00-15:10 午後休憩
+- 15:10-15:55 演習
+- 15:55-17:00 理解度チェック
+- 17:00-17:45 振り返り・質疑応答
+
+### スライド4：前日の復習 (10:00-10:15)
+簡単に前日の内容を振り返る:
+- Javaの歴史と特徴
+- JVM、JRE、JDKの関係
+- Javaプログラムのコンパイルと実行プロセス
+- Amazon Corretto JDKとPleiadesの設定状況確認
+
+### スライド5：基本データ型（プリミティブ型）概要 (10:15-11:45)
+Javaの8つの基本データ型を表形式で説明:
+- 整数型: byte (8bit), short (16bit), int (32bit), long (64bit)
+- 浮動小数点型: float (32bit), double (64bit)
+- 文字型: char (16bit)
+- 論理型: boolean (1bit)
+各型のサイズ、値の範囲、デフォルト値を含める
+
+### スライド6：整数型の詳細 (10:15-11:45 続き)
+整数型の詳細と使用例:
+- byte: -128〜127（8ビット）
+- short: -32,768〜32,767（16ビット）
+- int: 約±21億（32ビット）- 最も一般的に使用
+- long: 約±922京（64ビット）- 接尾辞「L」が必要
+コード例と一般的な使用場面
+
+### スライド7：浮動小数点型と文字型、論理型 (10:15-11:45 続き)
+残りの基本型の詳細:
+- float: 32ビット精度（接尾辞「f」が必要）
+- double: 64ビット精度（デフォルトの小数点型）
+- char: 16ビットUnicode文字（'a', '漢'など）
+- boolean: true/falseの2値のみ
+コード例と用途
+
+### スライド8：基本データ型と参照型の違い (10:15-11:45 続き)
+図解を用いて以下を説明:
+- 基本データ型: スタックに直接値を格納
+- 参照型: ヒープにオブジェクトを格納し、スタックに参照を保持
+- メモリ管理の違いと影響
+- 値渡しと参照渡しの違い
+
+### スライド9：変数の宣言と初期化 (10:15-11:45 続き)
+変数の基本概念:
+- 変数宣言の構文: 「型 変数名;」
+- 変数の初期化: 「型 変数名 = 初期値;」
+- 変数名の命名規則とベストプラクティス
+- 複数変数の同時宣言
+コード例を含める
+
+### スライド10：昼休憩 (11:45-12:45)
+- 休憩時間です
+- 昼食をとり、リフレッシュしましょう
+- 午後のセッションは12:45から開始します
+- ここまでの内容で質問があれば休憩後に受け付けます
+
+### スライド11：リテラル表記 (12:45-14:00)
+各データ型のリテラル表記:
+- 整数リテラル: 10進数（123）、16進数（0x7B）、8進数（0173）、2進数（0b1111011）
+- 浮動小数点リテラル: 123.45、1.2345e2、123.45f
+- 文字リテラル: 'a'、'\n'、'\u0041'
+- 文字列リテラル: "Hello"、"こんにちは"
+- 論理リテラル: true、false
+- 数値リテラルでのアンダースコア使用: 1_000_000（可読性向上）
+
+### スライド12：型変換（キャスト）(12:45-14:00 続き)
+型変換の仕組み:
+- 暗黙的型変換（自動拡大変換）:
+  小さい型→大きい型（byte→int→long→float→double）
+- 明示的型変換（キャスト）:
+  大きい型→小さい型（double→float→long→int→short→byte）
+- キャスト構文: (型名)変数
+- データ損失の可能性と注意点
+図解とコード例を含める
+
+### スライド13：演算子の基礎 (14:00-15:00)
+Javaの主要な演算子:
+- 算術演算子: +, -, *, /, %（剰余）
+- 単項演算子: +, -, ++（インクリメント）, --（デクリメント）
+- 代入演算子: =, +=, -=, *=, /=, %=
+- 関係演算子: ==, !=, >, <, >=, <=
+- 論理演算子: &&（AND）, ||（OR）, !（NOT）
+コード例と評価結果を含める
+
+### スライド14：演算子の優先順位と結合規則 (14:00-15:00 続き)
+優先順位の高い順:
+1. 単項演算子（++, --, +, -, !, ~）
+2. 乗除算（*, /, %）
+3. 加減算（+, -）
+4. シフト演算子（<<, >>, >>>）
+5. 関係演算子（<, >, <=, >=, instanceof）
+6. 等価演算子（==, !=）
+7. ビット演算子（&, ^, |）
+8. 論理演算子（&&, ||）
+9. 条件演算子（? :）
+10. 代入演算子（=, +=, -=, ...）
+括弧（）を使った優先順位の変更例
+
+### スライド15：午後休憩 (15:00-15:10)
+- 短い休憩時間です
+- リフレッシュして、次の演習に備えましょう
+- 演習セッションは15:10から開始します
+
+### スライド16：演習問題 (15:10-15:55)
+以下の演習問題を提示:
+1. 各基本データ型の変数を宣言し、適切な値で初期化するコードを書く
+2. 異なる型間の変換（キャストとプロモーション）を含むコード例
+3. 演算子の優先順位を考慮した式の評価
+4. 複合代入演算子を使ったコード例
+5. 変数のスコープに関する問題
+
+### スライド17：理解度チェック (15:55-17:00)
+以下の問題例を含める:
+- 基本データ型の範囲とデフォルト値に関する問題
+- 型変換の結果を問う問題
+- リテラル表記の正誤を問う問題
+- 演算子の優先順位に関する問題
+- 変数のスコープに関する問題
+各問題に対する解説も準備
+
+### スライド18：振り返り・質疑応答 (17:00-17:45)
+- 本日の学習内容の要点整理
+- よくある質問と回答
+- 重要な概念の再確認
+- 質問を受け付け
+
+### スライド19：次のステップ
+明日の学習内容の予告:
+- 条件分岐（if-else, switch文）
+- 繰り返し構文（for, while, do-while）
+- break文とcontinue文
+- ネストした制御構文
+予習のポイント
+
+## 追加の指示
+- 各スライドには説明的なノートを追加し、講師が補足情報を伝えられるようにしてください
+- コードブロックには適切なシンタックスハイライトを適用してください
+- 関連する画像やアイコン、図解を適切に配置してください
+- 特にデータ型とメモリの関係、型変換の図解を視覚的に分かりやすく表現してください
+- 文字は大きめ、内容は簡潔に、視認性を重視してください
+- 重要なポイントは太字または色付きのテキストで強調してください
+- データ型の表は見やすい色分けを施してください
+
+以上の指示に基づいて、プロフェッショナルな教育用スライドを作成してください。
+            </pre>
+        </div>
+        
+        <div class="mt-8 text-gray-700">
+            <h2 class="text-xl font-semibold mb-4">使用方法</h2>
+            <ol class="list-decimal pl-6 space-y-2">
+                <li>上記のプロンプト全体をコピーします</li>
+                <li>GammaAI（<a href="https://gamma.app/" class="text-blue-600 hover:underline">https://gamma.app/</a>）にアクセスします</li>
+                <li>新規プレゼンテーションを作成します</li>
+                <li>コピーしたプロンプトを貼り付けます</li>
+                <li>生成されたスライドを確認し、必要に応じて調整します</li>
+                <li>スライド内のコードや技術的な内容が正確かどうか確認してください</li>
+            </ol>
+        </div>
+        
+        <footer class="mt-12 pt-4 border-t border-gray-200 text-sm text-gray-600 text-center">
+            © 2025 APSA Co.,Ltd. All Rights Reserved.
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDp8jyAID6h5PPNp20QHOr4A8%2BQ4iAM2S6pxvFH88NN73NQgdWRIBdva%2Fr2YgDGwdvgoD7yTkwVAxVgPtxX5I5ZOcMmZIQjSUFDpdxcRzKIbgwkdYKgXy%2BiDCyxzKwlcXJ%2FtorlpH5psLX0g7%2BrVV9C3L7Ix29RTYdNbehwLGOU6aa6ow4GgR%2FA65yg6JjGLP%2BkkZDe8GzDH5bC677F0M%2BwjMc%2BEsTKTFz2JEtcfBgUJnUtO3L4MFgmDaXpdq9yo7M5VBMiBWAMdpasLwnUDk01AERi8AkMkzsTZychs40uBUhxqTaiu%2BR7JRKSE3u7djlPy5bTm%2FBw6W3PrVhQBex4aIrIR2LMcv0CSsKE8yItlgBIyZrcCu5gmwqUvYCNtRKHMMCcOrfRpU8bhu1sLaur6sa4LWvQRWbQa64Q9luebDTYG8RQOyQuQeGv%2FT4I8LCJvOENTSihXmOxEwuVqDcvNKzK2DuoGaYPPGJxjD7acDVbXAYBw7oMX3bHp3YZK%2FYGlDTC%2F5ZxOsYHw%2FiYzl6kIyxMj35WYcQGyz31l0sqD9";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDp8jyAID6h5PPNp20QHOr4A8+Q4iAM2S6pxvFH88NN73NQgdWRIBdva/r2YgDGwdvgoD7yTkwVAxVgPtxX5I5ZOcMmZIQjSUFDpdxcRzKIbgwkdYKgXy+iDCyxzKwlcXJ/torlpH5psLX0g7+rVV9C3L7Ix29RTYdNbehwLGOU6aa6ow4GgR/A65yg6JjGLP+kkZDe8GzDH5bC677F0M+wjMc+EsTKTFz2JEtcfBgUJnUtO3L4MFgmDaXpdq9yo7M5VBMiBWAMdpasLwnUDk01AERi8AkMkzsTZychs40uBUhxqTaiu+R7JRKSE3u7djlPy5bTm/Bw6W3PrVhQBex4aIrIR2LMcv0CSsKE8yItlgBIyZrcCu5gmwqUvYCNtRKHMMCcOrfRpU8bhu1sLaur6sa4LWvQRWbQa64Q9luebDTYG8RQOyQuQeGv/T4I8LCJvOENTSihXmOxEwuVqDcvNKzK2DuoGaYPPGJxjD7acDVbXAYBw7oMX3bHp3YZK/YGlDTC/5ZxOsYHw/iYzl6kIyxMj35WYcQGyz31l0sqD9";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

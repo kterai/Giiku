@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 39: レスポンシブデザイン・Bootstrap完全マスター</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 0;
+        }
+        .section-title {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .code-block {
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .responsive-demo {
+            border: 2px solid #dee2e6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .breakpoint-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #007bff;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+        .component-showcase {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .progress-indicator {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 999;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 10px 0;
+        }
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 40px 0;
+            }
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+        }
+        .achievement-badge {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 5px;
+            display: inline-block;
+        }
+        .learning-card {
+            transition: transform 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .learning-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <script defer src="../js/day-navigation.js"></script>
+    <!-- ブレイクポイント表示 -->
+    <div class="breakpoint-indicator d-block d-sm-none">XS (< 576px)</div>
+    <div class="breakpoint-indicator d-none d-sm-block d-md-none">SM (≥ 576px)</div>
+    <div class="breakpoint-indicator d-none d-md-block d-lg-none">MD (≥ 768px)</div>
+    <div class="breakpoint-indicator d-none d-lg-block d-xl-none">LG (≥ 992px)</div>
+    <div class="breakpoint-indicator d-none d-xl-block d-xxl-none">XL (≥ 1200px)</div>
+    <div class="breakpoint-indicator d-none d-xxl-block">XXL (≥ 1400px)</div>
+
+    <!-- 進捗表示 -->
+    <div class="progress-indicator">
+        <div class="container">
+            <div class="progress" style="height: 4px;">
+                <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="39" aria-valuemin="1" aria-valuemax="54">
+                    Day 39 / 54 (72.2%完了)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ヒーローセクション -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-3">
+                        <i class="fas fa-mobile-alt me-3"></i>Day 39: レスポンシブデザイン・Bootstrap完全マスター
+                    </h1>
+                    <p class="lead mb-4">
+                        メディアクエリからBootstrapまで、あらゆるデバイスに対応する現代的なWeb開発手法を習得
+                    </p>
+                    <div class="d-flex flex-wrap">
+                        <span class="achievement-badge me-2 mb-2">
+                            <i class="fas fa-chart-line me-1"></i>レスポンシブデザイン
+                        </span>
+                        <span class="achievement-badge me-2 mb-2">
+                            <i class="fab fa-bootstrap me-1"></i>Bootstrap 5
+                        </span>
+                        <span class="achievement-badge me-2 mb-2">
+                            <i class="fas fa-mobile me-1"></i>モバイルファースト
+                        </span>
+                        <span class="achievement-badge me-2 mb-2">
+                            <i class="fas fa-paint-brush me-1"></i>UIコンポーネント
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <div class="bg-white rounded-3 p-4 shadow-lg">
+                        <i class="fas fa-desktop fa-4x text-primary mb-3"></i>
+                        <h5 class="text-dark">第9週第3日目</h5>
+                        <p class="text-muted mb-0">フロントエンド基礎週の重要な一日</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container my-5">
+        <!-- 学習目標 -->
+        <section class="mb-5">
+            <h2 class="section-title">
+                <i class="fas fa-bullseye me-2"></i>学習目標
+            </h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card learning-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary">
+                                <i class="fas fa-expand-arrows-alt me-2"></i>レスポンシブデザイン理解
+                            </h5>
+                            <p class="card-text">メディアクエリの仕組みを理解し、様々なデバイスサイズに対応したレイアウトを設計できるようになる</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card learning-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title text-success">
+                                <i class="fab fa-bootstrap me-2"></i>Bootstrap活用
+                            </h5>
+                            <p class="card-text">Bootstrapのグリッドシステムとコンポーネントを使用して効率的なUI開発ができるようになる</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 達成基準 -->
+        <section class="mb-5">
+            <h2 class="section-title">
+                <i class="fas fa-check-circle me-2"></i>達成基準
+            </h2>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card border-primary h-100">
+                        <div class="card-header bg-primary text-white">
+                            <h6 class="mb-0"><i class="fas fa-code me-2"></i>メディアクエリ</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>ブレイクポイントの設計</li>
+                                <li><i class="fas fa-check text-success me-2"></i>モバイルファースト設計</li>
+                                <li><i class="fas fa-check text-success me-2"></i>フレキシブルレイアウト</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-success h-100">
+                        <div class="card-header bg-success text-white">
+                            <h6 class="mb-0"><i class="fab fa-bootstrap me-2"></i>Bootstrap</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>グリッドシステム活用</li>
+                                <li><i class="fas fa-check text-success me-2"></i>コンポーネント実装</li>
+                                <li><i class="fas fa-check text-success me-2"></i>カスタムテーマ作成</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card border-info h-100">
+                        <div class="card-header bg-info text-white">
+                            <h6 class="mb-0"><i class="fas fa-paint-brush me-2"></i>UI実装</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>ナビゲーション作成</li>
+                                <li><i class="fas fa-check text-success me-2"></i>フォーム設計</li>
+                                <li><i class="fas fa-check text-success me-2"></i>カード・モーダル実装</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 詳細スケジュール -->
+        <section class="mb-5">
+            <h2 class="section-title">
+                <i class="fas fa-clock me-2"></i>詳細スケジュール
+            </h2>
+            <div class="accordion" id="scheduleAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#schedule1">
+                            10:00-10:15 オリエンテーション
+                        </button>
+                    </h2>
+                    <div id="schedule1" class="accordion-collapse collapse show" data-bs-parent="#scheduleAccordion">
+                        <div class="accordion-body">
+                            <strong>レスポンシブデザインの重要性</strong><br>
+                            モバイルファーストの時代におけるレスポンシブデザインの必要性と、今日学ぶ内容の概要説明
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#schedule2">
+                            10:15-11:00 メディアクエリ基礎
+                        </button>
+                    </h2>
+                    <div id="schedule2" class="accordion-collapse collapse" data-bs-parent="#scheduleAccordion">
+                        <div class="accordion-body">
+                            CSS Media Queriesの構文、ブレイクポイントの設計、モバイルファーストアプローチの実践
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#schedule3">
+                            11:00-11:45 Bootstrap導入・グリッドシステム
+                        </button>
+                    </h2>
+                    <div id="schedule3" class="accordion-collapse collapse" data-bs-parent="#scheduleAccordion">
+                        <div class="accordion-body">
+                            Bootstrap 5の導入方法、12カラムグリッドシステムの理解と実践、レスポンシブクラスの活用
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#schedule4">
+                            12:45-13:30 Bootstrapコンポーネント
+                        </button>
+                    </h2>
+                    <div id="schedule4" class="accordion-collapse collapse" data-bs-parent="#scheduleAccordion">
+                        <div class="accordion-body">
+                            ナビゲーション、カード、ボタン、フォーム、モーダルなど主要コンポーネントの実装と活用
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#schedule5">
+                            13:30-14:15 カスタマイズ・実践演習
+                        </button>
+                    </h2>
+                    <div id="schedule5" class="accordion-collapse collapse" data-bs-parent="#scheduleAccordion">
+                        <div class="accordion-body">
+                            CSS変数によるテーマカスタマイズ、実践的なWebページ作成演習
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#schedule6">
+                            14:15-15:00 総合演習・質疑応答
+                        </button>
+                    </h2>
+                    <div id="schedule6" class="accordion-collapse collapse" data-bs-parent="#scheduleAccordion">
+                        <div class="accordion-body">
+                            レスポンシブなランディングページの作成、理解度確認、次回への準備
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- テーマ詳細 -->
+        <section class="mb-5">
+            <h2 class="section-title">
+                <i class="fas fa-book-open me-2"></i>テーマ詳細
+            </h2>
+
+            <!-- レスポンシブデザイン -->
+            <div class="mb-5">
+                <h3 class="text-primary mb-4">
+                    <i class="fas fa-expand-arrows-alt me-2"></i>1. レスポンシブデザインの基礎
+                </h3>
+                
+                <h4>メディアクエリの基本構文</h4>
+                <div class="code-block">
+                    <pre><code>/* モバイルファースト設計 */
+/* ベースはモバイル向けスタイル */
+.container {
+    width: 100%;
+    padding: 10px;
+}
+
+/* タブレット向け (768px以上) */
+@media (min-width: 768px) {
+    .container {
+        width: 750px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+}
+
+/* デスクトップ向け (992px以上) */
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+        padding: 30px;
+    }
+}
+
+/* 大型画面向け (1200px以上) */
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}</code></pre>
+                </div>
+
+                <h4>フレキシブルレイアウトのデモ</h4>
+                <div class="responsive-demo">
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4 mb-3">
+                            <div class="bg-primary text-white p-3 rounded text-center">
+                                <h5>カラム 1</h5>
+                                <p class="mb-0">
+                                    <small class="d-block d-md-none">モバイル: 全幅</small>
+                                    <small class="d-none d-md-block d-lg-none">タブレット: 半分</small>
+                                    <small class="d-none d-lg-block">デスクトップ: 1/3</small>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4 mb-3">
+                            <div class="bg-success text-white p-3 rounded text-center">
+                                <h5>カラム 2</h5>
+                                <p class="mb-0">
+                                    <small class="d-block d-md-none">モバイル: 全幅</small>
+                                    <small class="d-none d-md-block d-lg-none">タブレット: 半分</small>
+                                    <small class="d-none d-lg-block">デスクトップ: 1/3</small>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12 col-lg-4 mb-3">
+                            <div class="bg-warning text-dark p-3 rounded text-center">
+                                <h5>カラム 3</h5>
+                                <p class="mb-0">
+                                    <small class="d-block d-md-none">モバイル: 全幅</small>
+                                    <small class="d-none d-md-block d-lg-none">タブレット: 全幅</small>
+                                    <small class="d-none d-lg-block">デスクトップ: 1/3</small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted text-center mt-3">
+                        <i class="fas fa-info-circle me-1"></i>
+                        ブラウザの幅を変更してレスポンシブ動作を確認してください
+                    </p>
+                </div>
+            </div>
+
+            <!-- Bootstrap -->
+            <div class="mb-5">
+                <h3 class="text-success mb-4">
+                    <i class="fab fa-bootstrap me-2"></i>2. Bootstrap 5 完全活用
+                </h3>
+
+                <h4>グリッドシステムの詳細</h4>
+                <div class="code-block">
+                    <pre><code>&lt;!-- Bootstrap CDN --&gt;
+&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+
+&lt;!-- 基本的なグリッド --&gt;
+&lt;div class="container"&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-lg-8 col-md-6 col-sm-12"&gt;メインコンテンツ&lt;/div&gt;
+        &lt;div class="col-lg-4 col-md-6 col-sm-12"&gt;サイドバー&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- ネストしたグリッド --&gt;
+&lt;div class="container"&gt;
+    &lt;div class="row"&gt;
+        &lt;div class="col-12"&gt;
+            &lt;div class="row"&gt;
+                &lt;div class="col-6"&gt;ネスト1&lt;/div&gt;
+                &lt;div class="col-6"&gt;ネスト2&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+
+                <h4>主要コンポーネントの実装例</h4>
+                <div class="component-showcase">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <h5>ナビゲーション</h5>
+                            <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded">
+                                <div class="container-fluid">
+                                    <a class="navbar-brand" href="#"><i class="fas fa-home me-2"></i>MyApp</a>
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="navbarNav">
+                                        <ul class="navbar-nav">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" href="#">ホーム</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">サービス</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#">お問い合わせ</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <h5>カード</h5>
+                            <div class="card">
+                                <div class="card-header bg-primary text-white">
+                                    <i class="fas fa-star me-2"></i>おすすめ記事
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title">Bootstrap活用術</h6>
+                                    <p class="card-text">効率的なWeb開発のためのBootstrap活用方法を解説。</p>
+                                    <a href="#" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-arrow-right me-1"></i>続きを読む
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <h5>フォーム</h5>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">メールアドレス</label>
+                                    <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="message" class="form-label">メッセージ</label>
+                                    <textarea class="form-control" id="message" rows="3" placeholder="メッセージを入力"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-paper-plane me-2"></i>送信
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <h5>アラート・バッジ</h5>
+                            <div class="alert alert-success" role="alert">
+                                <i class="fas fa-check-circle me-2"></i>
+                                正常に処理されました！
+                            </div>
+                            <div class="alert alert-warning" role="alert">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                注意が必要です。
+                            </div>
+                            <p>
+                                ステータス: 
+                                <span class="badge bg-success">アクティブ</span>
+                                <span class="badge bg-primary">新着</span>
+                                <span class="badge bg-secondary">5件</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>モーダルの実装</h4>
+                <div class="mb-3">
+                    <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="fas fa-window-maximize me-2"></i>モーダルを開く
+                    </button>
+                </div>
+                
+                <!-- モーダル -->
+                <div class="modal fade" id="exampleModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"><i class="fas fa-info-circle me-2"></i>Bootstrapモーダル</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>これはBootstrapのモーダルコンポーネントです。レスポンシブに対応しており、どのデバイスでも美しく表示されます。</p>
+                                <div class="alert alert-info">
+                                    <i class="fas fa-lightbulb me-2"></i>
+                                    JavaScriptの知識がなくても、data属性だけで簡単に実装できます！
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+                                <button type="button" class="btn btn-primary">保存する</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- カスタマイズ -->
+            <div class="mb-5">
+                <h3 class="text-warning mb-4">
+                    <i class="fas fa-paint-brush me-2"></i>3. カスタマイズ・テーマ作成
+                </h3>
+
+                <h4>CSS変数によるテーマカスタマイズ</h4>
+                <div class="code-block">
+                    <pre><code>/* カスタムテーマ */
+:root {
+    --bs-primary: #6f42c1;
+    --bs-success: #28a745;
+    --bs-info: #17a2b8;
+    --bs-warning: #ffc107;
+    --bs-danger: #dc3545;
+    --bs-light: #f8f9fa;
+    --bs-dark: #343a40;
+}
+
+/* カスタムクラス */
+.custom-card {
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.custom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+/* レスポンシブタイポグラフィ */
+.responsive-text {
+    font-size: 1rem;
+}
+
+@media (min-width: 768px) {
+    .responsive-text {
+        font-size: 1.25rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .responsive-text {
+        font-size: 1.5rem;
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 実践演習 -->
+        <section class="mb-5">
+            <h2 class="section-title">
+                <i class="fas fa-laptop-code me-2"></i>実践演習
+            </h2>
+            <div class="alert alert-primary" role="alert">
+                <h5><i class="fas fa-tasks me-2"></i>演習課題</h5>
+                <p class="mb-2">以下の要件を満たすレスポンシブなWebページを作成してください：</p>
+                <ul class="mb-0">
+                    <li>レスポンシブナビゲーション（ハンバーガーメニュー付き）</li>
+                    <li>ヒーローセクション（大きな画像とタイトル）</li>
+                    <li>3カラムのサービス紹介セクション</li>
+                    <li>お問い合わせフォーム</li>
+                    <li>フッター</li>
+                </ul>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>基本要件</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-mobile-alt text-primary me-3"></i>
+                            モバイルファースト設計
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fab fa-bootstrap text-success me-3"></i>
+                            Bootstrap 5使用
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-palette text-warning me-3"></i>
+                            独自のカラーテーマ
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-check-circle text-info me-3"></i>
+                            W3C準拠
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5>応用要件</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-magic text-primary me-3"></i>
+                            CSS アニメーション
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-image text-success me-3"></i>
+                            画像の遅延読み込み
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-rocket text-warning me-3"></i>
+                            パフォーマンス最適化
+                        </li>
+                        <li class="list-group-item d-flex align-items-center">
+                            <i class="fas fa-universal-access text-info me-3"></i>
+                            アクセシビリティ対応
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 理解度確認 -->
+        <section class="mb-5">
+            <h2 class="section-title">
+                <i class="fas fa-clipboard-check me-2"></i>理解度確認項目
+            </h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card border-primary">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-star me-2"></i>基本レベル</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="basic1">
+                                <label class="form-check-label" for="basic1">
+                                    メディアクエリの基本構文を理解している
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="basic2">
+                                <label class="form-check-label" for="basic2">
+                                    モバイルファーストの設計思想を理解している
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="basic3">
+                                <label class="form-check-label" for="basic3">
+                                    Bootstrapの基本的なクラスを使用できる
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="basic4">
+                                <label class="form-check-label" for="basic4">
+                                    グリッドシステムの基本を理解している
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="basic5">
+                                <label class="form-check-label" for="basic5">
+                                    基本的なコンポーネントを実装できる
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-success">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-trophy me-2"></i>応用レベル</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="advanced1">
+                                <label class="form-check-label" for="advanced1">
+                                    複雑なレスポンシブレイアウトを設計できる
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="advanced2">
+                                <label class="form-check-label" for="advanced2">
+                                    Bootstrapをカスタマイズできる
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="advanced3">
+                                <label class="form-check-label" for="advanced3">
+                                    パフォーマンスを考慮した実装ができる
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="checkbox" id="advanced4">
+                                <label class="form-check-label" for="advanced4">
+                                    アクセシビリティに配慮できる
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="advanced5">
+                                <label class="form-check-label" for="advanced5">
+                                    実用的なWebアプリケーションを構築できる
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 次のステップ -->
+        <section class="mb-5">
+            <h2 class="section-title">
+                <i class="fas fa-arrow-right me-2"></i>次のステップ
+            </h2>
+            <div class="card border-info">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-calendar-alt me-2"></i>次の日: Day40 - JavaScript基礎
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        明日はいよいよJavaScriptの基礎学習に入ります。変数・関数・データ型から始まり、
+                        DOM操作、イベント処理まで、インタラクティブなWebページ作成の基盤を築きます。
+                    </p>
+                    <h6>予習のポイント:</h6>
+                    <ul class="mb-0">
+                        <li>プログラミング言語の基本概念を調べる</li>
+                        <li>ブラウザの開発者ツールの使い方を確認する</li>
+                        <li>JavaScript実行環境について理解する</li>
+                        <li>HTMLとJavaScriptの関係性を復習する</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- フィードバック -->
+        <section class="mb-5">
+            <h2 class="section-title">
+                <i class="fas fa-comment-dots me-2"></i>フィードバック
+            </h2>
+            <div class="card">
+                <div class="card-body">
+                    <p>このページの内容についてフィードバックをお寄せください。</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label">理解度</label>
+                            <div class="btn-group d-flex" role="group">
+                                <input type="radio" class="btn-check" name="understanding" id="diff">
+                                <label class="btn btn-outline-danger" for="diff">😞 難しい</label>
+                                
+                                <input type="radio" class="btn-check" name="understanding" id="normal">
+                                <label class="btn btn-outline-warning" for="normal">😐 普通</label>
+                                
+                                <input type="radio" class="btn-check" name="understanding" id="easy">
+                                <label class="btn btn-outline-success" for="easy">😊 理解できた</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="feedback" class="form-label">コメント</label>
+                            <textarea class="form-control" id="feedback" rows="3" placeholder="ご意見・ご感想をお聞かせください"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h6><i class="fas fa-graduation-cap me-2"></i>学習進捗</h6>
+                    <p class="mb-0">39日目 / 54日間 (72.2%完了)</p>
+                    <p class="text-muted mb-0">レスポンシブデザインとBootstrapをマスターし、効率的なUI開発の基盤を構築</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <h6>目次</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="#" class="text-light text-decoration-none">学習目標</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">達成基準</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">詳細スケジュール</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">実践演習</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-3">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">
+                        <i class="fas fa-book me-2"></i>
+                        ITエンジニア育成カリキュラムは、未経験からITエンジニアを目指す方のための体系的な学習プログラムです。
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0 text-muted">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDp5y5nUaijl8Vmme8w%2FrX1r1c%2FWDqrmhy7u9bIe%2BeU08uN1y4JN9pmSl1j1tmo%2FG4uoBUwQgF%2B1o65CwGOHW86HEMYaLMqvWZIO%2BWFsG4OVnB%2BN9nuyGQFZ%2BBIHoHIuE8YTufRWDA6CDFukG3NX%2B%2F92rdQ8XEdptcJpDpsgCimKaTkmQQwaSVmsENjSpB%2Fu2h0Vgj2W0w0oGNDc9%2F7F9BhHDQOnwLCNfasgDmha9N0YPLwarZQhSY%2BKKwcS5Zgny7XzNkz7HM%2FrFRnTEJePPXjX2iq44uLEaIOqq2c2DhyiKThrNv8hj39Xjs2FTKl9TInE3U2Hs9UW20kTMvUJ%2B%2Brysc4zUwCTCcXaXxNpxRuFoEluA6SU%2FIYhp435RfmS%2Fb5QMnb%2FVW4iptgUZTjAHza2Z%2F9Ttjz%2FfDbzJ3I4WIYantUtS2JNNVVzE0%2FNkNfDnPVtooLl1SvPwQE0sPaYmLWIXczHwOJ4W3c7aZVQOT85ZI7LBZWphdViXoZytiqDP1JsC3hGUz%2BuXokPPJ4SEl44%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDp5y5nUaijl8Vmme8w/rX1r1c/WDqrmhy7u9bIe+eU08uN1y4JN9pmSl1j1tmo/G4uoBUwQgF+1o65CwGOHW86HEMYaLMqvWZIO+WFsG4OVnB+N9nuyGQFZ+BIHoHIuE8YTufRWDA6CDFukG3NX+/92rdQ8XEdptcJpDpsgCimKaTkmQQwaSVmsENjSpB/u2h0Vgj2W0w0oGNDc9/7F9BhHDQOnwLCNfasgDmha9N0YPLwarZQhSY+KKwcS5Zgny7XzNkz7HM/rFRnTEJePPXjX2iq44uLEaIOqq2c2DhyiKThrNv8hj39Xjs2FTKl9TInE3U2Hs9UW20kTMvUJ++rysc4zUwCTCcXaXxNpxRuFoEluA6SU/IYhp435RfmS/b5QMnb/VW4iptgUZTjAHza2Z/9Ttjz/fDbzJ3I4WIYantUtS2JNNVVzE0/NkNfDnPVtooLl1SvPwQE0sPaYmLWIXczHwOJ4W3c7aZVQOT85ZI7LBZWphdViXoZytiqDP1JsC3hGUz+uXokPPJ4SEl44=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

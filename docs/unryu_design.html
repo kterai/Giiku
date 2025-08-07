@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="ja" data-__embeded-gyazo-content-j-s="5.13.0" data-__gyazo-expander-enabled="true"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="cid:css-7d9bf4f9-1fcb-4203-9d5b-4358244fdcea@mhtml.blink" /><link rel="stylesheet" type="text/css" href="cid:css-de538de0-4565-4e22-a6c5-c7e7dd56fcb8@mhtml.blink" />
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>雲流システム - エンタープライズ級完全設計書 v2.0</title>
+    <title>技育システム - エンタープライズ級完全設計書 v2.0</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     
@@ -12,7 +12,7 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex items-center justify-between">
                 <div>
-                    <h1 class="text-4xl font-bold mb-2">雲流システム</h1>
+                    <h1 class="text-4xl font-bold mb-2">技育システム</h1>
                     <p class="text-xl opacity-90">社内申請書類管理システム - エンタープライズ級完全設計書 v2.0</p>
                     <p class="mt-2">本書はシステム全体の設計方針と主要機能の実装手順を説明するドキュメントです。設計から運用までの流れを段階的に確認できます。</p>
                 </div>
@@ -152,7 +152,7 @@
                 <div>
                     <h3 class="text-xl font-semibold mb-4 text-blue-600">パッケージ構成</h3>
                     <div class="code-block p-4 font-mono text-sm">
-                        <pre>jp.co.apsa.unryu/
+                        <pre>jp.co.apsa.giiku/
 ├── domain/
 │   ├── application/     # 申請ドメイン
 │   ├── user/           # ユーザードメイン
@@ -258,7 +258,7 @@ public class AuditLoggingAspect {
                 <h3 class="text-xl font-semibold mb-4 text-blue-600">Logback設定 (logback-spring.xml)</h3>
                 <div class="code-block p-4 font-mono text-sm">
                     <pre>&lt;!-- 
-  雲流システム ログ設定
+  技育システム ログ設定
   Copyright (c) 2024 APSA Co.,Ltd. All rights reserved.
 --&gt;
 &lt;configuration&gt;
@@ -266,14 +266,14 @@ public class AuditLoggingAspect {
     &lt;appender name="DB" class="ch.qos.logback.classic.db.DBAppender"&gt;
         &lt;connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource"&gt;
             &lt;dataSource class="org.springframework.jdbc.datasource.lookup.JndiDataSourceLookup"&gt;
-                &lt;jndiName&gt;java:comp/env/jdbc/unryu&lt;/jndiName&gt;
+                &lt;jndiName&gt;java:comp/env/jdbc/giiku&lt;/jndiName&gt;
             &lt;/dataSource&gt;
         &lt;/connectionSource&gt;
     &lt;/appender&gt;
 
     &lt;!-- Structured JSON Logging --&gt;
     &lt;appender name="JSON_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender"&gt;
-        &lt;file&gt;logs/unryu.json&lt;/file&gt;
+        &lt;file&gt;logs/giiku.json&lt;/file&gt;
         &lt;encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder"&gt;
             &lt;providers&gt;
                 &lt;timestamp/&gt;
@@ -285,22 +285,22 @@ public class AuditLoggingAspect {
             &lt;/providers&gt;
         &lt;/encoder&gt;
         &lt;rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"&gt;
-            &lt;fileNamePattern&gt;logs/unryu.%d{yyyy-MM-dd}.json.gz&lt;/fileNamePattern&gt;
+            &lt;fileNamePattern&gt;logs/giiku.%d{yyyy-MM-dd}.json.gz&lt;/fileNamePattern&gt;
             &lt;maxHistory&gt;30&lt;/maxHistory&gt;
         &lt;/rollingPolicy&gt;
     &lt;/appender&gt;
 
     &lt;!-- Error Alert to Slack --&gt;
-    &lt;appender name="SLACK_ERROR" class="jp.co.apsa.unryu.infrastructure.logging.SlackErrorAppender"&gt;
+    &lt;appender name="SLACK_ERROR" class="jp.co.apsa.giiku.infrastructure.logging.SlackErrorAppender"&gt;
         &lt;webhookUrl&gt;${SLACK_WEBHOOK_URL}&lt;/webhookUrl&gt;
-        &lt;channel&gt;#unryu-alerts&lt;/channel&gt;
-        &lt;username&gt;unryu-system&lt;/username&gt;
+        &lt;channel&gt;#giiku-alerts&lt;/channel&gt;
+        &lt;username&gt;giiku-system&lt;/username&gt;
         &lt;filter class="ch.qos.logback.classic.filter.ThresholdFilter"&gt;
             &lt;level&gt;ERROR&lt;/level&gt;
         &lt;/filter&gt;
     &lt;/appender&gt;
 
-    &lt;logger name="jp.co.apsa.unryu" level="INFO" additivity="false"&gt;
+    &lt;logger name="jp.co.apsa.giiku" level="INFO" additivity="false"&gt;
         &lt;appender-ref ref="DB"/&gt;
         &lt;appender-ref ref="JSON_FILE"/&gt;
         &lt;appender-ref ref="SLACK_ERROR"/&gt;
@@ -339,7 +339,7 @@ public class SlackErrorAppender extends AppenderBase&lt;ILoggingEvent&gt; {
     private void sendSlackNotification(ILoggingEvent event) {
         SlackMessage message = SlackMessage.builder()
             .channel(channel)
-            .username("雲流システム")
+            .username("技育システム")
             .iconEmoji(":warning:")
             .text(String.format(":rotating_light: *エラー発生* :rotating_light:\n" +
                                "```\n%s\n```\n" +
@@ -528,7 +528,7 @@ public class ApprovalFlowService {
                 <h3 class="text-xl font-semibold mb-4 text-blue-600">完全DDLスクリプト</h3>
                 <div class="code-block p-4 font-mono text-sm">
                     <pre>-- =====================================================
--- 雲流システム データベース設計
+-- 技育システム データベース設計
 -- Copyright (c) 2024 APSA Co.,Ltd. All rights reserved.
 -- =====================================================
 
@@ -899,8 +899,8 @@ javadoc {
     options.author = true
     options.version = true
     options.use = true
-    options.windowTitle = "雲流システム API仕様書"
-    options.docTitle = "雲流システム API仕様書 v${version}"
+    options.windowTitle = "技育システム API仕様書"
+    options.docTitle = "技育システム API仕様書 v${version}"
     options.bottom = """
         &lt;div style="text-align: center;"&gt;
         Copyright © 2024 APSA Co.,Ltd. All rights reserved.
@@ -1310,11 +1310,11 @@ void validateSideJobApplication() {
                 <div>
                     <h3 class="text-xl font-semibold mb-4 text-blue-600">ディレクトリ構造</h3>
                     <div class="code-block p-4 font-mono text-sm">
-                        <pre>unryu/
+                        <pre>giiku/
 ├── src/
 │   ├── main/
-│   │   ├── java/jp/co/apsa/unryu/
-│   │   │   ├── UnryuApplication.java
+│   │   ├── java/jp/co/apsa/giiku/
+│   │   │   ├── GiikuApplication.java
 │   │   │   ├── config/          # 設定クラス
 │   │   │   │   ├── SecurityConfig.java
 │   │   │   │   ├── DatabaseConfig.java
@@ -1439,7 +1439,7 @@ void validateSideJobApplication() {
 │   │   └── webapp/
 │   │       └── WEB-INF/
 │   └── test/
-│       ├── java/jp/co/apsa/unryu/
+│       ├── java/jp/co/apsa/giiku/
 │       │   ├── domain/
 │       │   ├── application/
 │       │   ├── infrastructure/
@@ -1478,7 +1478,7 @@ void validateSideJobApplication() {
                     <h3 class="text-xl font-semibold mb-4 text-blue-600">build.gradle完全版</h3>
                     <div class="code-block p-4 font-mono text-sm">
                         <pre>/*
- * 雲流システム ビルド設定
+ * 技育システム ビルド設定
  * Copyright (c) 2024 APSA Co.,Ltd. All rights reserved.
  */
 
@@ -1614,8 +1614,8 @@ spotbugs {
 // SonarQube設定
 sonar {
     properties {
-        property "sonar.projectKey", "unryu-system"
-        property "sonar.projectName", "雲流システム"
+        property "sonar.projectKey", "giiku-system"
+        property "sonar.projectName", "技育システム"
         property "sonar.host.url", "http://localhost:9000"
         property "sonar.coverage.jacoco.xmlReportPaths", 
                  "${buildDir}/reports/jacoco/test/jacocoTestReport.xml"
@@ -1624,9 +1624,9 @@ sonar {
 
 // Flyway設定
 flyway {
-    url = 'jdbc:postgresql://localhost:5432/unryu'
-    user = 'unryu_user'
-    password = 'unryu_pass'
+    url = 'jdbc:postgresql://localhost:5432/giiku'
+    user = 'giiku_user'
+    password = 'giiku_pass'
     schemas = ['public']
     locations = ['classpath:db/migration']
 }
@@ -1669,10 +1669,10 @@ javadoc {
                 <h3 class="text-xl font-semibold mb-4 text-blue-600">メインアプリケーションクラス</h3>
                 <div class="code-block p-4 font-mono text-sm">
                     <pre>/*
- * 雲流システム メインアプリケーション
+ * 技育システム メインアプリケーション
  * Copyright (c) 2024 APSA Co.,Ltd. All rights reserved.
  */
-package jp.co.apsa.unryu;
+package jp.co.apsa.giiku;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -1682,9 +1682,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * 雲流システム メインアプリケーションクラス
+ * 技育システム メインアプリケーションクラス
  * &lt;p&gt;
- * 社内申請書類管理システム「雲流」のエントリーポイントです。
+ * 社内申請書類管理システム「技育」のエントリーポイントです。
  * Spring Boot 3.1.3をベースとし、Hexagonal Architecture + CQRSパターンを採用しています。
  * &lt;/p&gt;
  * 
@@ -1706,7 +1706,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableCaching
 @EnableAsync
 @EnableScheduling
-public class UnryuApplication {
+public class GiikuApplication {
 
     /**
      * アプリケーション開始点
@@ -1714,7 +1714,7 @@ public class UnryuApplication {
      * @param args コマンドライン引数
      */
     public static void main(String[] args) {
-        SpringApplication.run(UnryuApplication.class, args);
+        SpringApplication.run(GiikuApplication.class, args);
     }
 }</pre>
                 </div>
@@ -1727,7 +1727,7 @@ public class UnryuApplication {
  * セキュリティ設定
  * Copyright (c) 2024 APSA Co.,Ltd. All rights reserved.
  */
-package jp.co.apsa.unryu.config;
+package jp.co.apsa.giiku.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -1874,12 +1874,12 @@ public class SecurityConfig {
             <div class="mb-8">
                 <h3 class="text-xl font-semibold mb-4 text-blue-600">application.yml設定</h3>
                 <div class="code-block p-4 font-mono text-sm">
-                    <pre># 雲流システム アプリケーション設定
+                    <pre># 技育システム アプリケーション設定
 # Copyright (c) 2024 APSA Co.,Ltd. All rights reserved.
 
 spring:
   application:
-    name: unryu
+    name: giiku
   
   # プロファイル設定
   profiles:
@@ -1887,9 +1887,9 @@ spring:
   
   # データベース設定
   datasource:
-    url: jdbc:postgresql://localhost:5432/unryu
-    username: ${DB_USERNAME:unryu_user}
-    password: ${DB_PASSWORD:unryu_pass}
+    url: jdbc:postgresql://localhost:5432/giiku
+    username: ${DB_USERNAME:giiku_user}
+    password: ${DB_PASSWORD:giiku_pass}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -1966,7 +1966,7 @@ spring:
         max-size: 16
         queue-capacity: 100
         keep-alive: 60s
-      thread-name-prefix: unryu-async-
+      thread-name-prefix: giiku-async-
   
   # Thymeleaf設定
   thymeleaf:
@@ -1980,7 +1980,7 @@ spring:
 server:
   port: 8080
   servlet:
-    context-path: /unryu
+    context-path: /giiku
     session:
       timeout: 30m
       cookie:
@@ -1997,7 +1997,7 @@ server:
 # ログ設定
 logging:
   level:
-    jp.co.apsa.unryu: INFO
+    jp.co.apsa.giiku: INFO
     org.springframework.security: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
@@ -2005,7 +2005,7 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
   file:
-    name: logs/unryu.log
+    name: logs/giiku.log
   logback:
     rollingpolicy:
       max-file-size: 100MB
@@ -2027,11 +2027,11 @@ management:
       enabled: true
 
 # アプリケーション固有設定
-unryu:
+giiku:
   # ファイルアップロード設定
   file:
     upload:
-      path: ${FILE_UPLOAD_PATH:/tmp/unryu/uploads}
+      path: ${FILE_UPLOAD_PATH:/tmp/giiku/uploads}
       max-size: 10MB
       allowed-types: pdf,doc,docx,xls,xlsx,jpg,jpeg,png,gif
   
@@ -2039,8 +2039,8 @@ unryu:
   notification:
     slack:
       webhook-url: ${SLACK_WEBHOOK_URL:}
-      channel: ${SLACK_CHANNEL:#unryu-notifications}
-      username: 雲流システム
+      channel: ${SLACK_CHANNEL:#giiku-notifications}
+      username: 技育システム
     email:
       from: ${EMAIL_FROM:<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5c32332e392c30251c3d2c2f3d723f3372362c">[email&#160;protected]</a>}
       enabled: ${EMAIL_ENABLED:true}
@@ -2074,7 +2074,7 @@ springdoc:
     enabled: true
     operationsSorter: method
   info:
-    title: 雲流システム API
+    title: 技育システム API
     description: 社内申請書類管理システムのREST API
     version: 1.0.0
     contact:
@@ -2089,7 +2089,7 @@ springdoc:
             <div class="max-w-7xl mx-auto px-6">
                 <div class="grid md:grid-cols-3 gap-8">
                     <div>
-                        <h3 class="text-xl font-bold mb-4">雲流システム</h3>
+                        <h3 class="text-xl font-bold mb-4">技育システム</h3>
                         <p class="text-gray-300">社内申請書類管理システム</p>
                         <p class="text-sm text-gray-400 mt-2">Hexagonal Architecture + CQRS</p>
                     </div>

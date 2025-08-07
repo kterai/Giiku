@@ -1,12 +1,12 @@
 # ======================================
-# 雲流システム - 開発環境設定
+# 技育システム - 開発環境設定
 # Copyright (c) 2024 株式会社アプサ
 # ======================================
 
 spring:
   # 開発環境データソース
   datasource:
-    url: jdbc:postgresql://db:5432/unryu_db_autotest
+    url: jdbc:postgresql://db:5432/giiku_db_autotest
     username: ${DATABASE_USERNAME:postgres}
     password: ${DATABASE_PASSWORD:postgres}
     hikari:
@@ -69,7 +69,7 @@ server:
 # ログ設定（開発環境）
 logging:
   level:
-    jp.co.apsa.unryu: DEBUG
+    jp.co.apsa.giiku: DEBUG
     org.springframework.web: DEBUG
     org.springframework.security: DEBUG
     org.hibernate.SQL: DEBUG
@@ -78,8 +78,8 @@ logging:
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
 
-# 雲流システム設定（開発環境）
-unryu:
+# 技育システム設定（開発環境）
+giiku:
   # ファイル設定
   file:
     upload-dir: ./uploads/dev

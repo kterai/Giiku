@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム - Day14: Stream APIと関数型プログラミング実践</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .highlight-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .info-box {
+            background-color: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .warning-box {
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .success-box {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .term-definition {
+            background-color: #e8f4fd;
+            border: 1px solid #bee5eb;
+            border-radius: 6px;
+            padding: 12px;
+            margin: 8px 0;
+        }
+        .quiz-answer {
+            display: none;
+            background-color: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 12px;
+        }
+    .exercise-answer {
+        display: none;
+        background-color: #f0fdf4;
+        border: 1px solid #22c55e;
+        border-radius: 6px;
+        padding: 16px;
+        margin-top: 12px;
+    }
+    .fixed-nav {
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.95);
+    }
+    .nav-link:hover {
+        background-color: rgba(59, 130, 246, 0.1);
+    }
+    .breadcrumb-separator::after {
+        content: ">";
+        margin: 0 8px;
+        color: #9CA3AF;
+    }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day13_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day15_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month1.html" class="hover:text-blue-600">1ヶ月目: Java基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week3.html" class="hover:text-blue-600">3週目: Java言語応用</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">14日目: Stream APIと関数型プログラミング実践</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day14.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+        <header class="bg-blue-600 text-white shadow-lg">
+            <div class="container mx-auto px-4 py-4">
+                <div class="text-center">
+                    <h1 class="text-xl md:text-2xl font-bold">ITエンジニア育成カリキュラム</h1>
+                    <p class="text-blue-200">Day14: Stream APIと関数型プログラミング実践</p>
+                    <p class="text-blue-100">中間操作・終端操作・並列ストリーム</p>
+                </div>
+            </div>
+        </header>
+        <div class="container mx-auto px-4 py-8">
+        <!-- 学習目標 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-target mr-2"></i>学習目標
+            </h2>
+            <ul class="space-y-2">
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                    <span>Stream API の基本（生成・中間操作・終端操作）を理解する</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                    <span>ラムダ式との組み合わせでデータ処理を実装できる</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                    <span>並列ストリームの概要と注意点を把握する</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- スケジュール表 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-clock mr-2"></i>スケジュール
+            </h2>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-blue-50">
+                            <th class="border border-gray-300 px-4 py-2 text-left">時間</th>
+                            <th class="border border-gray-300 px-4 py-2 text-left">内容</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">10:00-10:15</td>
+                            <td class="border border-gray-300 px-4 py-2">前日の復習</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-2">10:15-11:00</td>
+                            <td class="border border-gray-300 px-4 py-2">Stream API 概要・生成方法</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">11:00-12:00</td>
+                            <td class="border border-gray-300 px-4 py-2">中間操作：filter, map, sorted, distinct</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-2">12:00-13:00</td>
+                            <td class="border border-gray-300 px-4 py-2">昼休憩</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">13:00-14:15</td>
+                            <td class="border border-gray-300 px-4 py-2">終端操作：collect, forEach, count, max, min</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-2">14:15-15:00</td>
+                            <td class="border border-gray-300 px-4 py-2">並列ストリーム (parallelStream) の仕組みと注意点</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">15:00-16:00</td>
+                            <td class="border border-gray-300 px-4 py-2">演習：Stream を用いたデータ集計・グルーピング</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 px-4 py-2">16:00-16:40</td>
+                            <td class="border border-gray-300 px-4 py-2">理解度クイズ</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 px-4 py-2">16:40-17:00</td>
+                            <td class="border border-gray-300 px-4 py-2">まとめと次回予告</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 専門用語集 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-purple-600 mb-4">
+                <i class="fas fa-book mr-2"></i>本日の重要用語集
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="term-definition">
+                    <h4 class="font-bold text-purple-700 mb-2">Stream（ストリーム）</h4>
+                    <p class="text-sm">データの集合を「流れ」として扱い、一連の操作を連鎖的に適用できる仕組み。水道管のような「パイプライン」をイメージ。</p>
+                </div>
+                <div class="term-definition">
+                    <h4 class="font-bold text-purple-700 mb-2">中間操作</h4>
+                    <p class="text-sm">filter、map、sortedなど、Streamを別のStreamに変換する操作。「遅延評価」のため終端操作まで実行されない。</p>
+                </div>
+                <div class="term-definition">
+                    <h4 class="font-bold text-purple-700 mb-2">終端操作</h4>
+                    <p class="text-sm">collect、forEach、countなど、Streamから最終結果を取得する操作。この時点で全ての中間操作が実行される。</p>
+                </div>
+                <div class="term-definition">
+                    <h4 class="font-bold text-purple-700 mb-2">遅延評価</h4>
+                    <p class="text-sm">中間操作は終端操作が呼ばれるまで実際には実行されない仕組み。メモリ効率と処理の最適化に貢献。</p>
+                </div>
+                <div class="term-definition">
+                    <h4 class="font-bold text-purple-700 mb-2">パイプライン処理</h4>
+                    <p class="text-sm">複数の操作を「.」でつなげて連鎖的に実行する方式。例：stream().filter().map().collect()</p>
+                </div>
+                <div class="term-definition">
+                    <h4 class="font-bold text-purple-700 mb-2">コレクタ（Collector）</h4>
+                    <p class="text-sm">collect()操作で使用する、Streamの要素を別の形式（List、Map等）に収集するための仕組み。</p>
+                </div>
+                <div class="term-definition">
+                    <h4 class="font-bold text-purple-700 mb-2">並列ストリーム</h4>
+                    <p class="text-sm">複数のCPUコアを活用して処理を並列実行するStream。parallelStream()で作成。大量データで効果的。</p>
+                </div>
+                <div class="term-definition">
+                    <h4 class="font-bold text-purple-700 mb-2">副作用（Side Effect）</h4>
+                    <p class="text-sm">処理中に外部の状態を変更すること。並列処理では予期しない結果を招く可能性があるため避けるべき。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- メイン講義 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-green-600 mb-6">
+                <i class="fas fa-chalkboard-teacher mr-2"></i>メイン講義
+            </h2>
+
+            <!-- Stream API 概要 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-green-700 mb-4">📊 Stream API 概要</h3>
+                
+                <div class="highlight-box">
+                    <h4 class="font-bold mb-2">🎯 理解のポイント</h4>
+                    <p>Streamは「データの流れ」を表現する仕組みです。水道管のように、データが一方向に流れ、途中で様々な加工（フィルタリング、変換等）を施し、最終的に蛇口（終端操作）から結果を取得します。</p>
+                </div>
+
+                <p class="mb-4">コレクションとの違いは以下の通りです：</p>
+                <ul class="list-disc list-inside mb-4 space-y-2">
+                    <li><strong>一度しか使用できない</strong>：終端操作後は再利用不可</li>
+                    <li><strong>遅延評価</strong>：中間操作は終端操作まで実行されない</li>
+                    <li><strong>関数型スタイル</strong>：元のデータを変更せず新しい結果を生成</li>
+                </ul>
+
+                <h4 class="font-bold mb-2">Stream の生成方法：</h4>
+                <div class="code-block">
+<pre><code class="language-java">// コレクションから
+List&lt;String&gt; list = Arrays.asList("apple", "banana", "cherry");
+Stream&lt;String&gt; stream1 = list.stream();
+
+// 配列から
+String[] array = {"apple", "banana", "cherry"};
+Stream&lt;String&gt; stream2 = Arrays.stream(array);
+
+// 直接作成
+Stream&lt;String&gt; stream3 = Stream.of("apple", "banana", "cherry");
+
+// ファイルから
+Stream&lt;String&gt; stream4 = Files.lines(Paths.get("file.txt"));</code></pre>
+                </div>
+            </div>
+
+            <!-- 中間操作 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-green-700 mb-4">⚙️ 中間操作</h3>
+                
+                <div class="info-box">
+                    <h4 class="font-bold mb-2">💡 中間操作の特徴</h4>
+                    <p>中間操作は「Streamを別のStreamに変換」する操作です。複数の中間操作を「.」でつなげることで、データ処理のパイプラインを構築できます。</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold mb-2">🔍 filter（フィルタリング）</h4>
+                        <p class="mb-2">条件に合う要素のみを通す</p>
+                        <div class="code-block">
+<pre><code class="language-java">// 3文字以上の文字列のみ抽出
+list.stream()
+    .filter(s -&gt; s.length() &gt;= 3)
+    .collect(Collectors.toList());</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold mb-2">🔄 map（変換）</h4>
+                        <p class="mb-2">各要素を別の値に変換</p>
+                        <div class="code-block">
+<pre><code class="language-java">// 文字列を大文字に変換
+list.stream()
+    .map(String::toUpperCase)
+    .collect(Collectors.toList());</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold mb-2">📊 sorted（ソート）</h4>
+                        <p class="mb-2">要素を並び替える</p>
+                        <div class="code-block">
+<pre><code class="language-java">// アルファベット順でソート
+list.stream()
+    .sorted()
+    .collect(Collectors.toList());</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold mb-2">🎯 distinct（重複除去）</h4>
+                        <p class="mb-2">重複する要素を除去</p>
+                        <div class="code-block">
+<pre><code class="language-java">// 重複を除去
+list.stream()
+    .distinct()
+    .collect(Collectors.toList());</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box mt-4">
+                    <h4 class="font-bold mb-2">✨ パイプライン処理の例</h4>
+                    <div class="code-block">
+<pre><code class="language-java">List&lt;String&gt; result = list.stream()
+    .filter(s -&gt; s.startsWith("a"))  // "a"で始まる文字列
+    .map(String::toUpperCase)        // 大文字に変換
+    .sorted()                        // ソート
+    .distinct()                      // 重複除去
+    .collect(Collectors.toList());   // リストに収集</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 終端操作 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-green-700 mb-4">🏁 終端操作</h3>
+                
+                <div class="info-box">
+                    <h4 class="font-bold mb-2">⚡ 終端操作の重要性</h4>
+                    <p>終端操作が呼ばれて初めて、中間操作が実際に実行されます。終端操作後、そのStreamは使用できなくなります。</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold mb-2">📦 collect（収集）</h4>
+                        <p class="mb-2">Streamの要素を別のコレクションに収集</p>
+                        <div class="code-block">
+<pre><code class="language-java">// リストに収集
+List&lt;String&gt; list = stream.collect(Collectors.toList());
+
+// セットに収集
+Set&lt;String&gt; set = stream.collect(Collectors.toSet());
+
+// 文字列結合
+String joined = stream.collect(Collectors.joining(", "));</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold mb-2">🔄 forEach（各要素処理）</h4>
+                        <p class="mb-2">各要素に対して処理を実行</p>
+                        <div class="code-block">
+<pre><code class="language-java">// 各要素を出力
+stream.forEach(System.out::println);
+
+// 各要素を処理
+stream.forEach(s -&gt; {
+    System.out.println("処理中: " + s);
+});</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold mb-2">🔢 count（要素数）</h4>
+                        <p class="mb-2">要素の数を取得</p>
+                        <div class="code-block">
+<pre><code class="language-java">// 要素数をカウント
+long count = stream.count();
+
+// 条件に合う要素数
+long filteredCount = stream
+    .filter(s -&gt; s.length() &gt; 3)
+    .count();</code></pre>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="font-bold mb-2">🎯 max/min（最大・最小）</h4>
+                        <p class="mb-2">最大値・最小値を取得</p>
+                        <div class="code-block">
+<pre><code class="language-java">// 最大値
+Optional&lt;String&gt; max = stream
+    .max(String::compareTo);
+
+// 最小値
+Optional&lt;String&gt; min = stream
+    .min(String::compareTo);</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 遅延評価とパイプライン -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-green-700 mb-4">⏰ 遅延評価とパイプライン</h3>
+                
+                <div class="highlight-box">
+                    <h4 class="font-bold mb-2">🚰 水道管の比喩で理解する</h4>
+                    <p>Streamは水道管のようなもので、中間操作は「蛇口を開けるまで水が流れない」のと同じです。終端操作（蛇口を開ける）が呼ばれて初めて、全ての処理が実行されます。</p>
+                </div>
+
+                <div class="code-block">
+<pre><code class="language-java">Stream&lt;String&gt; stream = list.stream()
+    .filter(s -&gt; {
+        System.out.println("フィルタ処理: " + s);
+        return s.startsWith("a");
+    })
+    .map(s -&gt; {
+        System.out.println("変換処理: " + s);
+        return s.toUpperCase();
+    });
+
+// ここまでは何も出力されない（遅延評価）
+
+List&lt;String&gt; result = stream.collect(Collectors.toList());
+// ここで初めて上記の処理が実行される</code></pre>
+                </div>
+
+                <div class="info-box">
+                    <h4 class="font-bold mb-2">💡 遅延評価のメリット</h4>
+                    <ul class="list-disc list-inside space-y-1">
+                        <li><strong>メモリ効率</strong>：不要な中間結果を保持しない</li>
+                        <li><strong>処理最適化</strong>：必要な分だけ処理される</li>
+                        <li><strong>短絡評価</strong>：条件に合わない要素は途中でスキップ</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 並列ストリーム -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-green-700 mb-4">⚡ 並列ストリーム</h3>
+                
+                <div class="warning-box">
+                    <h4 class="font-bold mb-2">⚠️ 並列ストリームの基本理解</h4>
+                    <p>並列ストリームは複数のCPUコアで処理を分散実行する仕組みです。大量のデータ処理で威力を発揮しますが、<strong>注意点も多い</strong>ため、適切な理解が必要です。</p>
+                </div>
+
+                <div class="code-block">
+<pre><code class="language-java">// 通常のストリーム
+list.stream()
+    .filter(s -&gt; heavyComputation(s))
+    .collect(Collectors.toList());
+
+// 並列ストリーム
+list.parallelStream()
+    .filter(s -&gt; heavyComputation(s))
+    .collect(Collectors.toList());</code></pre>
+                </div>
+
+                <h4 class="font-bold mb-4 text-red-600">🚨 並列ストリームの重要な注意点</h4>
+
+                <div class="grid md:grid-cols-1 gap-4">
+                    <div class="warning-box">
+                        <h5 class="font-bold mb-2">1. スレッド安全性（Thread Safety）</h5>
+                        <p class="mb-2"><strong>問題</strong>：複数のスレッドが同じ変数やオブジェクトを同時に変更すると、予期しない結果になる可能性があります。</p>
+                        <div class="code-block">
+<pre><code class="language-java">// ❌ 危険な例：共有変数の変更
+List&lt;Integer&gt; sharedList = new ArrayList&lt;&gt;();
+numbers.parallelStream()
+    .forEach(n -&gt; sharedList.add(n * 2)); // 複数スレッドが同時にaddすると問題
+
+// ✅ 安全な例：collectを使用
+List&lt;Integer&gt; result = numbers.parallelStream()
+    .map(n -&gt; n * 2)
+    .collect(Collectors.toList());</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <h5 class="font-bold mb-2">2. 副作用（Side Effect）の回避</h5>
+                        <p class="mb-2"><strong>問題</strong>：処理中に外部の状態を変更する「副作用」があると、並列処理で予期しない結果になります。</p>
+                        <div class="code-block">
+<pre><code class="language-java">// ❌ 副作用がある例
+int sum = 0;
+numbers.parallelStream()
+    .forEach(n -&gt; sum += n); // 外部変数の変更は危険
+
+// ✅ 副作用がない例
+int sum = numbers.parallelStream()
+    .mapToInt(Integer::intValue)
+    .sum(); // 専用メソッドを使用</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <h5 class="font-bold mb-2">3. 順序の保証</h5>
+                        <p class="mb-2"><strong>問題</strong>：並列処理では処理順序が保証されません。順序が重要な場合は注意が必要です。</p>
+                        <div class="code-block">
+<pre><code class="language-java">// 順序が重要でない場合
+Set&lt;String&gt; result = list.parallelStream()
+    .filter(s -&gt; s.length() &gt; 3)
+    .collect(Collectors.toSet());
+
+// 順序を保持したい場合
+List&lt;String&gt; result = list.parallelStream()
+    .filter(s -&gt; s.length() &gt; 3)
+    .collect(Collectors.toList()); // 元の順序は保持されない可能性
+
+// 確実に順序を保持したい場合
+List&lt;String&gt; result = list.parallelStream()
+    .filter(s -&gt; s.length() &gt; 3)
+    .sorted() // 明示的にソート
+    .collect(Collectors.toList());</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <h5 class="font-bold mb-2">4. 並列ストリームを使うべき場面</h5>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>大量のデータ</strong>：数千〜数万件以上のデータ処理</li>
+                            <li><strong>計算集約的な処理</strong>：各要素の処理に時間がかかる場合</li>
+                            <li><strong>副作用のない処理</strong>：純粋関数的な処理のみ</li>
+                            <li><strong>順序が重要でない</strong>：結果の順序を気にしない場合</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <h5 class="font-bold mb-2">✅ 並列ストリームの安全な使用例</h5>
+                        <div class="code-block">
+<pre><code class="language-java">// 大量の数値の平方根計算（計算集約的）
+List&lt;Double&gt; results = numbers.parallelStream()
+    .map(n -&gt; Math.sqrt(n * n + 1)) // 純粋な計算
+    .collect(Collectors.toList());
+
+// グルーピング（副作用なし）
+Map&lt;Integer, List&lt;String&gt;&gt; grouped = words.parallelStream()
+    .collect(Collectors.groupingBy(String::length));</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 演習問題 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-orange-600 mb-4">
+                <i class="fas fa-pencil-alt mr-2"></i>演習問題
+            </h2>
+            
+            <div class="border-l-4 border-orange-400 pl-4 mb-4">
+                <h3 class="text-lg font-bold mb-2">💡 演習: Stream を使った従業員データ処理</h3>
+                <p class="mb-4">以下のEmployee クラスを使って、Stream APIでデータ集計・グルーピングを実装してください。</p>
+                
+                <div class="code-block mb-4">
+<pre><code class="language-java">class Employee {
+    private String name;
+    private String department;
+    private double salary;
+    
+    // コンストラクタ、getter、setterは省略
+}</code></pre>
+                </div>
+
+                <p class="mb-2"><strong>実装する処理：</strong></p>
+                <ol class="list-decimal list-inside space-y-2 mb-4">
+                    <li>部署ごとの平均給与を算出し <code>Map&lt;String, Double&gt;</code> を出力</li>
+                    <li>給与が500万円以上の従業員を部署別にグルーピング</li>
+                    <li>全従業員の給与の合計と最高給与を算出</li>
+                </ol>
+
+                <button onclick="showExerciseAnswer(1)" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>回答例を表示
+                </button>
+
+                <div id="exerciseAnswer1" class="exercise-answer">
+                    <h4 class="font-bold mb-3 text-green-700">📝 回答例</h4>
+                    
+                    <div class="code-block mb-4">
+<pre><code class="language-java">// サンプルデータ
+List&lt;Employee&gt; employees = Arrays.asList(
+    new Employee("田中", "開発", 6000000),
+    new Employee("佐藤", "開発", 5500000),
+    new Employee("山田", "営業", 4800000),
+    new Employee("鈴木", "営業", 5200000),
+    new Employee("高橋", "総務", 4500000)
+);
+
+// 1. 部署ごとの平均給与
+Map&lt;String, Double&gt; avgSalaryByDept = employees.stream()
+    .collect(Collectors.groupingBy(
+        Employee::getDepartment,
+        Collectors.averagingDouble(Employee::getSalary)
+    ));
+
+// 2. 給与500万円以上の従業員を部署別にグルーピング
+Map&lt;String, List&lt;Employee&gt;&gt; highEarnersByDept = employees.stream()
+    .filter(e -&gt; e.getSalary() &gt;= 5000000)
+    .collect(Collectors.groupingBy(Employee::getDepartment));
+
+// 3. 給与の合計と最高給与
+double totalSalary = employees.stream()
+    .mapToDouble(Employee::getSalary)
+    .sum();
+
+OptionalDouble maxSalary = employees.stream()
+    .mapToDouble(Employee::getSalary)
+    .max();
+
+// 結果出力
+System.out.println("部署別平均給与: " + avgSalaryByDept);
+System.out.println("高給取り(部署別): " + highEarnersByDept);
+System.out.println("給与合計: " + totalSalary);
+System.out.println("最高給与: " + maxSalary.orElse(0));</code></pre>
+                    </div>
+
+                    <div class="info-box">
+                        <h5 class="font-bold mb-2">💡 解説ポイント</h5>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><code>Collectors.groupingBy()</code>：グルーピングの基本</li>
+                            <li><code>Collectors.averagingDouble()</code>：数値の平均値算出</li>
+                            <li><code>mapToDouble()</code>：Stream&lt;Double&gt;への変換</li>
+                            <li><code>Optional</code>：値が存在しない可能性への対処</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 理解度確認クイズ -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-purple-600 mb-4">
+                <i class="fas fa-question-circle mr-2"></i>理解度確認クイズ
+            </h2>
+
+            <!-- クイズ1 -->
+            <div class="border-b border-gray-200 pb-4 mb-4">
+                <p class="font-bold mb-2">1. <code>map</code> と <code>flatMap</code> の違いは？</p>
+                <ul class="space-y-1 mb-4">
+                    <li>A: 中間操作と終端操作の違い</li>
+                    <li>B: 変換対象の型</li>
+                    <li>C: ネストしたストリームの扱い</li>
+                    <li>D: パフォーマンス</li>
+                </ul>
+                <button onclick="showAnswer(1)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                <div id="answer1" class="quiz-answer">
+                    <p class="font-bold text-green-600">正解: C</p>
+                    <p class="mt-2"><strong>解説:</strong> <code>flatMap</code> はネストされた要素を平坦化します。<code>map</code>は1対1変換ですが、<code>flatMap</code>はStream&lt;Stream&lt;T&gt;&gt;をStream&lt;T&gt;に変換できます。</p>
+                </div>
+            </div>
+
+            <!-- クイズ2 -->
+            <div class="border-b border-gray-200 pb-4 mb-4">
+                <p class="font-bold mb-2">2. 終端操作が呼ばれるまで中間操作が実行されない仕組みの名称は？</p>
+                <ul class="space-y-1 mb-4">
+                    <li>A: 逐次評価</li>
+                    <li>B: 遅延評価</li>
+                    <li>C: 先行評価</li>
+                    <li>D: 並列評価</li>
+                </ul>
+                <button onclick="showAnswer(2)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                <div id="answer2" class="quiz-answer">
+                    <p class="font-bold text-green-600">正解: B</p>
+                    <p class="mt-2"><strong>解説:</strong> Stream は遅延評価（Lazy Evaluation）で中間操作を蓄積し、終端操作で一括実行します。これによりメモリ効率と処理の最適化を実現します。</p>
+                </div>
+            </div>
+
+            <!-- クイズ3 -->
+            <div class="border-b border-gray-200 pb-4 mb-4">
+                <p class="font-bold mb-2">3. <code>parallelStream</code> 使用時の注意点は？</p>
+                <ul class="space-y-1 mb-4">
+                    <li>A: 常に高速になる</li>
+                    <li>B: スレッド安全性と順序に注意する</li>
+                    <li>C: 並列化すると例外が発生する</li>
+                    <li>D: コレクションが空だと動作しない</li>
+                </ul>
+                <button onclick="showAnswer(3)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                <div id="answer3" class="quiz-answer">
+                    <p class="font-bold text-green-600">正解: B</p>
+                    <p class="mt-2"><strong>解説:</strong> 並列処理では副作用（外部状態の変更）と順序に注意が必要です。共有リソースへの同時アクセスや処理順序の不定性が問題になる可能性があります。</p>
+                </div>
+            </div>
+
+            <!-- クイズ4 -->
+            <div class="border-b border-gray-200 pb-4 mb-4">
+                <p class="font-bold mb-2">4. <code>collect(Collectors.toList())</code> の戻り値は？</p>
+                <ul class="space-y-1 mb-4">
+                    <li>A: long</li>
+                    <li>B: Stream</li>
+                    <li>C: List</li>
+                    <li>D: Map</li>
+                </ul>
+                <button onclick="showAnswer(4)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                <div id="answer4" class="quiz-answer">
+                    <p class="font-bold text-green-600">正解: C</p>
+                    <p class="mt-2"><strong>解説:</strong> <code>collect(Collectors.toList())</code> は要素を List に収集する終端操作です。Stream の要素を List として取得できます。</p>
+                </div>
+            </div>
+
+            <!-- クイズ5 -->
+            <div class="pb-4">
+                <p class="font-bold mb-2">5. <code>Stream</code> が再利用できない理由は？</p>
+                <ul class="space-y-1 mb-4">
+                    <li>A: 生成コストが高いから</li>
+                    <li>B: 内部状態を保持しないから</li>
+                    <li>C: 終端操作後は閉じられるから</li>
+                    <li>D: コレクションを持たないから</li>
+                </ul>
+                <button onclick="showAnswer(5)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>回答を表示
+                </button>
+                <div id="answer5" class="quiz-answer">
+                    <p class="font-bold text-green-600">正解: C</p>
+                    <p class="mt-2"><strong>解説:</strong> 終端操作でストリームは消費され、内部的に「閉じられた」状態になるため再使用できません。新しい処理には新しいStreamを生成する必要があります。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- まとめと次回予告 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-indigo-600 mb-4">
+                <i class="fas fa-bookmark mr-2"></i>本日のまとめ
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-bold text-indigo-700 mb-3">📚 学習したポイント</h3>
+                    <div class="space-y-3">
+                        <div class="success-box">
+                            <h4 class="font-bold mb-1">Stream APIの基本構造</h4>
+                            <p class="text-sm">データの「流れ」として処理を行い、中間操作でデータを加工し、終端操作で結果を取得する仕組みを理解しました。</p>
+                        </div>
+                        <div class="success-box">
+                            <h4 class="font-bold mb-1">中間操作の活用</h4>
+                            <p class="text-sm">filter（絞り込み）、map（変換）、sorted（並び替え）、distinct（重複除去）を組み合わせたパイプライン処理を学習しました。</p>
+                        </div>
+                        <div class="success-box">
+                            <h4 class="font-bold mb-1">終端操作の種類</h4>
+                            <p class="text-sm">collect（収集）、forEach（反復処理）、count（カウント）、max/min（最大・最小値）の使い分けを習得しました。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-indigo-700 mb-3">⚠️ 重要な注意点</h3>
+                    <div class="space-y-3">
+                        <div class="warning-box">
+                            <h4 class="font-bold mb-1">遅延評価の理解</h4>
+                            <p class="text-sm">中間操作は終端操作が呼ばれるまで実行されません。この特性を理解してデバッグや処理の流れを把握することが重要です。</p>
+                        </div>
+                        <div class="warning-box">
+                            <h4 class="font-bold mb-1">並列処理の注意点</h4>
+                            <p class="text-sm">parallelStream は高速化できますが、スレッド安全性、副作用、順序保証に注意が必要です。適用場面を見極めることが大切です。</p>
+                        </div>
+                        <div class="warning-box">
+                            <h4 class="font-bold mb-1">Streamの再利用不可</h4>
+                            <p class="text-sm">終端操作後のStreamは再利用できません。同じ処理を繰り返す場合は新しいStreamを生成する必要があります。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 info-box">
+                <h3 class="text-lg font-bold text-blue-700 mb-2">🎯 実務での活用ポイント</h3>
+                <ul class="list-disc list-inside space-y-1">
+                    <li><strong>データ処理の簡潔化</strong>：複雑なループ処理をワンライナーで記述可能</li>
+                    <li><strong>可読性の向上</strong>：処理の意図が明確になり、コードが読みやすくなる</li>
+                    <li><strong>関数型思考</strong>：副作用のない処理で安全なプログラムを構築</li>
+                    <li><strong>並列処理の活用</strong>：大量データ処理で性能向上を図れる</li>
+                </ul>
+            </div>
+
+            <div class="mt-6 highlight-box">
+                <h3 class="text-lg font-bold text-yellow-700 mb-2">📖 次回予告: Day15「総復習と模擬テスト③」</h3>
+                <p>第3週で学習したコレクション・ジェネリクス・ラムダ式・Stream APIの知識を体系的に整理し、模擬テストで理解度を確認します。実践的な問題を通じて、これまでの学習内容を定着させましょう。</p>
+            </div>
+        </section>
+
+        <!-- ナビゲーションリンク -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-600 mb-4">
+                <i class="fas fa-sitemap mr-2"></i>ナビゲーション
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a href="day13_lecture.html" class="block p-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    <i class="fas fa-arrow-left text-blue-500 mr-2"></i>
+                    <span class="font-medium">前日: day13_lecture.html</span>
+                </a>
+                <a href="day15_lecture.html" class="block p-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    <i class="fas fa-arrow-right text-blue-500 mr-2"></i>
+                    <span class="font-medium">翌日: day15_lecture.html</span>
+                </a>
+                <a href="../week/week3.html" class="block p-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    <i class="fas fa-calendar-week text-green-500 mr-2"></i>
+                    <span class="font-medium">第3週一覧</span>
+                </a>
+                <a href="../month/month1.html" class="block p-4 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    <i class="fas fa-calendar-alt text-purple-500 mr-2"></i>
+                    <span class="font-medium">第1ヶ月目一覧</span>
+                </a>
+            </div>
+        </section>
+    </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white py-4">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showAnswer(questionNumber) {
+            const answerDiv = document.getElementById('answer' + questionNumber);
+            if (answerDiv.style.display === 'none' || answerDiv.style.display === '') {
+                answerDiv.style.display = 'block';
+            } else {
+                answerDiv.style.display = 'none';
+            }
+        }
+
+        function showExerciseAnswer(exerciseNumber) {
+            const answerDiv = document.getElementById('exerciseAnswer' + exerciseNumber);
+            if (answerDiv.style.display === 'none' || answerDiv.style.display === '') {
+                answerDiv.style.display = 'block';
+            } else {
+                answerDiv.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDsZhQN0Ey3iH%2BYivaJOXVRmXWYqhB0%2FXnCSKuALYg%2BHFr0VPFNyQL0vLma1y7dQfcBbPk3H0Lxg6y3M3P2rkGC%2F%2BFEeIXJasLmuNqf%2F9us1JH99Ah0DfwBvfNiQ2Cv77CjpvAXMNa36oZQBLAqC4DeWmCALwUks%2Bq8zuM56DAs35YozNEqNFFVw9HRnQ5Et9%2FK1IJUGRvV8n3GT8uerTycKGPoyLkCv7TvCWN63eXFHwHri9%2BY6Qc%2BHxGxTThxSGZfpqL4HOR2FYP%2F6GvxRKIP1MpRNQDKG4BrlI%2BBtWbc9HKTsBWU6BVNUXRaHEDE9Zz%2FkYiGjosRP9E0g8qlJDwdfB2Os%2FQ2TnmuUW9UMdiD8MzIk4cRcIzZ%2FV%2B7f%2FlMabWk6Y%2FeqCmiolfvBTEiER4KSZaZgwcR4Yh1GMR9kj%2FY0sASNiYZsa9Ku2ZAjpLOPRAwQ3Ps03nOLRQlIycYldaLDP4Se4wAP%2F6o26Pw4sZLL7rkwS25kaXyhBH1NgqKG%2Bdw%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDsZhQN0Ey3iH+YivaJOXVRmXWYqhB0/XnCSKuALYg+HFr0VPFNyQL0vLma1y7dQfcBbPk3H0Lxg6y3M3P2rkGC/+FEeIXJasLmuNqf/9us1JH99Ah0DfwBvfNiQ2Cv77CjpvAXMNa36oZQBLAqC4DeWmCALwUks+q8zuM56DAs35YozNEqNFFVw9HRnQ5Et9/K1IJUGRvV8n3GT8uerTycKGPoyLkCv7TvCWN63eXFHwHri9+Y6Qc+HxGxTThxSGZfpqL4HOR2FYP/6GvxRKIP1MpRNQDKG4BrlI+BtWbc9HKTsBWU6BVNUXRaHEDE9Zz/kYiGjosRP9E0g8qlJDwdfB2Os/Q2TnmuUW9UMdiD8MzIk4cRcIzZ/V+7f/lMabWk6Y/eqCmiolfvBTEiER4KSZaZgwcR4Yh1GMR9kj/Y0sASNiYZsa9Ku2ZAjpLOPRAwQ3Ps03nOLRQlIycYldaLDP4Se4wAP/6o26Pw4sZLL7rkwS25kaXyhBH1NgqKG+dw==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

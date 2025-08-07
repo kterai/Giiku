@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day45: Spring Boot・RESTful API・JPA</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .hidden { display: none; }
+        .answer-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+        .answer-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day44_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day46_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month3.html" class="hover:text-blue-600">3ヶ月目: Webアプリケーション開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week10.html" class="hover:text-blue-600">10週目: バックエンド基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">45日目: Spring Boot・RESTful API・JPA</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day45.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <header class="bg-gradient-to-r from-green-600 to-blue-600 text-white p-8 rounded-lg shadow-lg mb-8">
+            <h1 class="text-4xl font-bold mb-4">
+                <i class="fas fa-leaf mr-3"></i>Day45: Spring Boot・RESTful API・JPA
+            </h1>
+            <p class="text-xl opacity-90">現代的なJava Webアプリケーション開発技術の完全習得</p>
+            <p class="text-lg opacity-80 mt-2">ITエンジニア育成カリキュラム - 実践的なエンタープライズ開発スキル</p>
+        </header>
+
+        <!-- Learning Objectives -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-green-700 mb-6">
+                <i class="fas fa-target mr-2"></i>本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                        <span><strong>Spring Boot基礎概念の理解</strong><br>DI（依存性注入）・IoC（制御の反転）を実用レベルで習得</span>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                        <span><strong>RESTful API設計・実装</strong><br>HTTP メソッドを適切に使い分けたAPI開発</span>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                        <span><strong>JPA によるデータベース操作</strong><br>エンティティマッピング・リポジトリパターンの実践</span>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                        <span><strong>統合的なWebアプリケーション構築</strong><br>CRUD機能を持つ実用的なシステム開発</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommended Environment -->
+        <section class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-blue-700 mb-4">
+                <i class="fas fa-tools mr-2"></i>推奨開発環境
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-laptop-code mr-2"></i>統合開発環境
+                    </h3>
+                    <p>IntelliJ IDEA Ultimate / Eclipse + Spring Tools</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-coffee mr-2"></i>Java環境
+                    </h3>
+                    <p>Java 17 LTS + Maven/Gradle</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-database mr-2"></i>データベース
+                    </h3>
+                    <p>H2 Database (開発用) / MySQL/PostgreSQL</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. Spring Boot Fundamentals -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-indigo-700 mb-6">
+                <i class="fas fa-seedling mr-2"></i>1. Spring Boot基礎概念の完全理解
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Spring Boot（スプリング ブート）とは？</h3>
+                <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded mb-4">
+                    <p class="text-gray-700 leading-relaxed">
+                        <strong>Spring Boot</strong>は、Javaでエンタープライズアプリケーションを<strong>素早く・簡単に</strong>開発するためのフレームワークです。
+                        従来のSpringフレームワークが持つ複雑な設定を大幅に簡素化し、「設定より規約」の思想で開発効率を劇的に向上させます。
+                    </p>
+                </div>
+
+                <h4 class="text-lg font-semibold text-gray-700 mb-3">Spring Bootの主な特徴</h4>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300 mb-6">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-300 px-4 py-2 text-left">特徴</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">説明</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">メリット</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-medium">自動設定</td>
+                                <td class="border border-gray-300 px-4 py-2">クラスパスの内容に基づいて適切な設定を自動的に適用</td>
+                                <td class="border border-gray-300 px-4 py-2">設定ファイルの大幅な削減</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 font-medium">スターター依存関係</td>
+                                <td class="border border-gray-300 px-4 py-2">関連するライブラリをまとめたパッケージ</td>
+                                <td class="border border-gray-300 px-4 py-2">依存関係管理の簡素化</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-medium">組み込みサーバー</td>
+                                <td class="border border-gray-300 px-4 py-2">Tomcat、Jetty等が内蔵されている</td>
+                                <td class="border border-gray-300 px-4 py-2">デプロイメントの簡素化</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">DI（Dependency Injection：依存性注入）の理解</h3>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded mb-4">
+                    <p class="text-gray-700 leading-relaxed mb-2">
+                        <strong>DI（Dependency Injection）</strong>とは、オブジェクト間の依存関係を外部から「注入」する仕組みです。
+                        これは料理のシェフに例えることができます：
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li><strong>従来の方法</strong>：シェフが自分で材料を調達・準備する（オブジェクトが依存するオブジェクトを自分で作成）</li>
+                        <li><strong>DIの方法</strong>：アシスタントが必要な材料を準備してシェフに渡す（外部から依存オブジェクトを注入）</li>
+                    </ul>
+                </div>
+
+                <h4 class="text-lg font-semibold text-gray-700 mb-3">DIの実装例</h4>
+                <div class="code-block">
+                    <h5 class="font-semibold text-sm text-gray-600 mb-2">❌ DI を使わない場合（従来の方法）</h5>
+                    <pre><code class="language-java">public class OrderService {
+    private PaymentService paymentService;
+    
+    public OrderService() {
+        // 依存関係を自分で作成（強く結合されている）
+        this.paymentService = new PaymentService();
+    }
+    
+    public void processOrder(Order order) {
+        paymentService.processPayment(order);
+    }
+}</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <h5 class="font-semibold text-sm text-gray-600 mb-2">✅ DI を使う場合（推奨方法）</h5>
+                    <pre><code class="language-java">@Service  // Spring によってBean として管理される
+public class OrderService {
+    private final PaymentService paymentService;
+    
+    // コンストラクタインジェクション（推奨）
+    public OrderService(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
+    
+    public void processOrder(Order order) {
+        paymentService.processPayment(order);
+    }
+}
+
+@Service
+public class PaymentService {
+    public void processPayment(Order order) {
+        // 決済処理のロジック
+    }
+}</code></pre>
+                </div>
+
+                <div class="bg-yellow-50 border border-yellow-200 rounded p-4 mt-4">
+                    <h5 class="font-semibold text-yellow-800 mb-2">
+                        <i class="fas fa-lightbulb mr-2"></i>DIのメリット
+                    </h5>
+                    <ul class="list-disc list-inside text-yellow-800 space-y-1">
+                        <li><strong>テストしやすさ</strong>：モックオブジェクトを簡単に注入できる</li>
+                        <li><strong>疎結合</strong>：クラス間の依存関係が弱くなる</li>
+                        <li><strong>再利用性</strong>：異なる実装を簡単に切り替えられる</li>
+                        <li><strong>保守性</strong>：変更の影響範囲が限定される</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">主要なアノテーション</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-300 px-4 py-2 text-left">アノテーション</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">用途</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">使用例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">@SpringBootApplication</td>
+                                <td class="border border-gray-300 px-4 py-2">メインクラスに付与。自動設定を有効化</td>
+                                <td class="border border-gray-300 px-4 py-2">Application.java</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">@RestController</td>
+                                <td class="border border-gray-300 px-4 py-2">REST API のコントローラークラス</td>
+                                <td class="border border-gray-300 px-4 py-2">ProductController.java</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">@Service</td>
+                                <td class="border border-gray-300 px-4 py-2">ビジネスロジックを含むサービスクラス</td>
+                                <td class="border border-gray-300 px-4 py-2">ProductService.java</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">@Repository</td>
+                                <td class="border border-gray-300 px-4 py-2">データアクセス層のクラス</td>
+                                <td class="border border-gray-300 px-4 py-2">ProductRepository.java</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">@Autowired</td>
+                                <td class="border border-gray-300 px-4 py-2">依存性注入を行う（フィールド注入）</td>
+                                <td class="border border-gray-300 px-4 py-2">@Autowired ProductService</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. RESTful API Development -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-purple-700 mb-6">
+                <i class="fas fa-exchange-alt mr-2"></i>2. RESTful API設計と実装
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">REST（Representational State Transfer）とは？</h3>
+                <div class="bg-purple-50 border-l-4 border-purple-500 p-4 rounded mb-4">
+                    <p class="text-gray-700 leading-relaxed">
+                        <strong>REST</strong>は、Webサービス間でデータをやり取りするための<strong>設計原則</strong>です。
+                        HTTPプロトコルの特性を活かし、リソース（データ）を URL で表現し、HTTP メソッド（GET、POST、PUT、DELETE）で操作を定義します。
+                        これは図書館の管理システムに例えることができます：
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 mt-2">
+                        <li><strong>リソース</strong>：本（Book）、著者（Author）、貸出記録（Loan）</li>
+                        <li><strong>URL</strong>：/books/123（ID 123の本）、/authors/456（ID 456の著者）</li>
+                        <li><strong>操作</strong>：GET（取得）、POST（新規作成）、PUT（更新）、DELETE（削除）</li>
+                    </ul>
+                </div>
+
+                <h4 class="text-lg font-semibold text-gray-700 mb-3">HTTP メソッドと CRUD 操作の対応</h4>
+                <div class="overflow-x-auto mb-6">
+                    <table class="w-full border-collapse border border-gray-300">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-300 px-4 py-2 text-left">HTTP メソッド</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">CRUD 操作</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">URL 例</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">動作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-green-600">GET</td>
+                                <td class="border border-gray-300 px-4 py-2">Read（読み取り）</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">GET /products/123</td>
+                                <td class="border border-gray-300 px-4 py-2">ID 123の商品情報を取得</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-blue-600">POST</td>
+                                <td class="border border-gray-300 px-4 py-2">Create（新規作成）</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">POST /products</td>
+                                <td class="border border-gray-300 px-4 py-2">新しい商品を作成</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-orange-600">PUT</td>
+                                <td class="border border-gray-300 px-4 py-2">Update（更新）</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">PUT /products/123</td>
+                                <td class="border border-gray-300 px-4 py-2">ID 123の商品情報を更新</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-red-600">DELETE</td>
+                                <td class="border border-gray-300 px-4 py-2">Delete（削除）</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono text-sm">DELETE /products/123</td>
+                                <td class="border border-gray-300 px-4 py-2">ID 123の商品を削除</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">RESTコントローラーの実装例</h3>
+                <p class="text-gray-600 mb-4">商品管理システムのAPIを例に、各HTTP メソッドの実装を見てみましょう。</p>
+
+                <div class="code-block">
+                    <h5 class="font-semibold text-sm text-gray-600 mb-2">商品エンティティ（Product.java）</h5>
+                    <pre><code class="language-java">@Entity
+@Table(name = "products")
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(nullable = false)
+    private String name;
+    
+    @Column(nullable = false)
+    private BigDecimal price;
+    
+    private String description;
+    
+    // コンストラクタ、getter、setter は省略
+}</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <h5 class="font-semibold text-sm text-gray-600 mb-2">RESTコントローラー（ProductController.java）</h5>
+                    <pre><code class="language-java">@RestController
+@RequestMapping("/api/products")
+public class ProductController {
+    
+    private final ProductService productService;
+    
+    // コンストラクタインジェクション
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+    
+    // 全商品取得：GET /api/products
+    @GetMapping
+    public List&lt;Product&gt; getAllProducts() {
+        return productService.findAll();
+    }
+    
+    // 特定商品取得：GET /api/products/123
+    @GetMapping("/{id}")
+    public ResponseEntity&lt;Product&gt; getProductById(@PathVariable Long id) {
+        Product product = productService.findById(id);
+        if (product != null) {
+            return ResponseEntity.ok(product);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
+    // 商品作成：POST /api/products
+    @PostMapping
+    public ResponseEntity&lt;Product&gt; createProduct(@RequestBody Product product) {
+        Product savedProduct = productService.save(product);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
+    }
+    
+    // 商品更新：PUT /api/products/123
+    @PutMapping("/{id}")
+    public ResponseEntity&lt;Product&gt; updateProduct(
+            @PathVariable Long id, 
+            @RequestBody Product productDetails) {
+        Product updatedProduct = productService.update(id, productDetails);
+        if (updatedProduct != null) {
+            return ResponseEntity.ok(updatedProduct);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
+    // 商品削除：DELETE /api/products/123
+    @DeleteMapping("/{id}")
+    public ResponseEntity&lt;Void&gt; deleteProduct(@PathVariable Long id) {
+        boolean deleted = productService.deleteById(id);
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+}</code></pre>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 rounded p-4 mt-4">
+                    <h5 class="font-semibold text-blue-800 mb-2">
+                        <i class="fas fa-info-circle mr-2"></i>重要なアノテーションの説明
+                    </h5>
+                    <ul class="list-disc list-inside text-blue-800 space-y-1">
+                        <li><strong>@RestController</strong>：このクラスがREST APIのコントローラーであることを示す</li>
+                        <li><strong>@RequestMapping</strong>：ベースとなるURL パスを指定</li>
+                        <li><strong>@PathVariable</strong>：URL の一部（例：/products/{id} の {id}）を変数として取得</li>
+                        <li><strong>@RequestBody</strong>：HTTP リクエストのボディをJavaオブジェクトに変換</li>
+                        <li><strong>ResponseEntity</strong>：HTTP ステータスコードとレスポンスボディを制御</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. JPA and Database Operations -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-red-700 mb-6">
+                <i class="fas fa-database mr-2"></i>3. JPA（Java Persistence API）によるデータベース操作
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">JPA（Java Persistence API）とは？</h3>
+                <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded mb-4">
+                    <p class="text-gray-700 leading-relaxed">
+                        <strong>JPA（Java Persistence API）</strong>は、Javaオブジェクトとリレーショナルデータベースの間を橋渡しする<strong>ORM（Object-Relational Mapping）</strong>の標準仕様です。
+                        これは翻訳者に例えることができます：
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1 mt-2">
+                        <li><strong>Javaオブジェクト</strong>：日本語で書かれた文書</li>
+                        <li><strong>データベーステーブル</strong>：英語で書かれた文書</li>
+                        <li><strong>JPA/Hibernate</strong>：自動翻訳システム（オブジェクト ⇄ テーブル）</li>
+                    </ul>
+                </div>
+
+                <h4 class="text-lg font-semibold text-gray-700 mb-3">JPA の主要なメリット</h4>
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-green-50 border border-green-200 rounded p-4">
+                        <h5 class="font-semibold text-green-800 mb-2">
+                            <i class="fas fa-check mr-2"></i>開発効率の向上
+                        </h5>
+                        <ul class="list-disc list-inside text-green-700 text-sm space-y-1">
+                            <li>SQL文を書く必要がない</li>
+                            <li>CRUD操作の自動生成</li>
+                            <li>型安全なクエリ実行</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 border border-blue-200 rounded p-4">
+                        <h5 class="font-semibold text-blue-800 mb-2">
+                            <i class="fas fa-shield-alt mr-2"></i>保守性・可読性
+                        </h5>
+                        <ul class="list-disc list-inside text-blue-700 text-sm space-y-1">
+                            <li>オブジェクト指向的な操作</li>
+                            <li>データベース変更への対応が容易</li>
+                            <li>コードの可読性向上</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">エンティティ（Entity）の作成</h3>
+                <p class="text-gray-600 mb-4">エンティティは、データベースのテーブルに対応するJavaクラスです。</p>
+
+                <div class="code-block">
+                    <h5 class="font-semibold text-sm text-gray-600 mb-2">商品エンティティの詳細実装（Product.java）</h5>
+                    <pre><code class="language-java">@Entity  // このクラスがエンティティであることを示す
+@Table(name = "products")  // 対応するテーブル名を指定
+public class Product {
+    
+    @Id  // 主キーであることを示す
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // 自動採番
+    private Long id;
+    
+    @Column(name = "product_name", nullable = false, length = 100)
+    private String name;
+    
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal price;
+    
+    @Column(length = 500)
+    private String description;
+    
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    
+    @Column(name = "updated_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updatedAt;
+    
+    // デフォルトコンストラクタ（JPA で必須）
+    public Product() {}
+    
+    // コンストラクタ
+    public Product(String name, BigDecimal price, String description) {
+        this.name = name;
+        this.price = price;
+        this.description = description;
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
+    
+    // getter と setter メソッド
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    
+    public String getName() { return name; }
+    public void setName(String name) { 
+        this.name = name; 
+        this.updatedAt = new Date();
+    }
+    
+    // 他のgetter/setterも同様...
+}</code></pre>
+                </div>
+
+                <div class="bg-yellow-50 border border-yellow-200 rounded p-4 mt-4">
+                    <h5 class="font-semibold text-yellow-800 mb-2">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>重要なJPAアノテーション
+                    </h5>
+                    <ul class="list-disc list-inside text-yellow-800 space-y-1">
+                        <li><strong>@Entity</strong>：このクラスがデータベーステーブルに対応することを示す</li>
+                        <li><strong>@Table</strong>：対応するテーブル名を明示的に指定</li>
+                        <li><strong>@Id</strong>：主キーフィールドを示す</li>
+                        <li><strong>@GeneratedValue</strong>：主キーの生成方法を指定</li>
+                        <li><strong>@Column</strong>：データベースカラムの詳細設定</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">リポジトリパターンの実装</h3>
+                <p class="text-gray-600 mb-4">Spring Data JPA を使用することで、基本的なCRUD操作を自動的に生成できます。</p>
+
+                <div class="code-block">
+                    <h5 class="font-semibold text-sm text-gray-600 mb-2">リポジトリインターフェース（ProductRepository.java）</h5>
+                    <pre><code class="language-java">@Repository
+public interface ProductRepository extends JpaRepository&lt;Product, Long&gt; {
+    
+    // JpaRepository が提供する基本メソッド：
+    // - save(Product) : 保存・更新
+    // - findById(Long) : ID による検索
+    // - findAll() : 全件取得
+    // - deleteById(Long) : ID による削除
+    // - count() : 件数取得
+    
+    // カスタムクエリメソッド（メソッド名から自動的にクエリを生成）
+    List&lt;Product&gt; findByNameContaining(String name);  // 名前の部分一致検索
+    
+    List&lt;Product&gt; findByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);  // 価格帯検索
+    
+    List&lt;Product&gt; findByNameContainingAndPriceLessThan(String name, BigDecimal maxPrice);
+    
+    // @Query アノテーションを使用したカスタムクエリ
+    @Query("SELECT p FROM Product p WHERE p.price > :minPrice ORDER BY p.createdAt DESC")
+    List&lt;Product&gt; findExpensiveProducts(@Param("minPrice") BigDecimal minPrice);
+    
+    // ネイティブSQL を使用することも可能
+    @Query(value = "SELECT * FROM products WHERE created_at >= :date", nativeQuery = true)
+    List&lt;Product&gt; findProductsCreatedAfter(@Param("date") Date date);
+}</code></pre>
+                </div>
+
+                <div class="bg-green-50 border border-green-200 rounded p-4 mt-4">
+                    <h5 class="font-semibold text-green-800 mb-2">
+                        <i class="fas fa-magic mr-2"></i>Spring Data JPA の魔法
+                    </h5>
+                    <p class="text-green-700 mb-2">メソッド名から自動的にクエリが生成される仕組み：</p>
+                    <ul class="list-disc list-inside text-green-700 space-y-1">
+                        <li><strong>findBy</strong> + <strong>プロパティ名</strong> → WHERE 条件</li>
+                        <li><strong>Containing</strong> → LIKE '%値%'</li>
+                        <li><strong>Between</strong> → BETWEEN 値1 AND 値2</li>
+                        <li><strong>LessThan</strong> → &lt; 値</li>
+                        <li><strong>And</strong> / <strong>Or</strong> → AND / OR 条件</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">サービス層の実装</h3>
+                <p class="text-gray-600 mb-4">ビジネスロジックとトランザクション管理を担当するサービス層を実装します。</p>
+
+                <div class="code-block">
+                    <h5 class="font-semibold text-sm text-gray-600 mb-2">商品サービス（ProductService.java）</h5>
+                    <pre><code class="language-java">@Service
+@Transactional  // クラス全体にトランザクション管理を適用
+public class ProductService {
+    
+    private final ProductRepository productRepository;
+    
+    // コンストラクタインジェクション
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+    
+    // 全商品取得
+    @Transactional(readOnly = true)  // 読み取り専用で最適化
+    public List&lt;Product&gt; findAll() {
+        return productRepository.findAll();
+    }
+    
+    // ID による商品取得
+    @Transactional(readOnly = true)
+    public Product findById(Long id) {
+        return productRepository.findById(id).orElse(null);
+    }
+    
+    // 新規商品作成
+    public Product save(Product product) {
+        // ビジネスロジック：価格の妥当性チェック
+        if (product.getPrice().compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("価格は0より大きい値を設定してください");
+        }
+        
+        return productRepository.save(product);
+    }
+    
+    // 商品更新
+    public Product update(Long id, Product productDetails) {
+        Product existingProduct = productRepository.findById(id).orElse(null);
+        if (existingProduct == null) {
+            return null;
+        }
+        
+        // 既存の商品情報を更新
+        existingProduct.setName(productDetails.getName());
+        existingProduct.setPrice(productDetails.getPrice());
+        existingProduct.setDescription(productDetails.getDescription());
+        
+        return productRepository.save(existingProduct);
+    }
+    
+    // 商品削除
+    public boolean deleteById(Long id) {
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+    
+    // 商品検索
+    @Transactional(readOnly = true)
+    public List&lt;Product&gt; searchProducts(String keyword, BigDecimal maxPrice) {
+        if (keyword != null && maxPrice != null) {
+            return productRepository.findByNameContainingAndPriceLessThan(keyword, maxPrice);
+        } else if (keyword != null) {
+            return productRepository.findByNameContaining(keyword);
+        } else if (maxPrice != null) {
+            return productRepository.findByPriceBetween(BigDecimal.ZERO, maxPrice);
+        } else {
+            return productRepository.findAll();
+        }
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Complete Application Configuration -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-teal-700 mb-6">
+                <i class="fas fa-cogs mr-2"></i>4. 完全なWebアプリケーションの構築
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">アプリケーション設定</h3>
+                
+                <div class="code-block">
+                    <h5 class="font-semibold text-sm text-gray-600 mb-2">メインアプリケーションクラス（Application.java）</h5>
+                    <pre><code class="language-java">@SpringBootApplication  // 3つのアノテーションの組み合わせ
+// @Configuration + @EnableAutoConfiguration + @ComponentScan
+public class Application {
+    
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+    
+    // データベース初期化用のBean（開発環境用）
+    @Bean
+    @Profile("dev")  // "dev" プロファイルでのみ実行
+    public CommandLineRunner initDatabase(ProductService productService) {
+        return args -> {
+            // サンプルデータの投入
+            productService.save(new Product("ノートパソコン", new BigDecimal("89800"), "高性能ノートPC"));
+            productService.save(new Product("マウス", new BigDecimal("2980"), "ワイヤレスマウス"));
+            productService.save(new Product("キーボード", new BigDecimal("5800"), "メカニカルキーボード"));
+        };
+    }
+}</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <h5 class="font-semibold text-sm text-gray-600 mb-2">アプリケーション設定（application.yml）</h5>
+                    <pre><code class="language-yaml"># データベース設定
+spring:
+  profiles:
+    active: dev  # アクティブプロファイル
+  
+  # H2 データベース設定（開発用）
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  
+  # H2 コンソール有効化（開発用）
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  
+  # JPA/Hibernate 設定
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop  # 起動時にテーブル作成、終了時に削除
+    show-sql: true  # 実行されるSQLをログに出力
+    properties:
+      hibernate:
+        format_sql: true  # SQL を整形して出力
+
+# サーバー設定
+server:
+  port: 8080
+
+# ログレベル設定
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE</code></pre>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">依存関係設定（pom.xml）</h3>
+                
+                <div class="code-block">
+                    <h5 class="font-semibold text-sm text-gray-600 mb-2">Maven設定の重要部分</h5>
+                    <pre><code class="language-xml">&lt;dependencies&gt;
+    &lt;!-- Spring Boot Web Starter --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    
+    &lt;!-- Spring Boot Data JPA Starter --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    
+    &lt;!-- H2 Database (開発用) --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.h2database&lt;/groupId&gt;
+        &lt;artifactId&gt;h2&lt;/artifactId&gt;
+        &lt;scope&gt;runtime&lt;/scope&gt;
+    &lt;/dependency&gt;
+    
+    &lt;!-- MySQL Driver (本番用) --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;mysql&lt;/groupId&gt;
+        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+        &lt;scope&gt;runtime&lt;/scope&gt;
+    &lt;/dependency&gt;
+    
+    &lt;!-- Test Starter --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Practical Exercises -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-orange-700 mb-6">
+                <i class="fas fa-laptop-code mr-2"></i>5. 実践演習問題
+            </h2>
+
+            <div class="space-y-6">
+                <div class="border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                        <i class="fas fa-tasks mr-2"></i>演習1：ユーザー管理APIの開発
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                        商品管理システムを参考に、ユーザー管理機能を実装してください。
+                    </p>
+                    <div class="bg-blue-50 border border-blue-200 rounded p-4 mb-4">
+                        <h4 class="font-semibold text-blue-800 mb-2">要件：</h4>
+                        <ul class="list-disc list-inside text-blue-700 space-y-1">
+                            <li>Userエンティティ（id, username, email, createdAt）</li>
+                            <li>UserRepository（メール検索、ユーザー名検索機能付き）</li>
+                            <li>UserService（バリデーション機能付き）</li>
+                            <li>UserController（CRUD API）</li>
+                        </ul>
+                    </div>
+                    <button class="answer-button" onclick="showAnswer('exercise1')">回答例を表示</button>
+                    <div id="exercise1" class="hidden mt-4">
+                        <div class="code-block">
+                            <h5 class="font-semibold text-sm text-gray-600 mb-2">User.java</h5>
+                            <pre><code class="language-java">@Entity
+@Table(name = "users")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(unique = true, nullable = false)
+    private String username;
+    
+    @Column(unique = true, nullable = false)
+    private String email;
+    
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+    
+    // コンストラクタ、getter、setter
+}</code></pre>
+                        </div>
+                        <div class="code-block">
+                            <h5 class="font-semibold text-sm text-gray-600 mb-2">UserRepository.java</h5>
+                            <pre><code class="language-java">@Repository
+public interface UserRepository extends JpaRepository&lt;User, Long&gt; {
+    Optional&lt;User&gt; findByEmail(String email);
+    Optional&lt;User&gt; findByUsername(String username);
+    List&lt;User&gt; findByUsernameContaining(String keyword);
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">
+                        <i class="fas fa-search mr-2"></i>演習2：高度な検索機能の実装
+                    </h3>
+                    <p class="text-gray-600 mb-4">
+                        商品検索APIに以下の機能を追加してください。
+                    </p>
+                    <div class="bg-green-50 border border-green-200 rounded p-4 mb-4">
+                        <h4 class="font-semibold text-green-800 mb-2">追加機能：</h4>
+                        <ul class="list-disc list-inside text-green-700 space-y-1">
+                            <li>価格帯での絞り込み検索</li>
+                            <li>作成日での並び替え（昇順・降順）</li>
+                            <li>ページネーション機能</li>
+                            <li>検索結果の件数表示</li>
+                        </ul>
+                    </div>
+                    <button class="answer-button" onclick="showAnswer('exercise2')">回答例を表示</button>
+                    <div id="exercise2" class="hidden mt-4">
+                        <div class="code-block">
+                            <h5 class="font-semibold text-sm text-gray-600 mb-2">ProductController.java の拡張</h5>
+                            <pre><code class="language-java">@GetMapping("/search")
+public ResponseEntity&lt;Page&lt;Product&gt;&gt; searchProducts(
+        @RequestParam(required = false) String keyword,
+        @RequestParam(required = false) BigDecimal minPrice,
+        @RequestParam(required = false) BigDecimal maxPrice,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "10") int size,
+        @RequestParam(defaultValue = "createdAt") String sortBy,
+        @RequestParam(defaultValue = "desc") String sortDir) {
+    
+    Sort sort = sortDir.equalsIgnoreCase("desc") ? 
+        Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+    
+    Pageable pageable = PageRequest.of(page, size, sort);
+    
+    Page&lt;Product&gt; products = productService.searchProducts(
+        keyword, minPrice, maxPrice, pageable);
+    
+    return ResponseEntity.ok(products);
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Understanding Quiz -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-blue-700 mb-6">
+                <i class="fas fa-brain mr-2"></i>6. 理解度確認クイズ
+            </h2>
+
+            <div class="space-y-6">
+                <div class="border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">問題1：DI（依存性注入）について</h3>
+                    <p class="text-gray-600 mb-4">以下のコードで最も適切なDIの実装方法はどれですか？</p>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="a" class="mr-2">
+                            <span>A) @Autowired をフィールドに付与</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="b" class="mr-2">
+                            <span>B) コンストラクタで依存性を注入</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="c" class="mr-2">
+                            <span>C) setter メソッドで依存性を注入</span>
+                        </label>
+                    </div>
+                    <button class="answer-button" onclick="showAnswer('quiz1')">回答を表示</button>
+                    <div id="quiz1" class="hidden mt-4">
+                        <div class="bg-green-50 border border-green-200 rounded p-4">
+                            <p class="font-semibold text-green-800">正解：B) コンストラクタで依存性を注入</p>
+                            <p class="text-green-700 mt-2">
+                                <strong>理由：</strong>コンストラクタインジェクションは以下の理由で推奨されます：
+                            </p>
+                            <ul class="list-disc list-inside text-green-700 mt-1 space-y-1">
+                                <li>依存関係が不変（final フィールドが使用可能）</li>
+                                <li>テストが容易（モックオブジェクトを簡単に注入可能）</li>
+                                <li>必須依存関係が明確（コンストラクタ実行時に確定）</li>
+                                <li>循環依存を早期発見可能</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">問題2：RESTful API 設計について</h3>
+                    <p class="text-gray-600 mb-4">商品ID 123の商品情報を削除するための適切なHTTPリクエストは？</p>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="a" class="mr-2">
+                            <span>A) GET /api/products/123/delete</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="b" class="mr-2">
+                            <span>B) POST /api/products/delete?id=123</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="c" class="mr-2">
+                            <span>C) DELETE /api/products/123</span>
+                        </label>
+                    </div>
+                    <button class="answer-button" onclick="showAnswer('quiz2')">回答を表示</button>
+                    <div id="quiz2" class="hidden mt-4">
+                        <div class="bg-green-50 border border-green-200 rounded p-4">
+                            <p class="font-semibold text-green-800">正解：C) DELETE /api/products/123</p>
+                            <p class="text-green-700 mt-2">
+                                <strong>理由：</strong>RESTful な設計原則では：
+                            </p>
+                            <ul class="list-disc list-inside text-green-700 mt-1 space-y-1">
+                                <li>DELETE メソッドは削除操作に使用</li>
+                                <li>リソースはURL で表現（/products/123）</li>
+                                <li>動詞（delete）をURL に含めない</li>
+                                <li>HTTP メソッドで操作を表現</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">問題3：JPA アノテーションについて</h3>
+                    <p class="text-gray-600 mb-4">以下のJPAアノテーションの組み合わせで正しいものは？</p>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="a" class="mr-2">
+                            <span>A) @Entity + @Table + @Id + @Column</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="b" class="mr-2">
+                            <span>B) @Repository + @Id + @GeneratedValue</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="c" class="mr-2">
+                            <span>C) @Service + @Entity + @Transactional</span>
+                        </label>
+                    </div>
+                    <button class="answer-button" onclick="showAnswer('quiz3')">回答を表示</button>
+                    <div id="quiz3" class="hidden mt-4">
+                        <div class="bg-green-50 border border-green-200 rounded p-4">
+                            <p class="font-semibold text-green-800">正解：A) @Entity + @Table + @Id + @Column</p>
+                            <p class="text-green-700 mt-2">
+                                <strong>理由：</strong>エンティティクラスには以下のアノテーションが使用されます：
+                            </p>
+                            <ul class="list-disc list-inside text-green-700 mt-1 space-y-1">
+                                <li>@Entity：エンティティクラスであることを示す</li>
+                                <li>@Table：データベーステーブルとのマッピング</li>
+                                <li>@Id：主キーフィールドの指定</li>
+                                <li>@Column：カラムの詳細設定</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Summary -->
+        <section class="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-lg shadow-lg mb-8">
+            <h2 class="text-2xl font-semibold mb-6">
+                <i class="fas fa-check-double mr-2"></i>7. まとめ
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">習得した重要ポイント</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-300 mt-1 mr-2"></i>
+                            <span><strong>Spring Boot基礎：</strong>DI・IoC により疎結合で保守性の高いアプリケーション設計</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-300 mt-1 mr-2"></i>
+                            <span><strong>RESTful API：</strong>HTTP メソッドを適切に使い分けた標準的なAPI設計</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-300 mt-1 mr-2"></i>
+                            <span><strong>JPA活用：</strong>エンティティマッピングとリポジトリパターンによる効率的なDB操作</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">実務での活用メリット</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-rocket text-green-300 mt-1 mr-2"></i>
+                            <span><strong>開発効率：</strong>自動設定・スターターにより設定時間を大幅短縮</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-rocket text-green-300 mt-1 mr-2"></i>
+                            <span><strong>保守性：</strong>DI により単体テスト・結合テストが容易</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-rocket text-green-300 mt-1 mr-2"></i>
+                            <span><strong>拡張性：</strong>レイヤー化アーキテクチャで機能追加が安全</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-white bg-opacity-20 rounded">
+                <h3 class="text-lg font-semibold mb-2">
+                    <i class="fas fa-arrow-right mr-2"></i>次回の学習内容
+                </h3>
+                <p>Spring Boot・MVC・Thymeleaf による Webアプリケーション開発、フォーム処理、バリデーション、セキュリティ対策</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-600 text-sm border-t border-gray-200 pt-6 mt-8">
+            <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        function showAnswer(id) {
+            const element = document.getElementById(id);
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+                event.target.textContent = '回答を非表示';
+            } else {
+                element.classList.add('hidden');
+                event.target.textContent = '回答を表示';
+            }
+        }
+    </script>
+    </div>
+    </main>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDo4TnHXjokOZiVJv0lzAqZ6Y087wX6ozRv22xSPrr8RY7DHTq46RsRFnzhQ46HU5jtI0OIXGQWxebNBvfi366yAFuhLS5xj3jrXewuhJK7ePoXPtVKBoOh1gsCWeUAhdoQh08LZKvCRgolnEsPPvOB74oNikqVL5BnyD%2FjFYcJvs8KGD8rMeH0Lj26VlNROmZl6e9FLeNZxpT1AE6MeOJQ6kZEQbhI8VnKZ5S90fznCexer5we1jCe1WXxs%2FNINMkKoq%2BUIKZWLrJDKr9ARS0QG%2FK68qohF%2FVhdp5Z%2FFKAN8vUaGvan%2BkgxrEWFVM9qPR2BUGBhrAtTeMwamd5BRCUFpMXMtpXuUSjsYTk77r%2FM%2B4QSqVKNeVGVBZ8zta5%2BXvIAyChN98pQEZRc%2BbdyI7SbEj5EdXBpipeH4nZEgEaKbIcivxgS7fljPzTSWHtScGpGj25B6VWEhGVzshg35GVVgiDVs978yx7Rmxxubb74vim05zXGIc7XWE1B0vXT9Wg%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDo4TnHXjokOZiVJv0lzAqZ6Y087wX6ozRv22xSPrr8RY7DHTq46RsRFnzhQ46HU5jtI0OIXGQWxebNBvfi366yAFuhLS5xj3jrXewuhJK7ePoXPtVKBoOh1gsCWeUAhdoQh08LZKvCRgolnEsPPvOB74oNikqVL5BnyD/jFYcJvs8KGD8rMeH0Lj26VlNROmZl6e9FLeNZxpT1AE6MeOJQ6kZEQbhI8VnKZ5S90fznCexer5we1jCe1WXxs/NINMkKoq+UIKZWLrJDKr9ARS0QG/K68qohF/Vhdp5Z/FKAN8vUaGvan+kgxrEWFVM9qPR2BUGBhrAtTeMwamd5BRCUFpMXMtpXuUSjsYTk77r/M+4QSqVKNeVGVBZ8zta5+XvIAyChN98pQEZRc+bdyI7SbEj5EdXBpipeH4nZEgEaKbIcivxgS7fljPzTSWHtScGpGj25B6VWEhGVzshg35GVVgiDVs978yx7Rmxxubb74vim05zXGIc7XWE1B0vXT9Wg==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

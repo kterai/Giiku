@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム - Day51: 総合プロジェクト開発・チーム開発</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .code-block {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 16px;
+            margin: 16px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .answer-hidden {
+            display: none;
+        }
+        .answer-visible {
+            display: block;
+        }
+        body {
+            line-height: 1.8;
+        }
+        .section-divider {
+            border-top: 3px solid #3b82f6;
+            margin: 2rem 0;
+        }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day50_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day52_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month3.html" class="hover:text-blue-600">3ヶ月目: Webアプリケーション開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week11.html" class="hover:text-blue-600">11週目: Spring Boot開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">51日目: 総合プロジェクト開発・チーム開発</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day51.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <!-- Header Navigation -->
+    <header class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="day50_lecture.html" class="flex items-center text-white hover:text-blue-200 transition-colors">
+                    <i class="fas fa-chevron-left mr-2"></i>
+                    <span class="hidden sm:inline">Day50: パフォーマンス最適化・セキュリティ強化</span>
+                    <span class="sm:hidden">前日</span>
+                </a>
+
+                <div class="text-center">
+                    <h1 class="text-xl sm:text-2xl font-bold">ITエンジニア育成カリキュラム</h1>
+                    <p class="text-blue-200 text-sm sm:text-base">Day51: 総合プロジェクト開発・チーム開発</p>
+                </div>
+
+                <a href="day52_lecture.html" class="flex items-center text-white hover:text-blue-200 transition-colors">
+                    <span class="hidden sm:inline">Day52: コードレビュー・品質管理・リファクタリング</span>
+                    <span class="sm:hidden">翌日</span>
+                    <i class="fas fa-chevron-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Subtitle -->
+        <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-lg mb-8 text-center">
+            <h2 class="text-2xl sm:text-3xl font-bold mb-2">チーム開発・アーキテクチャ設計・プロジェクト管理</h2>
+            <p class="text-blue-100">実践的な開発プロジェクト運営技術の完全マスター</p>
+        </div>
+
+        <!-- Learning Objectives -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6 flex items-center">
+                <i class="fas fa-target mr-3"></i>本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-blue-800 mb-2">プロジェクト企画・要件定義を実践的に習得</h3>
+                    <p class="text-sm text-gray-700">ステークホルダー分析、要件収集手法、プロジェクトスコープ定義</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-green-800 mb-2">アーキテクチャ設計パターンをマスター</h3>
+                    <p class="text-sm text-gray-700">システム設計原則、デザインパターン、スケーラブル設計</p>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-purple-800 mb-2">チーム開発手法を実際に運用</h3>
+                    <p class="text-sm text-gray-700">アジャイル手法、スクラム運営、チームコミュニケーション</p>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-yellow-800 mb-2">プロジェクト管理ツールを活用</h3>
+                    <p class="text-sm text-gray-700">進捗管理、リスク管理、品質管理、リソース最適化</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Development Environment -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-green-600 mb-4 flex items-center">
+                <i class="fas fa-tools mr-3"></i>推奨開発環境
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="text-center">
+                    <div class="bg-gray-100 p-4 rounded-lg mb-2">
+                        <i class="fas fa-project-diagram text-3xl text-blue-500 mb-2"></i>
+                        <h3 class="font-semibold">プロジェクト管理</h3>
+                    </div>
+                    <p class="text-sm">Jira + Confluence + Slack</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-gray-100 p-4 rounded-lg mb-2">
+                        <i class="fas fa-code-branch text-3xl text-green-500 mb-2"></i>
+                        <h3 class="font-semibold">バージョン管理</h3>
+                    </div>
+                    <p class="text-sm">Git + GitHub + GitHub Actions</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-gray-100 p-4 rounded-lg mb-2">
+                        <i class="fas fa-chart-line text-3xl text-purple-500 mb-2"></i>
+                        <h3 class="font-semibold">監視・分析</h3>
+                    </div>
+                    <p class="text-sm">SonarQube + New Relic + Grafana</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Project Planning and Requirements -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-6 flex items-center">
+                <i class="fas fa-clipboard-list mr-3"></i>1. プロジェクト企画・要件定義の実践手法
+            </h2>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">プロジェクト企画とは？</h3>
+            <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                <p><strong>初心者向け解説：</strong>プロジェクト企画（Project Planning）とは、「何を・いつまでに・誰が・どのように作るか」を明確に定める計画作業です。建物を建てる前に設計図を作るように、システム開発でも詳細な計画が必要です。</p>
+                <p class="mt-2"><strong>日常例：</strong>旅行計画に例えると、行き先（プロダクト）、予算（リソース）、日程（スケジュール）、参加者（チーム）を決める作業です。</p>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">ステークホルダー分析（利害関係者の整理）</h3>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 p-3 text-left">ステークホルダー種類</th>
+                            <th class="border border-gray-300 p-3 text-left">役割（日本語説明）</th>
+                            <th class="border border-gray-300 p-3 text-left">実用例</th>
+                            <th class="border border-gray-300 p-3 text-left">関与レベル</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-gray-300 p-3"><strong>プロダクトオーナー</strong></td>
+                            <td class="border border-gray-300 p-3">製品の方向性決定（何を作るかの最終決定者）</td>
+                            <td class="border border-gray-300 p-3">ECサイトの機能優先順位決定、ユーザーストーリー承認</td>
+                            <td class="border border-gray-300 p-3"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm">高</span></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 p-3"><strong>エンドユーザー</strong></td>
+                            <td class="border border-gray-300 p-3">実際にシステムを使用する人（使いやすさの評価者）</td>
+                            <td class="border border-gray-300 p-3">オンラインショッピングするお客様、社内システム利用者</td>
+                            <td class="border border-gray-300 p-3"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm">中</span></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-3"><strong>開発チーム</strong></td>
+                            <td class="border border-gray-300 p-3">実際にコードを書く技術者（実現可能性の判断者）</td>
+                            <td class="border border-gray-300 p-3">フロントエンド・バックエンド・インフラエンジニア</td>
+                            <td class="border border-gray-300 p-3"><span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm">高</span></td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 p-3"><strong>運用チーム</strong></td>
+                            <td class="border border-gray-300 p-3">システム運用・保守担当（安定稼働の責任者）</td>
+                            <td class="border border-gray-300 p-3">サーバー監視、障害対応、セキュリティ管理</td>
+                            <td class="border border-gray-300 p-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">中</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">要件収集手法の実践</h3>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-green-800 mb-2"><i class="fas fa-comments mr-2"></i>インタビュー手法</h4>
+                    <ul class="text-sm space-y-1">
+                        <li>• <strong>構造化インタビュー：</strong>事前に質問を準備した形式的な聞き取り</li>
+                        <li>• <strong>非構造化インタビュー：</strong>自由な対話形式でニーズを探る</li>
+                        <li>• <strong>実用例：</strong>「現在の業務で最も時間がかかる作業は？」</li>
+                    </ul>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-blue-800 mb-2"><i class="fas fa-eye mr-2"></i>観察・現場調査</h4>
+                    <ul class="text-sm space-y-1">
+                        <li>• <strong>実際の作業観察：</strong>ユーザーの実際の行動を観察</li>
+                        <li>• <strong>業務フロー分析：</strong>現在の業務手順を詳細に記録</li>
+                        <li>• <strong>実用例：</strong>レジ業務の流れを観察してPOSシステム要件定義</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">ユーザーストーリー作成テンプレート</h3>
+            
+            <div class="code-block">
+<pre><code class="language-text">【ユーザーストーリーテンプレート】
+As a [ユーザーの種類]
+I want [実現したい機能]
+So that [その理由・価値]
+
+【具体例：ECサイト】
+As a 顧客
+I want 商品を検索できるようにしたい
+So that 欲しい商品を素早く見つけられる
+
+【受け入れ条件（Acceptance Criteria）】
+Given [前提条件]
+When [実行する操作]
+Then [期待される結果]
+
+【具体例】
+Given 商品検索ページにアクセスしたとき
+When キーワード「スマートフォン」で検索実行
+Then 関連商品が価格順でリスト表示される</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 2: Architecture Design -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-green-600 mb-6 flex items-center">
+                <i class="fas fa-drafting-compass mr-3"></i>2. アーキテクチャ設計パターンの実践
+            </h2>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">アーキテクチャ設計とは？</h3>
+            <div class="bg-green-50 p-4 rounded-lg mb-6">
+                <p><strong>初心者向け解説：</strong>アーキテクチャ設計（Architecture Design）とは、システム全体の構造や各部品の関係を設計することです。</p>
+                <p class="mt-2"><strong>日常例：</strong>家の設計図に例えると、部屋の配置（コンポーネント）、配管・配線（データフロー）、基礎工事（インフラ）を決める作業です。</p>
+                <p class="mt-2"><strong>なぜ重要？</strong>後からの変更コストを大幅に削減し、チーム開発での作業分担を明確にできるためです。</p>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">システム設計原則（SOLID原則）</h3>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 p-3 text-left">原則</th>
+                            <th class="border border-gray-300 p-3 text-left">概要（日本語説明）</th>
+                            <th class="border border-gray-300 p-3 text-left">実装例</th>
+                            <th class="border border-gray-300 p-3 text-left">メリット</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-gray-300 p-3"><strong>S</strong>RP<br><small>Single Responsibility</small></td>
+                            <td class="border border-gray-300 p-3">単一責任原則<br>（1つのクラスは1つの責任のみ）</td>
+                            <td class="border border-gray-300 p-3">UserServiceクラスはユーザー管理のみ、EmailServiceは通知のみ</td>
+                            <td class="border border-gray-300 p-3">変更時の他機能への影響を最小化</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 p-3"><strong>O</strong>CP<br><small>Open/Closed</small></td>
+                            <td class="border border-gray-300 p-3">開放閉鎖原則<br>（拡張に開放、修正に閉鎖）</td>
+                            <td class="border border-gray-300 p-3">決済方法をクレジット、銀行振込で拡張可能な設計</td>
+                            <td class="border border-gray-300 p-3">新機能追加時の既存コード修正不要</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-3"><strong>L</strong>SP<br><small>Liskov Substitution</small></td>
+                            <td class="border border-gray-300 p-3">リスコフの置換原則<br>（派生クラスは基底クラスと置換可能）</td>
+                            <td class="border border-gray-300 p-3">Vehicle基底クラスをCar、Bikeクラスで継承</td>
+                            <td class="border border-gray-300 p-3">ポリモーフィズムの安全な利用</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 p-3"><strong>I</strong>SP<br><small>Interface Segregation</small></td>
+                            <td class="border border-gray-300 p-3">インターフェース分離原則<br>（不要なメソッドに依存させない）</td>
+                            <td class="border border-gray-300 p-3">ReadableとWritableを分離したインターフェース設計</td>
+                            <td class="border border-gray-300 p-3">必要な機能のみを実装</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-3"><strong>D</strong>IP<br><small>Dependency Inversion</small></td>
+                            <td class="border border-gray-300 p-3">依存性逆転原則<br>（抽象に依存し、具象に依存しない）</td>
+                            <td class="border border-gray-300 p-3">DatabaseインターフェースでMySQL、PostgreSQL切り替え可能</td>
+                            <td class="border border-gray-300 p-3">テスタビリティと柔軟性の向上</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">マイクロサービスアーキテクチャの実装例</h3>
+            
+            <div class="code-block">
+<pre><code class="language-javascript">// 1. ユーザーサービス（User Service）
+class UserService {
+    constructor(userRepository, authService) {
+        this.userRepository = userRepository;
+        this.authService = authService;
+    }
+
+    async createUser(userData) {
+        // ユーザー作成ロジック
+        const hashedPassword = await this.authService.hashPassword(userData.password);
+        return this.userRepository.create({
+            ...userData,
+            password: hashedPassword
+        });
+    }
+
+    async getUserProfile(userId) {
+        return this.userRepository.findById(userId);
+    }
+}
+
+// 2. 商品サービス（Product Service）
+class ProductService {
+    constructor(productRepository, inventoryService) {
+        this.productRepository = productRepository;
+        this.inventoryService = inventoryService;
+    }
+
+    async getProductWithStock(productId) {
+        const product = await this.productRepository.findById(productId);
+        const stock = await this.inventoryService.getStock(productId);
+        return { ...product, stock };
+    }
+}
+
+// 3. 注文サービス（Order Service）
+class OrderService {
+    constructor(orderRepository, userService, productService, paymentService) {
+        this.orderRepository = orderRepository;
+        this.userService = userService;
+        this.productService = productService;
+        this.paymentService = paymentService;
+    }
+
+    async createOrder(userId, orderData) {
+        // 1. ユーザー存在確認
+        const user = await this.userService.getUserProfile(userId);
+        if (!user) throw new Error('User not found');
+
+        // 2. 商品・在庫確認
+        for (const item of orderData.items) {
+            const product = await this.productService.getProductWithStock(item.productId);
+            if (product.stock < item.quantity) {
+                throw new Error(`Insufficient stock for ${product.name}`);
+            }
+        }
+
+        // 3. 注文作成
+        const order = await this.orderRepository.create({
+            userId,
+            ...orderData,
+            status: 'pending'
+        });
+
+        // 4. 決済処理
+        const paymentResult = await this.paymentService.processPayment(order);
+        
+        if (paymentResult.success) {
+            await this.orderRepository.updateStatus(order.id, 'confirmed');
+            return { ...order, status: 'confirmed' };
+        } else {
+            throw new Error('Payment failed');
+        }
+    }
+}
+
+// 4. API Gateway（統合エンドポイント）
+class ApiGateway {
+    constructor() {
+        this.userService = new UserService(userRepository, authService);
+        this.productService = new ProductService(productRepository, inventoryService);
+        this.orderService = new OrderService(orderRepository, this.userService, this.productService, paymentService);
+    }
+
+    // RESTful APIエンドポイント
+    setupRoutes(app) {
+        // ユーザー関連
+        app.post('/api/users', this.createUser.bind(this));
+        app.get('/api/users/:id', this.getUserProfile.bind(this));
+
+        // 商品関連
+        app.get('/api/products/:id', this.getProduct.bind(this));
+
+        // 注文関連
+        app.post('/api/orders', this.createOrder.bind(this));
+    }
+
+    async createUser(req, res) {
+        try {
+            const user = await this.userService.createUser(req.body);
+            res.status(201).json(user);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    }
+
+    async createOrder(req, res) {
+        try {
+            const order = await this.orderService.createOrder(req.userId, req.body);
+            res.status(201).json(order);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    }
+}</code></pre>
+            </div>
+
+            <div class="bg-yellow-50 p-4 rounded-lg mb-6">
+                <h4 class="font-semibold text-yellow-800 mb-2">💡 設計のポイント</h4>
+                <ul class="text-sm space-y-1">
+                    <li>• <strong>単一責任：</strong>各サービスは明確な責任範囲を持つ</li>
+                    <li>• <strong>疎結合：</strong>サービス間はインターフェースを通じて通信</li>
+                    <li>• <strong>テスト可能：</strong>依存性注入により単体テストが容易</li>
+                    <li>• <strong>拡張可能：</strong>新しいサービス追加や既存サービス変更が独立して可能</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 3: Team Development Methods -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-purple-600 mb-6 flex items-center">
+                <i class="fas fa-users mr-3"></i>3. チーム開発手法の実践運用
+            </h2>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">アジャイル開発手法とは？</h3>
+            <div class="bg-purple-50 p-4 rounded-lg mb-6">
+                <p><strong>初心者向け解説：</strong>アジャイル開発（Agile Development）とは、短期間で動くソフトウェアを繰り返し作り、その都度お客様からフィードバックを得て改善していく開発手法です。</p>
+                <p class="mt-2"><strong>日常例：</strong>料理に例えると、完璧な料理を一度で作ろうとするのではなく、味見をしながら少しずつ調味料を足していく感じです。</p>
+                <p class="mt-2"><strong>なぜ有効？</strong>要件の変更に柔軟に対応でき、早期にユーザーの声を反映できるためです。</p>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">スクラム（Scrum）フレームワークの運用</h3>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-blue-800 mb-3"><i class="fas fa-calendar-alt mr-2"></i>スクラムイベント</h4>
+                    <ul class="text-sm space-y-2">
+                        <li><strong>スプリント計画（Sprint Planning）：</strong>2-4週間で実装する機能を決定</li>
+                        <li><strong>デイリースクラム（Daily Scrum）：</strong>毎日15分の進捗共有</li>
+                        <li><strong>スプリントレビュー（Sprint Review）：</strong>完成した機能のデモ</li>
+                        <li><strong>レトロスペクティブ（Retrospective）：</strong>チームの改善点討議</li>
+                    </ul>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-green-800 mb-3"><i class="fas fa-user-friends mr-2"></i>スクラム役割</h4>
+                    <ul class="text-sm space-y-2">
+                        <li><strong>プロダクトオーナー：</strong>何を作るかの優先順位決定者</li>
+                        <li><strong>スクラムマスター：</strong>チームの進行役・障害除去</li>
+                        <li><strong>開発チーム：</strong>実際にプロダクトを作る技術者</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">デイリースクラム運営テンプレート</h3>
+            
+            <div class="code-block">
+<pre><code class="language-text">【デイリースクラム進行テンプレート】
+時間：毎日朝9:00-9:15（15分厳守）
+場所：チーム作業スペース（またはオンライン）
+
+【各メンバーが答える3つの質問】
+1. 昨日何をやったか？
+   - 完了したタスク
+   - 進行中のタスク
+
+2. 今日何をやるか？
+   - 着手予定のタスク
+   - 目標とする完了タスク
+
+3. 困っていることはあるか？
+   - 技術的な障害
+   - 外部依存による遅延
+   - チーム内での相談事項
+
+【実際の例】
+田中：「昨日はユーザー登録APIの実装を完了。今日は認証機能のテストを書く予定。データベース設計について佐藤さんに相談したい。」
+
+佐藤：「昨日はDB設計書を更新。今日は田中さんと相談してAPI仕様を確定させる。特に困ったことはない。」</code></pre>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">チームコミュニケーション最適化戦略</h3>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 p-3 text-left">コミュニケーション手法</th>
+                            <th class="border border-gray-300 p-3 text-left">用途（日本語説明）</th>
+                            <th class="border border-gray-300 p-3 text-left">実用例</th>
+                            <th class="border border-gray-300 p-3 text-left">推奨ツール</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-gray-300 p-3"><strong>同期コミュニケーション</strong></td>
+                            <td class="border border-gray-300 p-3">リアルタイムでの即座な意思疎通</td>
+                            <td class="border border-gray-300 p-3">緊急バグ修正、設計相談、ペアプログラミング</td>
+                            <td class="border border-gray-300 p-3">Zoom、Google Meet、対面会議</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 p-3"><strong>非同期コミュニケーション</strong></td>
+                            <td class="border border-gray-300 p-3">時間をおいて返答する形式の情報共有</td>
+                            <td class="border border-gray-300 p-3">仕様書レビュー、進捗報告、技術記事共有</td>
+                            <td class="border border-gray-300 p-3">Slack、Discord、Confluence</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-3"><strong>ドキュメントベース</strong></td>
+                            <td class="border border-gray-300 p-3">文書による正式な情報伝達</td>
+                            <td class="border border-gray-300 p-3">API仕様書、設計書、議事録</td>
+                            <td class="border border-gray-300 p-3">Notion、Confluence、GitHub Wiki</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 p-3"><strong>コードベース</strong></td>
+                            <td class="border border-gray-300 p-3">コードを通じた技術的な意思疎通</td>
+                            <td class="border border-gray-300 p-3">プルリクエスト、コードレビュー、コメント</td>
+                            <td class="border border-gray-300 p-3">GitHub、GitLab、Bitbucket</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 4: Project Management -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-600 mb-6 flex items-center">
+                <i class="fas fa-chart-gantt mr-3"></i>4. プロジェクト管理ツールと手法
+            </h2>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">プロジェクト管理とは？</h3>
+            <div class="bg-red-50 p-4 rounded-lg mb-6">
+                <p><strong>初心者向け解説：</strong>プロジェクト管理（Project Management）とは、決められた期限内に品質の高いソフトウェアを効率的に完成させるための計画・実行・監視の仕組みです。</p>
+                <p class="mt-2"><strong>日常例：</strong>イベント運営に例えると、会場手配（リソース）、当日までのスケジュール（進捗管理）、参加者対応（ステークホルダー管理）を総合的に調整する仕事です。</p>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">進捗管理の実践手法</h3>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-blue-800 mb-3"><i class="fas fa-tasks mr-2"></i>カンバンボード活用</h4>
+                    <div class="text-sm space-y-2">
+                        <div class="bg-white p-2 rounded border-l-4 border-gray-400">
+                            <strong>Backlog（未着手）</strong><br>
+                            優先順位付けされた作業リスト
+                        </div>
+                        <div class="bg-white p-2 rounded border-l-4 border-yellow-400">
+                            <strong>In Progress（進行中）</strong><br>
+                            現在作業中のタスク（WIP制限）
+                        </div>
+                        <div class="bg-white p-2 rounded border-l-4 border-blue-400">
+                            <strong>Review（レビュー中）</strong><br>
+                            完了したが確認待ちのタスク
+                        </div>
+                        <div class="bg-white p-2 rounded border-l-4 border-green-400">
+                            <strong>Done（完了）</strong><br>
+                            検証・承認済みのタスク
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-green-800 mb-3"><i class="fas fa-chart-line mr-2"></i>バーンダウンチャート</h4>
+                    <p class="text-sm mb-2">残作業量の可視化グラフ</p>
+                    <ul class="text-sm space-y-1">
+                        <li>• <strong>理想線：</strong>計画通りに進んだ場合の予定線</li>
+                        <li>• <strong>実績線：</strong>実際の残作業量の推移</li>
+                        <li>• <strong>活用方法：</strong>スプリント期間中の進捗監視</li>
+                        <li>• <strong>判断基準：</strong>実績線が理想線より上回る場合は遅延</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">リスク管理の実装</h3>
+            
+            <div class="code-block">
+<pre><code class="language-javascript">// プロジェクトリスク管理システム
+class ProjectRiskManager {
+    constructor() {
+        this.risks = [];
+        this.riskMatrix = {
+            high: { probability: 0.7, impact: 0.8 },
+            medium: { probability: 0.4, impact: 0.5 },
+            low: { probability: 0.1, impact: 0.2 }
+        };
+    }
+
+    // リスク登録
+    addRisk(riskData) {
+        const risk = {
+            id: this.generateRiskId(),
+            title: riskData.title,
+            description: riskData.description,
+            category: riskData.category, // 技術・スケジュール・リソース・外部依存
+            probability: riskData.probability, // 0.0-1.0
+            impact: riskData.impact, // 0.0-1.0
+            riskScore: riskData.probability * riskData.impact,
+            status: 'active', // active, mitigated, occurred, closed
+            owner: riskData.owner,
+            mitigationPlan: riskData.mitigationPlan,
+            contingencyPlan: riskData.contingencyPlan,
+            createdAt: new Date(),
+            reviewDate: this.calculateReviewDate(riskData.probability * riskData.impact)
+        };
+
+        this.risks.push(risk);
+        return risk;
+    }
+
+    // リスク評価・優先順位付け
+    prioritizeRisks() {
+        return this.risks
+            .filter(risk => risk.status === 'active')
+            .sort((a, b) => b.riskScore - a.riskScore)
+            .map(risk => ({
+                ...risk,
+                priority: this.calculatePriority(risk.riskScore),
+                urgency: this.calculateUrgency(risk.reviewDate)
+            }));
+    }
+
+    // 週次リスクレビュー
+    weeklyRiskReview() {
+        const highPriorityRisks = this.prioritizeRisks()
+            .filter(risk => risk.priority === 'High');
+
+        const reviewReport = {
+            date: new Date(),
+            totalActiveRisks: this.risks.filter(r => r.status === 'active').length,
+            highPriorityCount: highPriorityRisks.length,
+            newRisksThisWeek: this.risks.filter(r => this.isThisWeek(r.createdAt)).length,
+            mitigatedRisksThisWeek: this.risks.filter(r => 
+                r.status === 'mitigated' && this.isThisWeek(r.updatedAt)
+            ).length,
+            recommendations: this.generateRecommendations(highPriorityRisks)
+        };
+
+        return reviewReport;
+    }
+
+    // リスク軽減策の実行
+    executeRiskMitigation(riskId, mitigationActions) {
+        const risk = this.risks.find(r => r.id === riskId);
+        if (risk) {
+            risk.mitigationActions = mitigationActions;
+            risk.status = 'mitigating';
+            risk.updatedAt = new Date();
+            
+            // 軽減後の再評価
+            risk.probability *= 0.5; // 軽減策により確率を半減
+            risk.riskScore = risk.probability * risk.impact;
+        }
+    }
+
+    calculatePriority(riskScore) {
+        if (riskScore >= 0.6) return 'High';
+        if (riskScore >= 0.3) return 'Medium';
+        return 'Low';
+    }
+
+    generateRecommendations(highPriorityRisks) {
+        const recommendations = [];
+        
+        highPriorityRisks.forEach(risk => {
+            if (risk.category === '技術') {
+                recommendations.push(`技術リスク "${risk.title}": 技術スパイクの実施を推奨`);
+            } else if (risk.category === 'スケジュール') {
+                recommendations.push(`スケジュールリスク "${risk.title}": スコープ調整の検討が必要`);
+            } else if (risk.category === 'リソース') {
+                recommendations.push(`リソースリスク "${risk.title}": 追加要員の確保を検討`);
+            }
+        });
+
+        return recommendations;
+    }
+}
+
+// 使用例
+const riskManager = new ProjectRiskManager();
+
+// 技術リスクの登録
+riskManager.addRisk({
+    title: 'APIレスポンス性能問題',
+    description: '外部API呼び出しが遅く、ユーザー体験に影響',
+    category: '技術',
+    probability: 0.6,
+    impact: 0.8,
+    owner: '田中（バックエンド担当）',
+    mitigationPlan: 'キャッシュ機能の実装、非同期処理の導入',
+    contingencyPlan: 'API提供元との直接協議、代替API検討'
+});
+
+// スケジュールリスクの登録
+riskManager.addRisk({
+    title: '要件変更によるスケジュール遅延',
+    description: 'クライアントからの追加要求により開発期間不足',
+    category: 'スケジュール',
+    probability: 0.7,
+    impact: 0.6,
+    owner: 'プロジェクトマネージャー',
+    mitigationPlan: '変更管理プロセスの厳格化、影響度評価の実施',
+    contingencyPlan: 'リリース範囲の調整、段階的リリース検討'
+});
+
+// 週次レビューの実行
+const weeklyReport = riskManager.weeklyRiskReview();
+console.log('週次リスクレビュー結果:', weeklyReport);</code></pre>
+            </div>
+
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">品質管理指標（KPI）の設定</h3>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full border-collapse border border-gray-300">
+                    <thead>
+                        <tr class="bg-gray-100">
+                            <th class="border border-gray-300 p-3 text-left">品質指標</th>
+                            <th class="border border-gray-300 p-3 text-left">説明（日本語）</th>
+                            <th class="border border-gray-300 p-3 text-left">目標値</th>
+                            <th class="border border-gray-300 p-3 text-left">測定方法</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-gray-300 p-3"><strong>コードカバレッジ</strong></td>
+                            <td class="border border-gray-300 p-3">テストでカバーされているコードの割合</td>
+                            <td class="border border-gray-300 p-3">80%以上</td>
+                            <td class="border border-gray-300 p-3">Jest、Coveralls等のツール</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 p-3"><strong>バグ密度</strong></td>
+                            <td class="border border-gray-300 p-3">1000行あたりのバグ数</td>
+                            <td class="border border-gray-300 p-3">1件未満/1000行</td>
+                            <td class="border border-gray-300 p-3">バグトラッキングシステム</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-gray-300 p-3"><strong>パフォーマンス</strong></td>
+                            <td class="border border-gray-300 p-3">ページ読み込み時間・API応答時間</td>
+                            <td class="border border-gray-300 p-3">3秒未満/500ms未満</td>
+                            <td class="border border-gray-300 p-3">Lighthouse、New Relic</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="border border-gray-300 p-3"><strong>可用性</strong></td>
+                            <td class="border border-gray-300 p-3">システムが正常に稼働している時間の割合</td>
+                            <td class="border border-gray-300 p-3">99.9%以上</td>
+                            <td class="border border-gray-300 p-3">監視システム、ログ分析</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Exercise Section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-indigo-600 mb-6 flex items-center">
+                <i class="fas fa-laptop-code mr-3"></i>演習問題
+            </h2>
+
+            <div class="space-y-6">
+                <div class="border-l-4 border-indigo-500 pl-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">演習問題1: プロジェクト計画立案</h3>
+                    <p class="text-gray-700 mb-4">
+                        以下の要件でWebアプリケーション開発プロジェクトの計画を立ててください：
+                        <br>• プロジェクト期間：3ヶ月
+                        <br>• チーム構成：4名（PM1名、フロントエンド2名、バックエンド1名）
+                        <br>• 機能：ユーザー認証、商品管理、注文処理、決済機能
+                        <br>• 納期：絶対厳守（延期不可）
+                    </p>
+
+                    <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors" 
+                            onclick="toggleAnswer('answer1')">
+                        回答例を表示
+                    </button>
+
+                    <div id="answer1" class="answer-hidden mt-4 p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2">回答例：</h4>
+                        <div class="code-block">
+<pre><code class="language-text">【3ヶ月プロジェクト計画例】
+
+■ Phase 1 (1ヶ月目): 基盤構築・要件確定
+Week 1-2: 要件定義・技術選定・環境構築
+- ステークホルダーインタビュー
+- 技術スタック決定 (React + Node.js + MongoDB)
+- 開発環境・CI/CD パイプライン構築
+- ワイヤーフレーム・API設計
+
+Week 3-4: 基本機能実装開始
+- ユーザー認証システム (JWT実装)
+- 基本的なUI コンポーネント作成
+- データベース設計・マイグレーション
+
+■ Phase 2 (2ヶ月目): 核心機能開発
+Week 5-6: 商品管理機能
+- 商品CRUD API開発
+- 商品一覧・詳細画面実装
+- 画像アップロード機能
+
+Week 7-8: 注文処理機能
+- ショッピングカート機能
+- 注文作成・更新・キャンセル API
+- 在庫管理システム連携
+
+■ Phase 3 (3ヶ月目): 決済・仕上げ
+Week 9-10: 決済機能・統合テスト
+- 決済API統合 (Stripe等)
+- セキュリティ強化 (HTTPS, 入力検証)
+- E2Eテスト・負荷テスト
+
+Week 11-12: 最終調整・デプロイ
+- バグ修正・UI/UX改善
+- 本番環境デプロイ・監視設定
+- ユーザートレーニング・ドキュメント作成
+
+【リスク対策】
+- 週次進捗レビューで早期遅延検知
+- 機能優先順位付け (MVP → 拡張機能)
+- バッファ期間: 各フェーズに20%の余裕を確保</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-l-4 border-indigo-500 pl-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">演習問題2: チーム開発運営設計</h3>
+                    <p class="text-gray-700 mb-4">
+                        5名のリモートチーム（時差あり）でアジャイル開発を実施する場合の運営方法を設計してください。
+                        チーム構成：PM1名（日本）、開発者3名（日本2名・ベトナム1名）、デザイナー1名（フィリピン）
+                    </p>
+
+                    <button class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition-colors" 
+                            onclick="toggleAnswer('answer2')">
+                        回答例を表示
+                    </button>
+
+                    <div id="answer2" class="answer-hidden mt-4 p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-semibold mb-2">回答例：</h4>
+                        <div class="code-block">
+<pre><code class="language-text">【リモートチーム運営設計】
+
+■ 時差対応スケジュール
+日本時間: 9:00-18:00 (JST)
+ベトナム時間: 7:00-16:00 (GMT+7) ※日本-2時間
+フィリピン時間: 8:00-17:00 (GMT+8) ※日本-1時間
+
+共通作業時間: 9:00-16:00 JST (全員オンライン)
+
+■ デイリースクラム運営
+時間: 毎日 9:00-9:15 JST
+形式: Zoom + Slackでの事前情報共有
+
+事前準備 (前日21:00までにSlackに投稿):
+- 昨日の完了タスク
+- 今日の予定タスク  
+- 困りごと・相談事項
+
+当日運営:
+- 5分: 各自1分で状況報告
+- 10分: 困りごとの解決・相談
+
+■ 非同期コミュニケーション戦略
+Slack チャンネル構成:
+#general - 全体連絡
+#dev-frontend - フロントエンド技術相談
+#dev-backend - バックエンド技術相談
+#design-review - デザインレビュー
+#random - 雑談・チームビルディング
+
+GitHub活用:
+- PR テンプレート with チェックリスト
+- Issue テンプレート (Bug/Feature/Task)
+- プロジェクトボードでの進捗可視化
+
+■ 定期イベントスケジュール
+毎週月曜 10:00-11:00: スプリント計画
+毎週水曜 15:00-16:00: 技術共有会
+毎週金曜 16:00-17:00: スプリントレビュー&レトロ
+月1回: オンラインチームランチ (チームビルディング)
+
+■ 品質担保の仕組み
+コードレビュー必須: 最低2名の承認
+自動テスト: PR作成時に自動実行
+デザインレビュー: Figma上でのコメント収集
+ドキュメント: Confluenceでの仕様書管理</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-purple-600 mb-6 flex items-center">
+                <i class="fas fa-question-circle mr-3"></i>理解度クイズ
+            </h2>
+
+            <div class="space-y-6">
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">クイズ1: アジャイル開発のスクラムイベントについて</h3>
+                    <p class="text-gray-700 mb-4">
+                        スクラムにおける「レトロスペクティブ」の主な目的として最も適切なものはどれですか？
+                    </p>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="A" class="mr-2">
+                            A. 完成した機能をステークホルダーにデモする
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="B" class="mr-2">
+                            B. チームの作業プロセスを振り返り改善点を見つける
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="C" class="mr-2">
+                            C. 次のスプリントで実装する機能を決定する
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="D" class="mr-2">
+                            D. 日々の進捗状況を共有する
+                        </label>
+                    </div>
+
+                    <button class="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors" 
+                            onclick="showAnswer('quiz1', 'B', 'レトロスペクティブは、チームが作業プロセスを振り返り、「何がうまくいったか」「何に困ったか」「次はどう改善するか」を話し合うイベントです。継続的改善によってチームの生産性と品質を向上させることが目的です。')">
+                        回答を表示
+                    </button>
+
+                    <div id="quiz1-answer" class="answer-hidden mt-4 p-4 bg-purple-50 rounded-lg">
+                        <p class="font-semibold text-purple-800">正解: B</p>
+                        <p class="text-gray-700 mt-2" id="quiz1-explanation"></p>
+                    </div>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">クイズ2: SOLID原則の適用について</h3>
+                    <p class="text-gray-700 mb-4">
+                        以下のコード例で、SOLID原則のうち「単一責任原則（SRP）」に最も違反しているクラスはどれですか？
+                    </p>
+                    <div class="code-block text-sm mb-4">
+<pre><code class="language-javascript">// オプション A
+class UserValidator {
+    validateEmail(email) { /* email validation */ }
+    validatePassword(password) { /* password validation */ }
+}
+
+// オプション B  
+class OrderProcessor {
+    processOrder(order) { /* order processing */ }
+    sendEmailNotification(order) { /* email sending */ }
+    updateInventory(order) { /* inventory management */ }
+    logOrderActivity(order) { /* logging */ }
+}
+
+// オプション C
+class PaymentService {
+    processPayment(amount, method) { /* payment processing */ }
+}</code></pre>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="A" class="mr-2">
+                            A. UserValidator - ユーザー検証に関する複数機能
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="B" class="mr-2">
+                            B. OrderProcessor - 注文処理以外の多様な責任を持つ
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="C" class="mr-2">
+                            C. PaymentService - 決済処理の単一責任のみ
+                        </label>
+                    </div>
+
+                    <button class="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors" 
+                            onclick="showAnswer('quiz2', 'B', 'OrderProcessorクラスは注文処理、メール送信、在庫管理、ログ記録という4つの異なる責任を持っています。単一責任原則では、クラスは1つの理由でのみ変更されるべきです。このクラスは注文処理、メール仕様、在庫システム、ログ仕様の変更時にすべて修正が必要になります。')">
+                        回答を表示
+                    </button>
+
+                    <div id="quiz2-answer" class="answer-hidden mt-4 p-4 bg-purple-50 rounded-lg">
+                        <p class="font-semibold text-purple-800">正解: B</p>
+                        <p class="text-gray-700 mt-2" id="quiz2-explanation"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-green-600 mb-6 flex items-center">
+                <i class="fas fa-clipboard-check mr-3"></i>まとめ
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">習得した重要ポイント</h3>
+                    
+                    <h4 class="font-semibold text-blue-800 mb-2">プロジェクト企画・要件定義</h4>
+                    <ul class="text-sm text-gray-700 space-y-1 mb-4">
+                        <li>• ステークホルダー分析により、関係者の役割と影響度を明確化</li>
+                        <li>• ユーザーストーリー形式で要件を構造化し、受け入れ条件を具体的に定義</li>
+                        <li>• インタビューと観察により、真のニーズを発見する技術を習得</li>
+                    </ul>
+
+                    <h4 class="font-semibold text-green-800 mb-2">アーキテクチャ設計</h4>
+                    <ul class="text-sm text-gray-700 space-y-1 mb-4">
+                        <li>• SOLID原則に基づく保守性・拡張性の高い設計手法をマスター</li>
+                        <li>• マイクロサービスアーキテクチャでスケーラブルなシステム構築</li>
+                        <li>• 単一責任・開放閉鎖原則により、変更に強いコード設計を実現</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-purple-800 mb-2">チーム開発手法</h4>
+                    <ul class="text-sm text-gray-700 space-y-1 mb-4">
+                        <li>• アジャイル・スクラム手法で短期間での価値提供とフィードバック収集</li>
+                        <li>• デイリースクラムで障害の早期発見・解決により開発効率向上</li>
+                        <li>• 同期・非同期コミュニケーションの使い分けでリモートチーム運営</li>
+                    </ul>
+
+                    <h4 class="font-semibold text-red-800 mb-2">プロジェクト管理</h4>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• カンバンボード・バーンダウンチャートで進捗の可視化と予測精度向上</li>
+                        <li>• リスク管理システムで潜在的問題の早期発見・対策立案</li>
+                        <li>• KPI設定により品質・パフォーマンス・可用性を定量的に管理</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg">
+                <h4 class="font-semibold text-gray-800 mb-2">実務での具体的なメリット</h4>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <p><strong>🎯 プロジェクト成功率向上：</strong>要件定義の徹底により仕様変更・手戻りを大幅削減</p>
+                        <p><strong>⚡ 開発効率化：</strong>アーキテクチャ設計によりチーム並行開発と保守性を両立</p>
+                    </div>
+                    <div>
+                        <p><strong>🤝 チーム生産性向上：</strong>アジャイル手法で継続的改善とモチベーション維持</p>
+                        <p><strong>📊 リスク最小化：</strong>進捗管理とリスク対策で予算・期間内でのプロジェクト完遂</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-4 flex items-center">
+                <i class="fas fa-arrow-right mr-3"></i>次回の学習内容
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-semibold mb-2">Day52: コードレビュー・品質管理・リファクタリング</h3>
+                    <p class="text-blue-100 mb-4">
+                        コード品質向上のための実践的手法を学習します。レビュープロセス、品質指標、リファクタリング技術を習得し、
+                        保守性の高いコードベース構築技術を身につけます。
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-blue-100 mb-2">学習予定トピック：</h4>
+                    <ul class="text-sm text-blue-100 space-y-1">
+                        <li>• コードレビューの効果的な実施方法</li>
+                        <li>• 静的解析ツール・品質メトリクス活用</li>
+                        <li>• リファクタリング技法とテスト戦略</li>
+                        <li>• 技術的負債管理とコード品質向上</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAnswer(answerId) {
+            const answerElement = document.getElementById(answerId);
+            if (answerElement.classList.contains('answer-hidden')) {
+                answerElement.classList.remove('answer-hidden');
+                answerElement.classList.add('answer-visible');
+            } else {
+                answerElement.classList.remove('answer-visible');
+                answerElement.classList.add('answer-hidden');
+            }
+        }
+
+        function showAnswer(quizId, correctAnswer, explanation) {
+            const answerElement = document.getElementById(quizId + '-answer');
+            const explanationElement = document.getElementById(quizId + '-explanation');
+            
+            explanationElement.textContent = explanation;
+            
+            if (answerElement.classList.contains('answer-hidden')) {
+                answerElement.classList.remove('answer-hidden');
+                answerElement.classList.add('answer-visible');
+            } else {
+                answerElement.classList.remove('answer-visible');
+                answerElement.classList.add('answer-hidden');
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDva82CngwfDDRZaJ84sI4WEkGTMv2ivd1sDgjGAIDL4Kz%2BmjOLKvnSd8vhpHhtz4gXZ8NkJyaxG4liZIDujR22ZWUeITm9ROvuiRr4KiAXYew0FBQCu4YcTgnKWZJYK9bwJQPWjACDuptpm%2FCfEYhl%2F6gMMQ6AJ5TzK7zPorpgBQNATSZ1YZcCiwKoJmN8EABJ2X%2FOIc3bQisPeCExF8jXR0ikGIsDrJCEpHbvGUp913JDzPfjb33sCm3QEGMjLbSUaVZrWzh3M%2Fdsmgf75AoFFcmCCx9sRVQ31f6KZOD9mYv4eEDJDcQhSvNYhdpw%2B7PU%2BJoILjxMma%2BVlDFQmHZlGc0y7K2MzH%2B1brlQ1HOPt2bPak%2B48rykSV40kOYnYE%2FAw6obKGSAv7iZ6W%2FvFL%2FbZIOrVapR0%2FQUIl03mqe8NV5tE%2BeFeN7R1W6hiVvPOewXWqP2lrDSyWZvm4tMY%2F%2F1s6YY77vPiHhp2b19wt3j8%2B9jXSAwxup0YlqosTP2SV5RQJTgL6BRqkyFvNSYOdwYA%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDva82CngwfDDRZaJ84sI4WEkGTMv2ivd1sDgjGAIDL4Kz+mjOLKvnSd8vhpHhtz4gXZ8NkJyaxG4liZIDujR22ZWUeITm9ROvuiRr4KiAXYew0FBQCu4YcTgnKWZJYK9bwJQPWjACDuptpm/CfEYhl/6gMMQ6AJ5TzK7zPorpgBQNATSZ1YZcCiwKoJmN8EABJ2X/OIc3bQisPeCExF8jXR0ikGIsDrJCEpHbvGUp913JDzPfjb33sCm3QEGMjLbSUaVZrWzh3M/dsmgf75AoFFcmCCx9sRVQ31f6KZOD9mYv4eEDJDcQhSvNYhdpw+7PU+JoILjxMma+VlDFQmHZlGc0y7K2MzH+1brlQ1HOPt2bPak+48rykSV40kOYnYE/Aw6obKGSAv7iZ6W/vFL/bZIOrVapR0/QUIl03mqe8NV5tE+eFeN7R1W6hiVvPOewXWqP2lrDSyWZvm4tMY//1s6YY77vPiHhp2b19wt3j8+9jXSAwxup0YlqosTP2SV5RQJTgL6BRqkyFvNSYOdwYA=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

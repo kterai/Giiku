@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${title}">雲流システム</title>
+    <title th:text="${title}">技育システム</title>
     <meta name="_csrf" th:content="${_csrf.token}">
     <link href="/webjars/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/webjars/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link th:href="@{/css/unryu-style.css}" rel="stylesheet">
+    <link th:href="@{/css/giiku-style.css}" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
     <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
-            <img th:src="@{/images/unryu_logo.png}" alt="Unryu" width="32" height="32" class="me-2">
+            <img th:src="@{/images/giiku_logo.png}" alt="Giiku" width="32" height="32" class="me-2">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -85,11 +85,11 @@
 
 <script src="/webjars/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/webjars/chart.js/dist/chart.umd.js"></script>
-    <script th:src="@{/js/unryu-common.js}"></script>
+    <script th:src="@{/js/giiku-common.js}"></script>
     <script src="/webjars/react/umd/react.development.js"></script>
     <script src="/webjars/react-dom/umd/react-dom.development.js"></script>
     <script th:src="@{/js/react-table.min.js}"></script>
     <script src="/webjars/babel__standalone/babel.min.js"></script>
-    <script th:src="@{/js/unryu-table.js}" type="text/babel"></script>
+    <script th:src="@{/js/giiku-table.js}" type="text/babel"></script>
 </body>
 </html>

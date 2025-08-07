@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day48: JPA・Hibernate・永続化技術</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./day47_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./day49_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month3.html" class="hover:text-blue-600">3ヶ月目: Webアプリケーション開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week11.html" class="hover:text-blue-600">11週目: Spring Boot開発実践</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">48日目: JPA・Hibernate・永続化技術</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day48.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- メインヘッダー -->
+        <header class="text-center mb-12">
+            <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-8 rounded-lg shadow-lg">
+                <h1 class="text-3xl sm:text-4xl font-bold mb-4">
+                    <i class="fas fa-database text-yellow-300 mr-3"></i>
+                    ITエンジニア育成カリキュラム
+                </h1>
+                <h2 class="text-2xl sm:text-3xl font-semibold mb-2">
+                    Day48: JPA・Hibernate・データベース統合開発
+                </h2>
+                <p class="text-xl opacity-90">ORM技術とSpring Data JPA完全マスター</p>
+                <div class="mt-4 text-sm opacity-80">
+                    <p>推奨開発環境：IntelliJ IDEA + Spring Boot + MySQL Workbench</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 学習目標 -->
+        <section class="bg-green-50 border-l-4 border-green-500 p-6 mb-8 rounded-r-lg">
+            <h2 class="text-2xl font-bold text-green-800 mb-4">
+                <i class="fas fa-bullseye mr-2"></i>本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-600 mt-1 mr-3"></i>
+                        <p class="text-gray-700">JPA仕様とHibernateフレームワークの基本概念を<strong>実例とともに</strong>説明できる</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-600 mt-1 mr-3"></i>
+                        <p class="text-gray-700">エンティティマッピングを<strong>実装レベル</strong>で理解し活用できる</p>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-600 mt-1 mr-3"></i>
+                        <p class="text-gray-700">JPQL・Criteria APIを<strong>実際のプロジェクト</strong>で適用できる</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-600 mt-1 mr-3"></i>
+                        <p class="text-gray-700">パフォーマンス最適化を<strong>本番環境レベル</strong>で実装できる</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. JPA基礎概念とHibernateアーキテクチャ -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-6">
+                <i class="fas fa-foundation mr-2"></i>1. JPA基礎概念とHibernateアーキテクチャ
+            </h2>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-purple-700 mb-4">JPAとORMの概念</h3>
+                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700 mb-3">
+                        <strong>JPA（Java Persistence API - Javaでデータベース操作を標準化する仕様）</strong>は、
+                        Javaオブジェクトとリレーショナルデータベースの間を橋渡しするORM（Object-Relational Mapping - オブジェクト関係マッピング）の標準仕様です。
+                    </p>
+                    <p class="text-gray-700">
+                        <strong>比喩で理解：</strong>JPAはデータベース操作の翻訳者のようなもので、
+                        Javaオブジェクトの操作を自動的にSQLに変換してくれます。
+                        まるで通訳が外国語を日本語に翻訳するように、オブジェクト操作をSQL文に翻訳します。
+                    </p>
+                </div>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-4">
+                    <h4 class="font-semibold text-gray-800 mb-2">なぜORMが必要なのか？</h4>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li><strong>生産性向上：</strong>SQLを直接書く手間を省き、Javaオブジェクトとして直感的にデータ操作</li>
+                        <li><strong>保守性：</strong>データベース構造の変更に対する影響を最小限に抑制</li>
+                        <li><strong>移植性：</strong>異なるデータベース間での移行が容易</li>
+                        <li><strong>型安全性：</strong>コンパイル時にデータ型エラーを検出</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-purple-700 mb-4">JPAとHibernateの関係</h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse border border-gray-300 mb-4">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border border-gray-300 px-4 py-2 text-left">項目</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">JPA</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">Hibernate</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">実用例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-semibold">役割</td>
+                                <td class="border border-gray-300 px-4 py-2">仕様（Interface）</td>
+                                <td class="border border-gray-300 px-4 py-2">実装（Implementation）</td>
+                                <td class="border border-gray-300 px-4 py-2">設計図 vs 実際の建物</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 font-semibold">特徴</td>
+                                <td class="border border-gray-300 px-4 py-2">標準化されたAPI</td>
+                                <td class="border border-gray-300 px-4 py-2">高機能・高性能</td>
+                                <td class="border border-gray-300 px-4 py-2">統一仕様 vs 独自拡張機能</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-semibold">メリット</td>
+                                <td class="border border-gray-300 px-4 py-2">実装間の移行容易</td>
+                                <td class="border border-gray-300 px-4 py-2">豊富な最適化機能</td>
+                                <td class="border border-gray-300 px-4 py-2">汎用性 vs 専門性</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-purple-700 mb-4">EntityManagerの役割</h3>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <p class="text-gray-700 mb-3">
+                        <strong>EntityManager（エンティティ管理者）</strong>は、図書館司書のように、
+                        本（データ）の貸出し・返却・管理を一元的に行います。
+                    </p>
+                    
+                    <div class="bg-gray-800 text-green-400 p-4 rounded-lg font-mono text-sm">
+<pre>// EntityManagerの基本的な使用例
+@PersistenceContext
+private EntityManager entityManager;
+
+// データの保存（新規登録）
+User user = new User("田中太郎", "tanaka@example.com");
+entityManager.persist(user);  // INSERT文が実行される
+
+// データの検索（ID指定）
+User foundUser = entityManager.find(User.class, 1L);  // SELECT文が実行される
+
+// データの更新
+foundUser.setEmail("newemail@example.com");
+entityManager.merge(foundUser);  // UPDATE文が実行される
+
+// データの削除
+entityManager.remove(foundUser);  // DELETE文が実行される</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-yellow-100 border-l-4 border-yellow-600 p-4">
+                <h4 class="font-semibold text-gray-800 mb-2">
+                    <i class="fas fa-lightbulb mr-2"></i>実務豆知識
+                </h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li><strong>N+1問題：</strong>1つの親データに対して、子データをN回個別に取得してしまう非効率な問題</li>
+                    <li><strong>遅延読み込み：</strong>実際に必要になったタイミングでデータを取得する仕組み</li>
+                    <li><strong>キャッシュ：</strong>一度取得したデータをメモリに保存し、再利用で高速化</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 2. エンティティマッピングとアノテーション -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-purple-800 mb-6">
+                <i class="fas fa-tags mr-2"></i>2. エンティティマッピングとアノテーション完全理解
+            </h2>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-blue-700 mb-4">基本アノテーションの詳細解説</h3>
+                
+                <div class="overflow-x-auto mb-6">
+                    <table class="w-full border-collapse border border-gray-300">
+                        <thead class="bg-blue-100">
+                            <tr>
+                                <th class="border border-gray-300 px-4 py-2 text-left">アノテーション</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">日本語説明</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">実用例</th>
+                                <th class="border border-gray-300 px-4 py-2 text-left">効果</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">@Entity</td>
+                                <td class="border border-gray-300 px-4 py-2">エンティティクラス宣言<br>（データベーステーブルと対応）</td>
+                                <td class="border border-gray-300 px-4 py-2">ユーザー情報、商品マスタ、注文データ</td>
+                                <td class="border border-gray-300 px-4 py-2">身分証明書のような役割</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 font-mono">@Id</td>
+                                <td class="border border-gray-300 px-4 py-2">主キー指定<br>（一意識別子）</td>
+                                <td class="border border-gray-300 px-4 py-2">ユーザーID、商品コード、注文番号</td>
+                                <td class="border border-gray-300 px-4 py-2">マイナンバーのような概念</td>
+                            </tr>
+                            <tr>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">@GeneratedValue</td>
+                                <td class="border border-gray-300 px-4 py-2">主キー自動生成<br>（連番など）</td>
+                                <td class="border border-gray-300 px-4 py-2">AUTO_INCREMENT、SEQUENCE</td>
+                                <td class="border border-gray-300 px-4 py-2">受付番号の自動発行</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 font-mono">@Column</td>
+                                <td class="border border-gray-300 px-4 py-2">カラム詳細設定<br>（名前、制約など）</td>
+                                <td class="border border-gray-300 px-4 py-2">NOT NULL、UNIQUE、長さ制限</td>
+                                <td class="border border-gray-300 px-4 py-2">データ品質の保証</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bg-gray-800 text-green-400 p-4 rounded-lg font-mono text-sm mb-4">
+<pre>// ユーザーエンティティの完全な例
+@Entity
+@Table(name = "users")  // テーブル名を明示的に指定
+public class User {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // 自動採番
+    private Long id;
+    
+    @Column(name = "username", nullable = false, unique = true, length = 50)
+    private String username;  // ユーザー名（必須・一意・最大50文字）
+    
+    @Column(name = "email", nullable = false, length = 100)
+    private String email;  // メールアドレス（必須・最大100文字）
+    
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)  // 日時型の詳細指定
+    private Date createdAt;
+    
+    // コンストラクタ、ゲッター、セッター省略
+}</pre>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-blue-700 mb-4">関連マッピングの実践</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-green-800 mb-2">@OneToMany（1対多）</h4>
+                        <p class="text-gray-700 mb-2">1つの部署に複数の社員が所属する関係</p>
+                        <div class="text-sm text-gray-600">
+                            実用例：カテゴリ-商品、部署-社員、注文-注文明細
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 mb-2">@ManyToOne（多対1）</h4>
+                        <p class="text-gray-700 mb-2">複数の社員が1つの部署に所属する関係</p>
+                        <div class="text-sm text-gray-600">
+                            実用例：商品-カテゴリ、社員-部署、注文明細-注文
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 text-green-400 p-4 rounded-lg font-mono text-sm">
+<pre>// 注文と注文明細の関連例
+@Entity
+public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    // 1つの注文に複数の注文明細（1対多）
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List&lt;OrderItem&gt; orderItems = new ArrayList&lt;&gt;();
+    
+    // ゲッター、セッター省略
+}
+
+@Entity
+public class OrderItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    // 複数の注文明細が1つの注文に所属（多対1）
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")  // 外部キー設定
+    private Order order;
+    
+    // ゲッター、セッター省略
+}</pre>
+                </div>
+            </div>
+
+            <div class="bg-orange-100 border-l-4 border-orange-500 p-4">
+                <h4 class="font-semibold text-gray-800 mb-2">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>よくあるマッピングエラーと解決法
+                </h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-2">
+                    <li><strong>LazyInitializationException：</strong>セッション外での遅延読み込みエラー → @Transactional使用</li>
+                    <li><strong>N+1問題：</strong>関連データの個別取得 → @BatchSize、fetch join活用</li>
+                    <li><strong>循環参照：</strong>双方向関連でのJSON変換エラー → @JsonIgnore使用</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 3. JPQL・Criteria API・クエリ最適化 -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-red-800 mb-6">
+                <i class="fas fa-search mr-2"></i>3. JPQL・Criteria API・クエリ最適化
+            </h2>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-blue-700 mb-4">JPQL（Java Persistence Query Language）</h3>
+                
+                <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700 mb-3">
+                        <strong>JPQL</strong>は、SQLのオブジェクト指向版です。
+                        テーブル名の代わりにエンティティクラス名を、カラム名の代わりにプロパティ名を使用します。
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-2">従来のSQL</h4>
+                        <div class="bg-gray-800 text-red-400 p-3 rounded font-mono text-sm">
+<pre>SELECT * FROM users 
+WHERE age > 25 
+ORDER BY username</pre>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-semibold text-gray-800 mb-2">JPQL（オブジェクト指向）</h4>
+                        <div class="bg-gray-800 text-green-400 p-3 rounded font-mono text-sm">
+<pre>SELECT u FROM User u 
+WHERE u.age > 25 
+ORDER BY u.username</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 text-green-400 p-4 rounded-lg font-mono text-sm mb-4">
+<pre>// JPQLの実践例
+@Repository
+public class UserRepository {
+    
+    @PersistenceContext
+    private EntityManager entityManager;
+    
+    // 年齢で検索
+    public List&lt;User&gt; findByAgeGreaterThan(int age) {
+        String jpql = "SELECT u FROM User u WHERE u.age > :age ORDER BY u.username";
+        return entityManager.createQuery(jpql, User.class)
+                .setParameter("age", age)  // パラメータバインド（SQLインジェクション対策）
+                .getResultList();
+    }
+    
+    // 名前の部分一致検索
+    public List&lt;User&gt; findByNameContaining(String keyword) {
+        String jpql = "SELECT u FROM User u WHERE u.username LIKE :keyword";
+        return entityManager.createQuery(jpql, User.class)
+                .setParameter("keyword", "%" + keyword + "%")
+                .getResultList();
+    }
+    
+    // 結合クエリ（注文情報付きユーザー検索）
+    public List&lt;User&gt; findUsersWithOrders() {
+        String jpql = "SELECT DISTINCT u FROM User u JOIN FETCH u.orders";
+        return entityManager.createQuery(jpql, User.class)
+                .getResultList();
+    }
+}</pre>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-blue-700 mb-4">Criteria API（動的クエリ）</h3>
+                
+                <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700 mb-3">
+                        <strong>Criteria API</strong>は、条件に応じて動的にクエリを構築できる高度な機能です。
+                        検索条件が実行時に決まる場合に威力を発揮します。
+                    </p>
+                </div>
+
+                <div class="bg-gray-800 text-green-400 p-4 rounded-lg font-mono text-sm mb-4">
+<pre>// 動的検索クエリの例
+public List&lt;User&gt; findUsersByCriteria(String name, Integer minAge, String email) {
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery&lt;User&gt; query = cb.createQuery(User.class);
+    Root&lt;User&gt; user = query.from(User.class);
+    
+    List&lt;Predicate&gt; predicates = new ArrayList&lt;&gt;();
+    
+    // 名前が指定されている場合のみ条件追加
+    if (name != null && !name.isEmpty()) {
+        predicates.add(cb.like(user.get("username"), "%" + name + "%"));
+    }
+    
+    // 最小年齢が指定されている場合のみ条件追加
+    if (minAge != null) {
+        predicates.add(cb.greaterThanOrEqualTo(user.get("age"), minAge));
+    }
+    
+    // メールアドレスが指定されている場合のみ条件追加
+    if (email != null && !email.isEmpty()) {
+        predicates.add(cb.equal(user.get("email"), email));
+    }
+    
+    // 全ての条件をANDで結合
+    query.where(predicates.toArray(new Predicate[0]));
+    
+    return entityManager.createQuery(query).getResultList();
+}</pre>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-blue-700 mb-4">パフォーマンス最適化の実践</h3>
+                
+                <div class="grid md:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-green-800 mb-2">N+1問題回避</h4>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>@BatchSize使用</li>
+                            <li>JOIN FETCH活用</li>
+                            <li>EntityGraph使用</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 mb-2">遅延読み込み</h4>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>FetchType.LAZY</li>
+                            <li>必要な時だけデータ取得</li>
+                            <li>メモリ使用量削減</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-yellow-800 mb-2">クエリキャッシュ</h4>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>@QueryHint活用</li>
+                            <li>Second Level Cache</li>
+                            <li>繰り返しクエリ高速化</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 text-green-400 p-4 rounded-lg font-mono text-sm">
+<pre>// パフォーマンス最適化の実装例
+@Entity
+public class User {
+    // N+1問題を回避するためのバッチサイズ設定
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @BatchSize(size = 10)  // 10件ずつまとめて取得
+    private List&lt;Order&gt; orders;
+}
+
+// JOIN FETCHによる一括取得
+@Query("SELECT u FROM User u JOIN FETCH u.orders WHERE u.id = :userId")
+User findUserWithOrders(@Param("userId") Long userId);
+
+// クエリキャッシュの設定
+@QueryHints({
+    @QueryHint(name = "org.hibernate.cacheable", value = "true"),
+    @QueryHint(name = "org.hibernate.cacheRegion", value = "user-queries")
+})
+@Query("SELECT u FROM User u WHERE u.status = 'ACTIVE'")
+List&lt;User&gt; findActiveUsers();</pre>
+                </div>
+            </div>
+
+            <div class="bg-red-100 border-l-4 border-red-500 p-4">
+                <h4 class="font-semibold text-gray-800 mb-2">
+                    <i class="fas fa-tachometer-alt mr-2"></i>パフォーマンス向上の具体的効果
+                </h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li><strong>N+1問題解決：</strong>1000件のデータ取得が1001回→2回のクエリに削減（99.8%削減）</li>
+                    <li><strong>遅延読み込み：</strong>不要なデータ読み込みを回避、メモリ使用量50-80%削減</li>
+                    <li><strong>クエリキャッシュ：</strong>同一クエリの応答時間を90%以上短縮</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 4. Spring Data JPAとの統合 -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-green-800 mb-6">
+                <i class="fas fa-plug mr-2"></i>4. Spring Data JPAとの統合
+            </h2>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-blue-700 mb-4">Repositoryパターンの実践</h3>
+                
+                <div class="bg-green-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700 mb-3">
+                        <strong>Spring Data JPA</strong>は、Repositoryインターフェースを継承するだけで、
+                        基本的なCRUD操作を自動実装してくれる魔法のような機能です。
+                    </p>
+                </div>
+
+                <div class="bg-gray-800 text-green-400 p-4 rounded-lg font-mono text-sm mb-4">
+<pre>// 基本的なRepositoryインターフェース
+@Repository
+public interface UserRepository extends JpaRepository&lt;User, Long&gt; {
+    
+    // メソッド名から自動でクエリを生成
+    List&lt;User&gt; findByUsername(String username);
+    List&lt;User&gt; findByAgeGreaterThan(int age);
+    List&lt;User&gt; findByEmailContaining(String keyword);
+    
+    // 複合条件の例
+    List&lt;User&gt; findByUsernameAndAgeGreaterThan(String username, int age);
+    List&lt;User&gt; findByEmailContainingOrUsernameContaining(String email, String username);
+    
+    // 並び順指定
+    List&lt;User&gt; findByAgeGreaterThanOrderByUsernameAsc(int age);
+    
+    // 件数制限
+    List&lt;User&gt; findTop5ByOrderByCreatedAtDesc();
+    
+    // カスタムクエリ
+    @Query("SELECT u FROM User u WHERE u.email LIKE %:domain%")
+    List&lt;User&gt; findByEmailDomain(@Param("domain") String domain);
+    
+    // ネイティブSQL
+    @Query(value = "SELECT * FROM users WHERE created_at > ?1", nativeQuery = true)
+    List&lt;User&gt; findRecentUsers(Date since);
+}</pre>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-blue-700 mb-4">サービス層での活用例</h3>
+                
+                <div class="bg-gray-800 text-green-400 p-4 rounded-lg font-mono text-sm mb-4">
+<pre>// ユーザー管理サービスの実装例
+@Service
+@Transactional
+public class UserService {
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    // ユーザー登録（バリデーション付き）
+    public User createUser(User user) {
+        // 重複チェック
+        if (userRepository.findByUsername(user.getUsername()).size() > 0) {
+            throw new IllegalArgumentException("ユーザー名が既に存在します");
+        }
+        
+        // 登録日時設定
+        user.setCreatedAt(new Date());
+        
+        return userRepository.save(user);
+    }
+    
+    // ページネーション対応の検索
+    public Page&lt;User&gt; searchUsers(String keyword, Pageable pageable) {
+        if (keyword == null || keyword.isEmpty()) {
+            return userRepository.findAll(pageable);
+        }
+        return userRepository.findByUsernameContainingOrEmailContaining(
+            keyword, keyword, pageable);
+    }
+    
+    // 統計情報取得
+    public UserStatistics getUserStatistics() {
+        long totalUsers = userRepository.count();
+        List&lt;User&gt; recentUsers = userRepository.findTop5ByOrderByCreatedAtDesc();
+        
+        return new UserStatistics(totalUsers, recentUsers);
+    }
+}</pre>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-blue-800 mb-2">従来のDAOパターン</h4>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>大量のボイラープレートコード</li>
+                        <li>CRUD操作を全て手書き</li>
+                        <li>100行以上のコード</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h4 class="font-semibold text-green-800 mb-2">Spring Data JPA</h4>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>インターフェース定義のみ</li>
+                        <li>自動実装で生産性向上</li>
+                        <li>10行程度で完了</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-green-100 border-l-4 border-green-500 p-4">
+                <h4 class="font-semibold text-gray-800 mb-2">
+                    <i class="fas fa-chart-line mr-2"></i>開発効率向上の具体的効果
+                </h4>
+                <ul class="list-disc list-inside text-gray-700 space-y-1">
+                    <li><strong>コード削減：</strong>従来のDAO実装と比較して80-90%のコード削減</li>
+                    <li><strong>開発時間短縮：</strong>CRUD機能の実装時間を70%短縮</li>
+                    <li><strong>バグ減少：</strong>自動生成により人為的ミスを大幅削減</li>
+                    <li><strong>保守性向上：</strong>標準化されたパターンで可読性向上</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 演習問題 -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-orange-800 mb-6">
+                <i class="fas fa-pencil-alt mr-2"></i>演習問題
+            </h2>
+
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-blue-700 mb-4">問題1: エンティティクラス設計</h3>
+                <div class="bg-yellow-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700 mb-2">
+                        以下の要件を満たすBookエンティティクラスを作成してください：
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>主キー：id（自動生成）</li>
+                        <li>書籍名：title（必須、最大200文字）</li>
+                        <li>著者：author（必須、最大100文字）</li>
+                        <li>価格：price（必須、0以上）</li>
+                        <li>出版日：publishDate</li>
+                        <li>カテゴリ：category（Categoryエンティティとの多対1関連）</li>
+                    </ul>
+                </div>
+                
+                <button onclick="showAnswer('answer1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors mb-4">
+                    回答例を表示
+                </button>
+                
+                <div id="answer1" class="hidden bg-gray-800 text-green-400 p-4 rounded-lg font-mono text-sm">
+<pre>@Entity
+@Table(name = "books")
+public class Book {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(name = "title", nullable = false, length = 200)
+    private String title;
+    
+    @Column(name = "author", nullable = false, length = 100)
+    private String author;
+    
+    @Column(name = "price", nullable = false)
+    @Min(value = 0, message = "価格は0以上である必要があります")
+    private BigDecimal price;
+    
+    @Column(name = "publish_date")
+    @Temporal(TemporalType.DATE)
+    private Date publishDate;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+    
+    // デフォルトコンストラクタ
+    public Book() {}
+    
+    // 引数付きコンストラクタ
+    public Book(String title, String author, BigDecimal price) {
+        this.title = title;
+        this.author = author;
+        this.price = price;
+    }
+    
+    // ゲッター・セッター（省略）
+}</pre>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold text-blue-700 mb-4">問題2: Repositoryインターフェース作成</h3>
+                <div class="bg-yellow-50 p-4 rounded-lg mb-4">
+                    <p class="text-gray-700 mb-2">
+                        BookRepositoryインターフェースを作成し、以下のメソッドを定義してください：
+                    </p>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>著者名で検索するメソッド</li>
+                        <li>価格の範囲で検索するメソッド</li>
+                        <li>書籍名の部分一致検索メソッド</li>
+                        <li>カテゴリ別の新しい順で取得するメソッド</li>
+                        <li>カスタムクエリで高価格書籍（1000円以上）を取得するメソッド</li>
+                    </ul>
+                </div>
+                
+                <button onclick="showAnswer('answer2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors mb-4">
+                    回答例を表示
+                </button>
+                
+                <div id="answer2" class="hidden bg-gray-800 text-green-400 p-4 rounded-lg font-mono text-sm">
+<pre>@Repository
+public interface BookRepository extends JpaRepository&lt;Book, Long&gt; {
+    
+    // 著者名で検索
+    List&lt;Book&gt; findByAuthor(String author);
+    
+    // 価格の範囲で検索
+    List&lt;Book&gt; findByPriceBetween(BigDecimal minPrice, BigDecimal maxPrice);
+    
+    // 書籍名の部分一致検索
+    List&lt;Book&gt; findByTitleContaining(String keyword);
+    
+    // カテゴリ別の新しい順で取得
+    List&lt;Book&gt; findByCategoryOrderByPublishDateDesc(Category category);
+    
+    // カスタムクエリで高価格書籍を取得
+    @Query("SELECT b FROM Book b WHERE b.price >= 1000 ORDER BY b.price DESC")
+    List&lt;Book&gt; findExpensiveBooks();
+    
+    // 著者名とカテゴリで検索（複合条件）
+    List&lt;Book&gt; findByAuthorAndCategory(String author, Category category);
+    
+    // 出版年で検索（ネイティブクエリ）
+    @Query(value = "SELECT * FROM books WHERE YEAR(publish_date) = ?1", 
+           nativeQuery = true)
+    List&lt;Book&gt; findByPublishYear(int year);
+    
+    // 書籍数をカテゴリ別に集計
+    @Query("SELECT b.category, COUNT(b) FROM Book b GROUP BY b.category")
+    List&lt;Object[]&gt; countBooksByCategory();
+}</pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- 理解度クイズ -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-purple-800 mb-6">
+                <i class="fas fa-question-circle mr-2"></i>理解度クイズ
+            </h2>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-blue-700 mb-3">問題1: JPA/Hibernateについて</h3>
+                <p class="text-gray-700 mb-3">JPAとHibernateの関係について正しい説明はどれですか？</p>
+                <div class="space-y-2">
+                    <label class="block">
+                        <input type="radio" name="q1" value="a" class="mr-2">
+                        A) JPAはHibernateの拡張版である
+                    </label>
+                    <label class="block">
+                        <input type="radio" name="q1" value="b" class="mr-2">
+                        B) HibernateはJPAの実装の一つである
+                    </label>
+                    <label class="block">
+                        <input type="radio" name="q1" value="c" class="mr-2">
+                        C) JPAとHibernateは競合関係にある
+                    </label>
+                    <label class="block">
+                        <input type="radio" name="q1" value="d" class="mr-2">
+                        D) JPAとHibernateは同じものである
+                    </label>
+                </div>
+                
+                <button onclick="showAnswer('quiz1')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors mt-3">
+                    回答を表示
+                </button>
+                
+                <div id="quiz1" class="hidden bg-green-50 p-4 rounded-lg mt-3">
+                    <p class="font-semibold text-green-800 mb-2">正解: B) HibernateはJPAの実装の一つである</p>
+                    <p class="text-gray-700">
+                        JPAは仕様（Interface）であり、Hibernateはその実装（Implementation）の一つです。
+                        設計図（JPA）と実際の建物（Hibernate）の関係に例えることができます。
+                    </p>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold text-blue-700 mb-3">問題2: パフォーマンス最適化について</h3>
+                <p class="text-gray-700 mb-3">N+1問題を解決する最も効果的な方法は？</p>
+                <div class="space-y-2">
+                    <label class="block">
+                        <input type="radio" name="q2" value="a" class="mr-2">
+                        A) すべての関連をEAGER読み込みにする
+                    </label>
+                    <label class="block">
+                        <input type="radio" name="q2" value="b" class="mr-2">
+                        B) JOIN FETCHまたは@BatchSizeを使用する
+                    </label>
+                    <label class="block">
+                        <input type="radio" name="q2" value="c" class="mr-2">
+                        C) キャッシュを大容量にする
+                    </label>
+                    <label class="block">
+                        <input type="radio" name="q2" value="d" class="mr-2">
+                        D) 関連を全て削除する
+                    </label>
+                </div>
+                
+                <button onclick="showAnswer('quiz2')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors mt-3">
+                    回答を表示
+                </button>
+                
+                <div id="quiz2" class="hidden bg-green-50 p-4 rounded-lg mt-3">
+                    <p class="font-semibold text-green-800 mb-2">正解: B) JOIN FETCHまたは@BatchSizeを使用する</p>
+                    <p class="text-gray-700">
+                        N+1問題は、親データを1回、関連する子データをN回個別取得することで発生します。
+                        JOIN FETCHで一括取得するか、@BatchSizeでまとめて取得することで解決できます。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- まとめ -->
+        <section class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg shadow-md mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-6">
+                <i class="fas fa-check-double mr-2"></i>まとめ
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-purple-700 mb-3">習得した重要ポイント</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-500 mt-1 mr-2"></i>
+                            <span class="text-gray-700"><strong>JPAエンティティマッピング：</strong>ユーザー管理システムを効率的に実装できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-500 mt-1 mr-2"></i>
+                            <span class="text-gray-700"><strong>JPQL動的クエリ：</strong>条件検索機能を柔軟に構築できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-500 mt-1 mr-2"></i>
+                            <span class="text-gray-700"><strong>遅延読み込み：</strong>N+1問題を回避し、パフォーマンスを大幅向上</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-500 mt-1 mr-2"></i>
+                            <span class="text-gray-700"><strong>Spring Data JPA：</strong>生産性を80-90%向上させる</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-green-700 mb-3">実務での具体的メリット</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-chart-line text-green-500 mt-1 mr-2"></i>
+                            <span class="text-gray-700"><strong>開発効率：</strong>CRUD機能の開発時間を70%短縮</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-tachometer-alt text-blue-500 mt-1 mr-2"></i>
+                            <span class="text-gray-700"><strong>パフォーマンス：</strong>クエリ実行回数を99%削減可能</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-shield-alt text-purple-500 mt-1 mr-2"></i>
+                            <span class="text-gray-700"><strong>保守性：</strong>標準化されたパターンで可読性向上</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-bug text-red-500 mt-1 mr-2"></i>
+                            <span class="text-gray-700"><strong>品質：</strong>自動生成により人為的ミスを大幅削減</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-white rounded-lg border-l-4 border-blue-500">
+                <h4 class="font-semibold text-gray-800 mb-2">次回予告：Spring Security・認証認可・セキュリティ</h4>
+                <p class="text-gray-700">
+                    本日習得したJPA/Hibernateの知識を基に、Spring Securityによる認証・認可システムを構築します。
+                    ユーザー認証、権限管理、セキュリティ対策の実装方法を学習予定です。
+                </p>
+            </div>
+        </section>
+
+        <!-- フッター -->
+        <footer class="text-center mt-12 text-gray-500 border-t pt-8">
+            <p class="mb-2">
+                <i class="fas fa-copyright mr-1"></i>
+                © 2025 APSA Co.,Ltd. All Rights Reserved.
+            </p>
+            <p class="text-sm">
+                高品質なITエンジニア育成カリキュラムの提供
+            </p>
+        </footer>
+    </div>
+    </main>
+
+    <script>
+        function showAnswer(elementId) {
+            const element = document.getElementById(elementId);
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+                element.classList.add('block');
+            } else {
+                element.classList.add('hidden');
+                element.classList.remove('block');
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDg%2BNVPtULw74mLb9aLzBMKbrqKyhYg4TaYBFp0Ez2Li7KCuVNtasYO28Kj7TK32hgc1W4XskiKH3UpGNzHbLpUuxFClbIoN3n91RUlOaIuzfFc%2BI0D456FwjlBq5UgRPhsAKiCS33d3wEiKuHGDewlZA2xmj2rvR0kUZKwyEqnZW2GJ8GDNKBd2dT0zpci3geVLUQ1rTB7NRM11GCMxDXxwqWV81hVonsZ%2BY4AXSdpa7v8PZb8FM3RqFMlnHMY2k1CmRFeU5P2IGzCoK%2Bwdoxw1IR%2BMOFW30z3AqerLQkyruK19%2Bo2PFGzIef1nzUDEe92SVIYCYgrwqDbQqtFH18XKnvqaUcrPl7eIuSTILQRWls9cGh0ihfLz0ATKtyLOp4bGzRXQdmkSOTn0kw5MDT8XCYSuf1K9Ey%2F5dpdYA%2BiXcvOdeqlQQn7w6Eu6yIkis71qffte7bZ8BOBKMoPekBW08kX1u5intTNBcVtM9rWtu%2Fb%2Fsh%2FzpktDwigi%2BvX81eQ%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDg+NVPtULw74mLb9aLzBMKbrqKyhYg4TaYBFp0Ez2Li7KCuVNtasYO28Kj7TK32hgc1W4XskiKH3UpGNzHbLpUuxFClbIoN3n91RUlOaIuzfFc+I0D456FwjlBq5UgRPhsAKiCS33d3wEiKuHGDewlZA2xmj2rvR0kUZKwyEqnZW2GJ8GDNKBd2dT0zpci3geVLUQ1rTB7NRM11GCMxDXxwqWV81hVonsZ+Y4AXSdpa7v8PZb8FM3RqFMlnHMY2k1CmRFeU5P2IGzCoK+wdoxw1IR+MOFW30z3AqerLQkyruK19+o2PFGzIef1nzUDEe92SVIYCYgrwqDbQqtFH18XKnvqaUcrPl7eIuSTILQRWls9cGh0ihfLz0ATKtyLOp4bGzRXQdmkSOTn0kw5MDT8XCYSuf1K9Ey/5dpdYA+iXcvOdeqlQQn7w6Eu6yIkis71qffte7bZ8BOBKMoPekBW08kX1u5intTNBcVtM9rWtu/b/sh/zpktDwigi+vX81eQ==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

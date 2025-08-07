@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day26 データベース基礎 講義プロンプト - 改良版</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="container mx-auto max-w-4xl px-4 py-8">
+        <!-- ヘッダー -->
+        <header class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 rounded-lg mb-8 shadow-lg">
+            <h1 class="text-3xl font-bold mb-2">
+                <i class="fas fa-database mr-3"></i>Day26 データベース基礎 講義プロンプト - 改良版
+            </h1>
+            <p class="text-blue-100">講師説明・受講者理解促進要素を強化したプロンプト指示書</p>
+        </header>
+
+        <!-- 重要な注意事項 -->
+        <div class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
+            <h2 class="text-xl font-bold text-red-800 mb-3">
+                <i class="fas fa-exclamation-triangle mr-2"></i>重要な注意事項
+            </h2>
+            <p class="text-red-700">
+                このファイルはHTMLファイル生成用のプロンプト指示書です。実際のHTMLファイルではなく、
+                <strong>day26_lecture.html</strong>を生成するための詳細な指示内容が記載されています。
+            </p>
+        </div>
+
+        <!-- 分かりやすさ改善指針 -->
+        <div class="bg-green-50 border border-green-200 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-green-800 mb-4">
+                <i class="fas fa-lightbulb mr-2"></i>🎯 初心者理解重視の必須要項
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-green-700 mb-3">■ 表・まとめセクションの分かりやすさ確保</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• 専門用語は略語だけでなく日本語説明を併記</li>
+                        <li>• 抽象的な表現は具体例・実用例で補完</li>
+                        <li>• 比較表には「なぜその違いが重要か」を明記</li>
+                        <li>• 技術仕様には実際の使用場面の目安を併記</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-green-700 mb-3">■ 専門用語の徹底解説</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• 初出時に必ず定義・背景・必要性を説明</li>
+                        <li>• 日常生活の例え話(アナロジー)を積極活用</li>
+                        <li>• 「なぜこの概念が必要なのか」を必ず説明</li>
+                        <li>• 関連用語との違い・使い分けを明確化</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-green-700 mb-3">■ まとめセクションの改善</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• 箇条書きだけでなく「どう活用するか」を記載</li>
+                        <li>• 重要ポイントを3つに絞って強調</li>
+                        <li>• 次回との関連性を具体的に説明</li>
+                        <li>• 復習時に参照しやすい構成にする</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-green-700 mb-3">■ 表の改善指針</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• 単なる数値・記号だけでなく説明文を併記</li>
+                        <li>• 実際の使用場面・判断基準を明記</li>
+                        <li>• 初心者が混同しやすい項目は特に詳しく</li>
+                        <li>• 視覚的な区分け・色分けで理解を促進</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 講師向け詳細説明指針 -->
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                <i class="fas fa-chalkboard-teacher mr-2"></i>📚 講師向け詳細説明指針
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-blue-700 mb-2">講義進行のポイント</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li><span class="bg-yellow-200 px-2 py-1 rounded">段階的理解促進</span> - 基本概念から応用まで、受講者のレベルに合わせて段階的に説明</li>
+                        <li><span class="bg-yellow-200 px-2 py-1 rounded">視覚的な説明を重視</span> - 図解、表、フローチャートを活用して概念を視覚化</li>
+                        <li><span class="bg-yellow-200 px-2 py-1 rounded">実践重視</span> - 実際の開発現場で使用される実用的なコード例を豊富に提供</li>
+                        <li><span class="bg-yellow-200 px-2 py-1 rounded">関連付け学習</span> - 既習内容との関連性を明確にし、知識の体系化を促進</li>
+                        <li><span class="bg-yellow-200 px-2 py-1 rounded">アクティブラーニング</span> - 問いかけ、演習、ディスカッションを組み込み能動的な学習を促進</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-blue-700 mb-2">理解度チェックポイント</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• 基本概念の理解度確認</li>
+                        <li>• 実装スキルの習得度確認</li>
+                        <li>• 応用力・問題解決力の確認</li>
+                        <li>• 既習内容との関連付けができているか確認</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-blue-700 mb-2">よくある誤解・つまずきポイント</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• 概念理解の誤解ポイントを予め整理</li>
+                        <li>• 実装時によくあるエラーと対処法を準備</li>
+                        <li>• 混同しやすい概念の明確な違いを説明</li>
+                        <li>• 実際の開発での注意点を共有</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 受講者理解促進要素 -->
+        <div class="bg-purple-50 border border-purple-200 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-purple-800 mb-4">
+                <i class="fas fa-users mr-2"></i>🎯 受講者理解促進要素
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-purple-700 mb-2">追加する詳細説明内容</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-purple-600 mb-2">■ 概念の視覚化</h4>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>• 内部構造やデータフローを図で表現</li>
+                                <li>• 処理の流れを段階的に図解</li>
+                                <li>• 比較表やマトリックスで特徴を整理</li>
+                                <li>• 実装例をフローチャート化</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-purple-600 mb-2">■ 段階的な学習サポート</h4>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>• 「なぜこの機能が必要なのか」から始める動機付け</li>
+                                <li>• 簡単な例から複雑な例への段階的発展</li>
+                                <li>• 各段階での「理解確認ポイント」を明示</li>
+                                <li>• 次のステップへの橋渡し説明</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-purple-600 mb-2">■ 実践的なコード例</h4>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>• コメント付きの詳細なコード例</li>
+                                <li>• よくあるエラーとその対処法</li>
+                                <li>• 実際の開発現場での使用例</li>
+                                <li>• ベストプラクティスの紹介</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-purple-600 mb-2">■ 記憶に残りやすい説明</h4>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>• 適切なアナロジー（比喩・例え話）の活用</li>
+                                <li>• 覚えやすいキーワードやフレーズ</li>
+                                <li>• 重要ポイントの繰り返し強調</li>
+                                <li>• まとめ・振り返りセクションの充実</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-purple-700 mb-2">インタラクティブ要素</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• 理解度確認のための中間チェックポイント</li>
+                        <li>• 手を動かして確認できる簡単な演習</li>
+                        <li>• 「考えてみよう」「試してみよう」セクション</li>
+                        <li>• 発展的な学習のためのリンクや参考資料</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 基本仕様 -->
+        <div class="bg-gray-100 p-6 rounded-lg mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-cog mr-2"></i>基本仕様
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-bold text-gray-700 mb-2">技術仕様</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• HTML5準拠の構造でレスポンシブデザインを実装</li>
+                        <li>• Tailwind CSS（CDN）とFontAwesome（CDN）を使用</li>
+                        <li>• ナビゲーション機能（前日・翌日への移動）</li>
+                        <li>• 演習問題・模擬試験の回答表示ボタン機能を実装</li>
+                        <li>• ファイルサイズ目安：20KB以上</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-700 mb-2">生成するファイル</h3>
+                    <div class="bg-white p-3 rounded border">
+                        <p><strong>ファイル名:</strong> day26_lecture.html</p>
+                        <p><strong>タイトル:</strong> ITエンジニア育成カリキュラム - Day26: データベース基礎</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 演習問題・クイズの正しい仕様 -->
+        <div class="bg-yellow-50 border border-yellow-200 p-6 rounded-lg mb-8">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-4">
+                <i class="fas fa-question-circle mr-2"></i>演習問題・理解度クイズの正しい表示仕様
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-yellow-700 mb-2">■ 演習問題の仕様</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• <strong>問題文</strong>: 常に表示（非表示にしない）</li>
+                        <li>• <strong>回答例・解説</strong>: 「回答例を表示」ボタンでクリック時に表示</li>
+                        <li>• <strong>詳細解説</strong>: 削減せずに充実した内容を維持</li>
+                    </ul>
+                    
+                    <div class="mt-3 p-3 bg-gray-50 rounded">
+                        <h4 class="font-semibold mb-2">実装例:</h4>
+                        <pre class="text-xs text-gray-600 bg-white p-2 rounded overflow-x-auto">
+&lt;div class="exercise-section"&gt;
+  &lt;h3&gt;💡 演習問題&lt;/h3&gt;
+  &lt;div class="problem-statement"&gt;
+    &lt;p&gt;データベース設計の手順を説明せよ。&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;button onclick="showExerciseAnswer(1)"&gt;回答例を表示&lt;/button&gt;
+  &lt;div id="exerciseAnswer1" style="display:none;"&gt;
+    &lt;!-- 回答例と詳細解説 --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-yellow-700 mb-2">■ 理解度クイズの仕様</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>• <strong>問題文・選択肢</strong>: 常に表示</li>
+                        <li>• <strong>正解・解説</strong>: 「回答を表示」ボタンでクリック時に表示</li>
+                        <li>• <strong>JavaScriptによる動的表示機能</strong>: showAnswer()関数を実装</li>
+                    </ul>
+                    
+                    <div class="mt-3 p-3 bg-gray-50 rounded">
+                        <h4 class="font-semibold mb-2">実装例:</h4>
+                        <pre class="text-xs text-gray-600 bg-white p-2 rounded overflow-x-auto">
+&lt;div class="quiz-question"&gt;
+  &lt;p&gt;&lt;strong&gt;1. データベースの主な役割は？&lt;/strong&gt;&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;A: データの一時保存&lt;/li&gt;
+    &lt;li&gt;B: データの永続化と管理&lt;/li&gt;
+    &lt;li&gt;C: データの暗号化&lt;/li&gt;
+    &lt;li&gt;D: データの圧縮&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;button onclick="showAnswer(1)"&gt;回答を表示&lt;/button&gt;
+  &lt;div id="answer1" style="display:none;"&gt;
+    &lt;p&gt;&lt;strong&gt;正解: B&lt;/strong&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;解説:&lt;/strong&gt; データベースの主な役割は...&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day26固有の内容指針 -->
+        <div class="bg-indigo-50 border border-indigo-200 p-6 rounded-lg mb-8">
+            <h2 class="text-2xl font-bold text-indigo-800 mb-4">
+                <i class="fas fa-database mr-2"></i>Day26 データベース基礎 - 特別な注意点
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-indigo-700 mb-2">■ データベース専門用語の丁寧な解説が必要な項目</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-semibold text-indigo-600 mb-2">基本概念</h4>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>• <strong>RDBMS</strong> - 「リレーショナルデータベース管理システム」の日本語併記と具体例</li>
+                                <li>• <strong>CRUD</strong> - Create/Read/Update/Deleteの詳細説明と実用例</li>
+                                <li>• <strong>トランザクション</strong> - 銀行口座の振込を例にした分かりやすい説明</li>
+                                <li>• <strong>ACID特性</strong> - 各特性の具体的な意味と重要性</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-indigo-600 mb-2">設計概念</h4>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>• <strong>正規化</strong> - なぜ必要なのかを具体的なデータ重複例で説明</li>
+                                <li>• <strong>主キー・外部キー</strong> - 図解による関連性の視覚化</li>
+                                <li>• <strong>ER図</strong> - 実際のビジネス例（書店・図書館）での作成手順</li>
+                                <li>• <strong>カーディナリティ</strong> - 1対1、1対多、多対多の具体例</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-indigo-700 mb-2">■ 分かりづらくなりがちな表の改善例</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <h4 class="font-semibold text-indigo-600 mb-2">❌ 改善前の問題のある表</h4>
+                            <div class="bg-red-50 p-3 rounded border border-red-200">
+                                <table class="w-full text-xs">
+                                    <tr><th>DB種類</th><th>特徴</th><th>用途</th></tr>
+                                    <tr><td>RDBMS</td><td>構造化</td><td>業務系</td></tr>
+                                    <tr><td>NoSQL</td><td>非構造化</td><td>Web系</td></tr>
+                                </table>
+                                <p class="text-red-600 text-xs mt-2">⚠️ 専門用語のみで初心者には理解困難</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-semibold text-indigo-600 mb-2">✅ 改善後の分かりやすい表</h4>
+                            <div class="bg-green-50 p-3 rounded border border-green-200">
+                                <table class="w-full text-xs">
+                                    <tr><th>データベース種類</th><th>特徴（初心者向け説明）</th><th>適用場面（具体例）</th></tr>
+                                    <tr><td>RDBMS<br/><span class="text-gray-500">(リレーショナル型)</span></td><td>表形式でデータを管理<br/>データの整合性を重視</td><td>会計システム、在庫管理<br/>銀行システム等</td></tr>
+                                    <tr><td>NoSQL<br/><span class="text-gray-500">(非リレーショナル型)</span></td><td>柔軟なデータ形式<br/>大量データの高速処理</td><td>SNS、ログ解析<br/>IoTデータ処理等</td></tr>
+                                </table>
+                                <p class="text-green-600 text-xs mt-2">✅ 日本語説明と具体例で理解しやすい</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 講義構成の詳細指示 -->
+        <div class="bg-white border border-gray-200 p-6 rounded-lg mb-8 shadow-sm">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-list-ol mr-2"></i>講義構成の詳細指示
+            </h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-700 mb-3">1. ITエンジニア豆知識</h3>
+                    <div class="bg-yellow-50 p-4 rounded">
+                        <p class="font-semibold mb-2">テーマ: NoSQLデータベースの最新動向</p>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>• NoSQLの種類と特徴（ドキュメントDB、グラフDB、カラムファミリーDB等）</li>
+                            <li>• MongoDB、Cassandra、Neo4j等の実用事例</li>
+                            <li>• 従来のRDBMSとNoSQLの使い分け</li>
+                            <li>• ビッグデータ処理におけるNoSQLの優位性</li>
+                            <li>• 金融・EC・ゲーム業界でのNoSQL導入事例</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-bold text-gray-700 mb-3">2. 本日の講義内容（詳細実装要求）</h3>
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-4 rounded">
+                            <h4 class="font-bold text-blue-700 mb-2">2.1 データベースの基礎概念</h4>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>• データベースの定義と役割（ファイルシステムとの比較を含む）</li>
+                                <li>• DBMS（データベース管理システム）の機能詳細</li>
+                                <li>• データの一貫性・整合性・可用性の具体例</li>
+                                <li>• トランザクション処理の基本概念（銀行ATMの例で説明）</li>
+                                <li>• 各種データベースの種類と特徴（比較表で整理）</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-green-50 p-4 rounded">
+                            <h4 class="font-bold text-green-700 mb-2">2.2 リレーショナルデータベースの構造</h4>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>• テーブル（表）の概念（Excelとの比較で理解促進）</li>
+                                <li>• レコード（行）とフィールド（列）の役割</li>
+                                <li>• プライマリキー（主キー）の役割と選択基準</li>
+                                <li>• 外部キー（Foreign Key）の概念と参照整合性</li>
+                                <li>• インデックスの仕組みと効果（本の索引との比較）</li>
+                                <li>• 各種データ型の選択と最適化（実例付き）</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-purple-50 p-4 rounded">
+                            <h4 class="font-bold text-purple-700 mb-2">2.3 データベース設計の基本</h4>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>• 要件分析とデータ要件の整理（書店システムを例に）</li>
+                                <li>• 概念設計（ERD作成）の手順詳細</li>
+                                <li>• 論理設計（テーブル設計）の実践</li>
+                                <li>• 物理設計（最適化）の考慮点</li>
+                                <li>• 正規化理論（1NF～BCNF）の段階的説明</li>
+                                <li>• 正規化のメリットとデメリット（具体例付き）</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript実装仕様 -->
+        <div class="bg-gray-900 text-white p-6 rounded-lg mb-8">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-code mr-2"></i>JavaScript実装仕様
+            </h2>
+            
+            <div class="bg-gray-800 p-4 rounded">
+                <h3 class="font-bold text-gray-200 mb-2">回答表示ボタン機能の実装</h3>
+                <pre class="text-sm text-green-400 overflow-x-auto"><code>function toggleAnswer(questionId) {
+    const element = document.getElementById(questionId + '-answer');
+    const button = event.target;
+    
+    if (element.classList.contains('hidden')) {
+        element.classList.remove('hidden');
+        element.classList.add('animate-fade-in');
+        button.textContent = '回答を非表示';
+        button.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+        button.classList.add('bg-gray-500', 'hover:bg-gray-600');
+    } else {
+        element.classList.add('hidden');
+        button.textContent = '回答を表示';
+        button.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+        button.classList.add('bg-blue-500', 'hover:bg-blue-600');
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- 品質基準・検証要件 -->
+        <div class="bg-red-50 border border-red-200 p-6 rounded-lg mb-8">
+            <h2 class="text-2xl font-bold text-red-800 mb-4">
+                <i class="fas fa-check-circle mr-2"></i>品質基準・検証要件
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded shadow-sm">
+                    <h3 class="font-bold text-red-700 mb-2">必須要件</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>✅ HTML5準拠のマークアップ</li>
+                        <li>✅ Tailwind CSSによるレスポンシブデザイン</li>
+                        <li>✅ FontAwesomeアイコンの適切な使用</li>
+                        <li>✅ 20KB以上のファイルサイズ</li>
+                        <li>✅ 演習問題・模擬試験の回答表示機能</li>
+                        <li>✅ 講義内容で演習・試験内容を事前説明</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded shadow-sm">
+                    <h3 class="font-bold text-red-700 mb-2">検証項目</h3>
+                    <ul class="text-sm text-gray-700 space-y-1">
+                        <li>🔍 HTML構文の正確性</li>
+                        <li>🔍 レスポンシブデザインの動作確認</li>
+                        <li>🔍 JavaScriptの動作検証</li>
+                        <li>🔍 各リンクの接続確認</li>
+                        <li>🔍 内容の整合性チェック</li>
+                        <li>🔍 分かりやすさ指針の適用確認</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 最終指示 -->
+        <div class="bg-gradient-to-r from-green-600 to-green-700 text-white p-6 rounded-lg">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-flag-checkered mr-2"></i>最終指示
+            </h2>
+            <div class="bg-white bg-opacity-20 p-4 rounded">
+                <p class="mb-3">
+                    上記の<strong>分かりやすさ改善指針</strong>、<strong>講師向け詳細説明</strong>、
+                    <strong>受講者理解促進要素</strong>をすべて含めて、高品質な
+                    <strong>day26_lecture.html</strong>を生成してください。
+                </p>
+                <p class="mb-3">
+                    特に以下の点を重視してください：
+                </p>
+                <ul class="text-sm space-y-1">
+                    <li>• 演習問題は問題文を常時表示し、回答例のみをボタンで表示</li>
+                    <li>• 理解度クイズは各問題に「回答を表示」ボタンを設置</li>
+                    <li>• 専門用語は必ず日本語説明と具体例を併記</li>
+                    <li>• 表やまとめは初心者にも分かりやすい形式で作成</li>
+                    <li>• 講義内容で演習・試験の内容を事前に詳細説明</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDtVte2n%2BhTJTn7%2BxLbAjDkOsHKmiHknrF3EozhtG%2FBgmxu0zTQ809Co%2FPnB988WJuBv7VQvRyydDH4kT1viM0W8mFYGZAoaXfD%2FYKUuTj4E82%2BYoRC96vxEjrvOr8l84yJZtGp5CZcpjge2ArL7qWR1pjbBHsz%2BiuuLRwE2ebfBSc%2B1YFmGWoHxaeueKr6Uvevm8HojVE2rfs24zGIKk1ZBbcCb1WGwhU1uTS0gESiltQ7nPIUZSzYC0XvLZcWuXBTWZ%2F1Z0P32A2EfUksz%2BVnNdIioX0AW0%2BT94OZOhfDTRvdq2x2ZJ6qOIo4l5RzK472EFLl9mBPxfIG0Y%2F%2FrZR0BPrR479CpYyVwW3itjymH3fuaz3wqWIj1divpiGuWyTqm44mZbHXyrrRctbsyoxOSVA2rQmGddiYWMSY%2F1CefnR3LFPZWCcZ5s6Vg7QM9wYK7w7o085flvPTPmiJ8f5VuHY61fPeHRV7e54MB54an7%2BJ%2B8oos2Kv5pTurW9OdwNie%2Bg6RO1%2Fc1gBWh8MtTuLo%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDtVte2n+hTJTn7+xLbAjDkOsHKmiHknrF3EozhtG/Bgmxu0zTQ809Co/PnB988WJuBv7VQvRyydDH4kT1viM0W8mFYGZAoaXfD/YKUuTj4E82+YoRC96vxEjrvOr8l84yJZtGp5CZcpjge2ArL7qWR1pjbBHsz+iuuLRwE2ebfBSc+1YFmGWoHxaeueKr6Uvevm8HojVE2rfs24zGIKk1ZBbcCb1WGwhU1uTS0gESiltQ7nPIUZSzYC0XvLZcWuXBTWZ/1Z0P32A2EfUksz+VnNdIioX0AW0+T94OZOhfDTRvdq2x2ZJ6qOIo4l5RzK472EFLl9mBPxfIG0Y//rZR0BPrR479CpYyVwW3itjymH3fuaz3wqWIj1divpiGuWyTqm44mZbHXyrrRctbsyoxOSVA2rQmGddiYWMSY/1CefnR3LFPZWCcZ5s6Vg7QM9wYK7w7o085flvPTPmiJ8f5VuHY61fPeHRV7e54MB54an7+J+8oos2Kv5pTurW9OdwNie+g6RO1/c1gBWh8MtTuLo=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

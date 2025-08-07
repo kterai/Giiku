@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 45: Spring Boot入門</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .code-block {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight {
+            background-color: #fef3c7;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+        }
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <script defer src="../js/day-navigation.js"></script>
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-4xl font-bold mb-2">
+                        <i class="fas fa-leaf mr-3"></i>Day 45: Spring Boot入門
+                    </h1>
+                    <p class="text-xl opacity-90">Springフレームワークの概要・DI・プロジェクト作成・REST API開発</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-sm opacity-75">ITエンジニア育成カリキュラム</div>
+                    <div class="text-lg font-semibold">第10週第4日目</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b">
+        <div class="container mx-auto px-4">
+            <div class="flex space-x-8 py-4">
+                <a href="#overview" class="text-blue-600 hover:text-blue-800 font-medium">概要</a>
+                <a href="#spring-framework" class="text-blue-600 hover:text-blue-800 font-medium">Spring Framework</a>
+                <a href="#dependency-injection" class="text-blue-600 hover:text-blue-800 font-medium">依存性注入</a>
+                <a href="#spring-boot" class="text-blue-600 hover:text-blue-800 font-medium">Spring Boot</a>
+                <a href="#rest-api" class="text-blue-600 hover:text-blue-800 font-medium">REST API</a>
+                <a href="#exercises" class="text-blue-600 hover:text-blue-800 font-medium">演習</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- Learning Objectives -->
+        <section id="overview" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="section-header text-3xl font-bold mb-6">
+                    <i class="fas fa-target mr-3"></i>学習目標
+                </h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>理解目標
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-arrow-right text-blue-500 mr-2 mt-1"></i>
+                                <span>Springフレームワークの概要と特徴を理解する</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-arrow-right text-blue-500 mr-2 mt-1"></i>
+                                <span>依存性注入（DI）と制御の逆転（IoC）の概念を習得する</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-arrow-right text-blue-500 mr-2 mt-1"></i>
+                                <span>Spring Bootアプリケーションの開発環境を構築する</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-arrow-right text-blue-500 mr-2 mt-1"></i>
+                                <span>RESTful APIの基本的な実装ができる</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">
+                            <i class="fas fa-trophy text-yellow-500 mr-2"></i>達成基準
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-star text-orange-500 mr-2 mt-1"></i>
+                                <span>Spring Boot開発環境の構築ができる</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-star text-orange-500 mr-2 mt-1"></i>
+                                <span>@SpringBootApplicationアノテーションの役割を説明できる</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-star text-orange-500 mr-2 mt-1"></i>
+                                <span>DIコンテナの仕組みと@Autowiredの使い方を理解している</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-star text-orange-500 mr-2 mt-1"></i>
+                                <span>基本的なRESTコントローラーを作成できる</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Schedule -->
+        <section class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="section-header text-3xl font-bold mb-6">
+                    <i class="fas fa-calendar-alt mr-3"></i>詳細スケジュール
+                </h2>
+                <div class="space-y-4">
+                    <div class="flex items-center p-4 bg-blue-50 rounded-lg">
+                        <i class="fas fa-clock text-blue-500 mr-3"></i>
+                        <div>
+                            <strong>10:00-10:15</strong> オリエンテーション
+                            <p class="text-sm text-gray-600">Spring Boot概要とJavaエンタープライズ開発の全体像</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-4 bg-green-50 rounded-lg">
+                        <i class="fas fa-book text-green-500 mr-3"></i>
+                        <div>
+                            <strong>10:15-11:00</strong> Spring Framework基礎理論
+                            <p class="text-sm text-gray-600">Spring Framework、自動設定、組み込みサーバーの仕組み</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-4 bg-purple-50 rounded-lg">
+                        <i class="fas fa-cogs text-purple-500 mr-3"></i>
+                        <div>
+                            <strong>11:00-11:45</strong> DI・IoC深掘り
+                            <p class="text-sm text-gray-600">依存性注入パターン、IoC容器、アノテーション詳解</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-4 bg-orange-50 rounded-lg">
+                        <i class="fas fa-tools text-orange-500 mr-3"></i>
+                        <div>
+                            <strong>12:45-13:30</strong> 環境構築実習
+                            <p class="text-sm text-gray-600">Spring Initializr、IDE設定、初回プロジェクト作成</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-4 bg-red-50 rounded-lg">
+                        <i class="fas fa-code text-red-500 mr-3"></i>
+                        <div>
+                            <strong>13:30-14:15</strong> RESTコントローラー実装
+                            <p class="text-sm text-gray-600">@RestController、HTTPマッピング、JSON応答処理</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center p-4 bg-indigo-50 rounded-lg">
+                        <i class="fas fa-laptop-code text-indigo-500 mr-3"></i>
+                        <div>
+                            <strong>14:15-15:00</strong> 演習・質疑応答
+                            <p class="text-sm text-gray-600">実践演習とSpring Boot開発のベストプラクティス</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Spring Framework Overview -->
+        <section id="spring-framework" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="section-header text-3xl font-bold mb-6">
+                    <i class="fas fa-leaf mr-3"></i>Spring Frameworkの概要
+                </h2>
+                
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Springとは？</h3>
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-6">
+                        <p class="text-lg mb-4">
+                            <span class="highlight font-semibold">Spring Framework</span>は、Java/JVMベースのエンタープライズアプリケーション開発のための
+                            包括的なプログラミング・設定モデルを提供するオープンソースフレームワークです。
+                        </p>
+                        <p class="text-gray-700">
+                            複雑な企業システム開発を簡素化し、テスタブルで保守性の高いコードの作成を支援します。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gradient-to-br from-green-100 to-green-200 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-green-800">
+                            <i class="fas fa-magic mr-2"></i>軽量性
+                        </h4>
+                        <p class="text-green-700">POJOベースの開発により、重いフレームワークに依存しない軽量なアプリケーション作成が可能</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-100 to-blue-200 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-blue-800">
+                            <i class="fas fa-puzzle-piece mr-2"></i>非侵入性
+                        </h4>
+                        <p class="text-blue-700">ビジネスロジックにフレームワーク固有のクラスやインターフェースを強制しない設計</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-100 to-purple-200 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-purple-800">
+                            <i class="fas fa-arrows-alt mr-2"></i>疎結合
+                        </h4>
+                        <p class="text-purple-700">依存性注入により、オブジェクト間の結合度を低減し、テストしやすいコード構造を実現</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h4 class="font-bold text-lg mb-4">Springの主要モジュール</h4>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <ul class="space-y-2">
+                                <li><i class="fas fa-circle text-xs text-blue-500 mr-2"></i><strong>Spring Core:</strong> DI/IoC機能</li>
+                                <li><i class="fas fa-circle text-xs text-green-500 mr-2"></i><strong>Spring MVC:</strong> Webアプリケーション開発</li>
+                                <li><i class="fas fa-circle text-xs text-purple-500 mr-2"></i><strong>Spring Data:</strong> データアクセス抽象化</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="space-y-2">
+                                <li><i class="fas fa-circle text-xs text-red-500 mr-2"></i><strong>Spring Security:</strong> 認証・認可</li>
+                                <li><i class="fas fa-circle text-xs text-yellow-500 mr-2"></i><strong>Spring Boot:</strong> 自動設定・スターター</li>
+                                <li><i class="fas fa-circle text-xs text-indigo-500 mr-2"></i><strong>Spring Test:</strong> テストサポート</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dependency Injection -->
+        <section id="dependency-injection" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="section-header text-3xl font-bold mb-6">
+                    <i class="fas fa-sitemap mr-3"></i>依存性注入（DI）と制御の逆転（IoC）
+                </h2>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">依存性注入とは？</h3>
+                    <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6 mb-6">
+                        <p class="text-lg mb-4">
+                            <span class="highlight font-semibold">依存性注入（Dependency Injection）</span>は、
+                            オブジェクトが自身の依存オブジェクトを直接作成するのではなく、外部から注入してもらうデザインパターンです。
+                        </p>
+                        <p class="text-gray-700">
+                            これにより、オブジェクト同士の結合度が低くなり、テストしやすく、保守性の高いコードが実現できます。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="font-bold text-lg mb-4 text-red-600">❌ DIを使わない場合</h4>
+                        <div class="code-block text-sm">
+<pre>public class OrderService {
+    private PaymentService paymentService;
+    
+    public OrderService() {
+        // 依存オブジェクトを直接作成（結合度が高い）
+        this.paymentService = new PaymentService();
+    }
+    
+    public void processOrder(Order order) {
+        paymentService.processPayment(order);
+    }
+}</pre>
+                        </div>
+                        <div class="mt-4 p-4 bg-red-50 rounded-lg">
+                            <p class="text-red-700 text-sm">
+                                <i class="fas fa-exclamation-triangle mr-2"></i>
+                                問題点：PaymentServiceの実装が変わると、OrderServiceも変更が必要
+                            </p>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-4 text-green-600">✅ DIを使う場合</h4>
+                        <div class="code-block text-sm">
+<pre>@Service
+public class OrderService {
+    private final PaymentService paymentService;
+    
+    // コンストラクタインジェクション
+    public OrderService(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
+    
+    public void processOrder(Order order) {
+        paymentService.processPayment(order);
+    }
+}</pre>
+                        </div>
+                        <div class="mt-4 p-4 bg-green-50 rounded-lg">
+                            <p class="text-green-700 text-sm">
+                                <i class="fas fa-check mr-2"></i>
+                                利点：PaymentServiceの実装に依存せず、テスト時にモックを注入可能
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 p-6 rounded-lg mb-8">
+                    <h4 class="font-bold text-lg mb-4">SpringのDI注入方法</h4>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded">
+                            <h5 class="font-semibold mb-2 text-blue-600">コンストラクタ注入</h5>
+                            <div class="code-block text-xs">
+<pre>@Service
+public class UserService {
+    private final UserRepository repo;
+    
+    public UserService(UserRepository repo) {
+        this.repo = repo;
+    }
+}</pre>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-2">推奨：必須依存関係に使用</p>
+                        </div>
+                        <div class="bg-white p-4 rounded">
+                            <h5 class="font-semibold mb-2 text-green-600">フィールド注入</h5>
+                            <div class="code-block text-xs">
+<pre>@Service
+public class UserService {
+    @Autowired
+    private UserRepository repo;
+}</pre>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-2">簡潔だがテストが困難</p>
+                        </div>
+                        <div class="bg-white p-4 rounded">
+                            <h5 class="font-semibold mb-2 text-purple-600">セッター注入</h5>
+                            <div class="code-block text-xs">
+<pre>@Service
+public class UserService {
+    private UserRepository repo;
+    
+    @Autowired
+    public void setUserRepository(UserRepository repo) {
+        this.repo = repo;
+    }
+}</pre>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-2">オプション依存関係に使用</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-indigo-50 p-6 rounded-lg">
+                    <h4 class="font-bold text-lg mb-4">制御の逆転（IoC）コンテナ</h4>
+                    <p class="mb-4">
+                        SpringのIoCコンテナ（ApplicationContext）は、Bean定義を読み取り、オブジェクトの生成・管理・依存関係の解決を自動化します。
+                    </p>
+                    <div class="code-block">
+<pre>@Configuration
+public class AppConfig {
+    
+    @Bean
+    public PaymentService paymentService() {
+        return new CreditCardPaymentService();
+    }
+    
+    @Bean
+    public OrderService orderService(PaymentService paymentService) {
+        return new OrderService(paymentService);
+    }
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Spring Boot -->
+        <section id="spring-boot" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="section-header text-3xl font-bold mb-6">
+                    <i class="fas fa-rocket mr-3"></i>Spring Boot入門
+                </h2>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Spring Bootとは？</h3>
+                    <div class="bg-green-50 border-l-4 border-green-500 p-6 mb-6">
+                        <p class="text-lg mb-4">
+                            <span class="highlight font-semibold">Spring Boot</span>は、Springベースのアプリケーションを
+                            迅速に作成するためのフレームワークです。「設定よりも規約」の原則に基づき、
+                            最小限の設定でプロダクション対応のアプリケーションを構築できます。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <div class="bg-gradient-to-br from-blue-100 to-blue-200 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-blue-800">
+                            <i class="fas fa-magic mr-2"></i>自動設定
+                        </h4>
+                        <p class="text-blue-700">クラスパス上のjarファイルに基づいて、自動的に適切な設定を行う</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-100 to-green-200 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-green-800">
+                            <i class="fas fa-server mr-2"></i>組み込みサーバー
+                        </h4>
+                        <p class="text-green-700">Tomcat、Jetty、Undertowなどのサーバーを内蔵し、standalone実行が可能</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-purple-100 to-purple-200 p-6 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-purple-800">
+                            <i class="fas fa-cubes mr-2"></i>スターター依存関係
+                        </h4>
+                        <p class="text-purple-700">目的別にパッケージ化された依存関係で、簡単にライブラリを導入</p>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="font-bold text-lg mb-4">プロジェクト構造</h4>
+                    <div class="code-block">
+<pre>src/
+├── main/
+│   ├── java/
+│   │   └── com/example/demo/
+│   │       ├── DemoApplication.java      # メインクラス
+│   │       ├── controller/               # コントローラー
+│   │       ├── service/                  # サービス層
+│   │       ├── repository/               # データアクセス層
+│   │       └── model/                    # エンティティ
+│   └── resources/
+│       ├── application.properties        # 設定ファイル
+│       └── static/                       # 静的リソース
+└── test/                                 # テストコード</pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="font-bold text-lg mb-4">メインクラスの解説</h4>
+                    <div class="code-block mb-4">
+<pre>@SpringBootApplication
+public class DemoApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
+}</pre>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                        <h5 class="font-semibold mb-2">@SpringBootApplication アノテーションの構成要素：</h5>
+                        <ul class="space-y-2 text-sm">
+                            <li><i class="fas fa-arrow-right text-blue-500 mr-2"></i><strong>@Configuration:</strong> 設定クラスとして機能</li>
+                            <li><i class="fas fa-arrow-right text-green-500 mr-2"></i><strong>@EnableAutoConfiguration:</strong> 自動設定を有効化</li>
+                            <li><i class="fas fa-arrow-right text-purple-500 mr-2"></i><strong>@ComponentScan:</strong> コンポーネントの自動検出を有効化</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h4 class="font-bold text-lg mb-4">主要なスターター依存関係</h4>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <ul class="space-y-2 text-sm">
+                                <li><i class="fas fa-cube text-blue-500 mr-2"></i><code>spring-boot-starter-web</code> - Web開発</li>
+                                <li><i class="fas fa-cube text-green-500 mr-2"></i><code>spring-boot-starter-data-jpa</code> - JPA/Hibernate</li>
+                                <li><i class="fas fa-cube text-purple-500 mr-2"></i><code>spring-boot-starter-security</code> - セキュリティ</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="space-y-2 text-sm">
+                                <li><i class="fas fa-cube text-red-500 mr-2"></i><code>spring-boot-starter-test</code> - テスト</li>
+                                <li><i class="fas fa-cube text-yellow-500 mr-2"></i><code>spring-boot-starter-thymeleaf</code> - テンプレート</li>
+                                <li><i class="fas fa-cube text-indigo-500 mr-2"></i><code>spring-boot-starter-actuator</code> - 監視</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- REST API -->
+        <section id="rest-api" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="section-header text-3xl font-bold mb-6">
+                    <i class="fas fa-exchange-alt mr-3"></i>RESTful API開発
+                </h2>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">RESTコントローラーの作成</h3>
+                    <div class="code-block mb-4">
+<pre>@RestController
+@RequestMapping("/api/users")
+public class UserController {
+    
+    @Autowired
+    private UserService userService;
+    
+    // 全ユーザー取得
+    @GetMapping
+    public List&lt;User&gt; getAllUsers() {
+        return userService.findAll();
+    }
+    
+    // ユーザー詳細取得
+    @GetMapping("/{id}")
+    public ResponseEntity&lt;User&gt; getUserById(@PathVariable Long id) {
+        User user = userService.findById(id);
+        return user != null ? 
+            ResponseEntity.ok(user) : 
+            ResponseEntity.notFound().build();
+    }
+    
+    // ユーザー作成
+    @PostMapping
+    public ResponseEntity&lt;User&gt; createUser(@RequestBody User user) {
+        User createdUser = userService.save(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    }
+    
+    // ユーザー更新
+    @PutMapping("/{id}")
+    public ResponseEntity&lt;User&gt; updateUser(@PathVariable Long id, @RequestBody User user) {
+        User updatedUser = userService.update(id, user);
+        return updatedUser != null ? 
+            ResponseEntity.ok(updatedUser) : 
+            ResponseEntity.notFound().build();
+    }
+    
+    // ユーザー削除
+    @DeleteMapping("/{id}")
+    public ResponseEntity&lt;Void&gt; deleteUser(@PathVariable Long id) {
+        boolean deleted = userService.delete(id);
+        return deleted ? 
+            ResponseEntity.noContent().build() : 
+            ResponseEntity.notFound().build();
+    }
+}</pre>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="font-bold text-lg mb-4 text-blue-600">主要アノテーション</h4>
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h5 class="font-semibold text-blue-800">@RestController</h5>
+                                <p class="text-sm text-blue-700">RESTfulなWebサービスのコントローラーを示す</p>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h5 class="font-semibold text-green-800">@RequestMapping</h5>
+                                <p class="text-sm text-green-700">HTTPリクエストをメソッドにマッピング</p>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <h5 class="font-semibold text-purple-800">@PathVariable</h5>
+                                <p class="text-sm text-purple-700">URLパスから変数を抽出</p>
+                            </div>
+                            <div class="bg-orange-50 p-4 rounded-lg">
+                                <h5 class="font-semibold text-orange-800">@RequestBody</h5>
+                                <p class="text-sm text-orange-700">HTTPリクエストボディをJavaオブジェクトに変換</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg mb-4 text-green-600">HTTPメソッドマッピング</h4>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h5 class="font-semibold">@GetMapping</h5>
+                                <p class="text-sm text-gray-700">データの取得（READ操作）</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h5 class="font-semibold">@PostMapping</h5>
+                                <p class="text-sm text-gray-700">データの作成（CREATE操作）</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h5 class="font-semibold">@PutMapping</h5>
+                                <p class="text-sm text-gray-700">データの更新（UPDATE操作）</p>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg">
+                                <h5 class="font-semibold">@DeleteMapping</h5>
+                                <p class="text-sm text-gray-700">データの削除（DELETE操作）</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="font-bold text-lg mb-4">サービス層の実装</h4>
+                    <div class="code-block">
+<pre>@Service
+public class UserService {
+    
+    private final UserRepository userRepository;
+    
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+    
+    public List&lt;User&gt; findAll() {
+        return userRepository.findAll();
+    }
+    
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+    
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+    
+    public User update(Long id, User userDetails) {
+        return userRepository.findById(id)
+            .map(user -&gt; {
+                user.setName(userDetails.getName());
+                user.setEmail(userDetails.getEmail());
+                return userRepository.save(user);
+            })
+            .orElse(null);
+    }
+    
+    public boolean delete(Long id) {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+}</pre>
+                    </div>
+                </div>
+
+                <div class="bg-indigo-50 p-6 rounded-lg">
+                    <h4 class="font-bold text-lg mb-4">application.propertiesでの設定</h4>
+                    <div class="code-block">
+<pre># サーバーポート設定
+server.port=8080
+
+# データベース接続設定
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+
+# JPA設定
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.jpa.show-sql=true
+
+# H2 Console設定（開発用）
+spring.h2.console.enabled=true</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Exercises -->
+        <section id="exercises" class="mb-12">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <h2 class="section-header text-3xl font-bold mb-6">
+                    <i class="fas fa-tasks mr-3"></i>実践演習
+                </h2>
+
+                <div class="space-y-8">
+                    <div class="border-l-4 border-blue-500 pl-6">
+                        <h3 class="text-xl font-semibold mb-4 text-blue-800">演習1: 基本的なSpring Bootプロジェクトの作成</h3>
+                        <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                            <h4 class="font-semibold mb-2">目標</h4>
+                            <p class="mb-4">Spring Initializrを使用して新しいプロジェクトを作成し、基本的なRESTエンドポイントを実装する</p>
+                            
+                            <h4 class="font-semibold mb-2">手順</h4>
+                            <ol class="list-decimal list-inside space-y-2 text-sm">
+                                <li>Spring Initializr（https://start.spring.io/）でプロジェクトを作成</li>
+                                <li>依存関係：Spring Web、Spring Boot DevToolsを追加</li>
+                                <li>プロジェクトをダウンロードし、IDEで開く</li>
+                                <li>HelloWorldControllerを作成</li>
+                                <li>アプリケーションを実行し、動作確認</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <button onclick="toggleAnswer('answer1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                                <i class="fas fa-eye mr-2"></i>実装例を表示
+                            </button>
+                            <div id="answer1" class="hidden mt-4">
+                                <div class="code-block">
+<pre>@RestController
+public class HelloWorldController {
+    
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello, Spring Boot!";
+    }
+    
+    @GetMapping("/hello/{name}")
+    public String helloName(@PathVariable String name) {
+        return "Hello, " + name + "!";
+    }
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-l-4 border-green-500 pl-6">
+                        <h3 class="text-xl font-semibold mb-4 text-green-800">演習2: Book管理APIの作成</h3>
+                        <div class="bg-green-50 p-4 rounded-lg mb-4">
+                            <h4 class="font-semibold mb-2">目標</h4>
+                            <p class="mb-4">書籍管理のためのCRUD操作が可能なREST APIを実装する</p>
+                            
+                            <h4 class="font-semibold mb-2">要件</h4>
+                            <ul class="list-disc list-inside space-y-1 text-sm">
+                                <li>Book エンティティ（id, title, author, price）</li>
+                                <li>全書籍取得: GET /api/books</li>
+                                <li>書籍詳細取得: GET /api/books/{id}</li>
+                                <li>書籍作成: POST /api/books</li>
+                                <li>書籍更新: PUT /api/books/{id}</li>
+                                <li>書籍削除: DELETE /api/books/{id}</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <button onclick="toggleAnswer('answer2')" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">
+                                <i class="fas fa-eye mr-2"></i>実装例を表示
+                            </button>
+                            <div id="answer2" class="hidden mt-4">
+                                <div class="code-block">
+<pre>// Book.java
+public class Book {
+    private Long id;
+    private String title;
+    private String author;
+    private Double price;
+    
+    // コンストラクタ、ゲッター、セッター省略
+}
+
+// BookController.java
+@RestController
+@RequestMapping("/api/books")
+public class BookController {
+    
+    @Autowired
+    private BookService bookService;
+    
+    @GetMapping
+    public List&lt;Book&gt; getAllBooks() {
+        return bookService.findAll();
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity&lt;Book&gt; getBookById(@PathVariable Long id) {
+        Book book = bookService.findById(id);
+        return book != null ? ResponseEntity.ok(book) : ResponseEntity.notFound().build();
+    }
+    
+    @PostMapping
+    public ResponseEntity&lt;Book&gt; createBook(@RequestBody Book book) {
+        Book createdBook = bookService.save(book);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdBook);
+    }
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-l-4 border-purple-500 pl-6">
+                        <h3 class="text-xl font-semibold mb-4 text-purple-800">演習3: 理解度クイズ</h3>
+                        <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold mb-2">問題1: @SpringBootApplicationアノテーションが含む3つのアノテーションは？</h4>
+                                    <div class="grid grid-cols-1 gap-2">
+                                        <label class="flex items-center">
+                                            <input type="radio" name="q1" value="a" class="mr-2">
+                                            A) @Configuration, @EnableAutoConfiguration, @ComponentScan
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="q1" value="b" class="mr-2">
+                                            B) @Component, @Service, @Repository
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="q1" value="c" class="mr-2">
+                                            C) @RestController, @RequestMapping, @Autowired
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h4 class="font-semibold mb-2">問題2: DIの主な利点は？</h4>
+                                    <div class="grid grid-cols-1 gap-2">
+                                        <label class="flex items-center">
+                                            <input type="radio" name="q2" value="a" class="mr-2">
+                                            A) コードの実行速度が向上する
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="q2" value="b" class="mr-2">
+                                            B) オブジェクト間の結合度が低くなり、テストしやすくなる
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="q2" value="c" class="mr-2">
+                                            C) メモリ使用量が削減される
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-100 p-4 rounded-lg">
+                            <button onclick="showQuizAnswers()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
+                                <i class="fas fa-check-circle mr-2"></i>回答を表示
+                            </button>
+                            <div id="quiz-answers" class="hidden mt-4 space-y-2">
+                                <div class="bg-green-100 p-3 rounded">
+                                    <strong>問題1の答え：</strong> A) @Configuration, @EnableAutoConfiguration, @ComponentScan
+                                    <p class="text-sm text-gray-600">@SpringBootApplicationは3つのアノテーションを組み合わせたメタアノテーションです。</p>
+                                </div>
+                                <div class="bg-green-100 p-3 rounded">
+                                    <strong>問題2の答え：</strong> B) オブジェクト間の結合度が低くなり、テストしやすくなる
+                                    <p class="text-sm text-gray-600">DIにより疎結合な設計が実現でき、モックオブジェクトを使ったテストが容易になります。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="mb-12">
+            <div class="bg-gradient-to-r from-green-100 to-blue-100 rounded-lg shadow-lg p-8">
+                <h2 class="section-header text-3xl font-bold mb-6">
+                    <i class="fas fa-graduation-cap mr-3"></i>まとめ
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>重要ポイント
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                Spring Bootは設定の簡素化によりSpring開発を効率化
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                DIによりテスタブルで保守性の高いコード構造を実現
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                @SpringBootApplicationで自動設定とコンポーネントスキャンを有効化
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                @RestControllerでRESTful APIを簡単に実装可能
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">
+                            <i class="fas fa-arrow-right text-blue-500 mr-2"></i>次のステップ
+                        </h3>
+                        <div class="bg-white p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">Day 46: Spring Boot・MVC・Thymeleaf</h4>
+                            <p class="text-sm text-gray-600 mb-4">
+                                明日はMVCアーキテクチャの詳細とThymeleafテンプレートエンジンを学習し、
+                                動的なWebアプリケーションの構築方法を習得します。
+                            </p>
+                            <ul class="text-sm space-y-1">
+                                <li><i class="fas fa-circle text-xs text-blue-500 mr-2"></i>MVCアーキテクチャの理解</li>
+                                <li><i class="fas fa-circle text-xs text-green-500 mr-2"></i>Thymeleafによるテンプレート作成</li>
+                                <li><i class="fas fa-circle text-xs text-purple-500 mr-2"></i>フォーム処理とバリデーション</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-4">
+                <i class="fas fa-code mr-2"></i>
+                ITエンジニア育成カリキュラム - Spring Boot入門
+            </p>
+            <p class="text-gray-400 text-sm">
+                © 2025 APSA Co.,Ltd. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAnswer(answerId) {
+            const element = document.getElementById(answerId);
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+            } else {
+                element.classList.add('hidden');
+            }
+        }
+
+        function showQuizAnswers() {
+            const element = document.getElementById('quiz-answers');
+            element.classList.remove('hidden');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDvBgHSHDmg007L90TVkp4YXwFsdz6gTRxV56VOVL1tWMzlZpswEyNB6nlHKuekj4qtC1LR8KQAfaKQcrGgOfYY44Vf2r5mod0ICguBuXGlKhAnIM%2Fz0gwf3X560kuMq%2Bn8ClzNLi3Bo5fpcUeeseKgE8S7K%2BdpD4tmtn5swolmauFuUycn2ZrWhAMn8HfDvHCV2C8zN724uzHp899doNesamoUiQnkF71Xwvur7SuJjSYU6Q6WqJpN3jHoZxJmnRXccOFtGJlD64DoaQmBA4j%2BkgHN65keqkdUVTwA2ykhHPUuHtJP9zoTFWvZYLibcEfmo8kkywfW0FaR%2F01%2FePFZrcfGu2p61arjmk6HLUtfhZLb7tsiA3h11%2FFZKNgQifuryK%2FCZr1psnjRTT%2FIabMd15Kxijqhz%2Ba%2B3ePFd6Yez578TAaU2%2FcUKT3qYAHkKbvFgz%2Fyi2Col%2BsBZ16z8gbP7g2DOHF1hxCKLsFPVsOmoAP%2FXHpb2iVophfWhfIWGxToYsRGtF6CVfLMca1l%2BdE0MYyxW22JW2yDuYyNlr2bYQ";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDvBgHSHDmg007L90TVkp4YXwFsdz6gTRxV56VOVL1tWMzlZpswEyNB6nlHKuekj4qtC1LR8KQAfaKQcrGgOfYY44Vf2r5mod0ICguBuXGlKhAnIM/z0gwf3X560kuMq+n8ClzNLi3Bo5fpcUeeseKgE8S7K+dpD4tmtn5swolmauFuUycn2ZrWhAMn8HfDvHCV2C8zN724uzHp899doNesamoUiQnkF71Xwvur7SuJjSYU6Q6WqJpN3jHoZxJmnRXccOFtGJlD64DoaQmBA4j+kgHN65keqkdUVTwA2ykhHPUuHtJP9zoTFWvZYLibcEfmo8kkywfW0FaR/01/ePFZrcfGu2p61arjmk6HLUtfhZLb7tsiA3h11/FZKNgQifuryK/CZr1psnjRTT/IabMd15Kxijqhz+a+3ePFd6Yez578TAaU2/cUKT3qYAHkKbvFgz/yi2Col+sBZ16z8gbP7g2DOHF1hxCKLsFPVsOmoAP/XHpb2iVophfWhfIWGxToYsRGtF6CVfLMca1l+dE0MYyxW22JW2yDuYyNlr2bYQ";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
