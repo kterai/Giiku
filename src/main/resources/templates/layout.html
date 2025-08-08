@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${title}">技育システム</title>
-    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf" th:content="${_csrf?.token}">
     <link href="/webjars/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/webjars/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/webjars/fortawesome__fontawesome-free/css/all.min.css" rel="stylesheet">
     <link th:href="@{/css/giiku-style.css}" rel="stylesheet">
 </head>
 <body>
