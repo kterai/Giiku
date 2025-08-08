@@ -19,6 +19,8 @@ services:
       DATABASE_URL: jdbc:postgresql://db:5432/giiku_db_autotest
       DATABASE_USERNAME: postgres
       DATABASE_PASSWORD: postgres
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
     ports:
       - "8080:8080"
     depends_on:
