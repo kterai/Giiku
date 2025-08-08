@@ -1,11 +1,12 @@
 package jp.co.apsa.giiku.infrastructure.audit;
 
+import jp.co.apsa.giiku.domain.port.AuditPort;
+import jp.co.apsa.giiku.domain.valueobject.LogLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import jp.co.apsa.giiku.domain.port.AuditPort;
-import jp.co.apsa.giiku.domain.valueobject.LogLevel;
+
 
 /**
  * Simple implementation of {@link AuditPort} that delegates to SLF4J.
