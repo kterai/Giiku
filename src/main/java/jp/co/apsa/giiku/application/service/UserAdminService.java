@@ -51,16 +51,6 @@ public class UserAdminService {
     }
 
     /**
-     * 承認者ユーザーを取得します。
-     *
-     * @return 承認者一覧
-     */
-    @Transactional(readOnly = true)
-    public List<User> findApprovers() {
-        return userRepository.findApprovers();
-    }
-
-    /**
      * IDでユーザーを取得します。
      *
      * @param id ユーザーID

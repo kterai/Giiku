@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoginController {
 
     /**
-     * ルートアクセス時はダッシュボードへリダイレクトします。
+     * ルートアクセス時はログインページへリダイレクトします。
      *
-     * @return ダッシュボードへのリダイレクト
+     * @return ログインページへのリダイレクト
      */
     @GetMapping("/")
     public String root() {
-        return "redirect:/dashboard";
+        return "redirect:/login";
     }
 
     /**

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ダッシュボード - 技育システム</title>
+    <link href="/webjars/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/giiku-style.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 th:text="${title}">ダッシュボード</h1>
+    <p>ユーザー数: <span th:text="${userCount}">0</span></p>
+</div>
+<script src="/webjars/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

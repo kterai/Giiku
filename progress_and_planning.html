@@ -44,6 +44,8 @@
         <div class="bg-white rounded-lg shadow-md p-6 mb-6">
             <h2 class="text-2xl font-bold text-custom-blue mb-4">プロジェクト概要</h2>
         <p class="mb-4">このプロジェクトは、IT未経験者を3ヶ月間で基礎から応用まで育成するための総合カリキュラムのWebサイト作成です。全54日分のカリキュラム内容を日別・週別・月別に整理し、体系的な学習環境を提供します。</p>
+        <p class="text-gray-600 text-sm mb-2">2025-08-07: AbstractController・Dashboard・ログイン画面のテストを追加。</p>
+        <p class="text-gray-600 text-sm mb-2">2025-08-06: エンティティとリポジトリにJavaDocコメントと入力チェックを追加。</p>
         <p class="text-gray-600 text-sm mb-2">2025-08-06: Day46〜Day54講義ページに標準ナビゲーションを追加。</p>
         <p class="text-gray-600 text-sm mb-2">2025-08-06: Day36〜Day45講義ページに標準ナビゲーションを追加。</p>
          <p class="text-gray-600 text-sm mb-2">2025-08-06: Day31〜Day35講義ページに標準ナビゲーションを追加。</p>
@@ -82,10 +84,10 @@
                 <div class="mb-4">
                     <div class="flex justify-between mb-1">
                         <span class="font-bold">全体進捗</span>
-                        <span>54%</span>
+                        <span>56%</span>
                     </div>
                     <div class="progress-container">
-                        <div class="progress-bar bg-green-500" style="width: 54%"></div>
+                        <div class="progress-bar bg-green-500" style="width: 56%"></div>
                     </div>
                 </div>
                 
@@ -244,6 +246,34 @@
                             <p class="text-gray-600 text-sm">day1_slides.html を追加し、講義スライドを閲覧可能に</p>
                         </div>
                     </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                        <div>
+                            <h3 class="font-bold">バックエンドの整備</h3>
+                            <p class="text-gray-600 text-sm">schema.sqlに合わせエンティティとリポジトリを整理</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                        <div>
+                            <h3 class="font-bold">Slack通知とログ機能の復元</h3>
+                            <p class="text-gray-600 text-sm">Slack連携と監査ログ処理を戻しテストを再追加</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                        <div>
+                            <h3 class="font-bold">ダッシュボードと共通コントローラの復元</h3>
+                            <p class="text-gray-600 text-sm">AbstractControllerとDashboard機能を再導入</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                        <div>
+                            <h3 class="font-bold">ログイン画面とテストの整備</h3>
+                            <p class="text-gray-600 text-sm">AbstractController・Dashboard・ログイン画面のテストを再追加</p>
+                        </div>
+                    </li>
                 </ul>
             </div>
             
@@ -379,7 +409,7 @@
                 data: {
                     labels: ['完了', '残り'],
                     datasets: [{
-                        data: [54, 46],
+                        data: [56, 44],
                         backgroundColor: [
                             '#4CAF50',
                             '#e0e0e0'
