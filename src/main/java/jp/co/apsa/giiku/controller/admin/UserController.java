@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import jp.co.apsa.giiku.application.service.DepartmentService;
-import jp.co.apsa.giiku.application.service.PositionService;
 import jp.co.apsa.giiku.application.service.UserAdminService;
 import jp.co.apsa.giiku.domain.entity.User;
 
@@ -27,15 +25,9 @@ import jp.co.apsa.giiku.domain.entity.User;
 public class UserController {
 
     private final UserAdminService userAdminService;
-    private final DepartmentService departmentService;
-    private final PositionService positionService;
 
-    public UserController(UserAdminService userAdminService,
-                          DepartmentService departmentService,
-                          PositionService positionService) {
+    public UserController(UserAdminService userAdminService) {
         this.userAdminService = userAdminService;
-        this.departmentService = departmentService;
-        this.positionService = positionService;
     }
 
     /** 一覧表示 */
@@ -51,7 +43,6 @@ public class UserController {
     public String formNew(Model model) {
         model.addAttribute("title", "ユーザー作成");
         model.addAttribute("user", new User());
-        populate(model);
         return "user_detail";
     }
 
@@ -60,7 +51,6 @@ public class UserController {
     public String formEdit(@PathVariable Long id, Model model) {
         model.addAttribute("title", "ユーザー編集");
         model.addAttribute("user", userAdminService.findById(id));
-        populate(model);
         return "user_detail";
     }
 
@@ -70,7 +60,6 @@ public class UserController {
                        BindingResult result,
                        @RequestParam(required = false) String newPassword,
                        Model model) {
-        populate(model);
         if (result.hasErrors()) {
             model.addAttribute("title", user.getId() == null ? "ユーザー作成" : "ユーザー編集");
             return "user_detail";
@@ -91,11 +80,5 @@ public class UserController {
     public String delete(@PathVariable Long id) {
         userAdminService.delete(id);
         return "redirect:/admin/users";
-    }
-
-    private void populate(Model model) {
-        model.addAttribute("departments", departmentService.findAll());
-        model.addAttribute("positions", positionService.findAll());
-        model.addAttribute("users", userAdminService.findAll());
     }
 }

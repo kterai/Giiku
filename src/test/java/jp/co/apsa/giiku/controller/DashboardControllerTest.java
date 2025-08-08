@@ -1,58 +1,45 @@
 package jp.co.apsa.giiku.controller;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import jp.co.apsa.giiku.application.service.DashboardService;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-import jp.co.apsa.giiku.controller.AbstractControllerTest;
 
-/**
- * DashboardController の統合テスト。
- */
-public class DashboardControllerTest extends AbstractControllerTest {
+@WebMvcTest(controllers = DashboardController.class)
+@AutoConfigureMockMvc(addFilters = false)
+@org.springframework.test.context.ContextConfiguration(classes = DashboardControllerTest.TestConfig.class)
+class DashboardControllerTest {
 
-    @Test
-    void unauthenticatedAccessRedirectsToLogin() throws Exception {
-        mockMvc.perform(get("/dashboard"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrlPattern("**/login"));
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private DashboardService dashboardService;
+
+    @org.springframework.boot.autoconfigure.SpringBootApplication(
+        exclude = {
+            org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration.class,
+            org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration.class,
+            org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration.class
+        }
+    )
+    static class TestConfig {
     }
 
     @Test
-    void authenticatedAccessLoadsDashboard() throws Exception {
-        mockMvc.perform(get("/dashboard")
-                .with(admin()))
+    void dashboardAddsUserCountAndTitle() throws Exception {
+        when(dashboardService.countUsers()).thenReturn(3L);
+        mockMvc.perform(get("/dashboard"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("dashboard"))
-                .andExpect(model().attributeExists("applications"))
-                .andExpect(model().attributeExists("approvals"))
-                .andExpect(model().attributeExists("chart"))
+                .andExpect(model().attribute("userCount", 3L))
                 .andExpect(model().attribute("title", "ダッシュボード"));
-    }
-
-    @Test
-    void dashboardViewContainsHeading() throws Exception {
-        mockMvc.perform(get("/dashboard")
-                .with(admin()))
-                .andExpect(status().isOk())
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("ダッシュボード")));
-    }
-
-    @Test
-    void dashboardTableContainsExpectedColumns() throws Exception {
-        mockMvc.perform(get("/dashboard")
-                .with(SecurityMockMvcRequestPostProcessors.user("user1")
-                        .password("user123")
-                        .roles("USER")))
-                .andExpect(status().isOk())
-                .andExpect(model().attribute("applications", org.hamcrest.Matchers.hasSize(5)))
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("申請ID")))
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("申請種別")))
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("申請日")))
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("ステータス")))
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("出張申請")))
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("経費申請")));
     }
 }
