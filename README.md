@@ -36,7 +36,7 @@
 - Java は [Amazon Corretto](https://aws.amazon.com/corretto/) を使用
 - IDE は [Pleiades](https://pleiades.io/) を推奨
 
-## 進捗状況（2025-08-07時点）
+## 進捗状況（2025-08-08時点）
 - **全体進捗:** 56%
 - **月別ページ:** 100%
 - **週別ページ:** 100%
@@ -73,6 +73,9 @@
 - バックエンド：Slack通知とログ機能を復元
 - バックエンド：共通コントローラとダッシュボードを再導入
 - バックエンド：AbstractController・Dashboard・ログイン画面のテストを再追加
+- フロントエンド：dashboard.htmlをindex.htmlのスタイルに合わせて更新
+- フロントエンド：dashboard.htmlをlayout.htmlを利用する構造に変更
+- フロントエンド：ダッシュボードにindex.htmlの静的コンテンツを直接埋め込み
 
 ## 今後のタスク（優先順位順）
 1. `day6.html`〜`day54.html` の作成（残り49日分）
