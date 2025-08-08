@@ -83,8 +83,8 @@ spring:
   mail:
     host: ${MAIL_HOST:localhost}
     port: ${MAIL_PORT:587}
-    username: ${MAIL_USERNAME:}
-    password: ${MAIL_PASSWORD:}
+    username: ${MAIL_USERNAME:your-secure-username}
+    password: ${MAIL_PASSWORD:your-secure-password}
     properties:
       mail:
         smtp:
@@ -169,3 +169,6 @@ management:
   endpoint:
     health:
       show-details: when-authorized
+  health:
+    mail:
+      enabled: false
