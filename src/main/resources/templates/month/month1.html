@@ -1,240 +1,20 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layouts/month}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>第1ヶ月目: Java Silver 17 対策 | ITエンジニア育成カリキュラム</title>
-    <link href="../css/lib/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/lib/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #0d6efd;
-            --secondary-color: #6c757d;
-            --accent-color: #ffc107;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-        }
-        
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-            line-height: 1.6;
-            color: var(--dark-color);
-        }
-        
-        .navbar-brand img {
-            height: 40px;
-        }
-        
-        .hero {
-            background: linear-gradient(135deg, var(--primary-color), #0a58ca);
-            color: white;
-            padding: 4rem 0;
-            margin-bottom: 2rem;
-        }
-        
-        .hero h1 {
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 800px;
-        }
-        
-        .card {
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-        }
-        
-        .card-header {
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: 600;
-        }
-        
-        .week-card {
-            border-left: 4px solid var(--primary-color);
-            margin-bottom: 1rem;
-        }
-        
-        .progress {
-            height: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .skill-badge {
-            background-color: var(--light-color);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            margin: 0.25rem;
-            display: inline-block;
-            font-weight: 500;
-            color: var(--dark-color);
-            border: 1px solid #e9ecef;
-        }
-        
-        .skill-badge i {
-            margin-right: 0.5rem;
-            color: var(--primary-color);
-        }
-        
-        .chart-container {
-            position: relative;
-            height: 300px;
-            width: 100%;
-        }
-        
-        .timeline-container {
-            position: relative;
-            padding-left: 30px;
-        }
-        
-        .timeline-container::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 2px;
-            background-color: var(--primary-color);
-        }
-        
-        .timeline-item {
-            position: relative;
-            padding-bottom: 1.5rem;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -34px;
-            top: 0;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-        }
-        
-        .footer {
-            background-color: var(--dark-color);
-            color: white;
-            padding: 3rem 0;
-            margin-top: 3rem;
-        }
-        
-        .footer-logo {
-            max-width: 150px;
-            margin-bottom: 1rem;
-        }
-        
-        @media (max-width: 768px) {
-            .hero {
-                padding: 2rem 0;
-            }
-            
-            .skill-badge {
-                width: 100%;
-                margin: 0.25rem 0;
-            }
-        }
-
-        .testimonial {
-            font-style: italic;
-            background-color: #f9f9f9;
-            border-left: 4px solid var(--primary-color);
-            padding: 1rem 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .resources-list .card {
-            transition: transform 0.3s;
-        }
-
-        .resources-list .card:hover {
-            transform: translateY(-5px);
-        }
-    </style>
+    <link href="../css/lib/bootstrap.min.css" th:href="@{/css/lib/bootstrap.min.css}" rel="stylesheet">
+<!--    <link href="../css/lib/bootstrap-icons.css" th:href="@{/css/lib/bootstrap-icons.css}" rel="stylesheet">-->
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="../index.html">
-                <img src="../images/logo/apsa_logo.png" alt="APSA Logo" class="img-fluid">
-                <span class="ms-2">ITエンジニア育成カリキュラム</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../index.html">ホーム</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle active" href="#" id="navbarMonthDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            月別カリキュラム
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarMonthDropdown">
-                            <li><a class="dropdown-item active" href="month1.html">第1ヶ月目: Java Silver</a></li>
-                            <li><a class="dropdown-item" href="month2.html">第2ヶ月目: 基本情報</a></li>
-                            <li><a class="dropdown-item" href="month3.html">第3ヶ月目: Web開発</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarWeekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            週別詳細
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarWeekDropdown">
-                            <li><a class="dropdown-item" href="../week/week1.html">第1週: Java基礎</a></li>
-                            <li><a class="dropdown-item" href="../week/week2.html">第2週: オブジェクト指向</a></li>
-                            <li><a class="dropdown-item" href="../week/week3.html">第3週: Java応用</a></li>
-                            <li><a class="dropdown-item" href="../week/week4.html">第4週: 総仕上げ</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../resources/resources.html">学習リソース</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../resources/faq.html">FAQ</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<div layout:fragment="pageheader"
+     th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumb})}"></div>
 
-    <section class="hero">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <h1>第1ヶ月目: Java Silver 17 対策</h1>
-                    <p class="lead">Oracle Certified Professional Java SE 17 Developer資格の取得を目指し、Javaの基礎から応用まで体系的に学びます。</p>
-                </div>
-                <div class="col-lg-4">
-                    <div class="card bg-white p-3 text-center">
-                        <div class="card-body">
-                            <h5 class="card-title text-primary fw-bold">研修期間</h5>
-                            <p class="card-text fs-5">18日間（約4週間）</p>
-                            <hr>
-                            <h5 class="card-title text-primary fw-bold">想定学習時間</h5>
-                            <p class="card-text fs-5">約126時間</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+<section layout:fragment="content">
     <div class="container mb-5">
-        <nav aria-label="breadcrumb" class="mb-4">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="../index.html">ホーム</a></li>
-                <li class="breadcrumb-item active" aria-current="page">第1ヶ月目: Java Silver 17 対策</li>
-            </ol>
-        </nav>
-
         <div class="row">
             <div class="col-lg-8">
                 <div class="card mb-4">
@@ -497,50 +277,7 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <img src="../images/logo/apsa_logo.png" alt="APSA Logo" class="footer-logo img-fluid">
-                    <p>ITエンジニア育成カリキュラムは、未経験者が3ヶ月でプログラミングの基礎からWebアプリケーション開発まで学べる体系的なプログラムです。</p>
-                </div>
-                <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
-                    <h5>カリキュラム</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="month1.html" class="text-white">第1ヶ月目: Java Silver</a></li>
-                        <li><a href="month2.html" class="text-white">第2ヶ月目: 基本情報</a></li>
-                        <li><a href="month3.html" class="text-white">第3ヶ月目: Web開発</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 col-lg-3 mb-4 mb-md-0">
-                    <h5>リソース</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="../resources/resources.html" class="text-white">学習リソース</a></li>
-                        <li><a href="../resources/faq.html" class="text-white">よくある質問</a></li>
-                        <li><a href="../resources/advanced.html" class="text-white">応用コース</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4 col-lg-3">
-                    <h5>お問い合わせ</h5>
-                    <ul class="list-unstyled">
-                        <li><i class="bi bi-envelope-fill me-2"></i> info@apsa.co.jp</li>
-                        <li><i class="bi bi-telephone-fill me-2"></i> 03-XXXX-XXXX</li>
-                        <li><i class="bi bi-geo-alt-fill me-2"></i> 東京都千代田区</li>
-                    </ul>
-                    <div class="mt-3">
-                        <a href="#" class="text-white me-3"><i class="bi bi-twitter fs-5"></i></a>
-                        <a href="#" class="text-white me-3"><i class="bi bi-facebook fs-5"></i></a>
-                        <a href="#" class="text-white me-3"><i class="bi bi-linkedin fs-5"></i></a>
-                        <a href="#" class="text-white"><i class="bi bi-youtube fs-5"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr class="my-4 bg-light">
-            <div class="text-center">
-                <p class="mb-0">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
+
 
     <script src="../js/lib/jquery.min.js"></script>
     <script src="../js/lib/bootstrap.bundle.min.js"></script>
@@ -670,12 +407,3 @@
     </script>
 </body>
 </html>
-    <script id="html_badge_script1">
-        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDiY5JQi2lcQfNJ3KjqZyT4zT6z5gH4XoRvjFZml7O%2FFJF1OFL8rFSEjvvuEBQrhuFBxk%2Fs4Xf6P2qanOfUuBSknUfi3fIAgOMI0Awdnmcw%2BjVCQqg0pNH9g0M5M1k6PkKEWDN89XxS3YI7iGc1ZmmBOMjeAKinm4JgJrAV%2BZGQLM4nAfDipYbwngZkWjd8Rgh6yFw1larLZUgndjEyC2tO%2F1QePRBoyIhJ5KkEPq3Iu2%2BA303jxImcyEa%2F20r5QPUILOTXdrRhHMuYWCdvxyfBHwZAe6A4MKyMHhyNpvvrCJs55NVwAmdCkbCDxAycqc9ReGprVK9ryS%2FNf35A8cILWyPR%2FX2qqlD1HwJvE8t4TtIhHf5%2F12hgfMvr6HvsXzAMfuzY42XQhJ638sXxat9ojlYjvPv79BZLz%2B6pDVS0M6FYEWjohH0aB5si85TP3NLPSkc7t6P%2BTqW71ZltAJz7dyhKh2YuJHQJa0a%2FNXblZLosNPH1j4Mi4%2B%2BpQapwAHyA%3D%3D";
-        window.__genspark_locale = "ja-JP";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDiY5JQi2lcQfNJ3KjqZyT4zT6z5gH4XoRvjFZml7O/FJF1OFL8rFSEjvvuEBQrhuFBxk/s4Xf6P2qanOfUuBSknUfi3fIAgOMI0Awdnmcw+jVCQqg0pNH9g0M5M1k6PkKEWDN89XxS3YI7iGc1ZmmBOMjeAKinm4JgJrAV+ZGQLM4nAfDipYbwngZkWjd8Rgh6yFw1larLZUgndjEyC2tO/1QePRBoyIhJ5KkEPq3Iu2+A303jxImcyEa/20r5QPUILOTXdrRhHMuYWCdvxyfBHwZAe6A4MKyMHhyNpvvrCJs55NVwAmdCkbCDxAycqc9ReGprVK9ryS/Nf35A8cILWyPR/X2qqlD1HwJvE8t4TtIhHf5/12hgfMvr6HvsXzAMfuzY42XQhJ638sXxat9ojlYjvPv79BZLz+6pDVS0M6FYEWjohH0aB5si85TP3NLPSkc7t6P+TqW71ZltAJz7dyhKh2YuJHQJa0a/NXblZLosNPH1j4Mi4++pQapwAHyA==";
-    </script>
-    
-    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
-    

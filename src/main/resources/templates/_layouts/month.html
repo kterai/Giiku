@@ -4,7 +4,16 @@
     <title>Month</title>
 </head>
 <body>
-<section layout:fragment="subheader" th:replace="~{_fragments/headers :: sub(feature='Month', tabs=${tabs})}"></section>
+<section layout:fragment="subheader">
+    <div class="container mt-2">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="../index.html">ホーム</a></li>
+            <li class="breadcrumb-item active" aria-current="page">第1ヶ月目: Java Silver 17 対策</li>
+        </ol>
+    </nav>
+    </div>
+</section>
 <section layout:fragment="pageheader"></section>
 <section layout:fragment="content"></section>
 </body>
