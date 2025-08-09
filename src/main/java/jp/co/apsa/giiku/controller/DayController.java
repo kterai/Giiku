@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/day")
-public class DayController {
+public class DayController extends AbstractController {
 
     /**
      * 指定された日付ページを表示します。
@@ -18,7 +18,7 @@ public class DayController {
      * @param page ページ名 (例: day1)
      * @return 対応するテンプレート
      */
-    @GetMapping("/{page}")
+    @GetMapping( path = {"/{page}","/{page}.html"})
     public String day(@PathVariable String page) {
         return "day/" + page;
     }

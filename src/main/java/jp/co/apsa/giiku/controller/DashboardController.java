@@ -29,7 +29,7 @@ public class DashboardController extends AbstractController {
      * @param model モデル
      * @return ダッシュボードテンプレート
      */
-    @GetMapping("/dashboard")
+    @GetMapping(path = {"/dashboard","/index.html"})
     public String dashboard(Model model) {
         model.addAttribute("userCount", dashboardService.countUsers());
         setTitle(model, "ダッシュボード");

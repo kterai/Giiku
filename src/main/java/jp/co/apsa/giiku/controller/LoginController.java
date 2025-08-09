@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @since 2025
  */
 @Controller
-public class LoginController {
+public class LoginController  extends AbstractController{
 
     /**
      * ルートアクセス時はログインページへリダイレクトします。

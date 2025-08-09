@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/week")
-public class WeekController {
+public class WeekController  extends AbstractController{
 
     /**
      * 指定された週ページを表示します。
@@ -18,7 +18,7 @@ public class WeekController {
      * @param page ページ名 (例: week1)
      * @return 対応するテンプレート
      */
-    @GetMapping("/{page}")
+    @GetMapping( path = {"/{page}","/{page}.html"})
     public String week(@PathVariable String page) {
         return "week/" + page;
     }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/month")
-public class MonthController {
+public class MonthController  extends AbstractController{
 
     /**
      * 指定された月ページを表示します。
@@ -18,7 +18,7 @@ public class MonthController {
      * @param page ページ名 (例: month1)
      * @return 対応するテンプレート
      */
-    @GetMapping("/{page}")
+    @GetMapping( path = {"/{page}","/{page}.html"})
     public String month(@PathVariable String page) {
         return "month/" + page;
     }

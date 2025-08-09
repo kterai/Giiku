@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/lecture")
-public class LectureController {
+public class LectureController extends AbstractController {
 
     /**
      * 指定された講義ページを表示します。
@@ -18,7 +18,7 @@ public class LectureController {
      * @param page ページ名 (例: day1_lecture)
      * @return 対応するテンプレート
      */
-    @GetMapping("/{page}")
+    @GetMapping( path = {"/{page}","/{page}.html"})
     public String lecture(@PathVariable String page) {
         return "lecture/" + page;
     }
