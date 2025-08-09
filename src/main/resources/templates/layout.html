@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="${title}">技育システム</title>
     <meta name="_csrf" th:content="${_csrf?.token}">
-    <link href="/webjars/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/webjars/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/lib/bootstrap.min.css" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="../css/lib/bootstrap-icons.css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css}" rel="stylesheet">
     <link href="/webjars/fortawesome__fontawesome-free/css/all.min.css" rel="stylesheet">
     <link th:href="@{/css/giiku-style.css}" rel="stylesheet">
 </head>
@@ -14,7 +14,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="index.html">
-                <img src="images/logo/apsa_logo.png" alt="APSA Logo">
+                <img src="../static/images/logo/giiku_logo_horizontal.png" th:src="@{images/logo/giiku_logo_horizontal.png}" alt="APSA Logo" height="30px">
                 <span class="ms-2">ITエンジニア育成カリキュラム</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -97,7 +97,7 @@
         <div class="row">
             <div class="col-lg-3 mb-4">
                 <div class="footer-logo">
-                    <img src="images/logo/apsa_logo.png" alt="APSA Logo" class="mb-3">
+                    <img src="images/logo/apsa_logo.png" height="30px" alt="APSA Logo" class="mb-3">
                     <p>ITエンジニア育成カリキュラム</p>
                 </div>
             </div>
