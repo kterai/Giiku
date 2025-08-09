@@ -78,6 +78,7 @@
 - フロントエンド：ダッシュボードにindex.htmlの静的コンテンツを直接埋め込み
 - バックエンド：day、week、month、lectureフォルダのHTMLを表示するコントローラーを追加
 - dayX_lecture.htmlの回答ボタンと内容をADMIN/INSTRUCTORのみ表示に変更（静的HTMLでは全表示）
+- フロントエンド：layout.htmlにweek1.htmlのヘッダーとフッターを適用
 
 ## 今後のタスク（優先順位順）
 1. `day6.html`〜`day54.html` の作成（残り49日分）
