@@ -10,6 +10,9 @@ import java.util.Optional;
 
 /**
  * 会社リポジトリインターフェース。
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Repository
 @Validated

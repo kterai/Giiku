@@ -9,6 +9,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+/**
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
 @WebMvcTest(controllers = MonthController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @org.springframework.test.context.ContextConfiguration(classes = MonthControllerTest.TestConfig.class)

@@ -19,6 +19,9 @@ import java.time.LocalDateTime;
 
 /**
  * ユーザーエンティティクラス。
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Entity
 @Table(name = "users")
