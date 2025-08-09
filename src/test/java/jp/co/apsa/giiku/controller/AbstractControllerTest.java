@@ -6,6 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
 
+/**
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
 class AbstractControllerTest {
 
     private static class TestController extends AbstractController {

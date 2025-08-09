@@ -7,6 +7,9 @@ import java.util.concurrent.CompletableFuture;
  *
  * <p>Allows the application layer to send notifications without
  * depending on concrete infrastructure such as Slack.</p>
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 public interface NotificationPort {
 
