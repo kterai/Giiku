@@ -54,7 +54,8 @@ public class SecurityConfig {
                 .requestMatchers(
                     new AntPathRequestMatcher("/login"),
                     new AntPathRequestMatcher("/login-error"),
-                    new AntPathRequestMatcher("/logout")
+                    new AntPathRequestMatcher("/logout"),
+                    new AntPathRequestMatcher("/error")
                 ).permitAll()
 
                 // 管理者機能は管理者権限必要
@@ -70,7 +71,7 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login-process")   // ログイン処理URL
                 .usernameParameter("username")          // ユーザー名パラメータ
                 .passwordParameter("password")          // パスワードパラメータ
-                .defaultSuccessUrl("/dashboard")       // ログイン成功時のリダイレクト先
+                .defaultSuccessUrl("/dashboard", true)       // ログイン成功時のリダイレクト先
                 .failureUrl("/login-error")             // ログイン失敗時のリダイレクト先
                 .permitAll()
             )
