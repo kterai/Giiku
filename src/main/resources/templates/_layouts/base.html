@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title layout:title-pattern="$CONTENT_TITLE - ITエンジニア育成カリキュラム">ITエンジニア育成カリキュラム</title>
+    <meta name="_csrf" th:content="${_csrf?.token}">
+    <link th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css}" rel="stylesheet">
+    <link th:href="@{/css/giiku-style.css}" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="~{_fragments/headers :: global()}"></div>
+    <section id="sub-header" layout:fragment="subheader"></section>
+    <section id="page-header" layout:fragment="pageheader"></section>
+    <main class="container mt-4" layout:fragment="content"></main>
+    <div th:replace="~{_fragments/headers :: footer()}"></div>
+    <script src="/webjars/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/webjars/chart.js/dist/chart.umd.js"></script>
+    <script th:src="@{/js/giiku-common.js}"></script>
+    <script src="/webjars/react/umd/react.development.js"></script>
+    <script src="/webjars/react-dom/umd/react-dom.development.js"></script>
+    <script src="/webjars/babel__standalone/babel.min.js"></script>
+</body>
+</html>

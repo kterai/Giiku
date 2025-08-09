@@ -1,9 +1,13 @@
 package jp.co.apsa.giiku.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 講義ページを表示するコントローラー。
@@ -21,8 +25,17 @@ public class LectureController extends AbstractController {
      * @param page ページ名 (例: day1_lecture)
      * @return 対応するテンプレート
      */
-    @GetMapping( path = {"/{page}","/{page}.html"})
-    public String lecture(@PathVariable String page) {
+    @GetMapping(path = {"/{page}","/{page}.html"})
+    public String lecture(@PathVariable String page, Model model) {
+        setTitle(model, "講義");
+        String day = page.split("_")[0].replace("day", "");
+        String title = "Day " + day + " Lecture";
+        model.addAttribute("pageTitle", title);
+        model.addAttribute("breadcrumb", List.of(
+                Map.of("label", "Home", "href", "/"),
+                Map.of("label", "Lecture", "href", "/lecture"),
+                Map.of("label", title)
+        ));
         return "lecture/" + page;
     }
 }
