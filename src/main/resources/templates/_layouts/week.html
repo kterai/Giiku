@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{_layouts/base}">
+<head>
+    <title>Week</title>
+</head>
+<body>
+<section layout:fragment="subheader" th:replace="~{_fragments/headers :: sub(feature='Week', tabs=${tabs})}"></section>
+<section layout:fragment="pageheader"></section>
+<section layout:fragment="content"></section>
+</body>
+</html>

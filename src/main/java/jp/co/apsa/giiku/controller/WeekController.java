@@ -1,9 +1,13 @@
 package jp.co.apsa.giiku.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 週別ページを表示するコントローラー。
@@ -21,8 +25,16 @@ public class WeekController  extends AbstractController{
      * @param page ページ名 (例: week1)
      * @return 対応するテンプレート
      */
-    @GetMapping( path = {"/{page}","/{page}.html"})
-    public String week(@PathVariable String page) {
+    @GetMapping(path = {"/{page}","/{page}.html"})
+    public String week(@PathVariable String page, Model model) {
+        setTitle(model, "週別詳細");
+        String title = "Week " + page.replace("week", "");
+        model.addAttribute("pageTitle", title);
+        model.addAttribute("breadcrumb", List.of(
+                Map.of("label", "Home", "href", "/"),
+                Map.of("label", "Week", "href", "/week"),
+                Map.of("label", title)
+        ));
         return "week/" + page;
     }
 }

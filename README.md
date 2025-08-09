@@ -36,7 +36,7 @@
 - Java は [Amazon Corretto](https://aws.amazon.com/corretto/) を使用
 - IDE は [Pleiades](https://pleiades.io/) を推奨
 
-## 進捗状況（2025-08-09時点）
+## 進捗状況（2025-08-10時点）
 - **全体進捗:** 56%
 - **月別ページ:** 100%
 - **週別ページ:** 100%
@@ -78,9 +78,11 @@
 - フロントエンド：ダッシュボードにindex.htmlの静的コンテンツを直接埋め込み
 - バックエンド：day、week、month、lectureフォルダのHTMLを表示するコントローラーを追加
 - dayX_lecture.htmlの回答ボタンと内容をADMIN/INSTRUCTORのみ表示に変更（静的HTMLでは全表示）
+- テンプレート導入に伴い消失したサンプルページのコンテンツを復元し、既存ナビゲーションと見た目を維持するルールを追加
 - フロントエンド：layout.htmlにweek1.htmlのヘッダーとフッターを適用
 - フロントエンド：layout.htmlのナビゲーション配色をロゴの青に合わせて改善
 - バックエンド：セッション切れ後のログインエラーを修正
+- テンプレート構成を整理し、Thymeleafレイアウトとサンプルページ（month1、week1、day1、day1_lecture、admin/index）を追加
 
 ## 今後のタスク（優先順位順）
 1. `day6.html`〜`day54.html` の作成（残り49日分）
