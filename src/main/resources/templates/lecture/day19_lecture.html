@@ -681,10 +681,10 @@ class ClientHandler implements Runnable {<br>
                         </ul>
                     </div>
                 </div>
-                <button class="btn-reveal" onclick="showAnswer(1)">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="btn-reveal" onclick="showAnswer(1)">
                     <i class="fas fa-eye mr-2"></i>回答と詳細解説を表示
                 </button>
-                <div id="answer1" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-section">
                     <h4 class="font-bold text-green-800 mb-3">解答例</h4>
                     <div class="code-example text-xs">
                         <div class="text-white">
@@ -771,10 +771,10 @@ public class EchoServer {<br>
                         </ul>
                     </div>
                 </div>
-                <button class="btn-reveal" onclick="showAnswer(2)">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="btn-reveal" onclick="showAnswer(2)">
                     <i class="fas fa-eye mr-2"></i>回答と詳細解説を表示
                 </button>
-                <div id="answer2" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-section">
                     <h4 class="font-bold text-green-800 mb-3">解答例</h4>
                     <div class="code-example text-xs">
                         <div class="text-white">
@@ -899,10 +899,10 @@ public class WeatherAPIClient {<br>
                         </label>
                     </div>
                 </div>
-                <button class="btn-reveal" onclick="showAnswer(3)">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="btn-reveal" onclick="showAnswer(3)">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer3" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="answer-section">
                     <div class="p-4">
                         <h4 class="font-bold text-green-800 mb-2">正解: B) UDP - リアルタイム性が最重要</h4>
                         <div class="text-sm text-gray-700 space-y-2">
@@ -953,10 +953,10 @@ public class WeatherAPIClient {<br>
                         </label>
                     </div>
                 </div>
-                <button class="btn-reveal" onclick="showAnswer(4)">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="btn-reveal" onclick="showAnswer(4)">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer4" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer4" class="answer-section">
                     <div class="p-4">
                         <h4 class="font-bold text-green-800 mb-2">正解: C) 要求されたリソースが見つからない</h4>
                         <div class="text-sm text-gray-700 space-y-2">
@@ -1006,10 +1006,10 @@ public class WeatherAPIClient {<br>
                         </label>
                     </div>
                 </div>
-                <button class="btn-reveal" onclick="showAnswer(5)">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="btn-reveal" onclick="showAnswer(5)">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer5" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer5" class="answer-section">
                     <div class="p-4">
                         <h4 class="font-bold text-green-800 mb-2">正解: C) 80番（HTTP）と443番（HTTPS）</h4>
                         <div class="text-sm text-gray-700 space-y-2">

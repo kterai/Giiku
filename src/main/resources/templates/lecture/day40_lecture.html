@@ -705,7 +705,7 @@ function saveTodos() {
                 <button onclick="showExercise1Solution()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm">
                     解答例を表示
                 </button>
-                <div id="exercise1Solution" class="hidden mt-4 p-4 bg-gray-50 rounded border-l-4 border-blue-400"></div>
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exercise1Solution" class="hidden mt-4 p-4 bg-gray-50 rounded border-l-4 border-blue-400"></div>
             </div>
 
             <div class="exercise-area mb-6">
@@ -720,7 +720,7 @@ function saveTodos() {
                 <button onclick="showExercise2Solution()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded text-sm">
                     解答例を表示
                 </button>
-                <div id="exercise2Solution" class="hidden mt-4 p-4 bg-gray-50 rounded border-l-4 border-green-400"></div>
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exercise2Solution" class="hidden mt-4 p-4 bg-gray-50 rounded border-l-4 border-green-400"></div>
             </div>
 
             <div class="exercise-area">
@@ -736,7 +736,7 @@ function saveTodos() {
                 <button onclick="showExercise3Solution()" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded text-sm">
                     解答例を表示
                 </button>
-                <div id="exercise3Solution" class="hidden mt-4 p-4 bg-gray-50 rounded border-l-4 border-purple-400"></div>
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exercise3Solution" class="hidden mt-4 p-4 bg-gray-50 rounded border-l-4 border-purple-400"></div>
             </div>
         </section>
 
@@ -786,7 +786,7 @@ function saveTodos() {
 
             <div class="mt-6 p-4 bg-blue-50 rounded-lg">
                 <h3 class="font-semibold text-blue-800 mb-2">クイズ結果</h3>
-                <div id="quizResults" class="text-sm text-gray-600">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quizResults" class="text-sm text-gray-600">
                     すべての問題に回答すると、結果がここに表示されます。
                 </div>
             </div>

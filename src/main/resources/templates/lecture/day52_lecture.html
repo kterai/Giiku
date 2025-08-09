@@ -673,7 +673,7 @@ jobs:
                         <i class="fas fa-eye mr-2"></i>回答例を表示
                     </button>
                     
-                    <div id="exercise1" class="hidden mt-4 fade-in">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exercise1" class="hidden mt-4 fade-in">
                         <div class="bg-gray-100 p-4 rounded">
                             <h4 class="font-semibold text-gray-800 mb-3">回答例: TDDアプローチでの実装</h4>
                             
@@ -747,7 +747,7 @@ void shouldValidateISBN() {
                         <i class="fas fa-eye mr-2"></i>回答例を表示
                     </button>
                     
-                    <div id="exercise2" class="hidden mt-4 fade-in">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exercise2" class="hidden mt-4 fade-in">
                         <div class="bg-gray-100 p-4 rounded">
                             <div class="code-block">
                                 <pre><code class="language-java">@SpringBootTest
@@ -832,11 +832,11 @@ class UserServiceIntegrationTest {
                         </label>
                     </div>
                     
-                    <button onclick="showAnswer('quiz1')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz1')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
                         <i class="fas fa-check mr-2"></i>回答を表示
                     </button>
                     
-                    <div id="quiz1_answer" class="hidden mt-4 fade-in">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1_answer" class="hidden mt-4 fade-in">
                         <div class="bg-green-100 border-l-4 border-green-500 p-4">
                             <p class="font-semibold text-green-800 mb-2">正解: B) Red → Green → Refactor</p>
                             <p class="text-gray-700">
@@ -876,11 +876,11 @@ class UserServiceIntegrationTest {
                         </label>
                     </div>
                     
-                    <button onclick="showAnswer('quiz2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                         <i class="fas fa-check mr-2"></i>回答を表示
                     </button>
                     
-                    <div id="quiz2_answer" class="hidden mt-4 fade-in">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2_answer" class="hidden mt-4 fade-in">
                         <div class="bg-green-100 border-l-4 border-green-500 p-4">
                             <p class="font-semibold text-green-800 mb-2">正解: C) 80%以上</p>
                             <p class="text-gray-700">

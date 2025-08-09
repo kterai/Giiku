@@ -742,10 +742,10 @@ public class ExecutorServiceExample {
                         <li>Runnableインターフェースを使用すること</li>
                         <li>全スレッドの完了を待機してから「すべて完了」と出力</li>
                     </ul>
-                    <button onclick="showExerciseAnswer(1)" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showExerciseAnswer(1)" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
                         回答例を表示
                     </button>
-                    <div id="exerciseAnswer1" class="answer-hidden">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exerciseAnswer1" class="answer-hidden">
                         <h4 class="font-semibold mb-2 text-green-800">回答例:</h4>
                         <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto"><code class="language-java">public class MultiThreadExample {
     static class MessageTask implements Runnable {
@@ -819,10 +819,10 @@ public class ExecutorServiceExample {
                         <li>synchronizedを使用して競合状態を回避</li>
                         <li>実行時間も測定して表示</li>
                     </ul>
-                    <button onclick="showExerciseAnswer(2)" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showExerciseAnswer(2)" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
                         回答例を表示
                     </button>
-                    <div id="exerciseAnswer2" class="answer-hidden">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exerciseAnswer2" class="answer-hidden">
                         <h4 class="font-semibold mb-2 text-green-800">回答例:</h4>
                         <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto"><code class="language-java">public class SynchronizedCounterExample {
     static class SafeCounter {
@@ -912,10 +912,10 @@ public class ExecutorServiceExample {
                         <li>各タスクの開始・完了時刻を記録</li>
                         <li>すべてのタスク完了後に統計情報を表示</li>
                     </ul>
-                    <button onclick="showExerciseAnswer(3)" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showExerciseAnswer(3)" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
                         回答例を表示
                     </button>
-                    <div id="exerciseAnswer3" class="answer-hidden">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exerciseAnswer3" class="answer-hidden">
                         <h4 class="font-semibold mb-2 text-green-800">回答例:</h4>
                         <pre class="bg-gray-800 text-green-400 p-4 rounded text-sm overflow-x-auto"><code class="language-java">import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -1049,10 +1049,10 @@ System.out.println("状態2: " + thread.getState());</code></pre>
                             D) 状態1: BLOCKED, 状態2: RUNNABLE
                         </label>
                     </div>
-                    <button onclick="showAnswer(1)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(1)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
                         回答を表示
                     </button>
-                    <div id="answer1" class="answer-hidden">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-hidden">
                         <p class="font-semibold text-green-800">正解: B) 状態1: NEW, 状態2: RUNNABLE</p>
                         <div class="mt-2 text-sm">
                             <p><strong>解説:</strong></p>
@@ -1104,10 +1104,10 @@ System.out.println("状態2: " + thread.getState());</code></pre>
                             D) 予測不可能な値になる
                         </label>
                     </div>
-                    <button onclick="showAnswer(2)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(2)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
                         回答を表示
                     </button>
-                    <div id="answer2" class="answer-hidden">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-hidden">
                         <p class="font-semibold text-green-800">正解: B) 10000より小さい値になることがある</p>
                         <div class="mt-2 text-sm">
                             <p><strong>解説:</strong></p>
@@ -1151,10 +1151,10 @@ System.out.println("状態2: " + thread.getState());</code></pre>
                             D) 3秒後に自動的にシャットダウンされる
                         </label>
                     </div>
-                    <button onclick="showAnswer(3)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(3)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
                         回答を表示
                     </button>
-                    <div id="answer3" class="answer-hidden">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="answer-hidden">
                         <p class="font-semibold text-green-800">正解: B) 常に3つのスレッドが維持され、タスクが多い場合はキューで待機する</p>
                         <div class="mt-2 text-sm">
                             <p><strong>解説:</strong></p>

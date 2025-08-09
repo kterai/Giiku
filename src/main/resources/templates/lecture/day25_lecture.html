@@ -501,10 +501,10 @@ public class Test {
                             エ) コンパイルエラーが発生する
                         </label>
                     </div>
-                    <button onclick="showAnswer(1)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(1)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-1"></i>回答を表示
                     </button>
-                    <div id="answer1" class="answer-section mt-4 p-4 bg-green-50 border border-green-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-section mt-4 p-4 bg-green-50 border border-green-200 rounded">
                         <p class="font-bold text-green-700 mb-2">正解: イ) 犬がワンワン鳴いています</p>
                         <div class="text-sm text-gray-700">
                             <p class="mb-2"><strong>解説:</strong></p>
@@ -540,10 +540,10 @@ public class Test {
                             エ) 両方とも要素の挿入・削除が高速である
                         </label>
                     </div>
-                    <button onclick="showAnswer(2)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(2)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-1"></i>回答を表示
                     </button>
-                    <div id="answer2" class="answer-section mt-4 p-4 bg-green-50 border border-green-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-section mt-4 p-4 bg-green-50 border border-green-200 rounded">
                         <p class="font-bold text-green-700 mb-2">正解: イ) ArrayListはランダムアクセスが高速、LinkedListは要素の挿入・削除が高速</p>
                         <div class="text-sm text-gray-700">
                             <p class="mb-2"><strong>解説:</strong></p>
@@ -613,10 +613,10 @@ public class Test {
                             エ) O(n²)
                         </label>
                     </div>
-                    <button onclick="showAnswer(3)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(3)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-1"></i>回答を表示
                     </button>
-                    <div id="answer3" class="answer-section mt-4 p-4 bg-green-50 border border-green-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="answer-section mt-4 p-4 bg-green-50 border border-green-200 rounded">
                         <p class="font-bold text-green-700 mb-2">正解: ウ) O(n)</p>
                         <div class="text-sm text-gray-700">
                             <p class="mb-2"><strong>解説:</strong></p>
@@ -693,10 +693,10 @@ public class Test {
                             エ) 社員テーブル（社員番号、社員名）、給与テーブル（社員番号、給与）、部署テーブル（部署番号、部署名）
                         </label>
                     </div>
-                    <button onclick="showAnswer(4)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(4)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-1"></i>回答を表示
                     </button>
-                    <div id="answer4" class="answer-section mt-4 p-4 bg-green-50 border border-green-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer4" class="answer-section mt-4 p-4 bg-green-50 border border-green-200 rounded">
                         <p class="font-bold text-green-700 mb-2">正解: イ) 社員テーブル（社員番号、社員名、部署番号、給与）、部署テーブル（部署番号、部署名）</p>
                         <div class="text-sm text-gray-700">
                             <p class="mb-2"><strong>解説:</strong></p>
@@ -736,10 +736,10 @@ public class Test {
                             エ) ホスト部は4ビットで、最大14台のホストを接続できる
                         </label>
                     </div>
-                    <button onclick="showAnswer(5)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(5)" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-1"></i>回答を表示
                     </button>
-                    <div id="answer5" class="answer-section mt-4 p-4 bg-green-50 border border-green-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer5" class="answer-section mt-4 p-4 bg-green-50 border border-green-200 rounded">
                         <p class="font-bold text-green-700 mb-2">正解: ア) ホスト部は8ビットで、最大254台のホストを接続できる</p>
                         <div class="text-sm text-gray-700">
                             <p class="mb-2"><strong>解説:</strong></p>
@@ -863,10 +863,10 @@ public class Test {
                             <li>toString()メソッドのオーバーライド</li>
                         </ul>
                     </div>
-                    <button onclick="showAnswer(101)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(101)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-1"></i>回答例を表示
                     </button>
-                    <div id="answer101" class="answer-section mt-4 p-4 bg-green-50 border border-green-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer101" class="answer-section mt-4 p-4 bg-green-50 border border-green-200 rounded">
                         <div class="bg-gray-900 text-gray-100 p-4 rounded text-sm">
                             <pre><code>public class Employee implements Comparable&lt;Employee&gt; {
     private int id;
@@ -943,10 +943,10 @@ public class Test {
                         </ul>
                         <p class="text-sm mt-3"><strong>問題:</strong> 最適なデータ構造を選択し、その理由を説明してください。</p>
                     </div>
-                    <button onclick="showAnswer(102)" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(102)" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-1"></i>回答例を表示
                     </button>
-                    <div id="answer102" class="answer-section mt-4 p-4 bg-green-50 border border-green-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer102" class="answer-section mt-4 p-4 bg-green-50 border border-green-200 rounded">
                         <div class="text-sm text-gray-700">
                             <h4 class="font-bold text-green-700 mb-2">推奨解決策: HashMap + TreeSet の組み合わせ</h4>
                             

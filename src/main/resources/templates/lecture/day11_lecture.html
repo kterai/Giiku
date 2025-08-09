@@ -576,11 +576,11 @@ for (Map.Entry&lt;Integer, String&gt; entry : idToName.entrySet()) {
                     </ul>
                 </div>
 
-                <button onclick="showExerciseAnswer(1)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-4">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showExerciseAnswer(1)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mb-4">
                     回答例を表示
                 </button>
 
-                <div id="exerciseAnswer1" class="exercise-answer">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exerciseAnswer1" class="exercise-answer">
                     <h5 class="font-bold text-green-700 mb-3">✅ 解答例</h5>
                     <pre><code class="language-java text-sm">// Student クラス
 class Student {
@@ -721,10 +721,10 @@ public class Main {
                         <span>LinkedList はランダムアクセスが高速</span>
                     </li>
                 </ul>
-                <button onclick="showAnswer(1)" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(1)" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
                     回答を表示
                 </button>
-                <div id="answer1" class="quiz-answer">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="quiz-answer">
                     <p class="correct-answer text-lg font-bold mb-2">正解: B</p>
                     <p class="font-bold text-gray-700 mb-2">解説:</p>
                     <p class="mb-3">LinkedList は連結リスト構造のため、要素の挿入・削除時に他の要素をシフトする必要がなく、先頭や末尾への操作が O(1) で実行できます。一方、ArrayList は配列ベースなので途中への挿入時に後続要素のシフトが必要（O(n)）です。</p>
@@ -762,10 +762,10 @@ public class Main {
                         <span>容量を固定しているから</span>
                     </li>
                 </ul>
-                <button onclick="showAnswer(2)" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(2)" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
                     回答を表示
                 </button>
-                <div id="answer2" class="quiz-answer">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="quiz-answer">
                     <p class="correct-answer text-lg font-bold mb-2">正解: A</p>
                     <p class="font-bold text-gray-700 mb-2">解説:</p>
                     <p class="mb-3">HashSet は内部でハッシュテーブルを使用し、要素の追加時に hashCode() でハッシュ値を計算し、同じハッシュ値の要素がある場合は equals() で内容を比較して重複をチェックします。</p>
@@ -805,10 +805,10 @@ public class Main {
                         <span>existsKey</span>
                     </li>
                 </ul>
-                <button onclick="showAnswer(3)" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(3)" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
                     回答を表示
                 </button>
-                <div id="answer3" class="quiz-answer">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="quiz-answer">
                     <p class="correct-answer text-lg font-bold mb-2">正解: C</p>
                     <p class="font-bold text-gray-700 mb-2">解説:</p>
                     <p class="mb-3">containsKey(key) メソッドは、指定したキーがマップに登録されているかを boolean で返します。値の存在確認には containsValue(value) を使用します。</p>
@@ -848,10 +848,10 @@ public class Main {
                         <span><code>list.forEach()</code></span>
                     </li>
                 </ul>
-                <button onclick="showAnswer(4)" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(4)" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
                     回答を表示
                 </button>
-                <div id="answer4" class="quiz-answer">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer4" class="quiz-answer">
                     <p class="correct-answer text-lg font-bold mb-2">正解: B</p>
                     <p class="font-bold text-gray-700 mb-2">解説:</p>
                     <p class="mb-3">拡張for文（enhanced for loop）は Java 5 から導入された構文で、コレクションの全要素を簡潔に走査できます。インデックスが不要で、要素に直接アクセスできます。</p>
@@ -891,10 +891,10 @@ public class Main {
                         <span>cut</span>
                     </li>
                 </ul>
-                <button onclick="showAnswer(5)" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(5)" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
                     回答を表示
                 </button>
-                <div id="answer5" class="quiz-answer">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer5" class="quiz-answer">
                     <p class="correct-answer text-lg font-bold mb-2">正解: B</p>
                     <p class="font-bold text-gray-700 mb-2">解説:</p>
                     <p class="mb-3">remove メソッドで要素を削除します。List では remove(Object) で値を指定した削除と、remove(int) でインデックスを指定した削除の2つがあります。</p>

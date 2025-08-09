@@ -884,7 +884,7 @@ public class SecureController {
                 <button onclick="toggleAnswer('exercise1')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
                     回答例を表示
                 </button>
-                <div id="exercise1" class="hidden-content mt-4 code-block">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exercise1" class="hidden-content mt-4 code-block">
                     <pre><code class="language-java">// Article Entity
 @Entity
 public class Article {
@@ -977,7 +977,7 @@ public class ArticleController {
                 <button onclick="toggleAnswer('exercise2')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
                     回答例を表示
                 </button>
-                <div id="exercise2" class="hidden-content mt-4 code-block">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exercise2" class="hidden-content mt-4 code-block">
                     <pre><code class="language-java">// Security Configuration
 @Configuration
 @EnableWebSecurity
@@ -1061,10 +1061,10 @@ public class SecureArticleController {
                         </label>
                     </div>
                 </div>
-                <button onclick="showAnswer('quiz1')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz1')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                     回答を表示
                 </button>
-                <div id="quiz1-answer" class="hidden-content mt-4 bg-green-50 p-4 rounded-lg">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1-answer" class="hidden-content mt-4 bg-green-50 p-4 rounded-lg">
                     <p class="font-semibold text-green-800">正解: B. 必要な依存オブジェクトを自動で注入する</p>
                     <p class="text-green-700 mt-2">
                         <strong>解説:</strong> @Autowiredは依存性注入（DI）のためのアノテーションです。
@@ -1097,10 +1097,10 @@ public class SecureArticleController {
                         </label>
                     </div>
                 </div>
-                <button onclick="showAnswer('quiz2')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz2')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                     回答を表示
                 </button>
-                <div id="quiz2-answer" class="hidden-content mt-4 bg-green-50 p-4 rounded-lg">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2-answer" class="hidden-content mt-4 bg-green-50 p-4 rounded-lg">
                     <p class="font-semibold text-green-800">正解: C. DELETE /api/users/123</p>
                     <p class="text-green-700 mt-2">
                         <strong>解説:</strong> RESTfulな設計では、リソースの削除にはDELETEメソッドを使用し、

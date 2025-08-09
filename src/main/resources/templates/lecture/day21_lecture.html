@@ -870,10 +870,10 @@ public static int findPairSum(int[] array, int target) {
                         </pre>
                     </div>
                 </div>
-                <button onclick="showAnswer('answer1')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer1')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer1" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-section">
                     <h4 class="font-bold text-green-800 mb-2">解答と解説</h4>
                     <p class="mb-2"><strong>計算量: O(n²)</strong></p>
                     <div class="space-y-2">
@@ -906,10 +906,10 @@ public static int findPairSum(int[] array, int target) {
                         </div>
                     </div>
                 </div>
-                <button onclick="showAnswer('answer2')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer2')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer2" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-section">
                     <h4 class="font-bold text-green-800 mb-2">解答と解説</h4>
                     <div class="space-y-4">
                         <div class="bg-blue-100 p-3 rounded">
@@ -945,10 +945,10 @@ public static int findPairSum(int[] array, int target) {
                         </pre>
                     </div>
                 </div>
-                <button onclick="showAnswer('answer3')" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer3')" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer3" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="answer-section">
                     <h4 class="font-bold text-green-800 mb-2">解答と解説</h4>
                     <div class="space-y-3">
                         <p><strong>挿入過程:</strong></p>
@@ -1003,10 +1003,10 @@ public static int findPairSum(int[] array, int target) {
                         <span>D) 1000回</span>
                     </label>
                 </div>
-                <button onclick="showAnswer('quiz1Answer')" class="mt-4 bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz1Answer')" class="mt-4 bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="quiz1Answer" class="answer-section bg-green-100 text-gray-800">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1Answer" class="answer-section bg-green-100 text-gray-800">
                     <h4 class="font-bold text-green-800 mb-2">正解: A) 10回</h4>
                     <div class="space-y-2">
                         <p><strong>解説:</strong></p>
@@ -1042,10 +1042,10 @@ public static int findPairSum(int[] array, int target) {
                         <span>D) 実装が最も簡単</span>
                     </label>
                 </div>
-                <button onclick="showAnswer('quiz2Answer')" class="mt-4 bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz2Answer')" class="mt-4 bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="quiz2Answer" class="answer-section bg-green-100 text-gray-800">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2Answer" class="answer-section bg-green-100 text-gray-800">
                     <h4 class="font-bold text-green-800 mb-2">正解: B) 同じ値の要素の相対位置が保持される</h4>
                     <div class="space-y-2">
                         <p><strong>解説:</strong></p>
@@ -1082,10 +1082,10 @@ public static int findPairSum(int[] array, int target) {
                         <span>D) DFSは必ず最短経路を見つける</span>
                     </label>
                 </div>
-                <button onclick="showAnswer('quiz3Answer')" class="mt-4 bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz3Answer')" class="mt-4 bg-white text-blue-600 px-4 py-2 rounded hover:bg-gray-100 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="quiz3Answer" class="answer-section bg-green-100 text-gray-800">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz3Answer" class="answer-section bg-green-100 text-gray-800">
                     <h4 class="font-bold text-green-800 mb-2">正解: A) DFSはスタック、BFSはキューを使用する</h4>
                     <div class="space-y-2">
                         <p><strong>解説:</strong></p>

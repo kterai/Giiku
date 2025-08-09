@@ -621,11 +621,11 @@ if (b != 0 && a/b > 2) {
                     <pre class="bg-gray-100 p-3 rounded text-sm mb-3"><code>int score = 85; // この値を変更してテスト
 // ここにif-else if文を記述</code></pre>
                     
-                    <button onclick="showAnswer('answer1')" id="btn1" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer1')" id="btn1" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-2"></i>回答例を表示
                     </button>
                     
-                    <div id="answer1" class="hidden mt-3 bg-green-50 p-4 rounded border-l-4 border-green-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="hidden mt-3 bg-green-50 p-4 rounded border-l-4 border-green-500">
                         <h4 class="font-semibold text-green-800 mb-2">回答例:</h4>
                         <pre class="bg-gray-800 text-white p-3 rounded overflow-x-auto text-sm"><code class="language-java">int score = 85;
 if (score >= 90) {
@@ -655,11 +655,11 @@ if (score >= 90) {
                     <pre class="bg-gray-100 p-3 rounded text-sm mb-3"><code>int dayNum = 3; // 1:月, 2:火, ..., 7:日
 // switch文を使用して曜日名と平日/休日を表示</code></pre>
                     
-                    <button onclick="showAnswer('answer2')" id="btn2" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer2')" id="btn2" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-2"></i>回答例を表示
                     </button>
                     
-                    <div id="answer2" class="hidden mt-3 bg-green-50 p-4 rounded border-l-4 border-green-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="hidden mt-3 bg-green-50 p-4 rounded border-l-4 border-green-500">
                         <h4 class="font-semibold text-green-800 mb-2">回答例:</h4>
                         <pre class="bg-gray-800 text-white p-3 rounded overflow-x-auto text-sm"><code class="language-java">int dayNum = 3;
 switch (dayNum) {
@@ -707,11 +707,11 @@ switch (dayNum) {
                         <li>• 2つの数値の大きい方を取得</li>
                     </ul>
                     
-                    <button onclick="showAnswer('answer3')" id="btn3" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer3')" id="btn3" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-2"></i>回答例を表示
                     </button>
                     
-                    <div id="answer3" class="hidden mt-3 bg-green-50 p-4 rounded border-l-4 border-green-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="hidden mt-3 bg-green-50 p-4 rounded border-l-4 border-green-500">
                         <h4 class="font-semibold text-green-800 mb-2">回答例:</h4>
                         <pre class="bg-gray-800 text-white p-3 rounded overflow-x-auto text-sm"><code class="language-java">// 1. 年齢判定
 int age = 20;
@@ -746,11 +746,11 @@ System.out.println("最大値: " + max); // "最大値: 15"</code></pre>
                         <li>• それ以外：ログイン失敗</li>
                     </ul>
                     
-                    <button onclick="showAnswer('answer4')" id="btn4" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer4')" id="btn4" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-2"></i>回答例を表示
                     </button>
                     
-                    <div id="answer4" class="hidden mt-3 bg-green-50 p-4 rounded border-l-4 border-green-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer4" class="hidden mt-3 bg-green-50 p-4 rounded border-l-4 border-green-500">
                         <h4 class="font-semibold text-green-800 mb-2">回答例:</h4>
                         <pre class="bg-gray-800 text-white p-3 rounded overflow-x-auto text-sm"><code class="language-java">String username = "admin";
 String password = "password";
@@ -789,11 +789,11 @@ switch (grade) {
         System.out.println("その他");
 }</code></pre>
                     
-                    <button onclick="showAnswer('answer5')" id="btn5" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer5')" id="btn5" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-2"></i>回答を表示
                     </button>
                     
-                    <div id="answer5" class="hidden mt-3 bg-green-50 p-4 rounded border-l-4 border-green-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer5" class="hidden mt-3 bg-green-50 p-4 rounded border-l-4 border-green-500">
                         <h4 class="font-semibold text-green-800 mb-2">実行結果:</h4>
                         <pre class="bg-gray-800 text-white p-3 rounded text-sm"><code>2年生
 3年生</code></pre>
@@ -833,11 +833,11 @@ switch (x) {
 }</code></pre>
                     <p class="text-gray-700 mb-3">上記コードの出力結果は？</p>
                     
-                    <button onclick="showAnswer('quiz1')" id="quiz1btn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz1')" id="quiz1btn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-2"></i>回答を表示
                     </button>
                     
-                    <div id="quiz1" class="hidden mt-3 bg-purple-50 p-4 rounded border-l-4 border-purple-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1" class="hidden mt-3 bg-purple-50 p-4 rounded border-l-4 border-purple-500">
                         <h4 class="font-semibold text-purple-800 mb-2">正解: BC</h4>
                         <p class="text-purple-700 text-sm">
                             <strong>解説:</strong> x = 2なので case 2から実行開始。break文がないため case 3も実行される。
@@ -855,11 +855,11 @@ if (b != 0 && a/b > 2) {
 }</code></pre>
                     <p class="text-gray-700 mb-3">このコードは実行時エラーになるでしょうか？</p>
                     
-                    <button onclick="showAnswer('quiz2')" id="quiz2btn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz2')" id="quiz2btn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-2"></i>回答を表示
                     </button>
                     
-                    <div id="quiz2" class="hidden mt-3 bg-purple-50 p-4 rounded border-l-4 border-purple-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2" class="hidden mt-3 bg-purple-50 p-4 rounded border-l-4 border-purple-500">
                         <h4 class="font-semibold text-purple-800 mb-2">正解: エラーにならない</h4>
                         <p class="text-purple-700 text-sm">
                             <strong>解説:</strong> &&演算子は短絡評価を行います。左側の条件 (b != 0) が false なので、
@@ -875,11 +875,11 @@ if (b != 0 && a/b > 2) {
 int result = x > y ? x + y : x - y;</code></pre>
                     <p class="text-gray-700 mb-3">変数resultの値は？</p>
                     
-                    <button onclick="showAnswer('quiz3')" id="quiz3btn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz3')" id="quiz3btn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-2"></i>回答を表示
                     </button>
                     
-                    <div id="quiz3" class="hidden mt-3 bg-purple-50 p-4 rounded border-l-4 border-purple-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz3" class="hidden mt-3 bg-purple-50 p-4 rounded border-l-4 border-purple-500">
                         <h4 class="font-semibold text-purple-800 mb-2">正解: -10</h4>
                         <p class="text-purple-700 text-sm">
                             <strong>解説:</strong> x (10) > y (20) は false なので、「:」の後の式 x - y が実行されます。
@@ -900,11 +900,11 @@ System.out.println(str1 == str3);     // ?
 System.out.println(str1.equals(str3)); // ?</code></pre>
                     <p class="text-gray-700 mb-3">それぞれの出力結果は？</p>
                     
-                    <button onclick="showAnswer('quiz4')" id="quiz4btn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz4')" id="quiz4btn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-2"></i>回答を表示
                     </button>
                     
-                    <div id="quiz4" class="hidden mt-3 bg-purple-50 p-4 rounded border-l-4 border-purple-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz4" class="hidden mt-3 bg-purple-50 p-4 rounded border-l-4 border-purple-500">
                         <h4 class="font-semibold text-purple-800 mb-2">正解: true, false, true</h4>
                         <p class="text-purple-700 text-sm">
                             <strong>解説:</strong><br>
@@ -927,11 +927,11 @@ if (x = 10) {  // 注意：= が1つ
 }</code></pre>
                     <p class="text-gray-700 mb-3">このコードはコンパイルできるでしょうか？</p>
                     
-                    <button onclick="showAnswer('quiz5')" id="quiz5btn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz5')" id="quiz5btn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
                         <i class="fas fa-eye mr-2"></i>回答を表示
                     </button>
                     
-                    <div id="quiz5" class="hidden mt-3 bg-purple-50 p-4 rounded border-l-4 border-purple-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz5" class="hidden mt-3 bg-purple-50 p-4 rounded border-l-4 border-purple-500">
                         <h4 class="font-semibold text-purple-800 mb-2">正解: コンパイルエラー</h4>
                         <p class="text-purple-700 text-sm">
                             <strong>解説:</strong> if文の条件式にはboolean型が必要ですが、x = 10 は代入式でint型を返します。

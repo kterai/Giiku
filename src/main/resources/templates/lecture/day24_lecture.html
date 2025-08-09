@@ -831,7 +831,7 @@
                     <li>TCPによる再送制御</li>
                 </ol>
                 <button class="answer-button" onclick="toggleAnswer('answer1')">回答を表示</button>
-                <div id="answer1" class="answer-content">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-content">
                     <h4 class="font-bold mb-2">解答・解説：</h4>
                     <ol class="list-decimal pl-6 space-y-2">
                         <li><strong>第7層（アプリケーション層）</strong> - ユーザーが直接利用するアプリケーションサービス</li>
@@ -852,7 +852,7 @@
                     <li>オンラインゲーム</li>
                 </ol>
                 <button class="answer-button" onclick="toggleAnswer('answer2')">回答を表示</button>
-                <div id="answer2" class="answer-content">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-content">
                     <h4 class="font-bold mb-2">解答・解説：</h4>
                     <ol class="list-decimal pl-6 space-y-2">
                         <li><strong>TCP</strong> - 金融取引は確実性が最重要。データの欠損や改ざんは許されない</li>
@@ -867,7 +867,7 @@
                 <h3 class="text-lg font-bold mb-3">問題3: サブネット計算</h3>
                 <p class="mb-3">192.168.10.0/24のネットワークを8つのサブネットに分割した場合、各サブネットで利用可能なホスト数を求めなさい。</p>
                 <button class="answer-button" onclick="toggleAnswer('answer3')">回答を表示</button>
-                <div id="answer3" class="answer-content">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="answer-content">
                     <h4 class="font-bold mb-2">解答・解説：</h4>
                     <div class="space-y-2">
                         <p><strong>手順1：</strong>8つに分割するために必要なビット数：2³ = 8 → 3ビット</p>
@@ -888,7 +888,7 @@
                     <li>有線LANにスマートフォンやタブレットを接続したい</li>
                 </ol>
                 <button class="answer-button" onclick="toggleAnswer('answer4')">回答を表示</button>
-                <div id="answer4" class="answer-content">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer4" class="answer-content">
                     <h4 class="font-bold mb-2">解答・解説：</h4>
                     <ol class="list-decimal pl-6 space-y-3">
                         <li><strong>スイッチ</strong> - 同一ネットワーク内での効率的な通信。MACアドレステーブルによる学習機能で衝突を回避</li>
@@ -908,7 +908,7 @@
                     <li>ウイルス感染</li>
                 </ol>
                 <button class="answer-button" onclick="toggleAnswer('answer5')">回答を表示</button>
-                <div id="answer5" class="answer-content">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer5" class="answer-content">
                     <h4 class="font-bold mb-2">解答・解説：</h4>
                     <ol class="list-decimal pl-6 space-y-3">
                         <li><strong>ファイアウォール</strong> - ネットワークの入口で不正なアクセスを遮断</li>

@@ -825,7 +825,7 @@ int result = calc.add(5).multiply(3).add(2).getValue();  // (5 * 3) + 2 = 17</co
                     回答例を表示
                 </button>
                 
-                <div id="answer1" class="hidden mt-4 bg-green-100 p-4 rounded-lg">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="hidden mt-4 bg-green-100 p-4 rounded-lg">
                     <h4 class="font-bold text-green-800 mb-3">回答例：</h4>
                     <pre><code class="language-java text-sm">public class Student {
     // フィールド（すべてprivate）
@@ -910,7 +910,7 @@ int result = calc.add(5).multiply(3).add(2).getValue();  // (5 * 3) + 2 = 17</co
                     回答例を表示
                 </button>
                 
-                <div id="answer2" class="hidden mt-4 bg-green-100 p-4 rounded-lg">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="hidden mt-4 bg-green-100 p-4 rounded-lg">
                     <h4 class="font-bold text-green-800 mb-3">回答例：</h4>
                     <pre><code class="language-java text-sm">public class BankAccount {
     private String accountNumber;
@@ -995,7 +995,7 @@ int result = calc.add(5).multiply(3).add(2).getValue();  // (5 * 3) + 2 = 17</co
                     回答例を表示
                 </button>
                 
-                <div id="answer3" class="hidden mt-4 bg-green-100 p-4 rounded-lg">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="hidden mt-4 bg-green-100 p-4 rounded-lg">
                     <h4 class="font-bold text-green-800 mb-3">回答例：</h4>
                     <pre><code class="language-java text-sm">public class MyStringBuilder {
     private String text;
@@ -1110,7 +1110,7 @@ public class Main {
                     回答を表示
                 </button>
                 
-                <div id="quiz1answer" class="hidden mt-4 bg-blue-100 p-4 rounded-lg">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1answer" class="hidden mt-4 bg-blue-100 p-4 rounded-lg">
                     <h4 class="font-bold text-blue-800 mb-3">正解：b) Carはクラス、myCarはオブジェクト（インスタンス）である</h4>
                     <div class="text-blue-700 text-sm">
                         <p class="mb-2"><strong>解説：</strong></p>
@@ -1177,7 +1177,7 @@ public class Main {
                     回答を表示
                 </button>
                 
-                <div id="quiz2answer" class="hidden mt-4 bg-blue-100 p-4 rounded-lg">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2answer" class="hidden mt-4 bg-blue-100 p-4 rounded-lg">
                     <h4 class="font-bold text-blue-800 mb-3">正解：b) パターンB</h4>
                     <div class="text-blue-700 text-sm">
                         <p class="mb-2"><strong>解説：</strong></p>
@@ -1233,7 +1233,7 @@ public class Main {
                     回答を表示
                 </button>
                 
-                <div id="quiz3answer" class="hidden mt-4 bg-blue-100 p-4 rounded-lg">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz3answer" class="hidden mt-4 bg-blue-100 p-4 rounded-lg">
                     <h4 class="font-bold text-blue-800 mb-3">正解：b) フィールドに値が設定されず、初期値のままになる</h4>
                     <div class="text-blue-700 text-sm">
                         <p class="mb-2"><strong>解説：</strong></p>

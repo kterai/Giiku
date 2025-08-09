@@ -542,11 +542,11 @@ public class PerformanceTest {
     }
 }</code></pre>
                     
-                    <button onclick="showAnswer('answer1')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer1')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
                         <i class="fas fa-eye mr-2"></i>回答例を表示
                     </button>
                     
-                    <div id="answer1" class="hidden mt-4 bg-green-50 border-l-4 border-green-400 p-4">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="hidden mt-4 bg-green-50 border-l-4 border-green-400 p-4">
                         <h4 class="font-bold text-green-800 mb-2">予想結果と解説</h4>
                         <p class="text-sm text-gray-700 mb-3">
                             <strong>予想結果:</strong> LinkedListの方が圧倒的に高速（ArrayListは数秒、LinkedListは数十ミリ秒）
@@ -574,11 +574,11 @@ public class PerformanceTest {
 // 2. TreeSetまたはStream APIでソート
 // 3. 結果を表示</code></pre>
                     
-                    <button onclick="showAnswer('answer2')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer2')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
                         <i class="fas fa-eye mr-2"></i>回答例を表示
                     </button>
                     
-                    <div id="answer2" class="hidden mt-4 bg-green-50 border-l-4 border-green-400 p-4">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="hidden mt-4 bg-green-50 border-l-4 border-green-400 p-4">
                         <h4 class="font-bold text-green-800 mb-2">解答例</h4>
                         <pre><code class="language-java text-sm">// 解答例1: HashSet + ArrayList
 Set&lt;String&gt; uniqueCities = new HashSet&lt;&gt;(Arrays.asList(cities));
@@ -627,11 +627,11 @@ List&lt;Employee&gt; employees = Arrays.asList(
     new Employee("小林", 29, "開発部")
 );</code></pre>
                     
-                    <button onclick="showAnswer('answer3')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer3')" class="mt-3 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
                         <i class="fas fa-eye mr-2"></i>回答例を表示
                     </button>
                     
-                    <div id="answer3" class="hidden mt-4 bg-green-50 border-l-4 border-green-400 p-4">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="hidden mt-4 bg-green-50 border-l-4 border-green-400 p-4">
                         <h4 class="font-bold text-green-800 mb-2">解答例</h4>
                         <pre><code class="language-java text-sm">// 30歳以上の社員を部署別にグループ化し、平均年齢を計算
 Map&lt;String, Double&gt; avgAgeByDept = employees.stream()
@@ -700,11 +700,11 @@ System.out.println("30歳以上の社員: " + over30Names);</code></pre>
                         </label>
                     </div>
                     
-                    <button onclick="showAnswer('quiz1')" class="mt-3 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz1')" class="mt-3 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition">
                         <i class="fas fa-eye mr-2"></i>回答を表示
                     </button>
                     
-                    <div id="quiz1" class="hidden mt-4 bg-blue-50 border-l-4 border-blue-400 p-4">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1" class="hidden mt-4 bg-blue-50 border-l-4 border-blue-400 p-4">
                         <h4 class="font-bold text-blue-800 mb-2">正解: C) TreeSet</h4>
                         <div class="text-sm text-gray-700 space-y-2">
                             <p><strong>解説:</strong></p>
@@ -751,11 +751,11 @@ System.out.println(count);</code></pre>
                         </label>
                     </div>
                     
-                    <button onclick="showAnswer('quiz2')" class="mt-3 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz2')" class="mt-3 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition">
                         <i class="fas fa-eye mr-2"></i>回答を表示
                     </button>
                     
-                    <div id="quiz2" class="hidden mt-4 bg-blue-50 border-l-4 border-blue-400 p-4">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2" class="hidden mt-4 bg-blue-50 border-l-4 border-blue-400 p-4">
                         <h4 class="font-bold text-blue-800 mb-2">正解: A) 3</h4>
                         <div class="text-sm text-gray-700 space-y-2">
                             <p><strong>処理の流れ:</strong></p>
@@ -802,11 +802,11 @@ System.out.println(set);</code></pre>
                         </label>
                     </div>
                     
-                    <button onclick="showAnswer('quiz3')" class="mt-3 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz3')" class="mt-3 bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition">
                         <i class="fas fa-eye mr-2"></i>回答を表示
                     </button>
                     
-                    <div id="quiz3" class="hidden mt-4 bg-blue-50 border-l-4 border-blue-400 p-4">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz3" class="hidden mt-4 bg-blue-50 border-l-4 border-blue-400 p-4">
                         <h4 class="font-bold text-blue-800 mb-2">正解: D) 順序は保証されない</h4>
                         <div class="text-sm text-gray-700 space-y-2">
                             <p><strong>解説:</strong></p>

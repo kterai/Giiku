@@ -750,10 +750,10 @@
                             <span>D) AIへの質問回数を増やすこと</span>
                         </label>
                     </div>
-                    <button onclick="showAnswer('q1')" id="btn-q1" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('q1')" id="btn-q1" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm">
                         回答を表示
                     </button>
-                    <div id="answer-q1" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer-q1" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded">
                         <p class="text-green-700 font-bold mb-2">正解: B) 思考プロセスを段階的に明示化すること</p>
                         <p class="text-green-600 text-sm">
                             Chain of Thoughtの核心は、AIに中間的な推論ステップを明示的に示させることです。これにより推論の精度が向上し、エラーの発見が容易になり、結果の説明可能性が高まります。単純に長いプロンプトを作ることではなく、論理的な段階構造を持つことが重要です。
@@ -784,10 +784,10 @@
                             <span>D) 結論を最初に示すこと</span>
                         </label>
                     </div>
-                    <button onclick="showAnswer('q2')" id="btn-q2" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('q2')" id="btn-q2" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm">
                         回答を表示
                     </button>
-                    <div id="answer-q2" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer-q2" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded">
                         <p class="text-green-700 font-bold mb-2">正解: B) 論理的な順序でステップを配置すること</p>
                         <p class="text-green-600 text-sm">
                             Chain of Thoughtの成功は論理的な思考の流れにあります。各ステップが次のステップに自然に繋がり、全体として一貫した推論プロセスを形成することが重要です。単に多くのステップに分割するだけでは効果が薄く、適切な粒度と論理的順序が成功の鍵となります。
@@ -818,10 +818,10 @@
                             <span>D) 人員の効率化のみ</span>
                         </label>
                     </div>
-                    <button onclick="showAnswer('q3')" id="btn-q3" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('q3')" id="btn-q3" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm">
                         回答を表示
                     </button>
-                    <div id="answer-q3" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer-q3" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded">
                         <p class="text-green-700 font-bold mb-2">正解: B) 分析の体系化と見落とし防止</p>
                         <p class="text-green-600 text-sm">
                             Chain of Thoughtをビジネスに適用する最大の価値は、複雑な課題を体系的に分析し、重要な要素の見落としを防ぐことです。段階的なアプローチにより、多角的な視点から問題を分析でき、より包括的で質の高い解決策を導き出すことができます。単純な効率化以上の質的向上をもたらします。
@@ -846,10 +846,10 @@
                     <div class="bg-gray-50 p-3 rounded mb-3">
                         <strong>問題：</strong> ある工場では、機械Aが1時間に60個、機械Bが1時間に45個の製品を生産する。両方の機械を使って420個の製品を生産するには何時間必要か？
                     </div>
-                    <button onclick="showAnswer('ex1')" id="btn-ex1" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded text-sm">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('ex1')" id="btn-ex1" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded text-sm">
                         回答例を表示
                     </button>
-                    <div id="answer-ex1" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer-ex1" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded">
                         <h4 class="text-green-700 font-bold mb-2">プロンプト設計例</h4>
                         <div class="bg-white p-3 rounded border text-sm">
                             <p class="mb-2"><strong>問題:</strong> ある工場では、機械Aが1時間に60個、機械Bが1時間に45個の製品を生産する。両方の機械を使って420個の製品を生産するには何時間必要か？</p>
@@ -873,10 +873,10 @@
                     <div class="bg-gray-50 p-3 rounded mb-3">
                         <strong>課題：</strong> オンラインショップの顧客満足度が低下している。現在の満足度は3.2/5.0で、競合他社の平均4.1を大きく下回っている。改善策を提案せよ。
                     </div>
-                    <button onclick="showAnswer('ex2')" id="btn-ex2" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded text-sm">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('ex2')" id="btn-ex2" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded text-sm">
                         回答例を表示
                     </button>
-                    <div id="answer-ex2" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer-ex2" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded">
                         <h4 class="text-green-700 font-bold mb-2">プロンプト設計例</h4>
                         <div class="bg-white p-3 rounded border text-sm">
                             <p class="mb-2"><strong>課題:</strong> オンラインショップの顧客満足度が低下（3.2/5.0）、競合平均4.1を下回る状況の改善策検討</p>
@@ -901,10 +901,10 @@
                     <div class="bg-gray-50 p-3 rounded mb-3">
                         <strong>状況：</strong> Webアプリケーションで突然レスポンス時間が10倍に悪化。ユーザーからの苦情が急増し、ビジネスに重大な影響が発生している。
                     </div>
-                    <button onclick="showAnswer('ex3')" id="btn-ex3" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded text-sm">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('ex3')" id="btn-ex3" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded text-sm">
                         回答例を表示
                     </button>
-                    <div id="answer-ex3" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer-ex3" class="hidden mt-3 p-3 bg-green-50 border border-green-200 rounded">
                         <h4 class="text-green-700 font-bold mb-2">プロンプト設計例</h4>
                         <div class="bg-white p-3 rounded border text-sm">
                             <p class="mb-2"><strong>緊急事態:</strong> Webアプリケーションのレスポンス時間が10倍悪化、ユーザー影響拡大中</p>
@@ -955,10 +955,10 @@
                             <span>D) コストの安い技術を優先的に選ぶ</span>
                         </label>
                     </div>
-                    <button onclick="showAnswer('exam1')" id="btn-exam1" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded text-sm">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('exam1')" id="btn-exam1" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded text-sm">
                         回答を表示
                     </button>
-                    <div id="answer-exam1" class="hidden mt-3 p-3 bg-purple-50 border border-purple-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer-exam1" class="hidden mt-3 p-3 bg-purple-50 border border-purple-200 rounded">
                         <p class="text-purple-700 font-bold mb-2">正解: B) 要件定義→技術制約整理→候補技術評価→総合判断の段階的プロセス</p>
                         <p class="text-purple-600 text-sm">
                             技術選定は重要な意思決定であり、Chain of Thoughtの段階的アプローチが最も効果的です。まず要件を明確化し、技術的制約や組織的制約を整理した上で、客観的な評価基準で候補技術を比較検討します。このプロセスにより、感情的・主観的な判断を排除し、プロジェクトの成功確率を最大化できます。人気やコストのみで判断するのは不十分で、包括的な評価が必要です。
@@ -989,10 +989,10 @@
                             <span>D) 外部コンサルタントに判断を委ねる</span>
                         </label>
                     </div>
-                    <button onclick="showAnswer('exam2')" id="btn-exam2" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded text-sm">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('exam2')" id="btn-exam2" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded text-sm">
                         回答を表示
                     </button>
-                    <div id="answer-exam2" class="hidden mt-3 p-3 bg-purple-50 border border-purple-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer-exam2" class="hidden mt-3 p-3 bg-purple-50 border border-purple-200 rounded">
                         <p class="text-purple-700 font-bold mb-2">正解: C) プロジェクト目標再整理→ステークホルダー分析→利害調整→合意形成の段階的調整</p>
                         <p class="text-purple-600 text-sm">
                             複雑なステークホルダー管理には体系的なChain of Thoughtアプローチが不可欠です。まずプロジェクトの本来の目標を再確認し、各ステークホルダーの立場・利害・制約を分析します。その上で共通利益を見出し、段階的に合意形成を図ります。権力による解決や単純統合では根本的解決にならず、外部判断では組織内理解が得られません。論理的で透明性の高いプロセスが、持続可能な解決策を生み出します。
@@ -1023,10 +1023,10 @@
                             <span>D) 外部講師による定期セミナーのみ実施</span>
                         </label>
                     </div>
-                    <button onclick="showAnswer('exam3')" id="btn-exam3" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded text-sm">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('exam3')" id="btn-exam3" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded text-sm">
                         回答を表示
                     </button>
-                    <div id="answer-exam3" class="hidden mt-3 p-3 bg-purple-50 border border-purple-200 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer-exam3" class="hidden mt-3 p-3 bg-purple-50 border border-purple-200 rounded">
                         <p class="text-purple-700 font-bold mb-2">正解: B) 先導者育成→パイロット実施→成果共有→段階的展開の推進</p>
                         <p class="text-purple-600 text-sm">
                             組織変革には段階的アプローチが最も効果的です。まず理解の深いメンバーを先導者として育成し、小規模なパイロットプロジェクトで実践経験を積みます。成功事例と具体的な効果を組織全体で共有することで、自然な受容と展開が可能になります。一斉導入は抵抗を生みやすく、ツールのみでは文化は変わりません。外部セミナーだけでは継続性がありません。内発的な動機と実践に基づく学習が、持続可能な組織変革を実現します。

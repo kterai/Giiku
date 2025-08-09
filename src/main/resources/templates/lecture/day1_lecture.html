@@ -642,7 +642,7 @@
                     <i class="fas fa-eye mr-2"></i>回答例を表示
                 </button>
                 
-                <div id="answer1" class="answer-content mt-4 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-content mt-4 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
                     <h4 class="font-semibold mb-2">回答例：</h4>
                     <div class="space-y-3 text-sm">
                         <div>
@@ -680,7 +680,7 @@
                     <i class="fas fa-eye mr-2"></i>回答例を表示
                 </button>
 
-                <div id="answer2" class="answer-content mt-4 bg-green-50 border-l-4 border-green-400 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-content mt-4 bg-green-50 border-l-4 border-green-400 p-4 rounded">
                     <h4 class="font-semibold mb-2">回答例：</h4>
                     <pre class="bg-white p-3 rounded text-sm"><code class="language-java">public class MyProfile {
     public static void main(String[] args) {
@@ -719,7 +719,7 @@
                     <i class="fas fa-eye mr-2"></i>回答例を表示
                 </button>
 
-                <div id="answer3" class="answer-content mt-4 bg-purple-50 border-l-4 border-purple-400 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="answer-content mt-4 bg-purple-50 border-l-4 border-purple-400 p-4 rounded">
                     <h4 class="font-semibold mb-2">修正版コード：</h4>
                     <pre class="bg-white p-3 rounded text-sm mb-3"><code class="language-java">public class HelloWorld {  // クラス名は大文字で開始
     public static void main(String[] args) {  // mainは小文字
@@ -772,7 +772,7 @@
                     <i class="fas fa-check mr-2"></i>回答を表示
                 </button>
 
-                <div id="quiz1Answer" class="answer-content mt-4 bg-red-50 border-l-4 border-red-400 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1Answer" class="answer-content mt-4 bg-red-50 border-l-4 border-red-400 p-4 rounded">
                     <p class="font-semibold text-red-700 mb-2">正解: C) Write Once, Run Anywhereを実現している</p>
                     <p class="text-sm"><strong>解説：</strong>JavaはJVM上で動作するため、一度コンパイルしたプログラムが異なるプラットフォーム（Windows、Mac、Linux）で実行可能です。これがJavaの最大の特徴の一つです。</p>
                 </div>
@@ -805,7 +805,7 @@
                     <i class="fas fa-check mr-2"></i>回答を表示
                 </button>
 
-                <div id="quiz2Answer" class="answer-content mt-4 bg-green-50 border-l-4 border-green-400 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2Answer" class="answer-content mt-4 bg-green-50 border-l-4 border-green-400 p-4 rounded">
                     <p class="font-semibold text-green-700 mb-2">正解: B) .java → javac → .class → JVM → 実行結果</p>
                     <p class="text-sm"><strong>解説：</strong>Javaソースファイル(.java)をjavacコンパイラでバイトコード(.class)に変換し、JVMがそれを実行して結果を出力します。この2段階プロセスがJavaの特徴です。</p>
                 </div>
@@ -843,7 +843,7 @@
                     <i class="fas fa-check mr-2"></i>回答を表示
                 </button>
 
-                <div id="quiz3Answer" class="answer-content mt-4 bg-purple-50 border-l-4 border-purple-400 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz3Answer" class="answer-content mt-4 bg-purple-50 border-l-4 border-purple-400 p-4 rounded">
                     <p class="font-semibold text-purple-700 mb-2">正解: D) コードに間違いはない</p>
                     <p class="text-sm"><strong>解説：</strong>このコードは完全に正しいHello Worldプログラムです。クラス名、mainメソッドの宣言、System.out.println文、すべて正しく記述されています。</p>
                 </div>

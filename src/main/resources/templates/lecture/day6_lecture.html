@@ -909,11 +909,11 @@ class Car {
                     <li>• 両クラスともshowInfo()をオーバーライドして車輪数も表示</li>
                 </ul>
                 
-                <button onclick="showAnswer('answer1')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer1')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                     回答例を表示
                 </button>
                 
-                <div id="answer1" class="hidden mt-4 bg-green-50 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="hidden mt-4 bg-green-50 p-4 rounded">
                     <h4 class="font-bold text-green-700 mb-2">回答例</h4>
                     <div class="bg-black text-green-400 p-3 rounded text-xs">
                         <pre><code>class Car extends Vehicle {
@@ -969,11 +969,11 @@ shape.getArea();        // 2. これは動作する？
 shape.getRadius();      // 3. これはエラーになる？</code></pre>
                 </div>
                 
-                <button onclick="showAnswer('answer2')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer2')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
                     回答を表示
                 </button>
                 
-                <div id="answer2" class="hidden mt-4 bg-blue-50 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="hidden mt-4 bg-blue-50 p-4 rounded">
                     <h4 class="font-bold text-blue-700 mb-2">回答と解説</h4>
                     <div class="space-y-3 text-sm">
                         <div>
@@ -1037,11 +1037,11 @@ double radius = circle.getRadius();</code></pre>
                     </label>
                 </div>
                 
-                <button onclick="showAnswer('quiz1answer')" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 mt-3">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz1answer')" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 mt-3">
                     回答を表示
                 </button>
                 
-                <div id="quiz1answer" class="hidden mt-4 bg-green-50 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1answer" class="hidden mt-4 bg-green-50 p-4 rounded">
                     <p class="font-bold text-green-700">正解: C</p>
                     <p class="text-sm mt-2">
                         <strong>解説:</strong> Javaは単一継承なので（A）は誤り。子クラスはprivateメンバにはアクセスできません（B）。
@@ -1075,11 +1075,11 @@ double radius = circle.getRadius();</code></pre>
                     </label>
                 </div>
                 
-                <button onclick="showAnswer('quiz2answer')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-3">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz2answer')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-3">
                     回答を表示
                 </button>
                 
-                <div id="quiz2answer" class="hidden mt-4 bg-green-50 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2answer" class="hidden mt-4 bg-green-50 p-4 rounded">
                     <p class="font-bold text-green-700">正解: C</p>
                     <p class="text-sm mt-2">
                         <strong>解説:</strong> 抽象クラスはabstractキーワードにより直接インスタンス化できません（A）。

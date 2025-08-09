@@ -819,7 +819,7 @@ console.log('週次リスクレビュー結果:', weeklyReport);</code></pre>
                         回答例を表示
                     </button>
 
-                    <div id="answer1" class="answer-hidden mt-4 p-4 bg-gray-50 rounded-lg">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-hidden mt-4 p-4 bg-gray-50 rounded-lg">
                         <h4 class="font-semibold mb-2">回答例：</h4>
                         <div class="code-block">
 <pre><code class="language-text">【3ヶ月プロジェクト計画例】
@@ -878,7 +878,7 @@ Week 11-12: 最終調整・デプロイ
                         回答例を表示
                     </button>
 
-                    <div id="answer2" class="answer-hidden mt-4 p-4 bg-gray-50 rounded-lg">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-hidden mt-4 p-4 bg-gray-50 rounded-lg">
                         <h4 class="font-semibold mb-2">回答例：</h4>
                         <div class="code-block">
 <pre><code class="language-text">【リモートチーム運営設計】
@@ -964,12 +964,12 @@ GitHub活用:
                         </label>
                     </div>
 
-                    <button class="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors" 
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors" 
                             onclick="showAnswer('quiz1', 'B', 'レトロスペクティブは、チームが作業プロセスを振り返り、「何がうまくいったか」「何に困ったか」「次はどう改善するか」を話し合うイベントです。継続的改善によってチームの生産性と品質を向上させることが目的です。')">
                         回答を表示
                     </button>
 
-                    <div id="quiz1-answer" class="answer-hidden mt-4 p-4 bg-purple-50 rounded-lg">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1-answer" class="answer-hidden mt-4 p-4 bg-purple-50 rounded-lg">
                         <p class="font-semibold text-purple-800">正解: B</p>
                         <p class="text-gray-700 mt-2" id="quiz1-explanation"></p>
                     </div>
@@ -1015,12 +1015,12 @@ class PaymentService {
                         </label>
                     </div>
 
-                    <button class="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors" 
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors" 
                             onclick="showAnswer('quiz2', 'B', 'OrderProcessorクラスは注文処理、メール送信、在庫管理、ログ記録という4つの異なる責任を持っています。単一責任原則では、クラスは1つの理由でのみ変更されるべきです。このクラスは注文処理、メール仕様、在庫システム、ログ仕様の変更時にすべて修正が必要になります。')">
                         回答を表示
                     </button>
 
-                    <div id="quiz2-answer" class="answer-hidden mt-4 p-4 bg-purple-50 rounded-lg">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2-answer" class="answer-hidden mt-4 p-4 bg-purple-50 rounded-lg">
                         <p class="font-semibold text-purple-800">正解: B</p>
                         <p class="text-gray-700 mt-2" id="quiz2-explanation"></p>
                     </div>

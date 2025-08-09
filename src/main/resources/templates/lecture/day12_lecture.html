@@ -505,7 +505,7 @@ public class StudentManager {
                     <i class="fas fa-eye mr-2"></i>回答例を表示
                 </button>
 
-                <div id="exerciseAnswer" class="answer-section mt-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exerciseAnswer" class="answer-section mt-4">
                     <h4 class="font-semibold text-blue-600 mb-2">📝 回答例</h4>
                     <div class="code-explanation">
                         <pre class="text-sm"><code>public class Pair&lt;K, V&gt; {
@@ -595,8 +595,8 @@ public class PairExample {
                     <label class="flex items-center"><input type="radio" name="q1" class="mr-2"> C: 実行速度の低下</label>
                     <label class="flex items-center"><input type="radio" name="q1" class="mr-2"> D: 例外処理の複雑化</label>
                 </div>
-                <button onclick="showAnswer(1)" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">回答を表示</button>
-                <div id="answer1" class="answer-section mt-3">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(1)" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">回答を表示</button>
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-section mt-3">
                     <p><strong>正解: B</strong></p>
                     <p><strong>詳細解説:</strong> ジェネリクス導入前は、コレクションにObject型で要素を格納するため、取り出し時に適切な型へのキャストが必要でした。
                     また、異なる型の要素を混在して格納できてしまい、実行時にClassCastExceptionが発生するリスクがありました。
@@ -612,8 +612,8 @@ public class PairExample {
                     <label class="flex items-center"><input type="radio" name="q2" class="mr-2"> C: T は Number を実装するインターフェース</label>
                     <label class="flex items-center"><input type="radio" name="q2" class="mr-2"> D: T は任意の型</label>
                 </div>
-                <button onclick="showAnswer(2)" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">回答を表示</button>
-                <div id="answer2" class="answer-section mt-3">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(2)" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">回答を表示</button>
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-section mt-3">
                     <p><strong>正解: B</strong></p>
                     <p><strong>詳細解説:</strong> <code>extends</code>キーワードは「上限境界」を表します。
                     <code>&lt;T extends Number&gt;</code>は「TはNumber型またはNumberのサブクラス（子クラス）である」という制約を意味します。
@@ -630,8 +630,8 @@ public class PairExample {
                     <label class="flex items-center"><input type="radio" name="q3" class="mr-2"> C: 任意の型の要素を扱う場合</label>
                     <label class="flex items-center"><input type="radio" name="q3" class="mr-2"> D: Integer以下の型のみを扱う場合</label>
                 </div>
-                <button onclick="showAnswer(3)" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">回答を表示</button>
-                <div id="answer3" class="answer-section mt-3">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(3)" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">回答を表示</button>
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="answer-section mt-3">
                     <p><strong>正解: B</strong></p>
                     <p><strong>詳細解説:</strong> <code>? super Integer</code>は「Integerのスーパータイプ」を表す下限境界です。
                     PECS原則の「Consumer Super」に該当し、リストに要素を追加（消費）する際に使用します。
@@ -648,8 +648,8 @@ public class PairExample {
                     <label class="flex items-center"><input type="radio" name="q4" class="mr-2"> C: Public Encapsulation, Class Safety</label>
                     <label class="flex items-center"><input type="radio" name="q4" class="mr-2"> D: Package Each Class Separately</label>
                 </div>
-                <button onclick="showAnswer(4)" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">回答を表示</button>
-                <div id="answer4" class="answer-section mt-3">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(4)" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">回答を表示</button>
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer4" class="answer-section mt-3">
                     <p><strong>正解: A</strong></p>
                     <p><strong>詳細解説:</strong> PECS原則は「Producer Extends, Consumer Super」の略です。
                     <strong>Producer（生産者）</strong>：データを提供する側では<code>? extends</code>を使用。
@@ -667,8 +667,8 @@ public class PairExample {
                     <label class="flex items-center"><input type="radio" name="q5" class="mr-2"> C: <code>void method&lt;T&gt;(T t)</code></label>
                     <label class="flex items-center"><input type="radio" name="q5" class="mr-2"> D: <code>&lt;T extends Object&gt; method(T t)</code></label>
                 </div>
-                <button onclick="showAnswer(5)" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">回答を表示</button>
-                <div id="answer5" class="answer-section mt-3">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(5)" class="mt-3 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">回答を表示</button>
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer5" class="answer-section mt-3">
                     <p><strong>正解: B</strong></p>
                     <p><strong>詳細解説:</strong> ジェネリクスメソッドでは、型パラメータを戻り値の型の前に記述します。
                     正しい構文は<code>&lt;T&gt; 戻り値の型 メソッド名(T t)</code>です。

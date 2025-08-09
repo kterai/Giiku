@@ -1103,7 +1103,7 @@ VACUUM FULL orders;</code></pre>
                     回答例を表示
                 </button>
                 
-                <div id="exercise1" class="exercise-answer mt-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exercise1" class="exercise-answer mt-4">
                     <div class="bg-gray-800 text-green-400 p-4 rounded">
                         <pre><code class="language-sql">-- カテゴリテーブル
 CREATE TABLE categories (
@@ -1179,7 +1179,7 @@ CREATE INDEX idx_order_items_order_id ON order_items(order_id);</code></pre>
                     回答例を表示
                 </button>
                 
-                <div id="exercise2" class="exercise-answer mt-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exercise2" class="exercise-answer mt-4">
                     <div class="bg-gray-800 text-green-400 p-4 rounded">
                         <pre><code class="language-sql">-- 1) 過去3ヶ月間の売上上位10商品
 SELECT 
@@ -1266,11 +1266,11 @@ ORDER BY month DESC;</code></pre>
                     </label>
                 </div>
 
-                <button onclick="showAnswer('quiz1', 'b', 'B) データは常にデータベースのルール（制約）を満たしている<br><br><strong>解説:</strong> Consistency（一貫性）は、データベースが常に整合性制約を満たした状態を維持することを意味します。A)はAtomicity、C)はIsolation、D)はDurabilityの説明です。')" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz1', 'b', 'B) データは常にデータベースのルール（制約）を満たしている<br><br><strong>解説:</strong> Consistency（一貫性）は、データベースが常に整合性制約を満たした状態を維持することを意味します。A)はAtomicity、C)はIsolation、D)はDurabilityの説明です。')" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
                     回答を表示
                 </button>
                 
-                <div id="quiz1-answer" class="quiz-answer mt-4 p-4 bg-green-100 rounded-lg"></div>
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1-answer" class="quiz-answer mt-4 p-4 bg-green-100 rounded-lg"></div>
             </div>
 
             <!-- クイズ2 -->
@@ -1297,11 +1297,11 @@ ORDER BY month DESC;</code></pre>
                     </label>
                 </div>
 
-                <button onclick="showAnswer('quiz2', 'b', 'B) 1NFかつ、非主キー属性が主キー全体に関数従属する<br><br><strong>解説:</strong> 第2正規形は第1正規形の条件を満たしており、かつ部分関数従属を排除した形です。A)は1NF、C)は3NFの説明です。')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz2', 'b', 'B) 1NFかつ、非主キー属性が主キー全体に関数従属する<br><br><strong>解説:</strong> 第2正規形は第1正規形の条件を満たしており、かつ部分関数従属を排除した形です。A)は1NF、C)は3NFの説明です。')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                     回答を表示
                 </button>
                 
-                <div id="quiz2-answer" class="quiz-answer mt-4 p-4 bg-green-100 rounded-lg"></div>
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2-answer" class="quiz-answer mt-4 p-4 bg-green-100 rounded-lg"></div>
             </div>
 
             <!-- クイズ3 -->
@@ -1328,11 +1328,11 @@ ORDER BY month DESC;</code></pre>
                     </label>
                 </div>
 
-                <button onclick="showAnswer('quiz3', 'b', 'B) ->><br><br><strong>解説:</strong> ->>演算子はJSONの値をテキストとして取得します。->はJSON型として取得、#>はパス指定、@>は包含チェック、?はキー存在チェックに使用されます。')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz3', 'b', 'B) ->><br><br><strong>解説:</strong> ->>演算子はJSONの値をテキストとして取得します。->はJSON型として取得、#>はパス指定、@>は包含チェック、?はキー存在チェックに使用されます。')" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
                     回答を表示
                 </button>
                 
-                <div id="quiz3-answer" class="quiz-answer mt-4 p-4 bg-green-100 rounded-lg"></div>
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz3-answer" class="quiz-answer mt-4 p-4 bg-green-100 rounded-lg"></div>
             </div>
         </section>
 

@@ -901,11 +901,11 @@ public class AccessLogFilter implements Filter {
                     </ul>
                 </div>
                 
-                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" onclick="showAnswer('exercise1')">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" onclick="showAnswer('exercise1')">
                     回答例を表示
                 </button>
                 
-                <div id="exercise1" class="hidden mt-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exercise1" class="hidden mt-4">
                     <div class="success-box">
                         <h4 class="font-semibold text-green-800 mb-2">回答例</h4>
                         <div class="code-block text-sm">
@@ -1000,11 +1000,11 @@ public class UserServlet extends HttpServlet {
                     </ul>
                 </div>
                 
-                <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" onclick="showAnswer('exercise2')">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" onclick="showAnswer('exercise2')">
                     回答例を表示
                 </button>
                 
-                <div id="exercise2" class="hidden mt-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exercise2" class="hidden mt-4">
                     <div class="success-box">
                         <h4 class="font-semibold text-green-800 mb-2">回答例のポイント</h4>
                         <ul class="list-disc list-inside text-gray-700 space-y-1">
@@ -1051,11 +1051,11 @@ public class UserServlet extends HttpServlet {
                     </div>
                 </div>
                 
-                <button class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700" onclick="showAnswer('quiz1')">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700" onclick="showAnswer('quiz1')">
                     回答を表示
                 </button>
                 
-                <div id="quiz1" class="hidden mt-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1" class="hidden mt-4">
                     <div class="success-box">
                         <h4 class="font-semibold text-green-800 mb-2">正解: B) init() → service() → destroy()</h4>
                         <p class="text-gray-700">
@@ -1093,11 +1093,11 @@ public class UserServlet extends HttpServlet {
                     </div>
                 </div>
                 
-                <button class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700" onclick="showAnswer('quiz2')">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700" onclick="showAnswer('quiz2')">
                     回答を表示
                 </button>
                 
-                <div id="quiz2" class="hidden mt-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2" class="hidden mt-4">
                     <div class="success-box">
                         <h4 class="font-semibold text-green-800 mb-2">正解: C) PreparedStatementを使用する</h4>
                         <p class="text-gray-700">

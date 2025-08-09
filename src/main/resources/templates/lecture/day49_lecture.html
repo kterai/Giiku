@@ -1010,7 +1010,7 @@ public class SessionService {
                         回答例を表示
                     </button>
                     
-                    <div id="answer1" class="hidden mt-4 p-4 bg-gray-100 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="hidden mt-4 p-4 bg-gray-100 rounded">
                         <pre><code class="language-java">@Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -1059,7 +1059,7 @@ public class SecurityConfig {
                         回答例を表示
                     </button>
                     
-                    <div id="answer2" class="hidden mt-4 p-4 bg-gray-100 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="hidden mt-4 p-4 bg-gray-100 rounded">
                         <pre><code class="language-java">@RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -1131,7 +1131,7 @@ public class JwtResponse {
                         回答例を表示
                     </button>
                     
-                    <div id="answer3" class="hidden mt-4 p-4 bg-gray-100 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="hidden mt-4 p-4 bg-gray-100 rounded">
                         <pre><code class="language-java">// Controller側の実装
 @Controller
 public class FormController {
@@ -1210,11 +1210,11 @@ $(document).ready(function() {
                         </label>
                     </div>
                     
-                    <button onclick="showAnswer('quiz1')" class="mt-4 bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz1')" class="mt-4 bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700 transition-colors">
                         回答を表示
                     </button>
                     
-                    <div id="quiz1" class="hidden mt-4 p-4 bg-green-100 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1" class="hidden mt-4 p-4 bg-green-100 rounded">
                         <p class="font-semibold text-green-800">正解: B</p>
                         <p class="text-green-700 mt-2">
                             <strong>認証（Authentication）</strong>は「誰であるか」を確認する処理で、身分証確認のようなものです。
@@ -1248,11 +1248,11 @@ $(document).ready(function() {
                         </label>
                     </div>
                     
-                    <button onclick="showAnswer('quiz2')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz2')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
                         回答を表示
                     </button>
                     
-                    <div id="quiz2" class="hidden mt-4 p-4 bg-green-100 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2" class="hidden mt-4 p-4 bg-green-100 rounded">
                         <p class="font-semibold text-green-800">正解: B</p>
                         <p class="text-green-700 mt-2">
                             CSRF攻撃は悪意のあるサイトから勝手にリクエストを送信する攻撃です。
@@ -1286,11 +1286,11 @@ $(document).ready(function() {
                         </label>
                     </div>
                     
-                    <button onclick="showAnswer('quiz3')" class="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz3')" class="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors">
                         回答を表示
                     </button>
                     
-                    <div id="quiz3" class="hidden mt-4 p-4 bg-green-100 rounded">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz3" class="hidden mt-4 p-4 bg-green-100 rounded">
                         <p class="font-semibold text-green-800">正解: C</p>
                         <p class="text-green-700 mt-2">
                             JWTの最大の特徴は<strong>ステートレス</strong>であることです。
