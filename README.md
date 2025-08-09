@@ -36,7 +36,7 @@
 - Java は [Amazon Corretto](https://aws.amazon.com/corretto/) を使用
 - IDE は [Pleiades](https://pleiades.io/) を推奨
 
-## 進捗状況（2025-08-08時点）
+## 進捗状況（2025-08-09時点）
 - **全体進捗:** 56%
 - **月別ページ:** 100%
 - **週別ページ:** 100%
@@ -76,6 +76,7 @@
 - フロントエンド：dashboard.htmlをindex.htmlのスタイルに合わせて更新
 - フロントエンド：dashboard.htmlをlayout.htmlを利用する構造に変更
 - フロントエンド：ダッシュボードにindex.htmlの静的コンテンツを直接埋め込み
+- バックエンド：day、week、month、lectureフォルダのHTMLを表示するコントローラーを追加
 
 ## 今後のタスク（優先順位順）
 1. `day6.html`〜`day54.html` の作成（残り49日分）
