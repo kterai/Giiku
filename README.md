@@ -80,6 +80,7 @@
 - dayX_lecture.htmlの回答ボタンと内容をADMIN/INSTRUCTORのみ表示に変更（静的HTMLでは全表示）
 - フロントエンド：layout.htmlにweek1.htmlのヘッダーとフッターを適用
 - フロントエンド：layout.htmlのナビゲーション配色をロゴの青に合わせて改善
+- バックエンド：セッション切れ後のログインエラーを修正
 
 ## 今後のタスク（優先順位順）
 1. `day6.html`〜`day54.html` の作成（残り49日分）
