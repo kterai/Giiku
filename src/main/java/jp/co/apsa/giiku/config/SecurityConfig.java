@@ -1,9 +1,11 @@
 package jp.co.apsa.giiku.config;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import jp.co.apsa.giiku.application.service.UserService;
@@ -48,15 +50,6 @@ public class SecurityConfig {
 
             // 認証設定
             .authorizeHttpRequests(authz -> authz
-                // 静的リソースは認証不要
-                .requestMatchers(
-                    new AntPathRequestMatcher("/css/**"),
-                    new AntPathRequestMatcher("/js/**"),
-                    new AntPathRequestMatcher("/images/**"),
-                    new AntPathRequestMatcher("/favicon.ico"),
-                    new AntPathRequestMatcher("/webjars/**")
-                ).permitAll()
-
                 // ログイン関連は認証不要
                 .requestMatchers(
                     new AntPathRequestMatcher("/login"),
@@ -77,7 +70,7 @@ public class SecurityConfig {
                 .loginProcessingUrl("/login-process")   // ログイン処理URL
                 .usernameParameter("username")          // ユーザー名パラメータ
                 .passwordParameter("password")          // パスワードパラメータ
-                .defaultSuccessUrl("/dashboard", true)  // ログイン成功時のリダイレクト先
+                .defaultSuccessUrl("/dashboard")       // ログイン成功時のリダイレクト先
                 .failureUrl("/login-error")             // ログイン失敗時のリダイレクト先
                 .permitAll()
             )
@@ -98,6 +91,16 @@ public class SecurityConfig {
             );
 
         return http.build();
+    }
+
+    /**
+     * 静的リソースをセキュリティ対象外にする設定
+     *
+     * @return WebSecurityCustomizer 静的リソース除外設定
+     */
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
     /**
