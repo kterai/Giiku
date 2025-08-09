@@ -11,3 +11,8 @@
 - Codex は質問への回答を原則日本語で行う。
 - Java 実行環境は Amazon Corretto を利用する。
 - 推奨 IDE は Pleiades (Eclipse) とする。
+
+- すべてのJavaクラスには以下のJavadocタグを含めること:
+  - @author 株式会社アプサ
+  - @version 1.0
+  - @since 2025

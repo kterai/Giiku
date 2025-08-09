@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 週別ページを表示するコントローラー。
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Controller
 @RequestMapping("/week")

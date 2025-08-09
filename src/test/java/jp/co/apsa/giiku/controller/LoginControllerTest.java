@@ -11,6 +11,11 @@ import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.DefaultCsrfToken;
 import org.springframework.test.web.servlet.MockMvc;
 
+/**
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
 @WebMvcTest(controllers = LoginController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @org.springframework.test.context.ContextConfiguration(classes = LoginControllerTest.TestConfig.class)

@@ -12,6 +12,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+/**
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
 @WebMvcTest(controllers = DashboardController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @org.springframework.test.context.ContextConfiguration(classes = DashboardControllerTest.TestConfig.class)

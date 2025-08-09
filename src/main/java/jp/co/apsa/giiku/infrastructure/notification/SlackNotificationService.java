@@ -20,6 +20,9 @@ import jp.co.apsa.giiku.domain.port.NotificationPort;
 
 /**
  * Slack Webhook を利用した通知サービスの簡易実装。
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Service
 public class SlackNotificationService implements NotificationPort {

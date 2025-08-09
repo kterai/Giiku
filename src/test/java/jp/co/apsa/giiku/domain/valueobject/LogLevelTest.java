@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 
 /**
  * {@link LogLevel} のユニットテスト。
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 class LogLevelTest {
 

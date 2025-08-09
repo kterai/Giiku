@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 /**
  * Simple implementation of {@link AuditPort} that delegates to SLF4J.
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Service
 public class LoggingService implements AuditPort {

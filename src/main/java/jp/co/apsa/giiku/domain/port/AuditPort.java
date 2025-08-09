@@ -4,6 +4,9 @@ import jp.co.apsa.giiku.domain.valueobject.LogLevel;
 
 /**
  * Port for application logging.
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 public interface AuditPort {
 

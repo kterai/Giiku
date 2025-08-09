@@ -7,6 +7,11 @@ import jp.co.apsa.giiku.domain.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+/**
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
 class DashboardServiceTest {
 
     @Test
