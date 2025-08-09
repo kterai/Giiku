@@ -626,11 +626,11 @@ SportsCar myCar = new SportsCar("Ferrari", true);
     _____ void updateAvailability() { /* 内部処理 */ }
 }</code></pre>
                 
-                <button onclick="showAnswer('answer1')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mt-4">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer1')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mt-4">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
                 
-                <div id="answer1" class="hidden mt-4 bg-green-50 border-l-4 border-green-500 p-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="hidden mt-4 bg-green-50 border-l-4 border-green-500 p-4">
                     <h4 class="font-bold text-green-700 mb-2">💡 回答例</h4>
                     <pre class="bg-white p-4 rounded border mb-4"><code>class Book {
     private String title;           // 外部から直接変更されたくない
@@ -682,11 +682,11 @@ class Dog extends Animal {
 // 実行
 Dog myDog = new Dog("ポチ");</code></pre>
                 
-                <button onclick="showAnswer('answer2')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded mt-4">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer2')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded mt-4">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
                 
-                <div id="answer2" class="hidden mt-4 bg-blue-50 border-l-4 border-blue-500 p-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="hidden mt-4 bg-blue-50 border-l-4 border-blue-500 p-4">
                     <h4 class="font-bold text-blue-700 mb-2">💡 回答例</h4>
                     <div class="bg-white p-4 rounded border mb-4">
                         <h5 class="font-bold mb-2">実行結果：</h5>
@@ -721,11 +721,11 @@ Dog 名前付きコンストラクタ: ポチ</pre>
                     <li>適切な検証機能付き</li>
                 </ul>
                 
-                <button onclick="showAnswer('answer3')" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded mt-4">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer3')" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded mt-4">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
                 
-                <div id="answer3" class="hidden mt-4 bg-orange-50 border-l-4 border-orange-500 p-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="hidden mt-4 bg-orange-50 border-l-4 border-orange-500 p-4">
                     <h4 class="font-bold text-orange-700 mb-2">💡 回答例</h4>
                     <pre class="bg-white p-4 rounded border"><code>public class Person {
     private String name;
@@ -799,11 +799,11 @@ Dog 名前付きコンストラクタ: ポチ</pre>
                     </label>
                 </div>
                 
-                <button onclick="showAnswer('quiz1')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz1')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
                 
-                <div id="quiz1" class="hidden mt-4 bg-green-50 border-l-4 border-green-500 p-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1" class="hidden mt-4 bg-green-50 border-l-4 border-green-500 p-4">
                     <h4 class="font-bold text-green-700 mb-2">正解：A、B、C</h4>
                     <p class="text-gray-700">
                         protectedは「同一クラス内」「同一パッケージ内」「継承クラス（パッケージが異なっても可）」からアクセス可能です。
@@ -833,11 +833,11 @@ Dog 名前付きコンストラクタ: ポチ</pre>
                     </label>
                 </div>
                 
-                <button onclick="showAnswer('quiz2')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz2')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
                 
-                <div id="quiz2" class="hidden mt-4 bg-green-50 border-l-4 border-green-500 p-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2" class="hidden mt-4 bg-green-50 border-l-4 border-green-500 p-4">
                     <h4 class="font-bold text-green-700 mb-2">正解：C</h4>
                     <p class="text-gray-700">
                         子クラスのコンストラクタでsuper()を明示的に書かない場合、
@@ -866,11 +866,11 @@ Dog 名前付きコンストラクタ: ポチ</pre>
 Test test = new Test();
 test.method("メソッド");</code></pre>
                 
-                <button onclick="showAnswer('quiz3')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz3')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
                 
-                <div id="quiz3" class="hidden mt-4 bg-green-50 border-l-4 border-green-500 p-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz3" class="hidden mt-4 bg-green-50 border-l-4 border-green-500 p-4">
                     <h4 class="font-bold text-green-700 mb-2">実行結果：</h4>
                     <pre class="bg-white p-4 rounded border mb-2">引数: メソッド
 フィールド: クラス

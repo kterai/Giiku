@@ -538,7 +538,7 @@
                     <button onclick="toggleAnswer('answer1')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
                         <i class="fas fa-eye mr-2"></i>回答を表示
                     </button>
-                    <div id="answer1" class="answer-content mt-4 bg-green-50 p-4 rounded-lg">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-content mt-4 bg-green-50 p-4 rounded-lg">
                         <h4 class="font-semibold text-green-800 mb-3">解答例:</h4>
                         <ol class="list-decimal list-inside space-y-3">
                             <li><strong>AES（共通鍵暗号）</strong> - 大容量データの高速暗号化に適している</li>
@@ -566,7 +566,7 @@ ResultSet rs = stmt.executeQuery(query);</code></pre>
                     <button onclick="toggleAnswer('answer2')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
                         <i class="fas fa-eye mr-2"></i>回答を表示
                     </button>
-                    <div id="answer2" class="answer-content mt-4 bg-green-50 p-4 rounded-lg">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-content mt-4 bg-green-50 p-4 rounded-lg">
                         <h4 class="font-semibold text-green-800 mb-3">脆弱性と対策:</h4>
                         <div class="space-y-4">
                             <div class="border-l-4 border-red-500 pl-4">
@@ -610,7 +610,7 @@ ResultSet rs = pstmt.executeQuery();</code></pre>
                             <button onclick="toggleAnswer('quiz1')" class="bg-blue-500 text-white px-3 py-1 rounded text-sm mt-3 hover:bg-blue-600 transition-colors">
                                 回答を表示
                             </button>
-                            <div id="quiz1" class="answer-content mt-3 bg-green-50 p-3 rounded">
+                            <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1" class="answer-content mt-3 bg-green-50 p-3 rounded">
                                 <p class="font-semibold text-green-800">正解: b) 素因数分解問題</p>
                                 <p class="text-sm text-gray-700 mt-1">RSA暗号は大きな合成数を素因数分解することの困難性に基づいています。</p>
                             </div>
@@ -628,7 +628,7 @@ ResultSet rs = pstmt.executeQuery();</code></pre>
                             <button onclick="toggleAnswer('quiz2')" class="bg-blue-500 text-white px-3 py-1 rounded text-sm mt-3 hover:bg-blue-600 transition-colors">
                                 回答を表示
                             </button>
-                            <div id="quiz2" class="answer-content mt-3 bg-green-50 p-3 rounded">
+                            <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2" class="answer-content mt-3 bg-green-50 p-3 rounded">
                                 <p class="font-semibold text-green-800">正解: c) パスワード + 秘密の質問</p>
                                 <p class="text-sm text-gray-700 mt-1">両方とも「知識認証」であり、同じ要素のため多要素認証になりません。</p>
                             </div>

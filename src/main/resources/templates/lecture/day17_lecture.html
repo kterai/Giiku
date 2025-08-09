@@ -826,11 +826,11 @@ public class FileUtils {
                     try-with-resources文を使用して安全にファイルを処理してください。
                 </p>
                 
-                <button onclick="showExerciseAnswer(1)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showExerciseAnswer(1)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     回答例を表示
                 </button>
                 
-                <div id="exerciseAnswer1" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exerciseAnswer1" class="answer-section">
                     <h4 class="font-semibold text-green-800 mb-2">回答例</h4>
                     <div class="code-block">
 <pre>import java.io.*;
@@ -896,11 +896,11 @@ public class TextFileStatistics {
                     <li>結果ファイルには「ID,名前,平均点」の形式で保存</li>
                 </ul>
                 
-                <button onclick="showExerciseAnswer(2)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showExerciseAnswer(2)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     回答例を表示
                 </button>
                 
-                <div id="exerciseAnswer2" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exerciseAnswer2" class="answer-section">
                     <h4 class="font-semibold text-green-800 mb-2">回答例</h4>
                     <div class="code-block">
 <pre>import java.io.*;
@@ -1000,11 +1000,11 @@ public class CSVProcessor {
                     <strong>※</strong> ログ形式例: "192.168.1.1 - - [25/Dec/2023:10:00:00 +0000] \"GET /index.html HTTP/1.1\" 200 1024"
                 </p>
                 
-                <button onclick="showExerciseAnswer(3)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showExerciseAnswer(3)" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     回答例を表示
                 </button>
                 
-                <div id="exerciseAnswer3" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exerciseAnswer3" class="answer-section">
                     <h4 class="font-semibold text-green-800 mb-2">回答例</h4>
                     <div class="code-block">
 <pre>import java.io.*;
@@ -1131,11 +1131,11 @@ public class LogAnalyzer {
                     </label>
                 </div>
                 
-                <button onclick="showAnswer(1)" class="mt-3 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(1)" class="mt-3 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                     回答を表示
                 </button>
                 
-                <div id="answer1" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-section">
                     <h4 class="font-semibold text-green-800 mb-2">正解: B</h4>
                     <p class="text-gray-700">
                         <strong>解説:</strong> 画像ファイルはバイナリデータ（0と1の組み合わせ）なので、
@@ -1172,11 +1172,11 @@ public class LogAnalyzer {
                     </label>
                 </div>
                 
-                <button onclick="showAnswer(2)" class="mt-3 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(2)" class="mt-3 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                     回答を表示
                 </button>
                 
-                <div id="answer2" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-section">
                     <h4 class="font-semibold text-green-800 mb-2">正解: B</h4>
                     <p class="text-gray-700">
                         <strong>解説:</strong> try-with-resources文では、
@@ -1219,11 +1219,11 @@ writer.close();</pre>
                     </label>
                 </div>
                 
-                <button onclick="showAnswer(3)" class="mt-3 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(3)" class="mt-3 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                     回答を表示
                 </button>
                 
-                <div id="answer3" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="answer-section">
                     <h4 class="font-semibold text-green-800 mb-2">正解: B</h4>
                     <p class="text-gray-700">
                         <strong>解説:</strong> FileWriterコンストラクタの第2引数に<code>true</code>を指定すると、
@@ -1260,11 +1260,11 @@ writer.close();</pre>
                     </label>
                 </div>
                 
-                <button onclick="showAnswer(4)" class="mt-3 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(4)" class="mt-3 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                     回答を表示
                 </button>
                 
-                <div id="answer4" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer4" class="answer-section">
                     <h4 class="font-semibold text-green-800 mb-2">正解: B</h4>
                     <p class="text-gray-700">
                         <strong>解説:</strong> Excelで日本語CSVを正しく表示するには、
@@ -1301,11 +1301,11 @@ writer.close();</pre>
                     </label>
                 </div>
                 
-                <button onclick="showAnswer(5)" class="mt-3 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(5)" class="mt-3 bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                     回答を表示
                 </button>
                 
-                <div id="answer5" class="answer-section">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer5" class="answer-section">
                     <h4 class="font-semibold text-green-800 mb-2">正解: B</h4>
                     <p class="text-gray-700">
                         <strong>解説:</strong> 大きなファイル（数十MB以上）を処理する場合、

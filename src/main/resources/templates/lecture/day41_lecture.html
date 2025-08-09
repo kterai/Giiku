@@ -1207,7 +1207,7 @@ var userCards = users.map(function(user) {
                     回答例を表示
                 </button>
                 
-                <div id="answer1" class="hidden-content mt-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="hidden-content mt-4">
                     <div class="bg-green-100 p-4 rounded-lg">
                         <h4 class="font-semibold text-green-800 mb-2">回答例（ES6+版）</h4>
                         <pre class="bg-gray-800 text-green-300 p-3 rounded"><code class="language-javascript">// ES6+コード
@@ -1267,7 +1267,7 @@ const cities = ['Tokyo', 'Osaka', 'Kyoto'];
                     回答例を表示
                 </button>
                 
-                <div id="answer2" class="hidden-content mt-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="hidden-content mt-4">
                     <div class="bg-green-100 p-4 rounded-lg">
                         <h4 class="font-semibold text-green-800 mb-2">回答例</h4>
                         <pre class="bg-gray-800 text-green-300 p-3 rounded"><code class="language-javascript">// 複数都市の天気を並列取得する関数
@@ -1394,11 +1394,11 @@ obj.arrowFunction();</code></pre>
                     </div>
                 </div>
                 
-                <button onclick="showAnswer('quiz1', 'b')" class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 transition duration-200">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz1', 'b')" class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 transition duration-200">
                     回答を表示
                 </button>
                 
-                <div id="quiz1-answer" class="hidden-content mt-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1-answer" class="hidden-content mt-4">
                     <div class="bg-green-100 p-4 rounded-lg">
                         <h4 class="font-semibold text-green-800 mb-2">正解: B) Regular: JavaScript, Arrow: undefined</h4>
                         <div class="text-green-700">
@@ -1450,11 +1450,11 @@ console.log('4');</code></pre>
                     </div>
                 </div>
                 
-                <button onclick="showAnswer('quiz2', 'c')" class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 transition duration-200">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz2', 'c')" class="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 transition duration-200">
                     回答を表示
                 </button>
                 
-                <div id="quiz2-answer" class="hidden-content mt-4">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2-answer" class="hidden-content mt-4">
                     <div class="bg-green-100 p-4 rounded-lg">
                         <h4 class="font-semibold text-green-800 mb-2">正解: C) 1, 4, 3, 2</h4>
                         <div class="text-green-700">

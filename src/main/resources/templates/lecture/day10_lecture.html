@@ -791,10 +791,10 @@ public class ApiController {
                         <span class="text-gray-700">D. equals()メソッドは自動生成されない</span>
                     </label>
                 </div>
-                <button onclick="showAnswer('answer1')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer1')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                     回答を表示
                 </button>
-                <div id="answer1" class="answer-content">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-content">
                     <h4 class="font-bold text-blue-700 mb-2">正解: B</h4>
                     <p class="text-gray-700 mb-2">
                         <strong>解説:</strong> Recordsではコンパクトコンストラクタを使用してバリデーション処理を記述できます。
@@ -842,10 +842,10 @@ if (obj instanceof String str && str.length() > 3) {
                         <span class="text-gray-700">D. コンパイルエラー</span>
                     </label>
                 </div>
-                <button onclick="showAnswer('answer2')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer2')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                     回答を表示
                 </button>
-                <div id="answer2" class="answer-content">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-content">
                     <h4 class="font-bold text-blue-700 mb-2">正解: A</h4>
                     <p class="text-gray-700 mb-2">
                         <strong>解説:</strong> "Hello"の文字数は5文字なので、最初の条件（length() > 3）が真となり、
@@ -888,10 +888,10 @@ class Triangle extends Shape {}</code></pre>
 non-sealed class Circle extends Shape {}</code></pre>
                     </div>
                 </div>
-                <button onclick="showAnswer('answer3')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer3')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                     回答を表示
                 </button>
-                <div id="answer3" class="answer-content">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="answer-content">
                     <h4 class="font-bold text-blue-700 mb-2">正解: C</h4>
                     <p class="text-gray-700 mb-2">
                         <strong>解説:</strong> Sealed Classでは、permits句で指定されていないクラス（Triangle）は継承できません。
@@ -942,10 +942,10 @@ non-sealed class Circle extends Shape {}</code></pre>
                         <span class="text-gray-700">D. コンパイルエラー</span>
                     </label>
                 </div>
-                <button onclick="showAnswer('answer4')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer4')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                     回答を表示
                 </button>
-                <div id="answer4" class="answer-content">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer4" class="answer-content">
                     <h4 class="font-bold text-blue-700 mb-2">正解: B</h4>
                     <p class="text-gray-700 mb-2">
                         <strong>解説:</strong> Stream APIの処理順序に従って実行されます。
@@ -1001,10 +1001,10 @@ non-sealed class Circle extends Shape {}</code></pre>
                         <span class="text-gray-700">D. false<br>&nbsp;&nbsp;&nbsp;&nbsp;false</span>
                     </label>
                 </div>
-                <button onclick="showAnswer('answer5')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer5')" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                     回答を表示
                 </button>
-                <div id="answer5" class="answer-content">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer5" class="answer-content">
                     <h4 class="font-bold text-blue-700 mb-2">正解: B</h4>
                     <p class="text-gray-700 mb-2">
                         <strong>解説:</strong> Javaの文字列比較における「参照比較」と「値比較」の違いを理解する重要な問題です。

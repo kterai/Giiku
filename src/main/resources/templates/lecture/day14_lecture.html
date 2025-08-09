@@ -592,11 +592,11 @@ Map&lt;Integer, List&lt;String&gt;&gt; grouped = words.parallelStream()
                     <li>全従業員の給与の合計と最高給与を算出</li>
                 </ol>
 
-                <button onclick="showExerciseAnswer(1)" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showExerciseAnswer(1)" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答例を表示
                 </button>
 
-                <div id="exerciseAnswer1" class="exercise-answer">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exerciseAnswer1" class="exercise-answer">
                     <h4 class="font-bold mb-3 text-green-700">📝 回答例</h4>
                     
                     <div class="code-block mb-4">
@@ -665,10 +665,10 @@ System.out.println("最高給与: " + maxSalary.orElse(0));</code></pre>
                     <li>C: ネストしたストリームの扱い</li>
                     <li>D: パフォーマンス</li>
                 </ul>
-                <button onclick="showAnswer(1)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(1)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer1" class="quiz-answer">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="quiz-answer">
                     <p class="font-bold text-green-600">正解: C</p>
                     <p class="mt-2"><strong>解説:</strong> <code>flatMap</code> はネストされた要素を平坦化します。<code>map</code>は1対1変換ですが、<code>flatMap</code>はStream&lt;Stream&lt;T&gt;&gt;をStream&lt;T&gt;に変換できます。</p>
                 </div>
@@ -683,10 +683,10 @@ System.out.println("最高給与: " + maxSalary.orElse(0));</code></pre>
                     <li>C: 先行評価</li>
                     <li>D: 並列評価</li>
                 </ul>
-                <button onclick="showAnswer(2)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(2)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer2" class="quiz-answer">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="quiz-answer">
                     <p class="font-bold text-green-600">正解: B</p>
                     <p class="mt-2"><strong>解説:</strong> Stream は遅延評価（Lazy Evaluation）で中間操作を蓄積し、終端操作で一括実行します。これによりメモリ効率と処理の最適化を実現します。</p>
                 </div>
@@ -701,10 +701,10 @@ System.out.println("最高給与: " + maxSalary.orElse(0));</code></pre>
                     <li>C: 並列化すると例外が発生する</li>
                     <li>D: コレクションが空だと動作しない</li>
                 </ul>
-                <button onclick="showAnswer(3)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(3)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer3" class="quiz-answer">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="quiz-answer">
                     <p class="font-bold text-green-600">正解: B</p>
                     <p class="mt-2"><strong>解説:</strong> 並列処理では副作用（外部状態の変更）と順序に注意が必要です。共有リソースへの同時アクセスや処理順序の不定性が問題になる可能性があります。</p>
                 </div>
@@ -719,10 +719,10 @@ System.out.println("最高給与: " + maxSalary.orElse(0));</code></pre>
                     <li>C: List</li>
                     <li>D: Map</li>
                 </ul>
-                <button onclick="showAnswer(4)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(4)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer4" class="quiz-answer">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer4" class="quiz-answer">
                     <p class="font-bold text-green-600">正解: C</p>
                     <p class="mt-2"><strong>解説:</strong> <code>collect(Collectors.toList())</code> は要素を List に収集する終端操作です。Stream の要素を List として取得できます。</p>
                 </div>
@@ -737,10 +737,10 @@ System.out.println("最高給与: " + maxSalary.orElse(0));</code></pre>
                     <li>C: 終端操作後は閉じられるから</li>
                     <li>D: コレクションを持たないから</li>
                 </ul>
-                <button onclick="showAnswer(5)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(5)" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer5" class="quiz-answer">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer5" class="quiz-answer">
                     <p class="font-bold text-green-600">正解: C</p>
                     <p class="mt-2"><strong>解説:</strong> 終端操作でストリームは消費され、内部的に「閉じられた」状態になるため再使用できません。新しい処理には新しいStreamを生成する必要があります。</p>
                 </div>

@@ -1058,7 +1058,7 @@ spec:
                         </div>
                     </div>
                     
-                    <div id="answer1" class="mt-4 p-4 bg-blue-50 rounded hidden">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="mt-4 p-4 bg-blue-50 rounded hidden">
                         <p class="text-blue-800 font-semibold">正解: C) プロジェクト管理の完全自動化</p>
                         <p class="text-blue-700">CI/CDはコードのビルド・テスト・デプロイを自動化しますが、プロジェクト管理（計画・進捗管理・チームコミュニケーション）は別の領域です。</p>
                     </div>
@@ -1089,7 +1089,7 @@ spec:
                         </div>
                     </div>
                     
-                    <div id="answer2" class="mt-4 p-4 bg-blue-50 rounded hidden">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="mt-4 p-4 bg-blue-50 rounded hidden">
                         <p class="text-blue-800 font-semibold">正解: B) Dockerでコンテナを作り、Kubernetesで複数コンテナを管理する</p>
                         <p class="text-blue-700">Dockerはコンテナ作成技術、Kubernetesはコンテナオーケストレーション（管理・運用）技術です。相互補完の関係にあります。</p>
                     </div>
@@ -1120,7 +1120,7 @@ spec:
                         </div>
                     </div>
                     
-                    <div id="answer3" class="mt-4 p-4 bg-blue-50 rounded hidden">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="mt-4 p-4 bg-blue-50 rounded hidden">
                         <p class="text-blue-800 font-semibold">正解: C) コードカバレッジ</p>
                         <p class="text-blue-700">DORA Metricsは「デプロイ頻度」「リードタイム」「平均復旧時間」「変更障害率」の4つです。コードカバレッジは含まれません。</p>
                     </div>

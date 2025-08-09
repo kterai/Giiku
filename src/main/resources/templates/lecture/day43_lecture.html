@@ -1003,7 +1003,7 @@ CREATE TRIGGER orders_audit
                     <button onclick="toggleAnswer('answer1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                         解答例を表示
                     </button>
-                    <div id="answer1" class="quiz-answer">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="quiz-answer">
                         <div class="code-block">
 <pre>WITH monthly_sales AS (
     SELECT 
@@ -1061,7 +1061,7 @@ ORDER BY sales_month;</pre>
                     <button onclick="toggleAnswer('answer2')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">
                         解答例を表示
                     </button>
-                    <div id="answer2" class="quiz-answer">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="quiz-answer">
                         <div class="code-block">
 <pre>-- 複数商品購入の安全なトランザクション
 CREATE OR REPLACE FUNCTION process_multi_item_order(
@@ -1184,7 +1184,7 @@ $$;</pre>
                     <button onclick="toggleAnswer('quiz1')" class="mt-4 bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">
                         解答を表示
                     </button>
-                    <div id="quiz1" class="quiz-answer">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1" class="quiz-answer">
                         <p><strong>正解: C</strong></p>
                         <p>フィルター条件で99.9%の行が除外されているのが最大の問題です。order_date列にインデックスを作成することで、必要な行のみを効率的に取得できます。</p>
                     </div>
@@ -1211,7 +1211,7 @@ $$;</pre>
                     <button onclick="toggleAnswer('quiz2')" class="mt-4 bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">
                         解答を表示
                     </button>
-                    <div id="quiz2" class="quiz-answer">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2" class="quiz-answer">
                         <p><strong>正解: C</strong></p>
                         <p>SERIALIZABLE分離レベルは最も厳密で、ダーティリード、非再現読み取り、ファントムリードのすべてを防ぎます。完全な直列化を保証します。</p>
                     </div>
@@ -1238,7 +1238,7 @@ $$;</pre>
                     <button onclick="toggleAnswer('quiz3')" class="mt-4 bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">
                         解答を表示
                     </button>
-                    <div id="quiz3" class="quiz-answer">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz3" class="quiz-answer">
                         <p><strong>正解: B</strong></p>
                         <p>プリペアドステートメント（パラメータ化クエリ）の使用が最も効果的です。SQLとデータを分離することで、悪意のあるSQLコードの実行を根本的に防げます。</p>
                     </div>

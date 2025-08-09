@@ -430,11 +430,11 @@
                     </div>
                 </div>
                 
-                <button onclick="showExerciseAnswer(1)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showExerciseAnswer(1)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
                     <i class="fas fa-eye mr-2"></i>解答例を表示
                 </button>
                 
-                <div id="exerciseAnswer1" class="answer-hidden mt-4 bg-purple-50 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exerciseAnswer1" class="answer-hidden mt-4 bg-purple-50 p-4 rounded">
                     <h5 class="font-bold mb-2">解答例：</h5>
                     <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto"><code>// Employeeクラス
 public class Employee {
@@ -510,10 +510,10 @@ Map&lt;String, List&lt;Employee&gt;&gt; result = employees.stream()
                         <span>D: LinkedList はランダムアクセスが ArrayList より高速</span>
                     </label>
                 </div>
-                <button onclick="showAnswer(1)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(1)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer1" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
                     <p class="text-lg font-bold text-green-600 mb-2">正解: B</p>
                     <p class="text-sm mb-2"><strong>解説:</strong></p>
                     <p class="text-sm">LinkedList はリンク構造のため、先頭や末尾への挿入・削除は O(1) で高速です。一方、ArrayList は末尾への挿入は O(1) ですが、途中への挿入は要素のシフトが必要で O(n) かかります。ランダムアクセスは ArrayList が O(1)、LinkedList が O(n) です。</p>
@@ -542,10 +542,10 @@ Map&lt;String, List&lt;Employee&gt;&gt; result = employees.stream()
                         <span>D: T は Number 型そのものに限定される</span>
                     </label>
                 </div>
-                <button onclick="showAnswer(2)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(2)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer2" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
                     <p class="text-lg font-bold text-green-600 mb-2">正解: A</p>
                     <p class="text-sm mb-2"><strong>解説:</strong></p>
                     <p class="text-sm">&lt;T extends Number&gt; は上限境界を表し、T は Number クラスまたはその子クラス（Integer、Double など）に制限されます。これにより Number クラスのメソッドを安全に使用できます。</p>
@@ -574,10 +574,10 @@ Map&lt;String, List&lt;Employee&gt;&gt; result = employees.stream()
                         <span>D: 静的変数のみ参照可能</span>
                     </label>
                 </div>
-                <button onclick="showAnswer(3)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(3)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer3" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
                     <p class="text-lg font-bold text-green-600 mb-2">正解: A</p>
                     <p class="text-sm mb-2"><strong>解説:</strong></p>
                     <p class="text-sm">ラムダ式内で外部変数を参照する場合、その変数は final または実質的final（一度だけ代入され、その後変更されない）でなければなりません。これは変数キャプチャの仕組みによるものです。</p>
@@ -606,10 +606,10 @@ Map&lt;String, List&lt;Employee&gt;&gt; result = employees.stream()
                         <span>D: 要素の削除処理</span>
                     </label>
                 </div>
-                <button onclick="showAnswer(4)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(4)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer4" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer4" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
                     <p class="text-lg font-bold text-green-600 mb-2">正解: C</p>
                     <p class="text-sm mb-2"><strong>解説:</strong></p>
                     <p class="text-sm">filter() で条件に合う要素を絞り込み、その後 map() で要素を別の形に変換するのが一般的なパターンです。例：学生リストから成績優秀者を抽出し、名前だけを取得する処理など。</p>
@@ -641,10 +641,10 @@ Map&lt;String, List&lt;Employee&gt;&gt; result = employees.stream()
                         <span>D: 5</span>
                     </label>
                 </div>
-                <button onclick="showAnswer(5)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
+                <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(5)" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
                     <i class="fas fa-eye mr-2"></i>回答を表示
                 </button>
-                <div id="answer5" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
+                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer5" class="answer-hidden mt-4 bg-blue-50 p-4 rounded">
                     <p class="text-lg font-bold text-green-600 mb-2">正解: B</p>
                     <p class="text-sm mb-2"><strong>解説:</strong></p>
                     <p class="text-sm">1,2,3,4,5 の中で偶数（n % 2 == 0）は 2 と 4 の2つです。filter() で偶数のみが残り、count() でその個数を返すため、結果は 2 になります。</p>

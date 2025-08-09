@@ -647,11 +647,11 @@ Function&lt;String, String&gt; logger =
                 </p>
             </div>
 
-            <button onclick="showExerciseAnswer(1)" class="show-answer-btn mb-4">
+            <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showExerciseAnswer(1)" class="show-answer-btn mb-4">
                 <i class="fas fa-eye mr-2"></i>解答例を表示
             </button>
 
-            <div id="exerciseAnswer1" class="answer-section" style="display:none;">
+            <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exerciseAnswer1" class="answer-section" style="display:none;">
                 <h4 class="font-bold text-blue-800 mb-4">📋 解答例</h4>
                 
                 <h5 class="font-semibold text-gray-700 mb-2">1. 従来の匿名クラス</h5>
@@ -732,8 +732,8 @@ people.sort(Comparator.comparingInt(Person::getAge).reversed());
                         <li>C: 実行時に型が決定される</li>
                         <li>D: Java以外では使用不可</li>
                     </ul>
-                    <button onclick="showAnswer(1)" class="show-answer-btn">回答を表示</button>
-                    <div id="answer1" class="answer-section" style="display:none;">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(1)" class="show-answer-btn">回答を表示</button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-section" style="display:none;">
                         <p><strong>正解: B</strong></p>
                         <p><strong>解説:</strong> ラムダ式は関数を値として扱える機能です。これにより、メソッドを他のメソッドの引数として渡すことができ、関数型プログラミングが可能になります。</p>
                     </div>
@@ -747,8 +747,8 @@ people.sort(Comparator.comparingInt(Person::getAge).reversed());
                         <li>C: ラムダ式を含むクラス</li>
                         <li>D: すべてのメソッドがデフォルト実装を持つインターフェース</li>
                     </ul>
-                    <button onclick="showAnswer(2)" class="show-answer-btn">回答を表示</button>
-                    <div id="answer2" class="answer-section" style="display:none;">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(2)" class="show-answer-btn">回答を表示</button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-section" style="display:none;">
                         <p><strong>正解: B</strong></p>
                         <p><strong>解説:</strong> 関数型インターフェースはSAM（Single Abstract Method）インターフェースとも呼ばれ、実装が必要な抽象メソッドが1つだけのインターフェースです。デフォルトメソッドや静的メソッドは複数あっても構いません。</p>
                     </div>
@@ -762,8 +762,8 @@ people.sort(Comparator.comparingInt(Person::getAge).reversed());
                         <li>C: インスタンスメソッド参照</li>
                         <li>D: デフォルトメソッド参照</li>
                     </ul>
-                    <button onclick="showAnswer(3)" class="show-answer-btn">回答を表示</button>
-                    <div id="answer3" class="answer-section" style="display:none;">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(3)" class="show-answer-btn">回答を表示</button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="answer-section" style="display:none;">
                         <p><strong>正解: B</strong></p>
                         <p><strong>解説:</strong> `ClassName::new` はコンストラクタ参照の記法です。新しいインスタンスを作成する処理をラムダ式の代わりに簡潔に記述できます。</p>
                     </div>
@@ -777,8 +777,8 @@ people.sort(Comparator.comparingInt(Person::getAge).reversed());
                         <li>C: 常にコピーされる</li>
                         <li>D: スレッドセーフでなければならない</li>
                     </ul>
-                    <button onclick="showAnswer(4)" class="show-answer-btn">回答を表示</button>
-                    <div id="answer4" class="answer-section" style="display:none;">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(4)" class="show-answer-btn">回答を表示</button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer4" class="answer-section" style="display:none;">
                         <p><strong>正解: B</strong></p>
                         <p><strong>解説:</strong> ラムダ式内で参照する外部変数はeffective final制約により、変更不可である必要があります。これはスレッドセーフティと予期しない動作の防止のためです。</p>
                     </div>
@@ -792,8 +792,8 @@ people.sort(Comparator.comparingInt(Person::getAge).reversed());
                         <li>C: `() -> "Hello"`</li>
                         <li>D: `s -> s.equals("test")`</li>
                     </ul>
-                    <button onclick="showAnswer(5)" class="show-answer-btn">回答を表示</button>
-                    <div id="answer5" class="answer-section" style="display:none;">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(5)" class="show-answer-btn">回答を表示</button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer5" class="answer-section" style="display:none;">
                         <p><strong>正解: B</strong></p>
                         <p><strong>解説:</strong> Consumer&lt;T&gt;は「T型を受け取って何も返さない」インターフェースです。`void accept(T t)`メソッドを持つため、戻り値のないラムダ式が適切です。Aは戻り値があり、Cは引数なし、Dは戻り値があるため不適切です。</p>
                     </div>

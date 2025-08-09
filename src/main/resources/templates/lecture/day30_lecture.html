@@ -578,10 +578,10 @@
                             <span>D) コンパイルエラー</span>
                         </label>
                     </div>
-                    <button onclick="showAnswer(1)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(1)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
                         回答を表示
                     </button>
-                    <div id="answer1" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
                         <p class="font-bold text-green-700 mb-2">正解: B) result = 13</p>
                         <div class="text-green-600 text-sm space-y-2">
                             <p><strong>解説：</strong></p>
@@ -638,10 +638,10 @@ switch (score / 10) {
                             <span>D) score = 95</span>
                         </label>
                     </div>
-                    <button onclick="showAnswer(2)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(2)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
                         回答を表示
                     </button>
-                    <div id="answer2" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
                         <p class="font-bold text-green-700 mb-2">正解: C) score = 85</p>
                         <div class="text-green-600 text-sm space-y-2">
                             <p><strong>解説：</strong></p>
@@ -704,10 +704,10 @@ public class Test {
                             <span>D) 実行時エラー</span>
                         </label>
                     </div>
-                    <button onclick="showAnswer(3)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(3)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
                         回答を表示
                     </button>
-                    <div id="answer3" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
                         <p class="font-bold text-green-700 mb-2">正解: B) Child method</p>
                         <div class="text-green-600 text-sm space-y-2">
                             <p><strong>解説：</strong></p>
@@ -748,10 +748,10 @@ public class Test {
                             <span>D) Stack</span>
                         </label>
                     </div>
-                    <button onclick="showAnswer(4)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(4)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
                         回答を表示
                     </button>
-                    <div id="answer4" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer4" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
                         <p class="font-bold text-green-700 mb-2">正解: B) LinkedList</p>
                         <div class="text-green-600 text-sm space-y-2">
                             <p><strong>解説：</strong></p>
@@ -831,10 +831,10 @@ public class Test {
                             <span>D) 空文字列</span>
                         </label>
                     </div>
-                    <button onclick="showAnswer(5)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(5)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
                         回答を表示
                     </button>
-                    <div id="answer5" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer5" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
                         <p class="font-bold text-green-700 mb-2">正解: B) BANANA, CHERRY</p>
                         <div class="text-green-600 text-sm space-y-2">
                             <p><strong>解説：</strong></p>
@@ -886,10 +886,10 @@ public class Test {
                             <span>D) どれも同じ効率</span>
                         </label>
                     </div>
-                    <button onclick="showAnswer(10)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(10)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
                         回答を表示
                     </button>
-                    <div id="answer10" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer10" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
                         <p class="font-bold text-green-700 mb-2">正解: B) 二分探索 - O(log n)</p>
                         <div class="text-green-600 text-sm space-y-2">
                             <p><strong>解説：</strong></p>
@@ -947,10 +947,10 @@ public class Test {
                             </div>
                         </label>
                     </div>
-                    <button onclick="showAnswer(15)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(15)" class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 transition-colors">
                         回答を表示
                     </button>
-                    <div id="answer15" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer15" style="display:none;" class="mt-4 p-4 bg-green-50 border-l-4 border-green-500">
                         <p class="font-bold text-green-700 mb-2">正解: B) Stream APIを活用</p>
                         <div class="text-green-600 text-sm space-y-2">
                             <p><strong>解説：</strong></p>

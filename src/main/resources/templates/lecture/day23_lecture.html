@@ -842,8 +842,8 @@ ROLLBACK; -- 異常終了：変更を取り消し
 S001   | 田中   | 情報   | 佐藤     | DB,Java  | 山田,鈴木| 90,85
 S002   | 高橋   | 経営   | 伊藤     | 簿記     | 中村     | 78
                     </div>
-                    <button onclick="showAnswer(1)" class="btn btn-primary">回答例を表示</button>
-                    <div id="answer1" class="answer-section">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(1)" class="btn btn-primary">回答例を表示</button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-section">
                         <h4 class="font-semibold mb-2">正規化手順</h4>
                         <div class="space-y-4">
                             <div>
@@ -909,8 +909,8 @@ Java   | 鈴木
                         <li>売上高が100万円以上の月のみ表示</li>
                         <li>顧客名、商品名も含めて表示</li>
                     </ul>
-                    <button onclick="showAnswer(2)" class="btn btn-primary">回答例を表示</button>
-                    <div id="answer2" class="answer-section">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(2)" class="btn btn-primary">回答例を表示</button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-section">
                         <div class="code-block text-sm">
 SELECT 
     EXTRACT(MONTH FROM o.注文日) AS 月,
@@ -946,8 +946,8 @@ ORDER BY 売上高 DESC;
                         <li>本には著者情報があり、1人の著者が複数の本を書くことができる</li>
                         <li>貸出履歴を管理する必要がある</li>
                     </ul>
-                    <button onclick="showAnswer(3)" class="btn btn-primary">回答例を表示</button>
-                    <div id="answer3" class="answer-section">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(3)" class="btn btn-primary">回答例を表示</button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="answer-section">
                         <div class="er-diagram">
                             <h4 class="font-semibold mb-4">図書館管理システム E-R図</h4>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
@@ -1019,8 +1019,8 @@ ORDER BY 売上高 DESC;
                             d) 多値従属
                         </label>
                     </div>
-                    <button onclick="showAnswer(4)" class="btn btn-primary">回答を表示</button>
-                    <div id="answer4" class="answer-section">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(4)" class="btn btn-primary">回答を表示</button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer4" class="answer-section">
                         <p class="font-semibold text-green-600 mb-2">正解: b) 部分関数従属</p>
                         <p class="text-sm">
                             <strong>解説:</strong> 第2正規形では、非キー属性が主キーの一部に依存する部分関数従属を排除します。
@@ -1054,8 +1054,8 @@ ORDER BY 売上高 DESC;
                             d) LEFT JOINとINNER JOINの結果は常に同じになる
                         </label>
                     </div>
-                    <button onclick="showAnswer(5)" class="btn btn-primary">回答を表示</button>
-                    <div id="answer5" class="answer-section">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(5)" class="btn btn-primary">回答を表示</button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer5" class="answer-section">
                         <p class="font-semibold text-green-600 mb-2">正解: b) LEFT JOINは左テーブルの全レコードを含み、右テーブルに対応するレコードがない場合はNULLを返す</p>
                         <p class="text-sm">
                             <strong>解説:</strong> LEFT JOINは左側（FROM句）のテーブルのすべてのレコードを結果に含みます。
@@ -1089,8 +1089,8 @@ ORDER BY 売上高 DESC;
                             d) トランザクションのデータは他のユーザーがアクセスできなくなる
                         </label>
                     </div>
-                    <button onclick="showAnswer(6)" class="btn btn-primary">回答を表示</button>
-                    <div id="answer6" class="answer-section">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer(6)" class="btn btn-primary">回答を表示</button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer6" class="answer-section">
                         <p class="font-semibold text-green-600 mb-2">正解: c) 同時実行されるトランザクション同士が互いに影響を与えないように制御される</p>
                         <p class="text-sm">
                             <strong>解説:</strong> 分離性（Isolation）は、複数のトランザクションが同時に実行されても、

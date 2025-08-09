@@ -821,11 +821,11 @@ int[][] matrix = {
 // この行列の合計と平均を求めてください</code></pre>
                     </div>
                     
-                    <button onclick="showAnswer('answer1')" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer1')" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors">
                         <i class="fas fa-eye mr-1"></i>回答例を表示
                     </button>
                     
-                    <div id="answer1" class="hidden mt-4 bg-green-50 border border-green-200 rounded p-4">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="hidden mt-4 bg-green-50 border border-green-200 rounded p-4">
                         <h4 class="font-semibold text-green-700 mb-2">回答例：</h4>
                         <div class="bg-gray-50 border rounded p-3">
                             <pre><code class="language-java">public class MatrixCalculation {
@@ -881,11 +881,11 @@ int[][] matrix = {
                         <pre><code class="language-java">int[] data = {64, 34, 25, 12, 22, 11, 90, 5, 77, 30};</code></pre>
                     </div>
                     
-                    <button onclick="showAnswer('answer2')" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer2')" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors">
                         <i class="fas fa-eye mr-1"></i>回答例を表示
                     </button>
                     
-                    <div id="answer2" class="hidden mt-4 bg-green-50 border border-green-200 rounded p-4">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="hidden mt-4 bg-green-50 border border-green-200 rounded p-4">
                         <h4 class="font-semibold text-green-700 mb-2">回答例：</h4>
                         <div class="bg-gray-50 border rounded p-3">
                             <pre><code class="language-java">import java.util.Arrays;
@@ -953,11 +953,11 @@ public class SortComparison {
                         二分探索を使用する際の前提条件も含めて実装してください。
                     </p>
                     
-                    <button onclick="showAnswer('answer3')" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer3')" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors">
                         <i class="fas fa-eye mr-1"></i>回答例を表示
                     </button>
                     
-                    <div id="answer3" class="hidden mt-4 bg-green-50 border border-green-200 rounded p-4">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="hidden mt-4 bg-green-50 border border-green-200 rounded p-4">
                         <h4 class="font-semibold text-green-700 mb-2">回答例：</h4>
                         <div class="bg-gray-50 border rounded p-3">
                             <pre><code class="language-java">import java.util.Arrays;
@@ -1074,11 +1074,11 @@ System.out.println(arr[2][3]);</code></pre>
                         </div>
                     </div>
                     
-                    <button onclick="showAnswer('quiz1answer')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz1answer')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
                         <i class="fas fa-eye mr-1"></i>回答を表示
                     </button>
                     
-                    <div id="quiz1answer" class="hidden mt-4 bg-blue-50 border border-blue-200 rounded p-4">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1answer" class="hidden mt-4 bg-blue-50 border border-blue-200 rounded p-4">
                         <h4 class="font-semibold text-blue-700 mb-2">正解：A) 3, 2, 9</h4>
                         <div class="text-sm text-blue-700">
                             <p class="mb-2"><strong>解説：</strong></p>
@@ -1121,11 +1121,11 @@ System.out.println(arr[2][3]);</code></pre>
                         </div>
                     </div>
                     
-                    <button onclick="showAnswer('quiz2answer')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz2answer')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
                         <i class="fas fa-eye mr-1"></i>回答を表示
                     </button>
                     
-                    <div id="quiz2answer" class="hidden mt-4 bg-blue-50 border border-blue-200 rounded p-4">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2answer" class="hidden mt-4 bg-blue-50 border border-blue-200 rounded p-4">
                         <h4 class="font-semibold text-blue-700 mb-2">正解：C) 約5,000回</h4>
                         <div class="text-sm text-blue-700">
                             <p class="mb-2"><strong>解説：</strong></p>
@@ -1173,11 +1173,11 @@ System.out.println(arr[2][3]);</code></pre>
                         </div>
                     </div>
                     
-                    <button onclick="showAnswer('quiz3answer')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz3answer')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
                         <i class="fas fa-eye mr-1"></i>回答を表示
                     </button>
                     
-                    <div id="quiz3answer" class="hidden mt-4 bg-blue-50 border border-blue-200 rounded p-4">
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz3answer" class="hidden mt-4 bg-blue-50 border border-blue-200 rounded p-4">
                         <h4 class="font-semibold text-blue-700 mb-2">正解：B) 約20回</h4>
                         <div class="text-sm text-blue-700">
                             <p class="mb-2"><strong>解説：</strong></p>

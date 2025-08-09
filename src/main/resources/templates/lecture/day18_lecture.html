@@ -811,9 +811,9 @@ public class TransactionExample {
                 <li>機能4: 社員情報の更新</li>
             </ul>
             
-            <button class="btn-show-answer" onclick="showExerciseAnswer(1)">回答例を表示</button>
+            <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="btn-show-answer" onclick="showExerciseAnswer(1)">回答例を表示</button>
             
-            <div id="exerciseAnswer1" class="answer-section">
+            <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exerciseAnswer1" class="answer-section">
                 <h4 class="font-semibold mb-2">回答例とポイント解説</h4>
                 <div class="code-example">
                     <pre><code class="language-java">
@@ -882,9 +882,9 @@ public class EmployeeManager {
             <h3 class="text-xl font-semibold mb-4">演習2: 在庫管理システムのトランザクション処理</h3>
             <p><strong>問題:</strong> 商品注文処理において、在庫減算と注文履歴記録をトランザクションとして実装してください。</p>
             
-            <button class="btn-show-answer" onclick="showExerciseAnswer(2)">回答例を表示</button>
+            <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="btn-show-answer" onclick="showExerciseAnswer(2)">回答例を表示</button>
             
-            <div id="exerciseAnswer2" class="answer-section">
+            <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exerciseAnswer2" class="answer-section">
                 <h4 class="font-semibold mb-2">トランザクション処理の実装例</h4>
                 <div class="code-example">
                     <pre><code class="language-java">
@@ -976,9 +976,9 @@ public class OrderProcessor {
                 <li>D) JDBCはIDEの拡張機能</li>
             </ol>
             
-            <button class="btn-show-answer" onclick="showAnswer(1)">回答を表示</button>
+            <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="btn-show-answer" onclick="showAnswer(1)">回答を表示</button>
             
-            <div id="answer1" class="answer-section">
+            <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-section">
                 <p><strong>正解: A) JDBCはJavaでデータベースにアクセスするための標準API</strong></p>
                 <p class="mt-2"><strong>解説:</strong> JDBC（Java Database Connectivity）は、Javaアプリケーションからデータベースにアクセスするための標準的なAPIです。異なるデータベース管理システム（MySQL、Oracle、PostgreSQLなど）に対して統一的なインターフェースを提供します。</p>
             </div>
@@ -994,9 +994,9 @@ public class OrderProcessor {
                 <li>D) 型安全なパラメータ設定ができる</li>
             </ol>
             
-            <button class="btn-show-answer" onclick="showAnswer(2)">回答を表示</button>
+            <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="btn-show-answer" onclick="showAnswer(2)">回答を表示</button>
             
-            <div id="answer2" class="answer-section">
+            <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-section">
                 <p><strong>正解: C) データベース接続が不要になる</strong></p>
                 <p class="mt-2"><strong>解説:</strong> PreparedStatementを使用しても、データベース接続（Connection）は必要です。PreparedStatementの利点は、SQLの事前コンパイル、パラメータ化による安全性、再利用による性能向上などです。</p>
             </div>
@@ -1012,9 +1012,9 @@ public class OrderProcessor {
                 <li>D) B と C の両方が正しい</li>
             </ol>
             
-            <button class="btn-show-answer" onclick="showAnswer(3)">回答を表示</button>
+            <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="btn-show-answer" onclick="showAnswer(3)">回答を表示</button>
             
-            <div id="answer3" class="answer-section">
+            <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="answer-section">
                 <p><strong>正解: D) B と C の両方が正しい</strong></p>
                 <p class="mt-2"><strong>解説:</strong> ResultSetは最初1行目の前にカーソルが位置し、next()で移動します。next()がfalseを返すと行がないことを示します。getString()は数値や日付も文字列として取得可能です。</p>
             </div>
@@ -1030,9 +1030,9 @@ public class OrderProcessor {
                 <li>D) 上記すべて正しい</li>
             </ol>
             
-            <button class="btn-show-answer" onclick="showAnswer(4)">回答を表示</button>
+            <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="btn-show-answer" onclick="showAnswer(4)">回答を表示</button>
             
-            <div id="answer4" class="answer-section">
+            <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer4" class="answer-section">
                 <p><strong>正解: D) 上記すべて正しい</strong></p>
                 <p class="mt-2"><strong>解説:</strong> トランザクション制御では、setAutoCommit(false)で自動コミットを無効化し、commit()で確定、rollback()で取り消します。エラー時のrollback()は必須です。</p>
             </div>
@@ -1048,9 +1048,9 @@ public class OrderProcessor {
                 <li>D) A と B の両方が適切</li>
             </ol>
             
-            <button class="btn-show-answer" onclick="showAnswer(5)">回答を表示</button>
+            <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" class="btn-show-answer" onclick="showAnswer(5)">回答を表示</button>
             
-            <div id="answer5" class="answer-section">
+            <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer5" class="answer-section">
                 <p><strong>正解: D) A と B の両方が適切</strong></p>
                 <p class="mt-2"><strong>解説:</strong> try-with-resources文が最も推奨されますが、finallyブロックでの手動close()も適切です。ガベージコレクションに任せるのは不適切で、メモリリークの原因となります。適切なリソース管理は必須です。</p>
             </div>
