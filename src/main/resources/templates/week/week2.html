@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{_layouts/week}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>第2週: オブジェクト指向プログラミング | ITエンジニア育成カリキュラム</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
         .hero-bg {
             background: linear-gradient(135deg, #4a6bae 0%, #2d3e50 100%);
@@ -29,7 +27,9 @@
         }
     </style>
 </head>
-<body class="bg-gray-50">
+<body>
+<div layout:fragment="pageheader" th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumb})}"></div>
+<section layout:fragment="content">
     <header class="bg-white shadow-md">
         <div class="container mx-auto px-4 py-4">
             <nav class="flex justify-between items-center">
@@ -668,14 +668,7 @@
             });
         });
     </script>
+
+</section>
 </body>
 </html>
-    <script id="html_badge_script1">
-        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDoO9v1oOVRcuwP2BSjEKmtKAy%2Fp0e12n8RrMrcQl67sxZzf2hy2Pj1GByCA30ZsFwUB2%2B%2FgjEEoKlITNyRwsPCECGikbkglOSLzoms%2FxjWy6oFk%2B1%2BA6w6JUqpvEO%2Fj%2Fm8TL9LAttjOzDNbz6VfZ5JNpMzxpwFWGe0dfq2jWSu4Y49wBaJZczSUaIeIFGhBIiWkUNbhwPd7U2xYMUzG2r0pFO3rn%2BEOe1Mqyxwtu4C6u3SEwWZ5wY8%2BjjD%2BoWwDm0CBbHoPkdESw9cSOwW%2FQGC%2B%2F6d5gG8hqcDSViz2Ms%2FPLXVAbl4L2n7scVNcNn%2FbjURDGjbYXUMrkWQPwXxxpTt1v95zU2A%2Fz6JXQlJQhFzOjpzrYYfSHkKwbnUzM37wJPOrhbeO2DaKRI%2Bpd942U1fs4dOAplvHhKPKKMJemWnelJ3Uk4trymv%2FZu2Rhqi48MmDitEDgvC2dNUaqolxsGuibqZlBlpzYJl6UMStQlZFk";
-        window.__genspark_locale = "ja-JP";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDoO9v1oOVRcuwP2BSjEKmtKAy/p0e12n8RrMrcQl67sxZzf2hy2Pj1GByCA30ZsFwUB2+/gjEEoKlITNyRwsPCECGikbkglOSLzoms/xjWy6oFk+1+A6w6JUqpvEO/j/m8TL9LAttjOzDNbz6VfZ5JNpMzxpwFWGe0dfq2jWSu4Y49wBaJZczSUaIeIFGhBIiWkUNbhwPd7U2xYMUzG2r0pFO3rn+EOe1Mqyxwtu4C6u3SEwWZ5wY8+jjD+oWwDm0CBbHoPkdESw9cSOwW/QGC+/6d5gG8hqcDSViz2Ms/PLXVAbl4L2n7scVNcNn/bjURDGjbYXUMrkWQPwXxxpTt1v95zU2A/z6JXQlJQhFzOjpzrYYfSHkKwbnUzM37wJPOrhbeO2DaKRI+pd942U1fs4dOAplvHhKPKKMJemWnelJ3Uk4trymv/Zu2Rhqi48MmDitEDgvC2dNUaqolxsGuibqZlBlpzYJl6UMStQlZFk";
-    </script>
-    
-    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
-    
