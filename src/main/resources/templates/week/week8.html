@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{_layouts/week}">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>第8週: ストラテジ系と総合対策 | ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
          {
             body { font-size: 12px; }
@@ -24,9 +27,7 @@
         }
     </style>
 </head>
-<body>
-<div layout:fragment="pageheader" th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumb})}"></div>
-<section layout:fragment="content">
+<body class="bg-gray-50 font-sans">
     <!-- Navigation Breadcrumb -->
     <nav class="bg-white shadow-sm border-b px-6 py-3">
         <ol class="flex items-center space-x-2 text-sm text-gray-600">
@@ -730,7 +731,14 @@
         // 初期化
         updateProgress();
     </script>
-
-</section>
 </body>
 </html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhEXE0fkGSV%2BHw5kgs9DZJZFPXwscrSxSdjIPYg2mSC1jAem0i9UKkqRJelh7PqcG8NjyTbk1kBTHeX7FY9OxVWUKCBUNOagnrd0fC7wfB2fjBvoozLsflnEpbuUUiVSpDteXFOx%2B5VBzhKK4M4hS%2FOMwFqa1Zim4pgpIBthXca0xVzgj91Q5Jegt5w2oFgCB6HZwAeUjiX30heYbCdcjE6tQRAFiAmJ0AnWmCX2mSNOVKisWvoOH6JcYr7om3dnWkMrRSdIyncp1G%2FzjdH0KtSFDZ%2Fb2I658wc7UFZsg8OduIjj%2B5%2BBWa12VFTyhaUOqkHjQpVgklhJfuIs%2Bb3aD%2B%2BEzODaj56BCsEPkO3D2fzq48GrvNlw8pc5KjNQhpyGd7Qb3FxebDT9wCh3oONWHDrYP3%2BkMMlN%2Fzys%2FSWu%2BDn5pqjgg%2B0ZaHsxLj9PX1VM0KtVgWqh%2BxxyPIgVGmqCySUffPiQKubX4jKteqfvSOsxZZfifmwQkrQ8fCYl2DdD6Q%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhEXE0fkGSV+Hw5kgs9DZJZFPXwscrSxSdjIPYg2mSC1jAem0i9UKkqRJelh7PqcG8NjyTbk1kBTHeX7FY9OxVWUKCBUNOagnrd0fC7wfB2fjBvoozLsflnEpbuUUiVSpDteXFOx+5VBzhKK4M4hS/OMwFqa1Zim4pgpIBthXca0xVzgj91Q5Jegt5w2oFgCB6HZwAeUjiX30heYbCdcjE6tQRAFiAmJ0AnWmCX2mSNOVKisWvoOH6JcYr7om3dnWkMrRSdIyncp1G/zjdH0KtSFDZ/b2I658wc7UFZsg8OduIjj+5+BWa12VFTyhaUOqkHjQpVgklhJfuIs+b3aD++EzODaj56BCsEPkO3D2fzq48GrvNlw8pc5KjNQhpyGd7Qb3FxebDT9wCh3oONWHDrYP3+kMMlN/zys/SWu+Dn5pqjgg+0ZaHsxLj9PX1VM0KtVgWqh+xxyPIgVGmqCySUffPiQKubX4jKteqfvSOsxZZfifmwQkrQ8fCYl2DdD6Q==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

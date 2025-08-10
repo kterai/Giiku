@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{_layouts/month}">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>第3ヶ月目: Webアプリケーション開発実践 | ITエンジニア育成カリキュラム</title>
+    <link rel="stylesheet" href="../css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/lib/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #0056b3;
@@ -145,8 +148,6 @@
     </style>
 </head>
 <body>
-<div layout:fragment="pageheader" th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumb})}"></div>
-<section layout:fragment="content">
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-expand-lg navbar-light sticky-top">
         <div class="container">
@@ -528,6 +529,9 @@
     </footer>
 
     <!-- スクリプト -->
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/bootstrap.bundle.min.js"></script>
+    <script src="../js/lib/chart.umd.min.js"></script>
     <script>
         // 進捗チャートの初期化
         document.addEventListener('DOMContentLoaded', function() {
@@ -668,6 +672,14 @@
             window.weeklyProgressChart.update();
         }
     </script>
-</section>
 </body>
 </html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDl6PKLwiQ3poysl81FNec287i2mdgF2pou%2Fu4DQWBuYF4k7%2B%2FoOnMpgeW7QYznFgM1jLDW1%2BrHmNOgkK%2BaOdDePeakjT9zIVIIRnupGrfw4sNGKtaZ%2BUKsFva2eQ80jIQNyrjwWByJsZVDS8RVQ9f6F4ELNlbyLzmzkZriLtIOji5IdCAIiV0HegaIJkRDhsT5n0L97kC9%2B%2FTKsp4Z4CK%2FrkcPwqh33I27wrCJN4oweoJh7rcDh8Il%2FplHdqkkO40aHpO0p69dmNnXSkg4Oi%2BkqspDt0xqtX0FBVXcz4WfLPDnvG2YPC8zoHowNnKqFOZRJSsZnFxy6vGT7qGFzM4Zp3iL5pGgKdefH4q3Sb%2B9w97CG%2FPh5XnCXu94uKivE7QTNOzljp5KWpkelR%2BEtHD6e0cnSuiTbpc4XXvid5KQLPsb%2BKE0xEo3N7%2BHkJRD6B%2BqCUnlrzwLzK2F81gLlsfwNduFAA%2BHdBnNxcpOAiPpVX2%2FRSIfuPU3U5LQjFPpXTFQ%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDl6PKLwiQ3poysl81FNec287i2mdgF2pou/u4DQWBuYF4k7+/oOnMpgeW7QYznFgM1jLDW1+rHmNOgkK+aOdDePeakjT9zIVIIRnupGrfw4sNGKtaZ+UKsFva2eQ80jIQNyrjwWByJsZVDS8RVQ9f6F4ELNlbyLzmzkZriLtIOji5IdCAIiV0HegaIJkRDhsT5n0L97kC9+/TKsp4Z4CK/rkcPwqh33I27wrCJN4oweoJh7rcDh8Il/plHdqkkO40aHpO0p69dmNnXSkg4Oi+kqspDt0xqtX0FBVXcz4WfLPDnvG2YPC8zoHowNnKqFOZRJSsZnFxy6vGT7qGFzM4Zp3iL5pGgKdefH4q3Sb+9w97CG/Ph5XnCXu94uKivE7QTNOzljp5KWpkelR+EtHD6e0cnSuiTbpc4XXvid5KQLPsb+KE0xEo3N7+HkJRD6B+qCUnlrzwLzK2F81gLlsfwNduFAA+HdBnNxcpOAiPpVX2/RSIfuPU3U5LQjFPpXTFQ==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

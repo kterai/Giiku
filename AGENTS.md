@@ -5,7 +5,6 @@
 - This project has no automated tests. After editing HTML or CSS, manually open `index.html` in a browser to verify that navigation and layout work correctly.
 - Document major updates or milestones in `作業進捗と計画.html` as well.
 - Keep the monthly plan in this README consistent with any curriculum updates.
-- CSS や JS ライブラリは WebJar を利用し、Thymeleaf の `th:` 属性で読み込む。
 
 - すべての Web ページはスマートフォンでも閲覧しやすいレスポンシブデザインとする。
 
