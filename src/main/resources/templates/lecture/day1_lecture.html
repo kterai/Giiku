@@ -1,73 +1,17 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layouts/lecture}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Day1: Java概要・環境構築・Hello World</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <style>
-        .answer-content {
-            display: none;
-        }
-        .code-highlight {
-            background: linear-gradient(90deg, #f3f4f6 0%, #e5e7eb 100%);
-        }
-        .fixed-nav {
-            backdrop-filter: blur(10px);
-            background-color: rgba(255, 255, 255, 0.95);
-        }
-        .nav-link:hover {
-            background-color: rgba(59, 130, 246, 0.1);
-        }
-        .breadcrumb-separator::after {
-            content: ">";
-            margin: 0 8px;
-            color: #9CA3AF;
-        }
-    </style>
 </head>
 <body class="bg-gray-50 text-gray-900 leading-relaxed">
-    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
-        <div class="bg-blue-600 text-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between h-12">
-                    <div class="flex items-center">
-                        <i class="fas fa-graduation-cap mr-2"></i>
-                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <span class="px-3 py-1 rounded text-sm text-gray-400 cursor-not-allowed">
-                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
-                        </span>
-                        <a href="./day2_lecture.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
-                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="bg-white px-4 py-3">
-            <div class="max-w-7xl mx-auto">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center text-sm text-gray-600">
-                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
-                        <span class="breadcrumb-separator"></span>
-                        <a href="../month/month1.html" class="hover:text-blue-600">1ヶ月目: Java基礎</a>
-                        <span class="breadcrumb-separator"></span>
-                        <a href="../week/week1.html" class="hover:text-blue-600">1週目: Java言語基礎</a>
-                        <span class="breadcrumb-separator"></span>
-                        <span class="font-semibold text-blue-600">1日目: Java概要・環境構築・Hello World</span>
-                    </div>
-                    <div class="flex items-center space-x-3">
-                        <a href="../day/day1.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
-                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+<div layout:fragment="pageheader"
+     th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumb})}"></div>
+
+<section layout:fragment="content">
     <main class="pt-32">
     <header class="bg-blue-800 text-white py-4 shadow-lg">
         <div class="container mx-auto px-4">
@@ -945,14 +889,6 @@
         </section>
     </div>
 
-    <!-- フッター -->
-    <footer class="bg-gray-800 text-white py-6 mt-12">
-        <div class="container mx-auto px-4 text-center">
-            <p class="mb-2">ITエンジニア育成カリキュラム - Day1: Java概要・環境構築・Hello World</p>
-            <p class="text-gray-400 text-sm">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
-        </div>
-    </footer>
-
     <script>
         function toggleAnswer(answerId) {
             const answerElement = document.getElementById(answerId);
@@ -976,14 +912,7 @@
         });
     </script>
     </main>
+</section>
 </body>
 </html>
-    <script id="html_badge_script1">
-        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDvmcycL4Jxhv%2FwP%2BPaOXTBHpGCUUv7UGssjYJ8C5QmzwiX9mfg8xqNHP%2B4KxbDjTML7m1hiM2L0D5HxPpTb6RZC4uVvgWfPuWp%2BQ9JfhV2Pc8ZQqczq1GpQZWU6Ckw2jw38WylGIF7ZaIr%2BVQeAxecMfWaXQ4S6CUzqUiIPrRWiR2jMq0jto0Ysz3cXnpDzlU0KX3TcXdKrwYmW45nsXdDzaIQIQpsHbKPnyQilwfGB6NBWTcj%2F%2BhgxnrhOO5PHF1rofqPcdGZUINw5q9wrNaQgPF6MNWHsF6xYh4lofUS91dawcQklZxEu5HxdrcwAcd7rvqCdndCu%2F6sBQ3k08P8RzBdX6o9vj0HLKBCWXvdcR6qeVtaoDvPkouMO4VbrhcOjkFJLZ5ySc7TF71p10VdQyl0hIrJeY4wsnCYm%2FEQHQKRtNvODD%2Fwvv6pGExVhlV6Dz6RSyJmzq26XXsUS8J04gflDEfC0YOv0RTCBxzPfbEd%2BMiEcJ2iN%2F826wcu%2Fi%2Fw%3D%3D";
-        window.__genspark_locale = "ja-JP";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDvmcycL4Jxhv/wP+PaOXTBHpGCUUv7UGssjYJ8C5QmzwiX9mfg8xqNHP+4KxbDjTML7m1hiM2L0D5HxPpTb6RZC4uVvgWfPuWp+Q9JfhV2Pc8ZQqczq1GpQZWU6Ckw2jw38WylGIF7ZaIr+VQeAxecMfWaXQ4S6CUzqUiIPrRWiR2jMq0jto0Ysz3cXnpDzlU0KX3TcXdKrwYmW45nsXdDzaIQIQpsHbKPnyQilwfGB6NBWTcj/+hgxnrhOO5PHF1rofqPcdGZUINw5q9wrNaQgPF6MNWHsF6xYh4lofUS91dawcQklZxEu5HxdrcwAcd7rvqCdndCu/6sBQ3k08P8RzBdX6o9vj0HLKBCWXvdcR6qeVtaoDvPkouMO4VbrhcOjkFJLZ5ySc7TF71p10VdQyl0hIrJeY4wsnCYm/EQHQKRtNvODD/wvv6pGExVhlV6Dz6RSyJmzq26XXsUS8J04gflDEfC0YOv0RTCBxzPfbEd+MiEcJ2iN/826wcu/i/w==";
-    </script>
-    
-    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
     
