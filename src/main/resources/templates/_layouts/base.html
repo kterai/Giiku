@@ -6,7 +6,7 @@
     <title layout:title-pattern="$CONTENT_TITLE - ITエンジニア育成カリキュラム">ITエンジニア育成カリキュラム</title>
     <meta name="_csrf" th:content="${_csrf?.token}">
     <script src="../static/js/lib/jquery.min.js" th:src="@{/js/lib/jquery.min.js}"></script>
-    <script src="../static/js/lib/bootstrap.bundle.min.js" th:src="@{/js/lib/bootstrap.bundle.min.js}"></script>
+<!--    <script src="../static/js/lib/bootstrap.bundle.min.js" th:src="@{/js/lib/bootstrap.bundle.min.js}"></script>-->
     <script src="../static/js/lib/chart.umd.min.js" th:src="@{/js/lib/chart.umd.min.js}"></script>
     <link href="../static/css/lib/bootstrap.min.css" th:href="@{/css/lib/bootstrap.min.css}" rel="stylesheet">
 <!--    <link th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css}" rel="stylesheet">-->
@@ -23,5 +23,13 @@
     <script src="/webjars/react/umd/react.development.js"></script>
     <script src="/webjars/react-dom/umd/react-dom.development.js"></script>
     <script src="/webjars/babel__standalone/babel.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+            dropdownElementList.forEach(function (dropdownToggleEl) {
+                new bootstrap.Dropdown(dropdownToggleEl);
+            });
+        });
+    </script>
 </body>
 </html>
