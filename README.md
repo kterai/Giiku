@@ -85,6 +85,7 @@
 - バックエンド：セッション切れ後のログインエラーを修正
 - テンプレート構成を整理し、Thymeleafレイアウトとサンプルページ（month1、week1、day1、lecture1、admin/index）を追加
 - フロントエンド：Tailwind CSSをnpmとGradleで自動ビルドし、tailwind.min.cssを生成
+- ヘッダーナビゲーションが表示されない問題を修正
 
 ## 今後のタスク（優先順位順）
 1. `day6.html`〜`day54.html` の作成（残り49日分）
