@@ -11,6 +11,7 @@ plugins {
     id 'jacoco'
     id 'eclipse'
     id 'idea'
+    id 'com.github.node-gradle.node' version '7.0.1'
 }
 
 group = 'jp.co.apsa'
@@ -26,6 +27,10 @@ configurations {
 
 repositories {
     mavenCentral()
+}
+
+node {
+    download = true
 }
 
 dependencies {
@@ -201,15 +206,9 @@ bootRun {
 }
 
 // Tailwind CSS Build
-tasks.register('npmInstall', Exec) {
-    workingDir projectDir
-    commandLine 'npm', 'install'
-}
-
-tasks.register('buildTailwind', Exec) {
-    dependsOn 'npmInstall'
-    workingDir projectDir
-    commandLine 'npm', 'run', 'build:css'
+tasks.register('buildTailwind', com.github.gradle.node.npm.task.NpmTask) {
+    dependsOn npmInstall
+    args = ['run', 'build:css']
 }
 
 processResources.dependsOn 'buildTailwind'
