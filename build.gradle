@@ -199,3 +199,17 @@ task dev {
 bootRun {
     jvmArgs = ['-Dspring.profiles.active=dev']
 }
+
+// Tailwind CSS Build
+tasks.register('npmInstall', Exec) {
+    workingDir projectDir
+    commandLine 'npm', 'install'
+}
+
+tasks.register('buildTailwind', Exec) {
+    dependsOn 'npmInstall'
+    workingDir projectDir
+    commandLine 'npm', 'run', 'build:css'
+}
+
+processResources.dependsOn 'buildTailwind'

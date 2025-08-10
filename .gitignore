@@ -3,3 +3,5 @@
 .idea/
 .gradle/
 
+/node_modules/
+src/main/resources/static/css/lib/tailwind.min.css
