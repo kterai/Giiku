@@ -62,7 +62,7 @@ dependencies {
     // WebJars
     implementation 'org.webjars.npm:bootstrap:5.3.3'
     implementation 'org.webjars.npm:bootstrap-icons:1.11.3'
-    implementation 'org.webjars.npm:fortawesome__fontawesome-free:6.5.2'
+    implementation 'org.webjars.npm:fortawesome__fontawesome-free:7.0.0'
     implementation 'org.webjars.npm:chart.js:4.4.0'
     implementation 'org.webjars.npm:react:18.2.0'
     implementation 'org.webjars.npm:react-dom:18.2.0'
