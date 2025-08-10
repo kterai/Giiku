@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{_layouts/week}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>第12週: 総合開発 | ITエンジニア育成カリキュラム</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --primary-color: #4f46e5;
@@ -81,6 +78,8 @@
     </style>
 </head>
 <body>
+<div layout:fragment="pageheader" th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumb})}"></div>
+<section layout:fragment="content">
     <header class="header-gradient text-white shadow-lg">
         <div class="container mx-auto px-4 py-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
@@ -501,14 +500,7 @@
             });
         });
     </script>
+
+</section>
 </body>
 </html>
-    <script id="html_badge_script1">
-        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDiXiad7c7xTEeCvUBz%2BgyRNHq0m0NhentXvpZQY6uECgQPGybf%2FlpqvRdD0AS7iZh1moVV9bNkVmjbaFvT9oiYJ7z%2FY47XU3VY7kbDBfNsOXjliqdCj%2BdDz0rtkCIR7%2B5OakZNSNHFLjzyq6tBUbW9fTG4mNabDfFCLC%2BDvDEwyzDW%2BpMqv2wDEls2My%2FHfeyYQUAYA4jLoeqt3miuCi4e3dE8RGfvmKd2VucLMobCTqVQ%2B34JKlvfXC2heUdVVcwnRDEx7a1hPGDzx9k1xP3Bsr2grzwvQF4OZciDCwo9uFg5covV237wAQXRaQ2gONN%2F%2BFXPB0hgacKQjT8le1OZVC0cRRPFXuvw7l9KRVdjPfe3%2Fc0NMMqzWBS0RtIQEpBeuUG2JkHAvHmKl2WTXRu%2F6poZP6ADMW3uKXr47y55kYYgZ3rzj4Gp%2BALcoOT95Vie%2FQjHA9SCVXdK6hNKbIBoZCNCRrJdmT5RI5p2ZYZ%2BLx";
-        window.__genspark_locale = "ja-JP";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDiXiad7c7xTEeCvUBz+gyRNHq0m0NhentXvpZQY6uECgQPGybf/lpqvRdD0AS7iZh1moVV9bNkVmjbaFvT9oiYJ7z/Y47XU3VY7kbDBfNsOXjliqdCj+dDz0rtkCIR7+5OakZNSNHFLjzyq6tBUbW9fTG4mNabDfFCLC+DvDEwyzDW+pMqv2wDEls2My/HfeyYQUAYA4jLoeqt3miuCi4e3dE8RGfvmKd2VucLMobCTqVQ+34JKlvfXC2heUdVVcwnRDEx7a1hPGDzx9k1xP3Bsr2grzwvQF4OZciDCwo9uFg5covV237wAQXRaQ2gONN/+FXPB0hgacKQjT8le1OZVC0cRRPFXuvw7l9KRVdjPfe3/c0NMMqzWBS0RtIQEpBeuUG2JkHAvHmKl2WTXRu/6poZP6ADMW3uKXr47y55kYYgZ3rzj4Gp+ALcoOT95Vie/QjHA9SCVXdK6hNKbIBoZCNCRrJdmT5RI5p2ZYZ+Lx";
-    </script>
-    
-    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
-    

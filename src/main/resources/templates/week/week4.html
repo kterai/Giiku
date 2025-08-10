@@ -1,12 +1,9 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{_layouts/week}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>第4週: 総仕上げ | ITエンジニア育成カリキュラム</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -111,7 +108,9 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body>
+<div layout:fragment="pageheader" th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumb})}"></div>
+<section layout:fragment="content">
     <header class="navbar header-gradient shadow-lg">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
@@ -637,14 +636,7 @@
             });
         });
     </script>
+
+</section>
 </body>
 </html>
-    <script id="html_badge_script1">
-        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDjWfWquIbAEeON7SjQvRqriKSozVHd6jAOD%2B3dHf6ttd7UtUoUuG7T%2B1zxZU6rtPMi0yxx1jddu8sc%2FcILzTtqaHO5Z56nF0QV3yErOz7jKxihru1C%2B5%2Bsgp3wrJbaQGDyvq13JhOOl%2BAGJpN7DaV9ZQofy3wSCZFSNY60MtEPYvPVuREadIy1Vx7pVQ14v8PROer6uPWbsvVHhzFWpwIigleBdjhsbKAENIixljFZxnAkHk%2FBkfSPV4s7tNqqWeB9IVem1Kcw7mTWk1aqp60nB63jPJgarVW16i9RfcTdz9xflfuzVR5BFxRXOVHYKNZenm%2BBGNeRJL7%2BR5JH%2F%2BTDT%2FMpKhm9z877BJTC7q%2Fu89ESWs9Olpj%2BuD8EvgwHJ9dkuckaQpPQByO85GDybJIDdONK8NtJjwecpoUYQXplYFKlBjz2CQ8HlatIIrCNjqDJeUS4TPEVtkGzgFSRBQ3UuRNbysAu4Boml5QSIMpWTM";
-        window.__genspark_locale = "ja-JP";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDjWfWquIbAEeON7SjQvRqriKSozVHd6jAOD+3dHf6ttd7UtUoUuG7T+1zxZU6rtPMi0yxx1jddu8sc/cILzTtqaHO5Z56nF0QV3yErOz7jKxihru1C+5+sgp3wrJbaQGDyvq13JhOOl+AGJpN7DaV9ZQofy3wSCZFSNY60MtEPYvPVuREadIy1Vx7pVQ14v8PROer6uPWbsvVHhzFWpwIigleBdjhsbKAENIixljFZxnAkHk/BkfSPV4s7tNqqWeB9IVem1Kcw7mTWk1aqp60nB63jPJgarVW16i9RfcTdz9xflfuzVR5BFxRXOVHYKNZenm+BGNeRJL7+R5JH/+TDT/MpKhm9z877BJTC7q/u89ESWs9Olpj+uD8EvgwHJ9dkuckaQpPQByO85GDybJIDdONK8NtJjwecpoUYQXplYFKlBjz2CQ8HlatIIrCNjqDJeUS4TPEVtkGzgFSRBQ3UuRNbysAu4Boml5QSIMpWTM";
-    </script>
-    
-    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
-    
