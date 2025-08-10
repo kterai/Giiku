@@ -26,7 +26,7 @@
   const head = document.head;
   const tailwind = document.createElement('link');
   tailwind.rel = 'stylesheet';
-  tailwind.href = 'https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css';
+  tailwind.href = '/css/lib/tailwind.min.css';
   head.appendChild(tailwind);
   const fa = document.createElement('link');
   fa.rel = 'stylesheet';
