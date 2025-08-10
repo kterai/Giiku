@@ -76,6 +76,7 @@
 - フロントエンド：dashboard.htmlをindex.htmlのスタイルに合わせて更新
 - フロントエンド：dashboard.htmlをlayout.htmlを利用する構造に変更
 - フロントエンド：ダッシュボードにindex.htmlの静的コンテンツを直接埋め込み
+- フロントエンド：共通ヘッダーを画面上部に固定
 - バックエンド：day、week、month、lectureフォルダのHTMLを表示するコントローラーを追加
 - dayX_lecture.htmlの回答ボタンと内容をADMIN/INSTRUCTORのみ表示に変更（静的HTMLでは全表示）
 - テンプレート導入に伴い消失したサンプルページのコンテンツを復元し、既存ナビゲーションと見た目を維持するルールを追加
