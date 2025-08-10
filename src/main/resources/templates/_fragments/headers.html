@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<body>
 <!-- グローバルヘッダー -->
-<nav th:fragment="global()" class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #e3f2fd; --bs-navbar-color: #0d47a1; --bs-navbar-hover-color: #0a3575; --bs-navbar-active-color: #0a3575; --bs-navbar-brand-color: #0d47a1; --bs-navbar-brand-hover-color: #0a3575;">
+<nav th:fragment="global" class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: #e3f2fd; --bs-navbar-color: #0d47a1; --bs-navbar-hover-color: #0a3575; --bs-navbar-active-color: #0a3575; --bs-navbar-brand-color: #0d47a1; --bs-navbar-brand-hover-color: #0a3575;">
     <div class="container">
         <a class="navbar-brand" th:href="@{/}">
             <img th:src="@{/images/logo/giiku_logo_horizontal.png}" alt="Giiku Logo" class="d-inline-block align-text-top" style="vertical-align: middle;margin-top: -8px;height: 30px;">
@@ -92,7 +89,7 @@
 </div>
 
 <!-- フッター -->
-<footer th:fragment="footer()" style="background-color: #e3f2fd; color: #0d47a1;">
+<footer th:fragment="footer" style="background-color: #e3f2fd; color: #0d47a1;">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 mb-2 mt-1">
@@ -133,5 +130,3 @@
         </div>
     </div>
 </footer>
-</body>
-</html>
