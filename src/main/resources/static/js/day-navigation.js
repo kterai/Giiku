@@ -12,7 +12,6 @@
   document.querySelectorAll('body > nav').forEach(el => el.remove());
   document.querySelectorAll('nav[aria-label="breadcrumb"]').forEach(nav => {
     let container = nav;
-    // Remove ancestor containers that only exist for breadcrumb
     while (
       container.parentElement &&
       container.parentElement !== document.body &&
@@ -24,77 +23,47 @@
   });
 
   const head = document.head;
-  const tailwind = document.createElement('link');
-  tailwind.rel = 'stylesheet';
-  tailwind.href = '/css/lib/tailwind.min.css';
-  head.appendChild(tailwind);
   const fa = document.createElement('link');
   fa.rel = 'stylesheet';
   fa.href = 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css';
   head.appendChild(fa);
 
   const style = document.createElement('style');
-  style.textContent = `
-    .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-    .sticky-nav { position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
-    .month-badge { background: linear-gradient(45deg, #ffd700, #ffed4a); }
-  `;
+  style.textContent = `.nav-gap { gap: .5rem; }`;
   head.appendChild(style);
 
   const prevLink = prevDay
-    ? `<a href="${prevDay}" class="text-blue-600 hover:text-blue-800 font-medium"><i class=\"fas fa-chevron-left mr-1\"></i>前日</a>`
-    : `<span class="opacity-50"><i class=\"fas fa-chevron-left mr-1\"></i>前日</span>`;
+    ? `<a href="${prevDay}" class="text-decoration-none"><i class=\"fas fa-chevron-left me-1\"></i>前日</a>`
+    : `<span class="text-muted"><i class=\"fas fa-chevron-left me-1\"></i>前日</span>`;
   const nextLink = nextDay
-    ? `<a href="${nextDay}" class="text-blue-600 hover:text-blue-800 font-medium">翌日 <i class=\"fas fa-chevron-right ml-1\"></i></a>`
-    : `<span class="opacity-50">翌日 <i class=\"fas fa-chevron-right ml-1\"></i></span>`;
+    ? `<a href="${nextDay}" class="text-decoration-none">翌日 <i class=\"fas fa-chevron-right ms-1\"></i></a>`
+    : `<span class="text-muted">翌日 <i class=\"fas fa-chevron-right ms-1\"></i></span>`;
 
   const navHtml = `
-<header class="gradient-bg text-white sticky-nav">
-  <div class="container mx-auto px-4 py-4">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center space-x-4">
-        <h1 class="text-2xl font-bold"><i class="fas fa-graduation-cap mr-2"></i>ITエンジニア育成カリキュラム</h1>
-      </div>
-      <nav class="flex items-center space-x-6">
-        <a href="../month/month${month}.html" class="hover:text-yellow-300 transition-colors"><i class="fas fa-home mr-1"></i>トップ</a>
-        <a href="../month/month${month}.html" class="hover:text-yellow-300 transition-colors"><i class="fas fa-layer-group mr-1"></i>${month}ヶ月目</a>
-        <a href="../week/week${week}.html" class="hover:text-yellow-300 transition-colors"><i class="fas fa-calendar-week mr-1"></i>${week}週目</a>
-      </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="../month/month${month}.html"><i class="fas fa-graduation-cap me-2"></i>ITエンジニア育成カリキュラム</a>
+    <div class="navbar-nav nav-gap">
+      <a class="nav-link" href="../month/month${month}.html"><i class="fas fa-layer-group me-1"></i>${month}ヶ月目</a>
+      <a class="nav-link" href="../week/week${week}.html"><i class="fas fa-calendar-week me-1"></i>${week}週目</a>
     </div>
   </div>
-</header>
-<div class="bg-white border-b">
-  <div class="container mx-auto px-4 py-3">
-    <nav class="flex items-center space-x-2 text-sm text-gray-600">
-      <a href="../month/month${month}.html" class="hover:text-blue-600"><i class="fas fa-home"></i> ホーム</a>
-      <i class="fas fa-chevron-right text-gray-400"></i>
-      <a href="../month/month${month}.html" class="hover:text-blue-600">${month}ヶ月目</a>
-      <i class="fas fa-chevron-right text-gray-400"></i>
-      <a href="../week/week${week}.html" class="hover:text-blue-600">${week}週目</a>
-      <i class="fas fa-chevron-right text-gray-400"></i>
-      <span class="text-blue-600 font-semibold">${day}日目</span>
-    </nav>
+</nav>
+<nav aria-label="breadcrumb" class="bg-light border-bottom">
+  <ol class="breadcrumb container my-2">
+    <li class="breadcrumb-item"><a href="../month/month${month}.html"><i class="fas fa-home"></i> ホーム</a></li>
+    <li class="breadcrumb-item"><a href="../month/month${month}.html">${month}ヶ月目</a></li>
+    <li class="breadcrumb-item"><a href="../week/week${week}.html">${week}週目</a></li>
+    <li class="breadcrumb-item active" aria-current="page">${day}日目</li>
+  </ol>
+</nav>
+<div class="bg-white border-bottom">
+  <div class="container py-2 d-flex justify-content-between align-items-center">
+    <div>${prevLink}</div>
+    <div><a href="${lectureLink}" target="_blank" class="btn btn-warning btn-sm">講義スライドを開く</a></div>
+    <div>${nextLink}</div>
   </div>
 </div>
-<div class="bg-blue-50 border-b">
-  <div class="container mx-auto px-4 py-2">
-    <div class="flex justify-between items-center">
-      <div class="flex items-center space-x-4 text-sm">
-        ${prevLink}
-        <span class="text-gray-400">|</span>
-      </div>
-      <div class="flex items-center space-x-4 text-sm">
-        <a href="${lectureLink}" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-green-300 transition-colors bg-white"><i class="fas fa-book mr-1"></i>講義ページ</a>
-      </div>
-      <div class="flex items-center space-x-4 text-sm">
-        <span class="text-gray-400">|</span>
-        ${nextLink}
-      </div>
-    </div>
-  </div>
-</div>`;
-
-  const container = document.createElement('div');
-  container.innerHTML = navHtml;
-  document.body.insertBefore(container, document.body.firstChild);
+`;
+  document.body.insertAdjacentHTML('afterbegin', navHtml);
 })();
