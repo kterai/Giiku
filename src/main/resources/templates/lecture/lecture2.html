@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day2: 基本データ型・変数・演算子</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./lecture1.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./lecture3.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month1.html" class="hover:text-blue-600">1ヶ月目: Java基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week1.html" class="hover:text-blue-600">1週目: Java言語基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">2日目: 基本データ型・変数・演算子</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day2.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- ヘッダー -->
+        <header class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-8 rounded-lg mb-8 shadow-lg">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-4xl font-bold mb-2">
+                        <i class="fas fa-database mr-3"></i>基本データ型・変数・演算子
+                    </h1>
+                    <p class="text-xl mb-4">Javaプログラミングの基礎要素を習得</p>
+                    <div class="flex flex-wrap gap-4 text-sm">
+                        <span class="bg-blue-500 px-3 py-1 rounded-full">
+                            <i class="fas fa-clock mr-1"></i>所要時間: 4時間
+                        </span>
+                        <span class="bg-green-500 px-3 py-1 rounded-full">
+                            <i class="fas fa-user mr-1"></i>対象: プログラミング初心者
+                        </span>
+                        <span class="bg-yellow-500 px-3 py-1 rounded-full">
+                            <i class="fas fa-star mr-1"></i>難易度: 基礎レベル
+                        </span>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm opacity-90">ITエンジニア育成カリキュラム</p>
+                    <p class="text-lg font-semibold">Day2 講義資料</p>
+                    <p class="text-xs opacity-75">Pleiades (Eclipse) + Amazon Corretto JDK 17</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- 重要ポイント -->
+        <section class="bg-yellow-50 border-l-4 border-yellow-400 p-6 mb-8 rounded-r-lg">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-4">
+                <i class="fas fa-lightbulb mr-2"></i>重要ポイント
+            </h2>
+            <p class="text-lg text-yellow-700">
+                基本データ型と演算子は<strong>Javaプログラミングの基礎</strong>です。JavaSilver試験でも頻出であり、実務では正確なデータ処理の要となります。今日は実例を交えてしっかり理解しましょう。
+            </p>
+        </section>
+
+        <!-- 学習目標 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-target mr-2"></i>📋 本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-blue-600 mb-3">
+                        <i class="fas fa-brain mr-2"></i>🎯 知識目標
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span><strong>プリミティブ型の完全理解:</strong> 8つの基本データ型の特徴・サイズ・用途を習得</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span><strong>変数宣言と初期化:</strong> 適切な変数の宣言・命名・初期化ルールを理解</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span><strong>型変換の理解:</strong> 暗黙的・明示的型変換の仕組みと注意点を把握</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span><strong>演算子の習得:</strong> 算術・比較・論理・代入演算子の使い方と優先順位</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-green-600 mb-3">
+                        <i class="fas fa-tools mr-2"></i>💡 実務スキル
+                    </h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span><strong>実践力の向上:</strong> 実際のコードで変数・演算子を適切に使用できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span><strong>エラー回避:</strong> よくある型変換ミスを未然に防ぐ</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span><strong>コード品質:</strong> 可読性の高い変数命名と適切な型選択</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                            <span><strong>試験対策:</strong> JavaSilver試験の頻出問題に対応</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- メイン講義 -->
+        <main>
+            <!-- 1. プリミティブ型の詳細解説 -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                    <i class="fas fa-cube mr-2"></i>1. プリミティブ型（基本データ型）の詳細解説
+                </h2>
+                
+                <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                    <h3 class="text-lg font-bold text-blue-600 mb-2">
+                        <i class="fas fa-info-circle mr-2"></i>プリミティブ型とは
+                    </h3>
+                    <p class="text-gray-700">
+                        プリミティブ型（primitive type）とは、<strong>Javaが標準で提供する8つの基本データ型</strong>のことです。
+                        箱に例えると、それぞれ異なるサイズ・用途に特化した専用の箱のようなものです。
+                    </p>
+                </div>
+
+                <!-- 改良版データ型比較表 -->
+                <div class="bg-white border rounded-lg overflow-hidden mb-6">
+                    <div class="bg-gray-100 px-4 py-2 border-b">
+                        <h3 class="text-lg font-bold text-gray-800">
+                            <i class="fas fa-table mr-2"></i>プリミティブ型詳細比較表（改良版）
+                        </h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead class="bg-blue-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left font-bold">型名</th>
+                                    <th class="px-4 py-3 text-left font-bold">サイズ詳細</th>
+                                    <th class="px-4 py-3 text-left font-bold">値の範囲（具体例）</th>
+                                    <th class="px-4 py-3 text-left font-bold">デフォルト値</th>
+                                    <th class="px-4 py-3 text-left font-bold">主な用途・実用例</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="bg-red-50">
+                                    <td class="px-4 py-3 font-semibold text-red-700">byte</td>
+                                    <td class="px-4 py-3">8bit（1バイト）<br><span class="text-xs text-gray-600">メモリ最小単位</span></td>
+                                    <td class="px-4 py-3">-128 ～ 127<br><span class="text-xs text-gray-600">（温度、年齢に適用）</span></td>
+                                    <td class="px-4 py-3">0</td>
+                                    <td class="px-4 py-3">ファイル読み書き、画像データ、<br>メモリ節約が重要な大量データ</td>
+                                </tr>
+                                <tr class="bg-orange-50">
+                                    <td class="px-4 py-3 font-semibold text-orange-700">short</td>
+                                    <td class="px-4 py-3">16bit（2バイト）<br><span class="text-xs text-gray-600">byteの256倍</span></td>
+                                    <td class="px-4 py-3">-32,768 ～ 32,767<br><span class="text-xs text-gray-600">（日本の市町村数の2倍）</span></td>
+                                    <td class="px-4 py-3">0</td>
+                                    <td class="px-4 py-3">座標値、小さな番号、<br>メモリ効率重視の数値</td>
+                                </tr>
+                                <tr class="bg-blue-50">
+                                    <td class="px-4 py-3 font-semibold text-blue-700">int</td>
+                                    <td class="px-4 py-3">32bit（4バイト）<br><span class="text-xs text-gray-600">最も一般的</span></td>
+                                    <td class="px-4 py-3">-2,147,483,648 ～ 2,147,483,647<br><span class="text-xs text-gray-600">（約-21億～21億、世界人口の3倍）</span></td>
+                                    <td class="px-4 py-3">0</td>
+                                    <td class="px-4 py-3"><strong>年齢、点数、個数、顧客ID、<br>在庫数、売上件数</strong></td>
+                                </tr>
+                                <tr class="bg-purple-50">
+                                    <td class="px-4 py-3 font-semibold text-purple-700">long</td>
+                                    <td class="px-4 py-3">64bit（8バイト）<br><span class="text-xs text-gray-600">intの40億倍</span></td>
+                                    <td class="px-4 py-3">約-922京 ～ 922京<br><span class="text-xs text-gray-600">（タイムスタンプに最適）</span></td>
+                                    <td class="px-4 py-3">0L</td>
+                                    <td class="px-4 py-3">タイムスタンプ、ファイルサイズ、<br>大きな金額、ID番号</td>
+                                </tr>
+                                <tr class="bg-green-50">
+                                    <td class="px-4 py-3 font-semibold text-green-700">float</td>
+                                    <td class="px-4 py-3">32bit（4バイト）<br><span class="text-xs text-gray-600">精度約7桁</span></td>
+                                    <td class="px-4 py-3">約±3.4 × 10^38<br><span class="text-xs text-gray-600">（科学計算レベル）</span></td>
+                                    <td class="px-4 py-3">0.0f</td>
+                                    <td class="px-4 py-3">3Dグラフィック座標、<br>メモリ節約が必要な小数計算</td>
+                                </tr>
+                                <tr class="bg-teal-50">
+                                    <td class="px-4 py-3 font-semibold text-teal-700">double</td>
+                                    <td class="px-4 py-3">64bit（8バイト）<br><span class="text-xs text-gray-600">精度約15桁</span></td>
+                                    <td class="px-4 py-3">約±1.8 × 10^308<br><span class="text-xs text-gray-600">（天文学レベル）</span></td>
+                                    <td class="px-4 py-3">0.0</td>
+                                    <td class="px-4 py-3"><strong>商品価格、座標、統計計算、<br>科学技術計算</strong></td>
+                                </tr>
+                                <tr class="bg-yellow-50">
+                                    <td class="px-4 py-3 font-semibold text-yellow-700">char</td>
+                                    <td class="px-4 py-3">16bit（2バイト）<br><span class="text-xs text-gray-600">Unicode対応</span></td>
+                                    <td class="px-4 py-3">0 ～ 65,535<br><span class="text-xs text-gray-600">（全世界の文字に対応）</span></td>
+                                    <td class="px-4 py-3">'\u0000'</td>
+                                    <td class="px-4 py-3">単一文字、文字コード、<br>日本語・絵文字も格納可能</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="px-4 py-3 font-semibold text-gray-700">boolean</td>
+                                    <td class="px-4 py-3">1bit（理論値）<br><span class="text-xs text-gray-600">実装は8bit</span></td>
+                                    <td class="px-4 py-3">true または false<br><span class="text-xs text-gray-600">（真偽値のみ）</span></td>
+                                    <td class="px-4 py-3">false</td>
+                                    <td class="px-4 py-3">フラグ、条件判定、<br>ON/OFF、有効/無効</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                    <h4 class="font-bold text-yellow-800 mb-2">
+                        <i class="fas fa-lightbulb mr-2"></i>なぜ複数のデータ型があるのか？
+                    </h4>
+                    <p class="text-yellow-700">
+                        <strong>メモリ効率と処理速度のバランス</strong>が理由です。byte（1バイト）で済む年齢にlong（8バイト）を使うのは無駄ですし、
+                        大きな数値にbyteを使うと桁あふれ（オーバーフロー）が発生します。適切な型選択が重要です。
+                    </p>
+                </div>
+            </section>
+
+            <!-- 2. 変数宣言と初期化 -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                    <i class="fas fa-tag mr-2"></i>2. 変数宣言と初期化
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-bold text-blue-600 mb-3">基本的な変数宣言</h3>
+                        <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto"><code class="language-java">// 宣言のみ（初期値はデフォルト値）
+int age;        // 0が自動設定
+double price;   // 0.0が自動設定
+boolean flag;   // falseが自動設定
+
+// 宣言と同時に初期化（推奨）
+int studentCount = 25;
+double productPrice = 1980.5;
+boolean isValid = true;
+char grade = 'A';</code></pre>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-bold text-green-600 mb-3">変数命名規則（重要）</h3>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>camelCase（キャメルケース）:</strong><br>
+                                    <code class="bg-white px-1 rounded">studentName</code>, <code class="bg-white px-1 rounded">totalPrice</code>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>意味のある名前:</strong><br>
+                                    <code class="bg-red-100 px-1 rounded">int x;</code> → <code class="bg-green-100 px-1 rounded">int customerAge;</code>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-times text-red-500 mr-2 mt-1"></i>
+                                <div>
+                                    <strong>避けるべき:</strong> 数字開始、予約語、日本語
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-gray-800 mb-3">
+                        <i class="fas fa-code mr-2"></i>実践的な変数使用例
+                    </h3>
+                    <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto"><code class="language-java">// 顧客管理システムの例
+int customerId = 12345;           // 顧客ID
+String customerName = "田中太郎";  // 顧客名
+int customerAge = 35;             // 年齢
+double totalPurchase = 15800.0;   // 累計購入額
+boolean isPremiumMember = true;   // プレミアム会員フラグ
+
+// ECサイトの商品情報
+long productCode = 4901234567890L;  // JANコード（Lを付ける）
+float discountRate = 0.15f;        // 割引率（fを付ける）
+char categoryCode = 'A';            // カテゴリコード</code></pre>
+                </div>
+            </section>
+
+            <!-- 3. 型変換（キャスト） -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                    <i class="fas fa-exchange-alt mr-2"></i>3. 型変換（キャスト）
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-bold text-green-600 mb-3">
+                            <i class="fas fa-arrow-up mr-2"></i>暗黙的型変換（拡大変換）
+                        </h3>
+                        <p class="text-sm mb-3">小さい型から大きい型への変換は<strong>自動</strong>で行われます（データ損失なし）</p>
+                        <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto"><code class="language-java">byte b = 100;
+int i = b;        // byte → int（自動変換）
+double d = i;     // int → double（自動変換）
+
+// 計算時の型変換
+int num1 = 10;
+double num2 = 3.5;
+double result = num1 + num2;  // int → double</code></pre>
+                        <div class="mt-3 bg-white p-2 rounded text-xs">
+                            <strong>変換順序:</strong> byte → short → int → long → float → double
+                        </div>
+                    </div>
+
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-bold text-red-600 mb-3">
+                            <i class="fas fa-arrow-down mr-2"></i>明示的型変換（縮小変換）
+                        </h3>
+                        <p class="text-sm mb-3">大きい型から小さい型への変換は<strong>明示的に指定</strong>が必要（データ損失の可能性）</p>
+                        <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm overflow-x-auto"><code class="language-java">double d = 123.456;
+int i = (int)d;           // 123（小数部切り捨て）
+
+long l = 2200000000L;     // 22億
+int i2 = (int)l;          // データ損失の危険！
+
+// 安全な変換例
+double price = 1980.75;
+int yen = (int)Math.round(price);  // 四捨五入</code></pre>
+                        <div class="mt-3 bg-white p-2 rounded text-xs text-red-600">
+                            <strong>注意:</strong> 範囲を超えるとオーバーフロー発生
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                    <h4 class="font-bold text-yellow-800 mb-2">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>型変換でよくある間違い
+                    </h4>
+                    <pre class="bg-gray-800 text-red-400 p-3 rounded text-sm overflow-x-auto"><code class="language-java">// 間違い例
+int a = 10;
+int b = 3;
+double result = a / b;    // 結果: 3.0 (整数除算のため)
+
+// 正しい例
+double result = (double)a / b;  // 結果: 3.3333...</code></pre>
+                </div>
+            </section>
+
+            <!-- 4. 演算子の詳細 -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                    <i class="fas fa-calculator mr-2"></i>4. 演算子の詳細
+                </h2>
+
+                <div class="space-y-6">
+                    <!-- 算術演算子 -->
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-bold text-blue-600 mb-3">算術演算子</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead class="bg-blue-100">
+                                    <tr>
+                                        <th class="px-3 py-2 text-left">演算子</th>
+                                        <th class="px-3 py-2 text-left">名称</th>
+                                        <th class="px-3 py-2 text-left">例</th>
+                                        <th class="px-3 py-2 text-left">結果</th>
+                                        <th class="px-3 py-2 text-left">注意点</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-blue-200">
+                                    <tr>
+                                        <td class="px-3 py-2 font-mono">+</td>
+                                        <td class="px-3 py-2">加算</td>
+                                        <td class="px-3 py-2 font-mono">5 + 3</td>
+                                        <td class="px-3 py-2">8</td>
+                                        <td class="px-3 py-2">文字列結合にも使用</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-3 py-2 font-mono">-</td>
+                                        <td class="px-3 py-2">減算</td>
+                                        <td class="px-3 py-2 font-mono">8 - 3</td>
+                                        <td class="px-3 py-2">5</td>
+                                        <td class="px-3 py-2">負数作成にも使用</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-3 py-2 font-mono">*</td>
+                                        <td class="px-3 py-2">乗算</td>
+                                        <td class="px-3 py-2 font-mono">4 * 5</td>
+                                        <td class="px-3 py-2">20</td>
+                                        <td class="px-3 py-2">オーバーフロー注意</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-3 py-2 font-mono">/</td>
+                                        <td class="px-3 py-2">除算</td>
+                                        <td class="px-3 py-2 font-mono">10 / 3</td>
+                                        <td class="px-3 py-2">3（整数）</td>
+                                        <td class="px-3 py-2 text-red-600">整数除算は小数切り捨て</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-3 py-2 font-mono">%</td>
+                                        <td class="px-3 py-2">剰余</td>
+                                        <td class="px-3 py-2 font-mono">10 % 3</td>
+                                        <td class="px-3 py-2">1</td>
+                                        <td class="px-3 py-2">偶数判定で活用</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 比較演算子 -->
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-bold text-green-600 mb-3">比較演算子</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <table class="w-full text-sm">
+                                    <thead class="bg-green-100">
+                                        <tr>
+                                            <th class="px-3 py-2 text-left">演算子</th>
+                                            <th class="px-3 py-2 text-left">名称</th>
+                                            <th class="px-3 py-2 text-left">例</th>
+                                            <th class="px-3 py-2 text-left">結果</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-green-200">
+                                        <tr>
+                                            <td class="px-3 py-2 font-mono">==</td>
+                                            <td class="px-3 py-2">等しい</td>
+                                            <td class="px-3 py-2 font-mono">5 == 5</td>
+                                            <td class="px-3 py-2">true</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-3 py-2 font-mono">!=</td>
+                                            <td class="px-3 py-2">等しくない</td>
+                                            <td class="px-3 py-2 font-mono">5 != 3</td>
+                                            <td class="px-3 py-2">true</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-3 py-2 font-mono">&gt;</td>
+                                            <td class="px-3 py-2">より大きい</td>
+                                            <td class="px-3 py-2 font-mono">8 &gt; 5</td>
+                                            <td class="px-3 py-2">true</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="bg-white p-3 rounded">
+                                <h4 class="font-bold text-red-600 mb-2">重要な注意点</h4>
+                                <ul class="text-xs space-y-1">
+                                    <li><strong>文字列比較:</strong> <code>==</code>ではなく<code>.equals()</code>使用</li>
+                                    <li><strong>浮動小数点:</strong> <code>==</code>比較は危険（誤差あり）</li>
+                                    <li><strong>結果は必ずboolean型</strong>（true/false）</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 論理演算子 -->
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-bold text-purple-600 mb-3">論理演算子</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <table class="w-full text-sm">
+                                    <thead class="bg-purple-100">
+                                        <tr>
+                                            <th class="px-3 py-2 text-left">演算子</th>
+                                            <th class="px-3 py-2 text-left">名称</th>
+                                            <th class="px-3 py-2 text-left">例</th>
+                                            <th class="px-3 py-2 text-left">結果</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-purple-200">
+                                        <tr>
+                                            <td class="px-3 py-2 font-mono">&&</td>
+                                            <td class="px-3 py-2">AND（論理積）</td>
+                                            <td class="px-3 py-2 font-mono">true && false</td>
+                                            <td class="px-3 py-2">false</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-3 py-2 font-mono">||</td>
+                                            <td class="px-3 py-2">OR（論理和）</td>
+                                            <td class="px-3 py-2 font-mono">true || false</td>
+                                            <td class="px-3 py-2">true</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-3 py-2 font-mono">!</td>
+                                            <td class="px-3 py-2">NOT（否定）</td>
+                                            <td class="px-3 py-2 font-mono">!true</td>
+                                            <td class="px-3 py-2">false</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="bg-white p-3 rounded">
+                                <h4 class="font-bold text-purple-600 mb-2">短絡評価（重要）</h4>
+                                <pre class="bg-gray-800 text-green-400 p-2 rounded text-xs"><code>// &&の場合：左がfalseなら右は評価されない
+boolean result = false && someMethod();
+
+// ||の場合：左がtrueなら右は評価されない  
+boolean result = true || someMethod();</code></pre>
+                                <p class="text-xs text-purple-600 mt-1">
+                                    効率化とエラー防止に重要な機能
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. 演算子優先順位表（改良版） -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                    <i class="fas fa-sort-numeric-up mr-2"></i>5. 演算子優先順位表（改良版）
+                </h2>
+
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg mb-6">
+                    <h3 class="font-bold text-yellow-800 mb-2">
+                        <i class="fas fa-info-circle mr-2"></i>なぜ優先順位が重要？
+                    </h3>
+                    <p class="text-yellow-700">
+                        数学と同様、<strong>計算順序</strong>によって結果が変わるからです。
+                        例：<code class="bg-white px-1 rounded">5 + 3 * 2</code> は <code class="bg-white px-1 rounded">5 + 6 = 11</code> であり、
+                        <code class="bg-white px-1 rounded">(5 + 3) * 2 = 16</code> ではありません。
+                    </p>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm border-collapse border border-gray-300">
+                        <thead class="bg-blue-100">
+                            <tr>
+                                <th class="border border-gray-300 px-4 py-3 text-left font-bold">優先順位</th>
+                                <th class="border border-gray-300 px-4 py-3 text-left font-bold">演算子</th>
+                                <th class="border border-gray-300 px-4 py-3 text-left font-bold">名称</th>
+                                <th class="border border-gray-300 px-4 py-3 text-left font-bold">結合性</th>
+                                <th class="border border-gray-300 px-4 py-3 text-left font-bold">計算例</th>
+                                <th class="border border-gray-300 px-4 py-3 text-left font-bold">実行結果</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-red-50">
+                                <td class="border border-gray-300 px-4 py-2 font-bold text-red-700">1位（最高）</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">( )</td>
+                                <td class="border border-gray-300 px-4 py-2">括弧</td>
+                                <td class="border border-gray-300 px-4 py-2">左から右</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">(2 + 3) * 4</td>
+                                <td class="border border-gray-300 px-4 py-2">5 * 4 = 20</td>
+                            </tr>
+                            <tr class="bg-orange-50">
+                                <td class="border border-gray-300 px-4 py-2 font-bold text-orange-700">2位</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">++ --</td>
+                                <td class="border border-gray-300 px-4 py-2">インクリメント/デクリメント</td>
+                                <td class="border border-gray-300 px-4 py-2">右から左</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">++a, a++</td>
+                                <td class="border border-gray-300 px-4 py-2">前置/後置で差異</td>
+                            </tr>
+                            <tr class="bg-yellow-50">
+                                <td class="border border-gray-300 px-4 py-2 font-bold text-yellow-700">3位</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">* / %</td>
+                                <td class="border border-gray-300 px-4 py-2">乗算・除算・剰余</td>
+                                <td class="border border-gray-300 px-4 py-2">左から右</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">2 * 3 / 4</td>
+                                <td class="border border-gray-300 px-4 py-2">6 / 4 = 1（整数）</td>
+                            </tr>
+                            <tr class="bg-green-50">
+                                <td class="border border-gray-300 px-4 py-2 font-bold text-green-700">4位</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">+ -</td>
+                                <td class="border border-gray-300 px-4 py-2">加算・減算</td>
+                                <td class="border border-gray-300 px-4 py-2">左から右</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">5 + 3 * 2</td>
+                                <td class="border border-gray-300 px-4 py-2">5 + 6 = 11</td>
+                            </tr>
+                            <tr class="bg-blue-50">
+                                <td class="border border-gray-300 px-4 py-2 font-bold text-blue-700">5位</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">&lt; &gt; &lt;= &gt;=</td>
+                                <td class="border border-gray-300 px-4 py-2">関係演算子</td>
+                                <td class="border border-gray-300 px-4 py-2">左から右</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">x &gt; 5</td>
+                                <td class="border border-gray-300 px-4 py-2">true/false</td>
+                            </tr>
+                            <tr class="bg-purple-50">
+                                <td class="border border-gray-300 px-4 py-2 font-bold text-purple-700">6位</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">== !=</td>
+                                <td class="border border-gray-300 px-4 py-2">等価演算子</td>
+                                <td class="border border-gray-300 px-4 py-2">左から右</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">a == 10</td>
+                                <td class="border border-gray-300 px-4 py-2">true/false</td>
+                            </tr>
+                            <tr class="bg-indigo-50">
+                                <td class="border border-gray-300 px-4 py-2 font-bold text-indigo-700">7位</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">&&</td>
+                                <td class="border border-gray-300 px-4 py-2">論理AND</td>
+                                <td class="border border-gray-300 px-4 py-2">左から右</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">a &gt; 5 && b &lt; 10</td>
+                                <td class="border border-gray-300 px-4 py-2">短絡評価</td>
+                            </tr>
+                            <tr class="bg-pink-50">
+                                <td class="border border-gray-300 px-4 py-2 font-bold text-pink-700">8位</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">||</td>
+                                <td class="border border-gray-300 px-4 py-2">論理OR</td>
+                                <td class="border border-gray-300 px-4 py-2">左から右</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">a == 1 || b == 2</td>
+                                <td class="border border-gray-300 px-4 py-2">短絡評価</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="border border-gray-300 px-4 py-2 font-bold text-gray-700">9位（最低）</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">= += -= *=</td>
+                                <td class="border border-gray-300 px-4 py-2">代入演算子</td>
+                                <td class="border border-gray-300 px-4 py-2">右から左</td>
+                                <td class="border border-gray-300 px-4 py-2 font-mono">a = b = 5</td>
+                                <td class="border border-gray-300 px-4 py-2">bに5、aにbの値</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="mt-6 grid md:grid-cols-2 gap-4">
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-green-600 mb-2">
+                            <i class="fas fa-thumbs-up mr-2"></i>推奨される書き方
+                        </h4>
+                        <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm"><code class="language-java">// 括弧で明示的に順序指定
+int result = (a + b) * (c - d);
+
+// 複雑な条件は分割
+boolean isValidAge = (age >= 18) && (age <= 65);
+boolean hasPermission = (role.equals("admin")) || (isOwner);</code></pre>
+                    </div>
+
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-red-600 mb-2">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>混乱しやすい例
+                        </h4>
+                        <pre class="bg-gray-800 text-red-400 p-3 rounded text-sm"><code class="language-java">// 読みにくい
+boolean result = age > 18 && score >= 80 || isVIP;
+
+// 読みやすく改善  
+boolean result = ((age > 18) && (score >= 80)) || isVIP;</code></pre>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 演習問題 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-pencil-alt mr-2"></i>📝 演習問題
+            </h2>
+
+            <div class="space-y-6">
+                <!-- 問題1 -->
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-blue-600 mb-3">問題1: データ型選択</h3>
+                    <p class="mb-3">以下の値を格納するのに最適なデータ型を選択し、理由を説明してください。</p>
+                    <ul class="space-y-2 text-sm mb-4">
+                        <li>• 人の年齢 (0-150)</li>
+                        <li>• 商品価格 (小数点2桁まで)</li>
+                        <li>• 在庫数 (0-1000000)</li>
+                        <li>• ログイン状態 (ログイン中/未ログイン)</li>
+                        <li>• 郵便番号 (1234567)</li>
+                    </ul>
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer1')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                        <i class="fas fa-eye mr-2"></i>回答例を表示
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="hidden mt-4 bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-green-600 mb-2">回答例と解説</h4>
+                        <div class="space-y-2 text-sm">
+                            <p><strong>• 人の年齢:</strong> <code>byte</code> - 範囲0-150なので-128～127で十分、メモリ効率が良い</p>
+                            <p><strong>• 商品価格:</strong> <code>double</code> - 小数点計算が必要、精度も重要</p>
+                            <p><strong>• 在庫数:</strong> <code>int</code> - 100万までなら21億の範囲で十分、一般的</p>
+                            <p><strong>• ログイン状態:</strong> <code>boolean</code> - true/falseの2値のみ</p>
+                            <p><strong>• 郵便番号:</strong> <code>int</code> - 数値だが計算しないならStringも可</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 問題2 -->
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-green-600 mb-3">問題2: 型変換</h3>
+                    <p class="mb-3">以下のコードの実行結果を予測し、その理由を説明してください。</p>
+                    <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm mb-4"><code class="language-java">int a = 10;
+double b = 3.5;
+int result1 = (int)(a + b);
+double result2 = a / 3;
+System.out.println("result1: " + result1);
+System.out.println("result2: " + result2);</code></pre>
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer2')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
+                        <i class="fas fa-eye mr-2"></i>回答例を表示
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="hidden mt-4 bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-blue-600 mb-2">回答例と解説</h4>
+                        <div class="space-y-2 text-sm">
+                            <p><strong>result1: 13</strong></p>
+                            <p>理由: a(int) + b(double) → 10.0 + 3.5 = 13.5 → (int)で13に変換（小数部切り捨て）</p>
+                            <p><strong>result2: 3.0</strong></p>
+                            <p>理由: a(int) / 3(int) → 整数除算で10/3=3 → doubleに自動変換で3.0</p>
+                            <p><strong>注意:</strong> 小数結果が欲しい場合は <code>(double)a / 3</code> または <code>a / 3.0</code></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 問題3 -->
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-purple-600 mb-3">問題3: 演算子優先順位</h3>
+                    <p class="mb-3">以下の式の計算順序と最終結果を求めてください。</p>
+                    <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm mb-4"><code class="language-java">int x = 5 + 3 * 2 - 1;
+boolean y = x > 10 && x < 15 || x == 5;
+System.out.println("x = " + x);
+System.out.println("y = " + y);</code></pre>
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer3')" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-colors">
+                        <i class="fas fa-eye mr-2"></i>回答例を表示
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="hidden mt-4 bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-yellow-600 mb-2">回答例と解説</h4>
+                        <div class="space-y-2 text-sm">
+                            <p><strong>x の計算順序:</strong></p>
+                            <p>1. <code>3 * 2 = 6</code> （乗算が最優先）</p>
+                            <p>2. <code>5 + 6 = 11</code> （加算）</p>
+                            <p>3. <code>11 - 1 = 10</code> （減算）</p>
+                            <p><strong>結果: x = 10</strong></p>
+                            <p><strong>y の計算順序:</strong></p>
+                            <p>1. <code>x > 10</code> → <code>10 > 10</code> → <code>false</code></p>
+                            <p>2. <code>x < 15</code> → <code>10 < 15</code> → <code>true</code></p>
+                            <p>3. <code>false && true</code> → <code>false</code></p>
+                            <p>4. <code>x == 5</code> → <code>10 == 5</code> → <code>false</code></p>
+                            <p>5. <code>false || false</code> → <code>false</code></p>
+                            <p><strong>結果: y = false</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 理解度クイズ -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-question-circle mr-2"></i>🧠 理解度クイズ
+            </h2>
+
+            <div class="space-y-6">
+                <!-- クイズ1 -->
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-blue-600 mb-3">クイズ1: データ型のサイズ</h3>
+                    <p class="mb-4">int型のサイズと値の範囲として正しいものはどれですか？</p>
+                    <div class="space-y-2 mb-4">
+                        <label class="block">
+                            <input type="radio" name="quiz1" value="A" class="mr-2">
+                            A) 16bit、-32,768 ～ 32,767
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz1" value="B" class="mr-2">
+                            B) 32bit、-2,147,483,648 ～ 2,147,483,647
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz1" value="C" class="mr-2">
+                            C) 64bit、-9,223,372,036,854,775,808 ～ 9,223,372,036,854,775,807
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz1" value="D" class="mr-2">
+                            D) 8bit、-128 ～ 127
+                        </label>
+                    </div>
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz1Answer')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                        <i class="fas fa-check mr-2"></i>回答を表示
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1Answer" class="hidden mt-4 bg-green-50 border-l-4 border-green-400 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-green-600 mb-2">正解: B) 32bit、-2,147,483,648 ～ 2,147,483,647</h4>
+                        <p class="text-sm text-green-700">
+                            int型は32bit（4バイト）で、約-21億～21億の範囲です。これは世界人口の約3倍に相当し、
+                            一般的な整数処理には十分な範囲を提供します。A)はshort型、C)はlong型、D)はbyte型の仕様です。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- クイズ2 -->
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-green-600 mb-3">クイズ2: 型変換</h3>
+                    <p class="mb-4">次のコードの実行結果として正しいものはどれですか？</p>
+                    <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm mb-4"><code class="language-java">double d = 123.789;
+int i = (int)d;
+System.out.println(i);</code></pre>
+                    <div class="space-y-2 mb-4">
+                        <label class="block">
+                            <input type="radio" name="quiz2" value="A" class="mr-2">
+                            A) 124
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz2" value="B" class="mr-2">
+                            B) 123
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz2" value="C" class="mr-2">
+                            C) 123.789
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz2" value="D" class="mr-2">
+                            D) コンパイルエラー
+                        </label>
+                    </div>
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz2Answer')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded transition-colors">
+                        <i class="fas fa-check mr-2"></i>回答を表示
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2Answer" class="hidden mt-4 bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-blue-600 mb-2">正解: B) 123</h4>
+                        <p class="text-sm text-blue-700">
+                            明示的型変換（キャスト）で double → int に変換する際は、<strong>小数部が切り捨て</strong>られます。
+                            四捨五入ではないので 123.789 → 123 となります。四捨五入したい場合は Math.round() メソッドを使用します。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- クイズ3 -->
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-yellow-600 mb-3">クイズ3: 演算子優先順位（JavaSilver頻出）</h3>
+                    <p class="mb-4">次の式の計算結果として正しいものはどれですか？</p>
+                    <pre class="bg-gray-800 text-green-400 p-3 rounded text-sm mb-4"><code class="language-java">int result = 2 + 3 * 4 - 1;
+System.out.println(result);</code></pre>
+                    <div class="space-y-2 mb-4">
+                        <label class="block">
+                            <input type="radio" name="quiz3" value="A" class="mr-2">
+                            A) 19
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz3" value="B" class="mr-2">
+                            B) 13
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz3" value="C" class="mr-2">
+                            C) 12
+                        </label>
+                        <label class="block">
+                            <input type="radio" name="quiz3" value="D" class="mr-2">
+                            D) 20
+                        </label>
+                    </div>
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz3Answer')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded transition-colors">
+                        <i class="fas fa-check mr-2"></i>回答を表示
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz3Answer" class="hidden mt-4 bg-purple-50 border-l-4 border-purple-400 p-4 rounded-r-lg">
+                        <h4 class="font-bold text-purple-600 mb-2">正解: B) 13</h4>
+                        <div class="text-sm text-purple-700 space-y-1">
+                            <p><strong>計算順序:</strong></p>
+                            <p>1. <code>3 * 4 = 12</code> （乗算が最優先）</p>
+                            <p>2. <code>2 + 12 = 14</code> （加算）</p>
+                            <p>3. <code>14 - 1 = 13</code> （減算）</p>
+                            <p><strong>JavaSilver試験のポイント:</strong> 演算子優先順位は頻出問題です。乗除が加減より優先されることを確実に覚えましょう。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JavaSilver試験対策 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                <i class="fas fa-certificate mr-2"></i>📚 JavaSilver試験対策
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-blue-600 mb-3">頻出問題パターン</h3>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded">
+                            <h4 class="font-semibold mb-1">パターン1: データ型のサイズ・範囲</h4>
+                            <p class="text-sm text-gray-600">各プリミティブ型のサイズ（bit）と値の範囲を正確に覚える</p>
+                        </div>
+                        <div class="bg-white p-3 rounded">
+                            <h4 class="font-semibold mb-1">パターン2: 型変換の可否</h4>
+                            <p class="text-sm text-gray-600">暗黙的変換と明示的変換の判別、データ損失の有無</p>
+                        </div>
+                        <div class="bg-white p-3 rounded">
+                            <h4 class="font-semibold mb-1">パターン3: 演算子優先順位</h4>
+                            <p class="text-sm text-gray-600">複雑な式の計算順序と最終結果の予測</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-green-600 mb-3">試験攻略のコツ</h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-start">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2 mt-1"></i>
+                            <span><strong>暗記のコツ:</strong> int(32bit)を基準に、byte(8bit)、short(16bit)、long(64bit)と覚える</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2 mt-1"></i>
+                            <span><strong>計算のコツ:</strong> 必ず乗除を先に計算、不安なら括弧で順序確認</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2 mt-1"></i>
+                            <span><strong>型変換のコツ:</strong> 「大→小は明示的、小→大は自動」と覚える</span>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2 mt-1"></i>
+                            <span><strong>時間短縮:</strong> 選択肢から逆算、明らかに間違いなものを除外</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg">
+                <h3 class="font-bold text-red-600 mb-2">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>よくある間違いパターン
+                </h3>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h4 class="font-semibold mb-1">整数除算の罠</h4>
+                        <p class="text-red-600"><code>10 / 3</code> → 3（小数部切り捨て）</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-1">オーバーフローの見落とし</h4>
+                        <p class="text-red-600">int の最大値を超えると負数になる</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-1">浮動小数点の精度</h4>
+                        <p class="text-red-600"><code>0.1 + 0.2 == 0.3</code> → false</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-1">文字列比較</h4>
+                        <p class="text-red-600">String は <code>==</code> でなく <code>.equals()</code></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- まとめ -->
+        <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-clipboard-check mr-2"></i>📝 本日のまとめ
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-500 bg-opacity-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold mb-3">
+                        <i class="fas fa-check-circle mr-2"></i>習得できたスキル
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><strong>• intは32bit（-21億～21億）で、顧客ID・年齢・点数管理に最適</strong></li>
+                        <li><strong>• doubleは64bit（15桁精度）で、商品価格・座標計算に使用</strong></li>
+                        <li><strong>• 演算子優先順位で正確な計算式が書ける（乗除→加減の順）</strong></li>
+                        <li><strong>• 型変換で異なるデータ型間の安全な計算が可能</strong></li>
+                        <li><strong>• boolean型で条件判定・フラグ管理ができる</strong></li>
+                    </ul>
+                </div>
+
+                <div class="bg-blue-500 bg-opacity-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold mb-3">
+                        <i class="fas fa-exclamation-circle mr-2"></i>重要ポイント
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><strong>• 適切なデータ型選択でメモリ効率と処理速度を最適化</strong></li>
+                        <li><strong>• 明示的型変換時はデータ損失に注意（四捨五入はMath.round使用）</strong></li>
+                        <li><strong>• 整数除算は小数部切り捨て（10/3=3）</strong></li>
+                        <li><strong>• 複雑な式は括弧で計算順序を明示</strong></li>
+                        <li><strong>• JavaSilver試験では演算子優先順位が頻出</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-yellow-500 bg-opacity-20 p-4 rounded-lg">
+                <h3 class="text-lg font-bold mb-2">
+                    <i class="fas fa-arrow-right mr-2"></i>次回の学習内容
+                </h3>
+                <p>Day3では<strong>制御構文・条件分岐</strong>を学習します。if-else文、switch文、論理演算子を使った複雑な条件判定をマスターしましょう！</p>
+            </div>
+        </section>
+
+        <!-- フッター -->
+        <footer class="bg-gray-800 text-white p-6 rounded-lg">
+            <div class="text-center">
+                <p class="text-lg font-semibold mb-2">ITエンジニア育成カリキュラム</p>
+                <p class="text-sm opacity-75">Day2「基本データ型・変数・演算子」</p>
+                <p class="text-xs mt-4 opacity-50">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function showAnswer(elementId) {
+            const element = document.getElementById(elementId);
+            const button = element.previousElementSibling;
+            
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+                button.innerHTML = '<i class="fas fa-eye-slash mr-2"></i>回答を非表示';
+            } else {
+                element.classList.add('hidden');
+                if (elementId.includes('answer')) {
+                    button.innerHTML = '<i class="fas fa-eye mr-2"></i>回答例を表示';
+                } else {
+                    button.innerHTML = '<i class="fas fa-check mr-2"></i>回答を表示';
+                }
+            }
+        }
+
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Day2講義ページが正常に読み込まれました');
+        });
+    </script>
+</main>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDsTZPAvQbxy9eD7XogM1TR9biZgxy95O%2BnPuHed19VPCMjOi9rndGBtQ6D94ZqnT891T8iamYs%2BJQqed%2FeY%2FB%2BaGGPiD4TGMJTx54MNRmEkbacN31SNBtXouRlYR1eVcTZPIWMdJqexbejewWH1XnKm31zyz3CwHlS0kR0Tyl1yqcakEb1F5J3CEcfvHSTlbJtSM9GFIfzDMhPpW1E9duhLMHTUupLgT3ICXW5Eb%2FNoJvy%2BdlevVZWJZ0C4l1rwx7f0fulJyFM1xfBe1gmoCFX1vkwVUXiUtomV58rJvFV3vwGtcMDUyMyOEPo5E3jgzzHBeNISL83jpTkwyCfm%2FhA902diCfidzrw%2B8M%2BwvFqIG8%2FQmop%2FnLsi%2BqMrQuUJcCkRrw1izWP3SAV39eKwwRAc6RA%2F5cjayrxnsuYlaqnpF1BJweYUWxbi3uBFAOUXaOrkg6KUcYsqQ4encOrxbTfaagUj7UcCf74FebAxbLlvIg%2FQWtxT4SyT0MSboNUZYblQuKqyhWcGrX%2BouNnmoU7onZsJVuIBEwtEQTebuLVPx";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDsTZPAvQbxy9eD7XogM1TR9biZgxy95O+nPuHed19VPCMjOi9rndGBtQ6D94ZqnT891T8iamYs+JQqed/eY/B+aGGPiD4TGMJTx54MNRmEkbacN31SNBtXouRlYR1eVcTZPIWMdJqexbejewWH1XnKm31zyz3CwHlS0kR0Tyl1yqcakEb1F5J3CEcfvHSTlbJtSM9GFIfzDMhPpW1E9duhLMHTUupLgT3ICXW5Eb/NoJvy+dlevVZWJZ0C4l1rwx7f0fulJyFM1xfBe1gmoCFX1vkwVUXiUtomV58rJvFV3vwGtcMDUyMyOEPo5E3jgzzHBeNISL83jpTkwyCfm/hA902diCfidzrw+8M+wvFqIG8/Qmop/nLsi+qMrQuUJcCkRrw1izWP3SAV39eKwwRAc6RA/5cjayrxnsuYlaqnpF1BJweYUWxbi3uBFAOUXaOrkg6KUcYsqQ4encOrxbTfaagUj7UcCf74FebAxbLlvIg/QWtxT4SyT0MSboNUZYblQuKqyhWcGrX+ouNnmoU7onZsJVuIBEwtEQTebuLVPx";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

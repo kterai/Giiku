@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day22: コンピュータシステム基礎 - ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.7;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .answer-hidden {
+            display: none;
+        }
+        .answer-visible {
+            display: block;
+        }
+        .performance-table {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .system-diagram {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <!-- メインナビゲーションバー -->
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./lecture21.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./lecture23.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month2.html" class="hover:text-blue-600">2ヶ月目: 基本情報</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week5.html" class="hover:text-blue-600">5週目: コンピュータシステム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">22日目: コンピュータシステム基礎</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day22.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main class="pt-32">
+    <!-- ヘッダー -->
+    <div class="gradient-bg text-white py-8">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold text-center mb-4">
+                <i class="fas fa-microchip mr-3"></i>Day22: コンピュータシステム基礎
+            </h1>
+            <p class="text-xl text-center opacity-90">
+                CPU・メモリ・記憶装置・入出力システムの包括理解
+            </p>
+            <div class="text-center mt-4">
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">
+                    所要時間: 4時間 | 対象: 基本情報技術者試験対応 | 難易度: 中級
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- 学習目標 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-blue-800">
+                <i class="fas fa-bullseye mr-2"></i>本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-purple-700">知識目標</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                            <span><strong>CPU構造</strong>：制御装置・演算装置・レジスタの役割理解</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                            <span><strong>メモリ階層</strong>：キャッシュ・主記憶・仮想記憶の仕組み</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                            <span><strong>記憶装置</strong>：HDD・SSD・光ディスクの特性比較</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                            <span><strong>入出力</strong>：インターフェース・割り込み処理</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-3 text-orange-700">実践目標</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-cog text-blue-500 mr-2 mt-1"></i>
+                            <span>性能計算（MIPS・アクセス時間・転送速度）</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-cog text-blue-500 mr-2 mt-1"></i>
+                            <span>システム構成の最適化判断</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-cog text-blue-500 mr-2 mt-1"></i>
+                            <span>基本情報技術者試験問題の解法習得</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-cog text-blue-500 mr-2 mt-1"></i>
+                            <span>実システムでの技術選択理由の理解</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 1. CPU（中央処理装置）の構造と動作 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-blue-800">
+                <i class="fas fa-microchip mr-2"></i>1. CPU（中央処理装置）の構造と動作
+            </h2>
+
+            <div class="space-y-6">
+                <!-- CPU基本構成 -->
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4 text-indigo-800">CPUの基本構成</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-700 mb-2">制御装置（CU: Control Unit）</h4>
+                            <p class="text-sm text-gray-700 mb-2">命令の解読と実行制御を担当</p>
+                            <ul class="text-xs text-gray-600 space-y-1">
+                                <li>• 命令レジスタ（IR）</li>
+                                <li>• プログラムカウンタ（PC）</li>
+                                <li>• 命令デコーダ</li>
+                                <li>• 制御信号生成回路</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
+                            <h4 class="font-bold text-green-700 mb-2">演算装置（ALU: Arithmetic Logic Unit）</h4>
+                            <p class="text-sm text-gray-700 mb-2">算術演算と論理演算を実行</p>
+                            <ul class="text-xs text-gray-600 space-y-1">
+                                <li>• 加算器・減算器</li>
+                                <li>• 論理演算回路</li>
+                                <li>• シフタ</li>
+                                <li>• 演算結果フラグ</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border-l-4 border-purple-500">
+                            <h4 class="font-bold text-purple-700 mb-2">レジスタ（Register）</h4>
+                            <p class="text-sm text-gray-700 mb-2">高速アクセス可能な一時記憶</p>
+                            <ul class="text-xs text-gray-600 space-y-1">
+                                <li>• 汎用レジスタ</li>
+                                <li>• アキュムレータ</li>
+                                <li>• インデックスレジスタ</li>
+                                <li>• スタックポインタ</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 命令実行サイクル -->
+                <div class="bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4 text-teal-800">命令実行サイクル（フェッチ・デコード・実行）</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">1</div>
+                                <div>
+                                    <h4 class="font-bold text-blue-700">フェッチ（Fetch）</h4>
+                                    <p class="text-sm text-gray-600">主記憶から命令を読み取り</p>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-500">PC → MAR → MDR → IR</div>
+                        </div>
+                        <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-green-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">2</div>
+                                <div>
+                                    <h4 class="font-bold text-green-700">デコード（Decode）</h4>
+                                    <p class="text-sm text-gray-600">命令の解読と制御信号生成</p>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-500">IR → 命令デコーダ → 制御信号</div>
+                        </div>
+                        <div class="flex items-center justify-between bg-white p-4 rounded-lg shadow-sm">
+                            <div class="flex items-center space-x-4">
+                                <div class="bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">3</div>
+                                <div>
+                                    <h4 class="font-bold text-purple-700">実行（Execute）</h4>
+                                    <p class="text-sm text-gray-600">演算・データ転送・分岐処理</p>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-500">ALU・レジスタ・メモリ操作</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 性能指標 -->
+                <div class="performance-table text-white p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4">CPU性能指標</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full bg-white bg-opacity-90 text-gray-800 rounded-lg">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="p-3 text-left">指標名</th>
+                                    <th class="p-3 text-left">単位</th>
+                                    <th class="p-3 text-left">計算式</th>
+                                    <th class="p-3 text-left">実用例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b">
+                                    <td class="p-3 font-semibold">クロック周波数</td>
+                                    <td class="p-3">Hz（ヘルツ）</td>
+                                    <td class="p-3">1秒間のクロック数</td>
+                                    <td class="p-3">3.2GHz = 32億回/秒</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 font-semibold">MIPS<br><span class="text-xs text-gray-500">(Million Instructions Per Second)</span></td>
+                                    <td class="p-3">MIPS</td>
+                                    <td class="p-3">命令実行数 ÷ 実行時間 ÷ 10⁶</td>
+                                    <td class="p-3">1000MIPS = 10億命令/秒</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 font-semibold">CPI<br><span class="text-xs text-gray-500">(Clock Per Instruction)</span></td>
+                                    <td class="p-3">クロック/命令</td>
+                                    <td class="p-3">総クロック数 ÷ 命令数</td>
+                                    <td class="p-3">CPI=2 → 1命令に2クロック</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. メモリ階層とアクセス制御 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-green-800">
+                <i class="fas fa-memory mr-2"></i>2. メモリ階層とアクセス制御
+            </h2>
+
+            <div class="space-y-6">
+                <!-- メモリ階層図 -->
+                <div class="system-diagram text-white p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4">メモリ階層構造</h3>
+                    <div class="space-y-4">
+                        <div class="bg-white bg-opacity-90 text-gray-800 p-4 rounded-lg">
+                            <div class="grid grid-cols-4 gap-4 text-center">
+                                <div>
+                                    <div class="bg-red-500 text-white p-2 rounded mb-2">レジスタ</div>
+                                    <div class="text-xs">
+                                        <div>容量: 数十バイト</div>
+                                        <div>速度: 1クロック</div>
+                                        <div>コスト: 最高</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="bg-orange-500 text-white p-2 rounded mb-2">キャッシュ</div>
+                                    <div class="text-xs">
+                                        <div>容量: MB級</div>
+                                        <div>速度: 数クロック</div>
+                                        <div>コスト: 高</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="bg-blue-500 text-white p-2 rounded mb-2">主記憶</div>
+                                    <div class="text-xs">
+                                        <div>容量: GB級</div>
+                                        <div>速度: 数十ns</div>
+                                        <div>コスト: 中</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="bg-gray-600 text-white p-2 rounded mb-2">補助記憶</div>
+                                    <div class="text-xs">
+                                        <div>容量: TB級</div>
+                                        <div>速度: ms級</div>
+                                        <div>コスト: 低</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- キャッシュメモリ詳細 -->
+                <div class="bg-gradient-to-r from-orange-50 to-red-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4 text-orange-800">キャッシュメモリの仕組み</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-gray-700 mb-3">局所性の原理</h4>
+                            <div class="space-y-3">
+                                <div class="bg-white p-3 rounded border-l-4 border-blue-500">
+                                    <h5 class="font-semibold text-blue-700">時間的局所性</h5>
+                                    <p class="text-sm text-gray-600">最近使用されたデータは再び使用される可能性が高い</p>
+                                    <p class="text-xs text-gray-500">例：ループ処理での変数参照</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border-l-4 border-green-500">
+                                    <h5 class="font-semibold text-green-700">空間的局所性</h5>
+                                    <p class="text-sm text-gray-600">近隣のアドレスのデータが連続して使用される</p>
+                                    <p class="text-xs text-gray-500">例：配列の順次アクセス</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-700 mb-3">キャッシュヒット率と性能</h4>
+                            <div class="bg-white p-4 rounded-lg">
+                                <div class="text-sm space-y-2">
+                                    <div class="flex justify-between">
+                                        <span>実効アクセス時間 =</span>
+                                        <span></span>
+                                    </div>
+                                    <div class="text-center bg-gray-100 p-2 rounded text-xs">
+                                        ヒット率 × キャッシュアクセス時間<br>
+                                        + ミス率 × 主記憶アクセス時間
+                                    </div>
+                                    <div class="border-t pt-2 text-xs text-gray-600">
+                                        <div>例：ヒット率90%、キャッシュ2ns、主記憶20ns</div>
+                                        <div>→ 0.9×2 + 0.1×20 = 3.8ns</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 仮想記憶 -->
+                <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4 text-purple-800">仮想記憶システム</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-lg">
+                            <h4 class="font-bold text-purple-700 mb-2">基本概念</h4>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>• 物理メモリより大きな論理空間</li>
+                                <li>• ページング方式</li>
+                                <li>• オンデマンドローディング</li>
+                                <li>• ページフォルトとスワップ</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg">
+                            <h4 class="font-bold text-blue-700 mb-2">アドレス変換</h4>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>• 仮想アドレス → 物理アドレス</li>
+                                <li>• ページテーブル参照</li>
+                                <li>• TLB（Translation Lookaside Buffer）</li>
+                                <li>• MMU（Memory Management Unit）</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg">
+                            <h4 class="font-bold text-green-700 mb-2">ページ置換アルゴリズム</h4>
+                            <ul class="text-sm text-gray-700 space-y-1">
+                                <li>• FIFO（First In First Out）</li>
+                                <li>• LRU（Least Recently Used）</li>
+                                <li>• LFU（Least Frequently Used）</li>
+                                <li>• Clock算法</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. 記憶装置の種類と特性 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-purple-800">
+                <i class="fas fa-hdd mr-2"></i>3. 記憶装置の種類と特性
+            </h2>
+
+            <div class="space-y-6">
+                <!-- 記憶装置比較表 -->
+                <div class="overflow-x-auto">
+                    <table class="w-full bg-white border border-gray-200 rounded-lg">
+                        <thead>
+                            <tr class="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+                                <th class="p-4 text-left">記憶装置</th>
+                                <th class="p-4 text-left">記憶方式</th>
+                                <th class="p-4 text-left">容量</th>
+                                <th class="p-4 text-left">アクセス速度</th>
+                                <th class="p-4 text-left">単価/GB</th>
+                                <th class="p-4 text-left">主な用途</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-4">
+                                    <div class="font-bold text-blue-700">HDD</div>
+                                    <div class="text-xs text-gray-500">ハードディスクドライブ</div>
+                                </td>
+                                <td class="p-4">磁気記録</td>
+                                <td class="p-4">数TB</td>
+                                <td class="p-4">3-15ms<br><span class="text-xs text-gray-500">シーク時間含む</span></td>
+                                <td class="p-4">低（約5円）</td>
+                                <td class="p-4">大容量データ保存<br>バックアップ</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-4">
+                                    <div class="font-bold text-green-700">SSD</div>
+                                    <div class="text-xs text-gray-500">ソリッドステートドライブ</div>
+                                </td>
+                                <td class="p-4">フラッシュメモリ</td>
+                                <td class="p-4">数TB</td>
+                                <td class="p-4">0.1ms<br><span class="text-xs text-gray-500">ランダムアクセス</span></td>
+                                <td class="p-4">中（約50円）</td>
+                                <td class="p-4">OS・アプリ起動<br>高速処理要求</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-4">
+                                    <div class="font-bold text-orange-700">光ディスク</div>
+                                    <div class="text-xs text-gray-500">CD/DVD/BD</div>
+                                </td>
+                                <td class="p-4">光学記録</td>
+                                <td class="p-4">MB〜GB</td>
+                                <td class="p-4">150ms<br><span class="text-xs text-gray-500">シーク・回転待ち</span></td>
+                                <td class="p-4">低（約1円）</td>
+                                <td class="p-4">ソフト配布<br>長期保存</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4">
+                                    <div class="font-bold text-red-700">フラッシュメモリ</div>
+                                    <div class="text-xs text-gray-500">USBメモリ・SD等</div>
+                                </td>
+                                <td class="p-4">NAND型フラッシュ</td>
+                                <td class="p-4">GB級</td>
+                                <td class="p-4">1-10ms</td>
+                                <td class="p-4">中（約20円）</td>
+                                <td class="p-4">可搬データ保存<br>組込みシステム</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- HDDとSSDの詳細比較 -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-4 text-blue-800">HDD（ハードディスクドライブ）</h3>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded">
+                                <h4 class="font-bold text-gray-700 mb-2">構造と動作原理</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• 磁性体を塗布した円盤（プラッタ）</li>
+                                    <li>• 磁気ヘッドによる読み書き</li>
+                                    <li>• 回転速度：5400〜15000rpm</li>
+                                    <li>• シーク時間＋回転待ち時間</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded">
+                                <h4 class="font-bold text-gray-700 mb-2">特徴</h4>
+                                <div class="grid grid-cols-2 gap-2 text-sm">
+                                    <div class="text-green-600">✓ 大容量</div>
+                                    <div class="text-green-600">✓ 低コスト</div>
+                                    <div class="text-red-600">✗ 機械的動作</div>
+                                    <div class="text-red-600">✗ 消費電力大</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold mb-4 text-green-800">SSD（ソリッドステートドライブ）</h3>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded">
+                                <h4 class="font-bold text-gray-700 mb-2">構造と動作原理</h4>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• NAND型フラッシュメモリ</li>
+                                    <li>• 電子的な読み書き</li>
+                                    <li>• ウェアレベリング機能</li>
+                                    <li>• コントローラによる制御</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded">
+                                <h4 class="font-bold text-gray-700 mb-2">特徴</h4>
+                                <div class="grid grid-cols-2 gap-2 text-sm">
+                                    <div class="text-green-600">✓ 高速アクセス</div>
+                                    <div class="text-green-600">✓ 低消費電力</div>
+                                    <div class="text-red-600">✗ 高コスト</div>
+                                    <div class="text-red-600">✗ 書き込み回数制限</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. 入出力システムとインターフェース -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-red-800">
+                <i class="fas fa-plug mr-2"></i>4. 入出力システムとインターフェース
+            </h2>
+
+            <div class="space-y-6">
+                <!-- I/O制御方式 -->
+                <div class="bg-gradient-to-r from-red-50 to-pink-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4 text-red-800">入出力制御方式</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-700 mb-2">プログラム制御方式</h4>
+                            <div class="text-sm text-gray-700">
+                                <p class="mb-2">CPUが直接I/Oデバイスを制御</p>
+                                <div class="bg-gray-100 p-2 rounded text-xs">
+                                    <div>特徴：</div>
+                                    <div>• シンプルな構成</div>
+                                    <div>• CPUの処理能力を消費</div>
+                                    <div>• 低速なI/Oに適用</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border-l-4 border-green-500">
+                            <h4 class="font-bold text-green-700 mb-2">割り込み制御方式</h4>
+                            <div class="text-sm text-gray-700">
+                                <p class="mb-2">I/O完了時に割り込み発생</p>
+                                <div class="bg-gray-100 p-2 rounded text-xs">
+                                    <div>特徴：</div>
+                                    <div>• CPUの有効活用</div>
+                                    <div>• 割り込み処理のオーバーヘッド</div>
+                                    <div>• 中速なI/Oに適用</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border-l-4 border-purple-500">
+                            <h4 class="font-bold text-purple-700 mb-2">DMA制御方式</h4>
+                            <div class="text-sm text-gray-700">
+                                <p class="mb-2">CPUを介さずメモリ転送</p>
+                                <div class="bg-gray-100 p-2 rounded text-xs">
+                                    <div>特徴：</div>
+                                    <div>• 高速データ転送</div>
+                                    <div>• DMAコントローラ必要</div>
+                                    <div>• 高速なI/Oに適用</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- インターフェース規格 -->
+                <div class="overflow-x-auto">
+                    <table class="w-full bg-white border border-gray-200 rounded-lg">
+                        <thead>
+                            <tr class="bg-gradient-to-r from-red-500 to-orange-500 text-white">
+                                <th class="p-4 text-left">インターフェース</th>
+                                <th class="p-4 text-left">種類</th>
+                                <th class="p-4 text-left">転送速度</th>
+                                <th class="p-4 text-left">接続距離</th>
+                                <th class="p-4 text-left">主な用途</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-4 font-bold text-blue-700">USB 3.0</td>
+                                <td class="p-4">シリアル</td>
+                                <td class="p-4">5Gbps</td>
+                                <td class="p-4">3m</td>
+                                <td class="p-4">周辺機器接続<br>データ転送</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-4 font-bold text-green-700">SATA 3.0</td>
+                                <td class="p-4">シリアル</td>
+                                <td class="p-4">6Gbps</td>
+                                <td class="p-4">1m</td>
+                                <td class="p-4">HDD・SSD接続</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-4 font-bold text-purple-700">PCIe 3.0 x16</td>
+                                <td class="p-4">パラレル</td>
+                                <td class="p-4">126Gbps</td>
+                                <td class="p-4">基板内</td>
+                                <td class="p-4">GPU・高速カード</td>
+                            </tr>
+                            <tr class="border-b hover:bg-gray-50">
+                                <td class="p-4 font-bold text-red-700">Thunderbolt 3</td>
+                                <td class="p-4">シリアル</td>
+                                <td class="p-4">40Gbps</td>
+                                <td class="p-4">2m</td>
+                                <td class="p-4">高速外部機器<br>ディスプレイ</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-bold text-orange-700">Ethernet</td>
+                                <td class="p-4">シリアル</td>
+                                <td class="p-4">1-100Gbps</td>
+                                <td class="p-4">100m+</td>
+                                <td class="p-4">ネットワーク接続</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 割り込み処理詳細 -->
+                <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-lg">
+                    <h3 class="text-xl font-bold mb-4 text-orange-800">割り込み処理の仕組み</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-gray-700 mb-3">割り込みの種類</h4>
+                            <div class="space-y-2">
+                                <div class="bg-white p-3 rounded border-l-4 border-blue-500">
+                                    <h5 class="font-semibold text-blue-700">外部割り込み</h5>
+                                    <p class="text-sm text-gray-600">I/Oデバイスからの完了通知</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border-l-4 border-green-500">
+                                    <h5 class="font-semibold text-green-700">内部割り込み</h5>
+                                    <p class="text-sm text-gray-600">プログラム実行中の例外</p>
+                                </div>
+                                <div class="bg-white p-3 rounded border-l-4 border-purple-500">
+                                    <h5 class="font-semibold text-purple-700">ソフト割り込み</h5>
+                                    <p class="text-sm text-gray-600">システムコール</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-700 mb-3">割り込み処理手順</h4>
+                            <div class="bg-white p-4 rounded-lg">
+                                <ol class="text-sm text-gray-700 space-y-2">
+                                    <li class="flex items-start">
+                                        <span class="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">1</span>
+                                        <span>割り込み要求の検出</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">2</span>
+                                        <span>現在の処理状態を保存</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">3</span>
+                                        <span>割り込みハンドラに制御移行</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">4</span>
+                                        <span>割り込み処理の実行</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">5</span>
+                                        <span>保存した状態を復元</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="bg-blue-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs mr-2 mt-0.5">6</span>
+                                        <span>元の処理に復帰</span>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 演習問題 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-orange-800">
+                <i class="fas fa-pen-to-square mr-2"></i>演習問題
+            </h2>
+
+            <div class="space-y-6">
+                <!-- 問題1 -->
+                <div class="border-l-4 border-blue-500 pl-6">
+                    <h3 class="text-lg font-bold mb-3 text-blue-700">問題1: CPU性能計算</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                        <p class="mb-4">あるCPUの仕様が以下の通りである時、MIPSを求めなさい。</p>
+                        <ul class="mb-4 space-y-1">
+                            <li>• クロック周波数：2.4GHz</li>
+                            <li>• 平均CPI：3</li>
+                        </ul>
+                        <p class="text-sm text-gray-600">※ MIPS = クロック周波数 ÷ CPI ÷ 10⁶</p>
+                    </div>
+                    <button onclick="toggleAnswer('answer1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                        解答例を表示
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="answer-hidden mt-4 bg-green-50 p-4 rounded-lg border-l-4 border-green-500">
+                        <h4 class="font-bold text-green-700 mb-2">解答・解説</h4>
+                        <div class="space-y-2 text-sm">
+                            <p><strong>計算過程：</strong></p>
+                            <div class="bg-white p-3 rounded">
+                                <p>MIPS = 2.4 × 10⁹ ÷ 3 ÷ 10⁶</p>
+                                <p>= 2.4 × 10³</p>
+                                <p>= 800 MIPS</p>
+                            </div>
+                            <p><strong>解説：</strong></p>
+                            <p>1秒間に実行できる命令数は、クロック周波数をCPIで割ったものになります。この場合、1秒間に8億命令を実行できることを意味します。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 問題2 -->
+                <div class="border-l-4 border-green-500 pl-6">
+                    <h3 class="text-lg font-bold mb-3 text-green-700">問題2: キャッシュヒット率と性能</h3>
+                    <div class="bg-green-50 p-4 rounded-lg mb-4">
+                        <p class="mb-4">以下の条件でのキャッシュシステムの実効アクセス時間を求めなさい。</p>
+                        <ul class="mb-4 space-y-1">
+                            <li>• キャッシュアクセス時間：2ns</li>
+                            <li>• 主記憶アクセス時間：20ns</li>
+                            <li>• キャッシュヒット率：95%</li>
+                        </ul>
+                    </div>
+                    <button onclick="toggleAnswer('answer2')" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">
+                        解答例を表示
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="answer-hidden mt-4 bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                        <h4 class="font-bold text-blue-700 mb-2">解答・解説</h4>
+                        <div class="space-y-2 text-sm">
+                            <p><strong>計算過程：</strong></p>
+                            <div class="bg-white p-3 rounded">
+                                <p>実効アクセス時間 = ヒット率 × キャッシュ時間 + ミス率 × 主記憶時間</p>
+                                <p>= 0.95 × 2 + 0.05 × 20</p>
+                                <p>= 1.9 + 1.0</p>
+                                <p>= 2.9ns</p>
+                            </div>
+                            <p><strong>解説：</strong></p>
+                            <p>キャッシュヒット率が95%の場合、95%の確率で2nsでアクセスでき、5%の確率で20nsかかります。平均すると2.9nsでアクセスできることになります。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 問題3 -->
+                <div class="border-l-4 border-purple-500 pl-6">
+                    <h3 class="text-lg font-bold mb-3 text-purple-700">問題3: 記憶装置選択</h3>
+                    <div class="bg-purple-50 p-4 rounded-lg mb-4">
+                        <p class="mb-4">以下の要件を満たす記憶装置として最適なものを選び、理由を説明しなさい。</p>
+                        <ul class="mb-4 space-y-1">
+                            <li>• 容量：10TB以上</li>
+                            <li>• コスト：できるだけ安価</li>
+                            <li>• 用途：動画ファイルのバックアップ保存</li>
+                            <li>• アクセス頻度：月1回程度</li>
+                        </ul>
+                    </div>
+                    <button onclick="toggleAnswer('answer3')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
+                        解答例を表示
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="answer-hidden mt-4 bg-orange-50 p-4 rounded-lg border-l-4 border-orange-500">
+                        <h4 class="font-bold text-orange-700 mb-2">解答・解説</h4>
+                        <div class="space-y-2 text-sm">
+                            <p><strong>推奨：HDD（ハードディスクドライブ）</strong></p>
+                            <div class="bg-white p-3 rounded">
+                                <p><strong>選択理由：</strong></p>
+                                <ul class="list-disc list-inside space-y-1 mt-2">
+                                    <li>大容量（10TB以上）の製品が豊富</li>
+                                    <li>GB当たりの単価が最も安価</li>
+                                    <li>アクセス頻度が低いため、速度の遅さは問題なし</li>
+                                    <li>動画ファイルは連続読み取りが多く、HDDの特性に適合</li>
+                                </ul>
+                            </div>
+                            <p><strong>補足：</strong></p>
+                            <p>SSDは高速だが高価で、この用途には過剰。光ディスクは容量が不足。フラッシュメモリは中間的だが、この容量では高コスト。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 理解度クイズ -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-teal-800">
+                <i class="fas fa-quiz mr-2"></i>理解度クイズ
+            </h2>
+
+            <div class="space-y-6">
+                <!-- クイズ1 -->
+                <div class="border-2 border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-bold mb-4 text-gray-800">クイズ1: CPUの構成要素</h3>
+                    <p class="mb-4">CPUの基本構成要素として正しい組み合わせはどれか。</p>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="a" class="mr-2">
+                            <span>A. 制御装置・演算装置・メモリ</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="b" class="mr-2">
+                            <span>B. 制御装置・演算装置・レジスタ</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="c" class="mr-2">
+                            <span>C. 演算装置・レジスタ・ハードディスク</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz1" value="d" class="mr-2">
+                            <span>D. 制御装置・キャッシュ・レジスタ</span>
+                        </label>
+                    </div>
+                    <button onclick="toggleAnswer('quiz1answer')" class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 transition-colors">
+                        回答を表示
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1answer" class="answer-hidden mt-4 bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
+                        <h4 class="font-bold text-gray-700 mb-2">正解：B. 制御装置・演算装置・レジスタ</h4>
+                        <div class="text-sm text-gray-600">
+                            <p><strong>解説：</strong></p>
+                            <p>CPUの基本構成要素は、制御装置（CU）、演算装置（ALU）、レジスタの3つです。メモリやハードディスクは外部装置、キャッシュは高速化のための補助装置です。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- クイズ2 -->
+                <div class="border-2 border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-bold mb-4 text-gray-800">クイズ2: メモリ階層</h3>
+                    <p class="mb-4">メモリ階層を速度の速い順に並べたものはどれか。</p>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="a" class="mr-2">
+                            <span>A. レジスタ → キャッシュ → 主記憶 → 補助記憶</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="b" class="mr-2">
+                            <span>B. キャッシュ → レジスタ → 主記憶 → 補助記憶</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="c" class="mr-2">
+                            <span>C. 主記憶 → キャッシュ → レジスタ → 補助記憶</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz2" value="d" class="mr-2">
+                            <span>D. レジスタ → 主記憶 → キャッシュ → 補助記憶</span>
+                        </label>
+                    </div>
+                    <button onclick="toggleAnswer('quiz2answer')" class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 transition-colors">
+                        回答を表示
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2answer" class="answer-hidden mt-4 bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
+                        <h4 class="font-bold text-gray-700 mb-2">正解：A. レジスタ → キャッシュ → 主記憶 → 補助記憶</h4>
+                        <div class="text-sm text-gray-600">
+                            <p><strong>解説：</strong></p>
+                            <p>メモリ階層は、レジスタが最も高速（1クロック）、次にキャッシュ（数クロック）、主記憶（数十ns）、補助記憶（ms級）の順になります。一般に、速度が速いほど容量は小さく、コストは高くなります。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- クイズ3 -->
+                <div class="border-2 border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-bold mb-4 text-gray-800">クイズ3: 入出力制御方式</h3>
+                    <p class="mb-4">DMA（Direct Memory Access）制御方式の特徴として正しいものはどれか。</p>
+                    <div class="space-y-2 mb-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz3" value="a" class="mr-2">
+                            <span>A. CPUがすべてのデータ転送を制御する</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz3" value="b" class="mr-2">
+                            <span>B. 割り込みが発生するまでCPUは待機する</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz3" value="c" class="mr-2">
+                            <span>C. CPUを介さずにメモリとI/Oデバイス間でデータ転送する</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="quiz3" value="d" class="mr-2">
+                            <span>D. プログラムで逐次データを転送する</span>
+                        </label>
+                    </div>
+                    <button onclick="toggleAnswer('quiz3answer')" class="bg-teal-500 text-white px-4 py-2 rounded hover:bg-teal-600 transition-colors">
+                        回答を表示
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz3answer" class="answer-hidden mt-4 bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
+                        <h4 class="font-bold text-gray-700 mb-2">正解：C. CPUを介さずにメモリとI/Oデバイス間でデータ転送する</h4>
+                        <div class="text-sm text-gray-600">
+                            <p><strong>解説：</strong></p>
+                            <p>DMA制御方式では、DMAコントローラがメモリとI/Oデバイス間の直接データ転送を制御します。これによりCPUの負荷を軽減し、高速なデータ転送が可能になります。転送完了時に割り込みでCPUに通知します。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- まとめ -->
+        <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6">
+                <i class="fas fa-clipboard-check mr-2"></i>本日のまとめ
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">重要ポイント</h3>
+                    <div class="space-y-3">
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <h4 class="font-bold mb-2">1. CPU性能の理解</h4>
+                            <p class="text-sm">クロック周波数、CPI、MIPSの関係を理解し、性能計算ができるようになりました。実際のシステム選択時の判断材料として活用できます。</p>
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <h4 class="font-bold mb-2">2. メモリ階層の最適化</h4>
+                            <p class="text-sm">キャッシュの局所性原理と仮想記憶の仕組みを理解し、システム全体の性能向上に寄与するメモリ設計の考え方を習得しました。</p>
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <h4 class="font-bold mb-2">3. 記憶装置の適材適所</h4>
+                            <p class="text-sm">HDD、SSD、フラッシュメモリなどの特性を理解し、用途に応じた最適な記憶装置を選択できるようになりました。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold mb-4">実践への応用</h3>
+                    <div class="space-y-3">
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <h4 class="font-bold mb-2">システム設計への活用</h4>
+                            <p class="text-sm">性能要件に基づいたCPU・メモリ・ストレージの適切な組み合わせを選択し、コストパフォーマンスの高いシステムを構築できます。</p>
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <h4 class="font-bold mb-2">基本情報技術者試験対策</h4>
+                            <p class="text-sm">計算問題、選択問題ともに頻出分野の基礎を固めました。特に性能計算とメモリ階層の理解は重要です。</p>
+                        </div>
+                        <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                            <h4 class="font-bold mb-2">トラブルシューティング</h4>
+                            <p class="text-sm">システムの性能問題や障害発生時に、ハードウェアレベルでの原因分析と対策立案ができるようになりました。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <h3 class="text-lg font-bold mb-2">次回に向けて</h3>
+                <p class="text-sm opacity-90">
+                    Day23では、今日学んだコンピュータシステム基礎を土台として、データベース理論について学習します。
+                    データの効率的な格納・検索の仕組みを理解し、システム全体の最適化につなげていきましょう。
+                </p>
+            </div>
+        </div>
+
+        <!-- 次回予告 -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4 text-indigo-800">
+                <i class="fas fa-arrow-right mr-2"></i>次回予告：Day23「データベース理論」
+            </h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-indigo-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-indigo-700 mb-2">関係データベース</h3>
+                    <p class="text-sm text-gray-600">テーブル設計、正規化理論、E-R図の作成方法</p>
+                </div>
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-blue-700 mb-2">SQL基礎</h3>
+                    <p class="text-sm text-gray-600">SELECT、INSERT、UPDATE、DELETE文の基本操作</p>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="font-bold text-purple-700 mb-2">トランザクション</h3>
+                    <p class="text-sm text-gray-600">ACID特性、ロック機構、同時実行制御</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="mb-2">
+                <i class="fas fa-graduation-cap mr-2"></i>
+                ITエンジニア育成カリキュラム - Day22: コンピュータシステム基礎
+            </p>
+            <p class="text-sm text-gray-400">基本情報技術者試験対応・実践的システム理解</p>
+            <p class="text-xs mt-4 text-gray-500">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleAnswer(elementId) {
+            const element = document.getElementById(elementId);
+            const button = element.previousElementSibling;
+            
+            if (element.classList.contains('answer-hidden')) {
+                element.classList.remove('answer-hidden');
+                element.classList.add('answer-visible');
+                button.textContent = button.textContent.replace('表示', '非表示');
+            } else {
+                element.classList.remove('answer-visible');
+                element.classList.add('answer-hidden');
+                button.textContent = button.textContent.replace('非表示', '表示');
+            }
+        }
+
+        // スムーズスクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 印刷用CSS
+        const printStyles = `
+             {
+                .answer-hidden { display: block !important; }
+                button { display: none !important; }
+                .gradient-bg { background: #667eea !important; -webkit-print-color-adjust: exact; }
+            }
+        `;
+        
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = printStyles;
+        document.head.appendChild(styleSheet);
+    </script>
+    </main>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDh3DISX5sHpG3FdHec%2Br3Bke5qEgH66kcVZpMz8hQCfKAhZFecLiefwdzCNTOq7Wz7YSkN4xLYzyKjYWOvULfHAi5bjgUTz8gQlJkkuAtZoILW9m4ke9UtegA9TkEgYRfh8RNiwHvJlnxn%2BA7caRtvY%2FWjHD3lzS1g6oghPUsFEfyrLB98hizonDbbqFhYSVflYRJZzljVOyXd8sOdRfeBeg9XfFVUar7LmIzU2uriuuvRd0C4KUpp2jCILtqOL4q1EhnvvpJZ2XwWur%2FFSXeDXRDtp20LrfMJ9NcxYrxR%2BvGrfwzFe7U4iFzNFJPwr0YIw5VdeTEd4Kdy9HKdNsML5t64wM4eyvsGdqkLtN0G%2B8XRob%2B%2FtfHqdlnlRcJCgFexIiYIEsWy7NZWdvVU97Yfe8fJJ4OOvkFu2PYT8xk6ZWeOlxBiT%2BThRE%2BMdCZLG482A6UhltuACo5GuJgYWUr%2BEE0OF4a5JEuaLobiAbxwUX%2FvYvRJ39a%2FHqyr91T6kDzQ%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDh3DISX5sHpG3FdHec+r3Bke5qEgH66kcVZpMz8hQCfKAhZFecLiefwdzCNTOq7Wz7YSkN4xLYzyKjYWOvULfHAi5bjgUTz8gQlJkkuAtZoILW9m4ke9UtegA9TkEgYRfh8RNiwHvJlnxn+A7caRtvY/WjHD3lzS1g6oghPUsFEfyrLB98hizonDbbqFhYSVflYRJZzljVOyXd8sOdRfeBeg9XfFVUar7LmIzU2uriuuvRd0C4KUpp2jCILtqOL4q1EhnvvpJZ2XwWur/FSXeDXRDtp20LrfMJ9NcxYrxR+vGrfwzFe7U4iFzNFJPwr0YIw5VdeTEd4Kdy9HKdNsML5t64wM4eyvsGdqkLtN0G+8XRob+/tfHqdlnlRcJCgFexIiYIEsWy7NZWdvVU97Yfe8fJJ4OOvkFu2PYT8xk6ZWeOlxBiT+ThRE+MdCZLG482A6UhltuACo5GuJgYWUr+EE0OF4a5JEuaLobiAbxwUX/vYvRJ39a/Hqyr91T6kDzQ==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

@@ -1,60 +1,60 @@
 # 講義ページ ナビゲーション適用状況
 
-`dayX_lecture_navigation_standard.html` を参照し、各講義ページのナビゲーション標準化の進捗を記録します。
+`lectureX_navigation_standard.html` を参照し、各講義ページのナビゲーション標準化の進捗を記録します。
 
-- [x] day1_lecture.html
-- [x] day2_lecture.html
-- [x] day3_lecture.html
-- [x] day4_lecture.html
-- [x] day5_lecture.html
-- [x] day6_lecture.html
-- [x] day7_lecture.html
-- [x] day8_lecture.html
-- [x] day9_lecture.html
-- [x] day10_lecture.html
-- [x] day11_lecture.html
-- [x] day12_lecture.html
-- [x] day13_lecture.html
-- [x] day14_lecture.html
-- [x] day15_lecture.html
-- [x] day16_lecture.html
-- [x] day17_lecture.html
-- [x] day18_lecture.html
-- [x] day19_lecture.html
-- [x] day20_lecture.html
-- [x] day21_lecture.html
-- [x] day22_lecture.html
-- [x] day23_lecture.html
-- [x] day24_lecture.html
-- [x] day25_lecture.html
-- [x] day26_lecture.html
-- [x] day27_lecture.html
-- [x] day28_lecture.html
-- [x] day29_lecture.html
-- [x] day30_lecture.html
-- [x] day31_lecture.html
-- [x] day32_lecture.html
-- [x] day33_lecture.html
-- [x] day34_lecture.html
-- [x] day35_lecture.html
- - [x] day36_lecture.html
- - [x] day37_lecture.html
- - [x] day38_lecture.html
- - [x] day39_lecture.html
- - [x] day40_lecture.html
- - [x] day41_lecture.html
- - [x] day42_lecture.html
- - [x] day43_lecture.html
- - [x] day44_lecture.html
-- [x] day45_lecture.html
-- [x] day46_lecture.html
-- [x] day47_lecture.html
-- [x] day48_lecture.html
-- [x] day49_lecture.html
-- [x] day50_lecture.html
-- [x] day51_lecture.html
-- [x] day52_lecture.html
-- [x] day53_lecture.html
-- [x] day54_lecture.html
+- [x] lecture1.html
+- [x] lecture2.html
+- [x] lecture3.html
+- [x] lecture4.html
+- [x] lecture5.html
+- [x] lecture6.html
+- [x] lecture7.html
+- [x] lecture8.html
+- [x] lecture9.html
+- [x] lecture10.html
+- [x] lecture11.html
+- [x] lecture12.html
+- [x] lecture13.html
+- [x] lecture14.html
+- [x] lecture15.html
+- [x] lecture16.html
+- [x] lecture17.html
+- [x] lecture18.html
+- [x] lecture19.html
+- [x] lecture20.html
+- [x] lecture21.html
+- [x] lecture22.html
+- [x] lecture23.html
+- [x] lecture24.html
+- [x] lecture25.html
+- [x] lecture26.html
+- [x] lecture27.html
+- [x] lecture28.html
+- [x] lecture29.html
+- [x] lecture30.html
+- [x] lecture31.html
+- [x] lecture32.html
+- [x] lecture33.html
+- [x] lecture34.html
+- [x] lecture35.html
+ - [x] lecture36.html
+ - [x] lecture37.html
+ - [x] lecture38.html
+ - [x] lecture39.html
+ - [x] lecture40.html
+ - [x] lecture41.html
+ - [x] lecture42.html
+ - [x] lecture43.html
+ - [x] lecture44.html
+- [x] lecture45.html
+- [x] lecture46.html
+- [x] lecture47.html
+- [x] lecture48.html
+- [x] lecture49.html
+- [x] lecture50.html
+- [x] lecture51.html
+- [x] lecture52.html
+- [x] lecture53.html
+- [x] lecture54.html
 
 最終更新: 2025-08-06

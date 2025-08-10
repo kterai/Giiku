@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day31: 基本情報技術者試験 直前対策① - ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <!-- メインナビゲーションバー -->
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./lecture30.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./lecture32.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month2.html" class="hover:text-blue-600">2ヶ月目: 基本情報</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week8.html" class="hover:text-blue-600">8週目: ストラテジ系と総合対策</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">31日目: 基本情報技術者試験 直前対策①</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day31.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32">
+    <div class="container mx-auto max-w-6xl px-4 py-8">
+        <!-- ヘッダー -->
+        <header class="bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-lg p-8 mb-8">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold mb-4">
+                    <i class="fas fa-certificate mr-4"></i>
+                    Day31: 基本情報技術者試験 直前対策①
+                </h1>
+                <p class="text-xl text-red-100 mb-2">午前試験重要分野総復習</p>
+                <div class="flex justify-center items-center space-x-6 text-red-100">
+                    <span><i class="fas fa-clock mr-2"></i>所要時間: 4時間</span>
+                    <span><i class="fas fa-users mr-2"></i>対象: 基本情報受験予定者</span>
+                    <span><i class="fas fa-star mr-2"></i>重要度: 最高</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ITエンジニア豆知識 -->
+        <section class="bg-gradient-to-r from-yellow-400 to-orange-400 text-white rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-lightbulb mr-3"></i>ITエンジニア豆知識
+            </h2>
+            <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                <h3 class="text-lg font-semibold mb-3">基本情報技術者試験の戦略的攻略法</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h4 class="font-semibold mb-2">💡 試験の現実</h4>
+                        <ul class="space-y-1 text-sm">
+                            <li>• 合格率は約25-30%の難関試験</li>
+                            <li>• 午前・午後共に60点以上で合格</li>
+                            <li>• 年2回実施（春期・秋期）</li>
+                            <li>• IT業界での基礎資格として高く評価</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2">🎯 合格のコツ</h4>
+                        <ul class="space-y-1 text-sm">
+                            <li>• 過去問演習を最低3年分は実施</li>
+                            <li>• 午前は暗記、午後は理解と応用</li>
+                            <li>• 苦手分野を1つずつ潰していく</li>
+                            <li>• 時間配分の練習が合格の鍵</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学習目標 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-target mr-3 text-blue-600"></i>本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4">
+                    <h3 class="font-semibold text-blue-800 mb-3">知識目標</h3>
+                    <ul class="space-y-2 text-blue-700">
+                        <li>✓ 午前試験の出題傾向と重要分野を完全把握</li>
+                        <li>✓ 基礎理論分野の計算問題を確実に解ける</li>
+                        <li>✓ コンピュータシステム分野の重要用語を理解</li>
+                        <li>✓ データベース・ネットワーク分野の基本を習得</li>
+                    </ul>
+                </div>
+                <div class="bg-green-50 border-l-4 border-green-500 p-4">
+                    <h3 class="font-semibold text-green-800 mb-3">実践目標</h3>
+                    <ul class="space-y-2 text-green-700">
+                        <li>✓ 過去問題の解法パターンを身につける</li>
+                        <li>✓ 時間内に正確に問題を解く技術を習得</li>
+                        <li>✓ 計算問題の効率的な解法をマスター</li>
+                        <li>✓ 模擬試験で60点以上を安定して取る</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- メイン講義内容 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-book-open mr-3 text-green-600"></i>午前試験 重要分野攻略
+            </h2>
+
+            <!-- 1. 基礎理論分野 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">
+                    <i class="fas fa-calculator mr-2 text-purple-600"></i>
+                    1. 基礎理論分野（配点：約13問）
+                </h3>
+                
+                <div class="bg-purple-50 border-l-4 border-purple-500 p-4 mb-4">
+                    <h4 class="font-semibold text-purple-800 mb-3">💡 講師向け指導ポイント</h4>
+                    <p class="text-purple-700 mb-2">
+                        基礎理論は計算問題が多く、受講者が最も苦手とする分野です。公式の暗記ではなく、
+                        <strong>なぜその公式になるのか</strong>の理解を重視して説明してください。
+                    </p>
+                </div>
+
+                <!-- 数値表現 -->
+                <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">1.1 数値表現（2進数・16進数・補数）</h4>
+                    
+                    <div class="bg-gray-50 p-4 rounded mb-3">
+                        <h5 class="font-medium text-gray-700 mb-2">分かりやすい覚え方</h5>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="bg-white p-3 rounded">
+                                <h6 class="font-semibold mb-2">2進数変換</h6>
+                                <p class="text-sm text-gray-600 mb-2">「2で割って余りを逆順に読む」</p>
+                                <div class="text-xs bg-blue-100 p-2 rounded">
+                                    例：13₁₀ → 1101₂<br>
+                                    13÷2=6余り1<br>
+                                    6÷2=3余り0<br>
+                                    3÷2=1余り1<br>
+                                    1÷2=0余り1<br>
+                                    → 1101
+                                </div>
+                            </div>
+                            <div class="bg-white p-3 rounded">
+                                <h6 class="font-semibold mb-2">16進数変換</h6>
+                                <p class="text-sm text-gray-600 mb-2">「2進数を4桁ずつ区切る」</p>
+                                <div class="text-xs bg-green-100 p-2 rounded">
+                                    例：1101₂ → D₁₆<br>
+                                    1101₂ = 13₁₀ = D₁₆<br>
+                                    (A=10, B=11, C=12, D=13)
+                                </div>
+                            </div>
+                            <div class="bg-white p-3 rounded">
+                                <h6 class="font-semibold mb-2">2の補数</h6>
+                                <p class="text-sm text-gray-600 mb-2">「ビット反転して1を加える」</p>
+                                <div class="text-xs bg-red-100 p-2 rounded">
+                                    例：-5の8bit表現<br>
+                                    5₁₀ = 00000101₂<br>
+                                    反転 = 11111010₂<br>
+                                    +1 = 11111011₂
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 border border-yellow-200 rounded p-3">
+                        <h5 class="font-medium text-yellow-800 mb-2">🎯 試験頻出ポイント</h5>
+                        <ul class="text-sm text-yellow-700 space-y-1">
+                            <li>• 負の数の表現（2の補数表現）</li>
+                            <li>• 16進数と2進数の相互変換</li>
+                            <li>• 小数点を含む数値の変換</li>
+                            <li>• 浮動小数点数の表現形式</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 論理演算 -->
+                <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">1.2 論理演算・論理回路</h4>
+                    
+                    <div class="bg-gray-50 p-4 rounded mb-3">
+                        <h5 class="font-medium text-gray-700 mb-3">基本論理演算の真理値表</h5>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white border border-gray-200">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="px-4 py-2 border">A</th>
+                                        <th class="px-4 py-2 border">B</th>
+                                        <th class="px-4 py-2 border">AND</th>
+                                        <th class="px-4 py-2 border">OR</th>
+                                        <th class="px-4 py-2 border">XOR</th>
+                                        <th class="px-4 py-2 border">NAND</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    <tr>
+                                        <td class="px-4 py-2 border">0</td>
+                                        <td class="px-4 py-2 border">0</td>
+                                        <td class="px-4 py-2 border bg-red-100">0</td>
+                                        <td class="px-4 py-2 border bg-red-100">0</td>
+                                        <td class="px-4 py-2 border bg-red-100">0</td>
+                                        <td class="px-4 py-2 border bg-green-100">1</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 border">0</td>
+                                        <td class="px-4 py-2 border">1</td>
+                                        <td class="px-4 py-2 border bg-red-100">0</td>
+                                        <td class="px-4 py-2 border bg-green-100">1</td>
+                                        <td class="px-4 py-2 border bg-green-100">1</td>
+                                        <td class="px-4 py-2 border bg-green-100">1</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 border">1</td>
+                                        <td class="px-4 py-2 border">0</td>
+                                        <td class="px-4 py-2 border bg-red-100">0</td>
+                                        <td class="px-4 py-2 border bg-green-100">1</td>
+                                        <td class="px-4 py-2 border bg-green-100">1</td>
+                                        <td class="px-4 py-2 border bg-green-100">1</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 border">1</td>
+                                        <td class="px-4 py-2 border">1</td>
+                                        <td class="px-4 py-2 border bg-green-100">1</td>
+                                        <td class="px-4 py-2 border bg-green-100">1</td>
+                                        <td class="px-4 py-2 border bg-red-100">0</td>
+                                        <td class="px-4 py-2 border bg-red-100">0</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-3 text-sm text-gray-600">
+                            <p><strong>覚え方：</strong> AND（両方1で1）、OR（どちらか1で1）、XOR（違えば1）、NAND（ANDの反対）</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 確率・統計 -->
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">1.3 確率・統計</h4>
+                    
+                    <div class="bg-gray-50 p-4 rounded">
+                        <h5 class="font-medium text-gray-700 mb-3">重要公式一覧</h5>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-white p-3 rounded">
+                                <h6 class="font-semibold mb-2">基本確率</h6>
+                                <div class="text-sm space-y-1">
+                                    <p><strong>P(A) = n(A) / n(全事象)</strong></p>
+                                    <p><strong>余事象：P(A') = 1 - P(A)</strong></p>
+                                    <p><strong>和集合：P(A∪B) = P(A) + P(B) - P(A∩B)</strong></p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-3 rounded">
+                                <h6 class="font-semibold mb-2">統計量</h6>
+                                <div class="text-sm space-y-1">
+                                    <p><strong>平均：(x₁ + x₂ + ... + xₙ) / n</strong></p>
+                                    <p><strong>分散：Σ(xᵢ - x̄)² / n</strong></p>
+                                    <p><strong>標準偏差：√分散</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. コンピュータシステム分野 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">
+                    <i class="fas fa-microchip mr-2 text-blue-600"></i>
+                    2. コンピュータシステム分野（配点：約14問）
+                </h3>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+                    <h4 class="font-semibold text-blue-800 mb-3">💡 講師向け指導ポイント</h4>
+                    <p class="text-blue-700">
+                        この分野は暗記要素が強いですが、<strong>システムの全体像</strong>を理解させることで
+                        個別の知識が定着しやすくなります。CPUの動作原理から説明してください。
+                    </p>
+                </div>
+
+                <!-- プロセッサ -->
+                <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">2.1 プロセッサの性能・動作原理</h4>
+                    
+                    <div class="bg-gray-50 p-4 rounded mb-3">
+                        <h5 class="font-medium text-gray-700 mb-3">CPU性能の計算公式</h5>
+                        <div class="bg-white p-4 rounded border">
+                            <div class="text-center mb-4">
+                                <div class="text-lg font-semibold text-blue-600">
+                                    実行時間 = 命令数 × CPI × クロック周期
+                                </div>
+                                <div class="text-sm text-gray-600 mt-2">
+                                    または：実行時間 = (命令数 × CPI) / クロック周波数
+                                </div>
+                            </div>
+                            <div class="grid md:grid-cols-3 gap-4 text-sm">
+                                <div class="bg-blue-50 p-3 rounded">
+                                    <h6 class="font-semibold">命令数</h6>
+                                    <p>プログラムで実行する命令の総数</p>
+                                </div>
+                                <div class="bg-green-50 p-3 rounded">
+                                    <h6 class="font-semibold">CPI</h6>
+                                    <p>Clock Per Instruction<br>命令あたりのクロック数</p>
+                                </div>
+                                <div class="bg-purple-50 p-3 rounded">
+                                    <h6 class="font-semibold">クロック周期</h6>
+                                    <p>1クロックの時間<br>= 1/クロック周波数</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 border border-yellow-200 rounded p-3">
+                        <h5 class="font-medium text-yellow-800 mb-2">🎯 頻出計算パターン</h5>
+                        <ul class="text-sm text-yellow-700 space-y-1">
+                            <li>• MIPS値の計算：MIPS = クロック周波数(MHz) / CPI</li>
+                            <li>• キャッシュヒット率と実効アクセス時間</li>
+                            <li>• パイプライン処理の実行時間短縮効果</li>
+                            <li>• スループット向上の計算</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- メモリ -->
+                <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">2.2 メモリシステム・記憶装置</h4>
+                    
+                    <div class="bg-gray-50 p-4 rounded">
+                        <h5 class="font-medium text-gray-700 mb-3">記憶装置の性能比較表</h5>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white border border-gray-200">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="px-4 py-2 border text-left">記憶装置</th>
+                                        <th class="px-4 py-2 border text-left">アクセス時間</th>
+                                        <th class="px-4 py-2 border text-left">容量</th>
+                                        <th class="px-4 py-2 border text-left">コスト</th>
+                                        <th class="px-4 py-2 border text-left">特徴</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="px-4 py-2 border font-semibold">レジスタ</td>
+                                        <td class="px-4 py-2 border text-green-600">最高速</td>
+                                        <td class="px-4 py-2 border text-red-600">最小</td>
+                                        <td class="px-4 py-2 border text-red-600">最高</td>
+                                        <td class="px-4 py-2 border text-sm">CPU内蔵、一時記憶</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 border font-semibold">キャッシュ</td>
+                                        <td class="px-4 py-2 border text-green-600">高速</td>
+                                        <td class="px-4 py-2 border text-red-600">小</td>
+                                        <td class="px-4 py-2 border text-red-600">高</td>
+                                        <td class="px-4 py-2 border text-sm">SRAM、高速バッファ</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 border font-semibold">主記憶</td>
+                                        <td class="px-4 py-2 border text-yellow-600">中速</td>
+                                        <td class="px-4 py-2 border text-yellow-600">中</td>
+                                        <td class="px-4 py-2 border text-yellow-600">中</td>
+                                        <td class="px-4 py-2 border text-sm">DRAM、プログラム実行</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 border font-semibold">SSD</td>
+                                        <td class="px-4 py-2 border text-red-600">低速</td>
+                                        <td class="px-4 py-2 border text-green-600">大</td>
+                                        <td class="px-4 py-2 border text-yellow-600">中</td>
+                                        <td class="px-4 py-2 border text-sm">フラッシュメモリ</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-2 border font-semibold">HDD</td>
+                                        <td class="px-4 py-2 border text-red-600">最低速</td>
+                                        <td class="px-4 py-2 border text-green-600">最大</td>
+                                        <td class="px-4 py-2 border text-green-600">最低</td>
+                                        <td class="px-4 py-2 border text-sm">磁気ディスク、大容量</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. データベース分野 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">
+                    <i class="fas fa-database mr-2 text-green-600"></i>
+                    3. データベース分野（配点：約4問）
+                </h3>
+
+                <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-4">
+                    <h4 class="font-semibold text-green-800 mb-3">💡 講師向け指導ポイント</h4>
+                    <p class="text-green-700">
+                        データベースは実際のテーブルを使った具体例で説明してください。
+                        <strong>正規化の必要性</strong>を重複データの問題から理解させることが重要です。
+                    </p>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">3.1 関係データベースと正規化</h4>
+                    
+                    <div class="bg-gray-50 p-4 rounded mb-3">
+                        <h5 class="font-medium text-gray-700 mb-3">正規化の段階的理解</h5>
+                        <div class="space-y-4">
+                            <div class="bg-white p-3 rounded border">
+                                <h6 class="font-semibold text-red-600 mb-2">第1正規形（1NF）</h6>
+                                <p class="text-sm mb-2"><strong>目標：</strong>繰り返しグループの除去</p>
+                                <p class="text-sm text-gray-600">
+                                    同じ列に複数の値を格納しない。各セルには単一の値のみを入れる。
+                                </p>
+                            </div>
+                            <div class="bg-white p-3 rounded border">
+                                <h6 class="font-semibold text-blue-600 mb-2">第2正規形（2NF）</h6>
+                                <p class="text-sm mb-2"><strong>目標：</strong>部分関数従属の除去</p>
+                                <p class="text-sm text-gray-600">
+                                    複合主キーの一部だけに従属する列を別テーブルに分離する。
+                                </p>
+                            </div>
+                            <div class="bg-white p-3 rounded border">
+                                <h6 class="font-semibold text-green-600 mb-2">第3正規形（3NF）</h6>
+                                <p class="text-sm mb-2"><strong>目標：</strong>推移関数従属の除去</p>
+                                <p class="text-sm text-gray-600">
+                                    主キー以外の列に従属する列を別テーブルに分離する。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 border border-yellow-200 rounded p-3">
+                        <h5 class="font-medium text-yellow-800 mb-2">🎯 SQL重要構文</h5>
+                        <div class="text-sm text-yellow-700 space-y-1">
+                            <p><strong>SELECT文：</strong>SELECT 列名 FROM テーブル名 WHERE 条件;</p>
+                            <p><strong>JOIN：</strong>INNER JOIN, LEFT JOIN, RIGHT JOINの違い</p>
+                            <p><strong>GROUP BY：</strong>集約関数（COUNT, SUM, AVG, MAX, MIN）との組み合わせ</p>
+                            <p><strong>索引：</strong>検索高速化のためのインデックス作成</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. ネットワーク分野 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">
+                    <i class="fas fa-network-wired mr-2 text-indigo-600"></i>
+                    4. ネットワーク分野（配点：約6問）
+                </h3>
+
+                <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 mb-4">
+                    <h4 class="font-semibold text-indigo-800 mb-3">💡 講師向け指導ポイント</h4>
+                    <p class="text-indigo-700">
+                        OSI参照モデルは<strong>郵便配達の例</strong>で説明すると理解しやすいです。
+                        各層の役割を具体的なネットワーク機器と関連付けて説明してください。
+                    </p>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h4 class="font-semibold text-gray-800 mb-3">4.1 OSI参照モデル・TCP/IP</h4>
+                    
+                    <div class="bg-gray-50 p-4 rounded">
+                        <h5 class="font-medium text-gray-700 mb-3">OSI 7層モデル詳細表</h5>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full bg-white border border-gray-200">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="px-4 py-2 border">層</th>
+                                        <th class="px-4 py-2 border">名称</th>
+                                        <th class="px-4 py-2 border">役割</th>
+                                        <th class="px-4 py-2 border">主な機器・プロトコル</th>
+                                        <th class="px-4 py-2 border">覚え方</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-sm">
+                                    <tr class="bg-red-50">
+                                        <td class="px-4 py-2 border text-center font-semibold">7</td>
+                                        <td class="px-4 py-2 border">アプリケーション層</td>
+                                        <td class="px-4 py-2 border">ユーザーとのインターフェース</td>
+                                        <td class="px-4 py-2 border">HTTP, SMTP, FTP</td>
+                                        <td class="px-4 py-2 border">アプリ</td>
+                                    </tr>
+                                    <tr class="bg-orange-50">
+                                        <td class="px-4 py-2 border text-center font-semibold">6</td>
+                                        <td class="px-4 py-2 border">プレゼンテーション層</td>
+                                        <td class="px-4 py-2 border">データの変換・暗号化</td>
+                                        <td class="px-4 py-2 border">暗号化, 圧縮</td>
+                                        <td class="px-4 py-2 border">プレゼン</td>
+                                    </tr>
+                                    <tr class="bg-yellow-50">
+                                        <td class="px-4 py-2 border text-center font-semibold">5</td>
+                                        <td class="px-4 py-2 border">セッション層</td>
+                                        <td class="px-4 py-2 border">通信セッションの管理</td>
+                                        <td class="px-4 py-2 border">NetBIOS, RPC</td>
+                                        <td class="px-4 py-2 border">セッション</td>
+                                    </tr>
+                                    <tr class="bg-green-50">
+                                        <td class="px-4 py-2 border text-center font-semibold">4</td>
+                                        <td class="px-4 py-2 border">トランスポート層</td>
+                                        <td class="px-4 py-2 border">エンド間の信頼性確保</td>
+                                        <td class="px-4 py-2 border">TCP, UDP</td>
+                                        <td class="px-4 py-2 border">トランスポート</td>
+                                    </tr>
+                                    <tr class="bg-blue-50">
+                                        <td class="px-4 py-2 border text-center font-semibold">3</td>
+                                        <td class="px-4 py-2 border">ネットワーク層</td>
+                                        <td class="px-4 py-2 border">経路制御・アドレス管理</td>
+                                        <td class="px-4 py-2 border">IP, ルータ</td>
+                                        <td class="px-4 py-2 border">ネットワーク</td>
+                                    </tr>
+                                    <tr class="bg-indigo-50">
+                                        <td class="px-4 py-2 border text-center font-semibold">2</td>
+                                        <td class="px-4 py-2 border">データリンク層</td>
+                                        <td class="px-4 py-2 border">フレーム単位での通信</td>
+                                        <td class="px-4 py-2 border">Ethernet, スイッチ</td>
+                                        <td class="px-4 py-2 border">データリンク</td>
+                                    </tr>
+                                    <tr class="bg-purple-50">
+                                        <td class="px-4 py-2 border text-center font-semibold">1</td>
+                                        <td class="px-4 py-2 border">物理層</td>
+                                        <td class="px-4 py-2 border">電気的・物理的接続</td>
+                                        <td class="px-4 py-2 border">ケーブル, ハブ</td>
+                                        <td class="px-4 py-2 border">物理</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-3 text-sm text-gray-600">
+                            <p><strong>覚え方：</strong>「あぷせとねで物」（アプリ・プレゼン・セッション・トランスポート・ネットワーク・データリンク・物理）</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 演習問題セクション -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-pencil-alt mr-3 text-orange-600"></i>演習問題
+            </h2>
+            
+            <div class="bg-orange-50 border-l-4 border-orange-500 p-4 mb-6">
+                <p class="text-orange-700">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    以下の演習問題は、上記の講義内容に基づいて作成されています。講義内容を理解していれば全ての問題に答えることができます。
+                </p>
+            </div>
+
+            <!-- 問題1 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-gray-800 mb-3">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm mr-2">問題1</span>
+                    基礎理論（数値表現）
+                </h3>
+                <div class="bg-gray-50 p-4 rounded mb-4">
+                    <p class="mb-4">10進数の25を8ビットの2の補数で表現した場合、-25はどのようになるか。正しいものを選択せよ。</p>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="a" class="mr-2">
+                            <span>ア. 11100110</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="b" class="mr-2">
+                            <span>イ. 11100111</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="c" class="mr-2">
+                            <span>ウ. 11101001</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q1" value="d" class="mr-2">
+                            <span>エ. 11101010</span>
+                        </label>
+                    </div>
+                </div>
+                <button onclick="toggleAnswer('q1')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                    回答を表示/非表示
+                </button>
+                <div id="q1-answer" class="hidden mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <p class="font-semibold text-green-800 mb-2">正解: イ. 11100111</p>
+                    <div class="text-green-700 space-y-2">
+                        <p><strong>解説：</strong></p>
+                        <p>1. まず25を8ビットの2進数で表現：25₁₀ = 00011001₂</p>
+                        <p>2. 各ビットを反転：00011001 → 11100110</p>
+                        <p>3. 1を加算：11100110 + 1 = 11100111</p>
+                        <p>4. 検算：11100111を10進数に変換すると-25になることを確認</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問題2 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-gray-800 mb-3">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm mr-2">問題2</span>
+                    論理演算
+                </h3>
+                <div class="bg-gray-50 p-4 rounded mb-4">
+                    <p class="mb-4">論理式 (A ∧ B) ∨ (¬A ∧ C) において、A=1, B=0, C=1のとき、この式の値はいくらか。</p>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="a" class="mr-2">
+                            <span>ア. 0</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q2" value="b" class="mr-2">
+                            <span>イ. 1</span>
+                        </label>
+                    </div>
+                </div>
+                <button onclick="toggleAnswer('q2')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                    回答を表示/非表示
+                </button>
+                <div id="q2-answer" class="hidden mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <p class="font-semibold text-green-800 mb-2">正解: ア. 0</p>
+                    <div class="text-green-700 space-y-2">
+                        <p><strong>解説：</strong></p>
+                        <p>A=1, B=0, C=1を式に代入：</p>
+                        <p>1. (A ∧ B) = (1 ∧ 0) = 0</p>
+                        <p>2. ¬A = ¬1 = 0</p>
+                        <p>3. (¬A ∧ C) = (0 ∧ 1) = 0</p>
+                        <p>4. (A ∧ B) ∨ (¬A ∧ C) = 0 ∨ 0 = 0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問題3 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-gray-800 mb-3">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm mr-2">問題3</span>
+                    CPU性能計算
+                </h3>
+                <div class="bg-gray-50 p-4 rounded mb-4">
+                    <p class="mb-4">クロック周波数が2GHzのCPUで、CPI（Clock Per Instruction）が4の場合、このCPUのMIPS値はいくらか。</p>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="a" class="mr-2">
+                            <span>ア. 500 MIPS</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="b" class="mr-2">
+                            <span>イ. 1000 MIPS</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="c" class="mr-2">
+                            <span>ウ. 2000 MIPS</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q3" value="d" class="mr-2">
+                            <span>エ. 8000 MIPS</span>
+                        </label>
+                    </div>
+                </div>
+                <button onclick="toggleAnswer('q3')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                    回答を表示/非表示
+                </button>
+                <div id="q3-answer" class="hidden mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <p class="font-semibold text-green-800 mb-2">正解: ア. 500 MIPS</p>
+                    <div class="text-green-700 space-y-2">
+                        <p><strong>解説：</strong></p>
+                        <p>MIPS = クロック周波数(MHz) / CPI</p>
+                        <p>1. クロック周波数 = 2GHz = 2000MHz</p>
+                        <p>2. MIPS = 2000MHz / 4 = 500 MIPS</p>
+                        <p><strong>覚え方：</strong>MIPSは「Million Instructions Per Second」で、1秒間に実行できる命令数（百万単位）を表します。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問題4 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-gray-800 mb-3">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm mr-2">問題4</span>
+                    データベース正規化
+                </h3>
+                <div class="bg-gray-50 p-4 rounded mb-4">
+                    <p class="mb-4">関係データベースの第3正規形について、正しい説明はどれか。</p>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="q4" value="a" class="mr-2">
+                            <span>ア. 繰り返しグループを除去した形</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q4" value="b" class="mr-2">
+                            <span>イ. 部分関数従属を除去した形</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q4" value="c" class="mr-2">
+                            <span>ウ. 推移関数従属を除去した形</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q4" value="d" class="mr-2">
+                            <span>エ. 多値従属を除去した形</span>
+                        </label>
+                    </div>
+                </div>
+                <button onclick="toggleAnswer('q4')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                    回答を表示/非表示
+                </button>
+                <div id="q4-answer" class="hidden mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <p class="font-semibold text-green-800 mb-2">正解: ウ. 推移関数従属を除去した形</p>
+                    <div class="text-green-700 space-y-2">
+                        <p><strong>解説：</strong></p>
+                        <p>• 第1正規形：繰り返しグループの除去</p>
+                        <p>• 第2正規形：部分関数従属の除去</p>
+                        <p>• 第3正規形：推移関数従属の除去</p>
+                        <p>• 第4正規形：多値従属の除去</p>
+                        <p><strong>推移関数従属とは：</strong>A→B、B→Cのとき、A→Cが成り立つ関係のこと</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 問題5 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-gray-800 mb-3">
+                    <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm mr-2">問題5</span>
+                    OSI参照モデル
+                </h3>
+                <div class="bg-gray-50 p-4 rounded mb-4">
+                    <p class="mb-4">OSI参照モデルの第4層（トランスポート層）の主な役割として、最も適切なものはどれか。</p>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="q5" value="a" class="mr-2">
+                            <span>ア. データの暗号化と圧縮</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q5" value="b" class="mr-2">
+                            <span>イ. エンド間の信頼性のある通信制御</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q5" value="c" class="mr-2">
+                            <span>ウ. ネットワーク間の経路制御</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="q5" value="d" class="mr-2">
+                            <span>エ. フレーム単位でのデータ転送</span>
+                        </label>
+                    </div>
+                </div>
+                <button onclick="toggleAnswer('q5')" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+                    回答を表示/非表示
+                </button>
+                <div id="q5-answer" class="hidden mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <p class="font-semibold text-green-800 mb-2">正解: イ. エンド間の信頼性のある通信制御</p>
+                    <div class="text-green-700 space-y-2">
+                        <p><strong>解説：</strong></p>
+                        <p>• ア：プレゼンテーション層（第6層）の役割</p>
+                        <p>• イ：トランスポート層（第4層）の役割 ← 正解</p>
+                        <p>• ウ：ネットワーク層（第3層）の役割</p>
+                        <p>• エ：データリンク層（第2層）の役割</p>
+                        <p><strong>トランスポート層：</strong>TCPやUDPによる、送信側から受信側までの確実なデータ転送を担当</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-8">
+                <button onclick="showAllAnswers()" class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors">
+                    <i class="fas fa-eye mr-2"></i>全ての回答を表示
+                </button>
+                <button onclick="hideAllAnswers()" class="bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors ml-4">
+                    <i class="fas fa-eye-slash mr-2"></i>全ての回答を非表示
+                </button>
+            </div>
+        </section>
+
+        <!-- 模擬試験セクション -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-clipboard-list mr-3 text-red-600"></i>午前試験 模擬試験（抜粋）
+            </h2>
+            
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+                <p class="text-red-700">
+                    <i class="fas fa-clock mr-2"></i>
+                    制限時間：各問題2分程度で解答してください。本番では80問を150分で解答します。
+                </p>
+            </div>
+
+            <!-- 模擬問題1 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-gray-800 mb-3">
+                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm mr-2">模擬問題1</span>
+                    情報量の計算
+                </h3>
+                <div class="bg-gray-50 p-4 rounded mb-4">
+                    <p class="mb-4">32種類の文字を等確率で発生するとき、1文字あたりの情報量は何ビットか。</p>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="mock1" value="a" class="mr-2">
+                            <span>ア. 4ビット</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="mock1" value="b" class="mr-2">
+                            <span>イ. 5ビット</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="mock1" value="c" class="mr-2">
+                            <span>ウ. 6ビット</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="mock1" value="d" class="mr-2">
+                            <span>エ. 8ビット</span>
+                        </label>
+                    </div>
+                </div>
+                <button onclick="toggleAnswer('mock1')" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors">
+                    回答を表示/非表示
+                </button>
+                <div id="mock1-answer" class="hidden mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <p class="font-semibold text-green-800 mb-2">正解: イ. 5ビット</p>
+                    <div class="text-green-700 space-y-2">
+                        <p><strong>解説：</strong></p>
+                        <p>情報量 = log₂(選択肢数) ビット</p>
+                        <p>log₂(32) = log₂(2⁵) = 5ビット</p>
+                        <p><strong>計算のコツ：</strong>2のn乗の形に変換すると簡単に計算できます</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 模擬問題2 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-gray-800 mb-3">
+                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm mr-2">模擬問題2</span>
+                    キャッシュメモリ
+                </h3>
+                <div class="bg-gray-50 p-4 rounded mb-4">
+                    <p class="mb-4">キャッシュメモリのヒット率が90%、キャッシュのアクセス時間が10ns、主記憶のアクセス時間が100nsの場合、実効アクセス時間は何nsか。</p>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="mock2" value="a" class="mr-2">
+                            <span>ア. 15ns</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="mock2" value="b" class="mr-2">
+                            <span>ウ. 19ns</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="mock2" value="c" class="mr-2">
+                            <span>ウ. 25ns</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="mock2" value="d" class="mr-2">
+                            <span>エ. 55ns</span>
+                        </label>
+                    </div>
+                </div>
+                <button onclick="toggleAnswer('mock2')" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors">
+                    回答を表示/非表示
+                </button>
+                <div id="mock2-answer" class="hidden mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <p class="font-semibold text-green-800 mb-2">正解: ウ. 19ns</p>
+                    <div class="text-green-700 space-y-2">
+                        <p><strong>解説：</strong></p>
+                        <p>実効アクセス時間 = ヒット率 × キャッシュアクセス時間 + ミス率 × 主記憶アクセス時間</p>
+                        <p>= 0.9 × 10 + 0.1 × 100</p>
+                        <p>= 9 + 10 = 19ns</p>
+                        <p><strong>注意：</strong>ミス率 = 1 - ヒット率 = 1 - 0.9 = 0.1</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 模擬問題3 -->
+            <div class="border border-gray-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-gray-800 mb-3">
+                    <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm mr-2">模擬問題3</span>
+                    SQL文
+                </h3>
+                <div class="bg-gray-50 p-4 rounded mb-4">
+                    <p class="mb-4">次のSQL文で、社員テーブルから年齢が30歳以上の社員の人数を求めるには、どの構文を使用するか。</p>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="radio" name="mock3" value="a" class="mr-2">
+                            <span>ア. SELECT SUM(年齢) FROM 社員 WHERE 年齢 >= 30;</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="mock3" value="b" class="mr-2">
+                            <span>イ. SELECT COUNT(*) FROM 社員 WHERE 年齢 >= 30;</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="mock3" value="c" class="mr-2">
+                            <span>ウ. SELECT AVG(年齢) FROM 社員 WHERE 年齢 >= 30;</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="mock3" value="d" class="mr-2">
+                            <span>エ. SELECT MAX(年齢) FROM 社員 WHERE 年齢 >= 30;</span>
+                        </label>
+                    </div>
+                </div>
+                <button onclick="toggleAnswer('mock3')" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors">
+                    回答を表示/非表示
+                </button>
+                <div id="mock3-answer" class="hidden mt-4 p-4 bg-green-50 border-l-4 border-green-500">
+                    <p class="font-semibold text-green-800 mb-2">正解: イ. SELECT COUNT(*) FROM 社員 WHERE 年齢 >= 30;</p>
+                    <div class="text-green-700 space-y-2">
+                        <p><strong>解説：</strong></p>
+                        <p>• COUNT(*): レコード数をカウント（人数を求める）</p>
+                        <p>• SUM(): 合計値を求める</p>
+                        <p>• AVG(): 平均値を求める</p>
+                        <p>• MAX(): 最大値を求める</p>
+                        <p><strong>WHERE句：</strong>条件を指定（年齢 >= 30の条件に一致するレコードのみ）</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学習のまとめ -->
+        <section class="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-graduation-cap mr-3"></i>本日の学習まとめ
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <h3 class="font-semibold mb-3 flex items-center">
+                        <i class="fas fa-check-circle mr-2"></i>習得できたスキル
+                    </h3>
+                    <ul class="space-y-1 text-sm">
+                        <li>✓ 午前試験の重要分野の体系的理解</li>
+                        <li>✓ 基礎理論計算問題の解法パターン習得</li>
+                        <li>✓ コンピュータシステムの性能評価手法</li>
+                        <li>✓ データベース・ネットワークの基本概念</li>
+                        <li>✓ 過去問題の効率的な解答テクニック</li>
+                    </ul>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                    <h3 class="font-semibold mb-3 flex items-center">
+                        <i class="fas fa-target mr-2"></i>次回への準備
+                    </h3>
+                    <ul class="space-y-1 text-sm">
+                        <li>• 今日の演習問題を再度解いて定着を図る</li>
+                        <li>• 苦手分野の追加学習を行う</li>
+                        <li>• 午後試験対策（プログラミング・長文読解）の準備</li>
+                        <li>• 時間配分の練習を継続する</li>
+                        <li>• モチベーション維持と体調管理</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-6">
+                <p class="text-lg font-semibold">
+                    基本情報技術者試験合格に向けて、着実に実力をつけています！
+                    明日は午後試験対策で更にスキルアップしましょう。
+                </p>
+            </div>
+        </section>
+
+        <!-- 次回予告 -->
+        <section class="bg-yellow-100 border-l-4 border-yellow-500 p-6 rounded-lg">
+            <h2 class="text-xl font-semibold text-yellow-800 mb-3">
+                <i class="fas fa-calendar-alt mr-2"></i>次回講義予告：Day32
+            </h2>
+            <div class="text-yellow-700">
+                <h3 class="font-medium mb-2">「基本情報技術者試験 直前対策②」</h3>
+                <p class="mb-3">午後試験のプログラミング問題とアルゴリズム問題の攻略法を学習します。</p>
+                <ul class="list-disc list-inside space-y-1 text-sm">
+                    <li>午後試験の出題傾向と時間配分戦略</li>
+                    <li>プログラミング問題（Java/Python/C）の解法テクニック</li>
+                    <li>アルゴリズム問題の効率的なアプローチ</li>
+                    <li>長文読解問題の攻略ポイント</li>
+                    <li>実践的な模擬試験問題による演習</li>
+                </ul>
+            </div>
+        </section>
+    </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto max-w-6xl px-4 text-center">
+            <p>&copy; 2025 ITエンジニア育成カリキュラム. All rights reserved.</p>
+            <p class="text-gray-400 text-sm mt-2">Developed with ❤️ for future engineers</p>
+        </div>
+    </footer>
+
+    <script>
+        // 回答表示/非表示の切り替え機能
+        function toggleAnswer(questionId) {
+            const element = document.getElementById(questionId + '-answer');
+            if (element) {
+                element.classList.toggle('hidden');
+            }
+        }
+
+        // 全ての回答を表示
+        function showAllAnswers() {
+            const answers = document.querySelectorAll('[id$="-answer"]');
+            answers.forEach(answer => {
+                answer.classList.remove('hidden');
+            });
+        }
+
+        // 全ての回答を非表示
+        function hideAllAnswers() {
+            const answers = document.querySelectorAll('[id$="-answer"]');
+            answers.forEach(answer => {
+                answer.classList.add('hidden');
+            });
+        }
+
+        // ページ読み込み時の初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            // スムーズスクロールの実装
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // プログレスバーの表示（オプション）
+            window.addEventListener('scroll', function() {
+                const scrolled = (window.pageYOffset / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+                document.querySelector('#progress-bar')?.style.setProperty('width', scrolled + '%');
+            });
+        });
+
+        // 問題の正答チェック機能（追加機能）
+        function checkAnswers() {
+            const answers = {
+                'q1': 'b',
+                'q2': 'a', 
+                'q3': 'a',
+                'q4': 'c',
+                'q5': 'b',
+                'mock1': 'b',
+                'mock2': 'b',
+                'mock3': 'b'
+            };
+            
+            let score = 0;
+            let total = Object.keys(answers).length;
+            
+            for (let questionId in answers) {
+                const selectedAnswer = document.querySelector(`input[name="${questionId}"]:checked`);
+                if (selectedAnswer && selectedAnswer.value === answers[questionId]) {
+                    score++;
+                }
+            }
+            
+            alert(`得点: ${score} / ${total} (${Math.round(score/total*100)}%)`);
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDi0vyRlog9AKf5Wxmk3MjSVaBfcC9Cda5PBfwoSgY8zKm5gAK7ukol0b202OZbjwShiDkSqdcDGSZbjYEQ%2BSmCzXnViTQI09qChd1rOoOgyY8bHugfJGAE2oWWetPFOoXIXO8wiPGMezCq4DSDSkRF%2Bk0%2Fk4Y1B3j49wc3KvO4Jr5KaZeJe5tYFdodGycLRvlyo2TfwTPTlTmcoj4DR1jG7cQ1mzx2DsO1mN3rO1sO%2BVdtHzbxEtCRkV4lO5Cf1ywTXULCmOk5DufTrucIww%2BFnxckm%2Fww6sELqTA%2B0v7JMjoTgsN8HpoPCkK6zEThOWDVzbbvksV%2Fy9D%2FHlXbj51b1vzgj2eEQO6U98HeoAu8za8%2FIA9gRyOZfIGbrLfw6JdnNHjHXwvt3jIhQgM1ZJC3eO%2FPcrnE2eAhD7670eUuw%2Fxz1%2BZSU0jDNqcDo8ZNtXROJZM98eV2u0TkEkYeBb2cYII774Z3PDdMWN0Q17tmFAkt%2BC9v%2BB%2FbK490hdvWh%2FMWxoxxgBcH%2BmqEInP0zAYCg%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDi0vyRlog9AKf5Wxmk3MjSVaBfcC9Cda5PBfwoSgY8zKm5gAK7ukol0b202OZbjwShiDkSqdcDGSZbjYEQ+SmCzXnViTQI09qChd1rOoOgyY8bHugfJGAE2oWWetPFOoXIXO8wiPGMezCq4DSDSkRF+k0/k4Y1B3j49wc3KvO4Jr5KaZeJe5tYFdodGycLRvlyo2TfwTPTlTmcoj4DR1jG7cQ1mzx2DsO1mN3rO1sO+VdtHzbxEtCRkV4lO5Cf1ywTXULCmOk5DufTrucIww+Fnxckm/ww6sELqTA+0v7JMjoTgsN8HpoPCkK6zEThOWDVzbbvksV/y9D/HlXbj51b1vzgj2eEQO6U98HeoAu8za8/IA9gRyOZfIGbrLfw6JdnNHjHXwvt3jIhQgM1ZJC3eO/PcrnE2eAhD7670eUuw/xz1+ZSU0jDNqcDo8ZNtXROJZM98eV2u0TkEkYeBb2cYII774Z3PDdMWN0Q17tmFAkt+C9v+B/bK490hdvWh/MWxoxxgBcH+mqEInP0zAYCg=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

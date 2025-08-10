@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day4: 配列応用・アルゴリズム基礎</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./lecture3.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./lecture5.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month1.html" class="hover:text-blue-600">1ヶ月目: Java基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week1.html" class="hover:text-blue-600">1週目: Java言語基礎</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">4日目: 配列応用・アルゴリズム基礎</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day4.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32">
+    <header class="bg-blue-800 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-4">
+            <h1 class="text-3xl font-bold mb-2">
+                <i class="fas fa-sort-amount-down mr-3"></i>
+                Day4: 配列応用・アルゴリズム基礎
+            </h1>
+            <p class="text-xl text-blue-200">多次元配列・ソート・探索アルゴリズムの理解と実装</p>
+            <div class="mt-4 bg-blue-700 rounded-lg p-3">
+                <p class="text-sm">
+                    <i class="fas fa-clock mr-2"></i>所要時間: 4時間 |
+                    <i class="fas fa-user mr-2"></i>対象: プログラミング初心者～中級者 |
+                    <i class="fas fa-certificate mr-2"></i>JavaSilver17試験対応
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- 学習目標 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-green-700 mb-6">
+                <i class="fas fa-target mr-2"></i>
+                📋 本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-green-700 mb-4">
+                        <i class="fas fa-bullseye mr-2"></i>知識目標
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span><strong>多次元配列</strong>の構造と活用方法を完全理解</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span><strong>ソートアルゴリズム</strong>（バブル・選択・挿入・クイック）の実装と特徴</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span><strong>探索アルゴリズム</strong>（線形・二分探索）の効率と適用場面</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span><strong>計算量</strong>（時間・空間複雑度）の概念と実践的評価</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-blue-700 mb-4">
+                        <i class="fas fa-code mr-2"></i>実践スキル
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-cog text-blue-500 mt-1 mr-2"></i>
+                            <span>データ量に応じた<strong>最適なアルゴリズム選択</strong>ができる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-cog text-blue-500 mt-1 mr-2"></i>
+                            <span>実際の業務で使える<strong>配列操作テクニック</strong>を習得</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-cog text-blue-500 mt-1 mr-2"></i>
+                            <span>パフォーマンスを考慮した<strong>効率的なコード</strong>が書ける</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-cog text-blue-500 mt-1 mr-2"></i>
+                            <span>JavaSilver試験の<strong>アルゴリズム問題</strong>に対応できる</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 重要ポイント -->
+        <section class="mb-12">
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 p-6 rounded-r-lg">
+                <h3 class="text-lg font-bold text-yellow-800 mb-3">
+                    <i class="fas fa-lightbulb mr-2"></i>
+                    重要ポイント
+                </h3>
+                <p class="text-yellow-700">
+                    配列操作とアルゴリズムは<strong>プログラミングの基礎中の基礎</strong>です。
+                    今日学ぶ内容は実務でのデータ処理、JavaSilver試験、さらには上級のデータ構造・アルゴリズムの土台となります。
+                    特に計算量の概念は、システムのパフォーマンス設計で必須の知識です。
+                </p>
+            </div>
+        </section>
+
+        <!-- 1. 多次元配列の理解と活用 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-purple-700 mb-6">
+                <i class="fas fa-th mr-2"></i>
+                1. 多次元配列（Multi-dimensional Array）の理解と活用
+            </h2>
+
+            <div class="space-y-8">
+                <!-- 多次元配列の基本概念 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-purple-700 mb-4">多次元配列とは</h3>
+                    <p class="text-gray-700 mb-4">
+                        多次元配列（配列の配列）は、<strong>表やマトリックス（行列）のようなデータ構造</strong>を表現するために使用します。
+                        日常生活では「エクセルの表」「将棋盤」「座席表」などが多次元配列の身近な例です。
+                    </p>
+
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-blue-800 mb-2">具体例：成績管理システム</h4>
+                        <pre><code class="language-java">// 3クラス × 5教科の成績表
+int[][] scores = new int[3][5];
+scores[0][0] = 85; // 1組目の国語の成績
+scores[1][2] = 92; // 2組目の数学の成績
+
+// クラス名: A組、B組、C組
+// 教科名: 国語、数学、英語、理科、社会</code></pre>
+                    </div>
+                </div>
+
+                <!-- 多次元配列の実用例 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-purple-700 mb-4">実務での活用例</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">ビジネス用途</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• 売上管理：月×商品カテゴリ</li>
+                                <li>• 座席予約：行×列の座席配置</li>
+                                <li>• 在庫管理：店舗×商品の在庫数</li>
+                                <li>• シフト管理：日付×従業員の勤務状況</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">システム開発</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• ゲーム：マップ（X座標×Y座標）</li>
+                                <li>• 画像処理：ピクセル（幅×高さ×RGB）</li>
+                                <li>• 数値計算：行列演算</li>
+                                <li>• データ分析：時系列×指標のデータセット</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 多次元配列の操作 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-purple-700 mb-4">多次元配列の基本操作</h3>
+                    <div class="bg-gray-50 border rounded-lg p-4">
+                        <pre><code class="language-java">// 1. 宣言と初期化
+int[][] matrix = new int[3][4]; // 3行4列の行列
+
+// 2. 初期値での初期化
+int[][] data = {
+    {1, 2, 3, 4},
+    {5, 6, 7, 8},
+    {9, 10, 11, 12}
+};
+
+// 3. ループでのアクセス（全要素の表示）
+for (int i = 0; i < data.length; i++) {        // 行のループ
+    for (int j = 0; j < data[i].length; j++) {  // 列のループ
+        System.out.print(data[i][j] + " ");
+    }
+    System.out.println(); // 改行
+}
+
+// 4. 拡張for文での操作
+for (int[] row : data) {      // 各行を取得
+    for (int value : row) {   // 行内の各値を取得
+        System.out.print(value + " ");
+    }
+    System.out.println();
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ソートアルゴリズム -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-red-700 mb-6">
+                <i class="fas fa-sort-numeric-down mr-2"></i>
+                2. ソートアルゴリズム（Sorting Algorithm）の理解と実装
+            </h2>
+
+            <div class="space-y-8">
+                <!-- ソートアルゴリズムの概要 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-red-700 mb-4">ソートアルゴリズムとは</h3>
+                    <p class="text-gray-700 mb-4">
+                        ソートアルゴリズム（並び替えの手順）は、<strong>データを特定の順序（昇順・降順）に整列させる方法</strong>です。
+                        「本を著者名順に並べる」「成績を高い順に並べる」など、日常生活でも頻繁に行う作業をコンピュータで効率的に実行します。
+                    </p>
+                </div>
+
+                <!-- バブルソート -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-red-700 mb-4">
+                        <i class="fas fa-circle mr-2"></i>
+                        バブルソート（泡のように大きい値が浮上する並び替え）
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">動作原理</h4>
+                            <p class="text-sm text-gray-600 mb-3">
+                                隣接する要素を比較し、順序が間違っていれば交換する処理を繰り返します。
+                                大きな値が「泡（バブル）」のように右端に浮上していくことからこの名前が付きました。
+                            </p>
+                            <div class="bg-blue-50 border border-blue-200 rounded p-3">
+                                <p class="text-xs font-mono">
+                                    例: [64, 34, 25, 12]<br>
+                                    1回目: [34, 25, 12, 64] ←64が右端へ<br>
+                                    2回目: [25, 12, 34, 64] ←34が右端へ<br>
+                                    3回目: [12, 25, 34, 64] ←25が右端へ
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">実装例</h4>
+                            <div class="bg-gray-50 border rounded p-3">
+                                <pre><code class="language-java text-xs">public static void bubbleSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // 要素の交換
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- クイックソート -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-red-700 mb-4">
+                        <i class="fas fa-bolt mr-2"></i>
+                        クイックソート（分割統治で高速並び替え）
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">動作原理</h4>
+                            <p class="text-sm text-gray-600 mb-3">
+                                「分割統治法」を使用し、基準値（ピボット）より小さい値と大きい値に分割し、
+                                それぞれを再帰的にソートします。大量データで威力を発揮する実用的なアルゴリズムです。
+                            </p>
+                            <div class="bg-green-50 border border-green-200 rounded p-3">
+                                <p class="text-xs font-mono">
+                                    例: [3, 6, 8, 10, 1, 2, 1] ピボット=6<br>
+                                    分割: [3, 1, 2, 1] 6 [8, 10]<br>
+                                    左側をソート: [1, 1, 2, 3]<br>
+                                    右側をソート: [8, 10]<br>
+                                    結合: [1, 1, 2, 3, 6, 8, 10]
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">実装例（簡略版）</h4>
+                            <div class="bg-gray-50 border rounded p-3">
+                                <pre><code class="language-java text-xs">public static void quickSort(int[] arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);    // 左側を再帰的にソート
+        quickSort(arr, pi + 1, high);   // 右側を再帰的にソート
+    }
+}
+
+private static int partition(int[] arr, int low, int high) {
+    int pivot = arr[high];    // 最後の要素をピボットとする
+    int i = (low - 1);        // 小さい要素のインデックス
+    
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(arr, i, j);
+        }
+    }
+    swap(arr, i + 1, high);
+    return i + 1;
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ソートアルゴリズム比較表 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-red-700 mb-4">ソートアルゴリズム性能比較表</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm border-collapse border border-gray-300">
+                            <thead class="bg-red-100">
+                                <tr>
+                                    <th class="border border-gray-300 px-3 py-2 text-left">アルゴリズム名</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center">時間計算量<br>（平均）</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center">時間計算量<br>（最悪）</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center">空間計算量</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center">安定性</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-left">実用例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-3 py-2">
+                                        <strong>バブルソート</strong><br>
+                                        <span class="text-xs text-gray-600">（泡のように大きい値が浮上）</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        O(n²)<br>
+                                        <span class="text-xs text-gray-600">100個なら<br>10,000回比較</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        O(n²)<br>
+                                        <span class="text-xs text-gray-600">常に全比較</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        O(1)<br>
+                                        <span class="text-xs text-gray-600">追加メモリ不要</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        <span class="text-green-600">安定</span><br>
+                                        <span class="text-xs text-gray-600">同値の順序保持</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2">
+                                        • 教育用デモ<br>
+                                        • 小規模データ（50個以下）<br>
+                                        • アルゴリズム学習
+                                    </td>
+                                </tr>
+                                <tr class="bg-blue-50 hover:bg-blue-100">
+                                    <td class="border border-gray-300 px-3 py-2">
+                                        <strong>クイックソート</strong><br>
+                                        <span class="text-xs text-gray-600">（分割統治で高速処理）</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        O(n log n)<br>
+                                        <span class="text-xs text-gray-600">1000個なら<br>約10,000回</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        O(n²)<br>
+                                        <span class="text-xs text-gray-600">悪いピボット選択時</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        O(log n)<br>
+                                        <span class="text-xs text-gray-600">再帰呼び出し分</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        <span class="text-red-600">不安定</span><br>
+                                        <span class="text-xs text-gray-600">順序が変わる可能性</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2">
+                                        • 一般的な並び替え<br>
+                                        • システム標準ライブラリ<br>
+                                        • 大規模データ処理
+                                    </td>
+                                </tr>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-3 py-2">
+                                        <strong>選択ソート</strong><br>
+                                        <span class="text-xs text-gray-600">（最小値を選んで配置）</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        O(n²)<br>
+                                        <span class="text-xs text-gray-600">常に全探索</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        O(n²)<br>
+                                        <span class="text-xs text-gray-600">変わらず</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        O(1)<br>
+                                        <span class="text-xs text-gray-600">追加メモリ不要</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        <span class="text-red-600">不安定</span><br>
+                                        <span class="text-xs text-gray-600">交換で順序変化</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2">
+                                        • メモリ制約がある環境<br>
+                                        • 交換回数を最小化したい場合<br>
+                                        • 小規模データ
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-4 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-yellow-800 mb-2">
+                            <i class="fas fa-lightbulb mr-1"></i>
+                            選択指針
+                        </h4>
+                        <ul class="text-sm space-y-1 text-yellow-700">
+                            <li>• <strong>教育・デモ目的：</strong>バブルソート（理解しやすい）</li>
+                            <li>• <strong>小規模データ（100個未満）：</strong>どれでも大差なし</li>
+                            <li>• <strong>大規模データ（1000個以上）：</strong>クイックソートまたは標準ライブラリ</li>
+                            <li>• <strong>メモリ制約：</strong>選択ソート（メモリ使用量最小）</li>
+                            <li>• <strong>安定性重視：</strong>バブルソートまたは標準ライブラリのTimSort</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 探索アルゴリズム -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-green-700 mb-6">
+                <i class="fas fa-search mr-2"></i>
+                3. 探索アルゴリズム（Search Algorithm）の効率と適用場面
+            </h2>
+
+            <div class="space-y-8">
+                <!-- 探索アルゴリズムの概要 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-green-700 mb-4">探索アルゴリズムとは</h3>
+                    <p class="text-gray-700 mb-4">
+                        探索アルゴリズム（検索の手順）は、<strong>データの集合から特定の値を見つけ出す方法</strong>です。
+                        「電話帳から名前を探す」「図書館で本を探す」など、日常の検索作業をコンピュータで効率的に行います。
+                    </p>
+                </div>
+
+                <!-- 線形探索 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-green-700 mb-4">
+                        <i class="fas fa-arrow-right mr-2"></i>
+                        線形探索（先頭から順番に探す方法）
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">動作原理</h4>
+                            <p class="text-sm text-gray-600 mb-3">
+                                配列の先頭から順番に1つずつ調べて、目的の値を探します。
+                                「本棚を左から順番に見ていく」ような単純で確実な方法です。
+                                データが並んでいなくても使用できる万能な探索方法です。
+                            </p>
+                            <div class="bg-blue-50 border border-blue-200 rounded p-3">
+                                <p class="text-xs font-mono">
+                                    例: [10, 23, 45, 70, 11, 15] から70を探す<br>
+                                    1回目: 10 ≠ 70<br>
+                                    2回目: 23 ≠ 70<br>
+                                    3回目: 45 ≠ 70<br>
+                                    4回目: 70 = 70 ←発見！
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">実装例</h4>
+                            <div class="bg-gray-50 border rounded p-3">
+                                <pre><code class="language-java text-xs">public static int linearSearch(int[] arr, int target) {
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] == target) {
+            return i;  // 見つかった位置を返す
+        }
+    }
+    return -1;  // 見つからなかった場合
+}
+
+// 使用例
+int[] data = {10, 23, 45, 70, 11, 15};
+int index = linearSearch(data, 70);
+if (index != -1) {
+    System.out.println("70は" + index + "番目にあります");
+} else {
+    System.out.println("70は見つかりませんでした");
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 二分探索 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-green-700 mb-4">
+                        <i class="fas fa-cut mr-2"></i>
+                        二分探索（半分に分けて効率的に探す方法）
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">動作原理</h4>
+                            <p class="text-sm text-gray-600 mb-3">
+                                <strong>ソート済み</strong>の配列で使用できる高速な探索方法。
+                                中央の値と比較し、目的の値がある側の半分だけを調べることを繰り返します。
+                                「辞書で単語を探すときに、だいたいの位置から開いて前後を調整する」ような探し方です。
+                            </p>
+                            <div class="bg-green-50 border border-green-200 rounded p-3">
+                                <p class="text-xs font-mono">
+                                    例: [10, 15, 23, 45, 70, 85] から70を探す<br>
+                                    1回目: 中央45 < 70 → 右半分[70,85]を調査<br>
+                                    2回目: 中央70 = 70 ←発見！（2回で終了）
+                                </p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-2">実装例</h4>
+                            <div class="bg-gray-50 border rounded p-3">
+                                <pre><code class="language-java text-xs">public static int binarySearch(int[] arr, int target) {
+    int left = 0;
+    int right = arr.length - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        if (arr[mid] == target) {
+            return mid;  // 見つかった位置を返す
+        }
+        
+        if (arr[mid] < target) {
+            left = mid + 1;   // 右半分を探索
+        } else {
+            right = mid - 1;  // 左半分を探索
+        }
+    }
+    return -1;  // 見つからなかった場合
+}
+
+// 使用例（ソート済み配列が必要）
+int[] sortedData = {10, 15, 23, 45, 70, 85};
+int index = binarySearch(sortedData, 70);
+System.out.println("結果: " + index);</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 探索アルゴリズム比較表 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-green-700 mb-4">探索アルゴリズム性能比較表</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm border-collapse border border-gray-300">
+                            <thead class="bg-green-100">
+                                <tr>
+                                    <th class="border border-gray-300 px-3 py-2 text-left">アルゴリズム名</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center">時間計算量</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center">前提条件</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-center">データ量による<br>効率差</th>
+                                    <th class="border border-gray-300 px-3 py-2 text-left">実用例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white hover:bg-gray-50">
+                                    <td class="border border-gray-300 px-3 py-2">
+                                        <strong>線形探索</strong><br>
+                                        <span class="text-xs text-gray-600">（先頭から順番に探す）</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        O(n)<br>
+                                        <span class="text-xs text-gray-600">最悪の場合<br>全要素を調査</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        <span class="text-green-600">なし</span><br>
+                                        <span class="text-xs text-gray-600">並び順不問</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        1000個なら<br>平均500回<br>最大1000回
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2">
+                                        • 小規模リスト<br>
+                                        • 未ソートデータ<br>
+                                        • 単発検索<br>
+                                        • 簡単な実装が必要
+                                    </td>
+                                </tr>
+                                <tr class="bg-blue-50 hover:bg-blue-100">
+                                    <td class="border border-gray-300 px-3 py-2">
+                                        <strong>二分探索</strong><br>
+                                        <span class="text-xs text-gray-600">（半分に分けて効率的に探す）</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        O(log n)<br>
+                                        <span class="text-xs text-gray-600">毎回半分に絞り込み</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        <span class="text-red-600">ソート済み</span><br>
+                                        <span class="text-xs text-gray-600">昇順または降順</span>
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2 text-center">
+                                        1000個なら<br>最大10回<br>（劇的高速化）
+                                    </td>
+                                    <td class="border border-gray-300 px-3 py-2">
+                                        • 辞書検索<br>
+                                        • 大規模DBインデックス<br>
+                                        • 検索エンジン<br>
+                                        • リアルタイム検索
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="mt-4 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-yellow-800 mb-2">
+                            <i class="fas fa-chart-line mr-1"></i>
+                            なぜ二分探索が高速なのか
+                        </h4>
+                        <p class="text-sm text-yellow-700 mb-2">
+                            毎回探索範囲を半分に絞り込むため、データ量が倍になっても処理時間は少し増えるだけです：
+                        </p>
+                        <ul class="text-sm space-y-1 text-yellow-700">
+                            <li>• <strong>100個のデータ：</strong>最大7回で発見</li>
+                            <li>• <strong>1,000個のデータ：</strong>最大10回で発見</li>
+                            <li>• <strong>1,000,000個のデータ：</strong>最大20回で発見</li>
+                            <li>• <strong>1,000,000,000個のデータ：</strong>最大30回で発見</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. 計算量（複雑度）の理解 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-6">
+                <i class="fas fa-calculator mr-2"></i>
+                4. 計算量（時間・空間複雑度）の概念と実践的評価
+            </h2>
+
+            <div class="space-y-8">
+                <!-- 計算量とは -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-4">計算量（Computational Complexity）とは</h3>
+                    <p class="text-gray-700 mb-4">
+                        計算量は、<strong>アルゴリズムの効率性を数学的に表現する方法</strong>です。
+                        「このアルゴリズムはデータが増えたときにどれくらい遅くなるか」「どれくらいメモリを使うか」を
+                        客観的に比較・評価するための指標として使用します。
+                    </p>
+                </div>
+
+                <!-- 時間計算量 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-4">時間計算量（Time Complexity）</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-3">主な時間計算量</h4>
+                            <div class="space-y-2">
+                                <div class="bg-green-50 border border-green-200 rounded p-3">
+                                    <h5 class="font-semibold text-green-700">O(1) - 定数時間</h5>
+                                    <p class="text-xs text-green-600">データ量に関係なく一定時間</p>
+                                    <p class="text-xs">例：配列のインデックスアクセス</p>
+                                </div>
+                                <div class="bg-blue-50 border border-blue-200 rounded p-3">
+                                    <h5 class="font-semibold text-blue-700">O(log n) - 対数時間</h5>
+                                    <p class="text-xs text-blue-600">データが倍になっても少し増えるだけ</p>
+                                    <p class="text-xs">例：二分探索</p>
+                                </div>
+                                <div class="bg-yellow-50 border border-yellow-200 rounded p-3">
+                                    <h5 class="font-semibold text-yellow-700">O(n) - 線形時間</h5>
+                                    <p class="text-xs text-yellow-600">データ数に比例</p>
+                                    <p class="text-xs">例：線形探索、配列の全要素表示</p>
+                                </div>
+                                <div class="bg-red-50 border border-red-200 rounded p-3">
+                                    <h5 class="font-semibold text-red-700">O(n²) - 二乗時間</h5>
+                                    <p class="text-xs text-red-600">データ数の二乗に比例</p>
+                                    <p class="text-xs">例：バブルソート、選択ソート</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-3">具体的な実行時間比較</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-xs border-collapse border border-gray-300">
+                                    <thead class="bg-gray-100">
+                                        <tr>
+                                            <th class="border border-gray-300 px-2 py-1">データ数</th>
+                                            <th class="border border-gray-300 px-2 py-1">O(1)</th>
+                                            <th class="border border-gray-300 px-2 py-1">O(log n)</th>
+                                            <th class="border border-gray-300 px-2 py-1">O(n)</th>
+                                            <th class="border border-gray-300 px-2 py-1">O(n²)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="border border-gray-300 px-2 py-1">10</td>
+                                            <td class="border border-gray-300 px-2 py-1 text-center">1</td>
+                                            <td class="border border-gray-300 px-2 py-1 text-center">3</td>
+                                            <td class="border border-gray-300 px-2 py-1 text-center">10</td>
+                                            <td class="border border-gray-300 px-2 py-1 text-center">100</td>
+                                        </tr>
+                                        <tr class="bg-gray-50">
+                                            <td class="border border-gray-300 px-2 py-1">100</td>
+                                            <td class="border border-gray-300 px-2 py-1 text-center">1</td>
+                                            <td class="border border-gray-300 px-2 py-1 text-center">7</td>
+                                            <td class="border border-gray-300 px-2 py-1 text-center">100</td>
+                                            <td class="border border-gray-300 px-2 py-1 text-center text-red-600">10,000</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 px-2 py-1">1,000</td>
+                                            <td class="border border-gray-300 px-2 py-1 text-center">1</td>
+                                            <td class="border border-gray-300 px-2 py-1 text-center">10</td>
+                                            <td class="border border-gray-300 px-2 py-1 text-center">1,000</td>
+                                            <td class="border border-gray-300 px-2 py-1 text-center text-red-600">1,000,000</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-2">
+                                ※ 数値は操作回数の概算。実際の実行時間はハードウェアや実装により異なります。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 空間計算量 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-indigo-700 mb-4">空間計算量（Space Complexity）</h3>
+                    <p class="text-gray-700 mb-4">
+                        空間計算量は、<strong>アルゴリズムが使用するメモリ量</strong>を表します。
+                        特に大量データの処理や、メモリ制約のある環境（スマートフォンアプリ、組み込みシステム）では重要な指標です。
+                    </p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 border border-blue-200 rounded p-4">
+                            <h4 class="font-semibold text-blue-700 mb-2">O(1) - 定数空間</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• バブルソート：元の配列のみ使用</li>
+                                <li>• 選択ソート：一時変数のみ</li>
+                                <li>• 配列の反転：その場で入れ替え</li>
+                            </ul>
+                        </div>
+                        <div class="bg-yellow-50 border border-yellow-200 rounded p-4">
+                            <h4 class="font-semibold text-yellow-700 mb-2">O(n) - 線形空間</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• マージソート：作業用配列が必要</li>
+                                <li>• 配列のコピー：元の配列と同サイズ</li>
+                                <li>• ハッシュテーブル：データ数に比例</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. 演習問題 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-orange-700 mb-6">
+                <i class="fas fa-pen-fancy mr-2"></i>
+                📝 演習問題
+            </h2>
+
+            <div class="space-y-6">
+                <!-- 演習問題1 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-orange-700 mb-4">問題1: 多次元配列の操作</h3>
+                    <p class="text-gray-700 mb-4">
+                        以下の3×3の行列を作成し、全要素の合計と平均を求めるプログラムを作成してください。
+                    </p>
+                    <div class="bg-gray-50 border rounded p-4 mb-4">
+                        <pre><code class="language-java">// 初期データ
+int[][] matrix = {
+    {5, 10, 15},
+    {20, 25, 30},
+    {35, 40, 45}
+};
+
+// この行列の合計と平均を求めてください</code></pre>
+                    </div>
+                    
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer1')" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors">
+                        <i class="fas fa-eye mr-1"></i>回答例を表示
+                    </button>
+                    
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer1" class="hidden mt-4 bg-green-50 border border-green-200 rounded p-4">
+                        <h4 class="font-semibold text-green-700 mb-2">回答例：</h4>
+                        <div class="bg-gray-50 border rounded p-3">
+                            <pre><code class="language-java">public class MatrixCalculation {
+    public static void main(String[] args) {
+        int[][] matrix = {
+            {5, 10, 15},
+            {20, 25, 30},
+            {35, 40, 45}
+        };
+        
+        int sum = 0;
+        int count = 0;
+        
+        // 全要素の合計を計算
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                sum += matrix[i][j];
+                count++;
+            }
+        }
+        
+        double average = (double) sum / count;
+        
+        System.out.println("合計: " + sum);
+        System.out.println("平均: " + average);
+    }
+}
+
+// 実行結果:
+// 合計: 225
+// 平均: 25.0</code></pre>
+                        </div>
+                        <div class="mt-3 text-sm text-green-700">
+                            <p><strong>解説ポイント：</strong></p>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>二重ループで全要素にアクセス</li>
+                                <li>外側ループが行、内側ループが列を表す</li>
+                                <li>平均計算時は整数除算を避けるため(double)でキャスト</li>
+                                <li>count変数で要素数をカウント（matrix.length * matrix[0].lengthでも可）</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 演習問題2 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-orange-700 mb-4">問題2: ソートアルゴリズムの比較</h3>
+                    <p class="text-gray-700 mb-4">
+                        以下の配列をバブルソートとクイックソートの両方で並び替え、実行時間を比較してください。
+                        また、それぞれの長所・短所を説明してください。
+                    </p>
+                    <div class="bg-gray-50 border rounded p-4 mb-4">
+                        <pre><code class="language-java">int[] data = {64, 34, 25, 12, 22, 11, 90, 5, 77, 30};</code></pre>
+                    </div>
+                    
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer2')" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors">
+                        <i class="fas fa-eye mr-1"></i>回答例を表示
+                    </button>
+                    
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer2" class="hidden mt-4 bg-green-50 border border-green-200 rounded p-4">
+                        <h4 class="font-semibold text-green-700 mb-2">回答例：</h4>
+                        <div class="bg-gray-50 border rounded p-3">
+                            <pre><code class="language-java">import java.util.Arrays;
+
+public class SortComparison {
+    public static void main(String[] args) {
+        int[] originalData = {64, 34, 25, 12, 22, 11, 90, 5, 77, 30};
+        
+        // バブルソートのテスト
+        int[] bubbleData = Arrays.copyOf(originalData, originalData.length);
+        long startTime = System.nanoTime();
+        bubbleSort(bubbleData);
+        long bubbleTime = System.nanoTime() - startTime;
+        
+        // クイックソートのテスト
+        int[] quickData = Arrays.copyOf(originalData, originalData.length);
+        startTime = System.nanoTime();
+        quickSort(quickData, 0, quickData.length - 1);
+        long quickTime = System.nanoTime() - startTime;
+        
+        System.out.println("元のデータ: " + Arrays.toString(originalData));
+        System.out.println("バブルソート結果: " + Arrays.toString(bubbleData));
+        System.out.println("クイックソート結果: " + Arrays.toString(quickData));
+        System.out.println("バブルソート実行時間: " + bubbleTime + " ナノ秒");
+        System.out.println("クイックソート実行時間: " + quickTime + " ナノ秒");
+    }
+    
+    // バブルソートの実装は前述の通り
+    // クイックソートの実装は前述の通り
+}</code></pre>
+                        </div>
+                        <div class="mt-3 text-sm text-green-700">
+                            <p><strong>比較結果：</strong></p>
+                            <table class="w-full text-xs border-collapse border border-green-300 mt-2">
+                                <tr class="bg-green-100">
+                                    <th class="border border-green-300 px-2 py-1">項目</th>
+                                    <th class="border border-green-300 px-2 py-1">バブルソート</th>
+                                    <th class="border border-green-300 px-2 py-1">クイックソート</th>
+                                </tr>
+                                <tr>
+                                    <td class="border border-green-300 px-2 py-1">長所</td>
+                                    <td class="border border-green-300 px-2 py-1">実装が簡単、安定</td>
+                                    <td class="border border-green-300 px-2 py-1">高速、実用的</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-green-300 px-2 py-1">短所</td>
+                                    <td class="border border-green-300 px-2 py-1">大量データで遅い</td>
+                                    <td class="border border-green-300 px-2 py-1">実装が複雑、不安定</td>
+                                </tr>
+                                <tr>
+                                    <td class="border border-green-300 px-2 py-1">適用場面</td>
+                                    <td class="border border-green-300 px-2 py-1">教育、小規模データ</td>
+                                    <td class="border border-green-300 px-2 py-1">実用システム、大量データ</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 演習問題3 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-orange-700 mb-4">問題3: 探索効率の実測</h3>
+                    <p class="text-gray-700 mb-4">
+                        1000個のランダムな整数配列を作成し、線形探索と二分探索の実行時間を比較測定してください。
+                        二分探索を使用する際の前提条件も含めて実装してください。
+                    </p>
+                    
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('answer3')" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition-colors">
+                        <i class="fas fa-eye mr-1"></i>回答例を表示
+                    </button>
+                    
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="answer3" class="hidden mt-4 bg-green-50 border border-green-200 rounded p-4">
+                        <h4 class="font-semibold text-green-700 mb-2">回答例：</h4>
+                        <div class="bg-gray-50 border rounded p-3">
+                            <pre><code class="language-java">import java.util.Arrays;
+import java.util.Random;
+
+public class SearchComparison {
+    public static void main(String[] args) {
+        final int SIZE = 1000;
+        final int TARGET = 500;
+        
+        // ランダムデータ生成
+        int[] data = new int[SIZE];
+        Random random = new Random();
+        for (int i = 0; i < SIZE; i++) {
+            data[i] = random.nextInt(1000);
+        }
+        
+        // 線形探索のテスト
+        long startTime = System.nanoTime();
+        int linearResult = linearSearch(data, TARGET);
+        long linearTime = System.nanoTime() - startTime;
+        
+        // 二分探索のための前処理（ソート）
+        int[] sortedData = Arrays.copyOf(data, data.length);
+        startTime = System.nanoTime();
+        Arrays.sort(sortedData); // ソート時間も含める
+        int binaryResult = binarySearch(sortedData, TARGET);
+        long binaryTime = System.nanoTime() - startTime;
+        
+        System.out.println("データサイズ: " + SIZE);
+        System.out.println("探索対象: " + TARGET);
+        System.out.println("線形探索結果: " + (linearResult != -1 ? "発見" : "未発見"));
+        System.out.println("線形探索時間: " + linearTime + " ナノ秒");
+        System.out.println("二分探索結果: " + (binaryResult != -1 ? "発見" : "未発見"));
+        System.out.println("二分探索時間（ソート込み）: " + binaryTime + " ナノ秒");
+        
+        // 複数回検索する場合の比較
+        System.out.println("\n--- 複数回検索での比較 ---");
+        int[] targets = {100, 200, 300, 400, 500, 600, 700, 800, 900};
+        
+        startTime = System.nanoTime();
+        for (int target : targets) {
+            linearSearch(data, target);
+        }
+        long multiLinearTime = System.nanoTime() - startTime;
+        
+        startTime = System.nanoTime();
+        for (int target : targets) {
+            binarySearch(sortedData, target); // 既にソート済み
+        }
+        long multiBinaryTime = System.nanoTime() - startTime;
+        
+        System.out.println("9回の線形探索: " + multiLinearTime + " ナノ秒");
+        System.out.println("9回の二分探索: " + multiBinaryTime + " ナノ秒");
+    }
+    
+    // 線形探索と二分探索の実装は前述の通り
+}</code></pre>
+                        </div>
+                        <div class="mt-3 text-sm text-green-700">
+                            <p><strong>重要な観察ポイント：</strong></p>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><strong>単発検索：</strong>二分探索はソート時間を含むと線形探索より遅い場合がある</li>
+                                <li><strong>複数回検索：</strong>二分探索の真価は繰り返し検索で発揮される</li>
+                                <li><strong>データサイズ効果：</strong>データが大きいほど二分探索の優位性が顕著</li>
+                                <li><strong>前提条件：</strong>二分探索にはソート済みデータが必要</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. 理解度クイズ -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-purple-700 mb-6">
+                <i class="fas fa-question-circle mr-2"></i>
+                🧠 理解度クイズ
+            </h2>
+
+            <div class="space-y-6">
+                <!-- クイズ1 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-purple-700 mb-4">クイズ1: 多次元配列</h3>
+                    <p class="text-gray-700 mb-4">
+                        以下のコードの実行結果は何でしょうか？
+                    </p>
+                    <div class="bg-gray-50 border rounded p-4 mb-4">
+                        <pre><code class="language-java">int[][] arr = {{1, 2, 3}, {4, 5}, {6, 7, 8, 9}};
+System.out.println(arr.length);
+System.out.println(arr[1].length);
+System.out.println(arr[2][3]);</code></pre>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <p class="font-semibold mb-2">選択肢：</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="quiz1" value="a" class="mr-2">
+                                A) 3, 2, 9
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="quiz1" value="b" class="mr-2">
+                                B) 4, 3, 8
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="quiz1" value="c" class="mr-2">
+                                C) 3, 2, エラー
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="quiz1" value="d" class="mr-2">
+                                D) コンパイルエラー
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz1answer')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
+                        <i class="fas fa-eye mr-1"></i>回答を表示
+                    </button>
+                    
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz1answer" class="hidden mt-4 bg-blue-50 border border-blue-200 rounded p-4">
+                        <h4 class="font-semibold text-blue-700 mb-2">正解：A) 3, 2, 9</h4>
+                        <div class="text-sm text-blue-700">
+                            <p class="mb-2"><strong>解説：</strong></p>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li><code>arr.length</code> → 行数なので3</li>
+                                <li><code>arr[1].length</code> → 2行目の要素数なので2（{4, 5}）</li>
+                                <li><code>arr[2][3]</code> → 3行目の4番目の要素なので9（{6, 7, 8, 9}のインデックス3）</li>
+                                <li>Javaの配列は各行の長さが異なってもよい（ジャグ配列）</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- クイズ2 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-purple-700 mb-4">クイズ2: ソートアルゴリズムの計算量</h3>
+                    <p class="text-gray-700 mb-4">
+                        100個の要素をバブルソートで並び替える場合、最悪ケースでの比較回数はおよそいくつでしょうか？
+                    </p>
+                    
+                    <div class="mb-4">
+                        <p class="font-semibold mb-2">選択肢：</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="quiz2" value="a" class="mr-2">
+                                A) 約100回
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="quiz2" value="b" class="mr-2">
+                                B) 約1,000回
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="quiz2" value="c" class="mr-2">
+                                C) 約5,000回
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="quiz2" value="d" class="mr-2">
+                                D) 約10,000回
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz2answer')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
+                        <i class="fas fa-eye mr-1"></i>回答を表示
+                    </button>
+                    
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz2answer" class="hidden mt-4 bg-blue-50 border border-blue-200 rounded p-4">
+                        <h4 class="font-semibold text-blue-700 mb-2">正解：C) 約5,000回</h4>
+                        <div class="text-sm text-blue-700">
+                            <p class="mb-2"><strong>解説：</strong></p>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>バブルソートの時間計算量はO(n²)</li>
+                                <li>100個の場合：100² = 10,000回が理論上限</li>
+                                <li>実際の比較回数は約n²/2 = 5,000回程度</li>
+                                <li>これは「平均的な」並び方での比較回数</li>
+                                <li>完全に逆順の場合は約10,000回に近づく</li>
+                            </ul>
+                            <p class="mt-2 text-xs">
+                                <strong>参考：</strong>この計算からわかるように、データ量が10倍になると処理時間は100倍になる。
+                                これがO(n²)アルゴリズムの特徴です。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- クイズ3 -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-purple-700 mb-4">クイズ3: 探索効率</h3>
+                    <p class="text-gray-700 mb-4">
+                        1,000,000個のソート済み配列から特定の値を探す場合、二分探索では最大何回の比較で見つけることができるでしょうか？
+                    </p>
+                    
+                    <div class="mb-4">
+                        <p class="font-semibold mb-2">選択肢：</p>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="quiz3" value="a" class="mr-2">
+                                A) 約10回
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="quiz3" value="b" class="mr-2">
+                                B) 約20回
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="quiz3" value="c" class="mr-2">
+                                C) 約100回
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="quiz3" value="d" class="mr-2">
+                                D) 約1,000回
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" onclick="showAnswer('quiz3answer')" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 transition-colors">
+                        <i class="fas fa-eye mr-1"></i>回答を表示
+                    </button>
+                    
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="quiz3answer" class="hidden mt-4 bg-blue-50 border border-blue-200 rounded p-4">
+                        <h4 class="font-semibold text-blue-700 mb-2">正解：B) 約20回</h4>
+                        <div class="text-sm text-blue-700">
+                            <p class="mb-2"><strong>解説：</strong></p>
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>二分探索の時間計算量はO(log n)</li>
+                                <li>1,000,000 ≈ 2²⁰ なので、log₂(1,000,000) ≈ 20</li>
+                                <li>毎回半分に絞り込むため、最大20回の比較で発見</li>
+                                <li>線形探索なら最大1,000,000回必要なので、劇的な効率化！</li>
+                            </ul>
+                            <div class="mt-2 bg-blue-100 rounded p-2">
+                                <p class="text-xs"><strong>計算過程：</strong></p>
+                                <p class="text-xs">1回目: 1,000,000 → 500,000</p>
+                                <p class="text-xs">2回目: 500,000 → 250,000</p>
+                                <p class="text-xs">...</p>
+                                <p class="text-xs">20回目: 2 → 1 (発見)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. JavaSilver試験対策 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-blue-700 mb-6">
+                <i class="fas fa-certificate mr-2"></i>
+                📚 JavaSilver試験対策
+            </h2>
+
+            <div class="space-y-6">
+                <!-- 頻出問題パターン -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-4">頻出問題パターン</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-yellow-50 border border-yellow-200 rounded p-4">
+                            <h4 class="font-semibold text-yellow-800 mb-2">パターン1: 多次元配列のサイズ</h4>
+                            <div class="bg-gray-50 border rounded p-3 mb-2">
+                                <pre><code class="language-java">int[][] arr = new int[3][4];
+System.out.println(arr.length);     // → 3 (行数)
+System.out.println(arr[0].length);  // → 4 (列数)</code></pre>
+                            </div>
+                            <p class="text-sm text-yellow-700">
+                                <strong>ポイント：</strong>外側の配列のlengthは行数、内側の配列のlengthは列数を表す
+                            </p>
+                        </div>
+
+                        <div class="bg-blue-50 border border-blue-200 rounded p-4">  
+                            <h4 class="font-semibold text-blue-800 mb-2">パターン2: 配列の初期化</h4>
+                            <div class="bg-gray-50 border rounded p-3 mb-2">
+                                <pre><code class="language-java">// 正しい初期化
+int[] arr1 = {1, 2, 3};
+int[] arr2 = new int[]{1, 2, 3};
+
+// コンパイルエラー
+int[] arr3;
+arr3 = {1, 2, 3};  // エラー！</code></pre>
+                            </div>
+                            <p class="text-sm text-blue-700">
+                                <strong>ポイント：</strong>宣言と分離した初期化では{...}は使用不可
+                            </p>
+                        </div>
+
+                        <div class="bg-green-50 border border-green-200 rounded p-4">
+                            <h4 class="font-semibold text-green-800 mb-2">パターン3: 拡張for文の制限</h4>
+                            <div class="bg-gray-50 border rounded p-3 mb-2">
+                                <pre><code class="language-java">int[] arr = {1, 2, 3, 4, 5};
+
+// 読み取り専用（値の変更不可）
+for (int value : arr) {
+    value = 10;  // 元の配列は変更されない
+}
+
+// インデックスが不明
+for (int value : arr) {
+    // 現在のインデックスがわからない
+}</code></pre>
+                            </div>
+                            <p class="text-sm text-green-700">
+                                <strong>ポイント：</strong>拡張for文は読み取り専用、インデックス不明
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 試験攻略のコツ -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-4">試験攻略のコツ</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-3">重点確認項目</h4>
+                            <ul class="text-sm space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    配列のlengthプロパティ（メソッドではない）
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    インデックスの範囲（0からlength-1まで）
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    ArrayIndexOutOfBoundsExceptionの発生条件
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                                    多次元配列の各次元の独立性
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-700 mb-3">よくある間違い</h4>
+                            <ul class="text-sm space-y-2">
+                                <li class="flex items-start">
+                                    <i class="fas fa-times-circle text-red-500 mt-1 mr-2"></i>
+                                    <code>arr.length()</code>とメソッド呼び出しする
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-times-circle text-red-500 mt-1 mr-2"></i>
+                                    拡張for文で配列の値を変更できると思う
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-times-circle text-red-500 mt-1 mr-2"></i>
+                                    宣言と分離した初期化で{...}を使用
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-times-circle text-red-500 mt-1 mr-2"></i>
+                                    配列のサイズを動的に変更できると思う
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. 本日のまとめ -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-teal-700 mb-6">
+                <i class="fas fa-clipboard-check mr-2"></i>
+                📝 本日のまとめ
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-teal-700 mb-4">習得した知識・スキル</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span><strong>多次元配列</strong>で表やマトリックスを効率的に管理できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span><strong>バブルソート</strong>は教育用に最適、実装が簡単で理解しやすい</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span><strong>クイックソート</strong>は実用的、大量データで威力を発揮</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span><strong>二分探索</strong>は高速検索、ソート済みデータで劇的な効果</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
+                            <span><strong>計算量</strong>でアルゴリズムの効率を客観的に評価できる</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold text-teal-700 mb-4">実務での活用場面</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-briefcase text-blue-500 mt-1 mr-2"></i>
+                            <span>売上データの分析（月×商品の多次元配列）</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-briefcase text-blue-500 mt-1 mr-2"></i>
+                            <span>ユーザーリストの並び替え（効率的なソート選択）</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-briefcase text-blue-500 mt-1 mr-2"></i>
+                            <span>検索機能の実装（線形・二分探索の使い分け）</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-briefcase text-blue-500 mt-1 mr-2"></i>
+                            <span>パフォーマンス設計（計算量を考慮した設計）</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-briefcase text-blue-500 mt-1 mr-2"></i>
+                            <span>データ処理システム（最適なアルゴリズム選択）</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-teal-50 border border-teal-200 rounded-lg p-6">
+                <h3 class="text-lg font-semibold text-teal-800 mb-3">
+                    <i class="fas fa-rocket mr-2"></i>
+                    次回に向けて
+                </h3>
+                <p class="text-teal-700 mb-3">
+                    今日学んだ配列操作とアルゴリズムの知識は、次回の「オブジェクト指向基礎」でも活用されます。
+                    特に、オブジェクトの配列やコレクションクラスでは、今日の内容が直接応用されます。
+                </p>
+                <div class="bg-white rounded p-4">
+                    <h4 class="font-semibold text-teal-800 mb-2">復習ポイント：</h4>
+                    <ul class="text-sm space-y-1 text-teal-700">
+                        <li>• 多次元配列の宣言・初期化・アクセス方法</li>
+                        <li>• 各ソートアルゴリズムの特徴と適用場面</li>
+                        <li>• 線形探索と二分探索の効率差</li>
+                        <li>• 計算量（O記法）の意味と実践的な活用</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ナビゲーション -->
+        <nav class="flex justify-between items-center py-8 border-t border-gray-300">
+            <a href="lecture3.html" class="flex items-center text-blue-600 hover:text-blue-800 transition-colors">
+                <i class="fas fa-chevron-left mr-2"></i>
+                <div>
+                    <div class="text-sm text-gray-500">前の講義</div>
+                    <div class="font-semibold">Day3: 制御構文・条件分岐</div>
+                </div>
+            </a>
+            
+            <div class="text-center">
+                <div class="text-2xl font-bold text-gray-800">Day4 完了</div>
+                <div class="text-sm text-gray-600">配列応用・アルゴリズム基礎</div>
+            </div>
+            
+            <a href="lecture5.html" class="flex items-center text-blue-600 hover:text-blue-800 transition-colors">
+                <div class="text-right">
+                    <div class="text-sm text-gray-500">次の講義</div>
+                    <div class="font-semibold">Day5: オブジェクト指向基礎</div>
+                </div>
+                <i class="fas fa-chevron-right ml-2"></i>
+            </a>
+        </nav>
+    </div>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm">
+                <i class="fas fa-copyright mr-1"></i>
+                2025 APSA Co.,Ltd. All Rights Reserved.
+            </p>
+            <p class="text-xs mt-2 opacity-75">
+                ITエンジニア育成カリキュラム - Day4: 配列応用・アルゴリズム基礎
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        function showAnswer(elementId) {
+            const element = document.getElementById(elementId);
+            const button = event.target;
+            
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+                button.innerHTML = '<i class="fas fa-eye-slash mr-1"></i>回答を非表示';
+                button.classList.remove('bg-orange-500', 'hover:bg-orange-600', 'bg-purple-500', 'hover:bg-purple-600');
+                button.classList.add('bg-gray-500', 'hover:bg-gray-600');
+            } else {
+                element.classList.add('hidden');
+                if (elementId.includes('quiz')) {
+                    button.innerHTML = '<i class="fas fa-eye mr-1"></i>回答を表示';
+                    button.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+                    button.classList.add('bg-purple-500', 'hover:bg-purple-600');
+                } else {
+                    button.innerHTML = '<i class="fas fa-eye mr-1"></i>回答例を表示';
+                    button.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+                    button.classList.add('bg-orange-500', 'hover:bg-orange-600');
+                }
+            }
+        }
+
+        // ページ読み込み時のアニメーション
+        document.addEventListener('DOMContentLoaded', function() {
+            // 目次の自動生成（省略可能）
+            const sections = document.querySelectorAll('section h2');
+            // ... 追加の初期化処理
+        });
+    </script>
+</main>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDsTZPAvQbxy9eD7XogM1TR9biZgxy95O%2BnPuHed19VPCMjOi9rndGBtQ6D94ZqnT891T8iamYs%2BJQqed%2FeY%2FB%2BaGGPiD4TGMJTx54MNRmEkbacN31SNBtXouRlYR1eVcTZPIWMdJqexbejewWH1XnKm31zyz3CwHlS0kR0Tyl1yqcakEb1F5J3CEcfvHSTlbJtSM9GFIfzDMhPpW1E9duhLj0nV75foL4c0g%2BRi5tHeD9o7oZtElZ3H7WMH0lkfEdaGHnejULPm%2FuyKyxlOkjiVwPg8gpNn7C8h%2FWMvEHcmtBUFNYoS%2FTsZspI8CJXzPlY0pLy3OLvnyk8iYZUc7ZZTCjdWmlBTguGYXYO26QZURlNJJBv2wWjEp3aoTwEYMp7poZOftu2Ml8j9M3g5nj%2Bc3k3UQebxkpoteLFxZP2QhgaIl5ydxpHIDEUmBfJVGRehRBpKhjXr3DSteU4huq1kTYjXGbyuQHH8sl3ralzCvs32Fv%2FTkyHJ516AjlJcnKO6R%2FSposPL5hEtuYh3SZjzzhITWGCuMKUlbYXuam4Pu";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDsTZPAvQbxy9eD7XogM1TR9biZgxy95O+nPuHed19VPCMjOi9rndGBtQ6D94ZqnT891T8iamYs+JQqed/eY/B+aGGPiD4TGMJTx54MNRmEkbacN31SNBtXouRlYR1eVcTZPIWMdJqexbejewWH1XnKm31zyz3CwHlS0kR0Tyl1yqcakEb1F5J3CEcfvHSTlbJtSM9GFIfzDMhPpW1E9duhLj0nV75foL4c0g+Ri5tHeD9o7oZtElZ3H7WMH0lkfEdaGHnejULPm/uyKyxlOkjiVwPg8gpNn7C8h/WMvEHcmtBUFNYoS/TsZspI8CJXzPlY0pLy3OLvnyk8iYZUc7ZZTCjdWmlBTguGYXYO26QZURlNJJBv2wWjEp3aoTwEYMp7poZOftu2Ml8j9M3g5nj+c3k3UQebxkpoteLFxZP2QhgaIl5ydxpHIDEUmBfJVGRehRBpKhjXr3DSteU4huq1kTYjXGbyuQHH8sl3ralzCvs32Fv/TkyHJ516AjlJcnKO6R/SposPL5hEtuYh3SZjzzhITWGCuMKUlbYXuam4Pu";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

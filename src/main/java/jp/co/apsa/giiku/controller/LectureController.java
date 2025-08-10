@@ -22,13 +22,13 @@ public class LectureController extends AbstractController {
     /**
      * 指定された講義ページを表示します。
      *
-     * @param page ページ名 (例: day1_lecture)
+     * @param page ページ名 (例: lecture1)
      * @return 対応するテンプレート
      */
     @GetMapping(path = {"/{page}","/{page}.html"})
     public String lecture(@PathVariable String page, Model model) {
         setTitle(model, "講義");
-        String day = page.split("_")[0].replace("day", "");
+        String day = page.replace("lecture", "");
         String title = "Day " + day + " Lecture";
         model.addAttribute("pageTitle", title);
         model.addAttribute("breadcrumb", List.of(

@@ -6,7 +6,7 @@
   const week = Math.floor((day - 1) / 3) + 1;
   const prevDay = day > 1 ? `day${day - 1}.html` : null;
   const nextDay = day < 54 ? `day${day + 1}.html` : null;
-  const lectureLink = `../lecture/day${day}_lecture.html`;
+  const lectureLink = `../lecture/lecture${day}.html`;
 
   // Remove existing navigation to avoid duplication
   document.querySelectorAll('body > nav').forEach(el => el.remove());
