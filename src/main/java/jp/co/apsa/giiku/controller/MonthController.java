@@ -28,11 +28,10 @@ public class MonthController  extends AbstractController{
     @GetMapping(path = {"/{page}","/{page}.html"})
     public String month(@PathVariable String page, Model model) {
         setTitle(model, "月別カリキュラム");
-        String title = "Month " + page.replace("month", "");
+        String title = "第" + page.replace("month", "") + "ヶ月目";
         model.addAttribute("pageTitle", title);
         model.addAttribute("breadcrumb", List.of(
-                Map.of("label", "Home", "href", "/"),
-                Map.of("label", "Month", "href", "/month"),
+                Map.of("label", "ホーム", "href", "/"),
                 Map.of("label", title)
         ));
         model.addAttribute("tabs", List.of(

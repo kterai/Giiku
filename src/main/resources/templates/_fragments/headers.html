@@ -80,15 +80,15 @@
 </div>
 
 <!-- 各ページヘッダー（パンくず＋タイトル） -->
-<div th:fragment="page(title, breadcrumb)" class="page-header">
+<div th:fragment="page(title, breadcrumb)" class="page-header container mt-2">
   <div class="breadcrumbs" th:if="${breadcrumb}">
     <span th:each="b, stat : ${breadcrumb}">
       <a th:if="${b['href'] != null}" th:href="${b['href']}" th:text="${b.label}"></a>
       <span th:if="${b['href'] == null}" th:text="${b.label}"></span>
-      <span th:if="${!stat.last}"> / </span>
+      <span th:if="${!stat.last}"> > </span>
     </span>
   </div>
-  <h2 th:text="${title}">ページタイトル</h2>
+<!--  <h2 th:text="${title}">ページタイトル</h2>-->
 </div>
 
 <!-- フッター -->
