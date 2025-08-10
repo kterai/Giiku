@@ -34,9 +34,9 @@ class LectureControllerTest {
 
     @Test
     void lecturePageReturnsView() throws Exception {
-        mockMvc.perform(get("/lecture/day1_lecture"))
+        mockMvc.perform(get("/lecture/lecture1"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("lecture/day1_lecture"));
+                .andExpect(view().name("lecture/lecture1"));
     }
 }
 

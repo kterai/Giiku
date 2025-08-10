@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム - Day26: JavaScript UI実装</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .hidden { display: none; }
+        .animate-fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .code-block {
+            background: #1a1a1a;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        .highlight { background-color: #fef3cd; padding: 2px 4px; border-radius: 3px; }
+        .fixed-nav {
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .nav-link:hover {
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+        .breadcrumb-separator::after {
+            content: ">";
+            margin: 0 8px;
+            color: #9CA3AF;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <nav class="fixed top-0 left-0 right-0 z-50 fixed-nav border-b border-gray-200">
+        <!-- メインナビゲーションバー -->
+        <div class="bg-blue-600 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-12">
+                    <div class="flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        <span class="font-semibold">ITエンジニア育成カリキュラム</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <a href="./lecture25.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-chevron-left mr-1"></i> 前の講義
+                        </a>
+                        <a href="./lecture27.html" class="nav-link px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors">
+                            次の講義 <i class="fas fa-chevron-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white px-4 py-3">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center text-sm text-gray-600">
+                        <a href="../index.html" class="hover:text-blue-600"><i class="fas fa-home mr-1"></i>ホーム</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../month/month2.html" class="hover:text-blue-600">2ヶ月目: 基本情報</a>
+                        <span class="breadcrumb-separator"></span>
+                        <a href="../week/week6.html" class="hover:text-blue-600">6週目: ネットワーク・データベース</a>
+                        <span class="breadcrumb-separator"></span>
+                        <span class="font-semibold text-blue-600">26日目: JavaScript UI実装</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <a href="../day/day26.html" class="inline-flex items-center px-3 py-1 border border-blue-300 rounded-md text-sm text-blue-600 hover:bg-blue-50 transition-colors">
+                            <i class="fas fa-clipboard-list mr-1"></i> 本日の概要
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32">
+    <div class="container mx-auto max-w-4xl px-4 py-8">
+        <!-- ヘッダー -->
+        <header class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 rounded-lg mb-8 shadow-lg">
+            <h1 class="text-3xl font-bold mb-2">
+                <i class="fas fa-code mr-3"></i>Day26: JavaScript UI実装
+            </h1>
+            <p class="text-blue-100">DOM操作・イベント処理・インタラクティブWeb教材開発の実践技術</p>
+        </header>
+
+        <!-- 学習目標 -->
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 mb-8">
+            <h2 class="text-2xl font-bold text-green-800 mb-4">
+                <i class="fas fa-target mr-2"></i>本日の学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-3">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-check-circle text-green-600 mt-1"></i>
+                        <div>
+                            <h3 class="font-bold text-green-700">DOM操作の完全理解</h3>
+                            <p class="text-sm text-gray-700">要素の取得・操作・動的生成を実践的に習得</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-check-circle text-green-600 mt-1"></i>
+                        <div>
+                            <h3 class="font-bold text-green-700">イベント処理の実装</h3>
+                            <p class="text-sm text-gray-700">ユーザーインタラクションに対応する動的Webページ作成</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-check-circle text-green-600 mt-1"></i>
+                        <div>
+                            <h3 class="font-bold text-green-700">UI制御テクニック</h3>
+                            <p class="text-sm text-gray-700">表示切替・アニメーション・フォーム制御の実践</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-check-circle text-green-600 mt-1"></i>
+                        <div>
+                            <h3 class="font-bold text-green-700">教材開発スキル</h3>
+                            <p class="text-sm text-gray-700">インタラクティブな学習コンテンツの設計・実装</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ITエンジニア豆知識 -->
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-4">
+                <i class="fas fa-lightbulb mr-2"></i>ITエンジニア豆知識
+            </h2>
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-yellow-700 mb-2">💡 JavaScriptフレームワークの進化</h3>
+                    <p class="text-sm text-gray-700 mb-2">現代のWebアプリケーション開発では、React、Vue.js、Angularなどのフレームワークが主流ですが、これらの基盤となるのがDOM操作とイベント処理の基本技術です。</p>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• <strong>jQuery時代（2006-2015）</strong>：DOM操作の簡素化が革命的</li>
+                        <li>• <strong>フレームワーク戦国時代（2010-2020）</strong>：Angular、React、Vue.jsの三つ巴</li>
+                        <li>• <strong>モダン開発（2020-現在）</strong>：TypeScript、Vite、Next.jsの台頭</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-yellow-700 mb-2">🔧 DOM操作のパフォーマンス最適化</h3>
+                    <p class="text-sm text-gray-700 mb-2">大規模なWebアプリケーションでは、DOM操作のパフォーマンスが重要な課題となります。仮想DOM、バッチ処理、メモ化などの技術が生まれた背景を理解しましょう。</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold text-yellow-700 mb-2">🌐 WebコンポーネントとCustom Elements</h3>
+                    <p class="text-sm text-gray-700 mb-2">HTML5では、独自のHTMLタグを作成できるCustom Elementsが標準化されました。これにより、再利用可能なUIコンポーネントをフレームワークに依存せずに作成できます。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 講義内容 -->
+        <div class="space-y-8">
+            <!-- 1. DOM操作の基礎 -->
+            <section class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">
+                    <i class="fas fa-sitemap mr-2 text-blue-600"></i>1. DOM操作の基礎
+                </h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-blue-800 mb-3">1.1 DOMとは？</h3>
+                        <p class="text-gray-700 mb-3">
+                            <span class="highlight font-bold">DOM（Document Object Model）</span>とは、HTML文書をJavaScriptから操作するためのプログラミングインターフェースです。
+                            まるで<strong>家の設計図</strong>のように、Webページの構造を階層的に表現しています。
+                        </p>
+                        <div class="bg-white p-3 rounded border-l-4 border-blue-400">
+                            <h4 class="font-semibold mb-2">🏠 家との比較で理解するDOM</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• <strong>家全体</strong> → document（HTML文書全体）</li>
+                                <li>• <strong>部屋</strong> → div、section（コンテナ要素）</li>
+                                <li>• <strong>家具</strong> → p、h1、img（コンテンツ要素）</li>
+                                <li>• <strong>装飾品</strong> → class、style（属性）</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-gray-800 mb-3">1.2 要素の取得方法</h3>
+                        <div class="space-y-4">
+                            <div class="code-block">
+<pre>// IDで要素を取得（最も確実）
+const titleElement = document.getElementById('page-title');
+
+// クラス名で要素を取得（複数の場合は配列的に扱う）
+const buttons = document.getElementsByClassName('btn');
+
+// タグ名で要素を取得
+const paragraphs = document.getElementsByTagName('p');
+
+// CSS セレクターで取得（最も柔軟）
+const firstButton = document.querySelector('.btn');
+const allButtons = document.querySelectorAll('.btn');</pre>
+                            </div>
+                            <div class="bg-yellow-100 p-3 rounded">
+                                <p class="text-sm"><i class="fas fa-info-circle text-yellow-600 mr-2"></i>
+                                <strong>実務のポイント：</strong>現代の開発では<code class="bg-gray-200 px-1 rounded">querySelector</code>と<code class="bg-gray-200 px-1 rounded">querySelectorAll</code>が主流です。CSSセレクターの知識がそのまま使えるためです。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-green-800 mb-3">1.3 要素の操作</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold mb-2">📝 テキスト・HTML操作</h4>
+                                <div class="code-block text-xs">
+<pre>// テキストのみ変更
+element.textContent = '新しいテキスト';
+
+// HTMLも含めて変更
+element.innerHTML = '&lt;strong&gt;太字&lt;/strong&gt;';
+
+// 属性の操作
+element.setAttribute('class', 'new-class');
+element.getAttribute('id');
+element.removeAttribute('data-old');</pre>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-2">🎨 スタイル操作</h4>
+                                <div class="code-block text-xs">
+<pre>// 直接スタイル指定
+element.style.color = 'red';
+element.style.backgroundColor = 'yellow';
+
+// クラスの操作（推奨）
+element.classList.add('active');
+element.classList.remove('inactive');
+element.classList.toggle('hidden');
+element.classList.contains('visible');</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. イベント処理 -->
+            <section class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-green-500 pb-2">
+                    <i class="fas fa-mouse-pointer mr-2 text-green-600"></i>2. イベント処理の実装
+                </h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-green-800 mb-3">2.1 イベントとは？</h3>
+                        <p class="text-gray-700 mb-3">
+                            イベントとは、ユーザーの操作（クリック、キー入力など）やブラウザの状態変化（ページ読み込み完了など）を表す<strong>「合図」</strong>のようなものです。
+                            まるで<strong>ドアベル</strong>のように、「何かが起こったよ！」と教えてくれます。
+                        </p>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mt-4">
+                            <div class="bg-white p-3 rounded border">
+                                <h4 class="font-semibold text-green-700 mb-2">🖱️ マウスイベント</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• click（クリック）</li>
+                                    <li>• mouseover（マウス乗せ）</li>
+                                    <li>• mouseout（マウス離れ）</li>
+                                    <li>• mousedown/mouseup</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-3 rounded border">
+                                <h4 class="font-semibold text-green-700 mb-2">⌨️ キーボードイベント</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• keydown（キー押下）</li>
+                                    <li>• keyup（キー離し）</li>
+                                    <li>• keypress（文字入力）</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-3 rounded border">
+                                <h4 class="font-semibold text-green-700 mb-2">📝 フォームイベント</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• submit（送信）</li>
+                                    <li>• change（値変更）</li>
+                                    <li>• input（入力中）</li>
+                                    <li>• focus/blur（フォーカス）</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-blue-800 mb-3">2.2 イベントリスナーの設定</h3>
+                        <div class="space-y-4">
+                            <div class="code-block">
+<pre>// 基本的なイベントリスナーの設定
+button.addEventListener('click', function() {
+    alert('ボタンがクリックされました！');
+});
+
+// アロー関数を使った記述（現代的）
+button.addEventListener('click', () => {
+    console.log('ボタンクリック');
+});
+
+// 名前付き関数を使用（再利用可能）
+function handleButtonClick(event) {
+    console.log('クリックされた要素:', event.target);
+    console.log('イベントの種類:', event.type);
+}
+button.addEventListener('click', handleButtonClick);</pre>
+                            </div>
+                            
+                            <div class="bg-yellow-100 p-3 rounded">
+                                <p class="text-sm"><i class="fas fa-lightbulb text-yellow-600 mr-2"></i>
+                                <strong>ベストプラクティス：</strong>複数の要素に同じ処理を適用する場合は、名前付き関数を使用して再利用性を高めましょう。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-purple-800 mb-3">2.3 実践例：インタラクティブなUI</h3>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded border">
+                                <h4 class="font-semibold mb-2">📋 実際に動作するサンプル</h4>
+                                <div class="demo-area bg-gray-100 p-4 rounded mb-4">
+                                    <button id="demo-button" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mr-2">
+                                        クリックしてください
+                                    </button>
+                                    <span id="demo-output" class="text-gray-600">まだクリックされていません</span>
+                                </div>
+                                <div class="code-block text-sm">
+<pre>// デモの実装コード
+const demoButton = document.getElementById('demo-button');
+const demoOutput = document.getElementById('demo-output');
+let clickCount = 0;
+
+demoButton.addEventListener('click', () => {
+    clickCount++;
+    demoOutput.textContent = `${clickCount}回クリックされました！`;
+    
+    // 5回クリックで特別な処理
+    if (clickCount >= 5) {
+        demoButton.style.backgroundColor = '#10B981';
+        demoOutput.textContent += ' 🎉 すごい！';
+    }
+});</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. 動的表示切替 -->
+            <section class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-purple-500 pb-2">
+                    <i class="fas fa-eye mr-2 text-purple-600"></i>3. 動的表示切替の実装
+                </h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-purple-800 mb-3">3.1 表示・非表示の基本パターン</h3>
+                        <div class="space-y-4">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="font-semibold mb-2">🔄 シンプルな切り替え</h4>
+                                    <div class="code-block text-sm">
+<pre>function toggleVisibility(elementId) {
+    const element = document.getElementById(elementId);
+    
+    if (element.style.display === 'none') {
+        element.style.display = 'block';
+    } else {
+        element.style.display = 'none';
+    }
+}</pre>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold mb-2">✨ CSSクラスを使用（推奨）</h4>
+                                    <div class="code-block text-sm">
+<pre>// CSS: .hidden { display: none; }
+function toggleVisibility(elementId) {
+    const element = document.getElementById(elementId);
+    element.classList.toggle('hidden');
+}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bg-yellow-100 p-3 rounded">
+                                <p class="text-sm"><i class="fas fa-star text-yellow-600 mr-2"></i>
+                                <strong>推奨方法：</strong>CSSクラスを使用する方法が保守性・パフォーマンス・デザインの一貫性の観点から優れています。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-indigo-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-indigo-800 mb-3">3.2 アニメーション付き表示切替</h3>
+                        <div class="space-y-4">
+                            <div class="code-block">
+<pre>// CSS トランジション用のクラス
+// .fade-in { opacity: 1; transition: opacity 0.3s ease; }
+// .fade-out { opacity: 0; transition: opacity 0.3s ease; }
+
+function fadeToggle(elementId) {
+    const element = document.getElementById(elementId);
+    
+    if (element.classList.contains('fade-out')) {
+        element.classList.remove('fade-out');
+        element.classList.add('fade-in');
+        element.style.display = 'block';
+    } else {
+        element.classList.remove('fade-in');
+        element.classList.add('fade-out');
+        
+        // アニメーション完了後に非表示
+        setTimeout(() => {
+            if (element.classList.contains('fade-out')) {
+                element.style.display = 'none';
+            }
+        }, 300);
+    }
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-green-800 mb-3">3.3 教材開発での活用例</h3>
+                        <div class="bg-white p-4 rounded border">
+                            <h4 class="font-semibold mb-3">📚 回答表示機能の実装</h4>
+                            <div class="demo-area bg-gray-100 p-4 rounded mb-4">
+                                <div class="mb-3">
+                                    <strong>問題：</strong> JavaScriptでHTML要素を取得する最も汎用的な方法は？
+                                </div>
+                                <button onclick="toggleAnswer('question1')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded mb-3">
+                                    回答を表示
+                                </button>
+                                <div id="question1-answer" class="hidden bg-green-100 p-3 rounded">
+                                    <strong>回答：</strong> document.querySelector() または document.querySelectorAll()<br>
+                                    <strong>解説：</strong> CSSセレクターを使用できるため、ID、クラス、属性など様々な条件で要素を取得できます。
+                                </div>
+                            </div>
+                            
+                            <div class="code-block text-sm">
+<pre>function toggleAnswer(questionId) {
+    const answerElement = document.getElementById(questionId + '-answer');
+    const button = event.target;
+    
+    if (answerElement.classList.contains('hidden')) {
+        answerElement.classList.remove('hidden');
+        answerElement.classList.add('animate-fade-in');
+        button.textContent = '回答を非表示';
+        button.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+        button.classList.add('bg-gray-500', 'hover:bg-gray-600');
+    } else {
+        answerElement.classList.add('hidden');
+        button.textContent = '回答を表示';
+        button.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+        button.classList.add('bg-blue-500', 'hover:bg-blue-600');
+    }
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. フォーム制御とバリデーション -->
+            <section class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-red-500 pb-2">
+                    <i class="fas fa-wpforms mr-2 text-red-600"></i>4. フォーム制御とバリデーション
+                </h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-red-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-red-800 mb-3">4.1 リアルタイムバリデーション</h3>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded border">
+                                <h4 class="font-semibold mb-3">📧 実践例：メール入力フォーム</h4>
+                                <div class="demo-area bg-gray-100 p-4 rounded mb-4">
+                                    <label class="block mb-2 font-semibold">メールアドレス:</label>
+                                    <input type="email" id="email-input" class="w-full p-2 border rounded mb-2" placeholder="example@email.com">
+                                    <div id="email-validation" class="text-sm"></div>
+                                </div>
+                                
+                                <div class="code-block text-sm">
+<pre>const emailInput = document.getElementById('email-input');
+const validationDiv = document.getElementById('email-validation');
+
+emailInput.addEventListener('input', (event) => {
+    const email = event.target.value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (email === '') {
+        validationDiv.textContent = '';
+        emailInput.classList.remove('border-red-500', 'border-green-500');
+    } else if (emailRegex.test(email)) {
+        validationDiv.textContent = '✅ 有効なメールアドレスです';
+        validationDiv.className = 'text-sm text-green-600';
+        emailInput.classList.remove('border-red-500');
+        emailInput.classList.add('border-green-500');
+    } else {
+        validationDiv.textContent = '❌ 正しいメールアドレスを入力してください';
+        validationDiv.className = 'text-sm text-red-600';
+        emailInput.classList.remove('border-green-500');
+        emailInput.classList.add('border-red-500');
+    }
+});</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="font-bold text-blue-800 mb-3">4.2 動的フォーム要素の制御</h3>
+                        <div class="space-y-4">
+                            <div class="code-block">
+<pre>// セレクトボックスの連動制御
+function updateCityOptions(prefecture) {
+    const citySelect = document.getElementById('city-select');
+    const cities = {
+        '東京都': ['新宿区', '渋谷区', '港区', '中央区'],
+        '大阪府': ['大阪市', '堺市', '高槻市', '枚方市'],
+        '愛知県': ['名古屋市', '豊田市', '岡崎市', '一宮市']
+    };
+    
+    // 既存のオプションをクリア
+    citySelect.innerHTML = '&lt;option value=""&gt;市区町村を選択&lt;/option&gt;';
+    
+    // 新しいオプションを追加
+    if (cities[prefecture]) {
+        cities[prefecture].forEach(city => {
+            const option = document.createElement('option');
+            option.value = city;
+            option.textContent = city;
+            citySelect.appendChild(option);
+        });
+        citySelect.disabled = false;
+    } else {
+        citySelect.disabled = true;
+    }
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 理解度チェック -->
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-blue-800 mb-6">
+                <i class="fas fa-question-circle mr-2"></i>理解度チェック
+            </h2>
+            <div class="space-y-6">
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold mb-3">問題1: DOM操作の基本</h3>
+                    <p class="mb-3">ID が "myButton" の要素を取得し、クリックイベントリスナーを設定する正しいコードは？</p>
+                    <div class="space-y-2 mb-3">
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q1" value="A">
+                            <span>A) document.getElement('myButton').onclick = function() {};</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q1" value="B">
+                            <span>B) document.getElementById('myButton').addEventListener('click', function() {});</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q1" value="C">
+                            <span>C) document.querySelector('#myButton').addEvent('click', function() {});</span>
+                        </label>
+                    </div>
+                    <button onclick="toggleAnswer('q1')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                        回答を表示
+                    </button>
+                    <div id="q1-answer" class="hidden mt-3 p-3 bg-green-100 rounded">
+                        <p><strong>正解: B</strong></p>
+                        <p><strong>解説:</strong> document.getElementById()で要素を取得し、addEventListener()でイベントリスナーを設定するのが標準的な方法です。この方法により、複数のイベントリスナーを同じ要素に設定することも可能です。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold mb-3">問題2: 要素の表示切替</h3>
+                    <p class="mb-3">要素の表示・非表示を切り替える最も推奨される方法は？</p>
+                    <div class="space-y-2 mb-3">
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q2" value="A">
+                            <span>A) element.style.display = 'none' / 'block'</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q2" value="B">
+                            <span>B) element.classList.toggle('hidden')</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q2" value="C">
+                            <span>C) element.hidden = true / false</span>
+                        </label>
+                    </div>
+                    <button onclick="toggleAnswer('q2')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                        回答を表示
+                    </button>
+                    <div id="q2-answer" class="hidden mt-3 p-3 bg-green-100 rounded">
+                        <p><strong>正解: B</strong></p>
+                        <p><strong>解説:</strong> CSSクラスを使用する方法が保守性、再利用性、パフォーマンスの面で優れています。スタイルとロジックの分離も実現でき、アニメーション効果も簡単に追加できます。</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold mb-3">問題3: イベントオブジェクト</h3>
+                    <p class="mb-3">イベントハンドラー内で、イベントが発生した要素を取得するプロパティは？</p>
+                    <div class="space-y-2 mb-3">
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q3" value="A">
+                            <span>A) event.source</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q3" value="B">
+                            <span>B) event.target</span>
+                        </label>
+                        <label class="flex items-center space-x-2">
+                            <input type="radio" name="q3" value="C">
+                            <span>C) event.element</span>
+                        </label>
+                    </div>
+                    <button onclick="toggleAnswer('q3')" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                        回答を表示
+                    </button>
+                    <div id="q3-answer" class="hidden mt-3 p-3 bg-green-100 rounded">
+                        <p><strong>正解: B</strong></p>
+                        <p><strong>解説:</strong> event.targetは、イベントが実際に発生した要素を表しています。event.currentTargetは、イベントリスナーが設定された要素を表すため、状況によって使い分けが必要です。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 演習問題 -->
+        <div class="bg-green-50 border border-green-200 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-green-800 mb-6">
+                <i class="fas fa-laptop-code mr-2"></i>実践演習問題
+            </h2>
+            <div class="space-y-6">
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold mb-3">💡 演習問題1: ToDo リスト機能の実装</h3>
+                    <p class="text-gray-700 mb-4">
+                        以下の要件を満たすシンプルなToDoリスト機能を実装してください：
+                    </p>
+                    <ul class="list-disc list-inside mb-4 space-y-1">
+                        <li>テキスト入力フィールドと「追加」ボタン</li>
+                        <li>入力されたタスクをリストに動的に追加</li>
+                        <li>各タスクに「完了」ボタンを設置</li>
+                        <li>完了ボタンクリックで取り消し線を表示</li>
+                        <li>空の入力の場合はアラート表示</li>
+                    </ul>
+                    <button onclick="toggleAnswer('exercise1')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                        解答例を表示
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exercise1-answer" class="hidden mt-4 p-4 bg-gray-50 rounded">
+                        <h4 class="font-semibold mb-2">解答例:</h4>
+                        <div class="code-block text-sm">
+<pre>// HTML
+&lt;div&gt;
+    &lt;input type="text" id="taskInput" placeholder="新しいタスクを入力"&gt;
+    &lt;button onclick="addTask()"&gt;追加&lt;/button&gt;
+    &lt;ul id="taskList"&gt;&lt;/ul&gt;
+&lt;/div&gt;
+
+// JavaScript
+function addTask() {
+    const input = document.getElementById('taskInput');
+    const taskText = input.value.trim();
+    
+    if (taskText === '') {
+        alert('タスクを入力してください');
+        return;
+    }
+    
+    const taskList = document.getElementById('taskList');
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `
+        &lt;span&gt;${taskText}&lt;/span&gt;
+        &lt;button onclick="toggleComplete(this)" class="ml-2 bg-blue-500 text-white px-2 py-1 rounded"&gt;完了&lt;/button&gt;
+    `;
+    
+    taskList.appendChild(listItem);
+    input.value = '';
+}
+
+function toggleComplete(button) {
+    const taskSpan = button.previousElementSibling;
+    if (taskSpan.style.textDecoration === 'line-through') {
+        taskSpan.style.textDecoration = 'none';
+        button.textContent = '完了';
+    } else {
+        taskSpan.style.textDecoration = 'line-through';
+        button.textContent = '取消';
+    }
+}</pre>
+                        </div>
+                        <div class="mt-3 p-3 bg-yellow-100 rounded">
+                            <p class="text-sm"><strong>ポイント:</strong> createElement()とinnerHTMLを使い分け、ユーザビリティを考慮した入力検証を実装。実際の開発では、配列でデータを管理し、状態管理を行うことが重要です。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 class="font-bold mb-3">💡 演習問題2: 画像ギャラリーの実装</h3>
+                    <p class="text-gray-700 mb-4">
+                        クリックで拡大表示される画像ギャラリーを実装してください：
+                    </p>
+                    <ul class="list-disc list-inside mb-4 space-y-1">
+                        <li>サムネイル画像を3〜4枚表示</li>
+                        <li>サムネイルクリックで大きな画像をモーダル表示</li>
+                        <li>モーダルの背景クリックで閉じる</li>
+                        <li>ESCキーでも閉じる機能</li>
+                        <li>フェードイン・フェードアウト効果</li>
+                    </ul>
+                    <button onclick="toggleAnswer('exercise2')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                        解答例を表示
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')" id="exercise2-answer" class="hidden mt-4 p-4 bg-gray-50 rounded">
+                        <h4 class="font-semibold mb-2">解答例（抜粋）:</h4>
+                        <div class="code-block text-sm">
+<pre>// CSS
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+// JavaScript
+function openModal(imageSrc) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    
+    modalImg.src = imageSrc;
+    modal.classList.add('show');
+    
+    // ESCキーで閉じる
+    document.addEventListener('keydown', closeOnEscape);
+}
+
+function closeModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.remove('show');
+    document.removeEventListener('keydown', closeOnEscape);
+}
+
+function closeOnEscape(event) {
+    if (event.key === 'Escape') {
+        closeModal();
+    }
+}
+
+// 背景クリックで閉じる
+document.getElementById('imageModal').addEventListener('click', (event) => {
+    if (event.target === event.currentTarget) {
+        closeModal();
+    }
+});</pre>
+                        </div>
+                        <div class="mt-3 p-3 bg-yellow-100 rounded">
+                            <p class="text-sm"><strong>ポイント:</strong> CSSトランジションとJavaScriptの組み合わせでスムーズなアニメーション。イベントリスナーの適切な追加・削除でメモリリークを防止。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- まとめ -->
+        <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6 rounded-lg mb-8">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-graduation-cap mr-2"></i>本日のまとめ
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white bg-opacity-20 p-4 rounded">
+                    <h3 class="font-bold mb-2">🎯 習得した技術</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• DOM要素の取得・操作</li>
+                        <li>• イベントリスナーの設定</li>
+                        <li>• 動的表示切替</li>
+                        <li>• フォーム制御</li>
+                        <li>• アニメーション実装</li>
+                    </ul>
+                </div>
+                <div class="bg-white bg-opacity-20 p-4 rounded">
+                    <h3 class="font-bold mb-2">💡 重要なポイント</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• CSSクラス活用の重要性</li>
+                        <li>• イベントオブジェクトの理解</li>
+                        <li>• ユーザビリティ重視</li>
+                        <li>• 保守性を考慮した実装</li>
+                        <li>• エラーハンドリング</li>
+                    </ul>
+                </div>
+                <div class="bg-white bg-opacity-20 p-4 rounded">
+                    <h3 class="font-bold mb-2">🚀 次回への準備</h3>
+                    <ul class="text-sm space-y-1">
+                        <li>• 今日の演習を復習</li>
+                        <li>• 独自のUI改善を考案</li>
+                        <li>• レスポンシブ対応を検討</li>
+                        <li>• アクセシビリティを意識</li>
+                        <li>• パフォーマンス最適化</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 次回予告 -->
+        <div class="bg-yellow-50 border-l-4 border-yellow-500 p-6">
+            <h2 class="text-xl font-bold text-yellow-800 mb-3">
+                <i class="fas fa-arrow-right mr-2"></i>次回予告: Day27 データ分析・プロンプトエンジニアリング
+            </h2>
+            <p class="text-gray-700">
+                明日は、データ分析の基礎理論から実践的なプロンプト設計まで、AI時代に必須となるデータ分析スキルを学習します。
+                今日学んだJavaScript技術は、データ可視化やインタラクティブなダッシュボード作成でも活用されます！
+            </p>
+        </div>
+      </div>
+    </main>
+
+      <!-- JavaScript -->
+      <script>
+        // 回答表示切替機能
+        function toggleAnswer(questionId) {
+            const answerElement = document.getElementById(questionId + '-answer');
+            const button = event.target;
+            
+            if (answerElement.classList.contains('hidden')) {
+                answerElement.classList.remove('hidden');
+                answerElement.classList.add('animate-fade-in');
+                button.textContent = '回答を非表示';
+                button.classList.remove('bg-blue-500', 'hover:bg-blue-600', 'bg-green-500', 'hover:bg-green-600');
+                button.classList.add('bg-gray-500', 'hover:bg-gray-600');
+            } else {
+                answerElement.classList.add('hidden');
+                if (button.textContent.includes('解答例')) {
+                    button.textContent = '解答例を表示';
+                    button.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+                    button.classList.add('bg-green-500', 'hover:bg-green-600');
+                } else {
+                    button.textContent = '回答を表示';
+                    button.classList.remove('bg-gray-500', 'hover:bg-gray-600');
+                    button.classList.add('bg-blue-500', 'hover:bg-blue-600');
+                }
+            }
+        }
+
+        // デモボタンの動作
+        document.addEventListener('DOMContentLoaded', function() {
+            const demoButton = document.getElementById('demo-button');
+            const demoOutput = document.getElementById('demo-output');
+            let clickCount = 0;
+            
+            if (demoButton && demoOutput) {
+                demoButton.addEventListener('click', () => {
+                    clickCount++;
+                    demoOutput.textContent = `${clickCount}回クリックされました！`;
+                    
+                    if (clickCount >= 5) {
+                        demoButton.style.backgroundColor = '#10B981';
+                        demoOutput.textContent += ' 🎉 すごい！';
+                    }
+                });
+            }
+
+            // メールバリデーションのデモ
+            const emailInput = document.getElementById('email-input');
+            const validationDiv = document.getElementById('email-validation');
+            
+            if (emailInput && validationDiv) {
+                emailInput.addEventListener('input', (event) => {
+                    const email = event.target.value;
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    
+                    if (email === '') {
+                        validationDiv.textContent = '';
+                        emailInput.classList.remove('border-red-500', 'border-green-500');
+                    } else if (emailRegex.test(email)) {
+                        validationDiv.textContent = '✅ 有効なメールアドレスです';
+                        validationDiv.className = 'text-sm text-green-600';
+                        emailInput.classList.remove('border-red-500');
+                        emailInput.classList.add('border-green-500');
+                    } else {
+                        validationDiv.textContent = '❌ 正しいメールアドレスを入力してください';
+                        validationDiv.className = 'text-sm text-red-600';
+                        emailInput.classList.remove('border-green-500');
+                        emailInput.classList.add('border-red-500');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDs14iY0MMXOWoaeEXGHa%2F%2F8jKeIgrpUWw9rv5Lb53v9Z23MJJyJI9Wmf%2BNdKBLXZkpWhIeuEB6TXB1H%2FpeiQzwPDr5qwZEzl7p%2Fr6P%2FMn5TsEVgi%2BUgAOKZRxKHazMLrmBW%2FI0CHTByhugitwGKz8ibYqhDjhpZccntsIV6uPRTAIJEHE3JuowQsOR9kBR3DMvTAVC3T7FG1OuaNmz6aXvGAPNWbuxb7xLgGjNPOoj6SZHhO1BSGyksoROHAHgi%2FGtQnWNI4p2TFccYOgHf7a0XPUkiEzLJvF%2F79jvZMuLie%2Bd%2FIf9662ET0eFH0guzgTzOgrEphMxJ5A%2F7UaL%2FY%2FA2oQOmZke4SanmKNMjN%2BnuHBcYWXzrS0R8Ooi%2FCB5XriBtq6zkhPe3s7XZU0axBma8Riz8nnLbHuCPavbIZb2OHZ3TxVCIiyexF5%2FO870PUL%2FFf4AbYtDZ%2BiWcFQA0DkdS6Y94TxUmWoi%2Bp5lPgfWcfy75nAPWjvQiY9YABEC3uUw%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDs14iY0MMXOWoaeEXGHa//8jKeIgrpUWw9rv5Lb53v9Z23MJJyJI9Wmf+NdKBLXZkpWhIeuEB6TXB1H/peiQzwPDr5qwZEzl7p/r6P/Mn5TsEVgi+UgAOKZRxKHazMLrmBW/I0CHTByhugitwGKz8ibYqhDjhpZccntsIV6uPRTAIJEHE3JuowQsOR9kBR3DMvTAVC3T7FG1OuaNmz6aXvGAPNWbuxb7xLgGjNPOoj6SZHhO1BSGyksoROHAHgi/GtQnWNI4p2TFccYOgHf7a0XPUkiEzLJvF/79jvZMuLie+d/If9662ET0eFH0guzgTzOgrEphMxJ5A/7UaL/Y/A2oQOmZke4SanmKNMjN+nuHBcYWXzrS0R8Ooi/CB5XriBtq6zkhPe3s7XZU0axBma8Riz8nnLbHuCPavbIZb2OHZ3TxVCIiyexF5/O870PUL/Ff4AbYtDZ+iWcFQA0DkdS6Y94TxUmWoi+p5lPgfWcfy75nAPWjvQiY9YABEC3uUw==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

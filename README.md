@@ -53,10 +53,10 @@
 - ページ間ナビゲーションの実装
 - Day1～Day10講義ページに前後リンクを追加
 - `day1_slides.html` の追加（Day 1 講義スライド）
-- `day2_lecture.html` のページング対応
-- `day3_lecture.html` のページング対応
+- `lecture2.html` のページング対応
+- `lecture3.html` のページング対応
 - `day2`～`day10`の各ページに講義スライドリンクを追加
-- `day11_lecture.html` の追加
+- `lecture11.html` の追加
 - `day11.html` に講義スライドリンクを追加
 - Day1〜Day5講義ページに標準ナビゲーションを追加
 - Day6〜Day10講義ページに標準ナビゲーションを追加
@@ -78,12 +78,12 @@
 - フロントエンド：ダッシュボードにindex.htmlの静的コンテンツを直接埋め込み
 - フロントエンド：共通ヘッダーを画面上部に固定
 - バックエンド：day、week、month、lectureフォルダのHTMLを表示するコントローラーを追加
-- dayX_lecture.htmlの回答ボタンと内容をADMIN/INSTRUCTORのみ表示に変更（静的HTMLでは全表示）
+- lectureX.htmlの回答ボタンと内容をADMIN/INSTRUCTORのみ表示に変更（静的HTMLでは全表示）
 - テンプレート導入に伴い消失したサンプルページのコンテンツを復元し、既存ナビゲーションと見た目を維持するルールを追加
 - フロントエンド：layout.htmlにweek1.htmlのヘッダーとフッターを適用
 - フロントエンド：layout.htmlのナビゲーション配色をロゴの青に合わせて改善
 - バックエンド：セッション切れ後のログインエラーを修正
-- テンプレート構成を整理し、Thymeleafレイアウトとサンプルページ（month1、week1、day1、day1_lecture、admin/index）を追加
+- テンプレート構成を整理し、Thymeleafレイアウトとサンプルページ（month1、week1、day1、lecture1、admin/index）を追加
 
 ## 今後のタスク（優先順位順）
 1. `day6.html`〜`day54.html` の作成（残り49日分）
