@@ -3,425 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ITエンジニア育成カリキュラム 作業進捗と今後の計画（更新版）</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.10/dist/tailwind.min.css" rel="stylesheet">
+    <title>ITエンジニア育成カリキュラム 作業進捗と今後の計画（Bootstrap版）</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        .bg-custom-blue {
-            background-color: #1a4f8e;
+        .bg-custom-blue { 
+            background-color: #1a4f8e !important; 
         }
-        .bg-custom-light {
-            background-color: #f0f7ff;
+        .bg-custom-light { 
+            background-color: #f0f7ff !important; 
         }
-        .border-custom-blue {
-            border-color: #1a4f8e;
+        .border-custom-blue { 
+            border-color: #1a4f8e !important; 
         }
-        .text-custom-blue {
-            color: #1a4f8e;
+        .text-custom-blue { 
+            color: #1a4f8e !important; 
         }
-        .progress-container {
+        .progress-custom {
             height: 20px;
             background-color: #e2e8f0;
             border-radius: 10px;
             margin-bottom: 10px;
         }
-        .progress-bar {
+        .progress-bar-custom {
             height: 100%;
             border-radius: 10px;
+            transition: width 0.3s ease;
         }
     </style>
 </head>
-<body class="bg-gray-100">
-    <header class="bg-custom-blue text-white py-6 shadow-lg">
-        <div class="container mx-auto px-4">
-            <h1 class="text-3xl font-bold">ITエンジニア育成カリキュラム</h1>
-            <p class="text-xl">作業進捗と今後の計画（更新版）</p>
+<body class="bg-light">
+    <header class="bg-custom-blue text-white py-4 shadow-lg">
+        <div class="container">
+            <h1 class="fs-2 fw-bold mb-1">ITエンジニア育成カリキュラム</h1>
+            <p class="fs-4 mb-0">作業進捗と今後の計画（Bootstrap版）</p>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-6">
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-custom-blue mb-4">プロジェクト概要</h2>
-        <p class="mb-4">このプロジェクトは、IT未経験者を3ヶ月間で基礎から応用まで育成するための総合カリキュラムのWebサイト作成です。全54日分のカリキュラム内容を日別・週別・月別に整理し、体系的な学習環境を提供します。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-10: Tailwind CSSをnpmとGradleで自動ビルドし、tailwind.min.cssを生成。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-11: Tailwind CSSの利用を廃止し、Bootstrapに統一。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-10: テンプレート構成を整理し、Thymeleafレイアウトとサンプルページを追加。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-10: サンプルページのコンテンツを復元し、レイアウト適用時は既存ナビゲーションと見た目を保持するルールを明文化。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-10: ヘッダーナビゲーションが表示されない問題を修正。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-09: セッション切れ後のログインエラーを修正。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-10: 共通ヘッダーを画面上部に固定。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-09: layout.htmlのナビゲーション配色をロゴの青に合わせて改善。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-09: layout.htmlにweek1.htmlのヘッダーとフッターを適用。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-09: day・week・month・lectureフォルダの全HTMLを表示するコントローラーを追加。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-08: dashboard.htmlにindex.htmlの静的コンテンツを直接埋め込み。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-07: dashboard.htmlにindex.htmlの静的コンテンツを表示。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-07: dashboard.htmlをindex.htmlのスタイルに合わせて更新。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-07: dashboard.htmlがlayout.htmlを利用するよう修正。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-07: AbstractController・Dashboard・ログイン画面のテストを追加。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-06: エンティティとリポジトリにJavaDocコメントと入力チェックを追加。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-06: Day46〜Day54講義ページに標準ナビゲーションを追加。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-06: Day36〜Day45講義ページに標準ナビゲーションを追加。</p>
-         <p class="text-gray-600 text-sm mb-2">2025-08-06: Day31〜Day35講義ページに標準ナビゲーションを追加。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-06: Day26〜Day30講義ページに標準ナビゲーションを追加。</p>
-        <p class="text-gray-600 text-sm mb-2">2025-08-06: Day21〜Day25講義ページに標準ナビゲーションを追加。</p>
-    <p class="text-gray-600 text-sm mb-2">2025-08-06: Day16〜Day20講義ページに標準ナビゲーションを追加。</p>
-    <p class="text-gray-600 text-sm mb-2">2025-08-06: Day11〜Day15講義ページに標準ナビゲーションを追加。</p>
-    <p class="text-gray-600 text-sm mb-2">2025-08-06: Day6〜Day10講義ページに標準ナビゲーションを追加。</p>
-    <p class="text-gray-600 text-sm mb-2">2025-08-06: Day1〜Day5講義ページに標準ナビゲーションを追加。</p>
-            <p class="text-gray-600 text-sm mb-2">2025-08-02: Day11ページに講義スライドリンクを追加。</p>
-            <p class="text-gray-600 text-sm mb-2">2025-08-01: Day11講義ページを追加。</p>
-            <p class="text-gray-600 text-sm mb-2">2025-07-31: Day1～Day10講義ページに前回・次回ナビゲーションを追加。</p>
-            <p class="text-gray-600 text-sm mb-2">2025-07-31: Day2～Day10ページに講義スライドリンクを追加。</p>
-            <p class="text-gray-600 text-sm mb-2">2025-07-30: Day3講義ページのページングを実装。</p>
-            <p class="text-gray-600 text-sm mb-4">2025-07-29: Day2講義ページのページングを実装。</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div class="bg-custom-light rounded-lg p-4">
-                    <h3 class="font-bold text-lg mb-2">第1ヶ月目</h3>
-                    <p>Java Silver対策</p>
+    <main class="container py-4">
+        <div class="bg-white rounded shadow p-4 mb-4">
+            <h2 class="fs-3 fw-bold text-custom-blue mb-4">カリキュラム概要</h2>
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="bg-custom-light rounded p-3">
+                        <h3 class="fw-bold fs-5 mb-2">第1ヶ月目</h3>
+                        <p class="mb-0">Java Silver対策</p>
+                    </div>
                 </div>
-                <div class="bg-custom-light rounded-lg p-4">
-                    <h3 class="font-bold text-lg mb-2">第2ヶ月目</h3>
-                    <p>基本情報技術者試験対策</p>
+                <div class="col-md-4">
+                    <div class="bg-custom-light rounded p-3">
+                        <h3 class="fw-bold fs-5 mb-2">第2ヶ月目</h3>
+                        <p class="mb-0">基本情報技術者試験対策</p>
+                    </div>
                 </div>
-                <div class="bg-custom-light rounded-lg p-4">
-                    <h3 class="font-bold text-lg mb-2">第3ヶ月目</h3>
-                    <p>Webアプリ開発実践</p>
+                <div class="col-md-4">
+                    <div class="bg-custom-light rounded p-3">
+                        <h3 class="fw-bold fs-5 mb-2">第3-4ヶ月目</h3>
+                        <p class="mb-0">Webアプリケーション開発</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-2xl font-bold text-custom-blue mb-4">進捗概要</h2>
-                <div class="mb-4">
-                    <div class="flex justify-between mb-1">
-                        <span class="font-bold">全体進捗</span>
-                        <span>56%</span>
+        <div class="row g-4 mb-4">
+            <div class="col-lg-6">
+                <div class="bg-white rounded shadow p-4">
+                    <h2 class="fs-3 fw-bold text-custom-blue mb-4">進捗概要</h2>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="fw-bold">全体進捗</span>
+                            <span>56%</span>
+                        </div>
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom bg-success" style="width: 56%"></div>
+                        </div>
                     </div>
-                    <div class="progress-container">
-                        <div class="progress-bar bg-green-500" style="width: 56%"></div>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="fw-bold">月別ページ</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom bg-success" style="width: 100%"></div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="mb-4">
-                    <div class="flex justify-between mb-1">
-                        <span class="font-bold">月別ページ</span>
-                        <span>100%</span>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="fw-bold">週別ページ</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom bg-success" style="width: 100%"></div>
+                        </div>
                     </div>
-                    <div class="progress-container">
-                        <div class="progress-bar bg-green-500" style="width: 100%"></div>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="fw-bold">日別ページ</span>
+                            <span>9%</span>
+                        </div>
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom bg-warning" style="width: 9%"></div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="mb-4">
-                    <div class="flex justify-between mb-1">
-                        <span class="font-bold">週別ページ</span>
-                        <span>100%</span>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-bar bg-green-500" style="width: 100%"></div>
-                    </div>
-                </div>
-                
-                <div class="mb-4">
-                    <div class="flex justify-between mb-1">
-                        <span class="font-bold">日別ページ</span>
-                        <span>9%</span>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-bar bg-yellow-500" style="width: 9%"></div>
-                    </div>
-                </div>
-                
-                <div>
-                    <div class="flex justify-between mb-1">
-                        <span class="font-bold">リソースページ</span>
-                        <span>100%</span>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-bar bg-green-500" style="width: 100%"></div>
+
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="fw-bold">リソースページ</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="progress-custom">
+                            <div class="progress-bar-custom bg-success" style="width: 100%"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-2xl font-bold text-custom-blue mb-4">進捗チャート</h2>
-                <div style="height: 300px;">
-                    <canvas id="progressChart"></canvas>
+
+            <div class="col-lg-6">
+                <div class="bg-white rounded shadow p-4">
+                    <h2 class="fs-3 fw-bold text-custom-blue mb-4">進捗チャート</h2>
+                    <div style="height: 300px;">
+                        <canvas id="progressChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-custom-blue mb-4">プロジェクト構造</h2>
-            <div class="bg-gray-800 text-green-300 p-4 rounded-lg overflow-auto font-mono text-sm mb-4" style="max-height: 300px;">
-<pre>
-/ITエンジニア育成カリキュラム/
+        <div class="bg-white rounded shadow p-4 mb-4">
+            <h2 class="fs-3 fw-bold text-custom-blue mb-4">完了タスク</h2>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <h3 class="fs-5 fw-bold mb-3"><i class="fas fa-check-circle text-success me-2"></i>完了済み項目</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <span class="badge bg-success small me-2">2025-08-10</span>
+                            基本HTMLファイル構造の構築
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <span class="badge bg-success small me-2">2025-08-10</span>
+                            月別ページ（month1.html～month3.html）の作成
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <span class="badge bg-success small me-2">2025-08-10</span>
+                            週別ページ（week1.html～week12.html）の作成
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-check-circle text-success me-2"></i>
+                            <span class="badge bg-success small me-2">2025-08-10</span>
+                            リソースページ（resources.html、faq.html、advanced.html）の作成
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="fs-5 fw-bold mb-3"><i class="fas fa-clock text-warning me-2"></i>現在作業中</h3>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-clock text-warning me-2"></i>
+                            <span class="badge bg-warning text-dark small me-2">進行中</span>
+                            日別ページ（day1.html～day5.html）の詳細コンテンツ作成
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-clock text-warning me-2"></i>
+                            <span class="badge bg-warning text-dark small me-2">進行中</span>
+                            Bootstrap統一作業
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded shadow p-4 mb-4">
+            <h2 class="fs-3 fw-bold text-custom-blue mb-4">プロジェクト構造</h2>
+            <div class="bg-dark text-success p-3 rounded font-monospace small mb-4" style="max-height: 300px; overflow-y: auto;">
+                <pre>/ITエンジニア育成カリキュラム/
 ├── css/
 │   └── style.css
 ├── images/
 │   └── (各種画像ファイル - 未作成)
 ├── js/
-│   └── main.js
-├── pages/
-│   ├── day/
-│   │   ├── day1.html
-│   │   ├── day2.html
-│   │   ├── day3.html
-│   │   ├── day4.html
-│   │   ├── day5.html
-│   │   └── day_template.html (テンプレート)
-│   ├── month/
-│   │   ├── month1.html
-│   │   ├── month2.html
-│   │   └── month3.html
-│   └── week/
-│       ├── week1.html
-│       ├── week2.html
-│       ├── week3.html
-│       ├── week4.html
-│       ├── week5.html
-│       ├── week6.html
-│       ├── week7.html
-│       ├── week8.html
-│       ├── week9.html
-│       ├── week10.html
-│       ├── week11.html
-│       └── week12.html
-├── resources/
-│   ├── advanced.html
-│   ├── faq.html
-│   └── resources.html
+│   └── script.js
 ├── index.html
-└── 作業進捗と計画.html
-</pre>
+├── dashboard.html
+├── resources.html
+├── faq.html
+├── advanced.html
+├── month1.html
+├── month2.html
+├── month3.html
+├── week1.html～week12.html
+├── day1.html～day5.html (作成開始済)
+├── day6.html～day54.html (今後作成予定)
+├── day_template.html
+├── lecture1.html～lecture11.html
+├── day1_slides.html
+└── progress_and_planning.html</pre>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-2xl font-bold text-custom-blue mb-4">完了済みのタスク</h2>
-                <ul class="list-none space-y-2">
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <div>
-                            <h3 class="font-bold">基本構造の設計</h3>
-                            <p class="text-gray-600 text-sm">ディレクトリ構造の作成、ベースとなるindex.htmlの確認</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <div>
-                            <h3 class="font-bold">月別カリキュラムページの作成</h3>
-                            <p class="text-gray-600 text-sm">month1.html（Java Silver）、month2.html（基本情報）、month3.html（Web開発）</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <div>
-                            <h3 class="font-bold">週別カリキュラムページの作成</h3>
-                            <p class="text-gray-600 text-sm">week1.html～week12.html（全12週分）</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <div>
-                            <h3 class="font-bold">日別カリキュラムページの開始</h3>
-                            <p class="text-gray-600 text-sm">day1.html～day5.html（第1週分）</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <div>
-                            <h3 class="font-bold">リソース関連ページの作成</h3>
-                            <p class="text-gray-600 text-sm">resources.html（学習リソース）、faq.html（よくある質問）、advanced.html（応用コース）</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <div>
-                            <h3 class="font-bold">テンプレート作成</h3>
-                            <p class="text-gray-600 text-sm">day_template.htmlの作成（日別ページ用テンプレート）</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <div>
-                            <h3 class="font-bold">ナビゲーション実装</h3>
-                            <p class="text-gray-600 text-sm">各ページ間の相互リンク、階層ナビゲーションの実装</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <div>
-                            <h3 class="font-bold">Day1講義スライドページ</h3>
-                            <p class="text-gray-600 text-sm">day1_slides.html を追加し、講義スライドを閲覧可能に</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <div>
-                            <h3 class="font-bold">バックエンドの整備</h3>
-                            <p class="text-gray-600 text-sm">schema.sqlに合わせエンティティとリポジトリを整理</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <div>
-                            <h3 class="font-bold">Slack通知とログ機能の復元</h3>
-                            <p class="text-gray-600 text-sm">Slack連携と監査ログ処理を戻しテストを再追加</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <div>
-                            <h3 class="font-bold">ダッシュボードと共通コントローラの復元</h3>
-                            <p class="text-gray-600 text-sm">AbstractControllerとDashboard機能を再導入</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <div>
-                            <h3 class="font-bold">ログイン画面とテストの整備</h3>
-                            <p class="text-gray-600 text-sm">AbstractController・Dashboard・ログイン画面のテストを再追加</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <i class="fas fa-check-circle text-green-500 mt-1 mr-2"></i>
-                        <div>
-                            <h3 class="font-bold">回答表示機能の権限制御</h3>
-                            <p class="text-gray-600 text-sm">lectureX.html の「回答例」「回答」を ADMIN と INSTRUCTOR のみに表示し、静的HTMLでは全項目が表示されるようにルール化</p>
-                        </div>
-                    </li>
-                </ul>
+        <div class="bg-white rounded shadow p-4 mb-4">
+            <h2 class="fs-3 fw-bold text-custom-blue mb-4">重要な変更履歴</h2>
+            <div class="bg-warning bg-opacity-10 border-start border-4 border-warning p-3 mb-3">
+                <h3 class="fw-bold mb-2"><i class="fas fa-exclamation-triangle text-warning me-2"></i>2025-08-11: Bootstrap統一</h3>
+                <p class="text-muted small mb-0">Tailwind CSSの利用を廃止し、Bootstrapに統一。デザインの一貫性を保ちつつ、より軽量な実装に移行。</p>
             </div>
-            
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-2xl font-bold text-custom-blue mb-4">今後のタスク（優先順位順）</h2>
-                <ul class="list-none space-y-2">
-                    <li class="flex items-start">
-                        <div class="bg-red-100 text-red-800 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-2 mt-1">1</div>
-                        <div>
-                            <h3 class="font-bold">日別カリキュラムページの作成（高優先度）</h3>
-                            <p class="text-gray-600 text-sm">day_template.htmlを活用し、day6.html～day54.htmlを作成（残り49日分）</p>
-                            <div class="mt-1">
-                                <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">作業量: 大</span>
-                                <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">テンプレート活用</span>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <div class="bg-orange-100 text-orange-800 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-2 mt-1">2</div>
-                        <div>
-                            <h3 class="font-bold">リソース・イメージ関連（中優先度）</h3>
-                            <p class="text-gray-600 text-sm">imagesフォルダにロゴ、アイコン、図解などの画像を追加。コンテンツの視覚化強化。</p>
-                            <p class="text-gray-600 text-sm">画像ファイルは相対パスで管理する。</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <div class="bg-green-100 text-green-800 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-2 mt-1">3</div>
-                        <div>
-                            <h3 class="font-bold">スタイルとインタラクティブ機能の改善（低～中優先度）</h3>
-                            <p class="text-gray-600 text-sm">CSSの改善・拡張、JavaScriptの機能追加（進捗トラッカー、検索機能など）</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start">
-                        <div class="bg-green-100 text-green-800 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-2 mt-1">4</div>
-                        <div>
-                            <h3 class="font-bold">コンテンツの品質向上（継続的）</h3>
-                            <p class="text-gray-600 text-sm">全ページの内容チェックと整合性確保、リンク切れの修正、コンテンツ充実</p>
-                        </div>
-                    </li>
-                </ul>
+            <div class="bg-info bg-opacity-10 border-start border-4 border-info p-3">
+                <h3 class="fw-bold mb-2"><i class="fas fa-info-circle text-info me-2"></i>2025-08-10: 進捗管理システム</h3>
+                <p class="text-muted small mb-0">進捗管理機能の追加。Chart.jsを活用した視覚的な進捗表示と詳細な作業ログ機能を実装。</p>
             </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-custom-blue mb-4">テンプレート活用による効率化</h2>
-            <p class="mb-4">day_template.htmlを活用することで、日別ページの作成を効率化できます。テンプレートには以下の要素が含まれており、各日の内容に合わせて修正するだけで統一感のあるページが作成できます。</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div class="border border-gray-200 rounded p-4">
-                    <h3 class="font-bold mb-2">テンプレート構成要素</h3>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>日の概要と学習目標</li>
-                        <li>詳細なタイムスケジュール</li>
-                        <li>各時間帯の学習内容</li>
-                        <li>使用する教材とリソース</li>
-                        <li>演習問題の例</li>
-                        <li>理解度確認項目</li>
-                        <li>ナビゲーションリンク</li>
-                    </ul>
-                </div>
-                <div class="border border-gray-200 rounded p-4">
-                    <h3 class="font-bold mb-2">テンプレート活用手順</h3>
-                    <ol class="list-decimal pl-5 space-y-1">
-                        <li>day_template.htmlをコピー</li>
-                        <li>ファイル名をdayX.htmlに変更</li>
-                        <li>タイトルと概要を更新</li>
-                        <li>学習目標と達成基準を更新</li>
-                        <li>詳細スケジュールの内容を更新</li>
-                        <li>理解度確認項目を更新</li>
-                        <li>ナビゲーションリンクを調整</li>
-                    </ol>
-                </div>
+        <div class="bg-white rounded shadow p-4">
+            <h2 class="fs-3 fw-bold text-custom-blue mb-4">次のセッションでの優先作業</h2>
+            <div class="border-start border-4 border-primary ps-3 mb-4">
+                <h3 class="fw-bold mb-2">日別ページの作成継続</h3>
+                <p class="text-muted">第2週（day6.html～day10.html）の日別ページを作成する。テンプレートを活用し、第2週の内容（オブジェクト指向プログラミング）に合わせた詳細を記述する。</p>
             </div>
-            
-            <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-lightbulb text-yellow-400"></i>
-                    </div>
-                    <div class="ml-3">
-                        <p class="text-sm text-yellow-700">
-                            <strong>効率化のポイント:</strong> 残りの日別ページ（day6.html～day54.html）はテンプレートをベースに、月別・週別ページを参照しながら内容を埋めていくことで効率的に作成できます。特に同じ週内の日は内容が関連しているため、連続して作成することで効率が上がります。
-                        </p>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="border rounded p-3">
+                        <h3 class="fw-bold mb-2">Day 6</h3>
+                        <p class="small text-muted mb-0">クラス・オブジェクト基礎</p>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <h2 class="text-2xl font-bold text-custom-blue mb-4">次のセッションでの優先作業</h2>
-            <div class="border-l-4 border-custom-blue pl-4 mb-6">
-                <h3 class="font-bold mb-2">日別ページの作成継続</h3>
-                <p class="text-gray-600">第2週（day6.html～day10.html）の日別ページを作成する。テンプレートを活用し、第2週の内容（オブジェクト指向プログラミング）に合わせた詳細を記述する。</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="border border-gray-200 rounded-lg p-4">
-                    <h3 class="font-bold mb-2">Day 6</h3>
-                    <p class="text-sm">クラス・オブジェクト基礎</p>
+                <div class="col-md-4">
+                    <div class="border rounded p-3">
+                        <h3 class="fw-bold mb-2">Day 7</h3>
+                        <p class="small text-muted mb-0">継承とポリモーフィズム</p>
+                    </div>
                 </div>
-                <div class="border border-gray-200 rounded-lg p-4">
-                    <h3 class="font-bold mb-2">Day 7</h3>
-                    <p class="text-sm">カプセル化・継承</p>
-                </div>
-                <div class="border border-gray-200 rounded-lg p-4">
-                    <h3 class="font-bold mb-2">Day 8</h3>
-                    <p class="text-sm">ポリモーフィズム・抽象クラス</p>
-                </div>
-                <div class="border border-gray-200 rounded-lg p-4">
-                    <h3 class="font-bold mb-2">Day 9</h3>
-                    <p class="text-sm">例外処理・パッケージ</p>
-                </div>
-                <div class="border border-gray-200 rounded-lg p-4">
-                    <h3 class="font-bold mb-2">Day 10</h3>
-                    <p class="text-sm">Java 17の新機能と模擬テスト②</p>
+                <div class="col-md-4">
+                    <div class="border rounded p-3">
+                        <h3 class="fw-bold mb-2">Day 8</h3>
+                        <p class="small text-muted mb-0">抽象クラスとインターフェース</p>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="bg-custom-blue text-white py-4 mt-6">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2025 ITエンジニア育成カリキュラム All Rights Reserved.</p>
-            <p class="text-sm mt-2">最終更新日: 2025-08-10</p>
+    <footer class="bg-custom-blue text-white py-3 mt-4">
+        <div class="container text-center">
+            <p class="mb-1">&copy; 2025 ITエンジニア育成カリキュラム All Rights Reserved.</p>
+            <p class="small mb-0">最終更新日: 2025-08-11 (Bootstrap版)</p>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('progressChart').getContext('2d');
@@ -431,10 +265,7 @@
                     labels: ['完了', '残り'],
                     datasets: [{
                         data: [56, 44],
-                        backgroundColor: [
-                            '#4CAF50',
-                            '#e0e0e0'
-                        ],
+                        backgroundColor: ['#198754', '#e0e0e0'],
                         borderWidth: 0
                     }]
                 },
@@ -455,9 +286,9 @@
 </html>
     <script id="html_badge_script1">
         window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
-            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhvwGeV%2BZQu4pMlFqEFi1IW7gzlXvlDxb6CVCigWoRQsgJRqPSGA7Oa0gps1SoAuYCPaT2gkyhFmU4uzertuc1bfzo1f9Pc9O9LYi5G5i0fMRgbfYynXvWevXpwsE4cQ6sSn9w7NV0HXjAWFZAMMzoSAYX2L%2FmXRJVcFBXC%2BGLGQZKk2CUchQxNxH%2FX2ueiBc0dvIvfIj%2FZKetLFt2AdFFCivK6oRKeoQkZNxAie%2BEVe%2B1n%2FTTi%2Fiaz5A87p42stSwdO%2Fyl9aonfh9DBw970eIrKugiJFri5msowGLNrD38ghhKF3TIrDyMtsRdIGnTR91PZM61PP7wErc1a0afILMTpCmNRHqDbHDb9A9%2Fm68e1LFyAuwlUgwLMXZN2It9zRnOf%2Fc61MzT9gM8GDPcKUMNNukHV%2BTXwU4VRbOQSIELGtIEos7SSBJ39OVFpg%2BX%2Bgpsf7KbwFVPPwBC1IaWVK1rXNbhpqlTbqfOAvdz9uuIGaEOq5xwxoxHue1mAvlQNdfVLZPje7J18PSYLlxxYtFM%3D";
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhCQyEAeBYhDgTv%2BPj4ehptRbY9hVGTSzcOlDu3M5tQzkb6SDsVBlhqRSYVjOUzkv5nEB0c%2BaT%2FuxWniuv2cS4Oj8vi9EDoN32bDZGpjBiCg9%2BodG9EwvbHeVO35%2Fnotp7R0Rpla9nT3iOZpLcyNSlN0j%2BvoXyYoBZKulntSnKXVhPXtGhXqN%2FPviJ%2Biq2kF28%2BQwIYsioSx2w0GsD%2B8gDJ0E4UB%2F%2FIchVMVgTjAEnAofVmlWSkf6uHZJo1cF0Qvnsd%2BjFKVOsVByWD2XP43dRB9yPhA4ATtA9SwxlFj1%2B5cG9u%2F6lrHZQz4mdv9lM7%2BQ20EruAWSdAI8IwhFVGzGgi3ClPz4gPYnzxkRdBfTXSd43xerFiH%2BWcuoqJ0Zwi9K3goj1t7V5yFdxQs3xMhKzeWt2tZE6gjgQaeQSykp%2FQu0xPyD4zdY22Ebvve9b9vyYb6LTeyUbBIF4IDuU%2FM8SbLXqG5ppod75h5%2FyCorjjXn7YMRJ5BWqYfKhGJzhpb8k4shgm5rHR6VXDpFJUeTwI%3D";
         window.__genspark_locale = "ja-JP";
-        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhvwGeV+ZQu4pMlFqEFi1IW7gzlXvlDxb6CVCigWoRQsgJRqPSGA7Oa0gps1SoAuYCPaT2gkyhFmU4uzertuc1bfzo1f9Pc9O9LYi5G5i0fMRgbfYynXvWevXpwsE4cQ6sSn9w7NV0HXjAWFZAMMzoSAYX2L/mXRJVcFBXC+GLGQZKk2CUchQxNxH/X2ueiBc0dvIvfIj/ZKetLFt2AdFFCivK6oRKeoQkZNxAie+EVe+1n/TTi/iaz5A87p42stSwdO/yl9aonfh9DBw970eIrKugiJFri5msowGLNrD38ghhKF3TIrDyMtsRdIGnTR91PZM61PP7wErc1a0afILMTpCmNRHqDbHDb9A9/m68e1LFyAuwlUgwLMXZN2It9zRnOf/c61MzT9gM8GDPcKUMNNukHV+TXwU4VRbOQSIELGtIEos7SSBJ39OVFpg+X+gpsf7KbwFVPPwBC1IaWVK1rXNbhpqlTbqfOAvdz9uuIGaEOq5xwxoxHue1mAvlQNdfVLZPje7J18PSYLlxxYtFM=";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhCQyEAeBYhDgTv+Pj4ehptRbY9hVGTSzcOlDu3M5tQzkb6SDsVBlhqRSYVjOUzkv5nEB0c+aT/uxWniuv2cS4Oj8vi9EDoN32bDZGpjBiCg9+odG9EwvbHeVO35/notp7R0Rpla9nT3iOZpLcyNSlN0j+voXyYoBZKulntSnKXVhPXtGhXqN/PviJ+iq2kF28+QwIYsioSx2w0GsD+8gDJ0E4UB//IchVMVgTjAEnAofVmlWSkf6uHZJo1cF0Qvnsd+jFKVOsVByWD2XP43dRB9yPhA4ATtA9SwxlFj1+5cG9u/6lrHZQz4mdv9lM7+Q20EruAWSdAI8IwhFVGzGgi3ClPz4gPYnzxkRdBfTXSd43xerFiH+WcuoqJ0Zwi9K3goj1t7V5yFdxQs3xMhKzeWt2tZE6gjgQaeQSykp/Qu0xPyD4zdY22Ebvve9b9vyYb6LTeyUbBIF4IDuU/M8SbLXqG5ppod75h5/yCorjjXn7YMRJ5BWqYfKhGJzhpb8k4shgm5rHR6VXDpFJUeTwI=";
     </script>
     
     <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
