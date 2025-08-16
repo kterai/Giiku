@@ -1,0 +1,117 @@
+package jp.co.apsa.giiku.domain.entity;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
+
+/**
+ * 日次スケジュールエンティティ
+ * 研修プログラムの日毎の詳細スケジュール管理
+ * 
+ * @author Giiku LMS Team
+ * @version 1.0
+ * @since 2024-01
+ */
+@Entity
+@Table(name = "daily_schedules")
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class DailySchedule extends BaseEntity {
+
+    // ID はBaseEntityから継承
+
+    /**
+     * プログラムスケジュールID（外部キー）
+     */
+    @Column(name = "program_schedule_id", nullable = false)
+    private Long programScheduleId;
+
+    /**
+     * 対象日
+     */
+    @Column(name = "target_date", nullable = false)
+    private LocalDate targetDate;
+
+    /**
+     * 日付通し番号（1日目、2日目など）
+     */
+    @Min(value = 1, message = "日付通し番号は1以上である必要があります")
+    @Column(name = "day_number", nullable = false)
+    private Integer dayNumber;
+
+    /**
+     * 開始時刻
+     */
+    @Column(name = "start_time", nullable = false)
+    private LocalTime startTime;
+
+    /**
+     * 終了時刻
+     */
+    @Column(name = "end_time", nullable = false)
+    private LocalTime endTime;
+
+    /**
+     * 場所・会場
+     */
+    @Size(max = 100, message = "場所・会場は100文字以内で入力してください")
+    @Column(name = "venue", length = 100)
+    private String venue;
+
+    /**
+     * 日次テーマ
+     */
+    @Size(max = 200, message = "日次テーマは200文字以内で入力してください")
+    @Column(name = "daily_theme", length = 200)
+    private String dailyTheme;
+
+    /**
+     * 日次目標
+     */
+    @Size(max = 500, message = "日次目標は500文字以内で入力してください")
+    @Column(name = "daily_objectives", length = 500)
+    private String dailyObjectives;
+
+    /**
+     * 備考
+     */
+    @Size(max = 500, message = "備考は500文字以内で入力してください")
+    @Column(name = "notes", length = 500)
+    private String notes;
+
+    /**
+     * 日次ステータス
+     */
+    @NotBlank(message = "日次ステータスは必須です")
+    @Pattern(regexp = "^(SCHEDULED|IN_PROGRESS|COMPLETED|CANCELLED)$")
+    @Column(name = "daily_status", length = 20, nullable = false)
+    private String dailyStatus = "SCHEDULED";
+
+    /**
+     * 更新日時
+     */
+    @Column(name = "daily_updated_at")
+    private LocalDateTime dailyUpdatedAt;
+
+    @PrePersist
+    @PreUpdate
+    protected void onUpdate() {
+        this.dailyUpdatedAt = LocalDateTime.now();
+    }
+
+    public boolean isCompleted() {
+        return "COMPLETED".equals(this.dailyStatus);
+    }
+
+    public int getDurationMinutes() {
+        if (this.startTime != null && this.endTime != null) {
+            return (int) java.time.Duration.between(this.startTime, this.endTime).toMinutes();
+        }
+        return 0;
+    }
+}

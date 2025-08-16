@@ -1,0 +1,172 @@
+package jp.co.apsa.giiku.exception;
+
+/**
+ * 学生が見つからない場合に投げられる例外クラス
+ */
+public class StudentNotFoundException extends RuntimeException {
+
+    private static final long serialVersionUID = 1L;
+
+    private final Long studentId;
+    private final String studentNumber;
+
+    /**
+     * デフォルトコンストラクタ
+     */
+    public StudentNotFoundException() {
+        super("学生が見つかりません。");
+        this.studentId = null;
+        this.studentNumber = null;
+    }
+
+    /**
+     * メッセージを指定するコンストラクタ
+     * 
+     * @param message エラーメッセージ
+     */
+    public StudentNotFoundException(String message) {
+        super(message);
+        this.studentId = null;
+        this.studentNumber = null;
+    }
+
+    /**
+     * メッセージと原因を指定するコンストラクタ
+     * 
+     * @param message エラーメッセージ
+     * @param cause 原因となった例外
+     */
+    public StudentNotFoundException(String message, Throwable cause) {
+        super(message, cause);
+        this.studentId = null;
+        this.studentNumber = null;
+    }
+
+    /**
+     * 学生IDを指定するコンストラクタ
+     * 
+     * @param studentId 見つからない学生のID
+     */
+    public StudentNotFoundException(Long studentId) {
+        super(String.format("ID: %d の学生が見つかりません。", studentId));
+        this.studentId = studentId;
+        this.studentNumber = null;
+    }
+
+    /**
+     * 学生番号を指定するコンストラクタ
+     * 
+     * @param studentNumber 見つからない学生の学生番号
+     */
+    public StudentNotFoundException(String studentNumber) {
+        super(String.format("学生番号: %s の学生が見つかりません。", studentNumber));
+        this.studentId = null;
+        this.studentNumber = studentNumber;
+    }
+
+    /**
+     * 学生IDとメッセージを指定するコンストラクタ
+     * 
+     * @param studentId 見つからない学生のID
+     * @param message エラーメッセージ
+     */
+    public StudentNotFoundException(Long studentId, String message) {
+        super(message);
+        this.studentId = studentId;
+        this.studentNumber = null;
+    }
+
+    /**
+     * 学生番号とメッセージを指定するコンストラクタ
+     * 
+     * @param studentNumber 見つからない学生の学生番号
+     * @param message エラーメッセージ
+     */
+    public StudentNotFoundException(String studentNumber, String message) {
+        super(message);
+        this.studentId = null;
+        this.studentNumber = studentNumber;
+    }
+
+    /**
+     * 学生IDとメッセージと原因を指定するコンストラクタ
+     * 
+     * @param studentId 見つからない学生のID
+     * @param message エラーメッセージ
+     * @param cause 原因となった例外
+     */
+    public StudentNotFoundException(Long studentId, String message, Throwable cause) {
+        super(message, cause);
+        this.studentId = studentId;
+        this.studentNumber = null;
+    }
+
+    /**
+     * 見つからない学生のIDを取得
+     * 
+     * @return 学生ID（設定されていない場合はnull）
+     */
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    /**
+     * 見つからない学生の学生番号を取得
+     * 
+     * @return 学生番号（設定されていない場合はnull）
+     */
+    public String getStudentNumber() {
+        return studentNumber;
+    }
+
+    /**
+     * 詳細な情報を含む文字列表現を返す
+     * 
+     * @return 例外の詳細情報
+     */
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName()).append(": ").append(getMessage());
+
+        if (studentId != null) {
+            sb.append(" [studentId=").append(studentId).append("]");
+        }
+
+        if (studentNumber != null) {
+            sb.append(" [studentNumber=").append(studentNumber).append("]");
+        }
+
+        return sb.toString();
+    }
+
+    /**
+     * 静的ファクトリーメソッド - ID指定
+     * 
+     * @param studentId 見つからない学生のID
+     * @return StudentNotFoundException インスタンス
+     */
+    public static StudentNotFoundException byId(Long studentId) {
+        return new StudentNotFoundException(studentId);
+    }
+
+    /**
+     * 静的ファクトリーメソッド - 学生番号指定
+     * 
+     * @param studentNumber 見つからない学生の学生番号
+     * @return StudentNotFoundException インスタンス
+     */
+    public static StudentNotFoundException byStudentNumber(String studentNumber) {
+        return new StudentNotFoundException(studentNumber);
+    }
+
+    /**
+     * 静的ファクトリーメソッド - カスタムメッセージ
+     * 
+     * @param message カスタムエラーメッセージ
+     * @return StudentNotFoundException インスタンス
+     */
+    public static StudentNotFoundException withMessage(String message) {
+        return new StudentNotFoundException(message);
+    }
+}
