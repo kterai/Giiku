@@ -2,7 +2,6 @@ package jp.co.apsa.giiku.controller;
 
 import jp.co.apsa.giiku.domain.entity.CompanyLmsConfig;
 import jp.co.apsa.giiku.service.CompanyLmsConfigService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,18 +14,17 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 /**
- * 企業LMS設定管理コントローラ
- * LMS企業設定のREST APIエンドポイントを提供
- * 
- * @author Giiku LMS Team
+ * 企業LMS設定管理コントローラー。
+ * 企業ごとのLMS設定に関するREST APIを提供する。
+ *
+ * @author 株式会社アプサ
  * @version 1.0
- * @since 2024-01
+ * @since 2025
  */
 @RestController
 @RequestMapping("/api/lms/company-configs")
@@ -37,7 +35,10 @@ public class CompanyLmsConfigController {
     private CompanyLmsConfigService companyLmsConfigService;
 
     /**
-     * 企業LMS設定一覧取得
+     * 企業LMS設定一覧取得。
+     *
+     * @param pageable ページング情報
+     * @return 設定一覧
      */
     @GetMapping
     public ResponseEntity<Page<CompanyLmsConfig>> getAllCompanyLmsConfigs(
@@ -51,7 +52,10 @@ public class CompanyLmsConfigController {
     }
 
     /**
-     * 企業LMS設定詳細取得
+     * 企業LMS設定詳細取得。
+     *
+     * @param id 設定ID
+     * @return 企業LMS設定
      */
     @GetMapping("/{id}")
     public ResponseEntity<CompanyLmsConfig> getCompanyLmsConfig(@PathVariable @NotNull @Min(1) Long id) {
@@ -66,7 +70,10 @@ public class CompanyLmsConfigController {
     }
 
     /**
-     * 企業IDで設定取得
+     * 企業IDで設定取得。
+     *
+     * @param companyId 企業ID
+     * @return 企業LMS設定
      */
     @GetMapping("/company/{companyId}")
     public ResponseEntity<CompanyLmsConfig> getCompanyLmsConfigByCompanyId(
@@ -80,7 +87,10 @@ public class CompanyLmsConfigController {
     }
 
     /**
-     * 企業LMS設定作成
+     * 企業LMS設定作成。
+     *
+     * @param config 設定エンティティ
+     * @return 作成された設定
      */
     @PostMapping
     public ResponseEntity<CompanyLmsConfig> createCompanyLmsConfig(@Valid @RequestBody CompanyLmsConfig config) {
@@ -95,14 +105,18 @@ public class CompanyLmsConfigController {
     }
 
     /**
-     * 企業LMS設定更新
+     * 企業LMS設定更新。
+     *
+     * @param id 設定ID
+     * @param config 更新する設定
+     * @return 更新された設定
      */
     @PutMapping("/{id}")
     public ResponseEntity<CompanyLmsConfig> updateCompanyLmsConfig(
             @PathVariable @NotNull @Min(1) Long id,
             @Valid @RequestBody CompanyLmsConfig config) {
         try {
-            config.setCompanyLmsConfigId(id);
+            config.setId(id);
             CompanyLmsConfig updatedConfig = companyLmsConfigService.updateCompanyLmsConfig(config);
             return ResponseEntity.ok(updatedConfig);
         } catch (RuntimeException e) {
@@ -113,7 +127,11 @@ public class CompanyLmsConfigController {
     }
 
     /**
-     * LMS機能有効化/無効化
+     * LMS機能有効化/無効化。
+     *
+     * @param id 設定ID
+     * @param request 有効フラグ
+     * @return メッセージ
      */
     @PutMapping("/{id}/lms-enabled")
     public ResponseEntity<Map<String, String>> updateLmsEnabled(
@@ -132,7 +150,10 @@ public class CompanyLmsConfigController {
     }
 
     /**
-     * 企業のLMS機能アクティブ状態確認
+     * 企業のLMS機能アクティブ状態確認。
+     *
+     * @param companyId 企業ID
+     * @return アクティブ状態
      */
     @GetMapping("/company/{companyId}/active-status")
     public ResponseEntity<Map<String, Boolean>> isLmsActiveForCompany(
@@ -155,3 +176,4 @@ public class CompanyLmsConfigController {
         public void setEnabled(boolean enabled) { this.enabled = enabled; }
     }
 }
+
