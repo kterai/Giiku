@@ -3,7 +3,6 @@ package jp.co.apsa.giiku.dto;
 /**
  * プログラムスケジュール統計DTO
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -15,101 +14,30 @@ public class ProgramScheduleStatsDto {
     private Long totalParticipants;
     private Double averageCapacityUtilization;
     private Double completionRate;
-    /**
-     * ProgramScheduleStatsDto メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** ProgramScheduleStatsDto メソッド */
     public ProgramScheduleStatsDto() {}
-    /**
-     * getTotalSchedules メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTotalSchedules メソッド */
     public Long getTotalSchedules() { return totalSchedules; }
-    /**
-     * setTotalSchedules メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setTotalSchedules メソッド */
     public void setTotalSchedules(Long totalSchedules) { this.totalSchedules = totalSchedules; }
-    /**
-     * getActiveSchedules メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getActiveSchedules メソッド */
     public Long getActiveSchedules() { return activeSchedules; }
-    /**
-     * setActiveSchedules メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setActiveSchedules メソッド */
     public void setActiveSchedules(Long activeSchedules) { this.activeSchedules = activeSchedules; }
-    /**
-     * getCompletedSchedules メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompletedSchedules メソッド */
     public Long getCompletedSchedules() { return completedSchedules; }
-    /**
-     * setCompletedSchedules メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompletedSchedules メソッド */
     public void setCompletedSchedules(Long completedSchedules) { this.completedSchedules = completedSchedules; }
-    /**
-     * getTotalParticipants メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTotalParticipants メソッド */
     public Long getTotalParticipants() { return totalParticipants; }
-    /**
-     * setTotalParticipants メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setTotalParticipants メソッド */
     public void setTotalParticipants(Long totalParticipants) { this.totalParticipants = totalParticipants; }
-    /**
-     * getAverageCapacityUtilization メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getAverageCapacityUtilization メソッド */
     public Double getAverageCapacityUtilization() { return averageCapacityUtilization; }
-    /**
-     * setAverageCapacityUtilization メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setAverageCapacityUtilization メソッド */
     public void setAverageCapacityUtilization(Double averageCapacityUtilization) { this.averageCapacityUtilization = averageCapacityUtilization; }
 
-    /** 完了率取得 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     public Double getCompletionRate() { return completionRate; }
-    /**
-     * setCompletionRate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompletionRate メソッド */
     public void setCompletionRate(Double completionRate) { this.completionRate = completionRate; }
 }

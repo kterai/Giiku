@@ -25,23 +25,13 @@ public class SecurityAuditorAware implements AuditorAware<Long> {
 
     private final UserRepository userRepository;
 
-    /**
-     * SecurityAuditorAware メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** SecurityAuditorAware メソッド */
     @Autowired
     public SecurityAuditorAware(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    /**
-     * getCurrentAuditor メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** getCurrentAuditor メソッド */
     @Override
     @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
     public Optional<Long> getCurrentAuditor() {

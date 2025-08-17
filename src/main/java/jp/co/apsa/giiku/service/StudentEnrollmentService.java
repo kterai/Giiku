@@ -24,7 +24,6 @@ import java.util.Optional;
  * StudentEnrollmentサービスクラス
  * 学生の受講登録管理機能を提供
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -42,25 +41,13 @@ public class StudentEnrollmentService {
     @Autowired
     private TrainingProgramRepository trainingProgramRepository;
 
-    /**
-     * 全ての受講登録を取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 全ての受講登録を取得 */
     @Transactional(readOnly = true)
     public List<StudentEnrollment> findAll() {
         return studentEnrollmentRepository.findAll();
     }
 
-    /**
-     * IDで受講登録を取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** IDで受講登録を取得 */
     @Transactional(readOnly = true)
     public Optional<StudentEnrollment> findById(Long id) {
         if (id == null) {
@@ -69,13 +56,7 @@ public class StudentEnrollmentService {
         return studentEnrollmentRepository.findById(id);
     }
 
-    /**
-     * 受講登録を保存
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 受講登録を保存 */
     public StudentEnrollment save(StudentEnrollment enrollment) {
         validateEnrollment(enrollment);
 
@@ -93,13 +74,7 @@ public class StudentEnrollmentService {
         return studentEnrollmentRepository.save(enrollment);
     }
 
-    /**
-     * 受講登録を更新
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 受講登録を更新 */
     public StudentEnrollment update(Long id, StudentEnrollment enrollment) {
         if (id == null) {
             throw new IllegalArgumentException("IDは必須です");
@@ -121,13 +96,7 @@ public class StudentEnrollmentService {
         return studentEnrollmentRepository.save(existing);
     }
 
-    /**
-     * 受講登録を削除
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 受講登録を削除 */
     public void delete(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("IDは必須です");
@@ -140,13 +109,7 @@ public class StudentEnrollmentService {
         studentEnrollmentRepository.deleteById(id);
     }
 
-    /**
-     * 学生IDで受講登録を検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生IDで受講登録を検索 */
     @Transactional(readOnly = true)
     public List<StudentEnrollment> findByStudentId(Long studentId) {
         if (studentId == null) {
@@ -155,13 +118,7 @@ public class StudentEnrollmentService {
         return studentEnrollmentRepository.findByStudentIdOrderByEnrollmentDateDesc(studentId);
     }
 
-    /**
-     * プログラムIDで受講登録を検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** プログラムIDで受講登録を検索 */
     @Transactional(readOnly = true)
     public List<StudentEnrollment> findByProgramId(Long programId) {
         if (programId == null) {
@@ -170,13 +127,7 @@ public class StudentEnrollmentService {
         return studentEnrollmentRepository.findByProgramIdOrderByEnrollmentDateDesc(programId);
     }
 
-    /**
-     * ステータスで受講登録を検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ステータスで受講登録を検索 */
     @Transactional(readOnly = true)
     public List<StudentEnrollment> findByStatus(String status) {
         if (status == null || status.trim().isEmpty()) {
@@ -185,38 +136,20 @@ public class StudentEnrollmentService {
         return studentEnrollmentRepository.findByEnrollmentStatusOrderByEnrollmentDateDesc(status);
     }
 
-    /**
-     * アクティブな受講登録を取得（ENROLLED、IN_PROGRESS）
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** アクティブな受講登録を取得（ENROLLED、IN_PROGRESS） */
     @Transactional(readOnly = true)
     public List<StudentEnrollment> findActiveEnrollments() {
         return studentEnrollmentRepository.findByEnrollmentStatusInOrderByEnrollmentDateDesc(
             List.of("ENROLLED", "IN_PROGRESS"));
     }
 
-    /**
-     * 完了した受講登録を取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 完了した受講登録を取得 */
     @Transactional(readOnly = true)
     public List<StudentEnrollment> findCompletedEnrollments() {
         return studentEnrollmentRepository.findByEnrollmentStatusOrderByCompletionDateDesc("COMPLETED");
     }
 
-    /**
-     * 学生の進行中受講登録を取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生の進行中受講登録を取得 */
     @Transactional(readOnly = true)
     public List<StudentEnrollment> findStudentActiveEnrollments(Long studentId) {
         if (studentId == null) {
@@ -226,13 +159,7 @@ public class StudentEnrollmentService {
             studentId, List.of("ENROLLED", "IN_PROGRESS"));
     }
 
-    /**
-     * プログラムの受講状況レポート
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** プログラムの受講状況レポート */
     @Transactional(readOnly = true)
     public List<Object[]> getProgramEnrollmentReport(Long programId) {
         if (programId == null) {
@@ -241,13 +168,7 @@ public class StudentEnrollmentService {
         return studentEnrollmentRepository.findEnrollmentStatsByProgramId(programId);
     }
 
-    /**
-     * 複合条件での検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 複合条件での検索 */
     @Transactional(readOnly = true)
     public Page<StudentEnrollment> findWithFilters(Long studentId, Long programId, String status,
                                                   LocalDate enrollmentDateFrom,
@@ -296,13 +217,7 @@ public class StudentEnrollmentService {
         return studentEnrollmentRepository.findAll(spec, pageable);
     }
 
-    /**
-     * 進捗更新
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 進捗更新 */
     public StudentEnrollment updateProgress(Long id, Double progress) {
         if (id == null) {
             throw new IllegalArgumentException("IDは必須です");
@@ -331,25 +246,13 @@ public class StudentEnrollmentService {
         return studentEnrollmentRepository.save(enrollment);
     }
 
-    /**
-     * 受講登録数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 受講登録数をカウント */
     @Transactional(readOnly = true)
     public long countAll() {
         return studentEnrollmentRepository.count();
     }
 
-    /**
-     * ステータス別の受講登録数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ステータス別の受講登録数をカウント */
     @Transactional(readOnly = true)
     public long countByStatus(String status) {
         if (status == null || status.trim().isEmpty()) {
@@ -358,24 +261,12 @@ public class StudentEnrollmentService {
         return studentEnrollmentRepository.countByEnrollmentStatus(status);
     }
 
-    /**
-     * 重複受講登録チェック
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 重複受講登録チェック */
     private boolean isDuplicateEnrollment(Long studentId, Long programId) {
         return studentEnrollmentRepository.existsByStudentIdAndProgramId(studentId, programId);
     }
 
-    /**
-     * 受講登録のバリデーション
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 受講登録のバリデーション */
     private void validateEnrollment(StudentEnrollment enrollment) {
         if (enrollment == null) {
             throw new IllegalArgumentException("受講登録は必須です");

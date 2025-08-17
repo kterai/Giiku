@@ -14,12 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class AppConfig implements WebMvcConfigurer {
 
-    /**
-     * addCorsMappings メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** addCorsMappings メソッド */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")

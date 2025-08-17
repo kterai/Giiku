@@ -6,7 +6,6 @@ import java.time.LocalDate;
 /**
  * 学生情報の作成・更新リクエスト用DTOクラス
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -59,21 +58,11 @@ public class StudentRequest {
     private String notes;
 
     // デフォルトコンストラクタ
-    /**
-     * StudentRequest メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** StudentRequest メソッド */
     public StudentRequest() {}
 
     // すべてのフィールドを含むコンストラクタ
-    /**
-     * StudentRequest メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** StudentRequest メソッド */
     public StudentRequest(String studentNumber, Long companyId, String enrollmentStatus,
                          LocalDate admissionDate, LocalDate expectedGraduationDate,
                          Integer gradeLevel, String className, String majorField,
@@ -98,237 +87,68 @@ public class StudentRequest {
     }
 
     // Getter and Setter methods
-    /**
-     * getStudentNumber メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** getStudentNumber メソッド */
     public String getStudentNumber() { return studentNumber; }
-    /**
-     * setStudentNumber メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setStudentNumber メソッド */
     public void setStudentNumber(String studentNumber) { this.studentNumber = studentNumber; }
-    /**
-     * getCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompanyId メソッド */
     public Long getCompanyId() { return companyId; }
-    /**
-     * setCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompanyId メソッド */
     public void setCompanyId(Long companyId) { this.companyId = companyId; }
-    /**
-     * getEnrollmentStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEnrollmentStatus メソッド */
     public String getEnrollmentStatus() { return enrollmentStatus; }
-    /**
-     * setEnrollmentStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setEnrollmentStatus メソッド */
     public void setEnrollmentStatus(String enrollmentStatus) { this.enrollmentStatus = enrollmentStatus; }
-    /**
-     * getAdmissionDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getAdmissionDate メソッド */
     public LocalDate getAdmissionDate() { return admissionDate; }
-    /**
-     * setAdmissionDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setAdmissionDate メソッド */
     public void setAdmissionDate(LocalDate admissionDate) { this.admissionDate = admissionDate; }
-    /**
-     * getExpectedGraduationDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getExpectedGraduationDate メソッド */
     public LocalDate getExpectedGraduationDate() { return expectedGraduationDate; }
-    /**
-     * setExpectedGraduationDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setExpectedGraduationDate メソッド */
     public void setExpectedGraduationDate(LocalDate expectedGraduationDate) { this.expectedGraduationDate = expectedGraduationDate; }
-    /**
-     * getGradeLevel メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getGradeLevel メソッド */
     public Integer getGradeLevel() { return gradeLevel; }
-    /**
-     * setGradeLevel メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setGradeLevel メソッド */
     public void setGradeLevel(Integer gradeLevel) { this.gradeLevel = gradeLevel; }
-    /**
-     * getClassName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getClassName メソッド */
     public String getClassName() { return className; }
-    /**
-     * setClassName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setClassName メソッド */
     public void setClassName(String className) { this.className = className; }
-    /**
-     * getMajorField メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getMajorField メソッド */
     public String getMajorField() { return majorField; }
-    /**
-     * setMajorField メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setMajorField メソッド */
     public void setMajorField(String majorField) { this.majorField = majorField; }
-    /**
-     * getEmergencyContactName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEmergencyContactName メソッド */
     public String getEmergencyContactName() { return emergencyContactName; }
-    /**
-     * setEmergencyContactName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setEmergencyContactName メソッド */
     public void setEmergencyContactName(String emergencyContactName) { this.emergencyContactName = emergencyContactName; }
-    /**
-     * getEmergencyContactPhone メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEmergencyContactPhone メソッド */
     public String getEmergencyContactPhone() { return emergencyContactPhone; }
-    /**
-     * setEmergencyContactPhone メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setEmergencyContactPhone メソッド */
     public void setEmergencyContactPhone(String emergencyContactPhone) { this.emergencyContactPhone = emergencyContactPhone; }
-    /**
-     * getAddress メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getAddress メソッド */
     public String getAddress() { return address; }
-    /**
-     * setAddress メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setAddress メソッド */
     public void setAddress(String address) { this.address = address; }
-    /**
-     * getPhoneNumber メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getPhoneNumber メソッド */
     public String getPhoneNumber() { return phoneNumber; }
-    /**
-     * setPhoneNumber メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setPhoneNumber メソッド */
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
-    /**
-     * getBirthDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getBirthDate メソッド */
     public LocalDate getBirthDate() { return birthDate; }
-    /**
-     * setBirthDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setBirthDate メソッド */
     public void setBirthDate(LocalDate birthDate) { this.birthDate = birthDate; }
-    /**
-     * getGender メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getGender メソッド */
     public String getGender() { return gender; }
-    /**
-     * setGender メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setGender メソッド */
     public void setGender(String gender) { this.gender = gender; }
-    /**
-     * getNotes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getNotes メソッド */
     public String getNotes() { return notes; }
-    /**
-     * setNotes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setNotes メソッド */
     public void setNotes(String notes) { this.notes = notes; }
 
-    /**
-     * toString メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** toString メソッド */
     @Override
     public String toString() {
         return "StudentRequest{" +

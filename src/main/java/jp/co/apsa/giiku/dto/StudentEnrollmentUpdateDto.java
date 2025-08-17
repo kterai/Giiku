@@ -9,7 +9,6 @@ import java.time.LocalDate;
  * @version 1.0
  * @since 2025
  */
-
 public class StudentEnrollmentUpdateDto {
 
     private String status;
@@ -19,117 +18,34 @@ public class StudentEnrollmentUpdateDto {
     private BigDecimal finalScore;
     private Boolean isPassed;
     private Long instructorId;
-    /**
-     * StudentEnrollmentUpdateDto メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** StudentEnrollmentUpdateDto メソッド */
     public StudentEnrollmentUpdateDto() {}
-    /**
-     * getStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStatus メソッド */
     public String getStatus() { return status; }
-    /**
-     * setStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setStatus メソッド */
     public void setStatus(String status) { this.status = status; }
-    /**
-     * getStartDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStartDate メソッド */
     public LocalDate getStartDate() { return startDate; }
-    /**
-     * setStartDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setStartDate メソッド */
     public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
-    /**
-     * getCompletionDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompletionDate メソッド */
     public LocalDate getCompletionDate() { return completionDate; }
-    /**
-     * setCompletionDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompletionDate メソッド */
     public void setCompletionDate(LocalDate completionDate) { this.completionDate = completionDate; }
-    /**
-     * getProgressRate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getProgressRate メソッド */
     public BigDecimal getProgressRate() { return progressRate; }
-    /**
-     * setProgressRate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setProgressRate メソッド */
     public void setProgressRate(BigDecimal progressRate) { this.progressRate = progressRate; }
-    /**
-     * getFinalScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getFinalScore メソッド */
     public BigDecimal getFinalScore() { return finalScore; }
-    /**
-     * setFinalScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setFinalScore メソッド */
     public void setFinalScore(BigDecimal finalScore) { this.finalScore = finalScore; }
-    /**
-     * getIsPassed メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getIsPassed メソッド */
     public Boolean getIsPassed() { return isPassed; }
-    /**
-     * setIsPassed メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setIsPassed メソッド */
     public void setIsPassed(Boolean isPassed) { this.isPassed = isPassed; }
-    /**
-     * getInstructorId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getInstructorId メソッド */
     public Long getInstructorId() { return instructorId; }
-    /**
-     * setInstructorId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setInstructorId メソッド */
     public void setInstructorId(Long instructorId) { this.instructorId = instructorId; }
 }

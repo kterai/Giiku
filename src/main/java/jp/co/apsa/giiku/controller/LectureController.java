@@ -17,7 +17,6 @@ import java.util.List;
  * 講義管理コントローラー
  * 講義エンティティの基本CRUD操作を提供する。
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -34,11 +33,7 @@ public class LectureController {
      *
      * @param pageable ページング情報
      * @return 講義一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping
     public ResponseEntity<Page<Lecture>> getAllLectures(@PageableDefault(size = 20) Pageable pageable) {
         Page<Lecture> lectures = lectureService.searchLectures(null, null, null, null, null, pageable);
@@ -50,11 +45,7 @@ public class LectureController {
      *
      * @param id 講義ID
      * @return 講義詳細
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Lecture> getLectureById(@PathVariable Long id) {
         return lectureService.findById(id)
@@ -67,11 +58,7 @@ public class LectureController {
      *
      * @param programId 研修プログラムID
      * @return 講義一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/program/{programId}")
     public ResponseEntity<List<Lecture>> getLecturesByProgramId(@PathVariable Long programId) {
         List<Lecture> lectures = lectureService.findByTrainingProgramId(programId);
@@ -83,11 +70,7 @@ public class LectureController {
      *
      * @param lecture 講義エンティティ
      * @return 作成された講義
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping
     public ResponseEntity<Lecture> createLecture(@Valid @RequestBody Lecture lecture) {
         Lecture createdLecture = lectureService.save(lecture);
@@ -100,11 +83,7 @@ public class LectureController {
      * @param id 講義ID
      * @param lecture 更新する講義エンティティ
      * @return 更新された講義
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Lecture> updateLecture(@PathVariable Long id, @Valid @RequestBody Lecture lecture) {
         Lecture updatedLecture = lectureService.update(id, lecture);
@@ -116,11 +95,7 @@ public class LectureController {
      *
      * @param id 講義ID
      * @return レスポンスステータス
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteLecture(@PathVariable Long id) {
         lectureService.delete(id);

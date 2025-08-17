@@ -8,7 +8,6 @@ import jakarta.validation.constraints.*;
  * @version 1.0
  * @since 2025
  */
-
 public class UserRoleUpdateDto {
 
     @Size(max = 50)
@@ -18,57 +17,18 @@ public class UserRoleUpdateDto {
     private String description;
 
     private Boolean isActive;
-    /**
-     * UserRoleUpdateDto メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** UserRoleUpdateDto メソッド */
     public UserRoleUpdateDto() {}
-    /**
-     * getRoleName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getRoleName メソッド */
     public String getRoleName() { return roleName; }
-    /**
-     * setRoleName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setRoleName メソッド */
     public void setRoleName(String roleName) { this.roleName = roleName; }
-    /**
-     * getDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getDescription メソッド */
     public String getDescription() { return description; }
-    /**
-     * setDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setDescription メソッド */
     public void setDescription(String description) { this.description = description; }
-    /**
-     * getIsActive メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getIsActive メソッド */
     public Boolean getIsActive() { return isActive; }
-    /**
-     * setIsActive メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setIsActive メソッド */
     public void setIsActive(Boolean isActive) { this.isActive = isActive; }
 }

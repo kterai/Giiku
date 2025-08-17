@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
  * 日次スケジュールエンティティ
  * 研修プログラムの日毎の詳細スケジュール管理
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -26,120 +25,54 @@ public class DailySchedule extends BaseEntity {
 
     // ID はBaseEntityから継承
 
-    /**
-     * プログラムスケジュールID（外部キー）
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** プログラムスケジュールID（外部キー） */
     @Column(name = "program_schedule_id", nullable = false)
     private Long programScheduleId;
 
-    /**
-     * 対象日
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 対象日 */
     @Column(name = "target_date", nullable = false)
     private LocalDate targetDate;
 
-    /**
-     * 日付通し番号（1日目、2日目など）
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 日付通し番号（1日目、2日目など） */
     @Min(value = 1, message = "日付通し番号は1以上である必要があります")
     @Column(name = "day_number", nullable = false)
     private Integer dayNumber;
 
-    /**
-     * 開始時刻
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 開始時刻 */
     @Column(name = "start_time", nullable = false)
     private LocalTime startTime;
 
-    /**
-     * 終了時刻
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 終了時刻 */
     @Column(name = "end_time", nullable = false)
     private LocalTime endTime;
 
-    /**
-     * 場所・会場
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 場所・会場 */
     @Size(max = 100, message = "場所・会場は100文字以内で入力してください")
     @Column(name = "venue", length = 100)
     private String venue;
 
-    /**
-     * 日次テーマ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 日次テーマ */
     @Size(max = 200, message = "日次テーマは200文字以内で入力してください")
     @Column(name = "daily_theme", length = 200)
     private String dailyTheme;
 
-    /**
-     * 日次目標
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 日次目標 */
     @Size(max = 500, message = "日次目標は500文字以内で入力してください")
     @Column(name = "daily_objectives", length = 500)
     private String dailyObjectives;
 
-    /**
-     * 備考
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 備考 */
     @Size(max = 500, message = "備考は500文字以内で入力してください")
     @Column(name = "notes", length = 500)
     private String notes;
 
-    /**
-     * 日次ステータス
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 日次ステータス */
     @NotBlank(message = "日次ステータスは必須です")
     @Pattern(regexp = "^(SCHEDULED|IN_PROGRESS|COMPLETED|CANCELLED)$")
     @Column(name = "daily_status", length = 20, nullable = false)
     private String dailyStatus = "SCHEDULED";
 
-    /**
-     * 更新日時
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 更新日時 */
     @Column(name = "daily_updated_at")
     private LocalDateTime dailyUpdatedAt;
 
@@ -148,23 +81,11 @@ public class DailySchedule extends BaseEntity {
     protected void onUpdate() {
         this.dailyUpdatedAt = LocalDateTime.now();
     }
-    /**
-     * isCompleted メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** isCompleted メソッド */
     public boolean isCompleted() {
         return "COMPLETED".equals(this.dailyStatus);
     }
-    /**
-     * getDurationMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getDurationMinutes メソッド */
     public int getDurationMinutes() {
         if (this.startTime != null && this.endTime != null) {
             return (int) java.time.Duration.between(this.startTime, this.endTime).toMinutes();
@@ -176,11 +97,7 @@ public class DailySchedule extends BaseEntity {
      * 互換用のスケジュール日取得メソッド。
      *
      * @return 対象日
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public LocalDate getScheduleDate() {
         return this.targetDate;
     }
@@ -189,11 +106,7 @@ public class DailySchedule extends BaseEntity {
      * 互換用のスケジュール日設定メソッド。
      *
      * @param scheduleDate 対象日
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public void setScheduleDate(LocalDate scheduleDate) {
         this.targetDate = scheduleDate;
     }
@@ -202,11 +115,7 @@ public class DailySchedule extends BaseEntity {
      * 互換用のタイトル取得メソッド。
      *
      * @return 日次テーマ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public String getTitle() {
         return this.dailyTheme;
     }
@@ -215,11 +124,7 @@ public class DailySchedule extends BaseEntity {
      * 互換用のタイトル設定メソッド。
      *
      * @param title 日次テーマ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public void setTitle(String title) {
         this.dailyTheme = title;
     }
@@ -228,11 +133,7 @@ public class DailySchedule extends BaseEntity {
      * 互換用のステータス取得メソッド。
      *
      * @return 日次ステータス
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public String getStatus() {
         return this.dailyStatus;
     }
@@ -241,11 +142,7 @@ public class DailySchedule extends BaseEntity {
      * 互換用のステータス設定メソッド。
      *
      * @param status 日次ステータス
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public void setStatus(String status) {
         this.dailyStatus = status;
     }

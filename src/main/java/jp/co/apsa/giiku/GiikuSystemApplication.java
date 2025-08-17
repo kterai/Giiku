@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
  *
  * Spring Boot 3.1.3ベースのエンタープライズアプリケーション
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -24,22 +23,13 @@ import org.slf4j.LoggerFactory;
 @EnableTransactionManagement
 public class GiikuSystemApplication {
 
-    /** ロガー 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     private static final Logger logger = LoggerFactory.getLogger(GiikuSystemApplication.class);
 
     /**
      * アプリケーションエントリーポイント
-     * 
+     *
      * @param args コマンドライン引数
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public static void main(String[] args) {
         // システム起動ログ
         logger.info("=".repeat(50));

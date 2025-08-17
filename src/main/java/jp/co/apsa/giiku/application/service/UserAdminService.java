@@ -33,11 +33,7 @@ public class UserAdminService {
      *
      * @param userRepository ユーザーリポジトリ
      * @param passwordEncoder パスワードエンコーダー
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Autowired
     public UserAdminService(UserRepository userRepository,
                             PasswordEncoder passwordEncoder) {
@@ -49,11 +45,7 @@ public class UserAdminService {
      * 全ユーザーを取得します。
      *
      * @return ユーザー一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public List<User> findAll() {
         return userRepository.findAll();
@@ -64,11 +56,7 @@ public class UserAdminService {
      *
      * @param id ユーザーID
      * @return ユーザー、存在しない場合はnull
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
@@ -79,11 +67,7 @@ public class UserAdminService {
      *
      * @param user ユーザー
      * @return 作成されたユーザー
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public User create(@Valid User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
@@ -94,11 +78,7 @@ public class UserAdminService {
      *
      * @param user ユーザー
      * @return 更新されたユーザー
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public User update(@Valid User user) {
         if (!user.getPassword().startsWith("$2")) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -110,11 +90,7 @@ public class UserAdminService {
      * ユーザーを削除します。
      *
      * @param id ユーザーID
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public void delete(Long id) {
         userRepository.deleteById(id);
     }

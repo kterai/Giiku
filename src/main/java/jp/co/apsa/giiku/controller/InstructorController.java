@@ -25,7 +25,6 @@ import java.util.Optional;
  * 講師管理コントローラ
  * LMS講師のREST APIエンドポイントを提供
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -38,13 +37,7 @@ public class InstructorController {
     @Autowired
     private InstructorService instructorService;
 
-    /**
-     * 講師一覧取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 講師一覧取得 */
     @GetMapping
     public ResponseEntity<Page<Instructor>> getAllInstructors(
             @PageableDefault(size = 20) Pageable pageable) {
@@ -56,13 +49,7 @@ public class InstructorController {
         }
     }
 
-    /**
-     * 講師詳細取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 講師詳細取得 */
     @GetMapping("/{id}")
     public ResponseEntity<Instructor> getInstructor(@PathVariable @NotNull @Min(1) Long id) {
         try {
@@ -75,13 +62,7 @@ public class InstructorController {
         }
     }
 
-    /**
-     * 講師作成
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 講師作成 */
     @PostMapping
     public ResponseEntity<Instructor> createInstructor(@Valid @RequestBody Instructor instructor) {
         try {
@@ -94,13 +75,7 @@ public class InstructorController {
         }
     }
 
-    /**
-     * 講師更新
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 講師更新 */
     @PutMapping("/{id}")
     public ResponseEntity<Instructor> updateInstructor(
             @PathVariable @NotNull @Min(1) Long id,
@@ -116,13 +91,7 @@ public class InstructorController {
         }
     }
 
-    /**
-     * 評価追加
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 評価追加 */
     @PostMapping("/{id}/rating")
     public ResponseEntity<Map<String, String>> addRating(
             @PathVariable @NotNull @Min(1) Long id,
@@ -144,20 +113,9 @@ public class InstructorController {
         @DecimalMin(value = "1.0", message = "評価は1.0以上である必要があります")
         @DecimalMax(value = "5.0", message = "評価は5.0以下である必要があります")
         private double rating;
-        /**
-         * getRating メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
-
+        /** getRating メソッド */
         public double getRating() { return rating; }
-        /**
-         * setRating メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
+        /** setRating メソッド */
         public void setRating(double rating) { this.rating = rating; }
     }
 }

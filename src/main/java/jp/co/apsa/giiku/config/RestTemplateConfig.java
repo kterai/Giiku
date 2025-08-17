@@ -18,11 +18,7 @@ public class RestTemplateConfig {
      * RestTemplateのBeanを生成します。
      *
      * @return RestTemplateインスタンス
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();

@@ -10,10 +10,6 @@ import java.util.Objects;
 /**
  * ユーザーエンティティ
  * システム内のユーザー情報を管理する基本エンティティ
- * 
- * @author Giiku System
- * @version 1.0
- * @since 2025-08-15
  */
 @Entity
 @Table(name = "users", indexes = {
@@ -23,13 +19,7 @@ import java.util.Objects;
     @Index(name = "idx_active", columnList = "active"),
     @Index(name = "idx_role", columnList = "role")
 })
-/**
- * The User class.
- *
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+/** The User class. */
 public class User {
 
     @Id
@@ -92,24 +82,13 @@ public class User {
     private String profileImageUrl;
 
     // コンストラクタ
-    /**
-     * User メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** User メソッド */
     public User() {
         this.active = true;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
-    /**
-     * User メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** User メソッド */
     public User(String username, String password, String email, String firstName, 
                 String lastName, Long companyId, String role) {
         this();
@@ -123,262 +102,107 @@ public class User {
     }
 
     // Getter and Setter methods
-    /**
-     * getId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** getId メソッド */
     public Long getId() {
         return id;
     }
-    /**
-     * setId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setId メソッド */
     public void setId(Long id) {
         this.id = id;
     }
-    /**
-     * getUsername メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getUsername メソッド */
     public String getUsername() {
         return username;
     }
-    /**
-     * setUsername メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setUsername メソッド */
     public void setUsername(String username) {
         this.username = username;
     }
-    /**
-     * getPassword メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getPassword メソッド */
     public String getPassword() {
         return password;
     }
-    /**
-     * setPassword メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setPassword メソッド */
     public void setPassword(String password) {
         this.password = password;
     }
-    /**
-     * getEmail メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEmail メソッド */
     public String getEmail() {
         return email;
     }
-    /**
-     * setEmail メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setEmail メソッド */
     public void setEmail(String email) {
         this.email = email;
     }
-    /**
-     * getFirstName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getFirstName メソッド */
     public String getFirstName() {
         return firstName;
     }
-    /**
-     * setFirstName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setFirstName メソッド */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-    /**
-     * getLastName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getLastName メソッド */
     public String getLastName() {
         return lastName;
     }
-    /**
-     * setLastName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setLastName メソッド */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    /**
-     * getCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompanyId メソッド */
     public Long getCompanyId() {
         return companyId;
     }
-    /**
-     * setCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setCompanyId メソッド */
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
-    /**
-     * getRole メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getRole メソッド */
     public String getRole() {
         return role;
     }
-    /**
-     * setRole メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setRole メソッド */
     public void setRole(String role) {
         this.role = role;
     }
-    /**
-     * getActive メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getActive メソッド */
     public Boolean getActive() {
         return active;
     }
-    /**
-     * setActive メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setActive メソッド */
     public void setActive(Boolean active) {
         this.active = active;
     }
-    /**
-     * getCreatedAt メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCreatedAt メソッド */
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-    /**
-     * setCreatedAt メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setCreatedAt メソッド */
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    /**
-     * getUpdatedAt メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getUpdatedAt メソッド */
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
-    /**
-     * setUpdatedAt メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setUpdatedAt メソッド */
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-    /**
-     * getLastLoginAt メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getLastLoginAt メソッド */
     public LocalDateTime getLastLoginAt() {
         return lastLoginAt;
     }
-    /**
-     * setLastLoginAt メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setLastLoginAt メソッド */
     public void setLastLoginAt(LocalDateTime lastLoginAt) {
         this.lastLoginAt = lastLoginAt;
     }
-    /**
-     * getProfileImageUrl メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getProfileImageUrl メソッド */
     public String getProfileImageUrl() {
         return profileImageUrl;
     }
-    /**
-     * setProfileImageUrl メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setProfileImageUrl メソッド */
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
     }
@@ -387,11 +211,7 @@ public class User {
     /**
      * フルネームを取得
      * @return 姓 + 名のフルネーム
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public String getFullName() {
         return lastName + " " + firstName;
     }
@@ -399,11 +219,7 @@ public class User {
     /**
      * アクティブなユーザーかどうかを判定
      * @return アクティブな場合true
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public boolean isActive() {
         return active != null && active;
     }
@@ -412,57 +228,30 @@ public class User {
      * ユーザーが指定された権限を持っているかを判定
      * @param targetRole 確認したい権限
      * @return 権限を持っている場合true
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public boolean hasRole(String targetRole) {
         return role != null && role.equals(targetRole);
     }
 
-    /**
-     * 最終ログイン時刻を更新
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 最終ログイン時刻を更新 */
     public void updateLastLogin() {
         this.lastLoginAt = LocalDateTime.now();
     }
 
-    /**
-     * ユーザーを無効化
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ユーザーを無効化 */
     public void deactivate() {
         this.active = false;
         this.updatedAt = LocalDateTime.now();
     }
 
-    /**
-     * ユーザーを有効化
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ユーザーを有効化 */
     public void activate() {
         this.active = true;
         this.updatedAt = LocalDateTime.now();
     }
 
     // Object methods
-    /**
-     * equals メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** equals メソッド */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -473,23 +262,13 @@ public class User {
                Objects.equals(email, user.email);
     }
 
-    /**
-     * hashCode メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** hashCode メソッド */
     @Override
     public int hashCode() {
         return Objects.hash(id, username, email);
     }
 
-    /**
-     * toString メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** toString メソッド */
     @Override
     public String toString() {
         return "User{" +

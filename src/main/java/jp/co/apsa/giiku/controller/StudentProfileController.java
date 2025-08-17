@@ -23,7 +23,6 @@ import java.util.Optional;
  * 学生プロファイル管理コントローラ
  * LMS学生プロファイルのREST APIエンドポイントを提供
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -38,14 +37,10 @@ public class StudentProfileController {
 
     /**
      * 学生プロファイル一覧取得
-     * 
+     *
      * @param pageable ページング情報
      * @return 学生プロファイルのページ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping
     public ResponseEntity<Page<StudentProfile>> getAllStudentProfiles(
             @PageableDefault(size = 20) Pageable pageable) {
@@ -60,14 +55,10 @@ public class StudentProfileController {
 
     /**
      * 学生プロファイル詳細取得
-     * 
+     *
      * @param id 学生プロファイルID
      * @return 学生プロファイル
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/{id}")
     public ResponseEntity<StudentProfile> getStudentProfile(
             @PathVariable @NotNull @Min(1) Long id) {
@@ -84,14 +75,10 @@ public class StudentProfileController {
 
     /**
      * ユーザーIDで学生プロファイル取得
-     * 
+     *
      * @param userId ユーザーID
      * @return 学生プロファイル
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/user/{userId}")
     public ResponseEntity<StudentProfile> getStudentProfileByUserId(
             @PathVariable @NotNull @Min(1) Long userId) {
@@ -107,14 +94,10 @@ public class StudentProfileController {
 
     /**
      * 学生番号で学生プロファイル取得
-     * 
+     *
      * @param studentNumber 学生番号
      * @return 学生プロファイル
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/student-number/{studentNumber}")
     public ResponseEntity<StudentProfile> getStudentProfileByStudentNumber(
             @PathVariable @NotNull String studentNumber) {
@@ -130,15 +113,11 @@ public class StudentProfileController {
 
     /**
      * 部署別学生プロファイル取得
-     * 
+     *
      * @param departmentId 部署ID
      * @param pageable ページング情報
      * @return 学生プロファイルのページ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/department/{departmentId}")
     public ResponseEntity<Page<StudentProfile>> getStudentProfilesByDepartment(
             @PathVariable @NotNull @Min(1) Long departmentId,
@@ -154,15 +133,11 @@ public class StudentProfileController {
 
     /**
      * 学習ステータス別学生プロファイル取得
-     * 
+     *
      * @param status 学習ステータス
      * @param pageable ページング情報
      * @return 学生プロファイルのページ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/status/{status}")
     public ResponseEntity<Page<StudentProfile>> getStudentProfilesByStatus(
             @PathVariable @NotNull String status,
@@ -178,15 +153,11 @@ public class StudentProfileController {
 
     /**
      * 学習レベル別学生プロファイル取得
-     * 
+     *
      * @param level 学習レベル
      * @param pageable ページング情報
      * @return 学生プロファイルのページ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/level/{level}")
     public ResponseEntity<Page<StudentProfile>> getStudentProfilesByLevel(
             @PathVariable @NotNull @Min(1) Integer level,
@@ -202,14 +173,10 @@ public class StudentProfileController {
 
     /**
      * 学生プロファイル作成
-     * 
+     *
      * @param profile 作成する学生プロファイル
      * @return 作成された学生プロファイル
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping
     public ResponseEntity<StudentProfile> createStudentProfile(
             @Valid @RequestBody StudentProfile profile) {
@@ -226,15 +193,11 @@ public class StudentProfileController {
 
     /**
      * 学生プロファイル更新
-     * 
+     *
      * @param id 学生プロファイルID
      * @param profile 更新する学生プロファイル
      * @return 更新された学生プロファイル
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PutMapping("/{id}")
     public ResponseEntity<StudentProfile> updateStudentProfile(
             @PathVariable @NotNull @Min(1) Long id,
@@ -253,15 +216,11 @@ public class StudentProfileController {
 
     /**
      * 学習時間追加
-     * 
+     *
      * @param id 学生プロファイルID
      * @param request 学習時間追加リクエスト
      * @return 成功レスポンス
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping("/{id}/learning-time")
     public ResponseEntity<Map<String, String>> addLearningTime(
             @PathVariable @NotNull @Min(1) Long id,
@@ -281,14 +240,10 @@ public class StudentProfileController {
 
     /**
      * コース完了数増加
-     * 
+     *
      * @param id 学生プロファイルID
      * @return 成功レスポンス
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping("/{id}/complete-course")
     public ResponseEntity<Map<String, String>> completeCourse(
             @PathVariable @NotNull @Min(1) Long id) {
@@ -307,14 +262,10 @@ public class StudentProfileController {
 
     /**
      * 現在受講中コース数増加
-     * 
+     *
      * @param id 学生プロファイルID
      * @return 成功レスポンス
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping("/{id}/enroll-course")
     public ResponseEntity<Map<String, String>> enrollCourse(
             @PathVariable @NotNull @Min(1) Long id) {
@@ -333,15 +284,11 @@ public class StudentProfileController {
 
     /**
      * スコア更新
-     * 
+     *
      * @param id 学生プロファイルID
      * @param request スコア更新リクエスト
      * @return 成功レスポンス
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping("/{id}/update-score")
     public ResponseEntity<Map<String, String>> updateScore(
             @PathVariable @NotNull @Min(1) Long id,
@@ -361,15 +308,11 @@ public class StudentProfileController {
 
     /**
      * 学習ステータス更新
-     * 
+     *
      * @param id 学生プロファイルID
      * @param request ステータス更新リクエスト
      * @return 成功レスポンス
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PutMapping("/{id}/status")
     public ResponseEntity<Map<String, String>> updateLearningStatus(
             @PathVariable @NotNull @Min(1) Long id,
@@ -389,14 +332,10 @@ public class StudentProfileController {
 
     /**
      * 学生プロファイル削除
-     * 
+     *
      * @param id 学生プロファイルID
      * @return 成功レスポンス
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, String>> deleteStudentProfile(
             @PathVariable @NotNull @Min(1) Long id) {
@@ -415,13 +354,9 @@ public class StudentProfileController {
 
     /**
      * アクティブな学生数取得
-     * 
+     *
      * @return アクティブな学生数
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/stats/active-count")
     public ResponseEntity<Map<String, Long>> getActiveStudentCount() {
         try {
@@ -436,14 +371,10 @@ public class StudentProfileController {
 
     /**
      * 部署別アクティブな学生数取得
-     * 
+     *
      * @param departmentId 部署ID
      * @return アクティブな学生数
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/stats/active-count/department/{departmentId}")
     public ResponseEntity<Map<String, Long>> getActiveStudentCountByDepartment(
             @PathVariable @NotNull @Min(1) Long departmentId) {
@@ -462,20 +393,9 @@ public class StudentProfileController {
     public static class AddLearningTimeRequest {
         @Min(value = 1, message = "学習時間は1分以上である必要があります")
         private int minutes;
-        /**
-         * getMinutes メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
-
+        /** getMinutes メソッド */
         public int getMinutes() { return minutes; }
-        /**
-         * setMinutes メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
+        /** setMinutes メソッド */
         public void setMinutes(int minutes) { this.minutes = minutes; }
     }
 
@@ -485,54 +405,22 @@ public class StudentProfileController {
 
         @Min(value = 1, message = "総テスト数は1以上である必要があります")
         private int totalTests;
-        /**
-         * getNewScore メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
-
+        /** getNewScore メソッド */
         public double getNewScore() { return newScore; }
-        /**
-         * setNewScore メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
+        /** setNewScore メソッド */
         public void setNewScore(double newScore) { this.newScore = newScore; }
-        /**
-         * getTotalTests メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
+        /** getTotalTests メソッド */
         public int getTotalTests() { return totalTests; }
-        /**
-         * setTotalTests メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
+        /** setTotalTests メソッド */
         public void setTotalTests(int totalTests) { this.totalTests = totalTests; }
     }
 
     public static class UpdateStatusRequest {
         @NotNull(message = "学習ステータスは必須です")
         private String learningStatus;
-        /**
-         * getLearningStatus メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
-
+        /** getLearningStatus メソッド */
         public String getLearningStatus() { return learningStatus; }
-        /**
-         * setLearningStatus メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
+        /** setLearningStatus メソッド */
         public void setLearningStatus(String learningStatus) { this.learningStatus = learningStatus; }
     }
 }

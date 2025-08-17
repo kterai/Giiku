@@ -19,11 +19,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    /** ロガー 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
@@ -32,11 +27,7 @@ public class GlobalExceptionHandler {
      * @param ex 発生した例外
      * @param model モデル
      * @return エラーテンプレート
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @ExceptionHandler(SystemException.class)
     public String handleSystemException(SystemException ex, Model model) {
         logger.error("SystemException occurred", ex);
@@ -51,11 +42,7 @@ public class GlobalExceptionHandler {
      * @param ex 発生した例外
      * @param model モデル
      * @return エラーテンプレート
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @ExceptionHandler(Exception.class)
     public String handleException(Exception ex, Model model) {
         logger.error("Unhandled exception occurred", ex);
@@ -64,11 +51,6 @@ public class GlobalExceptionHandler {
         return "error";
     }
 
-    /** スタックトレース文字列を生成します。 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     private String getStackTrace(Throwable ex) {
         return ExceptionUtils.getStackTrace(ex);
     }

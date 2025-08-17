@@ -25,11 +25,7 @@ public class MonthController  extends AbstractController{
      *
      * @param page ページ名 (例: month1)
      * @return 対応するテンプレート
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping(path = {"/{page}","/{page}.html"})
     public String month(@PathVariable String page, Model model) {
         setTitle(model, "月別カリキュラム");

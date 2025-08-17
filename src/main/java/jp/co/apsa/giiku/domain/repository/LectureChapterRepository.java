@@ -11,7 +11,6 @@ import java.util.List;
  * LectureChapterのリポジトリインターフェース。
  * チャプター検索や統計取得用のクエリメソッドを提供する。
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -25,11 +24,7 @@ public interface LectureChapterRepository extends JpaRepository<LectureChapter, 
      *
      * @param lectureId 講義ID
      * @return 該当チャプター一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     List<LectureChapter> findByLectureIdOrderBySortOrderAsc(Long lectureId);
 
     /**
@@ -38,11 +33,7 @@ public interface LectureChapterRepository extends JpaRepository<LectureChapter, 
      * @param lectureId 講義ID
      * @param status    チャプターステータス
      * @return 該当チャプター一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     List<LectureChapter> findByLectureIdAndStatusOrderBySortOrderAsc(Long lectureId, String status);
 
     /**
@@ -51,11 +42,7 @@ public interface LectureChapterRepository extends JpaRepository<LectureChapter, 
      * @param title  タイトルキーワード
      * @param status ステータス
      * @return 該当チャプター一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     List<LectureChapter> findByTitleContainingIgnoreCaseAndStatusOrderByTitleAsc(String title, String status);
 
     /**
@@ -64,10 +51,6 @@ public interface LectureChapterRepository extends JpaRepository<LectureChapter, 
      * @param lectureId 講義ID
      * @param status    ステータス
      * @return 件数
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     long countByLectureIdAndStatus(Long lectureId, String status);
 }

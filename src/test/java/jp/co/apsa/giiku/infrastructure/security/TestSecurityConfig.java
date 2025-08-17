@@ -10,7 +10,6 @@ import org.springframework.security.web.SecurityFilterChain;
 /**
  * テスト用セキュリティ設定クラス
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -19,12 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class TestSecurityConfig {
 
-    /**
-     * filterChain メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** filterChain メソッド */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http

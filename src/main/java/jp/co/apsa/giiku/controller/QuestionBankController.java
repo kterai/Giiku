@@ -22,7 +22,6 @@ import java.util.Optional;
  * LMS問題管理機能のREST APIエンドポイントを提供します。
  * 問題の作成、更新、削除、検索、統計取得などの機能を含みます。
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -41,14 +40,10 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * 問題一覧をページング形式で取得
-     * 
+     *
      * @param pageable ページング情報
      * @return 問題一覧のページ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping
     public ResponseEntity<Page<QuestionBank>> getAllQuestions(Pageable pageable) {
         try {
@@ -63,14 +58,10 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * 問題IDで問題詳細を取得
-     * 
+     *
      * @param id 問題ID
      * @return 問題詳細
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/{id}")
     public ResponseEntity<QuestionBank> getQuestionById(@PathVariable Long id) {
         try {
@@ -86,14 +77,10 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * 新しい問題を作成
-     * 
+     *
      * @param questionBank 問題情報
      * @return 作成された問題
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping
     public ResponseEntity<QuestionBank> createQuestion(@Valid @RequestBody QuestionBank questionBank) {
         try {
@@ -109,15 +96,11 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * 問題情報を更新
-     * 
+     *
      * @param id 問題ID
      * @param questionBank 更新する問題情報
      * @return 更新された問題
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PutMapping("/{id}")
     public ResponseEntity<QuestionBank> updateQuestion(@PathVariable Long id, 
                                                        @Valid @RequestBody QuestionBank questionBank) {
@@ -134,14 +117,10 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * 問題を削除（論理削除）
-     * 
+     *
      * @param id 問題ID
      * @return 削除結果
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteQuestion(@PathVariable Long id) {
         try {
@@ -158,14 +137,10 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * 企業IDで問題一覧を取得
-     * 
+     *
      * @param companyId 企業ID
      * @return 問題一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}")
     public ResponseEntity<List<QuestionBank>> getQuestionsByCompany(@PathVariable Long companyId) {
         try {
@@ -180,14 +155,10 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * 講師IDで問題一覧を取得
-     * 
+     *
      * @param instructorId 講師ID
      * @return 問題一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/instructor/{instructorId}")
     public ResponseEntity<List<QuestionBank>> getQuestionsByInstructor(@PathVariable Long instructorId) {
         try {
@@ -202,14 +173,10 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * 問題タイプで問題一覧を取得
-     * 
+     *
      * @param questionType 問題タイプ
      * @return 問題一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/type/{questionType}")
     public ResponseEntity<List<QuestionBank>> getQuestionsByType(@PathVariable String questionType) {
         try {
@@ -224,14 +191,10 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * 難易度で問題一覧を取得
-     * 
+     *
      * @param difficultyLevel 難易度
      * @return 問題一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/difficulty/{difficultyLevel}")
     public ResponseEntity<List<QuestionBank>> getQuestionsByDifficulty(@PathVariable String difficultyLevel) {
         try {
@@ -246,14 +209,10 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * カテゴリで問題一覧を取得
-     * 
+     *
      * @param category カテゴリ
      * @return 問題一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/category/{category}")
     public ResponseEntity<List<QuestionBank>> getQuestionsByCategory(@PathVariable String category) {
         try {
@@ -268,14 +227,10 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * 問題文での部分一致検索
-     * 
+     *
      * @param query 検索クエリ
      * @return 検索結果
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/search")
     public ResponseEntity<List<QuestionBank>> searchQuestions(@RequestParam String query) {
         try {
@@ -292,14 +247,10 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * 企業内カテゴリ別問題統計を取得
-     * 
+     *
      * @param companyId 企業ID
      * @return カテゴリ別統計
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/stats/category")
     public ResponseEntity<List<Map<String, Object>>> getCategoryStats(@PathVariable Long companyId) {
         try {
@@ -314,14 +265,10 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * 企業内難易度別問題統計を取得
-     * 
+     *
      * @param companyId 企業ID
      * @return 難易度別統計
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/stats/difficulty")
     public ResponseEntity<List<Map<String, Object>>> getDifficultyStats(@PathVariable Long companyId) {
         try {
@@ -336,14 +283,10 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * 企業内問題タイプ別統計を取得
-     * 
+     *
      * @param companyId 企業ID
      * @return 問題タイプ別統計
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/stats/type")
     public ResponseEntity<List<Map<String, Object>>> getTypeStats(@PathVariable Long companyId) {
         try {
@@ -360,17 +303,13 @@ public class QuestionBankController extends AbstractController {
 
     /**
      * ランダムに問題を選択
-     * 
+     *
      * @param companyId 企業ID
      * @param questionType 問題タイプ
      * @param difficultyLevel 難易度
      * @param limit 取得件数
      * @return ランダム選択された問題一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/random")
     public ResponseEntity<List<QuestionBank>> getRandomQuestions(
             @PathVariable Long companyId,

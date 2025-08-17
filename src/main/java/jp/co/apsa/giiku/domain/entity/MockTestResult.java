@@ -9,10 +9,6 @@ import java.time.Duration;
 /**
  * モックテスト結果を管理するエンティティクラス
  * 学生のテスト受験結果、スコア、時間などの詳細情報を保持します
- *
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
  */
 @Entity
 @Table(name = "mock_test_results", indexes = {
@@ -25,13 +21,7 @@ import java.time.Duration;
     @UniqueConstraint(name = "uk_test_student_attempt", 
                      columnNames = {"testId", "studentId", "attemptNumber"})
 })
-/**
- * The MockTestResult class.
- *
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+/** The MockTestResult class. */
 public class MockTestResult extends BaseEntity {
 
     @NotNull
@@ -105,26 +95,14 @@ public class MockTestResult extends BaseEntity {
     @Column(name = "remarks", length = 500)
     private String remarks;
 
-    /**
-     * デフォルトコンストラクタ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** デフォルトコンストラクタ */
     public MockTestResult() {
         this.status = Status.NOT_STARTED;
         this.isPassed = false;
         this.attemptNumber = 1;
     }
 
-    /**
-     * 基本情報付きコンストラクタ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 基本情報付きコンストラクタ */
     public MockTestResult(Long testId, Long studentId, Long companyId) {
         this();
         this.testId = testId;
@@ -132,13 +110,7 @@ public class MockTestResult extends BaseEntity {
         this.companyId = companyId;
     }
 
-    /**
-     * 完全コンストラクタ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 完全コンストラクタ */
     public MockTestResult(Long testId, Long studentId, Long companyId, 
                          String testTitle, String studentName, Integer attemptNumber) {
         this(testId, studentId, companyId);
@@ -148,433 +120,181 @@ public class MockTestResult extends BaseEntity {
     }
 
     // ===== Getter Methods =====
-    /**
-     * getTestId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTestId メソッド */
     public Long getTestId() {
         return testId;
     }
-    /**
-     * getStudentId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStudentId メソッド */
     public Long getStudentId() {
         return studentId;
     }
-    /**
-     * getCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompanyId メソッド */
     public Long getCompanyId() {
         return companyId;
     }
-    /**
-     * getStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStatus メソッド */
     public String getStatus() {
         return status;
     }
-    /**
-     * getScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getScore メソッド */
     public BigDecimal getScore() {
         return score;
     }
-    /**
-     * getStartTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStartTime メソッド */
     public LocalDateTime getStartTime() {
         return startTime;
     }
-    /**
-     * getEndTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEndTime メソッド */
     public LocalDateTime getEndTime() {
         return endTime;
     }
-    /**
-     * getTimeSpentMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTimeSpentMinutes メソッド */
     public Integer getTimeSpentMinutes() {
         return timeSpentMinutes;
     }
-    /**
-     * getCorrectAnswers メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCorrectAnswers メソッド */
     public Integer getCorrectAnswers() {
         return correctAnswers;
     }
-    /**
-     * getTotalQuestions メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTotalQuestions メソッド */
     public Integer getTotalQuestions() {
         return totalQuestions;
     }
-    /**
-     * getFeedback メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getFeedback メソッド */
     public String getFeedback() {
         return feedback;
     }
-    /**
-     * getIsPassed メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getIsPassed メソッド */
     public Boolean getIsPassed() {
         return isPassed;
     }
-    /**
-     * getAttemptNumber メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getAttemptNumber メソッド */
     public Integer getAttemptNumber() {
         return attemptNumber;
     }
-    /**
-     * getPassingScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getPassingScore メソッド */
     public BigDecimal getPassingScore() {
         return passingScore;
     }
-    /**
-     * getTimeLimitMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTimeLimitMinutes メソッド */
     public Integer getTimeLimitMinutes() {
         return timeLimitMinutes;
     }
-    /**
-     * getTestTitle メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTestTitle メソッド */
     public String getTestTitle() {
         return testTitle;
     }
-    /**
-     * getStudentName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStudentName メソッド */
     public String getStudentName() {
         return studentName;
     }
-    /**
-     * getRemarks メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getRemarks メソッド */
     public String getRemarks() {
         return remarks;
     }
 
     // ===== Setter Methods =====
-    /**
-     * setTestId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setTestId メソッド */
     public void setTestId(Long testId) {
         this.testId = testId;
     }
-    /**
-     * setStudentId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setStudentId メソッド */
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
-    /**
-     * setCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setCompanyId メソッド */
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
-    /**
-     * setStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setStatus メソッド */
     public void setStatus(String status) {
         this.status = status;
     }
-    /**
-     * setScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setScore メソッド */
     public void setScore(BigDecimal score) {
         this.score = score;
     }
-    /**
-     * setStartTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setStartTime メソッド */
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
-    /**
-     * setEndTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setEndTime メソッド */
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
-    /**
-     * setTimeSpentMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setTimeSpentMinutes メソッド */
     public void setTimeSpentMinutes(Integer timeSpentMinutes) {
         this.timeSpentMinutes = timeSpentMinutes;
     }
-    /**
-     * setCorrectAnswers メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setCorrectAnswers メソッド */
     public void setCorrectAnswers(Integer correctAnswers) {
         this.correctAnswers = correctAnswers;
     }
-    /**
-     * setTotalQuestions メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setTotalQuestions メソッド */
     public void setTotalQuestions(Integer totalQuestions) {
         this.totalQuestions = totalQuestions;
     }
-    /**
-     * setFeedback メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setFeedback メソッド */
     public void setFeedback(String feedback) {
         this.feedback = feedback;
     }
-    /**
-     * setIsPassed メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setIsPassed メソッド */
     public void setIsPassed(Boolean isPassed) {
         this.isPassed = isPassed;
     }
-    /**
-     * setAttemptNumber メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setAttemptNumber メソッド */
     public void setAttemptNumber(Integer attemptNumber) {
         this.attemptNumber = attemptNumber;
     }
-    /**
-     * setPassingScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setPassingScore メソッド */
     public void setPassingScore(BigDecimal passingScore) {
         this.passingScore = passingScore;
     }
-    /**
-     * setTimeLimitMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setTimeLimitMinutes メソッド */
     public void setTimeLimitMinutes(Integer timeLimitMinutes) {
         this.timeLimitMinutes = timeLimitMinutes;
     }
-    /**
-     * setTestTitle メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setTestTitle メソッド */
     public void setTestTitle(String testTitle) {
         this.testTitle = testTitle;
     }
-    /**
-     * setStudentName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setStudentName メソッド */
     public void setStudentName(String studentName) {
         this.studentName = studentName;
     }
-    /**
-     * setRemarks メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setRemarks メソッド */
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
 
     // ===== Business Logic Methods =====
 
-    /**
-     * テストが完了しているかチェック
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** テストが完了しているかチェック */
     public boolean isCompleted() {
         return Status.COMPLETED.equals(this.status);
     }
 
-    /**
-     * テストが進行中かチェック
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** テストが進行中かチェック */
     public boolean isInProgress() {
         return Status.IN_PROGRESS.equals(this.status);
     }
 
-    /**
-     * テストが開始されていないかチェック
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** テストが開始されていないかチェック */
     public boolean isNotStarted() {
         return Status.NOT_STARTED.equals(this.status);
     }
 
-    /**
-     * テストがキャンセルされたかチェック
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** テストがキャンセルされたかチェック */
     public boolean isCancelled() {
         return Status.CANCELLED.equals(this.status);
     }
 
-    /**
-     * テストが期限切れかチェック
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** テストが期限切れかチェック */
     public boolean isExpired() {
         return Status.EXPIRED.equals(this.status);
     }
 
-    /**
-     * スコア率を計算（正答率）
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** スコア率を計算（正答率） */
     public BigDecimal getScorePercentage() {
         if (totalQuestions == null || totalQuestions == 0 || correctAnswers == null) {
             return BigDecimal.ZERO;
@@ -584,13 +304,7 @@ public class MockTestResult extends BaseEntity {
                 .divide(BigDecimal.valueOf(totalQuestions), 2, BigDecimal.ROUND_HALF_UP);
     }
 
-    /**
-     * 実際の受験時間を計算（分）
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 実際の受験時間を計算（分） */
     public Integer getActualTimeSpent() {
         if (startTime != null && endTime != null) {
             return (int) Duration.between(startTime, endTime).toMinutes();
@@ -598,13 +312,7 @@ public class MockTestResult extends BaseEntity {
         return timeSpentMinutes;
     }
 
-    /**
-     * 残り時間を計算（分）
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 残り時間を計算（分） */
     public Integer getRemainingTimeMinutes() {
         if (timeLimitMinutes == null || startTime == null) {
             return null;
@@ -620,13 +328,7 @@ public class MockTestResult extends BaseEntity {
         return (int) Duration.between(now, deadline).toMinutes();
     }
 
-    /**
-     * 合格判定
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 合格判定 */
     public boolean isPassed() {
         if (score == null || passingScore == null) {
             return false;
@@ -634,25 +336,13 @@ public class MockTestResult extends BaseEntity {
         return score.compareTo(passingScore) >= 0;
     }
 
-    /**
-     * テストを開始
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** テストを開始 */
     public void startTest() {
         this.status = Status.IN_PROGRESS;
         this.startTime = LocalDateTime.now();
     }
 
-    /**
-     * テストを完了
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** テストを完了 */
     public void completeTest(Integer correctAnswers, Integer totalQuestions, BigDecimal score) {
         this.status = Status.COMPLETED;
         this.endTime = LocalDateTime.now();
@@ -663,51 +353,27 @@ public class MockTestResult extends BaseEntity {
         this.isPassed = isPassed();
     }
 
-    /**
-     * テストをキャンセル
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** テストをキャンセル */
     public void cancelTest(String reason) {
         this.status = Status.CANCELLED;
         this.endTime = LocalDateTime.now();
         this.remarks = reason;
     }
 
-    /**
-     * テストを期限切れにする
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** テストを期限切れにする */
     public void expireTest() {
         this.status = Status.EXPIRED;
         this.endTime = LocalDateTime.now();
         this.timeSpentMinutes = getActualTimeSpent();
     }
 
-    /**
-     * フィードバックを設定
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** フィードバックを設定 */
     public void setFeedbackWithResult(String feedback, boolean passed) {
         this.feedback = feedback;
         this.isPassed = passed;
     }
 
-    /**
-     * 次回受験のための初期化
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 次回受験のための初期化 */
     public MockTestResult createNextAttempt() {
         MockTestResult nextAttempt = new MockTestResult(this.testId, this.studentId, this.companyId);
         nextAttempt.setTestTitle(this.testTitle);
@@ -718,12 +384,7 @@ public class MockTestResult extends BaseEntity {
         return nextAttempt;
     }
 
-    /**
-     * toString メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** toString メソッド */
     @Override
     public String toString() {
         return "MockTestResult{" +
@@ -739,13 +400,7 @@ public class MockTestResult extends BaseEntity {
                 "}";
     }
 
-    /**
-     * テスト結果ステータス定数クラス
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** テスト結果ステータス定数クラス */
     public static class Status {
         public static final String NOT_STARTED = "NOT_STARTED";
         public static final String IN_PROGRESS = "IN_PROGRESS";
@@ -755,13 +410,7 @@ public class MockTestResult extends BaseEntity {
         public static final String SUSPENDED = "SUSPENDED";
     }
 
-    /**
-     * テスト結果の評価レベル定数クラス
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** テスト結果の評価レベル定数クラス */
     public static class Grade {
         public static final String EXCELLENT = "EXCELLENT";
         public static final String GOOD = "GOOD";
@@ -770,13 +419,7 @@ public class MockTestResult extends BaseEntity {
         public static final String POOR = "POOR";
     }
 
-    /**
-     * スコアに基づく評価レベルを取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** スコアに基づく評価レベルを取得 */
     public String getGradeLevel() {
         if (score == null) {
             return null;

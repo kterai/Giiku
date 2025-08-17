@@ -17,7 +17,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  *
  * Spring Security 6.x準拠のセキュリティ設定
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -27,28 +26,18 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig {
 
     private final UserService userService;
-    /**
-     * SecurityConfig メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** SecurityConfig メソッド */
     public SecurityConfig(UserService userService) {
         this.userService = userService;
     }
 
     /**
      * セキュリティフィルターチェーン設定
-     * 
+     *
      * @param http HttpSecurity設定オブジェクト
      * @return SecurityFilterChain セキュリティフィルターチェーン
      * @throws Exception 設定エラー
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -109,11 +98,7 @@ public class SecurityConfig {
      * 静的リソースをセキュリティ対象外にする設定
      *
      * @return WebSecurityCustomizer 静的リソース除外設定
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
@@ -121,13 +106,9 @@ public class SecurityConfig {
 
     /**
      * パスワードエンコーダー設定
-     * 
+     *
      * @return PasswordEncoder BCryptパスワードエンコーダー
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

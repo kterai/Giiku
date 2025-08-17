@@ -43,17 +43,13 @@ public class MockTestController extends AbstractController {
 
     /**
      * 全模擬試験一覧取得
-     * 
+     *
      * @param page ページ番号（0から開始）
      * @param size ページサイズ
      * @param sortBy ソート項目
      * @param sortDir ソート方向（ASC/DESC）
      * @return 模擬試験一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllMockTests(
             @RequestParam(defaultValue = "0") @Min(0) int page,
@@ -89,14 +85,10 @@ public class MockTestController extends AbstractController {
 
     /**
      * 模擬試験詳細取得
-     * 
+     *
      * @param id 模擬試験ID
      * @return 模擬試験詳細
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> getMockTestById(@PathVariable Long id) {
         logger.info("模擬試験詳細取得: id={}", id);
@@ -122,14 +114,10 @@ public class MockTestController extends AbstractController {
 
     /**
      * 模擬試験新規作成
-     * 
+     *
      * @param mockTest 模擬試験情報
      * @return 作成された模擬試験
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping
     public ResponseEntity<Map<String, Object>> createMockTest(@Valid @RequestBody MockTest mockTest) {
         logger.info("模擬試験新規作成: title={}", mockTest.getTitle());
@@ -152,15 +140,11 @@ public class MockTestController extends AbstractController {
 
     /**
      * 模擬試験更新
-     * 
+     *
      * @param id 模擬試験ID
      * @param mockTest 更新する模擬試験情報
      * @return 更新された模擬試験
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> updateMockTest(
             @PathVariable Long id, 
@@ -194,14 +178,10 @@ public class MockTestController extends AbstractController {
 
     /**
      * 模擬試験削除
-     * 
+     *
      * @param id 模擬試験ID
      * @return 削除結果
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> deleteMockTest(@PathVariable Long id) {
         logger.info("模擬試験削除: id={}", id);
@@ -231,16 +211,12 @@ public class MockTestController extends AbstractController {
 
     /**
      * 学生の模擬試験受験
-     * 
+     *
      * @param mockTestId 模擬試験ID
      * @param studentId 学生ID
      * @param answers 解答データ
      * @return 受験結果
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping("/{mockTestId}/take/{studentId}")
     public ResponseEntity<Map<String, Object>> takeMockTest(
             @PathVariable Long mockTestId,
@@ -268,16 +244,12 @@ public class MockTestController extends AbstractController {
 
     /**
      * 学生の模擬試験結果一覧取得
-     * 
+     *
      * @param studentId 学生ID
      * @param page ページ番号
      * @param size ページサイズ
      * @return 模擬試験結果一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/results/student/{studentId}")
     public ResponseEntity<Map<String, Object>> getStudentMockTestResults(
             @PathVariable Long studentId,
@@ -309,16 +281,12 @@ public class MockTestController extends AbstractController {
 
     /**
      * 模擬試験の全結果取得
-     * 
+     *
      * @param mockTestId 模擬試験ID
      * @param page ページ番号
      * @param size ページサイズ
      * @return 模擬試験の全結果
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/{mockTestId}/results")
     public ResponseEntity<Map<String, Object>> getMockTestResults(
             @PathVariable Long mockTestId,
@@ -350,14 +318,10 @@ public class MockTestController extends AbstractController {
 
     /**
      * 模擬試験統計情報取得
-     * 
+     *
      * @param mockTestId 模擬試験ID
      * @return 統計情報
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/{mockTestId}/statistics")
     public ResponseEntity<Map<String, Object>> getMockTestStatistics(@PathVariable Long mockTestId) {
         logger.info("模擬試験統計情報取得: mockTestId={}", mockTestId);
@@ -380,13 +344,9 @@ public class MockTestController extends AbstractController {
 
     /**
      * アクティブな模擬試験一覧取得
-     * 
+     *
      * @return アクティブな模擬試験一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/active")
     public ResponseEntity<Map<String, Object>> getActiveMockTests() {
         logger.info("アクティブな模擬試験一覧取得");
@@ -409,16 +369,12 @@ public class MockTestController extends AbstractController {
 
     /**
      * 模擬試験検索
-     * 
+     *
      * @param keyword 検索キーワード
      * @param page ページ番号
      * @param size ページサイズ
      * @return 検索結果
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/search")
     public ResponseEntity<Map<String, Object>> searchMockTests(
             @RequestParam String keyword,

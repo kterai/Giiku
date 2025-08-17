@@ -8,7 +8,6 @@ import jakarta.validation.constraints.*;
  * @version 1.0
  * @since 2025
  */
-
 public class UserRoleCreateDto {
 
     @NotNull
@@ -23,72 +22,22 @@ public class UserRoleCreateDto {
 
     @Size(max = 200)
     private String description;
-    /**
-     * UserRoleCreateDto メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** UserRoleCreateDto メソッド */
     public UserRoleCreateDto() {}
-    /**
-     * getUserId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getUserId メソッド */
     public Long getUserId() { return userId; }
-    /**
-     * setUserId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setUserId メソッド */
     public void setUserId(Long userId) { this.userId = userId; }
-    /**
-     * getRoleName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getRoleName メソッド */
     public String getRoleName() { return roleName; }
-    /**
-     * setRoleName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setRoleName メソッド */
     public void setRoleName(String roleName) { this.roleName = roleName; }
-    /**
-     * getCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompanyId メソッド */
     public Long getCompanyId() { return companyId; }
-    /**
-     * setCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompanyId メソッド */
     public void setCompanyId(Long companyId) { this.companyId = companyId; }
-    /**
-     * getDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getDescription メソッド */
     public String getDescription() { return description; }
-    /**
-     * setDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setDescription メソッド */
     public void setDescription(String description) { this.description = description; }
 }

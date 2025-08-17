@@ -42,11 +42,7 @@ public class ProgramScheduleController {
     /**
      * プログラムスケジュール一覧取得
      * GET /api/program-schedules
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/program-schedules")
     public ResponseEntity<?> getAllProgramSchedules(
             @RequestParam(defaultValue = "0") int page,
@@ -74,11 +70,7 @@ public class ProgramScheduleController {
     /**
      * プログラムスケジュール詳細取得
      * GET /api/program-schedules/{id}
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/program-schedules/{id}")
     public ResponseEntity<?> getProgramScheduleById(@PathVariable Long id) {
         try {
@@ -104,11 +96,7 @@ public class ProgramScheduleController {
     /**
      * プログラム別スケジュール取得
      * GET /api/training-programs/{programId}/schedules
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/training-programs/{programId}/schedules")
     public ResponseEntity<?> getSchedulesByProgramId(
             @PathVariable Long programId,
@@ -135,11 +123,7 @@ public class ProgramScheduleController {
     /**
      * 期間別スケジュール取得
      * GET /api/program-schedules/by-period
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/program-schedules/by-period")
     public ResponseEntity<?> getSchedulesByPeriod(
             @RequestParam String startDate,
@@ -169,11 +153,7 @@ public class ProgramScheduleController {
     /**
      * プログラムスケジュール作成
      * POST /api/program-schedules
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping("/program-schedules")
     public ResponseEntity<?> createProgramSchedule(@Valid @RequestBody ProgramScheduleCreateDto createDto) {
         try {
@@ -200,11 +180,7 @@ public class ProgramScheduleController {
     /**
      * プログラムスケジュール更新
      * PUT /api/program-schedules/{id}
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PutMapping("/program-schedules/{id}")
     public ResponseEntity<?> updateProgramSchedule(
             @PathVariable Long id, 
@@ -238,11 +214,7 @@ public class ProgramScheduleController {
     /**
      * プログラムスケジュール削除
      * DELETE /api/program-schedules/{id}
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @DeleteMapping("/program-schedules/{id}")
     public ResponseEntity<?> deleteProgramSchedule(@PathVariable Long id) {
         try {
@@ -268,11 +240,7 @@ public class ProgramScheduleController {
     /**
      * スケジュール一括作成
      * POST /api/program-schedules/batch-create
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping("/program-schedules/batch-create")
     public ResponseEntity<?> batchCreateSchedules(@Valid @RequestBody List<ProgramScheduleCreateDto> createDtos) {
         try {
@@ -298,11 +266,7 @@ public class ProgramScheduleController {
     /**
      * スケジュール検索
      * GET /api/program-schedules/search
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/program-schedules/search")
     public ResponseEntity<?> searchProgramSchedules(
             @RequestParam(required = false) Long programId,
@@ -344,11 +308,7 @@ public class ProgramScheduleController {
     /**
      * スケジュール統計情報取得
      * GET /api/program-schedules/stats
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/program-schedules/stats")
     public ResponseEntity<?> getProgramScheduleStats(
             @RequestParam(required = false) Long programId,
@@ -373,11 +333,7 @@ public class ProgramScheduleController {
     /**
      * スケジュール競合チェック
      * POST /api/program-schedules/check-conflicts
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping("/program-schedules/check-conflicts")
     public ResponseEntity<?> checkScheduleConflicts(@Valid @RequestBody ProgramScheduleCreateDto scheduleDto) {
         try {
@@ -400,11 +356,7 @@ public class ProgramScheduleController {
     /**
      * スケジュール複製
      * POST /api/program-schedules/{id}/duplicate
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping("/program-schedules/{id}/duplicate")
     public ResponseEntity<?> duplicateSchedule(
             @PathVariable Long id,
@@ -431,65 +383,29 @@ public class ProgramScheduleController {
         }
     }
 
-    /**
-     * 競合チェック結果レスポンス用クラス
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 競合チェック結果レスポンス用クラス */
     public static class ConflictCheckResponse {
         private List<ProgramScheduleResponseDto> conflicts;
         private boolean hasConflicts;
-        /**
-         * ConflictCheckResponse メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
-
+        /** ConflictCheckResponse メソッド */
         public ConflictCheckResponse(List<ProgramScheduleResponseDto> conflicts) {
             this.conflicts = conflicts;
             this.hasConflicts = conflicts != null && !conflicts.isEmpty();
         }
-        /**
-         * getConflicts メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
-
+        /** getConflicts メソッド */
         public List<ProgramScheduleResponseDto> getConflicts() {
             return conflicts;
         }
-        /**
-         * setConflicts メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
-
+        /** setConflicts メソッド */
         public void setConflicts(List<ProgramScheduleResponseDto> conflicts) {
             this.conflicts = conflicts;
             this.hasConflicts = conflicts != null && !conflicts.isEmpty();
         }
-        /**
-         * isHasConflicts メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
-
+        /** isHasConflicts メソッド */
         public boolean isHasConflicts() {
             return hasConflicts;
         }
-        /**
-         * setHasConflicts メソッド
-         * @author 株式会社アプサ
-         * @version 1.0
-         * @since 2025
-         */
-
+        /** setHasConflicts メソッド */
         public void setHasConflicts(boolean hasConflicts) {
             this.hasConflicts = hasConflicts;
         }
