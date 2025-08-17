@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * Lectureのリポジトリインターフェース
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -18,42 +19,74 @@ import java.util.List;
 @Repository
 public interface LectureRepository extends JpaRepository<Lecture, Long>, JpaSpecificationExecutor<Lecture> {
 
-    /** 研修プログラムIDで検索 */
+    /** 研修プログラムIDで検索 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     default List<Lecture> findByTrainingProgramIdAndIsActiveTrue(Long trainingProgramId) {
         return findAll();
     }
 
-    /** 講師IDで検索 */
+    /** 講師IDで検索 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     default List<Lecture> findByInstructorIdAndIsActiveTrueOrderByScheduleDateAsc(Long instructorId) {
         return findAll();
     }
 
-    /** アクティブな講義を取得 */
+    /** アクティブな講義を取得 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     default List<Lecture> findByIsActiveTrueOrderByScheduleDateAsc() {
         return findAll();
     }
 
-    /** カテゴリで検索 */
+    /** カテゴリで検索 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     default List<Lecture> findByCategoryAndIsActiveTrueOrderByTitleAsc(String category) {
         return findAll();
     }
 
-    /** タイトル部分一致で検索 */
+    /** タイトル部分一致で検索 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     default List<Lecture> findByTitleContainingIgnoreCaseAndIsActiveTrueOrderByTitleAsc(String title) {
         return findAll();
     }
 
-    /** 研修プログラムIDで件数取得 */
+    /** 研修プログラムIDで件数取得 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     default long countByTrainingProgramIdAndIsActiveTrue(Long trainingProgramId) {
         return 0L;
     }
 
-    /** 講師IDで件数取得 */
+    /** 講師IDで件数取得 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     default long countByInstructorIdAndIsActiveTrue(Long instructorId) {
         return 0L;
     }
 
-    /** 予定日以降の講義を取得 */
+    /** 予定日以降の講義を取得 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     default List<Lecture> findByScheduleDateGreaterThanAndIsActiveTrueOrderByScheduleDateAsc(LocalDateTime dateTime) {
         return findAll();
     }

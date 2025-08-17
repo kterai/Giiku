@@ -29,6 +29,7 @@ import jp.co.apsa.giiku.dto.ProgramScheduleUpdateDto;
 /**
  * ProgramSchedule（プログラムスケジュール）に関するビジネスロジックを提供するサービスクラス。
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -47,7 +48,11 @@ public class ProgramScheduleService {
      * 全てのプログラムスケジュールを取得
      * 
      * @return プログラムスケジュールのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<ProgramSchedule> findAll() {
         return programScheduleRepository.findAll();
@@ -58,7 +63,11 @@ public class ProgramScheduleService {
      * 
      * @param id プログラムスケジュールID
      * @return Optional<ProgramSchedule>
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Optional<ProgramSchedule> findById(Long id) {
         return programScheduleRepository.findById(id);
@@ -69,7 +78,11 @@ public class ProgramScheduleService {
      * 
      * @param trainingProgramId 研修プログラムID
      * @return プログラムスケジュールのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<ProgramSchedule> findByTrainingProgramId(Long trainingProgramId) {
         return programScheduleRepository.findByTrainingProgramIdOrderByStartDateAsc(trainingProgramId);
@@ -81,7 +94,11 @@ public class ProgramScheduleService {
      * @param startDate 開始日
      * @param endDate 終了日
      * @return プログラムスケジュールのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<ProgramSchedule> findSchedulesWithinPeriod(LocalDate startDate, LocalDate endDate) {
         return programScheduleRepository.findByStartDateBetween(startDate, endDate);
@@ -91,7 +108,11 @@ public class ProgramScheduleService {
      * 今日のプログラムスケジュールを取得
      * 
      * @return 今日のプログラムスケジュールのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<ProgramSchedule> findTodaySchedules() {
         LocalDate today = LocalDate.now();
@@ -102,7 +123,11 @@ public class ProgramScheduleService {
      * 今週のプログラムスケジュールを取得
      * 
      * @return 今週のプログラムスケジュールのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<ProgramSchedule> findThisWeekSchedules() {
         LocalDate startOfWeek = LocalDate.now().with(java.time.DayOfWeek.MONDAY);
@@ -119,7 +144,11 @@ public class ProgramScheduleService {
      * @param status ステータス（オプション）
      * @param pageable ページング情報
      * @return ページング対応のプログラムスケジュール
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<ProgramSchedule> searchSchedules(Long trainingProgramId, LocalDate startDate,
                                                LocalDate endDate, String status, Pageable pageable) {
@@ -154,7 +183,11 @@ public class ProgramScheduleService {
      * @param programSchedule プログラムスケジュール
      * @return 保存されたプログラムスケジュール
      * @throws IllegalArgumentException バリデーションエラー
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public ProgramSchedule save(ProgramSchedule programSchedule) {
         validateProgramSchedule(programSchedule);
 
@@ -176,7 +209,11 @@ public class ProgramScheduleService {
      * @param programSchedule 更新するプログラムスケジュール
      * @return 更新されたプログラムスケジュール
      * @throws IllegalArgumentException IDが存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public ProgramSchedule update(Long id, ProgramSchedule programSchedule) {
         Optional<ProgramSchedule> existingSchedule = programScheduleRepository.findById(id);
         if (!existingSchedule.isPresent()) {
@@ -194,7 +231,11 @@ public class ProgramScheduleService {
      * 
      * @param id プログラムスケジュールID
      * @throws IllegalArgumentException IDが存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void delete(Long id) {
         if (!programScheduleRepository.existsById(id)) {
             throw new IllegalArgumentException("指定されたプログラムスケジュールが存在しません: " + id);
@@ -208,7 +249,11 @@ public class ProgramScheduleService {
      * @param id プログラムスケジュールID
      * @param status 新しいステータス
      * @throws IllegalArgumentException IDが存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void updateStatus(Long id, String status) {
         Optional<ProgramSchedule> programSchedule = programScheduleRepository.findById(id);
         if (!programSchedule.isPresent()) {
@@ -225,7 +270,11 @@ public class ProgramScheduleService {
      * 
      * @param trainingProgramId 研修プログラムID
      * @return スケジュール数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public long countByTrainingProgramId(Long trainingProgramId) {
         return programScheduleRepository.countByTrainingProgramId(trainingProgramId);
@@ -236,7 +285,11 @@ public class ProgramScheduleService {
      * 
      * @param trainingProgramId 研修プログラムID
      * @return 完了済みスケジュール数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public long countCompletedSchedules(Long trainingProgramId) {
         return programScheduleRepository.countByTrainingProgramIdAndScheduleStatus(trainingProgramId, "COMPLETED");
@@ -244,7 +297,11 @@ public class ProgramScheduleService {
 
     // ---- Additional methods for controller compatibility ----
 
-    /** 全プログラムスケジュールをページング取得 */
+    /** 全プログラムスケジュールをページング取得 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<ProgramScheduleResponseDto> getAllProgramSchedules(int page, int size, String sortBy, String sortDir) {
         Sort sort = Sort.by(Sort.Direction.fromString(sortDir), sortBy);
@@ -253,20 +310,32 @@ public class ProgramScheduleService {
         return new PageImpl<>(content, schedules.getPageable(), schedules.getTotalElements());
     }
 
-    /** IDでプログラムスケジュールを取得 */
+    /** IDでプログラムスケジュールを取得 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Optional<ProgramScheduleResponseDto> getProgramScheduleById(Long id) {
         return programScheduleRepository.findById(id).map(this::toDto);
     }
 
-    /** プログラムIDでスケジュール一覧を取得 */
+    /** プログラムIDでスケジュール一覧を取得 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<ProgramScheduleResponseDto> getSchedulesByProgramId(Long programId, String sortBy, String sortDir) {
         List<ProgramSchedule> list = programScheduleRepository.findByTrainingProgramIdOrderByStartDateAsc(programId);
         return list.stream().map(this::toDto).toList();
     }
 
-    /** 期間でスケジュールを取得 */
+    /** 期間でスケジュールを取得 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<ProgramScheduleResponseDto> getSchedulesByPeriod(String startDate, String endDate, Long programId, int page, int size) {
         LocalDate start = LocalDate.parse(startDate);
@@ -276,7 +345,11 @@ public class ProgramScheduleService {
         return new PageImpl<>(content, PageRequest.of(page, size), content.size());
     }
 
-    /** プログラムスケジュール作成 */
+    /** プログラムスケジュール作成 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public ProgramScheduleResponseDto createProgramSchedule(ProgramScheduleCreateDto dto) {
         ProgramSchedule entity = new ProgramSchedule();
         entity.setTrainingProgramId(dto.getProgramId());
@@ -289,7 +362,11 @@ public class ProgramScheduleService {
         return toDto(saved);
     }
 
-    /** プログラムスケジュール更新 */
+    /** プログラムスケジュール更新 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Optional<ProgramScheduleResponseDto> updateProgramSchedule(Long id, ProgramScheduleUpdateDto dto) {
         Optional<ProgramSchedule> opt = programScheduleRepository.findById(id);
         if (opt.isEmpty()) {
@@ -304,7 +381,11 @@ public class ProgramScheduleService {
         return Optional.of(toDto(saved));
     }
 
-    /** プログラムスケジュール削除 */
+    /** プログラムスケジュール削除 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public boolean deleteProgramSchedule(Long id) {
         if (!programScheduleRepository.existsById(id)) {
             return false;
@@ -313,7 +394,11 @@ public class ProgramScheduleService {
         return true;
     }
 
-    /** 複数スケジュールを一括作成 */
+    /** 複数スケジュールを一括作成 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public List<ProgramScheduleResponseDto> batchCreateSchedules(List<ProgramScheduleCreateDto> dtos) {
         List<ProgramScheduleResponseDto> result = new ArrayList<>();
         for (ProgramScheduleCreateDto dto : dtos) {
@@ -322,13 +407,21 @@ public class ProgramScheduleService {
         return result;
     }
 
-    /** 検索 */
+    /** 検索 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<ProgramScheduleResponseDto> searchProgramSchedules(ProgramScheduleSearchDto searchDto, int page, int size, String sortBy, String sortDir) {
         return getAllProgramSchedules(page, size, sortBy, sortDir);
     }
 
-    /** 統計情報取得 */
+    /** 統計情報取得 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public ProgramScheduleStatsDto getProgramScheduleStats(Long programId, String period) {
         ProgramScheduleStatsDto dto = new ProgramScheduleStatsDto();
@@ -341,13 +434,21 @@ public class ProgramScheduleService {
         return dto;
     }
 
-    /** スケジュール競合チェック */
+    /** スケジュール競合チェック 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public List<ProgramScheduleResponseDto> checkScheduleConflicts(ProgramScheduleCreateDto dto) {
         // 実際の競合チェックは未実装のため空リストを返す
         return List.of();
     }
 
-    /** スケジュール複製 */
+    /** スケジュール複製 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public ProgramScheduleResponseDto duplicateSchedule(Long id, String newStartDate, String newEndDate) {
         ProgramSchedule original = programScheduleRepository.findById(id).orElseThrow();
         ProgramSchedule copy = new ProgramSchedule();
@@ -365,7 +466,11 @@ public class ProgramScheduleService {
         return toDto(saved);
     }
 
-    /** エンティティをレスポンスDTOへ変換 */
+    /** エンティティをレスポンスDTOへ変換 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     private ProgramScheduleResponseDto toDto(ProgramSchedule schedule) {
         ProgramScheduleResponseDto dto = new ProgramScheduleResponseDto();
         dto.setId(schedule.getId());
@@ -383,7 +488,11 @@ public class ProgramScheduleService {
      * 
      * @param programSchedule 検証対象のプログラムスケジュール
      * @throws IllegalArgumentException バリデーションエラー
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     private void validateProgramSchedule(ProgramSchedule programSchedule) {
         if (programSchedule == null) {
             throw new IllegalArgumentException("プログラムスケジュールが null です");

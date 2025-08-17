@@ -25,6 +25,10 @@ import java.util.Optional;
 /**
  * 講義チャプター管理コントローラー
  * 講義チャプターのCRUD操作、進捗管理、検索、統計機能を提供
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @RestController
 @RequestMapping("/api")
@@ -39,7 +43,11 @@ public class LectureChapterController {
     /**
      * チャプター一覧取得
      * GET /api/lecture-chapters
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/lecture-chapters")
     public ResponseEntity<?> getAllChapters(
             @RequestParam(defaultValue = "0") int page,
@@ -67,7 +75,11 @@ public class LectureChapterController {
     /**
      * チャプター詳細取得
      * GET /api/lecture-chapters/{id}
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/lecture-chapters/{id}")
     public ResponseEntity<?> getChapterById(@PathVariable Long id) {
         try {
@@ -93,7 +105,11 @@ public class LectureChapterController {
     /**
      * 講義別チャプター取得
      * GET /api/lectures/{lectureId}/chapters
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/lectures/{lectureId}/chapters")
     public ResponseEntity<?> getChaptersByLectureId(
             @PathVariable Long lectureId,
@@ -120,7 +136,11 @@ public class LectureChapterController {
     /**
      * チャプター作成
      * POST /api/lecture-chapters
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PostMapping("/lecture-chapters")
     public ResponseEntity<?> createChapter(@Valid @RequestBody LectureChapterCreateDto createDto) {
         try {
@@ -147,7 +167,11 @@ public class LectureChapterController {
     /**
      * チャプター更新
      * PUT /api/lecture-chapters/{id}
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PutMapping("/lecture-chapters/{id}")
     public ResponseEntity<?> updateChapter(
             @PathVariable Long id, 
@@ -181,7 +205,11 @@ public class LectureChapterController {
     /**
      * チャプター削除
      * DELETE /api/lecture-chapters/{id}
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @DeleteMapping("/lecture-chapters/{id}")
     public ResponseEntity<?> deleteChapter(@PathVariable Long id) {
         try {
@@ -207,7 +235,11 @@ public class LectureChapterController {
     /**
      * チャプター進捗管理
      * GET /api/lecture-chapters/{id}/progress
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/lecture-chapters/{id}/progress")
     public ResponseEntity<?> getChapterProgress(
             @PathVariable Long id,
@@ -233,7 +265,11 @@ public class LectureChapterController {
     /**
      * チャプター進捗更新
      * PUT /api/lecture-chapters/{id}/progress
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PutMapping("/lecture-chapters/{id}/progress")
     public ResponseEntity<?> updateChapterProgress(
             @PathVariable Long id,
@@ -265,7 +301,11 @@ public class LectureChapterController {
     /**
      * チャプター検索機能
      * GET /api/lecture-chapters/search
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/lecture-chapters/search")
     public ResponseEntity<?> searchChapters(
             @RequestParam(required = false) String title,
@@ -305,7 +345,11 @@ public class LectureChapterController {
     /**
      * チャプター統計情報取得
      * GET /api/lecture-chapters/stats
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/lecture-chapters/stats")
     public ResponseEntity<?> getChapterStats(
             @RequestParam(required = false) Long lectureId,
@@ -330,7 +374,11 @@ public class LectureChapterController {
     /**
      * 講義のチャプター順序更新
      * PUT /api/lectures/{lectureId}/chapters/reorder
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PutMapping("/lectures/{lectureId}/chapters/reorder")
     public ResponseEntity<?> reorderChapters(
             @PathVariable Long lectureId,
@@ -361,7 +409,11 @@ public class LectureChapterController {
     /**
      * チャプター複製
      * POST /api/lecture-chapters/{id}/duplicate
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PostMapping("/lecture-chapters/{id}/duplicate")
     public ResponseEntity<?> duplicateChapter(
             @PathVariable Long id,

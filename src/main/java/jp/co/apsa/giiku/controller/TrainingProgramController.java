@@ -24,6 +24,10 @@ import java.util.Optional;
 /**
  * 研修プログラム管理コントローラー
  * 研修プログラムのCRUD操作とビジネスロジックを提供
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @RestController
 @RequestMapping("/api/training-programs")
@@ -44,7 +48,11 @@ public class TrainingProgramController extends AbstractController {
      * @param sortBy ソート項目
      * @param sortDir ソート方向（ASC/DESC）
      * @return 研修プログラム一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllTrainingPrograms(
             @RequestParam(defaultValue = "0") @Min(0) int page,
@@ -83,7 +91,11 @@ public class TrainingProgramController extends AbstractController {
      * 
      * @param id 研修プログラムID
      * @return 研修プログラム詳細
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> getTrainingProgramById(@PathVariable Long id) {
         logger.info("研修プログラム詳細取得: id={}", id);
@@ -112,7 +124,11 @@ public class TrainingProgramController extends AbstractController {
      * 
      * @param program 研修プログラム情報
      * @return 作成された研修プログラム
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PostMapping
     public ResponseEntity<Map<String, Object>> createTrainingProgram(@Valid @RequestBody TrainingProgram program) {
         logger.info("研修プログラム新規作成: name={}", program.getName());
@@ -139,7 +155,11 @@ public class TrainingProgramController extends AbstractController {
      * @param id 研修プログラムID
      * @param program 更新する研修プログラム情報
      * @return 更新された研修プログラム
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> updateTrainingProgram(
             @PathVariable Long id, 
@@ -176,7 +196,11 @@ public class TrainingProgramController extends AbstractController {
      * 
      * @param id 研修プログラムID
      * @return 削除結果
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> deleteTrainingProgram(@PathVariable Long id) {
         logger.info("研修プログラム削除: id={}", id);
@@ -208,7 +232,11 @@ public class TrainingProgramController extends AbstractController {
      * アクティブな研修プログラム一覧取得
      * 
      * @return アクティブな研修プログラム一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/active")
     public ResponseEntity<Map<String, Object>> getActiveTrainingPrograms() {
         logger.info("アクティブな研修プログラム一覧取得");
@@ -236,7 +264,11 @@ public class TrainingProgramController extends AbstractController {
      * @param page ページ番号
      * @param size ページサイズ
      * @return 検索結果
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/search")
     public ResponseEntity<Map<String, Object>> searchTrainingPrograms(
             @RequestParam String keyword,

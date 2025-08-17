@@ -14,6 +14,7 @@ import jp.co.apsa.giiku.domain.repository.UserRepository;
 
 /**
  * ユーザー認証情報を提供するサービス。
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -23,11 +24,23 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    /**
+     * UserService メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    /**
+     * loadUserByUsername メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         jp.co.apsa.giiku.domain.entity.User user = userRepository.findByUsername(username)

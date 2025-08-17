@@ -25,27 +25,46 @@ import java.util.Objects;
     @Index(name = "idx_enrollment_date", columnList = "enrollment_date"),
     @Index(name = "idx_student_program_unique", columnList = "student_id,program_id", unique = true)
 })
+/**
+ * The StudentEnrollment class.
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class StudentEnrollment extends BaseEntity {
 
     /**
      * 学生ID（Userテーブルとの外部キー）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @NotNull(message = "学生IDは必須です")
     @Column(name = "student_id", nullable = false)
     private Long studentId;
 
     /**
      * 研修プログラムID（TrainingProgramテーブルとの外部キー）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @NotNull(message = "研修プログラムIDは必須です")
     @Column(name = "program_id", nullable = false)
     private Long programId;
 
     /**
      * 会社ID（学生が所属する会社）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @NotNull(message = "会社IDは必須です")
     @Column(name = "company_id", nullable = false)
     private Long companyId;
@@ -57,7 +76,11 @@ public class StudentEnrollment extends BaseEntity {
      * SUSPENDED: 一時停止
      * CANCELLED: キャンセル
      * FAILED: 不合格
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @NotBlank(message = "登録状況は必須です")
     @Size(max = 20, message = "登録状況は20文字以下で入力してください")
     @Column(name = "enrollment_status", nullable = false, length = 20)
@@ -65,26 +88,42 @@ public class StudentEnrollment extends BaseEntity {
 
     /**
      * 登録日
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @NotNull(message = "登録日は必須です")
     @Column(name = "enrollment_date", nullable = false)
     private LocalDate enrollmentDate;
 
     /**
      * 開始日
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Column(name = "start_date")
     private LocalDate startDate;
 
     /**
      * 修了日
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Column(name = "completion_date")
     private LocalDate completionDate;
 
     /**
      * 進捗率（0.0-100.0）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @DecimalMin(value = "0.0", message = "進捗率は0.0以上で入力してください")
     @DecimalMax(value = "100.0", message = "進捗率は100.0以下で入力してください")
     @Column(name = "progress_percentage", precision = 5, scale = 2)
@@ -92,7 +131,11 @@ public class StudentEnrollment extends BaseEntity {
 
     /**
      * 最終スコア
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @DecimalMin(value = "0.0", message = "スコアは0.0以上で入力してください")
     @DecimalMax(value = "100.0", message = "スコアは100.0以下で入力してください")
     @Column(name = "final_score", precision = 5, scale = 2)
@@ -100,46 +143,74 @@ public class StudentEnrollment extends BaseEntity {
 
     /**
      * 合格フラグ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Column(name = "passed", nullable = false)
     private Boolean passed = false;
 
     /**
      * 試験回数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Min(value = 0, message = "試験回数は0以上で入力してください")
     @Column(name = "attempt_count", nullable = false)
     private Integer attemptCount = 0;
 
     /**
      * 最大試験回数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Min(value = 1, message = "最大試験回数は1以上で入力してください")
     @Column(name = "max_attempts")
     private Integer maxAttempts = 3;
 
     /**
      * 講師ID（担当講師）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Column(name = "instructor_id")
     private Long instructorId;
 
     /**
      * 修了証明書番号
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Size(max = 50, message = "修了証明書番号は50文字以下で入力してください")
     @Column(name = "certificate_number", length = 50)
     private String certificateNumber;
 
     /**
      * 修了証明書発行日
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Column(name = "certificate_issued_date")
     private LocalDate certificateIssuedDate;
 
     /**
      * 登録料金
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @DecimalMin(value = "0.0", message = "登録料金は0.0以上で入力してください")
     @Column(name = "enrollment_fee", precision = 10, scale = 2)
     private BigDecimal enrollmentFee;
@@ -150,31 +221,53 @@ public class StudentEnrollment extends BaseEntity {
      * PAID: 支払い済み
      * REFUNDED: 返金済み
      * PARTIAL: 一部支払い
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Size(max = 20, message = "支払い状況は20文字以下で入力してください")
     @Column(name = "payment_status", length = 20)
     private String paymentStatus = "UNPAID";
 
     /**
      * 支払い日
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Column(name = "payment_date")
     private LocalDate paymentDate;
 
     /**
      * 特記事項・備考
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Size(max = 1000, message = "特記事項は1000文字以下で入力してください")
     @Column(name = "notes", length = 1000)
     private String notes;
 
     /**
      * 最終アクセス日時
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Column(name = "last_access_date")
     private java.time.LocalDateTime lastAccessDate;
 
     // デフォルトコンストラクタ
+    /**
+     * StudentEnrollment メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     public StudentEnrollment() {
         super();
         this.enrollmentStatus = "ENROLLED";
@@ -186,6 +279,12 @@ public class StudentEnrollment extends BaseEntity {
     }
 
     // コンストラクタ（必須フィールド）
+    /**
+     * StudentEnrollment メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     public StudentEnrollment(Long studentId, Long programId, Long companyId, LocalDate enrollmentDate) {
         this();
         this.studentId = studentId;
@@ -196,7 +295,11 @@ public class StudentEnrollment extends BaseEntity {
 
     /**
      * 登録状況の列挙型定数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public static class EnrollmentStatus {
         public static final String ENROLLED = "ENROLLED";
         public static final String COMPLETED = "COMPLETED";
@@ -207,7 +310,11 @@ public class StudentEnrollment extends BaseEntity {
 
     /**
      * 支払い状況の列挙型定数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public static class PaymentStatus {
         public static final String UNPAID = "UNPAID";
         public static final String PAID = "PAID";
@@ -217,7 +324,11 @@ public class StudentEnrollment extends BaseEntity {
 
     /**
      * 登録が有効かどうかを判定
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public boolean isActive() {
         return EnrollmentStatus.ENROLLED.equals(this.enrollmentStatus) ||
                EnrollmentStatus.COMPLETED.equals(this.enrollmentStatus);
@@ -225,14 +336,22 @@ public class StudentEnrollment extends BaseEntity {
 
     /**
      * 修了済みかどうかを判定
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public boolean isCompleted() {
         return EnrollmentStatus.COMPLETED.equals(this.enrollmentStatus);
     }
 
     /**
      * 試験可能かどうかを判定
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public boolean canTakeExam() {
         return isActive() && 
                (this.maxAttempts == null || this.attemptCount < this.maxAttempts);
@@ -240,21 +359,33 @@ public class StudentEnrollment extends BaseEntity {
 
     /**
      * 進捗率をパーセンテージで取得
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public double getProgressPercentageAsDouble() {
         return this.progressPercentage != null ? this.progressPercentage.doubleValue() : 0.0;
     }
 
     /**
      * 進捗率を設定（double値から）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void setProgressPercentageFromDouble(double percentage) {
         this.progressPercentage = BigDecimal.valueOf(percentage);
     }
 
     /**
      * 修了処理を実行
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void complete(BigDecimal finalScore, String certificateNumber) {
         this.enrollmentStatus = EnrollmentStatus.COMPLETED;
         this.completionDate = LocalDate.now();
@@ -267,11 +398,21 @@ public class StudentEnrollment extends BaseEntity {
 
     /**
      * 試験回数を増加
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void incrementAttemptCount() {
         this.attemptCount++;
     }
 
+    /**
+     * equals メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -282,11 +423,23 @@ public class StudentEnrollment extends BaseEntity {
                Objects.equals(programId, that.programId);
     }
 
+    /**
+     * hashCode メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), studentId, programId);
     }
 
+    /**
+     * toString メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Override
     public String toString() {
         return "StudentEnrollment{" +

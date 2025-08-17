@@ -13,6 +13,7 @@ import java.util.Optional;
 /**
  * StudentProfile のリポジトリインターフェース。
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -25,7 +26,11 @@ public interface StudentProfileRepository extends JpaRepository<StudentProfile, 
      *
      * @param studentId 学生ID
      * @return 該当する学生プロフィール（存在しない場合は空）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     Optional<StudentProfile> findByStudentId(Long studentId);
 
     /**
@@ -33,7 +38,11 @@ public interface StudentProfileRepository extends JpaRepository<StudentProfile, 
      *
      * @param studentNumber 学生番号
      * @return 該当する学生プロフィール（存在しない場合は空）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     Optional<StudentProfile> findByStudentNumber(String studentNumber);
 
     /**
@@ -41,7 +50,11 @@ public interface StudentProfileRepository extends JpaRepository<StudentProfile, 
      *
      * @param companyId 企業ID
      * @return 学生プロフィールのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     List<StudentProfile> findByCompanyId(Long companyId);
 
     /**
@@ -50,7 +63,11 @@ public interface StudentProfileRepository extends JpaRepository<StudentProfile, 
      * @param companyId 企業ID
      * @param pageable  ページ情報
      * @return 学生プロフィールのページ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     Page<StudentProfile> findByCompanyId(Long companyId, Pageable pageable);
 
     /**
@@ -58,7 +75,11 @@ public interface StudentProfileRepository extends JpaRepository<StudentProfile, 
      *
      * @param enrollmentStatus 在籍状況
      * @return 学生プロフィールのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     List<StudentProfile> findByEnrollmentStatus(String enrollmentStatus);
 
     /**
@@ -66,7 +87,11 @@ public interface StudentProfileRepository extends JpaRepository<StudentProfile, 
      *
      * @param studentNumber 学生番号
      * @return 存在する場合は true
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     boolean existsByStudentNumber(String studentNumber);
 
     /**
@@ -75,7 +100,11 @@ public interface StudentProfileRepository extends JpaRepository<StudentProfile, 
      * @param companyId        企業ID
      * @param enrollmentStatus 在籍状況
      * @return 該当する学生数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     long countByCompanyIdAndEnrollmentStatus(Long companyId, String enrollmentStatus);
 
     /**
@@ -83,7 +112,11 @@ public interface StudentProfileRepository extends JpaRepository<StudentProfile, 
      *
      * @param companyId 企業ID
      * @return 学年と人数の配列リスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Query("SELECT sp.gradeLevel, COUNT(sp) FROM StudentProfile sp WHERE sp.companyId = :companyId GROUP BY sp.gradeLevel")
     List<Object[]> countByGradeLevelAndCompanyId(Long companyId);
 }

@@ -10,6 +10,10 @@ import java.util.Optional;
 /**
  * CompanyLmsConfigのリポジトリインターフェース
  * LMS設定の永続化とカスタムクエリメソッドを提供
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Repository
 public interface CompanyLmsConfigRepository extends JpaRepository<CompanyLmsConfig, Long> {
@@ -19,14 +23,22 @@ public interface CompanyLmsConfigRepository extends JpaRepository<CompanyLmsConf
      * 
      * @param companyId 企業ID
      * @return 該当企業のLMS設定一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     List<CompanyLmsConfig> findByCompanyId(Long companyId);
 
     /**
      * アクティブなLMS設定一覧を取得
      * 
      * @return アクティブなLMS設定一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     List<CompanyLmsConfig> findByActiveTrue();
 
     /**
@@ -34,7 +46,11 @@ public interface CompanyLmsConfigRepository extends JpaRepository<CompanyLmsConf
      * 
      * @param companyId 企業ID
      * @return アクティブなLMS設定（存在する場合）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     Optional<CompanyLmsConfig> findByCompanyIdAndActiveTrue(Long companyId);
 
     /**
@@ -42,7 +58,11 @@ public interface CompanyLmsConfigRepository extends JpaRepository<CompanyLmsConf
      * 
      * @param companyId 企業ID
      * @return 非アクティブなLMS設定一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     List<CompanyLmsConfig> findByCompanyIdAndActiveFalse(Long companyId);
 
     /**
@@ -51,7 +71,11 @@ public interface CompanyLmsConfigRepository extends JpaRepository<CompanyLmsConf
      * @param configName 設定名
      * @param companyId 企業ID
      * @return 該当するLMS設定（存在する場合）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     Optional<CompanyLmsConfig> findByConfigNameAndCompanyId(String configName, Long companyId);
 
     /**
@@ -59,7 +83,11 @@ public interface CompanyLmsConfigRepository extends JpaRepository<CompanyLmsConf
      * 
      * @param configType 設定タイプ
      * @return 該当する設定一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     List<CompanyLmsConfig> findByConfigType(String configType);
 
     /**
@@ -68,7 +96,11 @@ public interface CompanyLmsConfigRepository extends JpaRepository<CompanyLmsConf
      * @param companyId 企業ID
      * @param configType 設定タイプ
      * @return 該当する設定一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     List<CompanyLmsConfig> findByCompanyIdAndConfigType(Long companyId, String configType);
 
     // JpaRepositoryから継承される基本メソッド:

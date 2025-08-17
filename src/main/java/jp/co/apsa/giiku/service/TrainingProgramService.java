@@ -24,6 +24,7 @@ import org.springframework.data.domain.PageImpl;
 /**
  * TrainingProgram（研修プログラム）に関するビジネスロジックを提供するサービスクラス。
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -45,13 +46,21 @@ public class TrainingProgramService {
      * 全ての研修プログラムを取得
      * 
      * @return 研修プログラムのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<TrainingProgram> findAll() {
         return trainingProgramRepository.findAll();
     }
 
-    /** キーワードで研修プログラムを検索 */
+    /** キーワードで研修プログラムを検索 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<TrainingProgram> findAll(String keyword, Pageable pageable) {
         if (keyword == null || keyword.trim().isEmpty()) {
@@ -62,7 +71,11 @@ public class TrainingProgramService {
         return trainingProgramRepository.findAll(spec, pageable);
     }
 
-    /** ページングのみの取得 */
+    /** ページングのみの取得 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<TrainingProgram> findAll(Pageable pageable) {
         return trainingProgramRepository.findAll(pageable);
@@ -73,7 +86,11 @@ public class TrainingProgramService {
      * 
      * @param id 研修プログラムID
      * @return Optional<TrainingProgram>
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Optional<TrainingProgram> findById(Long id) {
         return trainingProgramRepository.findById(id);
@@ -84,7 +101,11 @@ public class TrainingProgramService {
      * 
      * @param companyId 企業ID
      * @return 研修プログラムのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<TrainingProgram> findByCompanyId(Long companyId) {
         return trainingProgramRepository.findByCompanyIdAndProgramStatus(companyId, TrainingProgram.ProgramStatus.ACTIVE);
@@ -94,7 +115,11 @@ public class TrainingProgramService {
      * アクティブな研修プログラムを取得
      * 
      * @return アクティブな研修プログラムのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<TrainingProgram> findActivePrograms() {
         return trainingProgramRepository.findByProgramStatusOrderByStartDateAsc(TrainingProgram.ProgramStatus.ACTIVE);
@@ -105,7 +130,11 @@ public class TrainingProgramService {
      * 
      * @param category カテゴリ
      * @return 研修プログラムのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<TrainingProgram> findByCategory(String category) {
         return trainingProgramRepository.findByCategoryAndProgramStatusOrderByProgramNameAsc(category, TrainingProgram.ProgramStatus.ACTIVE);
@@ -116,7 +145,11 @@ public class TrainingProgramService {
      * 
      * @param level レベル
      * @return 研修プログラムのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<TrainingProgram> findByLevel(String level) {
         return trainingProgramRepository.findByLevelAndProgramStatusOrderByProgramNameAsc(level, TrainingProgram.ProgramStatus.ACTIVE);
@@ -132,7 +165,11 @@ public class TrainingProgramService {
      * @param isActive アクティブフラグ（オプション）
      * @param pageable ページング情報
      * @return ページング対応の研修プログラム
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<TrainingProgram> searchPrograms(Long companyId, String category, String level,
                                               Long instructorId, Boolean isActive, Pageable pageable) {
@@ -162,7 +199,11 @@ public class TrainingProgramService {
         return trainingProgramRepository.findAll(spec, pageable);
     }
 
-    /** キーワード検索のエイリアス */
+    /** キーワード検索のエイリアス 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<TrainingProgram> searchPrograms(String keyword, Pageable pageable) {
         return findAll(keyword, pageable);
@@ -174,7 +215,11 @@ public class TrainingProgramService {
      * @param trainingProgram 研修プログラム
      * @return 保存された研修プログラム
      * @throws IllegalArgumentException バリデーションエラー
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public TrainingProgram save(TrainingProgram trainingProgram) {
         validateTrainingProgram(trainingProgram);
 
@@ -196,7 +241,11 @@ public class TrainingProgramService {
      * @param trainingProgram 更新する研修プログラム
      * @return 更新された研修プログラム
      * @throws IllegalArgumentException IDが存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public TrainingProgram update(Long id, TrainingProgram trainingProgram) {
         Optional<TrainingProgram> existingProgram = trainingProgramRepository.findById(id);
         if (!existingProgram.isPresent()) {
@@ -214,7 +263,11 @@ public class TrainingProgramService {
      * 
      * @param id 研修プログラムID
      * @throws IllegalArgumentException IDが存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void deactivate(Long id) {
         Optional<TrainingProgram> trainingProgram = trainingProgramRepository.findById(id);
         if (!trainingProgram.isPresent()) {
@@ -226,7 +279,11 @@ public class TrainingProgramService {
         trainingProgramRepository.save(program);
     }
 
-    /** IDで削除（エイリアス） */
+    /** IDで削除（エイリアス） 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void deleteById(Long id) {
         trainingProgramRepository.deleteById(id);
     }
@@ -236,7 +293,11 @@ public class TrainingProgramService {
      * 
      * @param id 研修プログラムID
      * @throws IllegalArgumentException IDが存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void delete(Long id) {
         if (!trainingProgramRepository.existsById(id)) {
             throw new IllegalArgumentException("指定された研修プログラムが存在しません: " + id);
@@ -249,7 +310,11 @@ public class TrainingProgramService {
      * 
      * @param companyId 企業ID
      * @return プログラム数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public long countByCompanyId(Long companyId) {
         return trainingProgramRepository.countByCompanyIdAndProgramStatus(companyId, TrainingProgram.ProgramStatus.ACTIVE);
@@ -261,7 +326,11 @@ public class TrainingProgramService {
      * @param startDate 開始日
      * @param endDate 終了日
      * @return 研修プログラムのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<TrainingProgram> findProgramsWithinPeriod(LocalDate startDate, LocalDate endDate) {
         return trainingProgramRepository.findProgramsWithinPeriod(startDate, endDate);
@@ -272,7 +341,11 @@ public class TrainingProgramService {
      * 
      * @param trainingProgram 検証対象の研修プログラム
      * @throws IllegalArgumentException バリデーションエラー
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     private void validateTrainingProgram(TrainingProgram trainingProgram) {
         if (trainingProgram == null) {
             throw new IllegalArgumentException("研修プログラムが null です");

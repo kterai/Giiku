@@ -11,6 +11,7 @@ import java.util.Map;
 
 /**
  * 日別ページを表示するコントローラー。
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -24,7 +25,11 @@ public class DayController extends AbstractController {
      *
      * @param page ページ名 (例: day1)
      * @return 対応するテンプレート
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping(path = {"/{page}","/{page}.html"})
     public String day(@PathVariable String page, Model model) {
         setTitle(model, "日別カリキュラム");

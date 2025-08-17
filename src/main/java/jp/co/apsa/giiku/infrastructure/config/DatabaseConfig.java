@@ -6,6 +6,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * データベース設定クラス
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Configuration
 @EnableJpaRepositories(basePackages = "jp.co.apsa.giiku.domain.repository")

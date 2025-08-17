@@ -15,6 +15,7 @@ import java.util.Optional;
  * 企業LMS設定を管理するサービスクラス。
  * エンティティの基本的なCRUD操作を提供する。
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -31,7 +32,11 @@ public class CompanyLmsConfigService {
      *
      * @param pageable ページング情報
      * @return 設定一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<CompanyLmsConfig> getAllCompanyLmsConfigs(Pageable pageable) {
         return companyLmsConfigRepository.findAll(pageable);
@@ -42,7 +47,11 @@ public class CompanyLmsConfigService {
      *
      * @param id 設定ID
      * @return 企業LMS設定
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public CompanyLmsConfig getCompanyLmsConfigById(Long id) {
         return companyLmsConfigRepository.findById(id)
@@ -54,7 +63,11 @@ public class CompanyLmsConfigService {
      *
      * @param companyId 企業ID
      * @return 企業LMS設定（存在しない場合は空）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Optional<CompanyLmsConfig> getCompanyLmsConfigByCompanyId(Long companyId) {
         List<CompanyLmsConfig> configs = companyLmsConfigRepository.findByCompanyId(companyId);
@@ -66,7 +79,11 @@ public class CompanyLmsConfigService {
      *
      * @param config 設定エンティティ
      * @return 保存された設定
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public CompanyLmsConfig createCompanyLmsConfig(CompanyLmsConfig config) {
         return companyLmsConfigRepository.save(config);
     }
@@ -76,7 +93,11 @@ public class CompanyLmsConfigService {
      *
      * @param config 更新する設定
      * @return 更新された設定
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public CompanyLmsConfig updateCompanyLmsConfig(CompanyLmsConfig config) {
         Long id = config.getId();
         if (id == null || !companyLmsConfigRepository.existsById(id)) {
@@ -90,7 +111,11 @@ public class CompanyLmsConfigService {
      *
      * @param id 設定ID
      * @param enabled 有効フラグ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void updateLmsEnabled(Long id, boolean enabled) {
         CompanyLmsConfig config = getCompanyLmsConfigById(id);
         config.setLmsEnabled(enabled);
@@ -102,7 +127,11 @@ public class CompanyLmsConfigService {
      *
      * @param companyId 企業ID
      * @return 有効な場合はtrue
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public boolean isLmsActiveForCompany(Long companyId) {
         return getCompanyLmsConfigByCompanyId(companyId)

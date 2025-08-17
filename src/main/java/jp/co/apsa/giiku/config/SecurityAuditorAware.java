@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 認証情報から監査ユーザーIDを取得する実装クラス。
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -24,11 +25,23 @@ public class SecurityAuditorAware implements AuditorAware<Long> {
 
     private final UserRepository userRepository;
 
+    /**
+     * SecurityAuditorAware メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Autowired
     public SecurityAuditorAware(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    /**
+     * getCurrentAuditor メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Override
     @Transactional(readOnly = true, propagation = Propagation.REQUIRES_NEW)
     public Optional<Long> getCurrentAuditor() {

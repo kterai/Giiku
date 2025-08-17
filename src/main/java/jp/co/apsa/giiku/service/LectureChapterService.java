@@ -30,6 +30,7 @@ import org.springframework.data.domain.PageImpl;
 /**
  * LectureChapter（講座チャプター）に関するビジネスロジックを提供するサービスクラス。
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -48,7 +49,11 @@ public class LectureChapterService {
      * 全ての講座チャプターを取得
      * 
      * @return 講座チャプターのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<LectureChapter> findAll() {
         return lectureChapterRepository.findAll();
@@ -59,7 +64,11 @@ public class LectureChapterService {
      * 
      * @param id 講座チャプターID
      * @return Optional<LectureChapter>
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Optional<LectureChapter> findById(Long id) {
         return lectureChapterRepository.findById(id);
@@ -70,7 +79,11 @@ public class LectureChapterService {
      * 
      * @param lectureId 講座ID
      * @return 講座チャプターのリスト（チャプター順序でソート）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<LectureChapter> findByLectureId(Long lectureId) {
         return lectureChapterRepository.findByLectureIdOrderBySortOrderAsc(lectureId);
@@ -81,7 +94,11 @@ public class LectureChapterService {
      * 
      * @param lectureId 講座ID
      * @return アクティブな講座チャプターのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<LectureChapter> findActiveChapters(Long lectureId) {
         return lectureChapterRepository.findByLectureIdAndStatusOrderBySortOrderAsc(lectureId, "ACTIVE");
@@ -92,7 +109,11 @@ public class LectureChapterService {
      * 
      * @param title タイトル（部分検索）
      * @return 講座チャプターのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<LectureChapter> searchByTitle(String title) {
         return lectureChapterRepository.findByTitleContainingIgnoreCaseAndStatusOrderByTitleAsc(title, "ACTIVE");
@@ -106,7 +127,11 @@ public class LectureChapterService {
      * @param isActive アクティブフラグ（オプション）
      * @param pageable ページング情報
      * @return ページング対応の講座チャプター
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<LectureChapter> searchChapters(Long lectureId, String title, Boolean isActive, Pageable pageable) {
         Specification<LectureChapter> spec = (root, query, criteriaBuilder) -> {
@@ -143,7 +168,11 @@ public class LectureChapterService {
      * @param lectureChapter 講座チャプター
      * @return 保存された講座チャプター
      * @throws IllegalArgumentException バリデーションエラー
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public LectureChapter save(LectureChapter lectureChapter) {
         validateLectureChapter(lectureChapter);
 
@@ -165,7 +194,11 @@ public class LectureChapterService {
      * @param lectureChapter 更新する講座チャプター
      * @return 更新された講座チャプター
      * @throws IllegalArgumentException IDが存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public LectureChapter update(Long id, LectureChapter lectureChapter) {
         Optional<LectureChapter> existingChapter = lectureChapterRepository.findById(id);
         if (!existingChapter.isPresent()) {
@@ -183,7 +216,11 @@ public class LectureChapterService {
      * 
      * @param id 講座チャプターID
      * @throws IllegalArgumentException IDが存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void deactivate(Long id) {
         Optional<LectureChapter> lectureChapter = lectureChapterRepository.findById(id);
         if (!lectureChapter.isPresent()) {
@@ -200,7 +237,11 @@ public class LectureChapterService {
      * 
      * @param id 講座チャプターID
      * @throws IllegalArgumentException IDが存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void delete(Long id) {
         if (!lectureChapterRepository.existsById(id)) {
             throw new IllegalArgumentException("指定された講座チャプターが存在しません: " + id);
@@ -213,7 +254,11 @@ public class LectureChapterService {
      * 
      * @param lectureId 講座ID
      * @return チャプター数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public long countByLectureId(Long lectureId) {
         return lectureChapterRepository.countByLectureIdAndStatus(lectureId, "ACTIVE");
@@ -225,7 +270,11 @@ public class LectureChapterService {
      * @param id 講座チャプターID
      * @param newOrder 新しい順序
      * @throws IllegalArgumentException IDが存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void updateChapterOrder(Long id, Integer newOrder) {
         Optional<LectureChapter> lectureChapter = lectureChapterRepository.findById(id);
         if (!lectureChapter.isPresent()) {
@@ -244,7 +293,11 @@ public class LectureChapterService {
      * @param sortBy ソート対象
      * @param sortDir ソート方向
      * @return チャプターDTOページ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<LectureChapterResponseDto> getAllChapters(int page, int size, String sortBy, String sortDir) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDir), sortBy));
@@ -257,7 +310,11 @@ public class LectureChapterService {
      * チャプター詳細取得（スタブ）
      * @param id チャプターID
      * @return チャプターDTO
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Optional<LectureChapterResponseDto> getChapterById(Long id) {
         return lectureChapterRepository.findById(id).map(this::toDto);
@@ -269,7 +326,11 @@ public class LectureChapterService {
      * @param sortBy ソート対象
      * @param sortDir ソート方向
      * @return チャプターDTOリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<LectureChapterResponseDto> getChaptersByLectureId(Long lectureId, String sortBy, String sortDir) {
         List<LectureChapter> list = lectureChapterRepository.findByLectureIdOrderBySortOrderAsc(lectureId);
@@ -280,7 +341,11 @@ public class LectureChapterService {
      * チャプター作成（スタブ）
      * @param dto 作成DTO
      * @return 作成結果DTO
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public LectureChapterResponseDto createChapter(LectureChapterCreateDto dto) {
         LectureChapter chapter = new LectureChapter();
         chapter.setLectureId(dto.getLectureId());
@@ -298,7 +363,11 @@ public class LectureChapterService {
      * @param id チャプターID
      * @param dto 更新DTO
      * @return 更新結果DTO
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Optional<LectureChapterResponseDto> updateChapter(Long id, LectureChapterUpdateDto dto) {
         Optional<LectureChapter> opt = lectureChapterRepository.findById(id);
         if (opt.isEmpty()) {
@@ -319,7 +388,11 @@ public class LectureChapterService {
     /**
      * チャプター削除（スタブ）
      * @param id チャプターID
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public boolean deleteChapter(Long id) {
         if (!lectureChapterRepository.existsById(id)) {
             return false;
@@ -333,7 +406,11 @@ public class LectureChapterService {
      * @param lectureId 講義ID
      * @param chapterId チャプターID
      * @return 進捗DTO
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<LectureChapterProgressDto> getChapterProgress(Long chapterId, Long studentId) {
         return new ArrayList<>();
@@ -344,7 +421,11 @@ public class LectureChapterService {
      * @param id チャプターID
      * @param dto 進捗DTO
      * @return 更新結果DTO
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public LectureChapterProgressDto updateChapterProgress(Long id, LectureChapterProgressDto dto) {
         return new LectureChapterProgressDto();
     }
@@ -357,7 +438,11 @@ public class LectureChapterService {
      * @param sortBy ソート対象
      * @param sortDir ソート方向
      * @return チャプターDTOページ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<LectureChapterResponseDto> searchChapters(LectureChapterSearchDto searchDto,
                                                          int page, int size, String sortBy, String sortDir) {
@@ -369,7 +454,11 @@ public class LectureChapterService {
      * @param lectureId 講義ID
      * @param period 期間
      * @return 統計DTO
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public LectureChapterStatsDto getChapterStats(Long lectureId, String period) {
         return new LectureChapterStatsDto();
@@ -380,7 +469,11 @@ public class LectureChapterService {
      * @param lectureId 講義ID
      * @param chapterIds チャプターIDリスト
      * @return 再配置結果DTOリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public List<LectureChapterResponseDto> reorderChapters(Long lectureId, List<Long> chapterIds) {
         return new ArrayList<>();
     }
@@ -390,12 +483,20 @@ public class LectureChapterService {
      * @param id 元チャプターID
      * @param targetLectureId 対象講義ID
      * @return 複製結果DTO
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public LectureChapterResponseDto duplicateChapter(Long id, Long targetLectureId) {
         return new LectureChapterResponseDto();
     }
 
-    /** エンティティをレスポンスDTOへ変換 */
+    /** エンティティをレスポンスDTOへ変換 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     private LectureChapterResponseDto toDto(LectureChapter chapter) {
         LectureChapterResponseDto dto = new LectureChapterResponseDto();
         dto.setId(chapter.getChapterId());
@@ -413,7 +514,11 @@ public class LectureChapterService {
      * 
      * @param lectureChapter 検証対象の講座チャプター
      * @throws IllegalArgumentException バリデーションエラー
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     private void validateLectureChapter(LectureChapter lectureChapter) {
         if (lectureChapter == null) {
             throw new IllegalArgumentException("講座チャプターが null です");

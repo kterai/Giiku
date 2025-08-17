@@ -24,6 +24,7 @@ import jp.co.apsa.giiku.exception.StudentNotFoundException;
 /**
  * 学生プロフィールに関するビジネスロジックを提供します。
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -36,6 +37,12 @@ public class StudentService {
     private final UserRepository userRepository;
     private final CompanyRepository companyRepository;
 
+    /**
+     * StudentService メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Autowired
     public StudentService(StudentProfileRepository studentProfileRepository,
                           UserRepository userRepository,
@@ -49,7 +56,11 @@ public class StudentService {
      * すべての学生プロフィールを取得します。
      *
      * @return 学生プロフィールのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<StudentProfile> findAll() {
         return studentProfileRepository.findAll();
@@ -60,7 +71,11 @@ public class StudentService {
      *
      * @param id 学生プロフィールID
      * @return 該当する学生プロフィール（存在しない場合は空）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Optional<StudentProfile> findById(Long id) {
         return studentProfileRepository.findById(id);
@@ -71,7 +86,11 @@ public class StudentService {
      *
      * @param studentId 学生ID
      * @return 該当する学生プロフィール（存在しない場合は空）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Optional<StudentProfile> findByStudentId(Long studentId) {
         return studentProfileRepository.findByStudentId(studentId);
@@ -82,7 +101,11 @@ public class StudentService {
      *
      * @param companyId 企業ID
      * @return 学生プロフィールのリスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<StudentProfile> findByCompanyId(Long companyId) {
         return studentProfileRepository.findByCompanyId(companyId);
@@ -93,7 +116,11 @@ public class StudentService {
      *
      * @param profile 保存する学生プロフィール
      * @return 保存された学生プロフィール
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public StudentProfile save(StudentProfile profile) {
         validate(profile);
         checkReferences(profile);
@@ -107,7 +134,11 @@ public class StudentService {
      * @param profile 更新内容
      * @return 更新された学生プロフィール
      * @throws StudentNotFoundException ID が存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public StudentProfile update(Long id, StudentProfile profile) {
         if (!studentProfileRepository.existsById(id)) {
             throw StudentNotFoundException.byId(id);
@@ -123,7 +154,11 @@ public class StudentService {
      *
      * @param id 学生プロフィールID
      * @throws StudentNotFoundException ID が存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void deactivate(Long id) {
         StudentProfile profile = studentProfileRepository.findById(id)
                 .orElseThrow(() -> StudentNotFoundException.byId(id));
@@ -136,7 +171,11 @@ public class StudentService {
      *
      * @param id 学生プロフィールID
      * @throws StudentNotFoundException ID が存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void delete(Long id) {
         if (!studentProfileRepository.existsById(id)) {
             throw StudentNotFoundException.byId(id);
@@ -151,7 +190,11 @@ public class StudentService {
      *
      * @param pageable ページ情報
      * @return 学生レスポンスのページ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<StudentResponse> getAllStudents(Pageable pageable) {
         return studentProfileRepository.findAll(pageable).map(this::toStudentResponse);
@@ -163,7 +206,11 @@ public class StudentService {
      * @param id 学生プロフィールID
      * @return 該当する学生レスポンス
      * @throws StudentNotFoundException 学生が存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public StudentResponse getStudentById(Long id) {
         StudentProfile profile = studentProfileRepository.findById(id)
@@ -176,7 +223,11 @@ public class StudentService {
      *
      * @param request 登録する学生リクエスト
      * @return 登録された学生レスポンス
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public StudentResponse createStudent(StudentRequest request) {
         StudentProfile profile = toStudentProfile(request);
         StudentProfile saved = studentProfileRepository.save(profile);
@@ -190,7 +241,11 @@ public class StudentService {
      * @param request 更新内容
      * @return 更新された学生レスポンス
      * @throws StudentNotFoundException 学生が存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public StudentResponse updateStudent(Long id, StudentRequest request) {
         StudentProfile profile = studentProfileRepository.findById(id)
                 .orElseThrow(() -> StudentNotFoundException.byId(id));
@@ -204,7 +259,11 @@ public class StudentService {
      *
      * @param id 学生プロフィールID
      * @throws StudentNotFoundException 学生が存在しない場合
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void deleteStudent(Long id) {
         if (!studentProfileRepository.existsById(id)) {
             throw StudentNotFoundException.byId(id);
@@ -212,47 +271,79 @@ public class StudentService {
         studentProfileRepository.deleteById(id);
     }
 
-    /** 学生検索 */
+    /** 学生検索 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<StudentResponse> searchStudents(String name, String email, String department, Pageable pageable) {
         return Page.empty(pageable);
     }
 
-    /** 学生フィルタリング */
+    /** 学生フィルタリング 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<StudentResponse> filterStudents(String status, String startDate, String endDate, Boolean active, Pageable pageable) {
         return Page.empty(pageable);
     }
 
-    /** 学生進捗取得 */
+    /** 学生進捗取得 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Map<String, Object> getStudentProgress(Long id) {
         return new HashMap<>();
     }
 
-    /** 学生進捗更新 */
+    /** 学生進捗更新 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Map<String, Object> updateStudentProgress(Long id, Map<String, Object> progressData) {
         return new HashMap<>();
     }
 
-    /** 学生統計情報 */
+    /** 学生統計情報 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public StudentStatistics getStudentStatistics() {
         return new StudentStatistics();
     }
 
-    /** 部門別学生統計 */
+    /** 部門別学生統計 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Map<String, Long> getDepartmentStatistics() {
         return new HashMap<>();
     }
 
-    /** 学生一括登録 */
+    /** 学生一括登録 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public List<StudentResponse> createStudentsBatch(List<StudentRequest> requests) {
         return new ArrayList<>();
     }
 
-    /** 学生ステータス更新 */
+    /** 学生ステータス更新 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public StudentResponse updateStudentStatus(Long id, String status) {
         return new StudentResponse();
     }
@@ -262,7 +353,11 @@ public class StudentService {
      *
      * @param profile 変換元の学生プロフィール
      * @return 変換された学生レスポンス
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     private StudentResponse toStudentResponse(StudentProfile profile) {
         StudentResponse response = new StudentResponse();
         response.setId(profile.getId());
@@ -293,7 +388,11 @@ public class StudentService {
      *
      * @param request 変換元の学生リクエスト
      * @return 変換された学生プロフィール
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     private StudentProfile toStudentProfile(StudentRequest request) {
         StudentProfile profile = new StudentProfile();
         profile.setStudentNumber(request.getStudentNumber());
@@ -319,7 +418,11 @@ public class StudentService {
      *
      * @param profile  更新対象の学生プロフィール
      * @param request  リクエストデータ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     private void updateProfileFromRequest(StudentProfile profile, StudentRequest request) {
         profile.setStudentNumber(request.getStudentNumber());
         profile.setCompanyId(request.getCompanyId());
@@ -342,7 +445,11 @@ public class StudentService {
      * 学生プロフィールの必須項目を検証します。
      *
      * @param profile 検証対象の学生プロフィール
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     private void validate(StudentProfile profile) {
         if (profile == null) {
             throw new IllegalArgumentException("学生プロフィールが null です");
@@ -365,7 +472,11 @@ public class StudentService {
      * 外部参照を検証します。
      *
      * @param profile 検証対象の学生プロフィール
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     private void checkReferences(StudentProfile profile) {
         if (!userRepository.existsById(profile.getStudentId())) {
             throw new IllegalArgumentException("指定されたユーザーが存在しません: " + profile.getStudentId());

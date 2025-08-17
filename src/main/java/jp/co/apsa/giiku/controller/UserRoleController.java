@@ -25,6 +25,7 @@ import java.util.Optional;
  * ユーザー役割管理コントローラー。
  * ユーザーの役割・権限管理のCRUD操作、検索、統計機能を提供します。
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -42,7 +43,11 @@ public class UserRoleController {
     /**
      * ユーザー役割一覧取得
      * GET /api/user-roles
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/user-roles")
     public ResponseEntity<?> getAllUserRoles(
             @RequestParam(defaultValue = "0") int page,
@@ -70,7 +75,11 @@ public class UserRoleController {
     /**
      * ユーザー役割詳細取得
      * GET /api/user-roles/{id}
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/user-roles/{id}")
     public ResponseEntity<?> getUserRoleById(@PathVariable Long id) {
         try {
@@ -96,7 +105,11 @@ public class UserRoleController {
     /**
      * ユーザー別役割取得
      * GET /api/users/{userId}/roles
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/users/{userId}/roles")
     public ResponseEntity<?> getRolesByUserId(@PathVariable Long userId) {
         try {
@@ -118,7 +131,11 @@ public class UserRoleController {
     /**
      * 役割別ユーザー取得
      * GET /api/roles/{roleName}/users
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/roles/{roleName}/users")
     public ResponseEntity<?> getUsersByRoleName(
             @PathVariable String roleName,
@@ -145,7 +162,11 @@ public class UserRoleController {
     /**
      * ユーザー役割作成
      * POST /api/user-roles
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PostMapping("/user-roles")
     public ResponseEntity<?> createUserRole(@Valid @RequestBody UserRoleCreateDto createDto) {
         try {
@@ -173,7 +194,11 @@ public class UserRoleController {
     /**
      * ユーザー役割更新
      * PUT /api/user-roles/{id}
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PutMapping("/user-roles/{id}")
     public ResponseEntity<?> updateUserRole(
             @PathVariable Long id, 
@@ -207,7 +232,11 @@ public class UserRoleController {
     /**
      * ユーザー役割削除
      * DELETE /api/user-roles/{id}
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @DeleteMapping("/user-roles/{id}")
     public ResponseEntity<?> deleteUserRole(@PathVariable Long id) {
         try {
@@ -233,7 +262,11 @@ public class UserRoleController {
     /**
      * ユーザーに役割を一括割り当て
      * POST /api/users/{userId}/roles/batch-assign
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PostMapping("/users/{userId}/roles/batch-assign")
     public ResponseEntity<?> batchAssignRoles(
             @PathVariable Long userId,
@@ -265,7 +298,11 @@ public class UserRoleController {
     /**
      * ユーザーから役割を一括削除
      * DELETE /api/users/{userId}/roles/batch-remove
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @DeleteMapping("/users/{userId}/roles/batch-remove")
     public ResponseEntity<?> batchRemoveRoles(
             @PathVariable Long userId,
@@ -295,7 +332,11 @@ public class UserRoleController {
     /**
      * ユーザー役割検索
      * GET /api/user-roles/search
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/user-roles/search")
     public ResponseEntity<?> searchUserRoles(
             @RequestParam(required = false) Long userId,
@@ -332,7 +373,11 @@ public class UserRoleController {
     /**
      * ユーザー役割統計情報取得
      * GET /api/user-roles/stats
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/user-roles/stats")
     public ResponseEntity<?> getUserRoleStats(
             @RequestParam(required = false) String period,
@@ -357,7 +402,11 @@ public class UserRoleController {
     /**
      * 利用可能な役割一覧取得
      * GET /api/roles/available
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/roles/available")
     public ResponseEntity<?> getAvailableRoles() {
         try {
@@ -378,7 +427,11 @@ public class UserRoleController {
     /**
      * ユーザーの権限チェック
      * GET /api/users/{userId}/permissions/check
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/users/{userId}/permissions/check")
     public ResponseEntity<?> checkUserPermissions(
             @PathVariable Long userId,
@@ -403,7 +456,11 @@ public class UserRoleController {
     /**
      * 役割の階層情報取得
      * GET /api/roles/{roleName}/hierarchy
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/roles/{roleName}/hierarchy")
     public ResponseEntity<?> getRoleHierarchy(@PathVariable String roleName) {
         try {
@@ -424,17 +481,39 @@ public class UserRoleController {
 
     /**
      * 権限チェック結果レスポンス用クラス
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public static class PermissionCheckResponse {
         private boolean hasPermission;
+        /**
+         * PermissionCheckResponse メソッド
+         * @author 株式会社アプサ
+         * @version 1.0
+         * @since 2025
+         */
 
         public PermissionCheckResponse(boolean hasPermission) {
             this.hasPermission = hasPermission;
         }
+        /**
+         * isHasPermission メソッド
+         * @author 株式会社アプサ
+         * @version 1.0
+         * @since 2025
+         */
 
         public boolean isHasPermission() {
             return hasPermission;
         }
+        /**
+         * setHasPermission メソッド
+         * @author 株式会社アプサ
+         * @version 1.0
+         * @since 2025
+         */
 
         public void setHasPermission(boolean hasPermission) {
             this.hasPermission = hasPermission;
