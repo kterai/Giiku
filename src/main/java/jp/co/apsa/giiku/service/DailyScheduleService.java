@@ -14,18 +14,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.criteria.Predicate;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * DailySchedule（日次スケジュール）に関するビジネスロジックを提供するサービスクラス
- * 
- * @author Giiku LMS Team
+ * DailySchedule（日次スケジュール）に関するビジネスロジックを提供するサービスクラス。
+ *
+ * @author 株式会社アプサ
  * @version 1.0
- * @since 2025-08-14
+ * @since 2025
  */
 @Service
 @Transactional
@@ -39,12 +38,23 @@ public class DailyScheduleService {
 
     /**
      * 全ての日次スケジュールを取得
-     * 
+     *
      * @return 日次スケジュールのリスト
      */
     @Transactional(readOnly = true)
     public List<DailySchedule> findAll() {
         return dailyScheduleRepository.findAll();
+    }
+
+    /**
+     * 全ての日次スケジュールをページング取得します。
+     *
+     * @param pageable ページング情報
+     * @return ページングされた日次スケジュール
+     */
+    @Transactional(readOnly = true)
+    public Page<DailySchedule> findAll(Pageable pageable) {
+        return dailyScheduleRepository.findAll(pageable);
     }
 
     /**
@@ -66,7 +76,7 @@ public class DailyScheduleService {
      */
     @Transactional(readOnly = true)
     public List<DailySchedule> findByProgramScheduleId(Long programScheduleId) {
-        return dailyScheduleRepository.findByProgramScheduleIdOrderByScheduleDateAscStartTimeAsc(programScheduleId);
+        return dailyScheduleRepository.findByProgramScheduleIdOrderByTargetDateAscStartTimeAsc(programScheduleId);
     }
 
     /**
@@ -77,7 +87,7 @@ public class DailyScheduleService {
      */
     @Transactional(readOnly = true)
     public List<DailySchedule> findByScheduleDate(LocalDate scheduleDate) {
-        return dailyScheduleRepository.findByScheduleDateOrderByStartTimeAsc(scheduleDate);
+        return dailyScheduleRepository.findByTargetDateOrderByStartTimeAsc(scheduleDate);
     }
 
     /**
@@ -89,7 +99,7 @@ public class DailyScheduleService {
      */
     @Transactional(readOnly = true) 
     public List<DailySchedule> findSchedulesWithinPeriod(LocalDate startDate, LocalDate endDate) {
-        return dailyScheduleRepository.findByScheduleDateBetweenOrderByScheduleDateAscStartTimeAsc(startDate, endDate);
+        return dailyScheduleRepository.findByTargetDateBetweenOrderByTargetDateAscStartTimeAsc(startDate, endDate);
     }
 
     /**
@@ -136,15 +146,11 @@ public class DailyScheduleService {
             }
 
             if (scheduleDate != null) {
-                predicates.add(criteriaBuilder.equal(root.get("scheduleDate"), scheduleDate));
-            }
-
-            if (dayOfWeek != null && !dayOfWeek.trim().isEmpty()) {
-                predicates.add(criteriaBuilder.equal(root.get("dayOfWeek"), dayOfWeek));
+                predicates.add(criteriaBuilder.equal(root.get("targetDate"), scheduleDate));
             }
 
             if (status != null && !status.trim().isEmpty()) {
-                predicates.add(criteriaBuilder.equal(root.get("status"), status));
+                predicates.add(criteriaBuilder.equal(root.get("dailyStatus"), status));
             }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
@@ -244,7 +250,7 @@ public class DailyScheduleService {
      */
     @Transactional(readOnly = true)
     public long countCompletedSchedules(Long programScheduleId) {
-        return dailyScheduleRepository.countByProgramScheduleIdAndStatus(programScheduleId, "COMPLETED");
+        return dailyScheduleRepository.countByProgramScheduleIdAndDailyStatus(programScheduleId, "COMPLETED");
     }
 
     /**

@@ -18,11 +18,11 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * LectureChapter（講座チャプター）に関するビジネスロジックを提供するサービスクラス
- * 
- * @author Giiku LMS Team
+ * LectureChapter（講座チャプター）に関するビジネスロジックを提供するサービスクラス。
+ *
+ * @author 株式会社アプサ
  * @version 1.0
- * @since 2025-08-14
+ * @since 2025
  */
 @Service
 @Transactional
@@ -63,7 +63,7 @@ public class LectureChapterService {
      */
     @Transactional(readOnly = true)
     public List<LectureChapter> findByLectureId(Long lectureId) {
-        return lectureChapterRepository.findByLectureIdOrderByChapterOrderAsc(lectureId);
+        return lectureChapterRepository.findByLectureIdOrderBySortOrderAsc(lectureId);
     }
 
     /**
@@ -74,7 +74,7 @@ public class LectureChapterService {
      */
     @Transactional(readOnly = true)
     public List<LectureChapter> findActiveChapters(Long lectureId) {
-        return lectureChapterRepository.findByLectureIdAndIsActiveTrueOrderByChapterOrderAsc(lectureId);
+        return lectureChapterRepository.findByLectureIdAndStatusOrderBySortOrderAsc(lectureId, "ACTIVE");
     }
 
     /**
@@ -85,7 +85,7 @@ public class LectureChapterService {
      */
     @Transactional(readOnly = true)
     public List<LectureChapter> searchByTitle(String title) {
-        return lectureChapterRepository.findByTitleContainingIgnoreCaseAndIsActiveTrueOrderByTitleAsc(title);
+        return lectureChapterRepository.findByTitleContainingIgnoreCaseAndStatusOrderByTitleAsc(title, "ACTIVE");
     }
 
     /**
@@ -114,7 +114,11 @@ public class LectureChapterService {
             }
 
             if (isActive != null) {
-                predicates.add(criteriaBuilder.equal(root.get("isActive"), isActive));
+                if (isActive) {
+                    predicates.add(criteriaBuilder.equal(root.get("status"), "ACTIVE"));
+                } else {
+                    predicates.add(criteriaBuilder.notEqual(root.get("status"), "ACTIVE"));
+                }
             }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
@@ -158,7 +162,7 @@ public class LectureChapterService {
             throw new IllegalArgumentException("指定された講座チャプターが存在しません: " + id);
         }
 
-        lectureChapter.setId(id);
+        lectureChapter.setChapterId(id);
         validateLectureChapter(lectureChapter);
 
         return lectureChapterRepository.save(lectureChapter);
@@ -177,7 +181,7 @@ public class LectureChapterService {
         }
 
         LectureChapter chapter = lectureChapter.get();
-        chapter.setIsActive(false);
+        chapter.setStatus("INACTIVE");
         lectureChapterRepository.save(chapter);
     }
 
@@ -202,7 +206,7 @@ public class LectureChapterService {
      */
     @Transactional(readOnly = true)
     public long countByLectureId(Long lectureId) {
-        return lectureChapterRepository.countByLectureIdAndIsActiveTrue(lectureId);
+        return lectureChapterRepository.countByLectureIdAndStatus(lectureId, "ACTIVE");
     }
 
     /**
@@ -219,7 +223,7 @@ public class LectureChapterService {
         }
 
         LectureChapter chapter = lectureChapter.get();
-        chapter.setChapterOrder(newOrder);
+        chapter.setSortOrder(newOrder);
         lectureChapterRepository.save(chapter);
     }
 
@@ -242,7 +246,7 @@ public class LectureChapterService {
             throw new IllegalArgumentException("チャプタータイトルは必須です");
         }
 
-        if (lectureChapter.getChapterOrder() == null || lectureChapter.getChapterOrder() <= 0) {
+        if (lectureChapter.getSortOrder() == null || lectureChapter.getSortOrder() <= 0) {
             throw new IllegalArgumentException("チャプター順序は正の数である必要があります");
         }
 

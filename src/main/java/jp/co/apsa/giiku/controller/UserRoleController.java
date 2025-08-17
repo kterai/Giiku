@@ -22,8 +22,12 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * ユーザー役割管理コントローラー
- * ユーザーの役割・権限管理のCRUD操作、検索、統計機能を提供
+ * ユーザー役割管理コントローラー。
+ * ユーザーの役割・権限管理のCRUD操作、検索、統計機能を提供します。
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @RestController
 @RequestMapping("/api")
@@ -311,11 +315,8 @@ public class UserRoleController {
             UserRoleSearchDto searchDto = new UserRoleSearchDto();
             searchDto.setUserId(userId);
             searchDto.setRoleName(roleName);
-            searchDto.setStatus(status);
-            searchDto.setAssignedDateFrom(assignedDateFrom);
-            searchDto.setAssignedDateTo(assignedDateTo);
 
-            Page<UserRoleResponseDto> searchResult = 
+            Page<UserRoleResponseDto> searchResult =
                 userRoleService.searchUserRoles(searchDto, page, size, sortBy, sortDir);
 
             logger.info("ユーザー役割検索成功 - 検索結果件数: {}", searchResult.getTotalElements());

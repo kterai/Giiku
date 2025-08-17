@@ -14,13 +14,14 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 /**
- * 学生プロフィールサービス
- * 
- * @author Generated
+ * 学生プロフィールサービス。
+ * 学生プロフィールに関するビジネスロジックを提供します。
+ *
+ * @author 株式会社アプサ
  * @version 1.0
+ * @since 2025
  */
 @Service
 @Transactional
@@ -58,10 +59,12 @@ public class StudentProfileService {
 
         // 更新可能なフィールドのみ更新
         existingProfile.setEnrollmentStatus(studentProfile.getEnrollmentStatus());
-        existingProfile.setGrade(studentProfile.getGrade());
-        existingProfile.setClassGroup(studentProfile.getClassGroup());
+        existingProfile.setGradeLevel(studentProfile.getGradeLevel());
+        existingProfile.setClassName(studentProfile.getClassName());
         existingProfile.setMajorField(studentProfile.getMajorField());
-        existingProfile.setEmergencyContact(studentProfile.getEmergencyContact());
+        existingProfile.setEmergencyContactName(studentProfile.getEmergencyContactName());
+        existingProfile.setEmergencyContactPhone(studentProfile.getEmergencyContactPhone());
+        existingProfile.setEmergencyContactRelationship(studentProfile.getEmergencyContactRelationship());
         existingProfile.setAddress(studentProfile.getAddress());
         existingProfile.setPhoneNumber(studentProfile.getPhoneNumber());
 
@@ -162,7 +165,7 @@ public class StudentProfileService {
      */
     @Transactional(readOnly = true)
     public List<Object[]> countByGradeAndCompany(Long companyId) {
-        return studentProfileRepository.countByGradeAndCompanyId(companyId);
+        return studentProfileRepository.countByGradeLevelAndCompanyId(companyId);
     }
 
     /**
@@ -182,18 +185,18 @@ public class StudentProfileService {
         }
 
         // 入学日が未来日でないことをチェック
-        if (studentProfile.getEnrollmentDate() != null && 
-            studentProfile.getEnrollmentDate().isAfter(LocalDate.now())) {
-            throw new ValidationException("enrollmentDate", studentProfile.getEnrollmentDate(), 
-                "Enrollment date cannot be in the future");
+        if (studentProfile.getAdmissionDate() != null &&
+            studentProfile.getAdmissionDate().isAfter(LocalDate.now())) {
+            throw new ValidationException("admissionDate", studentProfile.getAdmissionDate(),
+                "Admission date cannot be in the future");
         }
 
         // 卒業予定日が入学日より後であることをチェック
-        if (studentProfile.getEnrollmentDate() != null && 
+        if (studentProfile.getAdmissionDate() != null &&
             studentProfile.getExpectedGraduationDate() != null &&
-            studentProfile.getExpectedGraduationDate().isBefore(studentProfile.getEnrollmentDate())) {
-            throw new ValidationException("expectedGraduationDate", studentProfile.getExpectedGraduationDate(), 
-                "Expected graduation date must be after enrollment date");
+            studentProfile.getExpectedGraduationDate().isBefore(studentProfile.getAdmissionDate())) {
+            throw new ValidationException("expectedGraduationDate", studentProfile.getExpectedGraduationDate(),
+                "Expected graduation date must be after admission date");
         }
     }
 }

@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
  * 日次スケジュールエンティティ
  * 研修プログラムの日毎の詳細スケジュール管理
  * 
- * @author Giiku LMS Team
+ * @author 株式会社アプサ
  * @version 1.0
- * @since 2024-01
+ * @since 2025
  */
 @Entity
 @Table(name = "daily_schedules")
@@ -113,5 +113,59 @@ public class DailySchedule extends BaseEntity {
             return (int) java.time.Duration.between(this.startTime, this.endTime).toMinutes();
         }
         return 0;
+    }
+
+    /**
+     * 互換用のスケジュール日取得メソッド。
+     *
+     * @return 対象日
+     */
+    public LocalDate getScheduleDate() {
+        return this.targetDate;
+    }
+
+    /**
+     * 互換用のスケジュール日設定メソッド。
+     *
+     * @param scheduleDate 対象日
+     */
+    public void setScheduleDate(LocalDate scheduleDate) {
+        this.targetDate = scheduleDate;
+    }
+
+    /**
+     * 互換用のタイトル取得メソッド。
+     *
+     * @return 日次テーマ
+     */
+    public String getTitle() {
+        return this.dailyTheme;
+    }
+
+    /**
+     * 互換用のタイトル設定メソッド。
+     *
+     * @param title 日次テーマ
+     */
+    public void setTitle(String title) {
+        this.dailyTheme = title;
+    }
+
+    /**
+     * 互換用のステータス取得メソッド。
+     *
+     * @return 日次ステータス
+     */
+    public String getStatus() {
+        return this.dailyStatus;
+    }
+
+    /**
+     * 互換用のステータス設定メソッド。
+     *
+     * @param status 日次ステータス
+     */
+    public void setStatus(String status) {
+        this.dailyStatus = status;
     }
 }

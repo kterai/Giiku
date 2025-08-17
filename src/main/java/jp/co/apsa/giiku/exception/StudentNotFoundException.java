@@ -2,6 +2,10 @@ package jp.co.apsa.giiku.exception;
 
 /**
  * 学生が見つからない場合に投げられる例外クラス
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 public class StudentNotFoundException extends RuntimeException {
 
@@ -54,19 +58,8 @@ public class StudentNotFoundException extends RuntimeException {
     }
 
     /**
-     * 学生番号を指定するコンストラクタ
-     * 
-     * @param studentNumber 見つからない学生の学生番号
-     */
-    public StudentNotFoundException(String studentNumber) {
-        super(String.format("学生番号: %s の学生が見つかりません。", studentNumber));
-        this.studentId = null;
-        this.studentNumber = studentNumber;
-    }
-
-    /**
      * 学生IDとメッセージを指定するコンストラクタ
-     * 
+     *
      * @param studentId 見つからない学生のID
      * @param message エラーメッセージ
      */
@@ -157,7 +150,10 @@ public class StudentNotFoundException extends RuntimeException {
      * @return StudentNotFoundException インスタンス
      */
     public static StudentNotFoundException byStudentNumber(String studentNumber) {
-        return new StudentNotFoundException(studentNumber);
+        return new StudentNotFoundException(
+                studentNumber,
+                String.format("学生番号: %s の学生が見つかりません。", studentNumber)
+        );
     }
 
     /**
