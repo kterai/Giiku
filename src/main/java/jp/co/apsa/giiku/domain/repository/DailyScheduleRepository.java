@@ -1,6 +1,7 @@
 package jp.co.apsa.giiku.domain.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,8 @@ import java.util.List;
  * @since 2025
  */
 @Repository
-public interface DailyScheduleRepository extends JpaRepository<DailySchedule, Long> {
+public interface DailyScheduleRepository extends JpaRepository<DailySchedule, Long>,
+        JpaSpecificationExecutor<DailySchedule> {
 
     /**
      * プログラムスケジュールIDで検索し、日付と開始時刻で昇順ソートします。

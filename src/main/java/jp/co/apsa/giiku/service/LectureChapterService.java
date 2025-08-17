@@ -4,10 +4,19 @@ import jp.co.apsa.giiku.domain.entity.LectureChapter;
 import jp.co.apsa.giiku.domain.entity.Lecture;
 import jp.co.apsa.giiku.domain.repository.LectureChapterRepository;
 import jp.co.apsa.giiku.domain.repository.LectureRepository;
+import jp.co.apsa.giiku.dto.LectureChapterCreateDto;
+import jp.co.apsa.giiku.dto.LectureChapterUpdateDto;
+import jp.co.apsa.giiku.dto.LectureChapterResponseDto;
+import jp.co.apsa.giiku.dto.LectureChapterSearchDto;
+import jp.co.apsa.giiku.dto.LectureChapterStatsDto;
+import jp.co.apsa.giiku.dto.LectureChapterProgressDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +25,7 @@ import jakarta.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.PageImpl;
 
 /**
  * LectureChapter（講座チャプター）に関するビジネスロジックを提供するサービスクラス。
@@ -225,6 +235,177 @@ public class LectureChapterService {
         LectureChapter chapter = lectureChapter.get();
         chapter.setSortOrder(newOrder);
         lectureChapterRepository.save(chapter);
+    }
+
+    /**
+     * チャプター一覧取得（スタブ）
+     * @param page ページ番号
+     * @param size ページサイズ
+     * @param sortBy ソート対象
+     * @param sortDir ソート方向
+     * @return チャプターDTOページ
+     */
+    @Transactional(readOnly = true)
+    public Page<LectureChapterResponseDto> getAllChapters(int page, int size, String sortBy, String sortDir) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.fromString(sortDir), sortBy));
+        Page<LectureChapter> chapters = lectureChapterRepository.findAll(pageable);
+        List<LectureChapterResponseDto> content = chapters.map(this::toDto).getContent();
+        return new PageImpl<>(content, chapters.getPageable(), chapters.getTotalElements());
+    }
+
+    /**
+     * チャプター詳細取得（スタブ）
+     * @param id チャプターID
+     * @return チャプターDTO
+     */
+    @Transactional(readOnly = true)
+    public Optional<LectureChapterResponseDto> getChapterById(Long id) {
+        return lectureChapterRepository.findById(id).map(this::toDto);
+    }
+
+    /**
+     * 講義別チャプター取得（スタブ）
+     * @param lectureId 講義ID
+     * @param sortBy ソート対象
+     * @param sortDir ソート方向
+     * @return チャプターDTOリスト
+     */
+    @Transactional(readOnly = true)
+    public List<LectureChapterResponseDto> getChaptersByLectureId(Long lectureId, String sortBy, String sortDir) {
+        List<LectureChapter> list = lectureChapterRepository.findByLectureIdOrderBySortOrderAsc(lectureId);
+        return list.stream().map(this::toDto).toList();
+    }
+
+    /**
+     * チャプター作成（スタブ）
+     * @param dto 作成DTO
+     * @return 作成結果DTO
+     */
+    public LectureChapterResponseDto createChapter(LectureChapterCreateDto dto) {
+        LectureChapter chapter = new LectureChapter();
+        chapter.setLectureId(dto.getLectureId());
+        chapter.setTitle(dto.getTitle());
+        chapter.setDescription(dto.getDescription());
+        chapter.setSortOrder(dto.getOrderNumber());
+        chapter.setDurationMinutes(dto.getEstimatedMinutes());
+        chapter.setStatus("ACTIVE");
+        LectureChapter saved = lectureChapterRepository.save(chapter);
+        return toDto(saved);
+    }
+
+    /**
+     * チャプター更新（スタブ）
+     * @param id チャプターID
+     * @param dto 更新DTO
+     * @return 更新結果DTO
+     */
+    public Optional<LectureChapterResponseDto> updateChapter(Long id, LectureChapterUpdateDto dto) {
+        Optional<LectureChapter> opt = lectureChapterRepository.findById(id);
+        if (opt.isEmpty()) {
+            return Optional.empty();
+        }
+        LectureChapter chapter = opt.get();
+        if (dto.getTitle() != null) chapter.setTitle(dto.getTitle());
+        if (dto.getDescription() != null) chapter.setDescription(dto.getDescription());
+        if (dto.getOrderNumber() != null) chapter.setSortOrder(dto.getOrderNumber());
+        if (dto.getEstimatedMinutes() != null) chapter.setDurationMinutes(dto.getEstimatedMinutes());
+        if (dto.getIsActive() != null) {
+            chapter.setStatus(dto.getIsActive() ? "ACTIVE" : "INACTIVE");
+        }
+        LectureChapter saved = lectureChapterRepository.save(chapter);
+        return Optional.of(toDto(saved));
+    }
+
+    /**
+     * チャプター削除（スタブ）
+     * @param id チャプターID
+     */
+    public boolean deleteChapter(Long id) {
+        if (!lectureChapterRepository.existsById(id)) {
+            return false;
+        }
+        lectureChapterRepository.deleteById(id);
+        return true;
+    }
+
+    /**
+     * チャプター進捗取得（スタブ）
+     * @param lectureId 講義ID
+     * @param chapterId チャプターID
+     * @return 進捗DTO
+     */
+    @Transactional(readOnly = true)
+    public List<LectureChapterProgressDto> getChapterProgress(Long chapterId, Long studentId) {
+        return new ArrayList<>();
+    }
+
+    /**
+     * チャプター進捗更新（スタブ）
+     * @param id チャプターID
+     * @param dto 進捗DTO
+     * @return 更新結果DTO
+     */
+    public LectureChapterProgressDto updateChapterProgress(Long id, LectureChapterProgressDto dto) {
+        return new LectureChapterProgressDto();
+    }
+
+    /**
+     * チャプター検索（スタブ）
+     * @param searchDto 検索条件DTO
+     * @param page ページ番号
+     * @param size ページサイズ
+     * @param sortBy ソート対象
+     * @param sortDir ソート方向
+     * @return チャプターDTOページ
+     */
+    @Transactional(readOnly = true)
+    public Page<LectureChapterResponseDto> searchChapters(LectureChapterSearchDto searchDto,
+                                                         int page, int size, String sortBy, String sortDir) {
+        return getAllChapters(page, size, sortBy, sortDir);
+    }
+
+    /**
+     * チャプター統計情報取得（スタブ）
+     * @param lectureId 講義ID
+     * @param period 期間
+     * @return 統計DTO
+     */
+    @Transactional(readOnly = true)
+    public LectureChapterStatsDto getChapterStats(Long lectureId, String period) {
+        return new LectureChapterStatsDto();
+    }
+
+    /**
+     * チャプター順序再配置（スタブ）
+     * @param lectureId 講義ID
+     * @param chapterIds チャプターIDリスト
+     * @return 再配置結果DTOリスト
+     */
+    public List<LectureChapterResponseDto> reorderChapters(Long lectureId, List<Long> chapterIds) {
+        return new ArrayList<>();
+    }
+
+    /**
+     * チャプター複製（スタブ）
+     * @param id 元チャプターID
+     * @param targetLectureId 対象講義ID
+     * @return 複製結果DTO
+     */
+    public LectureChapterResponseDto duplicateChapter(Long id, Long targetLectureId) {
+        return new LectureChapterResponseDto();
+    }
+
+    /** エンティティをレスポンスDTOへ変換 */
+    private LectureChapterResponseDto toDto(LectureChapter chapter) {
+        LectureChapterResponseDto dto = new LectureChapterResponseDto();
+        dto.setId(chapter.getChapterId());
+        dto.setLectureId(chapter.getLectureId());
+        dto.setTitle(chapter.getTitle());
+        dto.setDescription(chapter.getDescription());
+        dto.setOrderNumber(chapter.getSortOrder());
+        dto.setEstimatedMinutes(chapter.getDurationMinutes());
+        dto.setIsActive("ACTIVE".equals(chapter.getStatus()));
+        return dto;
     }
 
     /**

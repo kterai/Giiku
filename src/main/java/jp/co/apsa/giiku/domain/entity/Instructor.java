@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 /**
  * 講師プロファイル拡張エンティティ
  * 既存のUserエンティティに関連付けられる講師専用の情報を管理
- * 
- * @author Giiku LMS Team
+ *
+ * @author 株式会社アプサ
  * @version 1.0
- * @since 2024-01
+ * @since 2025
  */
 @Entity
 @Table(name = "instructors")
@@ -26,6 +26,24 @@ public class Instructor extends BaseEntity {
      * 講師ID（主キー）
      */
     // ID はBaseEntityから継承
+
+    /**
+     * 講師IDを取得します。
+     *
+     * @return 講師ID
+     */
+    public Long getInstructorId() {
+        return getId();
+    }
+
+    /**
+     * 講師IDを設定します。
+     *
+     * @param instructorId 講師ID
+     */
+    public void setInstructorId(Long instructorId) {
+        setId(instructorId);
+    }
 
     /**
      * ユーザーID（外部キー）

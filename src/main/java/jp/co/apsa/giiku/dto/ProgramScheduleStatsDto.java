@@ -1,11 +1,19 @@
 package jp.co.apsa.giiku.dto;
 
+/**
+ * プログラムスケジュール統計DTO
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
 public class ProgramScheduleStatsDto {
     private Long totalSchedules;
     private Long activeSchedules;
     private Long completedSchedules;
     private Long totalParticipants;
     private Double averageCapacityUtilization;
+    private Double completionRate;
 
     public ProgramScheduleStatsDto() {}
 
@@ -23,4 +31,8 @@ public class ProgramScheduleStatsDto {
 
     public Double getAverageCapacityUtilization() { return averageCapacityUtilization; }
     public void setAverageCapacityUtilization(Double averageCapacityUtilization) { this.averageCapacityUtilization = averageCapacityUtilization; }
+
+    /** 完了率取得 */
+    public Double getCompletionRate() { return completionRate; }
+    public void setCompletionRate(Double completionRate) { this.completionRate = completionRate; }
 }

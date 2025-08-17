@@ -22,6 +22,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
+import java.math.BigDecimal;
 
 /**
  * Quizサービスクラス
@@ -49,6 +51,12 @@ public class QuizService {
     @Transactional(readOnly = true)
     public List<Quiz> findAll() {
         return quizRepository.findAll();
+    }
+
+    /** ページング対応のクイズ一覧取得 */
+    @Transactional(readOnly = true)
+    public Page<Quiz> findAll(Pageable pageable) {
+        return quizRepository.findAll(pageable);
     }
 
     /**
@@ -287,6 +295,15 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
+    /** ID指定でクイズを開始 */
+    public Quiz startQuiz(Long id) {
+        Quiz quiz = quizRepository.findById(id).orElseThrow();
+        quiz.setStartTime(LocalDateTime.now());
+        quiz.setStatus("IN_PROGRESS");
+        quiz.setUpdatedAt(LocalDateTime.now());
+        return quizRepository.save(quiz);
+    }
+
     /**
      * クイズを提出・採点
      */
@@ -319,6 +336,12 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
+    /** クイズを提出（回答は既存のものを使用） */
+    public Quiz submitQuiz(Long id) {
+        Quiz quiz = quizRepository.findById(id).orElseThrow();
+        return submitQuiz(id, quiz.getStudentAnswers());
+    }
+
     /**
      * クイズを手動採点
      */
@@ -337,6 +360,15 @@ public class QuizService {
         quiz.setScore(score);
         quiz.setUpdatedAt(LocalDateTime.now());
 
+        return quizRepository.save(quiz);
+    }
+
+    /** クイズを採点（スコアは自動計算） */
+    public Quiz gradeQuiz(Long id) {
+        Quiz quiz = quizRepository.findById(id).orElseThrow();
+        quiz.setScore(calculateScore(quiz));
+        quiz.setStatus("GRADED");
+        quiz.setGradedTime(LocalDateTime.now());
         return quizRepository.save(quiz);
     }
 
@@ -368,6 +400,71 @@ public class QuizService {
             throw new IllegalArgumentException("学生IDは必須です");
         }
         return quizRepository.countByStudentId(studentId);
+    }
+
+    /** 講師IDでクイズを検索 */
+    @Transactional(readOnly = true)
+    public List<Quiz> findByInstructorId(Long instructorId) {
+        return quizRepository.findAll().stream()
+                .filter(q -> instructorId != null && instructorId.equals(q.getInstructorId()))
+                .toList();
+    }
+
+    /** クイズ状態で検索 */
+    @Transactional(readOnly = true)
+    public List<Quiz> findByQuizStatus(String status) {
+        return findByStatus(status);
+    }
+
+    /** 学生の進行中クイズを取得（エイリアス） */
+    @Transactional(readOnly = true)
+    public List<Quiz> findInProgressQuizzesByStudent(Long studentId) {
+        return findStudentInProgressQuizzes(studentId);
+    }
+
+    /** 学生の完了クイズを取得（エイリアス） */
+    @Transactional(readOnly = true)
+    public List<Quiz> findCompletedQuizzesByStudent(Long studentId) {
+        return findStudentCompletedQuizzes(studentId);
+    }
+
+    /** クイズ統計情報取得（スタブ） */
+    @Transactional(readOnly = true)
+    public List<Map<String, Object>> getQuizStatistics(Long companyId) {
+        return List.of();
+    }
+
+    /** 企業平均スコア算出（スタブ） */
+    @Transactional(readOnly = true)
+    public BigDecimal calculateAverageScore(Long companyId) {
+        return BigDecimal.ZERO;
+    }
+
+    /** 学生平均スコア算出（スタブ） */
+    @Transactional(readOnly = true)
+    public BigDecimal calculateStudentAverageScore(Long studentId) {
+        return BigDecimal.ZERO;
+    }
+
+    /** 制限時間超過クイズ取得（スタブ） */
+    @Transactional(readOnly = true)
+    public List<Quiz> findOverdueQuizzes(Long companyId) {
+        return List.of();
+    }
+
+    /** 高得点クイズ取得（スタブ） */
+    @Transactional(readOnly = true)
+    public List<Quiz> findTopScoringQuizzes(Long companyId, Integer limit) {
+        return List.of();
+    }
+
+    /** 回答保存 */
+    public Quiz saveAnswers(Long id, Map<String, Object> answers) {
+        Quiz quiz = quizRepository.findById(id).orElseThrow();
+        quiz.setStudentAnswers(answers != null ? answers.toString() : null);
+        quiz.setAnsweredQuestions(answers != null ? answers.size() : 0);
+        quiz.setUpdatedAt(LocalDateTime.now());
+        return quizRepository.save(quiz);
     }
 
     /**

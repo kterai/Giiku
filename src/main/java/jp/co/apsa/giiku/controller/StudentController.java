@@ -1,7 +1,6 @@
 package jp.co.apsa.giiku.controller;
 
 import jp.co.apsa.giiku.service.StudentService;
-import jp.co.apsa.giiku.dto.Student;
 import jp.co.apsa.giiku.dto.StudentRequest;
 import jp.co.apsa.giiku.dto.StudentResponse;
 import jp.co.apsa.giiku.dto.StudentStatistics;
@@ -26,6 +25,10 @@ import java.util.Map;
 /**
  * 学生管理コントローラー
  * 学生の登録、更新、削除、検索機能を提供
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @RestController
 @RequestMapping("/api/students")
@@ -61,7 +64,7 @@ public class StudentController {
         logger.info("学生ID指定取得要求 - ID: {}", id);
         try {
             StudentResponse student = studentService.getStudentById(id);
-            logger.info("学生取得成功 - ID: {}, 氏名: {}", id, student.getName());
+            logger.info("学生取得成功 - ID: {}, 学生番号: {}", id, student.getStudentNumber());
             return ResponseEntity.ok(student);
         } catch (StudentNotFoundException e) {
             logger.warn("学生が見つかりません - ID: {}", id);
@@ -77,10 +80,10 @@ public class StudentController {
      */
     @PostMapping
     public ResponseEntity<StudentResponse> createStudent(@Valid @RequestBody StudentRequest request) {
-        logger.info("学生新規登録要求 - 氏名: {}, メール: {}", request.getName(), request.getEmail());
+        logger.info("学生新規登録要求 - 学生番号: {}, 会社ID: {}", request.getStudentNumber(), request.getCompanyId());
         try {
             StudentResponse student = studentService.createStudent(request);
-            logger.info("学生登録成功 - ID: {}, 氏名: {}", student.getId(), student.getName());
+            logger.info("学生登録成功 - ID: {}, 学生番号: {}", student.getId(), student.getStudentNumber());
             return ResponseEntity.status(HttpStatus.CREATED).body(student);
         } catch (ValidationException e) {
             logger.warn("学生登録バリデーションエラー: {}", e.getMessage());
@@ -96,10 +99,10 @@ public class StudentController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<StudentResponse> updateStudent(@PathVariable Long id, @Valid @RequestBody StudentRequest request) {
-        logger.info("学生情報更新要求 - ID: {}, 氏名: {}", id, request.getName());
+        logger.info("学生情報更新要求 - ID: {}, 学生番号: {}", id, request.getStudentNumber());
         try {
             StudentResponse student = studentService.updateStudent(id, request);
-            logger.info("学生更新成功 - ID: {}, 氏名: {}", id, student.getName());
+            logger.info("学生更新成功 - ID: {}, 学生番号: {}", id, student.getStudentNumber());
             return ResponseEntity.ok(student);
         } catch (StudentNotFoundException e) {
             logger.warn("更新対象の学生が見つかりません - ID: {}", id);

@@ -3,6 +3,13 @@ package jp.co.apsa.giiku.dto;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * LectureChapterProgressDto.
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
 public class LectureChapterProgressDto {
     private Long chapterId;
     private String chapterTitle;
@@ -30,6 +37,12 @@ public class LectureChapterProgressDto {
 
     public BigDecimal getProgressRate() { return progressRate; }
     public void setProgressRate(BigDecimal progressRate) { this.progressRate = progressRate; }
+
+    /** completionRate エイリアス getter */
+    public BigDecimal getCompletionRate() { return progressRate; }
+
+    /** completionRate エイリアス setter */
+    public void setCompletionRate(BigDecimal completionRate) { this.progressRate = completionRate; }
 
     public Boolean getIsCompleted() { return isCompleted; }
     public void setIsCompleted(Boolean isCompleted) { this.isCompleted = isCompleted; }

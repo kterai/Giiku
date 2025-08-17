@@ -1,11 +1,19 @@
 package jp.co.apsa.giiku.dto;
 
+/**
+ * LectureChapterStatsDto.
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
 public class LectureChapterStatsDto {
     private Long totalChapters;
     private Long activeChapters;
     private Long inactiveChapters;
     private Integer totalEstimatedMinutes;
     private Double averageChapterDuration;
+    private Double averageCompletionRate;
 
     public LectureChapterStatsDto() {}
 
@@ -23,4 +31,7 @@ public class LectureChapterStatsDto {
 
     public Double getAverageChapterDuration() { return averageChapterDuration; }
     public void setAverageChapterDuration(Double averageChapterDuration) { this.averageChapterDuration = averageChapterDuration; }
+
+    public Double getAverageCompletionRate() { return averageCompletionRate; }
+    public void setAverageCompletionRate(Double averageCompletionRate) { this.averageCompletionRate = averageCompletionRate; }
 }

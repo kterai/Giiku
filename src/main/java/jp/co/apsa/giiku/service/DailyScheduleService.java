@@ -8,6 +8,7 @@ import jp.co.apsa.giiku.domain.repository.ProgramScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,8 @@ import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * DailySchedule（日次スケジュール）に関するビジネスロジックを提供するサービスクラス。
@@ -211,6 +214,48 @@ public class DailyScheduleService {
             throw new IllegalArgumentException("指定された日次スケジュールが存在しません: " + id);
         }
         dailyScheduleRepository.deleteById(id);
+    }
+
+    /** IDで削除（エイリアス） */
+    public void deleteById(Long id) {
+        delete(id);
+    }
+
+    /** 日付範囲で検索（ページング） */
+    @Transactional(readOnly = true)
+    public Page<DailySchedule> findByScheduleDateBetween(LocalDate startDate, LocalDate endDate, Pageable pageable) {
+        List<DailySchedule> list = dailyScheduleRepository.findByTargetDateBetweenOrderByTargetDateAscStartTimeAsc(startDate, endDate);
+        return new PageImpl<>(list, pageable, list.size());
+    }
+
+    /** 日付範囲で検索 */
+    @Transactional(readOnly = true)
+    public List<DailySchedule> findByScheduleDateBetween(LocalDate startDate, LocalDate endDate) {
+        return dailyScheduleRepository.findByTargetDateBetweenOrderByTargetDateAscStartTimeAsc(startDate, endDate);
+    }
+
+    /** 学生IDと期間で検索（スタブ） */
+    @Transactional(readOnly = true)
+    public Page<DailySchedule> findByStudentIdAndScheduleDateBetween(Long studentId, LocalDate startDate, LocalDate endDate, Pageable pageable) {
+        return Page.empty(pageable);
+    }
+
+    /** 学生IDで検索（スタブ） */
+    @Transactional(readOnly = true)
+    public Page<DailySchedule> findByStudentId(Long studentId, Pageable pageable) {
+        return Page.empty(pageable);
+    }
+
+    /** キーワード検索（スタブ） */
+    @Transactional(readOnly = true)
+    public Page<DailySchedule> searchSchedules(String keyword, Pageable pageable) {
+        return Page.empty(pageable);
+    }
+
+    /** 統計情報取得（スタブ） */
+    @Transactional(readOnly = true)
+    public Map<String, Object> getStatistics(LocalDate startDate, LocalDate endDate) {
+        return Collections.emptyMap();
     }
 
     /**

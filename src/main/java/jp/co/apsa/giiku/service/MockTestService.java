@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,10 @@ import java.util.Optional;
 /**
  * MockTestサービスクラス
  * モックテストの管理機能を提供
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Service
 @Transactional
@@ -46,6 +51,26 @@ public class MockTestService {
     @Transactional(readOnly = true)
     public List<MockTest> findAll() {
         return mockTestRepository.findAll();
+    }
+
+    /**
+     * ページング対応のモックテスト一覧取得
+     * @param pageable ページング情報
+     * @return ページングされたモックテスト
+     */
+    @Transactional(readOnly = true)
+    public Page<MockTest> findAll(Pageable pageable) {
+        return mockTestRepository.findAll(pageable);
+    }
+
+    /** キーワードでモックテストを検索 */
+    @Transactional(readOnly = true)
+    public Page<MockTest> searchMockTests(String keyword, Pageable pageable) {
+        if (!StringUtils.hasText(keyword)) {
+            return mockTestRepository.findAll(pageable);
+        }
+        List<MockTest> list = mockTestRepository.findByTitleContainingIgnoreCaseAndIsActiveTrue(keyword);
+        return new PageImpl<>(list, pageable, list.size());
     }
 
     /**
@@ -132,6 +157,14 @@ public class MockTestService {
     }
 
     /**
+     * IDでモックテストを削除（エイリアス）
+     * @param id モックテストID
+     */
+    public void deleteById(Long id) {
+        delete(id);
+    }
+
+    /**
      * 企業IDでモックテストを検索
      */
     @Transactional(readOnly = true)
@@ -176,14 +209,6 @@ public class MockTestService {
     }
 
     /**
-     * アクティブなモックテストを取得
-     */
-    @Transactional(readOnly = true)
-    public List<MockTest> findActiveTests() {
-        return mockTestRepository.findByIsActiveTrueOrderByCreatedAtDesc();
-    }
-
-    /**
      * タイトルで検索（部分一致）
      */
     @Transactional(readOnly = true)
@@ -192,6 +217,61 @@ public class MockTestService {
             throw new IllegalArgumentException("タイトルは必須です");
         }
         return mockTestRepository.findByTitleContainingIgnoreCaseAndIsActiveTrue(title);
+    }
+
+    /**
+     * モックテスト受験処理（スタブ）
+     * @param mockTestId モックテストID
+     * @param studentId 受験者ID
+     * @param answers 解答データ
+     * @return 模擬試験結果
+     */
+    public jp.co.apsa.giiku.domain.entity.MockTestResult takeMockTest(
+            Long mockTestId, Long studentId, java.util.Map<String, Object> answers) {
+        return new jp.co.apsa.giiku.domain.entity.MockTestResult();
+    }
+
+    /**
+     * 学生別模擬試験結果取得（スタブ）
+     * @param studentId 学生ID
+     * @param pageable ページング情報
+     * @return 結果ページ
+     */
+    @Transactional(readOnly = true)
+    public Page<jp.co.apsa.giiku.domain.entity.MockTestResult> findResultsByStudentId(
+            Long studentId, Pageable pageable) {
+        return Page.empty(pageable);
+    }
+
+    /**
+     * 模擬試験別結果取得（スタブ）
+     * @param mockTestId モックテストID
+     * @param pageable ページング情報
+     * @return 結果ページ
+     */
+    @Transactional(readOnly = true)
+    public Page<jp.co.apsa.giiku.domain.entity.MockTestResult> findResultsByMockTestId(
+            Long mockTestId, Pageable pageable) {
+        return Page.empty(pageable);
+    }
+
+    /**
+     * 模擬試験統計情報取得（スタブ）
+     * @param mockTestId モックテストID
+     * @return 統計情報マップ
+     */
+    @Transactional(readOnly = true)
+    public java.util.Map<String, Object> getStatistics(Long mockTestId) {
+        return java.util.Collections.emptyMap();
+    }
+
+    /**
+     * アクティブな模擬試験一覧取得
+     * @return アクティブな模擬試験
+     */
+    @Transactional(readOnly = true)
+    public List<MockTest> findActiveMockTests() {
+        return mockTestRepository.findByIsActiveTrueOrderByCreatedAtDesc();
     }
 
     /**
@@ -286,8 +366,9 @@ public class MockTestService {
             throw new IllegalArgumentException("問題数は正の値で入力してください");
         }
 
-        if (mockTest.getPassingScore() != null && 
-            (mockTest.getPassingScore() < 0 || mockTest.getPassingScore() > 100)) {
+        if (mockTest.getPassingScore() != null &&
+            (mockTest.getPassingScore().compareTo(java.math.BigDecimal.ZERO) < 0 ||
+             mockTest.getPassingScore().compareTo(new java.math.BigDecimal("100")) > 0)) {
             throw new IllegalArgumentException("合格点は0-100の範囲で入力してください");
         }
 

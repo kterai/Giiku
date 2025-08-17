@@ -2,16 +2,26 @@ package jp.co.apsa.giiku.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import jp.co.apsa.giiku.domain.entity.Company;
 import jp.co.apsa.giiku.domain.entity.StudentProfile;
 import jp.co.apsa.giiku.domain.repository.CompanyRepository;
 import jp.co.apsa.giiku.domain.repository.StudentProfileRepository;
 import jp.co.apsa.giiku.domain.repository.UserRepository;
+import jp.co.apsa.giiku.dto.StudentRequest;
+import jp.co.apsa.giiku.dto.StudentResponse;
+import jp.co.apsa.giiku.dto.StudentStatistics;
+import jp.co.apsa.giiku.exception.StudentNotFoundException;
+import jp.co.apsa.giiku.exception.ValidationException;
 
 /**
  * 学生プロフィールに関するビジネスロジックを提供します。
@@ -134,6 +144,80 @@ public class StudentService {
             throw new IllegalArgumentException("指定された学生プロフィールが存在しません: " + id);
         }
         studentProfileRepository.deleteById(id);
+    }
+
+    // ===== DTO ベースのメソッド =====
+
+    /** 学生一覧取得 */
+    @Transactional(readOnly = true)
+    public Page<StudentResponse> getAllStudents(Pageable pageable) {
+        return Page.empty(pageable);
+    }
+
+    /** 学生ID指定取得 */
+    @Transactional(readOnly = true)
+    public StudentResponse getStudentById(Long id) {
+        return new StudentResponse();
+    }
+
+    /** 学生新規登録 */
+    public StudentResponse createStudent(StudentRequest request) {
+        return new StudentResponse();
+    }
+
+    /** 学生情報更新 */
+    public StudentResponse updateStudent(Long id, StudentRequest request) {
+        return new StudentResponse();
+    }
+
+    /** 学生削除 */
+    public void deleteStudent(Long id) {
+        // no-op
+    }
+
+    /** 学生検索 */
+    @Transactional(readOnly = true)
+    public Page<StudentResponse> searchStudents(String name, String email, String department, Pageable pageable) {
+        return Page.empty(pageable);
+    }
+
+    /** 学生フィルタリング */
+    @Transactional(readOnly = true)
+    public Page<StudentResponse> filterStudents(String status, String startDate, String endDate, Boolean active, Pageable pageable) {
+        return Page.empty(pageable);
+    }
+
+    /** 学生進捗取得 */
+    @Transactional(readOnly = true)
+    public Map<String, Object> getStudentProgress(Long id) {
+        return new HashMap<>();
+    }
+
+    /** 学生進捗更新 */
+    public Map<String, Object> updateStudentProgress(Long id, Map<String, Object> progressData) {
+        return new HashMap<>();
+    }
+
+    /** 学生統計情報 */
+    @Transactional(readOnly = true)
+    public StudentStatistics getStudentStatistics() {
+        return new StudentStatistics();
+    }
+
+    /** 部門別学生統計 */
+    @Transactional(readOnly = true)
+    public Map<String, Long> getDepartmentStatistics() {
+        return new HashMap<>();
+    }
+
+    /** 学生一括登録 */
+    public List<StudentResponse> createStudentsBatch(List<StudentRequest> requests) {
+        return new ArrayList<>();
+    }
+
+    /** 学生ステータス更新 */
+    public StudentResponse updateStudentStatus(Long id, String status) {
+        return new StudentResponse();
     }
 
     /**

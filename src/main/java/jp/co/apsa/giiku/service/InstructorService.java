@@ -21,10 +21,10 @@ import java.util.HashMap;
 /**
  * Service class for managing Instructor entities.
  * Provides comprehensive CRUD operations and specialized instructor management.
- * 
- * @author Giiku System
+ *
+ * @author 株式会社アプサ
  * @version 1.0
- * @since 2024-01-01
+ * @since 2025
  */
 @Service
 @Transactional
@@ -251,6 +251,64 @@ public class InstructorService {
         List<Instructor> instructors = instructorRepository.findSpecializedInstructors(specialization, minLevel);
         logger.info("Found {} specialized Instructors", instructors.size());
         return instructors;
+    }
+
+    /**
+     * ページング付きで全講師を取得します。
+     *
+     * @param pageable ページング情報
+     * @return ページングされた講師一覧
+     */
+    @Transactional(readOnly = true)
+    public Page<Instructor> getAllInstructors(Pageable pageable) {
+        return instructorRepository.findAll(pageable);
+    }
+
+    /**
+     * IDから講師を取得します。
+     *
+     * @param id 講師ID
+     * @return 講師情報
+     */
+    @Transactional(readOnly = true)
+    public Instructor getInstructorById(Long id) {
+        return findById(id).orElse(null);
+    }
+
+    /**
+     * 講師を新規作成します。
+     *
+     * @param instructor 作成する講師
+     * @return 保存された講師
+     */
+    public Instructor createInstructor(Instructor instructor) {
+        return save(instructor);
+    }
+
+    /**
+     * 講師を更新します。
+     *
+     * @param instructor 更新対象の講師
+     * @return 更新された講師
+     */
+    public Instructor updateInstructor(Instructor instructor) {
+        if (instructor.getId() == null) {
+            throw new RuntimeException("Instructor ID cannot be null");
+        }
+        return update(instructor.getId(), instructor);
+    }
+
+    /**
+     * 講師に評価を追加します。
+     *
+     * @param instructorId 講師ID
+     * @param rating 評価値
+     */
+    public void addRating(Long instructorId, double rating) {
+        Instructor instructor = instructorRepository.findById(instructorId)
+            .orElseThrow(() -> new RuntimeException("Instructor not found with ID: " + instructorId));
+        instructor.addRating(rating);
+        instructorRepository.save(instructor);
     }
 
     /**
