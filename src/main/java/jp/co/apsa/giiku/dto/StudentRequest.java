@@ -5,6 +5,10 @@ import java.time.LocalDate;
 
 /**
  * 学生情報の作成・更新リクエスト用DTOクラス
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 public class StudentRequest {
 

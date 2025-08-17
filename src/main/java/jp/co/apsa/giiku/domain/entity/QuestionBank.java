@@ -7,6 +7,10 @@ import java.util.List;
 /**
  * 問題バンクエンティティ
  * LMS機能における問題管理を行う
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Entity
 @Table(name = "question_bank")
