@@ -5,6 +5,10 @@ import java.time.LocalDateTime;
 
 /**
  * 学生情報レスポンス用DTOクラス
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 public class StudentResponse {
 

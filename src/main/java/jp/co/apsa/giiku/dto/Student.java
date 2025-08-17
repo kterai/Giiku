@@ -9,10 +9,10 @@ import java.time.LocalDate;
 /**
  * 学生DTO
  * 学生の基本情報を転送するためのデータ転送オブジェクト
- * 
- * @author Giiku System
+ *
+ * @author 株式会社アプサ
  * @version 1.0
- * @since 2025-08-16
+ * @since 2025
  */
 @Data
 @AllArgsConstructor

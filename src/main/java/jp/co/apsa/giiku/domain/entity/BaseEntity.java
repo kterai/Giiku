@@ -9,10 +9,10 @@ import java.time.LocalDateTime;
 /**
  * 全エンティティの基底クラス
  * 共通的な属性とメタデータを提供する
- * 
- * @author Giiku LMS Team
+ *
+ * @author 株式会社アプサ
  * @version 1.0
- * @since 2024-01
+ * @since 2025
  */
 @MappedSuperclass
 @Data
