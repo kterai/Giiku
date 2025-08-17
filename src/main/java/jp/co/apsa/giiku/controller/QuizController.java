@@ -23,7 +23,6 @@ import java.util.Optional;
  * LMSクイズ実行機能のREST APIエンドポイントを提供します。
  * クイズの開始、進行、提出、採点、統計取得などの機能を含みます。
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -42,14 +41,10 @@ public class QuizController extends AbstractController {
 
     /**
      * クイズ一覧をページング形式で取得
-     * 
+     *
      * @param pageable ページング情報
      * @return クイズ一覧のページ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping
     public ResponseEntity<Page<Quiz>> getAllQuizzes(Pageable pageable) {
         try {
@@ -64,14 +59,10 @@ public class QuizController extends AbstractController {
 
     /**
      * クイズIDでクイズ詳細を取得
-     * 
+     *
      * @param id クイズID
      * @return クイズ詳細
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Quiz> getQuizById(@PathVariable Long id) {
         try {
@@ -87,14 +78,10 @@ public class QuizController extends AbstractController {
 
     /**
      * 新しいクイズを作成
-     * 
+     *
      * @param quiz クイズ情報
      * @return 作成されたクイズ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping
     public ResponseEntity<Quiz> createQuiz(@Valid @RequestBody Quiz quiz) {
         try {
@@ -110,15 +97,11 @@ public class QuizController extends AbstractController {
 
     /**
      * クイズ情報を更新
-     * 
+     *
      * @param id クイズID
      * @param quiz 更新するクイズ情報
      * @return 更新されたクイズ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Quiz> updateQuiz(@PathVariable Long id, 
                                           @Valid @RequestBody Quiz quiz) {
@@ -137,14 +120,10 @@ public class QuizController extends AbstractController {
 
     /**
      * クイズを開始
-     * 
+     *
      * @param id クイズID
      * @return 開始されたクイズ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping("/{id}/start")
     public ResponseEntity<Quiz> startQuiz(@PathVariable Long id) {
         try {
@@ -159,15 +138,11 @@ public class QuizController extends AbstractController {
 
     /**
      * クイズ回答を保存
-     * 
+     *
      * @param id クイズID
      * @param answers 回答データ
      * @return 更新されたクイズ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping("/{id}/answer")
     public ResponseEntity<Quiz> saveAnswer(@PathVariable Long id, 
                                           @RequestBody Map<String, Object> answers) {
@@ -183,14 +158,10 @@ public class QuizController extends AbstractController {
 
     /**
      * クイズを提出
-     * 
+     *
      * @param id クイズID
      * @return 提出されたクイズ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping("/{id}/submit")
     public ResponseEntity<Quiz> submitQuiz(@PathVariable Long id) {
         try {
@@ -205,14 +176,10 @@ public class QuizController extends AbstractController {
 
     /**
      * クイズを採点
-     * 
+     *
      * @param id クイズID
      * @return 採点されたクイズ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping("/{id}/grade")
     public ResponseEntity<Quiz> gradeQuiz(@PathVariable Long id) {
         try {
@@ -229,14 +196,10 @@ public class QuizController extends AbstractController {
 
     /**
      * 学生IDでクイズ一覧を取得
-     * 
+     *
      * @param studentId 学生ID
      * @return クイズ一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/student/{studentId}")
     public ResponseEntity<List<Quiz>> getQuizzesByStudent(@PathVariable Long studentId) {
         try {
@@ -251,14 +214,10 @@ public class QuizController extends AbstractController {
 
     /**
      * 講師IDでクイズ一覧を取得
-     * 
+     *
      * @param instructorId 講師ID
      * @return クイズ一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/instructor/{instructorId}")
     public ResponseEntity<List<Quiz>> getQuizzesByInstructor(@PathVariable Long instructorId) {
         try {
@@ -273,14 +232,10 @@ public class QuizController extends AbstractController {
 
     /**
      * クイズ状態でクイズ一覧を取得
-     * 
+     *
      * @param status クイズ状態
      * @return クイズ一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/status/{status}")
     public ResponseEntity<List<Quiz>> getQuizzesByStatus(@PathVariable String status) {
         try {
@@ -295,14 +250,10 @@ public class QuizController extends AbstractController {
 
     /**
      * 学生の進行中クイズを取得
-     * 
+     *
      * @param studentId 学生ID
      * @return 進行中クイズ一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/student/{studentId}/in-progress")
     public ResponseEntity<List<Quiz>> getInProgressQuizzes(@PathVariable Long studentId) {
         try {
@@ -317,14 +268,10 @@ public class QuizController extends AbstractController {
 
     /**
      * 学生の完了クイズを取得
-     * 
+     *
      * @param studentId 学生ID
      * @return 完了クイズ一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/student/{studentId}/completed")
     public ResponseEntity<List<Quiz>> getCompletedQuizzes(@PathVariable Long studentId) {
         try {
@@ -341,14 +288,10 @@ public class QuizController extends AbstractController {
 
     /**
      * 企業内クイズ統計を取得
-     * 
+     *
      * @param companyId 企業ID
      * @return クイズ統計
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/stats")
     public ResponseEntity<List<Map<String, Object>>> getQuizStats(@PathVariable Long companyId) {
         try {
@@ -363,14 +306,10 @@ public class QuizController extends AbstractController {
 
     /**
      * 企業内平均スコアを取得
-     * 
+     *
      * @param companyId 企業ID
      * @return 平均スコア
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/average-score")
     public ResponseEntity<BigDecimal> getAverageScore(@PathVariable Long companyId) {
         try {
@@ -385,14 +324,10 @@ public class QuizController extends AbstractController {
 
     /**
      * 学生の平均スコアを取得
-     * 
+     *
      * @param studentId 学生ID
      * @return 学生の平均スコア
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/student/{studentId}/average-score")
     public ResponseEntity<BigDecimal> getStudentAverageScore(@PathVariable Long studentId) {
         try {
@@ -407,14 +342,10 @@ public class QuizController extends AbstractController {
 
     /**
      * 制限時間超過クイズを取得
-     * 
+     *
      * @param companyId 企業ID
      * @return 制限時間超過クイズ一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/overdue")
     public ResponseEntity<List<Quiz>> getOverdueQuizzes(@PathVariable Long companyId) {
         try {
@@ -429,15 +360,11 @@ public class QuizController extends AbstractController {
 
     /**
      * 高得点クイズトップ取得
-     * 
+     *
      * @param companyId 企業ID
      * @param limit 取得件数
      * @return 高得点クイズ一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/top-scores")
     public ResponseEntity<List<Quiz>> getTopScoringQuizzes(@PathVariable Long companyId,
                                                           @RequestParam(defaultValue = "10") Integer limit) {

@@ -24,23 +24,13 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    /**
-     * UserService メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** UserService メソッド */
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    /**
-     * loadUserByUsername メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** loadUserByUsername メソッド */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         jp.co.apsa.giiku.domain.entity.User user = userRepository.findByUsername(username)

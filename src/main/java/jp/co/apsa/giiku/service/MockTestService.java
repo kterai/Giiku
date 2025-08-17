@@ -28,7 +28,6 @@ import java.util.Optional;
  * MockTestサービスクラス
  * モックテストの管理機能を提供
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -46,13 +45,7 @@ public class MockTestService {
     @Autowired
     private CompanyRepository companyRepository;
 
-    /**
-     * 全てのモックテストを取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 全てのモックテストを取得 */
     @Transactional(readOnly = true)
     public List<MockTest> findAll() {
         return mockTestRepository.findAll();
@@ -62,21 +55,12 @@ public class MockTestService {
      * ページング対応のモックテスト一覧取得
      * @param pageable ページング情報
      * @return ページングされたモックテスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public Page<MockTest> findAll(Pageable pageable) {
         return mockTestRepository.findAll(pageable);
     }
 
-    /** キーワードでモックテストを検索 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public Page<MockTest> searchMockTests(String keyword, Pageable pageable) {
         if (!StringUtils.hasText(keyword)) {
@@ -86,13 +70,7 @@ public class MockTestService {
         return new PageImpl<>(list, pageable, list.size());
     }
 
-    /**
-     * IDでモックテストを取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** IDでモックテストを取得 */
     @Transactional(readOnly = true)
     public Optional<MockTest> findById(Long id) {
         if (id == null) {
@@ -101,13 +79,7 @@ public class MockTestService {
         return mockTestRepository.findById(id);
     }
 
-    /**
-     * モックテストを保存
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** モックテストを保存 */
     public MockTest save(MockTest mockTest) {
         validateMockTest(mockTest);
 
@@ -119,13 +91,7 @@ public class MockTestService {
         return mockTestRepository.save(mockTest);
     }
 
-    /**
-     * モックテストを更新
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** モックテストを更新 */
     public MockTest update(Long id, MockTest mockTest) {
         if (id == null) {
             throw new IllegalArgumentException("IDは必須です");
@@ -150,13 +116,7 @@ public class MockTestService {
         return mockTestRepository.save(existingTest);
     }
 
-    /**
-     * モックテストを論理削除
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** モックテストを論理削除 */
     public void deactivate(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("IDは必須です");
@@ -170,13 +130,7 @@ public class MockTestService {
         mockTestRepository.save(mockTest);
     }
 
-    /**
-     * モックテストを物理削除
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** モックテストを物理削除 */
     public void delete(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("IDは必須です");
@@ -192,22 +146,12 @@ public class MockTestService {
     /**
      * IDでモックテストを削除（エイリアス）
      * @param id モックテストID
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public void deleteById(Long id) {
         delete(id);
     }
 
-    /**
-     * 企業IDでモックテストを検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 企業IDでモックテストを検索 */
     @Transactional(readOnly = true)
     public List<MockTest> findByCompanyId(Long companyId) {
         if (companyId == null) {
@@ -216,13 +160,7 @@ public class MockTestService {
         return mockTestRepository.findByCompanyIdAndIsActiveTrue(companyId);
     }
 
-    /**
-     * プログラムIDでモックテストを検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** プログラムIDでモックテストを検索 */
     @Transactional(readOnly = true)
     public List<MockTest> findByProgramId(Long programId) {
         if (programId == null) {
@@ -231,13 +169,7 @@ public class MockTestService {
         return mockTestRepository.findByProgramIdAndIsActiveTrue(programId);
     }
 
-    /**
-     * テストタイプで検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** テストタイプで検索 */
     @Transactional(readOnly = true)
     public List<MockTest> findByTestType(String testType) {
         if (!StringUtils.hasText(testType)) {
@@ -246,13 +178,7 @@ public class MockTestService {
         return mockTestRepository.findByTestTypeAndIsActiveTrue(testType);
     }
 
-    /**
-     * 難易度レベルで検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 難易度レベルで検索 */
     @Transactional(readOnly = true)
     public List<MockTest> findByDifficultyLevel(String difficultyLevel) {
         if (!StringUtils.hasText(difficultyLevel)) {
@@ -261,13 +187,7 @@ public class MockTestService {
         return mockTestRepository.findByDifficultyLevelAndIsActiveTrue(difficultyLevel);
     }
 
-    /**
-     * タイトルで検索（部分一致）
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** タイトルで検索（部分一致） */
     @Transactional(readOnly = true)
     public List<MockTest> findByTitleContaining(String title) {
         if (!StringUtils.hasText(title)) {
@@ -282,11 +202,7 @@ public class MockTestService {
      * @param studentId 受験者ID
      * @param answers 解答データ
      * @return 模擬試験結果
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public jp.co.apsa.giiku.domain.entity.MockTestResult takeMockTest(
             Long mockTestId, Long studentId, java.util.Map<String, Object> answers) {
         return new jp.co.apsa.giiku.domain.entity.MockTestResult();
@@ -297,11 +213,7 @@ public class MockTestService {
      * @param studentId 学生ID
      * @param pageable ページング情報
      * @return 結果ページ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public Page<jp.co.apsa.giiku.domain.entity.MockTestResult> findResultsByStudentId(
             Long studentId, Pageable pageable) {
@@ -313,11 +225,7 @@ public class MockTestService {
      * @param mockTestId モックテストID
      * @param pageable ページング情報
      * @return 結果ページ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public Page<jp.co.apsa.giiku.domain.entity.MockTestResult> findResultsByMockTestId(
             Long mockTestId, Pageable pageable) {
@@ -328,11 +236,7 @@ public class MockTestService {
      * 模擬試験統計情報取得（スタブ）
      * @param mockTestId モックテストID
      * @return 統計情報マップ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public java.util.Map<String, Object> getStatistics(Long mockTestId) {
         return java.util.Collections.emptyMap();
@@ -341,23 +245,13 @@ public class MockTestService {
     /**
      * アクティブな模擬試験一覧取得
      * @return アクティブな模擬試験
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public List<MockTest> findActiveMockTests() {
         return mockTestRepository.findByIsActiveTrueOrderByCreatedAtDesc();
     }
 
-    /**
-     * 複合条件での検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 複合条件での検索 */
     @Transactional(readOnly = true)
     public Page<MockTest> findWithFilters(Long companyId, Long programId, String testType, 
                                          String difficultyLevel, Boolean isActive, 
@@ -392,37 +286,19 @@ public class MockTestService {
         return mockTestRepository.findAll(spec, pageable);
     }
 
-    /**
-     * モックテスト数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** モックテスト数をカウント */
     @Transactional(readOnly = true)
     public long countAll() {
         return mockTestRepository.count();
     }
 
-    /**
-     * アクティブなモックテスト数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** アクティブなモックテスト数をカウント */
     @Transactional(readOnly = true)
     public long countActive() {
         return mockTestRepository.countByIsActiveTrue();
     }
 
-    /**
-     * 企業別のモックテスト数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 企業別のモックテスト数をカウント */
     @Transactional(readOnly = true)
     public long countByCompany(Long companyId) {
         if (companyId == null) {
@@ -431,13 +307,7 @@ public class MockTestService {
         return mockTestRepository.countByCompanyIdAndIsActiveTrue(companyId);
     }
 
-    /**
-     * モックテストのバリデーション
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** モックテストのバリデーション */
     private void validateMockTest(MockTest mockTest) {
         if (mockTest == null) {
             throw new IllegalArgumentException("モックテストは必須です");

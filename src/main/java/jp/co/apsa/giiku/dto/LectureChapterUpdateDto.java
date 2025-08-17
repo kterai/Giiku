@@ -8,7 +8,6 @@ import jakarta.validation.constraints.*;
  * @version 1.0
  * @since 2025
  */
-
 public class LectureChapterUpdateDto {
 
     @Size(max = 200)
@@ -30,117 +29,34 @@ public class LectureChapterUpdateDto {
     private String contentType;
 
     private Boolean isActive;
-    /**
-     * LectureChapterUpdateDto メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** LectureChapterUpdateDto メソッド */
     public LectureChapterUpdateDto() {}
-    /**
-     * getTitle メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTitle メソッド */
     public String getTitle() { return title; }
-    /**
-     * setTitle メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setTitle メソッド */
     public void setTitle(String title) { this.title = title; }
-    /**
-     * getDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getDescription メソッド */
     public String getDescription() { return description; }
-    /**
-     * setDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setDescription メソッド */
     public void setDescription(String description) { this.description = description; }
-    /**
-     * getOrderNumber メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getOrderNumber メソッド */
     public Integer getOrderNumber() { return orderNumber; }
-    /**
-     * setOrderNumber メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setOrderNumber メソッド */
     public void setOrderNumber(Integer orderNumber) { this.orderNumber = orderNumber; }
-    /**
-     * getEstimatedMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEstimatedMinutes メソッド */
     public Integer getEstimatedMinutes() { return estimatedMinutes; }
-    /**
-     * setEstimatedMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setEstimatedMinutes メソッド */
     public void setEstimatedMinutes(Integer estimatedMinutes) { this.estimatedMinutes = estimatedMinutes; }
-    /**
-     * getContentUrl メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getContentUrl メソッド */
     public String getContentUrl() { return contentUrl; }
-    /**
-     * setContentUrl メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setContentUrl メソッド */
     public void setContentUrl(String contentUrl) { this.contentUrl = contentUrl; }
-    /**
-     * getContentType メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getContentType メソッド */
     public String getContentType() { return contentType; }
-    /**
-     * setContentType メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setContentType メソッド */
     public void setContentType(String contentType) { this.contentType = contentType; }
-    /**
-     * getIsActive メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getIsActive メソッド */
     public Boolean getIsActive() { return isActive; }
-    /**
-     * setIsActive メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setIsActive メソッド */
     public void setIsActive(Boolean isActive) { this.isActive = isActive; }
 }

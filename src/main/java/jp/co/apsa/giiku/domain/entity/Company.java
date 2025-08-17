@@ -30,79 +30,39 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class Company {
 
-    /** 会社ID 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    /** 会社名 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @NotBlank(message = "会社名は必須です")
     @Size(max = 100, message = "会社名は100文字以内で入力してください")
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    /** 会社コード 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Size(max = 20, message = "会社コードは20文字以内で入力してください")
     @Column(name = "code", unique = true, length = 20)
     private String code;
 
-    /** 有効フラグ 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @NotNull(message = "有効フラグは必須です")
     @Column(name = "active", nullable = false)
     private Boolean active = true;
 
-    /** 作成者ID 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @CreatedBy
     @NotNull(message = "作成者IDは必須です")
     @Column(name = "created_by", updatable = false)
     private Long createdBy;
 
-    /** 作成日時 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @CreatedDate
     @NotNull(message = "作成日時は必須です")
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
-    /** 更新者ID 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @LastModifiedBy
     @NotNull(message = "更新者IDは必須です")
     @Column(name = "updated_by")
     private Long updatedBy;
 
-    /** 更新日時 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @LastModifiedDate
     @NotNull(message = "更新日時は必須です")
     @Column(name = "updated_at")

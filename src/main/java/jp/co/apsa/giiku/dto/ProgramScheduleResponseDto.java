@@ -30,266 +30,74 @@ public class ProgramScheduleResponseDto {
     private LocalDateTime updatedAt;
 
     // Constructors, getters, setters
-    /**
-     * ProgramScheduleResponseDto メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** ProgramScheduleResponseDto メソッド */
     public ProgramScheduleResponseDto() {}
-    /**
-     * getId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getId メソッド */
     public Long getId() { return id; }
-    /**
-     * setId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setId メソッド */
     public void setId(Long id) { this.id = id; }
-    /**
-     * getProgramId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getProgramId メソッド */
     public Long getProgramId() { return programId; }
-    /**
-     * setProgramId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setProgramId メソッド */
     public void setProgramId(Long programId) { this.programId = programId; }
-    /**
-     * getProgramName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getProgramName メソッド */
     public String getProgramName() { return programName; }
-    /**
-     * setProgramName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setProgramName メソッド */
     public void setProgramName(String programName) { this.programName = programName; }
-    /**
-     * getCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompanyId メソッド */
     public Long getCompanyId() { return companyId; }
-    /**
-     * setCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompanyId メソッド */
     public void setCompanyId(Long companyId) { this.companyId = companyId; }
-    /**
-     * getCompanyName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompanyName メソッド */
     public String getCompanyName() { return companyName; }
-    /**
-     * setCompanyName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompanyName メソッド */
     public void setCompanyName(String companyName) { this.companyName = companyName; }
-    /**
-     * getTitle メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTitle メソッド */
     public String getTitle() { return title; }
-    /**
-     * setTitle メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setTitle メソッド */
     public void setTitle(String title) { this.title = title; }
-    /**
-     * getDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getDescription メソッド */
     public String getDescription() { return description; }
-    /**
-     * setDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setDescription メソッド */
     public void setDescription(String description) { this.description = description; }
-    /**
-     * getStartDateTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStartDateTime メソッド */
     public LocalDateTime getStartDateTime() { return startDateTime; }
-    /**
-     * setStartDateTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setStartDateTime メソッド */
     public void setStartDateTime(LocalDateTime startDateTime) { this.startDateTime = startDateTime; }
-    /**
-     * getEndDateTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEndDateTime メソッド */
     public LocalDateTime getEndDateTime() { return endDateTime; }
-    /**
-     * setEndDateTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setEndDateTime メソッド */
     public void setEndDateTime(LocalDateTime endDateTime) { this.endDateTime = endDateTime; }
-    /**
-     * getCapacity メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCapacity メソッド */
     public Integer getCapacity() { return capacity; }
-    /**
-     * setCapacity メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCapacity メソッド */
     public void setCapacity(Integer capacity) { this.capacity = capacity; }
-    /**
-     * getCurrentParticipants メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCurrentParticipants メソッド */
     public Integer getCurrentParticipants() { return currentParticipants; }
-    /**
-     * setCurrentParticipants メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCurrentParticipants メソッド */
     public void setCurrentParticipants(Integer currentParticipants) { this.currentParticipants = currentParticipants; }
-    /**
-     * getInstructorId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getInstructorId メソッド */
     public Long getInstructorId() { return instructorId; }
-    /**
-     * setInstructorId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setInstructorId メソッド */
     public void setInstructorId(Long instructorId) { this.instructorId = instructorId; }
-    /**
-     * getInstructorName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getInstructorName メソッド */
     public String getInstructorName() { return instructorName; }
-    /**
-     * setInstructorName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setInstructorName メソッド */
     public void setInstructorName(String instructorName) { this.instructorName = instructorName; }
-    /**
-     * getLocation メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getLocation メソッド */
     public String getLocation() { return location; }
-    /**
-     * setLocation メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setLocation メソッド */
     public void setLocation(String location) { this.location = location; }
-    /**
-     * getStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStatus メソッド */
     public String getStatus() { return status; }
-    /**
-     * setStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setStatus メソッド */
     public void setStatus(String status) { this.status = status; }
-    /**
-     * getCreatedAt メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCreatedAt メソッド */
     public LocalDateTime getCreatedAt() { return createdAt; }
-    /**
-     * setCreatedAt メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCreatedAt メソッド */
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
-    /**
-     * getUpdatedAt メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getUpdatedAt メソッド */
     public LocalDateTime getUpdatedAt() { return updatedAt; }
-    /**
-     * setUpdatedAt メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setUpdatedAt メソッド */
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 }

@@ -8,7 +8,6 @@ import java.time.LocalDate;
  * @version 1.0
  * @since 2025
  */
-
 public class StudentEnrollmentSearchDto {
     private Long studentId;
     private Long programId;
@@ -17,117 +16,34 @@ public class StudentEnrollmentSearchDto {
     private LocalDate enrollmentDateFrom;
     private LocalDate enrollmentDateTo;
     private Boolean isPassed;
-    /**
-     * StudentEnrollmentSearchDto メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** StudentEnrollmentSearchDto メソッド */
     public StudentEnrollmentSearchDto() {}
-    /**
-     * getStudentId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStudentId メソッド */
     public Long getStudentId() { return studentId; }
-    /**
-     * setStudentId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setStudentId メソッド */
     public void setStudentId(Long studentId) { this.studentId = studentId; }
-    /**
-     * getProgramId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getProgramId メソッド */
     public Long getProgramId() { return programId; }
-    /**
-     * setProgramId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setProgramId メソッド */
     public void setProgramId(Long programId) { this.programId = programId; }
-    /**
-     * getCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompanyId メソッド */
     public Long getCompanyId() { return companyId; }
-    /**
-     * setCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompanyId メソッド */
     public void setCompanyId(Long companyId) { this.companyId = companyId; }
-    /**
-     * getStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStatus メソッド */
     public String getStatus() { return status; }
-    /**
-     * setStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setStatus メソッド */
     public void setStatus(String status) { this.status = status; }
-    /**
-     * getEnrollmentDateFrom メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEnrollmentDateFrom メソッド */
     public LocalDate getEnrollmentDateFrom() { return enrollmentDateFrom; }
-    /**
-     * setEnrollmentDateFrom メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setEnrollmentDateFrom メソッド */
     public void setEnrollmentDateFrom(LocalDate enrollmentDateFrom) { this.enrollmentDateFrom = enrollmentDateFrom; }
-    /**
-     * getEnrollmentDateTo メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEnrollmentDateTo メソッド */
     public LocalDate getEnrollmentDateTo() { return enrollmentDateTo; }
-    /**
-     * setEnrollmentDateTo メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setEnrollmentDateTo メソッド */
     public void setEnrollmentDateTo(LocalDate enrollmentDateTo) { this.enrollmentDateTo = enrollmentDateTo; }
-    /**
-     * getIsPassed メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getIsPassed メソッド */
     public Boolean getIsPassed() { return isPassed; }
-    /**
-     * setIsPassed メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setIsPassed メソッド */
     public void setIsPassed(Boolean isPassed) { this.isPassed = isPassed; }
 }

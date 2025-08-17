@@ -12,7 +12,6 @@ import jp.co.apsa.giiku.domain.entity.ProgramSchedule;
 /**
  * プログラムスケジュールのリポジトリインターフェース。
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -26,11 +25,7 @@ public interface ProgramScheduleRepository extends JpaRepository<ProgramSchedule
      *
      * @param trainingProgramId 研修プログラムID
      * @return スケジュールのリスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     List<ProgramSchedule> findByTrainingProgramIdOrderByStartDateAsc(Long trainingProgramId);
 
     /**
@@ -39,11 +34,7 @@ public interface ProgramScheduleRepository extends JpaRepository<ProgramSchedule
      * @param startDate 期間開始日
      * @param endDate   期間終了日
      * @return スケジュールのリスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     List<ProgramSchedule> findByStartDateBetween(LocalDate startDate, LocalDate endDate);
 
     /**
@@ -51,11 +42,7 @@ public interface ProgramScheduleRepository extends JpaRepository<ProgramSchedule
      *
      * @param trainingProgramId 研修プログラムID
      * @return スケジュール数
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     long countByTrainingProgramId(Long trainingProgramId);
 
     /**
@@ -64,10 +51,6 @@ public interface ProgramScheduleRepository extends JpaRepository<ProgramSchedule
      * @param trainingProgramId 研修プログラムID
      * @param scheduleStatus    スケジュールステータス
      * @return スケジュール数
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     long countByTrainingProgramIdAndScheduleStatus(Long trainingProgramId, String scheduleStatus);
 }

@@ -26,7 +26,6 @@ import java.util.Map;
  * 学生管理コントローラー
  * 学生の登録、更新、削除、検索機能を提供
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -41,13 +40,7 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    /**
-     * 全学生一覧取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 全学生一覧取得 */
     @GetMapping
     public ResponseEntity<Page<StudentResponse>> getAllStudents(Pageable pageable) {
         logger.info("全学生一覧取得要求 - Page: {}, Size: {}", pageable.getPageNumber(), pageable.getPageSize());
@@ -61,13 +54,7 @@ public class StudentController {
         }
     }
 
-    /**
-     * 学生ID指定取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生ID指定取得 */
     @GetMapping("/{id}")
     public ResponseEntity<StudentResponse> getStudentById(@PathVariable Long id) {
         logger.info("学生ID指定取得要求 - ID: {}", id);
@@ -84,13 +71,7 @@ public class StudentController {
         }
     }
 
-    /**
-     * 学生新規登録
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生新規登録 */
     @PostMapping
     public ResponseEntity<StudentResponse> createStudent(@Valid @RequestBody StudentRequest request) {
         logger.info("学生新規登録要求 - 学生番号: {}, 会社ID: {}", request.getStudentNumber(), request.getCompanyId());
@@ -107,13 +88,7 @@ public class StudentController {
         }
     }
 
-    /**
-     * 学生情報更新
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生情報更新 */
     @PutMapping("/{id}")
     public ResponseEntity<StudentResponse> updateStudent(@PathVariable Long id, @Valid @RequestBody StudentRequest request) {
         logger.info("学生情報更新要求 - ID: {}, 学生番号: {}", id, request.getStudentNumber());
@@ -133,13 +108,7 @@ public class StudentController {
         }
     }
 
-    /**
-     * 学生削除
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生削除 */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         logger.info("学生削除要求 - ID: {}", id);
@@ -156,13 +125,7 @@ public class StudentController {
         }
     }
 
-    /**
-     * 学生検索（名前・メール）
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生検索（名前・メール） */
     @GetMapping("/search")
     public ResponseEntity<Page<StudentResponse>> searchStudents(
             @RequestParam(required = false) String name,
@@ -180,13 +143,7 @@ public class StudentController {
         }
     }
 
-    /**
-     * 学生フィルタリング（ステータス・登録日範囲）
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生フィルタリング（ステータス・登録日範囲） */
     @GetMapping("/filter")
     public ResponseEntity<Page<StudentResponse>> filterStudents(
             @RequestParam(required = false) String status,
@@ -206,13 +163,7 @@ public class StudentController {
         }
     }
 
-    /**
-     * 学生進捗情報取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生進捗情報取得 */
     @GetMapping("/{id}/progress")
     public ResponseEntity<Map<String, Object>> getStudentProgress(@PathVariable Long id) {
         logger.info("学生進捗情報取得要求 - ID: {}", id);
@@ -229,13 +180,7 @@ public class StudentController {
         }
     }
 
-    /**
-     * 学生進捗更新
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生進捗更新 */
     @PutMapping("/{id}/progress")
     public ResponseEntity<Map<String, Object>> updateStudentProgress(
             @PathVariable Long id, 
@@ -257,13 +202,7 @@ public class StudentController {
         }
     }
 
-    /**
-     * 学生統計情報取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生統計情報取得 */
     @GetMapping("/statistics")
     public ResponseEntity<StudentStatistics> getStudentStatistics() {
         logger.info("学生統計情報取得要求");
@@ -277,13 +216,7 @@ public class StudentController {
         }
     }
 
-    /**
-     * 部門別学生統計
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 部門別学生統計 */
     @GetMapping("/statistics/department")
     public ResponseEntity<Map<String, Long>> getDepartmentStatistics() {
         logger.info("部門別学生統計取得要求");
@@ -297,13 +230,7 @@ public class StudentController {
         }
     }
 
-    /**
-     * 学生一括登録
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生一括登録 */
     @PostMapping("/batch")
     public ResponseEntity<List<StudentResponse>> createStudentsBatch(@Valid @RequestBody List<StudentRequest> requests) {
         logger.info("学生一括登録要求 - 登録件数: {}", requests.size());
@@ -320,13 +247,7 @@ public class StudentController {
         }
     }
 
-    /**
-     * 学生ステータス更新
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生ステータス更新 */
     @PatchMapping("/{id}/status")
     public ResponseEntity<StudentResponse> updateStudentStatus(
             @PathVariable Long id, 

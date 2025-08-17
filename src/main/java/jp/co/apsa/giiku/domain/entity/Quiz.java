@@ -8,7 +8,6 @@ import java.util.List;
  * クイズエンティティ
  * LMS機能におけるクイズ実施管理を行う
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -104,51 +103,23 @@ public class Quiz {
     private LocalDateTime updatedAt;
 
     // デフォルトコンストラクタ
-    /**
-     * Quiz メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** Quiz メソッド */
     public Quiz() {}
 
     // Getter and Setter methods
-    /**
-     * getId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** getId メソッド */
     public Long getId() {
         return id;
     }
-    /**
-     * setId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setId メソッド */
     public void setId(Long id) {
         this.id = id;
     }
-    /**
-     * getTitle メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTitle メソッド */
     public String getTitle() {
         return title;
     }
-    /**
-     * setTitle メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setTitle メソッド */
     public void setTitle(String title) {
         this.title = title;
     }
@@ -157,11 +128,7 @@ public class Quiz {
      * title のエイリアス getter
      *
      * @return quizTitle
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public String getQuizTitle() {
         return title;
     }
@@ -170,531 +137,215 @@ public class Quiz {
      * title のエイリアス setter
      *
      * @param quizTitle quizTitle
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public void setQuizTitle(String quizTitle) {
         this.title = quizTitle;
     }
-    /**
-     * getDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getDescription メソッド */
     public String getDescription() {
         return description;
     }
-    /**
-     * setDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setDescription メソッド */
     public void setDescription(String description) {
         this.description = description;
     }
-    /**
-     * getTrainingProgramId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTrainingProgramId メソッド */
     public Long getTrainingProgramId() {
         return trainingProgramId;
     }
-    /**
-     * setTrainingProgramId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setTrainingProgramId メソッド */
     public void setTrainingProgramId(Long trainingProgramId) {
         this.trainingProgramId = trainingProgramId;
     }
-    /**
-     * getLectureId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getLectureId メソッド */
     public Long getLectureId() {
         return lectureId;
     }
-    /**
-     * setLectureId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setLectureId メソッド */
     public void setLectureId(Long lectureId) {
         this.lectureId = lectureId;
     }
-    /**
-     * getStudentId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStudentId メソッド */
     public Long getStudentId() {
         return studentId;
     }
-    /**
-     * setStudentId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setStudentId メソッド */
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
-    /**
-     * getInstructorId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getInstructorId メソッド */
     public Long getInstructorId() {
         return instructorId;
     }
-    /**
-     * setInstructorId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setInstructorId メソッド */
     public void setInstructorId(Long instructorId) {
         this.instructorId = instructorId;
     }
-    /**
-     * getCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompanyId メソッド */
     public Long getCompanyId() {
         return companyId;
     }
-    /**
-     * setCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setCompanyId メソッド */
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
-    /**
-     * getQuizStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getQuizStatus メソッド */
     public String getQuizStatus() {
         return quizStatus;
     }
-    /**
-     * setQuizStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setQuizStatus メソッド */
     public void setQuizStatus(String quizStatus) {
         this.quizStatus = quizStatus;
     }
-    /**
-     * getTotalQuestions メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTotalQuestions メソッド */
     public Integer getTotalQuestions() {
         return totalQuestions;
     }
-    /**
-     * setTotalQuestions メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setTotalQuestions メソッド */
     public void setTotalQuestions(Integer totalQuestions) {
         this.totalQuestions = totalQuestions;
     }
-    /**
-     * getAnsweredQuestions メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getAnsweredQuestions メソッド */
     public Integer getAnsweredQuestions() {
         return answeredQuestions;
     }
-    /**
-     * setAnsweredQuestions メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setAnsweredQuestions メソッド */
     public void setAnsweredQuestions(Integer answeredQuestions) {
         this.answeredQuestions = answeredQuestions;
     }
-    /**
-     * getTotalPoints メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTotalPoints メソッド */
     public Integer getTotalPoints() {
         return totalPoints;
     }
-    /**
-     * setTotalPoints メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setTotalPoints メソッド */
     public void setTotalPoints(Integer totalPoints) {
         this.totalPoints = totalPoints;
     }
-    /**
-     * getEarnedPoints メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEarnedPoints メソッド */
     public Integer getEarnedPoints() {
         return earnedPoints;
     }
-    /**
-     * setEarnedPoints メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setEarnedPoints メソッド */
     public void setEarnedPoints(Integer earnedPoints) {
         this.earnedPoints = earnedPoints;
     }
-    /**
-     * getPercentageScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getPercentageScore メソッド */
     public Double getPercentageScore() {
         return percentageScore;
     }
-    /**
-     * setPercentageScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setPercentageScore メソッド */
     public void setPercentageScore(Double percentageScore) {
         this.percentageScore = percentageScore;
     }
-    /**
-     * getPassingScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getPassingScore メソッド */
     public Double getPassingScore() {
         return passingScore;
     }
-    /**
-     * setPassingScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setPassingScore メソッド */
     public void setPassingScore(Double passingScore) {
         this.passingScore = passingScore;
     }
-    /**
-     * getIsPassed メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getIsPassed メソッド */
     public Boolean getIsPassed() {
         return isPassed;
     }
-    /**
-     * setIsPassed メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setIsPassed メソッド */
     public void setIsPassed(Boolean isPassed) {
         this.isPassed = isPassed;
     }
-    /**
-     * getTimeLimitMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTimeLimitMinutes メソッド */
     public Integer getTimeLimitMinutes() {
         return timeLimitMinutes;
     }
-    /**
-     * setTimeLimitMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setTimeLimitMinutes メソッド */
     public void setTimeLimitMinutes(Integer timeLimitMinutes) {
         this.timeLimitMinutes = timeLimitMinutes;
     }
-    /**
-     * getTimeSpentMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTimeSpentMinutes メソッド */
     public Integer getTimeSpentMinutes() {
         return timeSpentMinutes;
     }
-    /**
-     * setTimeSpentMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setTimeSpentMinutes メソッド */
     public void setTimeSpentMinutes(Integer timeSpentMinutes) {
         this.timeSpentMinutes = timeSpentMinutes;
     }
-    /**
-     * getStartTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStartTime メソッド */
     public LocalDateTime getStartTime() {
         return startTime;
     }
-    /**
-     * setStartTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setStartTime メソッド */
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
-    /**
-     * getEndTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEndTime メソッド */
     public LocalDateTime getEndTime() {
         return endTime;
     }
-    /**
-     * setEndTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setEndTime メソッド */
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
-    /**
-     * getSubmissionTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getSubmissionTime メソッド */
     public LocalDateTime getSubmissionTime() {
         return submissionTime;
     }
-    /**
-     * setSubmissionTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setSubmissionTime メソッド */
     public void setSubmissionTime(LocalDateTime submissionTime) {
         this.submissionTime = submissionTime;
     }
-    /**
-     * getGradedTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getGradedTime メソッド */
     public LocalDateTime getGradedTime() {
         return gradedTime;
     }
-    /**
-     * setGradedTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setGradedTime メソッド */
     public void setGradedTime(LocalDateTime gradedTime) {
         this.gradedTime = gradedTime;
     }
-    /**
-     * getStudentAnswers メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStudentAnswers メソッド */
     public String getStudentAnswers() {
         return studentAnswers;
     }
-    /**
-     * setStudentAnswers メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setStudentAnswers メソッド */
     public void setStudentAnswers(String studentAnswers) {
         this.studentAnswers = studentAnswers;
     }
-    /**
-     * getQuestionIds メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getQuestionIds メソッド */
     public String getQuestionIds() {
         return questionIds;
     }
-    /**
-     * setQuestionIds メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setQuestionIds メソッド */
     public void setQuestionIds(String questionIds) {
         this.questionIds = questionIds;
     }
-    /**
-     * getFeedback メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getFeedback メソッド */
     public String getFeedback() {
         return feedback;
     }
-    /**
-     * setFeedback メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setFeedback メソッド */
     public void setFeedback(String feedback) {
         this.feedback = feedback;
     }
-    /**
-     * getIsActive メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getIsActive メソッド */
     public Boolean getIsActive() {
         return isActive;
     }
-    /**
-     * setIsActive メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setIsActive メソッド */
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
-    /**
-     * getCreatedAt メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCreatedAt メソッド */
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-    /**
-     * setCreatedAt メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setCreatedAt メソッド */
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    /**
-     * getUpdatedAt メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getUpdatedAt メソッド */
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
-    /**
-     * setUpdatedAt メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** setUpdatedAt メソッド */
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
@@ -703,11 +354,7 @@ public class Quiz {
      * TrainingProgramId のエイリアス getter
      *
      * @return programId
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public Long getProgramId() {
         return trainingProgramId;
     }
@@ -716,11 +363,7 @@ public class Quiz {
      * TrainingProgramId のエイリアス setter
      *
      * @param programId programId
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public void setProgramId(Long programId) {
         this.trainingProgramId = programId;
     }
@@ -729,11 +372,7 @@ public class Quiz {
      * quizStatus のエイリアス getter
      *
      * @return status
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public String getStatus() {
         return quizStatus;
     }
@@ -742,11 +381,7 @@ public class Quiz {
      * quizStatus のエイリアス setter
      *
      * @param status status
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public void setStatus(String status) {
         this.quizStatus = status;
     }
@@ -755,11 +390,7 @@ public class Quiz {
      * percentageScore のエイリアス getter
      *
      * @return score
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public Double getScore() {
         return percentageScore;
     }
@@ -768,11 +399,7 @@ public class Quiz {
      * percentageScore のエイリアス setter
      *
      * @param score score
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public void setScore(Double score) {
         this.percentageScore = score;
     }
@@ -781,11 +408,7 @@ public class Quiz {
      * timeSpentMinutes のエイリアス getter
      *
      * @return timeSpent
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public Integer getTimeSpent() {
         return timeSpentMinutes;
     }
@@ -794,11 +417,7 @@ public class Quiz {
      * timeSpentMinutes のエイリアス setter
      *
      * @param timeSpent timeSpent
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public void setTimeSpent(Integer timeSpent) {
         this.timeSpentMinutes = timeSpent;
     }
@@ -833,12 +452,7 @@ public class Quiz {
         updatedAt = LocalDateTime.now();
     }
 
-    /**
-     * toString メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** toString メソッド */
     @Override
     public String toString() {
         return "Quiz{" +

@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 /**
  * 学生統計情報DTO
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -31,23 +30,13 @@ public class StudentStatistics {
     private Long companyId;
 
     // デフォルトコンストラクタ
-    /**
-     * StudentStatistics メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** StudentStatistics メソッド */
     public StudentStatistics() {
         this.lastUpdated = LocalDateTime.now();
     }
 
     // コンストラクタ
-    /**
-     * StudentStatistics メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** StudentStatistics メソッド */
     public StudentStatistics(Long totalStudents, Long activeStudents, Long enrolledStudents, 
                            BigDecimal averageProgress, BigDecimal averageScore) {
         this();
@@ -60,32 +49,15 @@ public class StudentStatistics {
     }
 
     // ビジネスロジックメソッド
-    /**
-     * hasActiveStudents メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** hasActiveStudents メソッド */
     public boolean hasActiveStudents() {
         return activeStudents != null && activeStudents > 0;
     }
-    /**
-     * hasHighCompletionRate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** hasHighCompletionRate メソッド */
     public boolean hasHighCompletionRate() {
         return completionRate != null && completionRate.compareTo(BigDecimal.valueOf(80)) >= 0;
     }
-    /**
-     * calculateCompletionRate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** calculateCompletionRate メソッド */
     public void calculateCompletionRate() {
         if (totalEnrollments != null && totalEnrollments > 0 && totalCompletions != null) {
             this.completionRate = BigDecimal.valueOf(totalCompletions)
@@ -97,252 +69,72 @@ public class StudentStatistics {
     }
 
     // Getter/Setter
-    /**
-     * getTotalStudents メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** getTotalStudents メソッド */
     public Long getTotalStudents() { return totalStudents; }
-    /**
-     * setTotalStudents メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setTotalStudents メソッド */
     public void setTotalStudents(Long totalStudents) { this.totalStudents = totalStudents; }
-    /**
-     * getActiveStudents メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getActiveStudents メソッド */
     public Long getActiveStudents() { return activeStudents; }
-    /**
-     * setActiveStudents メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setActiveStudents メソッド */
     public void setActiveStudents(Long activeStudents) { this.activeStudents = activeStudents; }
-    /**
-     * getInactiveStudents メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getInactiveStudents メソッド */
     public Long getInactiveStudents() { return inactiveStudents; }
-    /**
-     * setInactiveStudents メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setInactiveStudents メソッド */
     public void setInactiveStudents(Long inactiveStudents) { this.inactiveStudents = inactiveStudents; }
-    /**
-     * getEnrolledStudents メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEnrolledStudents メソッド */
     public Long getEnrolledStudents() { return enrolledStudents; }
-    /**
-     * setEnrolledStudents メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setEnrolledStudents メソッド */
     public void setEnrolledStudents(Long enrolledStudents) { this.enrolledStudents = enrolledStudents; }
-    /**
-     * getCompletedStudents メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompletedStudents メソッド */
     public Long getCompletedStudents() { return completedStudents; }
-    /**
-     * setCompletedStudents メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompletedStudents メソッド */
     public void setCompletedStudents(Long completedStudents) { this.completedStudents = completedStudents; }
-    /**
-     * getInProgressStudents メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getInProgressStudents メソッド */
     public Long getInProgressStudents() { return inProgressStudents; }
-    /**
-     * setInProgressStudents メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setInProgressStudents メソッド */
     public void setInProgressStudents(Long inProgressStudents) { this.inProgressStudents = inProgressStudents; }
-    /**
-     * getAverageProgress メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getAverageProgress メソッド */
     public BigDecimal getAverageProgress() { return averageProgress; }
-    /**
-     * setAverageProgress メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setAverageProgress メソッド */
     public void setAverageProgress(BigDecimal averageProgress) { this.averageProgress = averageProgress; }
-    /**
-     * getAverageScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getAverageScore メソッド */
     public BigDecimal getAverageScore() { return averageScore; }
-    /**
-     * setAverageScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setAverageScore メソッド */
     public void setAverageScore(BigDecimal averageScore) { this.averageScore = averageScore; }
-    /**
-     * getCompletionRate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompletionRate メソッド */
     public BigDecimal getCompletionRate() { return completionRate; }
-    /**
-     * setCompletionRate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompletionRate メソッド */
     public void setCompletionRate(BigDecimal completionRate) { this.completionRate = completionRate; }
-    /**
-     * getTotalCourses メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTotalCourses メソッド */
     public Integer getTotalCourses() { return totalCourses; }
-    /**
-     * setTotalCourses メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setTotalCourses メソッド */
     public void setTotalCourses(Integer totalCourses) { this.totalCourses = totalCourses; }
-    /**
-     * getActiveCourses メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getActiveCourses メソッド */
     public Integer getActiveCourses() { return activeCourses; }
-    /**
-     * setActiveCourses メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setActiveCourses メソッド */
     public void setActiveCourses(Integer activeCourses) { this.activeCourses = activeCourses; }
-    /**
-     * getTotalEnrollments メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTotalEnrollments メソッド */
     public Long getTotalEnrollments() { return totalEnrollments; }
-    /**
-     * setTotalEnrollments メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setTotalEnrollments メソッド */
     public void setTotalEnrollments(Long totalEnrollments) { this.totalEnrollments = totalEnrollments; }
-    /**
-     * getTotalCompletions メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTotalCompletions メソッド */
     public Long getTotalCompletions() { return totalCompletions; }
-    /**
-     * setTotalCompletions メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setTotalCompletions メソッド */
     public void setTotalCompletions(Long totalCompletions) { this.totalCompletions = totalCompletions; }
-    /**
-     * getLastUpdated メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getLastUpdated メソッド */
     public LocalDateTime getLastUpdated() { return lastUpdated; }
-    /**
-     * setLastUpdated メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setLastUpdated メソッド */
     public void setLastUpdated(LocalDateTime lastUpdated) { this.lastUpdated = lastUpdated; }
-    /**
-     * getCompanyName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompanyName メソッド */
     public String getCompanyName() { return companyName; }
-    /**
-     * setCompanyName メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompanyName メソッド */
     public void setCompanyName(String companyName) { this.companyName = companyName; }
-    /**
-     * getCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompanyId メソッド */
     public Long getCompanyId() { return companyId; }
-    /**
-     * setCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompanyId メソッド */
     public void setCompanyId(Long companyId) { this.companyId = companyId; }
 
-    /**
-     * toString メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** toString メソッド */
     @Override
     public String toString() {
         return "StudentStatistics{" +

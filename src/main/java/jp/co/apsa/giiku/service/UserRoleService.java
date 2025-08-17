@@ -33,7 +33,6 @@ import java.util.Optional;
  * UserRoleサービスクラス。
  * ユーザー役割管理機能を提供します。
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -56,11 +55,7 @@ public class UserRoleService {
      *
      * @param userRole ユーザー役割エンティティ
      * @return レスポンスDTO
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     private UserRoleResponseDto toResponseDto(UserRole userRole) {
         UserRoleResponseDto dto = new UserRoleResponseDto();
         dto.setId(userRole.getId());
@@ -74,25 +69,13 @@ public class UserRoleService {
         return dto;
     }
 
-    /**
-     * 全てのユーザー役割を取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 全てのユーザー役割を取得 */
     @Transactional(readOnly = true)
     public List<UserRole> findAll() {
         return userRoleRepository.findAll();
     }
 
-    /**
-     * IDでユーザー役割を取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** IDでユーザー役割を取得 */
     @Transactional(readOnly = true)
     public Optional<UserRole> findById(Long id) {
         if (id == null) {
@@ -101,13 +84,7 @@ public class UserRoleService {
         return userRoleRepository.findById(id);
     }
 
-    /**
-     * ユーザー役割を保存
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ユーザー役割を保存 */
     public UserRole save(UserRole userRole) {
         validateUserRole(userRole);
 
@@ -124,13 +101,7 @@ public class UserRoleService {
         return userRoleRepository.save(userRole);
     }
 
-    /**
-     * ユーザー役割を更新
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ユーザー役割を更新 */
     public UserRole update(Long id, UserRole userRole) {
         if (id == null) {
             throw new IllegalArgumentException("IDは必須です");
@@ -153,13 +124,7 @@ public class UserRoleService {
         return userRoleRepository.save(existing);
     }
 
-    /**
-     * ユーザー役割を論理削除
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ユーザー役割を論理削除 */
     public void deactivate(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("IDは必須です");
@@ -173,13 +138,7 @@ public class UserRoleService {
         userRoleRepository.save(userRole);
     }
 
-    /**
-     * ユーザー役割を物理削除
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ユーザー役割を物理削除 */
     public void delete(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("IDは必須です");
@@ -192,13 +151,7 @@ public class UserRoleService {
         userRoleRepository.deleteById(id);
     }
 
-    /**
-     * ユーザーIDで役割を検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ユーザーIDで役割を検索 */
     @Transactional(readOnly = true)
     public List<UserRole> findByUserId(Long userId) {
         if (userId == null) {
@@ -207,13 +160,7 @@ public class UserRoleService {
         return userRoleRepository.findByUserIdAndActiveTrueOrderByCreatedAtDesc(userId);
     }
 
-    /**
-     * 企業IDで役割を検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 企業IDで役割を検索 */
     @Transactional(readOnly = true)
     public List<UserRole> findByCompanyId(Long companyId) {
         if (companyId == null) {
@@ -222,13 +169,7 @@ public class UserRoleService {
         return userRoleRepository.findByCompanyIdAndActiveTrueOrderByCreatedAtDesc(companyId);
     }
 
-    /**
-     * 役割タイプで検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 役割タイプで検索 */
     @Transactional(readOnly = true)
     public List<UserRole> findByRole(String roleName) {
         if (!StringUtils.hasText(roleName)) {
@@ -237,13 +178,7 @@ public class UserRoleService {
         return userRoleRepository.findByRoleNameAndActiveTrueOrderByCreatedAtDesc(roleName);
     }
 
-    /**
-     * ユーザーの特定企業での役割を取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ユーザーの特定企業での役割を取得 */
     @Transactional(readOnly = true)
     public List<UserRole> findByUserIdAndCompanyId(Long userId, Long companyId) {
         if (userId == null) {
@@ -255,38 +190,20 @@ public class UserRoleService {
         return userRoleRepository.findByUserIdAndCompanyIdAndActiveTrueOrderByCreatedAtDesc(userId, companyId);
     }
 
-    /**
-     * アクティブな役割を取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** アクティブな役割を取得 */
     @Transactional(readOnly = true)
     public List<UserRole> findActiveRoles() {
         return userRoleRepository.findByActiveTrueOrderByCreatedAtDesc();
     }
 
-    /**
-     * 有効期間内の役割を取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 有効期間内の役割を取得 */
     @Transactional(readOnly = true)
     public List<UserRole> findValidRoles() {
         LocalDateTime now = LocalDateTime.now();
         return userRoleRepository.findValidRoles(now);
     }
 
-    /**
-     * 特定の権限を持つユーザーを検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 特定の権限を持つユーザーを検索 */
     @Transactional(readOnly = true)
     public List<UserRole> findByPermissionContaining(String permission) {
         if (!StringUtils.hasText(permission)) {
@@ -303,11 +220,7 @@ public class UserRoleService {
      * @param sortBy ソート項目
      * @param sortDir ソート方向（ASC/DESC）
      * @return ユーザー役割レスポンスのページ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public Page<UserRoleResponseDto> getAllUserRoles(int page, int size, String sortBy, String sortDir) {
         Sort sort = "DESC".equalsIgnoreCase(sortDir) ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
@@ -320,11 +233,7 @@ public class UserRoleService {
      *
      * @param id 役割ID
      * @return レスポンスDTO
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public Optional<UserRoleResponseDto> getUserRoleById(Long id) {
         return userRoleRepository.findById(id).map(this::toResponseDto);
@@ -335,11 +244,7 @@ public class UserRoleService {
      *
      * @param userId ユーザーID
      * @return レスポンスDTOのリスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public List<UserRoleResponseDto> getRolesByUserId(Long userId) {
         return userRoleRepository.findByUserIdAndActiveTrueOrderByCreatedAtDesc(userId)
@@ -353,11 +258,7 @@ public class UserRoleService {
      * @param page ページ番号
      * @param size ページサイズ
      * @return ユーザー役割レスポンスのページ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public Page<UserRoleResponseDto> getUsersByRoleName(String roleName, int page, int size) {
         List<UserRole> roles = userRoleRepository.findByRoleNameAndActiveTrueOrderByCreatedAtDesc(roleName);
@@ -370,11 +271,7 @@ public class UserRoleService {
      *
      * @param createDto 作成DTO
      * @return 作成されたレスポンスDTO
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public UserRoleResponseDto createUserRole(UserRoleCreateDto createDto) {
         UserRole entity = new UserRole();
         entity.setUserId(createDto.getUserId());
@@ -391,11 +288,7 @@ public class UserRoleService {
      * @param id 更新対象ID
      * @param updateDto 更新内容
      * @return 更新後のレスポンスDTO
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public Optional<UserRoleResponseDto> updateUserRole(Long id, UserRoleUpdateDto updateDto) {
         return userRoleRepository.findById(id).map(existing -> {
             if (updateDto.getRoleName() != null) {
@@ -417,11 +310,7 @@ public class UserRoleService {
      *
      * @param id 削除対象ID
      * @return 削除成功フラグ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public boolean deleteUserRole(Long id) {
         if (!userRoleRepository.existsById(id)) {
             return false;
@@ -436,11 +325,7 @@ public class UserRoleService {
      * @param userId ユーザーID
      * @param roleNames 役割名リスト
      * @return 割り当て結果
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public List<UserRoleResponseDto> batchAssignRoles(Long userId, List<String> roleNames) {
         List<UserRoleResponseDto> result = new ArrayList<>();
         for (String roleName : roleNames) {
@@ -458,11 +343,7 @@ public class UserRoleService {
      * @param userId ユーザーID
      * @param roleNames 役割名リスト
      * @return 削除成功フラグ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public boolean batchRemoveRoles(Long userId, List<String> roleNames) {
         List<UserRole> roles = userRoleRepository.findByUserIdAndActiveTrueOrderByCreatedAtDesc(userId);
         if (roles.isEmpty()) {
@@ -483,11 +364,7 @@ public class UserRoleService {
      * @param sortBy ソート項目
      * @param sortDir ソート方向
      * @return 検索結果ページ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public Page<UserRoleResponseDto> searchUserRoles(UserRoleSearchDto searchDto,
                                                     int page, int size,
@@ -512,11 +389,7 @@ public class UserRoleService {
      * @param period 期間
      * @param roleName 役割名
      * @return 統計情報DTO
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public UserRoleStatsDto getUserRoleStats(String period, String roleName) {
         UserRoleStatsDto dto = new UserRoleStatsDto();
@@ -534,11 +407,7 @@ public class UserRoleService {
      * 利用可能な役割一覧を取得します。
      *
      * @return 役割名リスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public List<String> getAvailableRoles() {
         return List.of(
@@ -553,11 +422,7 @@ public class UserRoleService {
      * @param userId ユーザーID
      * @param permission 権限名
      * @return 権限を持つかどうか
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public boolean checkUserPermission(Long userId, String permission) {
         return findByUserId(userId).stream()
@@ -569,23 +434,13 @@ public class UserRoleService {
      *
      * @param roleName 役割名
      * @return 階層リスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public List<String> getRoleHierarchy(String roleName) {
         return List.of(roleName);
     }
 
-    /**
-     * 複合条件での検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 複合条件での検索 */
     @Transactional(readOnly = true)
     public Page<UserRole> findWithFilters(Long userId, Long companyId, String role, 
                                          String permission, Boolean active,
@@ -629,13 +484,7 @@ public class UserRoleService {
         return userRoleRepository.findAll(spec, pageable);
     }
 
-    /**
-     * ユーザーの権限チェック
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ユーザーの権限チェック */
     @Transactional(readOnly = true)
     public boolean hasPermission(Long userId, Long companyId, String permission) {
         if (userId == null || companyId == null || !StringUtils.hasText(permission)) {
@@ -652,13 +501,7 @@ public class UserRoleService {
             .anyMatch(role -> role.getSpecialPermissions() != null && role.getSpecialPermissions().contains(permission));
     }
 
-    /**
-     * ユーザーの役割チェック
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ユーザーの役割チェック */
     @Transactional(readOnly = true)
     public boolean hasRole(Long userId, Long companyId, String role) {
         if (userId == null || companyId == null || !StringUtils.hasText(role)) {
@@ -675,37 +518,19 @@ public class UserRoleService {
             .anyMatch(userRole -> role.equals(userRole.getRoleName()));
     }
 
-    /**
-     * ユーザー役割数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ユーザー役割数をカウント */
     @Transactional(readOnly = true)
     public long countAll() {
         return userRoleRepository.count();
     }
 
-    /**
-     * アクティブなユーザー役割数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** アクティブなユーザー役割数をカウント */
     @Transactional(readOnly = true)
     public long countActive() {
         return userRoleRepository.countByActiveTrue();
     }
 
-    /**
-     * 企業別のユーザー役割数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 企業別のユーザー役割数をカウント */
     @Transactional(readOnly = true)
     public long countByCompany(Long companyId) {
         if (companyId == null) {
@@ -714,24 +539,12 @@ public class UserRoleService {
         return userRoleRepository.countByCompanyIdAndActiveTrue(companyId);
     }
 
-    /**
-     * 重複役割チェック
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 重複役割チェック */
     private boolean isDuplicateRole(Long userId, String roleName, Long companyId) {
         return userRoleRepository.existsByUserIdAndRoleNameAndCompanyIdAndActiveTrue(userId, roleName, companyId);
     }
 
-    /**
-     * ユーザー役割のバリデーション
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ユーザー役割のバリデーション */
     private void validateUserRole(UserRole userRole) {
         if (userRole == null) {
             throw new IllegalArgumentException("ユーザー役割は必須です");
@@ -772,13 +585,7 @@ public class UserRoleService {
         }
     }
 
-    /**
-     * 有効な役割かチェック
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 有効な役割かチェック */
     private boolean isValidRole(String role) {
         List<String> validRoles = List.of(
             "ADMIN", "INSTRUCTOR", "STUDENT", "HR_MANAGER", "COMPANY_ADMIN", 

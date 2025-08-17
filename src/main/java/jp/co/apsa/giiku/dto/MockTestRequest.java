@@ -63,21 +63,11 @@ public class MockTestRequest {
     private String notes;
 
     // デフォルトコンストラクタ
-    /**
-     * MockTestRequest メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** MockTestRequest メソッド */
     public MockTestRequest() {}
 
     // 主要フィールドのコンストラクタ
-    /**
-     * MockTestRequest メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** MockTestRequest メソッド */
     public MockTestRequest(Long programId, String testType, String title, String description,
                           Integer durationMinutes, Integer totalQuestions, BigDecimal passingScore,
                           String status, Long companyId) {
@@ -93,267 +83,76 @@ public class MockTestRequest {
     }
 
     // Getter and Setter methods
-    /**
-     * getProgramId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** getProgramId メソッド */
     public Long getProgramId() { return programId; }
-    /**
-     * setProgramId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setProgramId メソッド */
     public void setProgramId(Long programId) { this.programId = programId; }
-    /**
-     * getTestType メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTestType メソッド */
     public String getTestType() { return testType; }
-    /**
-     * setTestType メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setTestType メソッド */
     public void setTestType(String testType) { this.testType = testType; }
-    /**
-     * getTitle メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTitle メソッド */
     public String getTitle() { return title; }
-    /**
-     * setTitle メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setTitle メソッド */
     public void setTitle(String title) { this.title = title; }
-    /**
-     * getDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getDescription メソッド */
     public String getDescription() { return description; }
-    /**
-     * setDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setDescription メソッド */
     public void setDescription(String description) { this.description = description; }
-    /**
-     * getDurationMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getDurationMinutes メソッド */
     public Integer getDurationMinutes() { return durationMinutes; }
-    /**
-     * setDurationMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setDurationMinutes メソッド */
     public void setDurationMinutes(Integer durationMinutes) { this.durationMinutes = durationMinutes; }
-    /**
-     * getTotalQuestions メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTotalQuestions メソッド */
     public Integer getTotalQuestions() { return totalQuestions; }
-    /**
-     * setTotalQuestions メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setTotalQuestions メソッド */
     public void setTotalQuestions(Integer totalQuestions) { this.totalQuestions = totalQuestions; }
-    /**
-     * getPassingScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getPassingScore メソッド */
     public BigDecimal getPassingScore() { return passingScore; }
-    /**
-     * setPassingScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setPassingScore メソッド */
     public void setPassingScore(BigDecimal passingScore) { this.passingScore = passingScore; }
-    /**
-     * getStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStatus メソッド */
     public String getStatus() { return status; }
-    /**
-     * setStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setStatus メソッド */
     public void setStatus(String status) { this.status = status; }
-    /**
-     * getScheduledDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getScheduledDate メソッド */
     public LocalDateTime getScheduledDate() { return scheduledDate; }
-    /**
-     * setScheduledDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setScheduledDate メソッド */
     public void setScheduledDate(LocalDateTime scheduledDate) { this.scheduledDate = scheduledDate; }
-    /**
-     * getStartTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStartTime メソッド */
     public LocalDateTime getStartTime() { return startTime; }
-    /**
-     * setStartTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setStartTime メソッド */
     public void setStartTime(LocalDateTime startTime) { this.startTime = startTime; }
-    /**
-     * getEndTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEndTime メソッド */
     public LocalDateTime getEndTime() { return endTime; }
-    /**
-     * setEndTime メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setEndTime メソッド */
     public void setEndTime(LocalDateTime endTime) { this.endTime = endTime; }
-    /**
-     * getIsRandomized メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getIsRandomized メソッド */
     public Boolean getIsRandomized() { return isRandomized; }
-    /**
-     * setIsRandomized メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setIsRandomized メソッド */
     public void setIsRandomized(Boolean isRandomized) { this.isRandomized = isRandomized; }
-    /**
-     * getShowResults メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getShowResults メソッド */
     public Boolean getShowResults() { return showResults; }
-    /**
-     * setShowResults メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setShowResults メソッド */
     public void setShowResults(Boolean showResults) { this.showResults = showResults; }
-    /**
-     * getAllowRetake メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getAllowRetake メソッド */
     public Boolean getAllowRetake() { return allowRetake; }
-    /**
-     * setAllowRetake メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setAllowRetake メソッド */
     public void setAllowRetake(Boolean allowRetake) { this.allowRetake = allowRetake; }
-    /**
-     * getMaxAttempts メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getMaxAttempts メソッド */
     public Integer getMaxAttempts() { return maxAttempts; }
-    /**
-     * setMaxAttempts メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setMaxAttempts メソッド */
     public void setMaxAttempts(Integer maxAttempts) { this.maxAttempts = maxAttempts; }
-    /**
-     * getCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompanyId メソッド */
     public Long getCompanyId() { return companyId; }
-    /**
-     * setCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompanyId メソッド */
     public void setCompanyId(Long companyId) { this.companyId = companyId; }
-    /**
-     * getNotes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getNotes メソッド */
     public String getNotes() { return notes; }
-    /**
-     * setNotes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setNotes メソッド */
     public void setNotes(String notes) { this.notes = notes; }
 
-    /**
-     * toString メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** toString メソッド */
     @Override
     public String toString() {
         return "MockTestRequest{" +

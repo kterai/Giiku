@@ -24,11 +24,7 @@ public class AdminController extends jp.co.apsa.giiku.controller.AbstractControl
      *
      * @param model モデル
      * @return 管理トップのテンプレート
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping
     public String index(Model model) {
         setTitle(model, "Admin");

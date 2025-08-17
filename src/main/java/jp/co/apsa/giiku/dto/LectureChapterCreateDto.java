@@ -8,7 +8,6 @@ import jakarta.validation.constraints.*;
  * @version 1.0
  * @since 2025
  */
-
 public class LectureChapterCreateDto {
 
     @NotNull
@@ -33,117 +32,34 @@ public class LectureChapterCreateDto {
 
     @Size(max = 50)
     private String contentType;
-    /**
-     * LectureChapterCreateDto メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** LectureChapterCreateDto メソッド */
     public LectureChapterCreateDto() {}
-    /**
-     * getLectureId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getLectureId メソッド */
     public Long getLectureId() { return lectureId; }
-    /**
-     * setLectureId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setLectureId メソッド */
     public void setLectureId(Long lectureId) { this.lectureId = lectureId; }
-    /**
-     * getTitle メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTitle メソッド */
     public String getTitle() { return title; }
-    /**
-     * setTitle メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setTitle メソッド */
     public void setTitle(String title) { this.title = title; }
-    /**
-     * getDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getDescription メソッド */
     public String getDescription() { return description; }
-    /**
-     * setDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setDescription メソッド */
     public void setDescription(String description) { this.description = description; }
-    /**
-     * getOrderNumber メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getOrderNumber メソッド */
     public Integer getOrderNumber() { return orderNumber; }
-    /**
-     * setOrderNumber メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setOrderNumber メソッド */
     public void setOrderNumber(Integer orderNumber) { this.orderNumber = orderNumber; }
-    /**
-     * getEstimatedMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEstimatedMinutes メソッド */
     public Integer getEstimatedMinutes() { return estimatedMinutes; }
-    /**
-     * setEstimatedMinutes メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setEstimatedMinutes メソッド */
     public void setEstimatedMinutes(Integer estimatedMinutes) { this.estimatedMinutes = estimatedMinutes; }
-    /**
-     * getContentUrl メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getContentUrl メソッド */
     public String getContentUrl() { return contentUrl; }
-    /**
-     * setContentUrl メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setContentUrl メソッド */
     public void setContentUrl(String contentUrl) { this.contentUrl = contentUrl; }
-    /**
-     * getContentType メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getContentType メソッド */
     public String getContentType() { return contentType; }
-    /**
-     * setContentType メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setContentType メソッド */
     public void setContentType(String contentType) { this.contentType = contentType; }
 }

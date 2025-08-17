@@ -27,7 +27,6 @@ import java.util.HashMap;
  * QuestionBankサービスクラス
  * 問題バンク管理機能を提供
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -44,35 +43,18 @@ public class QuestionBankService {
 
     private final Random random = new Random();
 
-    /**
-     * 全ての問題を取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 全ての問題を取得 */
     @Transactional(readOnly = true)
     public List<QuestionBank> findAll() {
         return questionBankRepository.findAll();
     }
 
-    /** ページング対応の問題一覧取得 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public Page<QuestionBank> findAll(Pageable pageable) {
         return questionBankRepository.findAll(pageable);
     }
 
-    /**
-     * IDで問題を取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** IDで問題を取得 */
     @Transactional(readOnly = true)
     public Optional<QuestionBank> findById(Long id) {
         if (id == null) {
@@ -81,13 +63,7 @@ public class QuestionBankService {
         return questionBankRepository.findById(id);
     }
 
-    /**
-     * 問題を保存
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 問題を保存 */
     public QuestionBank save(QuestionBank question) {
         validateQuestion(question);
 
@@ -99,13 +75,7 @@ public class QuestionBankService {
         return questionBankRepository.save(question);
     }
 
-    /**
-     * 問題を更新
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 問題を更新 */
     public QuestionBank update(Long id, QuestionBank question) {
         if (id == null) {
             throw new IllegalArgumentException("IDは必須です");
@@ -132,13 +102,7 @@ public class QuestionBankService {
         return questionBankRepository.save(existing);
     }
 
-    /**
-     * 問題を論理削除
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 問題を論理削除 */
     public void deactivate(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("IDは必須です");
@@ -152,13 +116,7 @@ public class QuestionBankService {
         questionBankRepository.save(question);
     }
 
-    /**
-     * 問題を物理削除
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 問題を物理削除 */
     public void delete(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("IDは必須です");
@@ -171,13 +129,7 @@ public class QuestionBankService {
         questionBankRepository.deleteById(id);
     }
 
-    /**
-     * 企業IDで問題を検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 企業IDで問題を検索 */
     @Transactional(readOnly = true)
     public List<QuestionBank> findByCompanyId(Long companyId) {
         if (companyId == null) {
@@ -186,13 +138,7 @@ public class QuestionBankService {
         return questionBankRepository.findByCompanyIdAndIsActiveTrueOrderByCreatedAtDesc(companyId);
     }
 
-    /**
-     * カテゴリで検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** カテゴリで検索 */
     @Transactional(readOnly = true)
     public List<QuestionBank> findByCategory(String category) {
         if (!StringUtils.hasText(category)) {
@@ -201,13 +147,7 @@ public class QuestionBankService {
         return questionBankRepository.findByCategoryAndIsActiveTrueOrderByCreatedAtDesc(category);
     }
 
-    /**
-     * 難易度レベルで検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 難易度レベルで検索 */
     @Transactional(readOnly = true)
     public List<QuestionBank> findByDifficultyLevel(String difficultyLevel) {
         if (!StringUtils.hasText(difficultyLevel)) {
@@ -216,13 +156,7 @@ public class QuestionBankService {
         return questionBankRepository.findByDifficultyLevelAndIsActiveTrueOrderByCreatedAtDesc(difficultyLevel);
     }
 
-    /**
-     * 問題タイプで検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 問題タイプで検索 */
     @Transactional(readOnly = true)
     public List<QuestionBank> findByQuestionType(String questionType) {
         if (!StringUtils.hasText(questionType)) {
@@ -231,25 +165,13 @@ public class QuestionBankService {
         return questionBankRepository.findByQuestionTypeAndIsActiveTrueOrderByCreatedAtDesc(questionType);
     }
 
-    /**
-     * アクティブな問題を取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** アクティブな問題を取得 */
     @Transactional(readOnly = true)
     public List<QuestionBank> findActiveQuestions() {
         return questionBankRepository.findByIsActiveTrueOrderByCreatedAtDesc();
     }
 
-    /**
-     * 問題テキストで検索（部分一致）
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 問題テキストで検索（部分一致） */
     @Transactional(readOnly = true)
     public List<QuestionBank> findByQuestionTextContaining(String searchText) {
         if (!StringUtils.hasText(searchText)) {
@@ -258,11 +180,6 @@ public class QuestionBankService {
         return questionBankRepository.findByQuestionTextContainingIgnoreCaseAndIsActiveTrue(searchText);
     }
 
-    /** 講師IDで検索 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public List<QuestionBank> findByInstructorId(Long instructorId) {
         return questionBankRepository.findAll().stream()
@@ -270,23 +187,12 @@ public class QuestionBankService {
                 .toList();
     }
 
-    /** 問題文で検索（エイリアス） 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public List<QuestionBank> searchByQuestionText(String query) {
         return findByQuestionTextContaining(query);
     }
 
-    /**
-     * タグで検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** タグで検索 */
     @Transactional(readOnly = true)
     public List<QuestionBank> findByTagsContaining(String tag) {
         if (!StringUtils.hasText(tag)) {
@@ -295,13 +201,7 @@ public class QuestionBankService {
         return questionBankRepository.findByTagsContainingIgnoreCaseAndIsActiveTrue(tag);
     }
 
-    /**
-     * ランダムに問題を選択
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ランダムに問題を選択 */
     @Transactional(readOnly = true)
     public List<QuestionBank> findRandomQuestions(int count) {
         if (count <= 0) {
@@ -317,13 +217,7 @@ public class QuestionBankService {
         return allQuestions.subList(0, count);
     }
 
-    /**
-     * 条件指定でランダムに問題を選択
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 条件指定でランダムに問題を選択 */
     @Transactional(readOnly = true)
     public List<QuestionBank> findRandomQuestionsByFilters(Long companyId, String category, 
                                                           String difficultyLevel, String questionType, 
@@ -346,13 +240,7 @@ public class QuestionBankService {
         return questionList.subList(0, count);
     }
 
-    /**
-     * 複合条件での検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 複合条件での検索 */
     @Transactional(readOnly = true)
     public Page<QuestionBank> findWithFilters(Long companyId, String category, String difficultyLevel,
                                              String questionType, String searchText, Boolean isActive,
@@ -393,23 +281,12 @@ public class QuestionBankService {
         return questionBankRepository.findAll(spec, pageable);
     }
 
-    /**
-     * カテゴリ別の問題数統計を取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** カテゴリ別の問題数統計を取得 */
     @Transactional(readOnly = true)
     public List<Object[]> getCategoryStatistics() {
         return questionBankRepository.findQuestionCountByCategory();
     }
 
-    /** カテゴリ統計情報取得（エイリアス） 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public List<Map<String, Object>> getCategoryStatistics(Long companyId) {
         List<Object[]> raw = getCategoryStatistics();
@@ -423,23 +300,12 @@ public class QuestionBankService {
         return result;
     }
 
-    /**
-     * 難易度レベル別の問題数統計を取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 難易度レベル別の問題数統計を取得 */
     @Transactional(readOnly = true)
     public List<Object[]> getDifficultyStatistics() {
         return questionBankRepository.findQuestionCountByDifficultyLevel();
     }
 
-    /** 難易度統計情報取得（エイリアス） 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public List<Map<String, Object>> getDifficultyStatistics(Long companyId) {
         List<Object[]> raw = getDifficultyStatistics();
@@ -453,37 +319,19 @@ public class QuestionBankService {
         return result;
     }
 
-    /**
-     * 問題数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 問題数をカウント */
     @Transactional(readOnly = true)
     public long countAll() {
         return questionBankRepository.count();
     }
 
-    /**
-     * アクティブな問題数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** アクティブな問題数をカウント */
     @Transactional(readOnly = true)
     public long countActive() {
         return questionBankRepository.countByIsActiveTrue();
     }
 
-    /**
-     * 企業別の問題数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 企業別の問題数をカウント */
     @Transactional(readOnly = true)
     public long countByCompany(Long companyId) {
         if (companyId == null) {
@@ -492,13 +340,7 @@ public class QuestionBankService {
         return questionBankRepository.countByCompanyIdAndIsActiveTrue(companyId);
     }
 
-    /**
-     * カテゴリ別の問題数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** カテゴリ別の問題数をカウント */
     @Transactional(readOnly = true)
     public long countByCategory(String category) {
         if (!StringUtils.hasText(category)) {
@@ -509,25 +351,13 @@ public class QuestionBankService {
 
     // ---- Alias methods for controller compatibility ----
 
-    /**
-     * 問題種別別の統計を取得 (エイリアス)
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 問題種別別の統計を取得 (エイリアス) */
     @Transactional(readOnly = true)
     public List<Map<String, Object>> getTypeStatistics(Long companyId) {
         return List.of();
     }
 
-    /**
-     * 条件付きランダム問題取得 (エイリアス)
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 条件付きランダム問題取得 (エイリアス) */
     @Transactional(readOnly = true)
     public List<QuestionBank> getRandomQuestions(Long companyId, String category, String difficulty, Integer count) {
         if (count == null) {
@@ -536,13 +366,7 @@ public class QuestionBankService {
         return findRandomQuestionsByFilters(companyId, category, difficulty, null, count);
     }
 
-    /**
-     * 問題のバリデーション
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 問題のバリデーション */
     private void validateQuestion(QuestionBank question) {
         if (question == null) {
             throw new IllegalArgumentException("問題は必須です");
@@ -604,13 +428,7 @@ public class QuestionBankService {
         }
     }
 
-    /**
-     * 有効な問題タイプかチェック
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 有効な問題タイプかチェック */
     private boolean isValidQuestionType(String questionType) {
         List<String> validTypes = List.of(
             "MULTIPLE_CHOICE", "SINGLE_CHOICE", "TRUE_FALSE", "FILL_IN_BLANK", 
@@ -619,13 +437,7 @@ public class QuestionBankService {
         return validTypes.contains(questionType);
     }
 
-    /**
-     * 有効な難易度レベルかチェック
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 有効な難易度レベルかチェック */
     private boolean isValidDifficultyLevel(String difficultyLevel) {
         List<String> validLevels = List.of("BEGINNER", "INTERMEDIATE", "ADVANCED", "EXPERT");
         return validLevels.contains(difficultyLevel);

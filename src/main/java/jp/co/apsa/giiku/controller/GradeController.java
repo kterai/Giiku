@@ -25,7 +25,6 @@ import java.util.Optional;
  * LMS成績管理機能のREST APIエンドポイントを提供します。
  * 成績の記録、更新、統計分析、GPA計算などの機能を含みます。
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -44,14 +43,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 成績一覧をページング形式で取得
-     * 
+     *
      * @param pageable ページング情報
      * @return 成績一覧のページ
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping
     public ResponseEntity<Page<Grade>> getAllGrades(Pageable pageable) {
         try {
@@ -66,14 +61,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 成績IDで成績詳細を取得
-     * 
+     *
      * @param id 成績ID
      * @return 成績詳細
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Grade> getGradeById(@PathVariable Long id) {
         try {
@@ -89,14 +80,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 新しい成績を記録
-     * 
+     *
      * @param grade 成績情報
      * @return 記録された成績
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping
     public ResponseEntity<Grade> createGrade(@Valid @RequestBody Grade grade) {
         try {
@@ -112,15 +99,11 @@ public class GradeController extends AbstractController {
 
     /**
      * 成績情報を更新
-     * 
+     *
      * @param id 成績ID
      * @param grade 更新する成績情報
      * @return 更新された成績
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Grade> updateGrade(@PathVariable Long id, 
                                             @Valid @RequestBody Grade grade) {
@@ -137,14 +120,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 成績を削除（論理削除）
-     * 
+     *
      * @param id 成績ID
      * @return 削除結果
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGrade(@PathVariable Long id) {
         try {
@@ -161,14 +140,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 学生IDで成績一覧を取得
-     * 
+     *
      * @param studentId 学生ID
      * @return 成績一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/student/{studentId}")
     public ResponseEntity<List<Grade>> getGradesByStudent(@PathVariable Long studentId) {
         try {
@@ -183,14 +158,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 講師IDで成績一覧を取得
-     * 
+     *
      * @param instructorId 講師ID
      * @return 成績一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/instructor/{instructorId}")
     public ResponseEntity<List<Grade>> getGradesByInstructor(@PathVariable Long instructorId) {
         try {
@@ -205,14 +176,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 評価タイプで成績一覧を取得
-     * 
+     *
      * @param assessmentType 評価タイプ
      * @return 成績一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/assessment-type/{assessmentType}")
     public ResponseEntity<List<Grade>> getGradesByAssessmentType(@PathVariable String assessmentType) {
         try {
@@ -227,14 +194,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 成績ステータスで成績一覧を取得
-     * 
+     *
      * @param gradeStatus 成績ステータス
      * @return 成績一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/status/{gradeStatus}")
     public ResponseEntity<List<Grade>> getGradesByStatus(@PathVariable String gradeStatus) {
         try {
@@ -249,15 +212,11 @@ public class GradeController extends AbstractController {
 
     /**
      * 期間範囲で成績一覧を取得
-     * 
+     *
      * @param startDate 開始日時
      * @param endDate 終了日時
      * @return 成績一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/date-range")
     public ResponseEntity<List<Grade>> getGradesByDateRange(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
@@ -276,14 +235,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 学生のGPAを計算
-     * 
+     *
      * @param studentId 学生ID
      * @return 学生のGPA
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/student/{studentId}/gpa")
     public ResponseEntity<BigDecimal> getStudentGPA(@PathVariable Long studentId) {
         try {
@@ -298,14 +253,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 学生の加重平均GPAを計算
-     * 
+     *
      * @param studentId 学生ID
      * @return 学生の加重平均GPA
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/student/{studentId}/weighted-gpa")
     public ResponseEntity<BigDecimal> getStudentWeightedGPA(@PathVariable Long studentId) {
         try {
@@ -320,14 +271,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 企業内平均GPAを計算
-     * 
+     *
      * @param companyId 企業ID
      * @return 企業内平均GPA
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/average-gpa")
     public ResponseEntity<BigDecimal> getCompanyAverageGPA(@PathVariable Long companyId) {
         try {
@@ -342,14 +289,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 企業内評価タイプ別平均スコア統計を取得
-     * 
+     *
      * @param companyId 企業ID
      * @return 評価タイプ別平均スコア統計
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/stats/assessment-type")
     public ResponseEntity<List<Map<String, Object>>> getAssessmentTypeStats(@PathVariable Long companyId) {
         try {
@@ -364,14 +307,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 企業内文字成績分布統計を取得
-     * 
+     *
      * @param companyId 企業ID
      * @return 文字成績分布統計
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/stats/grade-distribution")
     public ResponseEntity<List<Map<String, Object>>> getGradeDistribution(@PathVariable Long companyId) {
         try {
@@ -386,14 +325,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 企業内学生別成績統計を取得
-     * 
+     *
      * @param companyId 企業ID
      * @return 学生別成績統計
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/stats/student")
     public ResponseEntity<List<Map<String, Object>>> getStudentGradeStatistics(@PathVariable Long companyId) {
         try {
@@ -408,14 +343,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 企業内講師別評価統計を取得
-     * 
+     *
      * @param companyId 企業ID
      * @return 講師別評価統計
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/stats/instructor")
     public ResponseEntity<List<Map<String, Object>>> getInstructorGradingStatistics(@PathVariable Long companyId) {
         try {
@@ -430,15 +361,11 @@ public class GradeController extends AbstractController {
 
     /**
      * トップ成績学生を取得
-     * 
+     *
      * @param companyId 企業ID
      * @param limit 取得件数
      * @return トップ成績学生リスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/top-students")
     public ResponseEntity<List<Map<String, Object>>> getTopPerformingStudents(
             @PathVariable Long companyId,
@@ -455,15 +382,11 @@ public class GradeController extends AbstractController {
 
     /**
      * 学習困難学生を識別
-     * 
+     *
      * @param companyId 企業ID
      * @param threshold GPA閾値
      * @return 困難学生リスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/at-risk-students")
     public ResponseEntity<List<Map<String, Object>>> getStudentsAtRisk(
             @PathVariable Long companyId,
@@ -480,16 +403,12 @@ public class GradeController extends AbstractController {
 
     /**
      * 期間内成績推移統計を取得
-     * 
+     *
      * @param companyId 企業ID
      * @param startDate 開始日時
      * @param endDate 終了日時
      * @return 成績推移統計
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/trends")
     public ResponseEntity<List<Map<String, Object>>> getGradeTrendAnalysis(
             @PathVariable Long companyId,
@@ -507,14 +426,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 未採点評価を取得
-     * 
+     *
      * @param companyId 企業ID
      * @return 未採点評価一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/company/{companyId}/pending")
     public ResponseEntity<List<Grade>> getPendingGrades(@PathVariable Long companyId) {
         try {
@@ -529,14 +444,10 @@ public class GradeController extends AbstractController {
 
     /**
      * 講師の未採点評価を取得
-     * 
+     *
      * @param instructorId 講師ID
      * @return 講師の未採点評価一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/instructor/{instructorId}/pending")
     public ResponseEntity<List<Grade>> getPendingGradesByInstructor(@PathVariable Long instructorId) {
         try {

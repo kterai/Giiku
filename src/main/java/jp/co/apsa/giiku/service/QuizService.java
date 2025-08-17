@@ -49,35 +49,18 @@ public class QuizService {
     @Autowired
     private TrainingProgramRepository trainingProgramRepository;
 
-    /**
-     * 全てのクイズを取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 全てのクイズを取得 */
     @Transactional(readOnly = true)
     public List<Quiz> findAll() {
         return quizRepository.findAll();
     }
 
-    /** ページング対応のクイズ一覧取得 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public Page<Quiz> findAll(Pageable pageable) {
         return quizRepository.findAll(pageable);
     }
 
-    /**
-     * IDでクイズを取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** IDでクイズを取得 */
     @Transactional(readOnly = true)
     public Optional<Quiz> findById(Long id) {
         if (id == null) {
@@ -86,13 +69,7 @@ public class QuizService {
         return quizRepository.findById(id);
     }
 
-    /**
-     * クイズを保存
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** クイズを保存 */
     public Quiz save(Quiz quiz) {
         validateQuiz(quiz);
 
@@ -105,13 +82,7 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
-    /**
-     * クイズを更新
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** クイズを更新 */
     public Quiz update(Long id, Quiz quiz) {
         if (id == null) {
             throw new IllegalArgumentException("IDは必須です");
@@ -133,13 +104,7 @@ public class QuizService {
         return quizRepository.save(existing);
     }
 
-    /**
-     * クイズを削除
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** クイズを削除 */
     public void delete(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("IDは必須です");
@@ -152,13 +117,7 @@ public class QuizService {
         quizRepository.deleteById(id);
     }
 
-    /**
-     * 学生IDでクイズを検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生IDでクイズを検索 */
     @Transactional(readOnly = true)
     public List<Quiz> findByStudentId(Long studentId) {
         if (studentId == null) {
@@ -167,13 +126,7 @@ public class QuizService {
         return quizRepository.findByStudentIdOrderByStartTimeDesc(studentId);
     }
 
-    /**
-     * プログラムIDでクイズを検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** プログラムIDでクイズを検索 */
     @Transactional(readOnly = true)
     public List<Quiz> findByProgramId(Long programId) {
         if (programId == null) {
@@ -182,13 +135,7 @@ public class QuizService {
         return quizRepository.findByProgramIdOrderByStartTimeDesc(programId);
     }
 
-    /**
-     * ステータスでクイズを検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ステータスでクイズを検索 */
     @Transactional(readOnly = true)
     public List<Quiz> findByStatus(String status) {
         if (!StringUtils.hasText(status)) {
@@ -197,37 +144,19 @@ public class QuizService {
         return quizRepository.findByStatusOrderByStartTimeDesc(status);
     }
 
-    /**
-     * 進行中のクイズを取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 進行中のクイズを取得 */
     @Transactional(readOnly = true)
     public List<Quiz> findInProgressQuizzes() {
         return quizRepository.findByStatusOrderByStartTimeDesc("IN_PROGRESS");
     }
 
-    /**
-     * 完了したクイズを取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 完了したクイズを取得 */
     @Transactional(readOnly = true)
     public List<Quiz> findCompletedQuizzes() {
         return quizRepository.findByStatusOrderByEndTimeDesc("COMPLETED");
     }
 
-    /**
-     * 学生の進行中クイズを取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生の進行中クイズを取得 */
     @Transactional(readOnly = true)
     public List<Quiz> findStudentInProgressQuizzes(Long studentId) {
         if (studentId == null) {
@@ -236,13 +165,7 @@ public class QuizService {
         return quizRepository.findByStudentIdAndStatusOrderByStartTimeDesc(studentId, "IN_PROGRESS");
     }
 
-    /**
-     * 学生の完了クイズを取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生の完了クイズを取得 */
     @Transactional(readOnly = true)
     public List<Quiz> findStudentCompletedQuizzes(Long studentId) {
         if (studentId == null) {
@@ -251,13 +174,7 @@ public class QuizService {
         return quizRepository.findByStudentIdAndStatusOrderByEndTimeDesc(studentId, "COMPLETED");
     }
 
-    /**
-     * プログラムの平均スコアを取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** プログラムの平均スコアを取得 */
     @Transactional(readOnly = true)
     public Double getAverageScoreByProgram(Long programId) {
         if (programId == null) {
@@ -266,13 +183,7 @@ public class QuizService {
         return quizRepository.findAverageScoreByProgramId(programId);
     }
 
-    /**
-     * 学生のプログラム別平均スコアを取得
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生のプログラム別平均スコアを取得 */
     @Transactional(readOnly = true)
     public Double getStudentAverageScore(Long studentId, Long programId) {
         if (studentId == null || programId == null) {
@@ -281,13 +192,7 @@ public class QuizService {
         return quizRepository.findAverageScoreByStudentIdAndProgramId(studentId, programId);
     }
 
-    /**
-     * 複合条件での検索
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 複合条件での検索 */
     @Transactional(readOnly = true)
     public Page<Quiz> findWithFilters(Long studentId, Long programId, String status,
                                      LocalDateTime startTimeFrom, LocalDateTime startTimeTo,
@@ -335,13 +240,7 @@ public class QuizService {
         return quizRepository.findAll(spec, pageable);
     }
 
-    /**
-     * クイズを開始
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** クイズを開始 */
     public Quiz startQuiz(Long studentId, Long programId, List<Long> questionIds) {
         if (studentId == null || programId == null || questionIds == null || questionIds.isEmpty()) {
             throw new IllegalArgumentException("学生ID、プログラムID、問題IDリストは必須です");
@@ -367,11 +266,6 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
-    /** ID指定でクイズを開始 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     public Quiz startQuiz(Long id) {
         Quiz quiz = quizRepository.findById(id).orElseThrow();
         quiz.setStartTime(LocalDateTime.now());
@@ -380,13 +274,7 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
-    /**
-     * クイズを提出・採点
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** クイズを提出・採点 */
     public Quiz submitQuiz(Long quizId, String studentAnswers) {
         if (quizId == null) {
             throw new IllegalArgumentException("クイズIDは必須です");
@@ -416,23 +304,12 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
-    /** クイズを提出（回答は既存のものを使用） 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     public Quiz submitQuiz(Long id) {
         Quiz quiz = quizRepository.findById(id).orElseThrow();
         return submitQuiz(id, quiz.getStudentAnswers());
     }
 
-    /**
-     * クイズを手動採点
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** クイズを手動採点 */
     public Quiz manualGradeQuiz(Long quizId, Double score) {
         if (quizId == null || score == null) {
             throw new IllegalArgumentException("クイズIDとスコアは必須です");
@@ -451,11 +328,6 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
-    /** クイズを採点（スコアは自動計算） 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     public Quiz gradeQuiz(Long id) {
         Quiz quiz = quizRepository.findById(id).orElseThrow();
         quiz.setScore(calculateScore(quiz));
@@ -464,25 +336,13 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
-    /**
-     * クイズ数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** クイズ数をカウント */
     @Transactional(readOnly = true)
     public long countAll() {
         return quizRepository.count();
     }
 
-    /**
-     * ステータス別のクイズ数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** ステータス別のクイズ数をカウント */
     @Transactional(readOnly = true)
     public long countByStatus(String status) {
         if (!StringUtils.hasText(status)) {
@@ -491,13 +351,7 @@ public class QuizService {
         return quizRepository.countByStatus(status);
     }
 
-    /**
-     * 学生別のクイズ数をカウント
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 学生別のクイズ数をカウント */
     @Transactional(readOnly = true)
     public long countByStudent(Long studentId) {
         if (studentId == null) {
@@ -506,11 +360,6 @@ public class QuizService {
         return quizRepository.countByStudentId(studentId);
     }
 
-    /** 講師IDでクイズを検索 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public List<Quiz> findByInstructorId(Long instructorId) {
         return quizRepository.findAll().stream()
@@ -518,91 +367,46 @@ public class QuizService {
                 .toList();
     }
 
-    /** クイズ状態で検索 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public List<Quiz> findByQuizStatus(String status) {
         return findByStatus(status);
     }
 
-    /** 学生の進行中クイズを取得（エイリアス） 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public List<Quiz> findInProgressQuizzesByStudent(Long studentId) {
         return findStudentInProgressQuizzes(studentId);
     }
 
-    /** 学生の完了クイズを取得（エイリアス） 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public List<Quiz> findCompletedQuizzesByStudent(Long studentId) {
         return findStudentCompletedQuizzes(studentId);
     }
 
-    /** クイズ統計情報取得（スタブ） 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public List<Map<String, Object>> getQuizStatistics(Long companyId) {
         return List.of();
     }
 
-    /** 企業平均スコア算出（スタブ） 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public BigDecimal calculateAverageScore(Long companyId) {
         return BigDecimal.ZERO;
     }
 
-    /** 学生平均スコア算出（スタブ） 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public BigDecimal calculateStudentAverageScore(Long studentId) {
         return BigDecimal.ZERO;
     }
 
-    /** 制限時間超過クイズ取得（スタブ） 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public List<Quiz> findOverdueQuizzes(Long companyId) {
         return List.of();
     }
 
-    /** 高得点クイズ取得（スタブ） 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     @Transactional(readOnly = true)
     public List<Quiz> findTopScoringQuizzes(Long companyId, Integer limit) {
         return List.of();
     }
 
-    /** 回答保存 
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
     public Quiz saveAnswers(Long id, Map<String, Object> answers) {
         Quiz quiz = quizRepository.findById(id).orElseThrow();
         quiz.setStudentAnswers(answers != null ? answers.toString() : null);
@@ -611,13 +415,7 @@ public class QuizService {
         return quizRepository.save(quiz);
     }
 
-    /**
-     * 自動採点処理
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** 自動採点処理 */
     private double calculateScore(Quiz quiz) {
         try {
             if (!StringUtils.hasText(quiz.getQuestionIds()) || !StringUtils.hasText(quiz.getStudentAnswers())) {
@@ -656,13 +454,7 @@ public class QuizService {
         }
     }
 
-    /**
-     * クイズのバリデーション
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+    /** クイズのバリデーション */
     private void validateQuiz(Quiz quiz) {
         if (quiz == null) {
             throw new IllegalArgumentException("クイズは必須です");

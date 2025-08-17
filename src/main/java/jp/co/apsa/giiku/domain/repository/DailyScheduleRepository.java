@@ -13,7 +13,6 @@ import java.util.List;
 /**
  * 日次スケジュールのリポジトリインターフェース。
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -27,11 +26,7 @@ public interface DailyScheduleRepository extends JpaRepository<DailySchedule, Lo
      *
      * @param programScheduleId プログラムスケジュールID
      * @return 該当する日次スケジュール一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     List<DailySchedule> findByProgramScheduleIdOrderByTargetDateAscStartTimeAsc(Long programScheduleId);
 
     /**
@@ -39,11 +34,7 @@ public interface DailyScheduleRepository extends JpaRepository<DailySchedule, Lo
      *
      * @param targetDate 対象日
      * @return 日次スケジュール一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     List<DailySchedule> findByTargetDateOrderByStartTimeAsc(LocalDate targetDate);
 
     /**
@@ -52,11 +43,7 @@ public interface DailyScheduleRepository extends JpaRepository<DailySchedule, Lo
      * @param startDate 開始日
      * @param endDate 終了日
      * @return 日次スケジュール一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     List<DailySchedule> findByTargetDateBetweenOrderByTargetDateAscStartTimeAsc(LocalDate startDate, LocalDate endDate);
 
     /**
@@ -64,11 +51,7 @@ public interface DailyScheduleRepository extends JpaRepository<DailySchedule, Lo
      *
      * @param programScheduleId プログラムスケジュールID
      * @return スケジュール数
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     long countByProgramScheduleId(Long programScheduleId);
 
     /**
@@ -77,11 +60,7 @@ public interface DailyScheduleRepository extends JpaRepository<DailySchedule, Lo
      * @param programScheduleId プログラムスケジュールID
      * @param dailyStatus 日次ステータス
      * @return スケジュール数
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     long countByProgramScheduleIdAndDailyStatus(Long programScheduleId, String dailyStatus);
 
     /**
@@ -89,11 +68,7 @@ public interface DailyScheduleRepository extends JpaRepository<DailySchedule, Lo
      *
      * @param dayOfWeek 曜日（MONDAY, TUESDAY 等）
      * @return 日次スケジュール一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Query("SELECT d FROM DailySchedule d WHERE FUNCTION('DAY_OF_WEEK', d.targetDate) = FUNCTION('DAY_OF_WEEK', CAST(:dayOfWeek AS date)) ORDER BY d.startTime ASC")
     List<DailySchedule> findByDayOfWeekOrderByStartTimeAsc(@Param("dayOfWeek") String dayOfWeek);
 }

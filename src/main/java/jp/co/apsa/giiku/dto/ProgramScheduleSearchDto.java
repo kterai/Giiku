@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 /**
  * プログラムスケジュール検索DTO
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -20,125 +19,38 @@ public class ProgramScheduleSearchDto {
     private String startDateFrom;
     private String startDateTo;
     private String location;
-    /**
-     * ProgramScheduleSearchDto メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** ProgramScheduleSearchDto メソッド */
     public ProgramScheduleSearchDto() {}
-    /**
-     * getProgramId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getProgramId メソッド */
     public Long getProgramId() { return programId; }
-    /**
-     * setProgramId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setProgramId メソッド */
     public void setProgramId(Long programId) { this.programId = programId; }
-    /**
-     * getCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompanyId メソッド */
     public Long getCompanyId() { return companyId; }
-    /**
-     * setCompanyId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompanyId メソッド */
     public void setCompanyId(Long companyId) { this.companyId = companyId; }
-    /**
-     * getStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStatus メソッド */
     public String getStatus() { return status; }
-    /**
-     * setStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setStatus メソッド */
     public void setStatus(String status) { this.status = status; }
-    /**
-     * getStartDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStartDate メソッド */
     public LocalDateTime getStartDate() { return startDate; }
-    /**
-     * setStartDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setStartDate メソッド */
     public void setStartDate(LocalDateTime startDate) { this.startDate = startDate; }
-    /**
-     * getEndDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getEndDate メソッド */
     public LocalDateTime getEndDate() { return endDate; }
-    /**
-     * setEndDate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setEndDate メソッド */
     public void setEndDate(LocalDateTime endDate) { this.endDate = endDate; }
-    /**
-     * getInstructorId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getInstructorId メソッド */
     public Long getInstructorId() { return instructorId; }
-    /**
-     * setInstructorId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setInstructorId メソッド */
     public void setInstructorId(Long instructorId) { this.instructorId = instructorId; }
 
     // ----- Alias setters used by controller -----
-    /**
-     * setStartDateFrom メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setStartDateFrom メソッド */
     public void setStartDateFrom(String startDateFrom) { this.startDateFrom = startDateFrom; }
-    /**
-     * setStartDateTo メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setStartDateTo メソッド */
     public void setStartDateTo(String startDateTo) { this.startDateTo = startDateTo; }
-    /**
-     * setLocation メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setLocation メソッド */
     public void setLocation(String location) { this.location = location; }
 }

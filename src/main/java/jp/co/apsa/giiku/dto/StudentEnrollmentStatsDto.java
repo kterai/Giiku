@@ -8,7 +8,6 @@ import java.math.BigDecimal;
  * @version 1.0
  * @since 2025
  */
-
 public class StudentEnrollmentStatsDto {
     private Long totalEnrollments;
     private Long activeEnrollments;
@@ -17,117 +16,34 @@ public class StudentEnrollmentStatsDto {
     private BigDecimal passRate;
     private BigDecimal averageScore;
     private BigDecimal averageProgress;
-    /**
-     * StudentEnrollmentStatsDto メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** StudentEnrollmentStatsDto メソッド */
     public StudentEnrollmentStatsDto() {}
-    /**
-     * getTotalEnrollments メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTotalEnrollments メソッド */
     public Long getTotalEnrollments() { return totalEnrollments; }
-    /**
-     * setTotalEnrollments メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setTotalEnrollments メソッド */
     public void setTotalEnrollments(Long totalEnrollments) { this.totalEnrollments = totalEnrollments; }
-    /**
-     * getActiveEnrollments メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getActiveEnrollments メソッド */
     public Long getActiveEnrollments() { return activeEnrollments; }
-    /**
-     * setActiveEnrollments メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setActiveEnrollments メソッド */
     public void setActiveEnrollments(Long activeEnrollments) { this.activeEnrollments = activeEnrollments; }
-    /**
-     * getCompletedEnrollments メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getCompletedEnrollments メソッド */
     public Long getCompletedEnrollments() { return completedEnrollments; }
-    /**
-     * setCompletedEnrollments メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setCompletedEnrollments メソッド */
     public void setCompletedEnrollments(Long completedEnrollments) { this.completedEnrollments = completedEnrollments; }
-    /**
-     * getPassedEnrollments メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getPassedEnrollments メソッド */
     public Long getPassedEnrollments() { return passedEnrollments; }
-    /**
-     * setPassedEnrollments メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setPassedEnrollments メソッド */
     public void setPassedEnrollments(Long passedEnrollments) { this.passedEnrollments = passedEnrollments; }
-    /**
-     * getPassRate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getPassRate メソッド */
     public BigDecimal getPassRate() { return passRate; }
-    /**
-     * setPassRate メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setPassRate メソッド */
     public void setPassRate(BigDecimal passRate) { this.passRate = passRate; }
-    /**
-     * getAverageScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getAverageScore メソッド */
     public BigDecimal getAverageScore() { return averageScore; }
-    /**
-     * setAverageScore メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setAverageScore メソッド */
     public void setAverageScore(BigDecimal averageScore) { this.averageScore = averageScore; }
-    /**
-     * getAverageProgress メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getAverageProgress メソッド */
     public BigDecimal getAverageProgress() { return averageProgress; }
-    /**
-     * setAverageProgress メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setAverageProgress メソッド */
     public void setAverageProgress(BigDecimal averageProgress) { this.averageProgress = averageProgress; }
 }

@@ -45,17 +45,13 @@ public class DailyScheduleController extends AbstractController {
 
     /**
      * 全日次スケジュール一覧取得
-     * 
+     *
      * @param page ページ番号（0から開始）
      * @param size ページサイズ
      * @param sortBy ソート項目
      * @param sortDir ソート方向（ASC/DESC）
      * @return 日次スケジュール一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping
     public ResponseEntity<Map<String, Object>> getAllDailySchedules(
             @RequestParam(defaultValue = "0") @Min(0) int page,
@@ -91,14 +87,10 @@ public class DailyScheduleController extends AbstractController {
 
     /**
      * 日次スケジュール詳細取得
-     * 
+     *
      * @param id 日次スケジュールID
      * @return 日次スケジュール詳細
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> getDailyScheduleById(@PathVariable Long id) {
         logger.info("日次スケジュール詳細取得: id={}", id);
@@ -124,14 +116,10 @@ public class DailyScheduleController extends AbstractController {
 
     /**
      * 日次スケジュール新規作成
-     * 
+     *
      * @param schedule 日次スケジュール情報
      * @return 作成された日次スケジュール
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PostMapping
     public ResponseEntity<Map<String, Object>> createDailySchedule(@Valid @RequestBody DailySchedule schedule) {
         logger.info("日次スケジュール新規作成: date={}, title={}", 
@@ -157,15 +145,11 @@ public class DailyScheduleController extends AbstractController {
 
     /**
      * 日次スケジュール更新
-     * 
+     *
      * @param id 日次スケジュールID
      * @param schedule 更新する日次スケジュール情報
      * @return 更新された日次スケジュール
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Map<String, Object>> updateDailySchedule(
             @PathVariable Long id, 
@@ -201,14 +185,10 @@ public class DailyScheduleController extends AbstractController {
 
     /**
      * 日次スケジュール削除
-     * 
+     *
      * @param id 日次スケジュールID
      * @return 削除結果
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Object>> deleteDailySchedule(@PathVariable Long id) {
         logger.info("日次スケジュール削除: id={}", id);
@@ -238,14 +218,10 @@ public class DailyScheduleController extends AbstractController {
 
     /**
      * 指定日のスケジュール一覧取得
-     * 
+     *
      * @param date 対象日付（yyyy-MM-dd形式）
      * @return 指定日のスケジュール一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/date/{date}")
     public ResponseEntity<Map<String, Object>> getSchedulesByDate(
             @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
@@ -271,17 +247,13 @@ public class DailyScheduleController extends AbstractController {
 
     /**
      * 期間内のスケジュール一覧取得
-     * 
+     *
      * @param startDate 開始日（yyyy-MM-dd形式）
      * @param endDate 終了日（yyyy-MM-dd形式）
      * @param page ページ番号
      * @param size ページサイズ
      * @return 期間内のスケジュール一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/range")
     public ResponseEntity<Map<String, Object>> getSchedulesByDateRange(
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
@@ -317,13 +289,9 @@ public class DailyScheduleController extends AbstractController {
 
     /**
      * 今日のスケジュール一覧取得
-     * 
+     *
      * @return 今日のスケジュール一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/today")
     public ResponseEntity<Map<String, Object>> getTodaySchedules() {
         LocalDate today = LocalDate.now();
@@ -348,13 +316,9 @@ public class DailyScheduleController extends AbstractController {
 
     /**
      * 明日のスケジュール一覧取得
-     * 
+     *
      * @return 明日のスケジュール一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/tomorrow")
     public ResponseEntity<Map<String, Object>> getTomorrowSchedules() {
         LocalDate tomorrow = LocalDate.now().plusDays(1);
@@ -379,13 +343,9 @@ public class DailyScheduleController extends AbstractController {
 
     /**
      * 今週のスケジュール一覧取得
-     * 
+     *
      * @return 今週のスケジュール一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/this-week")
     public ResponseEntity<Map<String, Object>> getThisWeekSchedules() {
         LocalDate now = LocalDate.now();
@@ -415,18 +375,14 @@ public class DailyScheduleController extends AbstractController {
 
     /**
      * 学生のスケジュール一覧取得
-     * 
+     *
      * @param studentId 学生ID
      * @param startDate 開始日（オプション）
      * @param endDate 終了日（オプション）
      * @param page ページ番号
      * @param size ページサイズ
      * @return 学生のスケジュール一覧
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/student/{studentId}")
     public ResponseEntity<Map<String, Object>> getStudentSchedules(
             @PathVariable Long studentId,
@@ -470,16 +426,12 @@ public class DailyScheduleController extends AbstractController {
 
     /**
      * スケジュール検索
-     * 
+     *
      * @param keyword 検索キーワード
      * @param page ページ番号
      * @param size ページサイズ
      * @return 検索結果
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/search")
     public ResponseEntity<Map<String, Object>> searchSchedules(
             @RequestParam String keyword,
@@ -510,15 +462,11 @@ public class DailyScheduleController extends AbstractController {
 
     /**
      * スケジュール統計情報取得
-     * 
+     *
      * @param startDate 開始日
      * @param endDate 終了日
      * @return 統計情報
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @GetMapping("/statistics")
     public ResponseEntity<Map<String, Object>> getScheduleStatistics(
             @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,

@@ -23,7 +23,6 @@ import java.util.Optional;
 /**
  * Lecture（講座）に関するビジネスロジックを提供するサービスクラス
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -43,13 +42,9 @@ public class LectureService {
 
     /**
      * 全ての講座を取得
-     * 
+     *
      * @return 講座のリスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public List<Lecture> findAll() {
         return lectureRepository.findAll();
@@ -57,14 +52,10 @@ public class LectureService {
 
     /**
      * IDで講座を取得
-     * 
+     *
      * @param id 講座ID
      * @return Optional<Lecture>
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public Optional<Lecture> findById(Long id) {
         return lectureRepository.findById(id);
@@ -72,14 +63,10 @@ public class LectureService {
 
     /**
      * 研修プログラムIDで講座を取得
-     * 
+     *
      * @param trainingProgramId 研修プログラムID
      * @return 講座のリスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public List<Lecture> findByTrainingProgramId(Long trainingProgramId) {
         return lectureRepository.findByTrainingProgramIdAndIsActiveTrue(trainingProgramId);
@@ -87,14 +74,10 @@ public class LectureService {
 
     /**
      * 講師IDで講座を取得
-     * 
+     *
      * @param instructorId 講師ID
      * @return 講座のリスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public List<Lecture> findByInstructorId(Long instructorId) {
         return lectureRepository.findByInstructorIdAndIsActiveTrueOrderByScheduleDateAsc(instructorId);
@@ -102,13 +85,9 @@ public class LectureService {
 
     /**
      * アクティブな講座を取得
-     * 
+     *
      * @return アクティブな講座のリスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public List<Lecture> findActiveWebinars() {
         return lectureRepository.findByIsActiveTrueOrderByScheduleDateAsc();
@@ -116,14 +95,10 @@ public class LectureService {
 
     /**
      * カテゴリで講座を検索
-     * 
+     *
      * @param category カテゴリ
      * @return 講座のリスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public List<Lecture> findByCategory(String category) {
         return lectureRepository.findByCategoryAndIsActiveTrueOrderByTitleAsc(category);
@@ -131,14 +106,10 @@ public class LectureService {
 
     /**
      * タイトルで講座を検索（部分一致）
-     * 
+     *
      * @param title タイトル（部分検索）
      * @return 講座のリスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public List<Lecture> searchByTitle(String title) {
         return lectureRepository.findByTitleContainingIgnoreCaseAndIsActiveTrueOrderByTitleAsc(title);
@@ -146,7 +117,7 @@ public class LectureService {
 
     /**
      * 複合条件で講座を検索
-     * 
+     *
      * @param trainingProgramId 研修プログラムID（オプション）
      * @param instructorId 講師ID（オプション）
      * @param category カテゴリ（オプション）
@@ -154,11 +125,7 @@ public class LectureService {
      * @param isActive アクティブフラグ（オプション）
      * @param pageable ページング情報
      * @return ページング対応の講座
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public Page<Lecture> searchLectures(Long trainingProgramId, Long instructorId, String category, 
                                        String title, Boolean isActive, Pageable pageable) {
@@ -196,15 +163,11 @@ public class LectureService {
 
     /**
      * 講座を作成
-     * 
+     *
      * @param lecture 講座
      * @return 保存された講座
      * @throws IllegalArgumentException バリデーションエラー
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public Lecture save(Lecture lecture) {
         validateLecture(lecture);
 
@@ -229,16 +192,12 @@ public class LectureService {
 
     /**
      * 講座を更新
-     * 
+     *
      * @param id 講座ID
      * @param lecture 更新する講座
      * @return 更新された講座
      * @throws IllegalArgumentException IDが存在しない場合
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public Lecture update(Long id, Lecture lecture) {
         Optional<Lecture> existingLecture = lectureRepository.findById(id);
         if (!existingLecture.isPresent()) {
@@ -253,14 +212,10 @@ public class LectureService {
 
     /**
      * 講座を論理削除（非アクティブ化）
-     * 
+     *
      * @param id 講座ID
      * @throws IllegalArgumentException IDが存在しない場合
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public void deactivate(Long id) {
         Optional<Lecture> lecture = lectureRepository.findById(id);
         if (!lecture.isPresent()) {
@@ -274,14 +229,10 @@ public class LectureService {
 
     /**
      * 講座を物理削除
-     * 
+     *
      * @param id 講座ID
      * @throws IllegalArgumentException IDが存在しない場合
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     public void delete(Long id) {
         if (!lectureRepository.existsById(id)) {
             throw new IllegalArgumentException("指定された講座が存在しません: " + id);
@@ -291,14 +242,10 @@ public class LectureService {
 
     /**
      * 研修プログラムの講座数を取得
-     * 
+     *
      * @param trainingProgramId 研修プログラムID
      * @return 講座数
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public long countByTrainingProgramId(Long trainingProgramId) {
         return lectureRepository.countByTrainingProgramIdAndIsActiveTrue(trainingProgramId);
@@ -306,14 +253,10 @@ public class LectureService {
 
     /**
      * 講師の講座数を取得
-     * 
+     *
      * @param instructorId 講師ID
      * @return 講座数
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public long countByInstructorId(Long instructorId) {
         return lectureRepository.countByInstructorIdAndIsActiveTrue(instructorId);
@@ -321,13 +264,9 @@ public class LectureService {
 
     /**
      * 今後予定されている講座を取得
-     * 
+     *
      * @return 今後の講座のリスト
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     @Transactional(readOnly = true)
     public List<Lecture> findUpcomingLectures() {
         LocalDateTime now = LocalDateTime.now();
@@ -336,14 +275,10 @@ public class LectureService {
 
     /**
      * 講座のバリデーション
-     * 
+     *
      * @param lecture 検証対象の講座
      * @throws IllegalArgumentException バリデーションエラー
-     
- * @author 株式会社アプサ
- * @version 1.0
- * @since 2025
- */
+     */
     private void validateLecture(Lecture lecture) {
         if (lecture == null) {
             throw new IllegalArgumentException("講座が null です");

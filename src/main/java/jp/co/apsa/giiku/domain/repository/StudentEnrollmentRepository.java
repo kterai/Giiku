@@ -13,7 +13,6 @@ import java.util.List;
 /**
  * StudentEnrollmentのリポジトリインターフェース
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025

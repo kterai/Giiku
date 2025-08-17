@@ -3,7 +3,6 @@ package jp.co.apsa.giiku.dto;
 /**
  * LectureChapterSearchDto.
  *
- *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -16,117 +15,34 @@ public class LectureChapterSearchDto {
     private String description;
     private String status;
     private String difficulty;
-    /**
-     * LectureChapterSearchDto メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** LectureChapterSearchDto メソッド */
     public LectureChapterSearchDto() {}
-    /**
-     * getLectureId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getLectureId メソッド */
     public Long getLectureId() { return lectureId; }
-    /**
-     * setLectureId メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setLectureId メソッド */
     public void setLectureId(Long lectureId) { this.lectureId = lectureId; }
-    /**
-     * getTitle メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getTitle メソッド */
     public String getTitle() { return title; }
-    /**
-     * setTitle メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setTitle メソッド */
     public void setTitle(String title) { this.title = title; }
-    /**
-     * getContentType メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getContentType メソッド */
     public String getContentType() { return contentType; }
-    /**
-     * setContentType メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setContentType メソッド */
     public void setContentType(String contentType) { this.contentType = contentType; }
-    /**
-     * getIsActive メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getIsActive メソッド */
     public Boolean getIsActive() { return isActive; }
-    /**
-     * setIsActive メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setIsActive メソッド */
     public void setIsActive(Boolean isActive) { this.isActive = isActive; }
-    /**
-     * getDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getDescription メソッド */
     public String getDescription() { return description; }
-    /**
-     * setDescription メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setDescription メソッド */
     public void setDescription(String description) { this.description = description; }
-    /**
-     * getStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getStatus メソッド */
     public String getStatus() { return status; }
-    /**
-     * setStatus メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setStatus メソッド */
     public void setStatus(String status) { this.status = status; }
-    /**
-     * getDifficulty メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
-
+    /** getDifficulty メソッド */
     public String getDifficulty() { return difficulty; }
-    /**
-     * setDifficulty メソッド
-     * @author 株式会社アプサ
-     * @version 1.0
-     * @since 2025
-     */
+    /** setDifficulty メソッド */
     public void setDifficulty(String difficulty) { this.difficulty = difficulty; }
 }
