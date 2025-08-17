@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム - 分かりやすさ重視プロンプト改良版</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .content {
+            padding: 2rem;
+        }
+        .section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        .important-box {
+            background: linear-gradient(135deg, #ff7b7b 0%, #ff6b6b 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(255,107,107,0.3);
+        }
+        .guideline-box {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(68,160,141,0.3);
+        }
+        .improvement-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(245,87,108,0.3);
+        }
+        .code-example {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .checklist {
+            background: #f8f9fa;
+            border-left: 4px solid #28a745;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #856404;
+        }
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+        li {
+            margin: 0.5rem 0;
+        }
+        h2 {
+            color: #667eea;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        h3 {
+            color: #764ba2;
+            margin-top: 1.5rem;
+        }
+        .icon {
+            margin-right: 0.5rem;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        tr:hover {
+            background: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-lightbulb icon"></i>ITエンジニア育成カリキュラム</h1>
+            <h2>分かりやすさ重視プロンプト改良版</h2>
+            <p>初心者理解を最優先とした講義資料作成指針</p>
+        </div>
+
+        <div class="content">
+            <div class="important-box">
+                <h2><i class="fas fa-exclamation-triangle icon"></i>最重要原則</h2>
+                <p><strong>すべての表・専門用語・まとめは初心者が一人で理解できるレベルまで詳細化すること</strong></p>
+                <p>「分かったつもり」を防ぎ、確実な理解を促進する内容作成を心がける</p>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-table icon"></i>分かりやすい表作成の指針</h2>
+                
+                <div class="improvement-box">
+                    <h3>改善すべき問題点</h3>
+                    <ul>
+                        <li><strong>計算量表記のみ</strong> - O(1)、O(n)だけでは初心者には意味不明</li>
+                        <li><strong>専門用語の羅列</strong> - 「ランダムアクセス」「途中挿入」等の説明不足</li>
+                        <li><strong>適用場面が抽象的</strong> - 具体的な使用例がない</li>
+                        <li><strong>比較軸が不明確</strong> - なぜその指標で比較するのか理由がない</li>
+                    </ul>
+                </div>
+
+                <div class="guideline-box">
+                    <h3>改良された表作成方法</h3>
+                    <ol>
+                        <li><strong>計算量に日本語説明を併記</strong>
+                            <div class="code-example">
+                                ❌ ArrayList: 検索 O(1)<br>
+                                ✅ ArrayList: 検索 O(1) (インデックス指定時は瞬時、値検索時はO(n)で全件走査が必要)
+                            </div>
+                        </li>
+                        <li><strong>専門用語に註釈を追加</strong>
+                            <div class="code-example">
+                                ❌ ランダムアクセス重視<br>
+                                ✅ ランダムアクセス重視 (配列の任意位置に直接アクセスする処理が多い場合)
+                            </div>
+                        </li>
+                        <li><strong>具体的な使用例を明記</strong>
+                            <div class="code-example">
+                                ❌ 頻繁な挿入・削除<br>
+                                ✅ 頻繁な挿入・削除 (例：チャットアプリのメッセージリスト、音楽プレイヤーの再生キュー)
+                            </div>
+                        </li>
+                        <li><strong>性能差を数値で表現</strong>
+                            <div class="code-example">
+                                1000件のデータで中間に挿入する場合<br>
+                                ArrayList: 約500件をずらす処理が必要<br>
+                                LinkedList: リンクの付け替えのみで完了
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="warning-box">
+                    <h4><i class="fas fa-exclamation-circle icon"></i>表作成時の必須チェックポイント</h4>
+                    <ul>
+                        <li>プログラミング初心者が表だけ見て理解できるか？</li>
+                        <li>専門用語に適切な説明があるか？</li>
+                        <li>実際の開発現場での使用例が想像できるか？</li>
+                        <li>なぜその選択をするのか理由が明確か？</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-book icon"></i>専門用語解説の強化指針</h2>
+                
+                <div class="improvement-box">
+                    <h3>問題のある専門用語の扱い</h3>
+                    <ul>
+                        <li><strong>略語のみの使用</strong> - PECS、SAM等</li>
+                        <li><strong>定義の省略</strong> - 「型消去」「effective final」等</li>
+                        <li><strong>背景説明の不足</strong> - なぜその仕組みなのか</li>
+                        <li><strong>関連概念の未整理</strong> - 用語間の関係性が不明</li>
+                    </ul>
+                </div>
+
+                <div class="guideline-box">
+                    <h3>専門用語解説の改良方法</h3>
+                    
+                    <h4>1. 3段階解説方式</h4>
+                    <div class="code-example">
+                        <strong>PECS原則の例：</strong><br>
+                        <strong>①略語展開：</strong> Producer Extends, Consumer Super<br>
+                        <strong>②日本語説明：</strong> データを生成する場合はextends、データを消費する場合はsuperを使う<br>
+                        <strong>③具体例：</strong> リストから値を読み取る(生成)時は&lt;? extends T&gt;、リストに値を追加する(消費)時は&lt;? super T&gt;
+                    </div>
+
+                    <h4>2. 「なぜ」の説明を必須化</h4>
+                    <div class="code-example">
+                        <strong>型消去の例：</strong><br>
+                        <strong>仕組み：</strong> コンパイル時に型情報が削除される<br>
+                        <strong>理由：</strong> Java 5以前との互換性を保つため<br>
+                        <strong>影響：</strong> 実行時に型パラメータの情報は取得できない
+                    </div>
+
+                    <h4>3. 身近な例えでの説明</h4>
+                    <div class="code-example">
+                        <strong>effective finalの例：</strong><br>
+                        図書館の本のように、一度借りた本(変数)は返却(変更)せずに閲覧(参照)のみ可能
+                    </div>
+                </div>
+
+                <div class="checklist">
+                    <h4><i class="fas fa-check-circle icon"></i>専門用語チェックリスト</h4>
+                    <ul>
+                        <li>□ 略語は必ず正式名称を併記</li>
+                        <li>□ 定義を日本語で明確に説明</li>
+                        <li>□ 導入された背景・理由を記載</li>
+                        <li>□ 身近な例えや比喩を活用</li>
+                        <li>□ 関連する他の用語との関係を明示</li>
+                        <li>□ よくある誤解とその訂正を記載</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-list-alt icon"></i>まとめセクションの改良指針</h2>
+                
+                <div class="improvement-box">
+                    <h3>問題のあるまとめの特徴</h3>
+                    <ul>
+                        <li><strong>抽象的な要点のみ</strong> - 「型安全性が向上」等</li>
+                        <li><strong>略語の再登場</strong> - 本文で説明した内容が略語に戻る</li>
+                        <li><strong>実践的価値が不明</strong> - 学習した内容をどう活用するか不明</li>
+                        <li><strong>復習時に意味不明</strong> - 後から見返すと理解できない</li>
+                    </ul>
+                </div>
+
+                <div class="guideline-box">
+                    <h3>改良されたまとめ作成方法</h3>
+                    
+                    <h4>1. 具体的メリットの明記</h4>
+                    <div class="code-example">
+                        ❌ ジェネリクスにより型安全性が向上<br>
+                        ✅ ジェネリクスを使うことで、コンパイル時に型の間違いを発見でき、実行時エラーを防げる。<br>
+                        　例：List&lt;String&gt; names により、数値の誤代入を事前に防止
+                    </div>
+
+                    <h4>2. 学習内容の実践的活用法</h4>
+                    <div class="code-example">
+                        <strong>今日の学習でできるようになったこと：</strong><br>
+                        • 適切なコレクションを選択して性能問題を回避<br>
+                        • 型安全なコードを書いてバグを事前に防止<br>
+                        • 実際の開発現場で使われるパターンを理解
+                    </div>
+
+                    <h4>3. 重要ポイントの再確認形式</h4>
+                    <div class="code-example">
+                        <strong>必ず覚えておくべき選択基準：</strong><br>
+                        • ランダムアクセスが多い → ArrayList<br>
+                        • 挿入・削除が多い → LinkedList<br>
+                        • 重複チェックが必要 → HashSet<br>
+                        • キー・値の高速検索 → HashMap
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-cogs icon"></i>演習問題・クイズの表示仕様</h2>
+                
+                <div class="guideline-box">
+                    <h3>必須実装事項</h3>
+                    
+                    <h4>1. 演習問題の表示形式</h4>
+                    <div class="code-example">
+                        &lt;div class="exercise-section"&gt;<br>
+                        &nbsp;&nbsp;&lt;h3&gt;💡 演習問題&lt;/h3&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="problem-statement"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- 問題文（常時表示） --&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;button onclick="showExerciseAnswer(1)"&gt;回答例を表示&lt;/button&gt;<br>
+                        &nbsp;&nbsp;&lt;div id="exerciseAnswer1" style="display:none;"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;!-- 回答例と詳細解説 --&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &lt;/div&gt;
+                    </div>
+
+                    <h4>2. 理解度クイズの表示形式</h4>
+                    <div class="code-example">
+                        &lt;div class="quiz-question"&gt;<br>
+                        &nbsp;&nbsp;&lt;p&gt;&lt;strong&gt;1. 問題文&lt;/strong&gt;&lt;/p&gt;<br>
+                        &nbsp;&nbsp;&lt;ul&gt;&lt;li&gt;A: 選択肢A&lt;/li&gt;&lt;li&gt;B: 選択肢B&lt;/li&gt;&lt;/ul&gt;<br>
+                        &nbsp;&nbsp;&lt;button onclick="showAnswer(1)"&gt;回答を表示&lt;/button&gt;<br>
+                        &nbsp;&nbsp;&lt;div id="answer1" style="display:none;"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;&lt;strong&gt;正解: B&lt;/strong&gt;&lt;/p&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;&lt;strong&gt;解説:&lt;/strong&gt; 詳細な解説&lt;/p&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &lt;/div&gt;
+                    </div>
+
+                    <h4>3. JavaScript関数の実装</h4>
+                    <div class="code-example">
+                        function showAnswer(questionId) {<br>
+                        &nbsp;&nbsp;const answer = document.getElementById('answer' + questionId);<br>
+                        &nbsp;&nbsp;const button = event.target;<br>
+                        &nbsp;&nbsp;if (answer.style.display === 'none') {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;answer.style.display = 'block';<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;button.textContent = '回答を非表示';<br>
+                        &nbsp;&nbsp;} else {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;answer.style.display = 'none';<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;button.textContent = '回答を表示';<br>
+                        &nbsp;&nbsp;}<br>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><i class="fas fa-shield-alt icon"></i>品質保証チェック項目</h2>
+                
+                <div class="warning-box">
+                    <h3><i class="fas fa-clipboard-check icon"></i>作成完了前の必須チェック</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>チェック項目</th>
+                                <th>確認ポイント</th>
+                                <th>合格基準</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>表の分かりやすさ</td>
+                                <td>専門用語の説明、具体例の有無</td>
+                                <td>初心者が表のみで理解可能</td>
+                            </tr>
+                            <tr>
+                                <td>専門用語の解説</td>
+                                <td>略語展開、理由説明、例示</td>
+                                <td>3段階解説が完備</td>
+                            </tr>
+                            <tr>
+                                <td>まとめの具体性</td>
+                                <td>抽象表現の回避、実践価値の明示</td>
+                                <td>学習成果が明確</td>
+                            </tr>
+                            <tr>
+                                <td>HTML機能</td>
+                                <td>ボタン動作、表示切替</td>
+                                <td>全機能が正常動作</td>
+                            </tr>
+                            <tr>
+                                <td>詳細解説の維持</td>
+                                <td>講師向け説明の充実度</td>
+                                <td>従来以上の詳細度</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="important-box">
+                <h2><i class="fas fa-target icon"></i>最終確認事項</h2>
+                <div class="checklist">
+                    <h3>完成HTMLファイルの品質基準</h3>
+                    <ul>
+                        <li>□ すべての表に具体例と詳細説明が含まれている</li>
+                        <li>□ 専門用語は初心者でも理解できるレベルまで解説</li>
+                        <li>□ まとめセクションが具体的で実践的な内容</li>
+                        <li>□ 演習問題は常時表示、回答例はボタン表示</li>
+                        <li>□ 理解度クイズは回答表示ボタンが正常動作</li>
+                        <li>□ HTMLが見やすく整理されている</li>
+                        <li>□ 詳細な講師向け説明が削減されていない</li>
+                        <li>□ レスポンシブ対応とアクセシビリティを考慮</li>
+                    </ul>
+                </div>
+
+                <p class="text-center mt-4"><strong>この指針に従って、すべての受講者が確実に理解できる高品質な講義資料を作成してください。</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showAnswer(questionId) {
+            const answer = document.getElementById('answer' + questionId);
+            const button = event.target;
+            if (answer.style.display === 'none') {
+                answer.style.display = 'block';
+                button.textContent = '回答を非表示';
+                button.classList.add('bg-red-500');
+                button.classList.remove('bg-blue-500');
+            } else {
+                answer.style.display = 'none';
+                button.textContent = '回答を表示';
+                button.classList.add('bg-blue-500');
+                button.classList.remove('bg-red-500');
+            }
+        }
+
+        function showExerciseAnswer(questionId) {
+            const answer = document.getElementById('exerciseAnswer' + questionId);
+            const button = event.target;
+            if (answer.style.display === 'none') {
+                answer.style.display = 'block';
+                button.textContent = '回答例を非表示';
+                button.classList.add('bg-red-500');
+                button.classList.remove('bg-green-500');
+            } else {
+                answer.style.display = 'none';
+                button.textContent = '回答例を表示';
+                button.classList.add('bg-green-500');
+                button.classList.remove('bg-red-500');
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDpklfe%2FBKuURTzdLwuhkvIQGN6lG%2BQxJm8p6DBXBOdAbDrPA0hFV%2B4MMEvt6nJ97g6cVi%2Fv2SaP%2BzO5pCTJDk%2B%2FryArgZtl28qFl9nRuTpgc9IXD6w4nS4%2BssHF5aKBJYC7ymHvfzCXiDMZxYf5XQslKV5%2Fj%2BC0SxHh0uY%2BbL35BzqSbdoxorN8NI2lLYCdWDtpL9DArv7bxoyn0qkU4Xbl%2FbgZ%2BlIKE2JSCVVyW7Vz%2Bsyor6n7eqvKsSlP7LnVKBtockZddIqiml1M7ttImO4hWMgNlw6NqFF73Hkvgszvy8f83bKmLqB2LDOka8hBQ6lXIyn%2FW%2Be11iPBuzwZ4uUuFxg9JxkCUWS5P9tXsc%2Fx0Ckc3SBzFB7RLHY3QMse%2FntFIPkifnILdgPcbZy1H6N8r6fopETTBXJkthoceuKS1rVmUkPso7h9m6SZOq3SmBmGDGLFu3mH4PKALAVU1%2F8Z5z%2BoZDAN4iOC8fbfdhOLXR%2FWApm3etKr3K%2FmT0R1qJfVXc7yG3Oo7UKxwADfGIXUuuFVDdaKXkCdQD6YQyl%2BFqv4VqR%2FC4NtW8iNP%2FlwGUg%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDpklfe/BKuURTzdLwuhkvIQGN6lG+QxJm8p6DBXBOdAbDrPA0hFV+4MMEvt6nJ97g6cVi/v2SaP+zO5pCTJDk+/ryArgZtl28qFl9nRuTpgc9IXD6w4nS4+ssHF5aKBJYC7ymHvfzCXiDMZxYf5XQslKV5/j+C0SxHh0uY+bL35BzqSbdoxorN8NI2lLYCdWDtpL9DArv7bxoyn0qkU4Xbl/bgZ+lIKE2JSCVVyW7Vz+syor6n7eqvKsSlP7LnVKBtockZddIqiml1M7ttImO4hWMgNlw6NqFF73Hkvgszvy8f83bKmLqB2LDOka8hBQ6lXIyn/W+e11iPBuzwZ4uUuFxg9JxkCUWS5P9tXsc/x0Ckc3SBzFB7RLHY3QMse/ntFIPkifnILdgPcbZy1H6N8r6fopETTBXJkthoceuKS1rVmUkPso7h9m6SZOq3SmBmGDGLFu3mH4PKALAVU1/8Z5z+oZDAN4iOC8fbfdhOLXR/WApm3etKr3K/mT0R1qJfVXc7yG3Oo7UKxwADfGIXUuuFVDdaKXkCdQD6YQyl+Fqv4VqR/C4NtW8iNP/lwGUg==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

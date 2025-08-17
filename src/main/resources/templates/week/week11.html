@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第11週: Spring Boot開発実践 | ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .day-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .day-header {
+            background-color: #4a6da7;
+            color: white;
+            padding: 1rem;
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+        .day-content {
+            padding: 1.5rem;
+            background-color: #fff;
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+        }
+        .tech-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin: 0.25rem;
+            background-color: #edf2f7;
+            color: #4a5568;
+        }
+        .badge-spring {
+            background-color: #6db33f;
+            color: white;
+        }
+        .badge-db {
+            background-color: #336791;
+            color: white;
+        }
+        .badge-security {
+            background-color: #e53e3e;
+            color: white;
+        }
+        .badge-test {
+            background-color: #805ad5;
+            color: white;
+        }
+        .badge-fe {
+            background-color: #3182ce;
+            color: white;
+        }
+        .timeline-container {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline-container:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: #e2e8f0;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .timeline-marker {
+            position: absolute;
+            left: -2rem;
+            top: 0.25rem;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background: #4a6da7;
+            border: 2px solid white;
+        }
+        .resource-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .resource-card:hover {
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        .resource-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #4a6da7;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>ITエンジニア育成カリキュラム</h1>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">ホーム</a></li>
+                    <li class="dropdown">
+                        <a href="#">月別カリキュラム</a>
+                        <div class="dropdown-content">
+                            <a href="../month/month1.html">第1ヶ月目: Java Silver</a>
+                            <a href="../month/month2.html">第2ヶ月目: 基本情報</a>
+                            <a href="../month/month3.html" class="active">第3ヶ月目: Web開発</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="active">週別詳細</a>
+                        <div class="dropdown-content">
+                            <a href="../week/week9.html">第9週: フロントエンド基礎</a>
+                            <a href="../week/week10.html">第10週: バックエンド基礎</a>
+                            <a href="../week/week11.html" class="active">第11週: Spring Boot開発実践</a>
+                            <a href="../week/week12.html">第12週: 総合開発</a>
+                        </div>
+                    </li>
+                    <li><a href="../resources/resources.html">学習リソース</a></li>
+                    <li><a href="../resources/faq.html">FAQ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>第11週: Spring Boot開発実践</h2>
+                    <p>実務レベルのSpring Boot開発技術を習得し、フロントエンドとの連携まで学ぶ5日間</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="overview">
+            <div class="container">
+                <div class="flex flex-wrap -mx-4">
+                    <div class="w-full lg:w-2/3 px-4 mb-8">
+                        <h2 class="text-2xl font-bold mb-6">週間概要</h2>
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <p class="mb-4">この週では、Spring Bootを使った実践的なWebアプリケーション開発技術を学びます。Spring Data JPAによるデータアクセス層の実装、Spring Securityによる認証・認可の仕組み、MVC設計に基づいたWebアプリ開発、テスト駆動開発とユニットテスト、そしてフロントエンドとバックエンドの連携など、実務で即戦力として活躍できるレベルの技術を習得します。</p>
+                            
+                            <h3 class="text-xl font-semibold mt-6 mb-3">週間目標</h3>
+                            <ul class="list-disc pl-6 mb-6">
+                                <li>Spring Data JPAを使用したデータベースアクセス層の実装ができる</li>
+                                <li>Spring Securityによる認証・認可の仕組みを理解し実装できる</li>
+                                <li>実践的なWebアプリケーション開発（フォーム処理、バリデーション、REST API）ができる</li>
+                                <li>JUnitを使用したテストコードの作成と品質管理ができる</li>
+                                <li>フロントエンド（JavaScript）とバックエンド（Spring Boot）の連携方法を理解する</li>
+                            </ul>
+                            
+                            <h3 class="text-xl font-semibold mt-6 mb-3">使用技術スタック</h3>
+                            <div class="flex flex-wrap mb-6">
+                                <span class="tech-badge badge-spring">Spring Boot</span>
+                                <span class="tech-badge badge-spring">Spring Data JPA</span>
+                                <span class="tech-badge badge-security">Spring Security</span>
+                                <span class="tech-badge badge-spring">Spring MVC</span>
+                                <span class="tech-badge badge-db">PostgreSQL</span>
+                                <span class="tech-badge badge-test">JUnit 5</span>
+                                <span class="tech-badge badge-test">Mockito</span>
+                                <span class="tech-badge badge-fe">JavaScript</span>
+                                <span class="tech-badge badge-fe">Fetch API</span>
+                                <span class="tech-badge badge-spring">REST API</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="w-full lg:w-1/3 px-4 mb-8">
+                        <h2 class="text-2xl font-bold mb-6">スケジュール</h2>
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="timeline-container">
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <h4 class="font-bold">Day 47: Spring Data JPA</h4>
+                                    <p>エンティティ設計、CRUD実装</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <h4 class="font-bold">Day 48: Spring Security基礎</h4>
+                                    <p>認証・認可、セキュリティ設定</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <h4 class="font-bold">Day 49: 実践的WebAPI開発</h4>
+                                    <p>フォーム、バリデーション、REST API</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <h4 class="font-bold">Day 50: テスト・品質管理</h4>
+                                    <p>JUnit、統合テスト、モック</p>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-marker"></div>
+                                    <h4 class="font-bold">Day 51: フロントエンド連携</h4>
+                                    <p>非同期通信、React入門</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="daily-schedule">
+            <div class="container">
+                <h2 class="text-2xl font-bold mb-6">日別スケジュール</h2>
+                
+                <div class="day-card">
+                    <div class="day-header">
+                        <h3>Day 47: Spring Data JPA</h3>
+                    </div>
+                    <div class="day-content">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="md:col-span-2">
+                                <h4 class="text-lg font-semibold mb-3">学習目標</h4>
+                                <p class="mb-4">Spring Data JPAを使用したデータアクセス層の実装を習得し、DBとのシームレスな連携方法を学ぶ</p>
+                                
+                                <h4 class="text-lg font-semibold mt-5 mb-3">タイムスケジュール</h4>
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full border-collapse">
+                                        <thead>
+                                            <tr class="bg-gray-100">
+                                                <th class="py-2 px-4 border">時間</th>
+                                                <th class="py-2 px-4 border">内容</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="py-2 px-4 border">10:00-10:15</td>
+                                                <td class="py-2 px-4 border">オリエンテーション・前日の復習</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">10:15-11:00</td>
+                                                <td class="py-2 px-4 border">講義: ORM概念とJPAの基礎</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">11:00-11:45</td>
+                                                <td class="py-2 px-4 border">演習: エンティティクラスの設計と実装</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">11:45-12:45</td>
+                                                <td class="py-2 px-4 border">昼休憩</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">12:45-13:30</td>
+                                                <td class="py-2 px-4 border">講義: Spring Data JPAリポジトリ</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">13:30-14:15</td>
+                                                <td class="py-2 px-4 border">演習: CRUDリポジトリの実装</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">14:15-15:00</td>
+                                                <td class="py-2 px-4 border">講義: 関連マッピングと高度なクエリ</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:00-15:10</td>
+                                                <td class="py-2 px-4 border">午後休憩</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:10-15:55</td>
+                                                <td class="py-2 px-4 border">演習: 複雑な関連を持つエンティティの実装</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:55-17:00</td>
+                                                <td class="py-2 px-4 border">理解度チェック: Spring Data JPAの基本</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">17:00-17:45</td>
+                                                <td class="py-2 px-4 border">振り返り・質疑応答</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-lg font-semibold mb-3">学習ポイント</h4>
+                                <ul class="list-disc pl-6 mb-6">
+                                    <li>JPA Entity アノテーション</li>
+                                    <li>テーブルリレーションシップ</li>
+                                    <li>Spring Data JPA Repository</li>
+                                    <li>JPQL と Criteria API</li>
+                                    <li>トランザクション管理</li>
+                                </ul>
+                                
+                                <h4 class="text-lg font-semibold mt-5 mb-3">実装演習</h4>
+                                <p class="mb-4">ブログアプリケーションのデータアクセス層を実装します。記事（Article）とコメント（Comment）の関係を表現するエンティティとリポジトリを作成します。</p>
+                                
+                                <a href="../day/day47.html" class="btn btn-primary mt-4 w-full">詳細を見る</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="day-card">
+                    <div class="day-header">
+                        <h3>Day 48: Spring Security基礎</h3>
+                    </div>
+                    <div class="day-content">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="md:col-span-2">
+                                <h4 class="text-lg font-semibold mb-3">学習目標</h4>
+                                <p class="mb-4">Spring Securityを使用した認証・認可の仕組みを理解し、セキュアなWebアプリケーションの実装方法を学ぶ</p>
+                                
+                                <h4 class="text-lg font-semibold mt-5 mb-3">タイムスケジュール</h4>
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full border-collapse">
+                                        <thead>
+                                            <tr class="bg-gray-100">
+                                                <th class="py-2 px-4 border">時間</th>
+                                                <th class="py-2 px-4 border">内容</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="py-2 px-4 border">10:00-10:15</td>
+                                                <td class="py-2 px-4 border">オリエンテーション・前日の復習</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">10:15-11:00</td>
+                                                <td class="py-2 px-4 border">講義: Spring Securityの概要と認証の仕組み</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">11:00-11:45</td>
+                                                <td class="py-2 px-4 border">演習: 基本的なセキュリティ設定</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">11:45-12:45</td>
+                                                <td class="py-2 px-4 border">昼休憩</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">12:45-13:30</td>
+                                                <td class="py-2 px-4 border">講義: ユーザー認証とデータベース連携</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">13:30-14:15</td>
+                                                <td class="py-2 px-4 border">演習: カスタムユーザー認証の実装</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">14:15-15:00</td>
+                                                <td class="py-2 px-4 border">講義: 認可とロールベースのアクセス制御</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:00-15:10</td>
+                                                <td class="py-2 px-4 border">午後休憩</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:10-15:55</td>
+                                                <td class="py-2 px-4 border">演習: ロールベースのアクセス制御実装</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:55-17:00</td>
+                                                <td class="py-2 px-4 border">理解度チェック: Spring Securityの基本</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">17:00-17:45</td>
+                                                <td class="py-2 px-4 border">振り返り・質疑応答</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-lg font-semibold mb-3">学習ポイント</h4>
+                                <ul class="list-disc pl-6 mb-6">
+                                    <li>認証（Authentication）</li>
+                                    <li>認可（Authorization）</li>
+                                    <li>SecurityFilterChain</li>
+                                    <li>UserDetailsService</li>
+                                    <li>CSRF対策</li>
+                                </ul>
+                                
+                                <h4 class="text-lg font-semibold mt-5 mb-3">実装演習</h4>
+                                <p class="mb-4">ブログアプリケーションにログイン機能と権限管理を実装します。一般ユーザーと管理者の2つのロールを設定し、適切なアクセス制御を行います。</p>
+                                
+                                <a href="../day/day48.html" class="btn btn-primary mt-4 w-full">詳細を見る</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="day-card">
+                    <div class="day-header">
+                        <h3>Day 49: 実践的Webアプリケーション開発</h3>
+                    </div>
+                    <div class="day-content">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="md:col-span-2">
+                                <h4 class="text-lg font-semibold mb-3">学習目標</h4>
+                                <p class="mb-4">フォーム処理、バリデーション、REST APIなど、実践的なWebアプリケーション開発技術を習得する</p>
+                                
+                                <h4 class="text-lg font-semibold mt-5 mb-3">タイムスケジュール</h4>
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full border-collapse">
+                                        <thead>
+                                            <tr class="bg-gray-100">
+                                                <th class="py-2 px-4 border">時間</th>
+                                                <th class="py-2 px-4 border">内容</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="py-2 px-4 border">10:00-10:15</td>
+                                                <td class="py-2 px-4 border">オリエンテーション・前日の復習</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">10:15-11:00</td>
+                                                <td class="py-2 px-4 border">講義: Spring MVCフォーム処理</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">11:00-11:45</td>
+                                                <td class="py-2 px-4 border">演習: Thymeleafテンプレートとフォーム連携</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">11:45-12:45</td>
+                                                <td class="py-2 px-4 border">昼休憩</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">12:45-13:30</td>
+                                                <td class="py-2 px-4 border">講義: バリデーションとエラーハンドリング</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">13:30-14:15</td>
+                                                <td class="py-2 px-4 border">演習: Bean Validationの実装</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">14:15-15:00</td>
+                                                <td class="py-2 px-4 border">講義: RESTful API設計と実装</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:00-15:10</td>
+                                                <td class="py-2 px-4 border">午後休憩</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:10-15:55</td>
+                                                <td class="py-2 px-4 border">演習: RESTful APIの実装とテスト</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:55-17:00</td>
+                                                <td class="py-2 px-4 border">理解度チェック: Webアプリ開発の実践</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">17:00-17:45</td>
+                                                <td class="py-2 px-4 border">振り返り・質疑応答</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-lg font-semibold mb-3">学習ポイント</h4>
+                                <ul class="list-disc pl-6 mb-6">
+                                    <li>フォーム処理とバインディング</li>
+                                    <li>Bean Validation</li>
+                                    <li>エラーハンドリング</li>
+                                    <li>RESTful API設計</li>
+                                    <li>Controller・Service・Repository連携</li>
+                                </ul>
+                                
+                                <h4 class="text-lg font-semibold mt-5 mb-3">実装演習</h4>
+                                <p class="mb-4">ブログアプリケーションの記事投稿・編集機能を実装します。フォームバリデーション、エラーハンドリング、そして記事のCRUD操作用のRESTful APIを作成します。</p>
+                                
+                                <a href="../day/day49.html" class="btn btn-primary mt-4 w-full">詳細を見る</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="day-card">
+                    <div class="day-header">
+                        <h3>Day 50: テスト・品質管理</h3>
+                    </div>
+                    <div class="day-content">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="md:col-span-2">
+                                <h4 class="text-lg font-semibold mb-3">学習目標</h4>
+                                <p class="mb-4">JUnitを使用した単体テスト、統合テスト、モックオブジェクトなど、テスト駆動開発と品質管理の手法を習得する</p>
+                                
+                                <h4 class="text-lg font-semibold mt-5 mb-3">タイムスケジュール</h4>
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full border-collapse">
+                                        <thead>
+                                            <tr class="bg-gray-100">
+                                                <th class="py-2 px-4 border">時間</th>
+                                                <th class="py-2 px-4 border">内容</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="py-2 px-4 border">10:00-10:15</td>
+                                                <td class="py-2 px-4 border">オリエンテーション・前日の復習</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">10:15-11:00</td>
+                                                <td class="py-2 px-4 border">講義: テスト駆動開発の概念とJUnit 5の基礎</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">11:00-11:45</td>
+                                                <td class="py-2 px-4 border">演習: 単体テストの作成</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">11:45-12:45</td>
+                                                <td class="py-2 px-4 border">昼休憩</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">12:45-13:30</td>
+                                                <td class="py-2 px-4 border">講義: Mockitoによるモックとスタブ</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">13:30-14:15</td>
+                                                <td class="py-2 px-4 border">演習: モックを使ったテストの実装</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">14:15-15:00</td>
+                                                <td class="py-2 px-4 border">講義: Spring Bootアプリケーションの統合テスト</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:00-15:10</td>
+                                                <td class="py-2 px-4 border">午後休憩</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:10-15:55</td>
+                                                <td class="py-2 px-4 border">演習: コントローラとリポジトリの統合テスト</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:55-17:00</td>
+                                                <td class="py-2 px-4 border">理解度チェック: テストの基本</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">17:00-17:45</td>
+                                                <td class="py-2 px-4 border">振り返り・質疑応答</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-lg font-semibold mb-3">学習ポイント</h4>
+                                <ul class="list-disc pl-6 mb-6">
+                                    <li>JUnit 5のアノテーション</li>
+                                    <li>テスト駆動開発（TDD）</li>
+                                    <li>モックとスタブ</li>
+                                    <li>Spring Bootテスト</li>
+                                    <li>テストカバレッジ</li>
+                                </ul>
+                                
+                                <h4 class="text-lg font-semibold mt-5 mb-3">実装演習</h4>
+                                <p class="mb-4">ブログアプリケーションのサービス層とコントローラのテストを実装します。モックを使用した単体テストと、MockMvcを使用した統合テストを作成します。</p>
+                                
+                                <a href="../day/day50.html" class="btn btn-primary mt-4 w-full">詳細を見る</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="day-card">
+                    <div class="day-header">
+                        <h3>Day 51: フロントエンド開発とバックエンド連携</h3>
+                    </div>
+                    <div class="day-content">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="md:col-span-2">
+                                <h4 class="text-lg font-semibold mb-3">学習目標</h4>
+                                <p class="mb-4">JavaScriptを使用した非同期通信とReact入門を通じて、フロントエンドとバックエンドの連携方法を習得する</p>
+                                
+                                <h4 class="text-lg font-semibold mt-5 mb-3">タイムスケジュール</h4>
+                                <div class="overflow-x-auto">
+                                    <table class="min-w-full border-collapse">
+                                        <thead>
+                                            <tr class="bg-gray-100">
+                                                <th class="py-2 px-4 border">時間</th>
+                                                <th class="py-2 px-4 border">内容</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="py-2 px-4 border">10:00-10:15</td>
+                                                <td class="py-2 px-4 border">オリエンテーション・前日の復習</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">10:15-11:00</td>
+                                                <td class="py-2 px-4 border">講義: JavaScriptとFetch APIの基礎</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">11:00-11:45</td>
+                                                <td class="py-2 px-4 border">演習: REST APIとの非同期通信実装</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">11:45-12:45</td>
+                                                <td class="py-2 px-4 border">昼休憩</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">12:45-13:30</td>
+                                                <td class="py-2 px-4 border">講義: CORSとセキュリティ</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">13:30-14:15</td>
+                                                <td class="py-2 px-4 border">演習: CORS設定とセキュアな通信</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">14:15-15:00</td>
+                                                <td class="py-2 px-4 border">講義: React入門とSpring Bootとの連携</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:00-15:10</td>
+                                                <td class="py-2 px-4 border">午後休憩</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:10-15:55</td>
+                                                <td class="py-2 px-4 border">演習: 簡単なReactコンポーネント作成</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">15:55-17:00</td>
+                                                <td class="py-2 px-4 border">理解度チェック: フロントエンド連携</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-2 px-4 border">17:00-17:45</td>
+                                                <td class="py-2 px-4 border">振り返り・質疑応答</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-lg font-semibold mb-3">学習ポイント</h4>
+                                <ul class="list-disc pl-6 mb-6">
+                                    <li>Fetch API</li>
+                                    <li>Promise, async/await</li>
+                                    <li>CORS設定</li>
+                                    <li>Reactの基本概念</li>
+                                    <li>JWT認証</li>
+                                </ul>
+                                
+                                <h4 class="text-lg font-semibold mt-5 mb-3">実装演習</h4>
+                                <p class="mb-4">ブログアプリケーションのフロントエンド部分を実装します。記事一覧表示、詳細表示、投稿フォームなどをJavaScriptで実装し、Spring BootのREST APIと連携します。</p>
+                                
+                                <a href="../day/day51.html" class="btn btn-primary mt-4 w-full">詳細を見る</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="study-resources">
+            <div class="container">
+                <h2 class="text-2xl font-bold mb-6">学習リソース</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">公式ドキュメント</h3>
+                        <ul class="space-y-2">
+                            <li><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/" target="_blank" class="text-blue-600 hover:underline">Spring Boot リファレンス</a></li>
+                            <li><a href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/" target="_blank" class="text-blue-600 hover:underline">Spring Data JPA リファレンス</a></li>
+                            <li><a href="https://docs.spring.io/spring-security/reference/index.html" target="_blank" class="text-blue-600 hover:underline">Spring Security リファレンス</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">チュートリアル</h3>
+                        <ul class="space-y-2">
+                            <li><a href="https://spring.io/guides/gs/accessing-data-jpa/" target="_blank" class="text-blue-600 hover:underline">Spring Data JPAの使用</a></li>
+                            <li><a href="https://spring.io/guides/gs/securing-web/" target="_blank" class="text-blue-600 hover:underline">Spring Securityの基本</a></li>
+                            <li><a href="https://spring.io/guides/gs/rest-service/" target="_blank" class="text-blue-600 hover:underline">RESTful Webサービス作成</a></li>
+                            <li><a href="https://spring.io/guides/gs/testing-web/" target="_blank" class="text-blue-600 hover:underline">Webアプリケーションのテスト</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-4">サンプルコード</h3>
+                        <ul class="space-y-2">
+                            <li><a href="https://github.com/spring-projects/spring-petclinic" target="_blank" class="text-blue-600 hover:underline">Spring PetClinic</a></li>
+                            <li><a href="https://github.com/spring-projects/spring-data-examples" target="_blank" class="text-blue-600 hover:underline">Spring Data Examples</a></li>
+                            <li><a href="https://github.com/junit-team/junit5-samples" target="_blank" class="text-blue-600 hover:underline">JUnit 5 サンプル</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <a href="../resources/resources.html" class="btn btn-large">すべての学習リソースを見る</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="next-steps">
+            <div class="container">
+                <h2 class="text-2xl font-bold mb-6">次のステップ</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-4">第12週: 総合開発</h3>
+                        <p class="mb-4">第11週で学んだ技術を活用して、実際のWebアプリケーションを開発します。要件定義、設計、実装、テスト、デプロイまでの一連の流れを体験し、実践的なプロジェクト開発スキルを身につけます。</p>
+                        <a href="week12.html" class="btn mt-2">第12週へ進む</a>
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-4">応用コース</h3>
+                        <p class="mb-4">3ヶ月目のカリキュラム修了後、さらに専門性を高めたい方は、React/Next.jsによるフロントエンド応用コースや、Spring Cloud/マイクロサービスのバックエンド応用コースに進むことができます。</p>
+                        <a href="../resources/advanced.html" class="btn mt-2">応用コースを見る</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="pagination">
+            <div class="container">
+                <div class="flex justify-between items-center">
+                    <a href="week10.html" class="btn btn-outline">
+                        <i class="fas fa-arrow-left mr-2"></i> 前の週: バックエンド基礎
+                    </a>
+                    <a href="week12.html" class="btn btn-outline">
+                        次の週: 総合開発 <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>ITエンジニア育成カリキュラム</h2>
+                </div>
+                <div class="footer-links">
+                    <h3>カリキュラム</h3>
+                    <ul>
+                        <li><a href="../month/month1.html">第1ヶ月目: Java Silver</a></li>
+                        <li><a href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                        <li><a href="../month/month3.html">第3ヶ月目: Web開発</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>リソース</h3>
+                    <ul>
+                        <li><a href="../resources/resources.html">学習リソース</a></li>
+                        <li><a href="../resources/faq.html">よくある質問</a></li>
+                        <li><a href="../resources/advanced.html">応用コース</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h3>第3ヶ月目の週</h3>
+                    <ul>
+                        <li><a href="week9.html">第9週: フロントエンド基礎</a></li>
+                        <li><a href="week10.html">第10週: バックエンド基礎</a></li>
+                        <li><a href="week11.html">第11週: Spring Boot開発実践</a></li>
+                        <li><a href="week12.html">第12週: 総合開発</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ITエンジニア育成カリキュラム All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // 週間進捗のローカルストレージ処理
+        document.addEventListener('DOMContentLoaded', function() {
+            // 進捗データの初期化
+            if (!localStorage.getItem('week11Progress')) {
+                localStorage.setItem('week11Progress', '0');
+            }
+            
+            // 日別のチェックボックスを自動生成する関数などを実装できます
+            // 実装例略（ファイルが大きくなりすぎるため）
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDn4Mh9M48a4xhGs6YwvQHeUY%2FlO%2B8wEahHiG3ugpIDwrjLnVjYfaVzD4xtyKey2hN44JQAeD2dskJkzYkNx%2FvwdMlMMPs4BJXJl5tuJvLZKzMbSlfpzlqPu0BaSRT18Ff79M50jGbtq4Cd8JQ%2FWlaJs184dLGWSjkQW4UCKDk%2B%2B4r1c%2By82hj54MaITFBdNDLWyR8MCnQXrHj%2BBsX3a4SqNIsovPP09pA9i6nF4bajXk3dIm1r40peT55Jb5muA34OxXjlfoS8QbiARetT3jVNb4%2FGaTTatBgQJQAXuonYSAzV4TAkfIAZdA7JXFJAUb55iCIYIH4mmsxD6XX%2BohzGQDaUe0WJ0ZT8ax9aWEOKpMaSKzoN0tI%2BvbHpqN%2FTGzTlZJX4wD%2Fn4srTNuAbE1gXP0vxhjkboVI%2FHi%2FZQxa1%2BbtkWc1FcPTbLAiSz2P%2F6xqNQ53Hn9TNNkQjri8G57bruxHbzOoa2mmvt56YfCLTWb";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDn4Mh9M48a4xhGs6YwvQHeUY/lO+8wEahHiG3ugpIDwrjLnVjYfaVzD4xtyKey2hN44JQAeD2dskJkzYkNx/vwdMlMMPs4BJXJl5tuJvLZKzMbSlfpzlqPu0BaSRT18Ff79M50jGbtq4Cd8JQ/WlaJs184dLGWSjkQW4UCKDk++4r1c+y82hj54MaITFBdNDLWyR8MCnQXrHj+BsX3a4SqNIsovPP09pA9i6nF4bajXk3dIm1r40peT55Jb5muA34OxXjlfoS8QbiARetT3jVNb4/GaTTatBgQJQAXuonYSAzV4TAkfIAZdA7JXFJAUb55iCIYIH4mmsxD6XX+ohzGQDaUe0WJ0ZT8ax9aWEOKpMaSKzoN0tI+vbHpqN/TGzTlZJX4wD/n4srTNuAbE1gXP0vxhjkboVI/Hi/ZQxa1+btkWc1FcPTbLAiSz2P/6xqNQ53Hn9TNNkQjri8G57bruxHbzOoa2mmvt56YfCLTWb";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

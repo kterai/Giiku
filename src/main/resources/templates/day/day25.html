@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 25: ネットワーク応用（ルータ、スイッチ、クラウド、IoTの基礎）| ITエンジニア育成カリキュラム</title>
+    <link rel="stylesheet" href="../css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/lib/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
+            line-height: 1.6;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+        }
+        
+        .breadcrumb {
+            background-color: transparent;
+            padding: 0.75rem 0;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, #0056b3 0%, #007bff 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .section-title {
+            border-left: 4px solid #007bff;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .content-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .schedule-item {
+            border-left: 3px solid #007bff;
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .time-label {
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+        
+        .badge-custom {
+            background-color: #17a2b8;
+            color: white;
+            font-weight: normal;
+            padding: 0.5em 0.7em;
+            border-radius: 5px;
+        }
+        
+        .next-step-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 5px solid #28a745;
+        }
+        
+        .feedback-form {
+            background-color: #f1f8ff;
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        
+        footer {
+            background-color: #343a40;
+            color: #f8f9fa;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-logo img {
+            height: 50px;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links h5 {
+            color: white;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links ul li a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* レスポンシブ対応 */
+        @media (max-width: 767.98px) {
+            .page-header {
+                padding: 1.5rem 0;
+            }
+            
+            .content-card {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+        }
+        
+        /* 印刷用スタイル */
+         {
+            .no-print {
+                display: none;
+            }
+            
+            body {
+                font-size: 12pt;
+            }
+            
+            .content-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            footer {
+                background-color: white;
+                color: black;
+            }
+            
+            a {
+                text-decoration: none;
+                color: black;
+            }
+            
+            .footer-links ul li a {
+                color: black;
+            }
+        }
+        
+        .network-diagram {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .device-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .device-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .protocol-badge {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin: 2px;
+        }
+        
+        .technology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <script defer src="../js/day-navigation.js"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <img src="../images/logo/apsa_logo.png" alt="APSA Logo">
+                ITエンジニア育成カリキュラム
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="monthDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="monthDropdown">
+                            <li><a class="dropdown-item" href="../month/month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="../month/month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="weekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="weekDropdown">
+                            <li><a class="dropdown-item" href="../week/week5.html">第5週: コンピュータシステム</a></li>
+                            <li><a class="dropdown-item" href="../week/week6.html">第6週: ネットワーク・データベース</a></li>
+                            <li><a class="dropdown-item" href="../week/week7.html">第7週: アルゴリズム・セキュリティ</a></li>
+                            <li><a class="dropdown-item" href="../week/week8.html">第8週: ストラテジ系・総合対策</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../resources/resources.html">学習リソース</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../resources/faq.html">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../index.html">ホーム</a></li>
+                <li class="breadcrumb-item"><a href="../month/month2.html">第2ヶ月目: 基本情報</a></li>
+                <li class="breadcrumb-item"><a href="../week/week6.html">第6週: ネットワーク・データベース</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Day 25</li>
+            </ol>
+        </nav>
+    </div>
+
+    <header class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-network-wired"></i> Day 25: ネットワーク応用（ルータ、スイッチ、クラウド、IoTの基礎）</h1>
+            <p class="lead">実際のネットワーク構築で使用される機器と最新技術を学習し、現代のネットワークインフラを理解します</p>
+            <div class="mt-3">
+                <span class="badge bg-primary me-2">2ヶ月目</span>
+                <span class="badge bg-success me-2">第6週</span>
+                <span class="badge bg-info me-2">ネットワーク応用</span>
+                <span class="badge bg-warning">応用レベル</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <section>
+                    <h2 class="section-title"><i class="fas fa-bullseye"></i> 学習目標</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><i class="fas fa-router text-primary"></i> ルータとスイッチの機能と役割を理解し、適切な使い分けができる</li>
+                            <li class="list-group-item"><i class="fas fa-route text-success"></i> 各種ルーティングプロトコル（RIP、OSPF、BGP）の特徴と動作原理を説明できる</li>
+                            <li class="list-group-item"><i class="fas fa-layer-group text-info"></i> VLAN、NAT/NAPT、ファイアウォールの概念と実装方法を理解する</li>
+                            <li class="list-group-item"><i class="fas fa-wifi text-warning"></i> 無線LANの規格とセキュリティ対策を習得する</li>
+                            <li class="list-group-item"><i class="fas fa-cloud text-primary"></i> クラウドネットワークとSDNの基本概念を理解する</li>
+                            <li class="list-group-item"><i class="fas fa-microchip text-danger"></i> IoT・エッジコンピューティングのネットワーク要件を把握する</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title"><i class="fas fa-check-circle"></i> 達成基準</h2>
+                    <div class="content-card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ルータとスイッチの違いを技術的に説明し、適切な使用場面を提示できる</li>
+                            <li class="list-group-item">RIP、OSPF、BGPの特徴を比較し、ネットワーク規模に応じた選択理由を説明できる</li>
+                            <li class="list-group-item">VLANによるネットワーク分割設計とNAT設定を実践できる</li>
+                            <li class="list-group-item">無線LANのセキュリティリスクを理解し、適切な対策を講じることができる</li>
+                            <li class="list-group-item">クラウドネットワークの基本構成と利点を説明できる</li>
+                            <li class="list-group-item">IoTネットワークの要件と課題を理解し、基本設計を行うことができる</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="section-title"><i class="fas fa-clock"></i> 詳細スケジュール</h2>
+                    <div class="content-card">
+                        <div class="accordion" id="scheduleAccordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="time-label">10:00-10:15</div> <div class="ms-3">オリエンテーション・前日復習</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        前日学習したネットワーク基礎（OSI参照モデル、TCP/IP、サブネット計算）の復習と本日の学習内容の概要説明を行います。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="fas fa-info-circle"></i> 復習クイズでネットワーク基礎知識の定着を確認
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        <div class="time-label">10:15-11:00</div> <div class="ms-3">ネットワーク機器の基礎</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ルータ、スイッチ、ハブ、アクセスポイントなどのネットワーク機器の役割と動作原理について学習します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="fas fa-chalkboard-teacher"></i> 講義
+                                        </div>
+                                        <ul class="mt-2">
+                                            <li>レイヤー2スイッチとレイヤー3スイッチの違い</li>
+                                            <li>ルータの基本機能（パケット転送、ルーティングテーブル）</li>
+                                            <li>無線アクセスポイントの役割と設定</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingThree">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        <div class="time-label">11:00-11:45</div> <div class="ms-3">ネットワーク機器実習</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        シミュレータを使用してルータとスイッチの基本設定を実践します。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="fas fa-laptop-code"></i> 実習
+                                        </div>
+                                        <ul class="mt-2">
+                                            <li>Packet Tracerを使用したネットワーク構築</li>
+                                            <li>ルータの基本設定とルーティングテーブル確認</li>
+                                            <li>スイッチのVLAN設定演習</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFour">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                        <div class="time-label">11:45-12:45</div> <div class="ms-3">昼休憩</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        休憩時間です。昼食をとり、リフレッシュしましょう。午後のルーティングプロトコル学習に備えて、配布資料の予習も推奨します。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingFive">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                        <div class="time-label">12:45-13:30</div> <div class="ms-3">ルーティングプロトコル</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        RIP、OSPF、BGPなどの主要ルーティングプロトコルの特徴と使い分けについて学習します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="fas fa-chalkboard-teacher"></i> 講義
+                                        </div>
+                                        <ul class="mt-2">
+                                            <li>距離ベクトル型とリンクステート型の違い</li>
+                                            <li>RIPの特徴と制限事項</li>
+                                            <li>OSPFのエリア概念とLSDB</li>
+                                            <li>BGPの外部ゲートウェイプロトコルとしての役割</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSix">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                                        <div class="time-label">13:30-14:15</div> <div class="ms-3">VLAN・NAT・ファイアウォール</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        ネットワーク分割とセキュリティに関する重要技術について学習します。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="fas fa-laptop-code"></i> 演習
+                                        </div>
+                                        <ul class="mt-2">
+                                            <li>VLAN（Virtual LAN）の概念と実装</li>
+                                            <li>NAT/NAPTによるプライベートアドレス変換</li>
+                                            <li>ファイアウォールの種類と設定</li>
+                                            <li>DMZ構成とセキュリティポリシー</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingSeven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                                        <div class="time-label">14:15-15:00</div> <div class="ms-3">無線LANとセキュリティ</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseSeven" class="accordion-collapse collapse" aria-labelledby="headingSeven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        無線LANの規格、設定、セキュリティ対策について学習します。
+                                        <div class="alert alert-info mt-2">
+                                            <i class="fas fa-chalkboard-teacher"></i> 講義
+                                        </div>
+                                        <ul class="mt-2">
+                                            <li>IEEE 802.11規格の変遷（a/b/g/n/ac/ax）</li>
+                                            <li>WEP、WPA、WPA2、WPA3のセキュリティ比較</li>
+                                            <li>無線LANの脆弱性と対策</li>
+                                            <li>企業向け無線LAN設計のベストプラクティス</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEight">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                                        <div class="time-label">15:00-15:10</div> <div class="ms-3">午後休憩</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseEight" class="accordion-collapse collapse" aria-labelledby="headingEight" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        短い休憩時間です。リフレッシュして、最新技術（クラウド・IoT）の学習に備えましょう。
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingNine">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                                        <div class="time-label">15:10-15:55</div> <div class="ms-3">クラウドネットワーク・SDN・IoT基礎</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseNine" class="accordion-collapse collapse" aria-labelledby="headingNine" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        現代のネットワーク技術トレンドについて学習します。
+                                        <div class="alert alert-success mt-2">
+                                            <i class="fas fa-laptop-code"></i> 演習
+                                        </div>
+                                        <ul class="mt-2">
+                                            <li>クラウドネットワークの基本概念（VPC、サブネット）</li>
+                                            <li>SDN（Software Defined Network）の仕組み</li>
+                                            <li>IoTネットワークのプロトコル（MQTT、CoAP）</li>
+                                            <li>エッジコンピューティングとネットワーク要件</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTen">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                                        <div class="time-label">15:55-17:00</div> <div class="ms-3">理解度チェック</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseTen" class="accordion-collapse collapse" aria-labelledby="headingTen" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        本日学習したネットワーク応用技術の理解度を確認するテストを実施します。
+                                        <div class="alert alert-warning mt-2">
+                                            <i class="fas fa-clipboard-check"></i> テスト
+                                        </div>
+                                        <ul class="mt-2">
+                                            <li>ネットワーク機器の役割と選択（選択問題）</li>
+                                            <li>ルーティングプロトコルの比較（記述問題）</li>
+                                            <li>VLAN設計シナリオ（実習問題）</li>
+                                            <li>無線LANセキュリティ対策（選択問題）</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingEleven">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEleven" aria-expanded="false" aria-controls="collapseEleven">
+                                        <div class="time-label">17:00-17:45</div> <div class="ms-3">振り返り・質疑応答</div>
+                                    </button>
+                                </h2>
+                                <div id="collapseEleven" class="accordion-collapse collapse" aria-labelledby="headingEleven" data-bs-parent="#scheduleAccordion">
+                                    <div class="accordion-body">
+                                        理解度テストの解説と本日の学習内容の振り返りを行います。明日のデータベース基礎学習への準備も行います。
+                                        <ul class="mt-2">
+                                            <li>テスト結果の解説と弱点分析</li>
+                                            <li>ネットワーク応用技術の実務での活用事例</li>
+                                            <li>質疑応答とディスカッション</li>
+                                            <li>明日のデータベース学習の予告</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="theme-details">
+                    <h2 class="section-title"><i class="fas fa-network-wired"></i> テーマ詳細</h2>
+                    
+                    <div class="content-card">
+                        <h3><i class="fas fa-router"></i> ネットワーク機器の理解</h3>
+                        <p>現代のネットワークインフラを支える各種機器の役割と機能を深く理解することで、効率的で安全なネットワーク設計ができるようになります。</p>
+                        
+                        <div class="network-diagram">
+                            <div class="technology-grid">
+                                <div class="device-card">
+                                    <h4><i class="fas fa-router text-primary"></i> ルータ</h4>
+                                    <p><strong>機能:</strong> 異なるネットワーク間のパケット転送</p>
+                                    <p><strong>動作レイヤー:</strong> レイヤー3（ネットワーク層）</p>
+                                    <p><strong>主要機能:</strong></p>
+                                    <ul>
+                                        <li>パケットのルーティング</li>
+                                        <li>ルーティングテーブル管理</li>
+                                        <li>NAT/NAPT処理</li>
+                                        <li>ファイアウォール機能</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="device-card">
+                                    <h4><i class="fas fa-network-wired text-success"></i> スイッチ</h4>
+                                    <p><strong>機能:</strong> 同一ネットワーク内でのフレーム転送</p>
+                                    <p><strong>動作レイヤー:</strong> レイヤー2（データリンク層）</p>
+                                    <p><strong>主要機能:</strong></p>
+                                    <ul>
+                                        <li>MACアドレステーブル学習</li>
+                                        <li>VLAN機能</li>
+                                        <li>STP（Spanning Tree Protocol）</li>
+                                        <li>PoE（Power over Ethernet）</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="device-card">
+                                    <h4><i class="fas fa-wifi text-info"></i> 無線アクセスポイント</h4>
+                                    <p><strong>機能:</strong> 有線・無線ネットワーク変換</p>
+                                    <p><strong>動作レイヤー:</strong> レイヤー1-2</p>
+                                    <p><strong>主要機能:</strong></p>
+                                    <ul>
+                                        <li>無線信号の送受信</li>
+                                        <li>セキュリティ認証</li>
+                                        <li>QoS制御</li>
+                                        <li>ローミング対応</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header">
+                                <h4 class="mb-0"><i class="fas fa-route"></i> ルーティングプロトコル</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h5>RIP（Routing Information Protocol）</h5>
+                                        <span class="protocol-badge">距離ベクトル型</span>
+                                        <ul class="mt-2">
+                                            <li>ホップ数による経路選択</li>
+                                            <li>最大15ホップの制限</li>
+                                            <li>30秒間隔での更新</li>
+                                            <li>小規模ネットワーク向け</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5>OSPF（Open Shortest Path First）</h5>
+                                        <span class="protocol-badge">リンクステート型</span>
+                                        <ul class="mt-2">
+                                            <li>コストベースの経路選択</li>
+                                            <li>エリア分割による階層設計</li>
+                                            <li>高速なコンバージェンス</li>
+                                            <li>大規模ネットワーク対応</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5>BGP（Border Gateway Protocol）</h5>
+                                        <span class="protocol-badge">パスベクトル型</span>
+                                        <ul class="mt-2">
+                                            <li>AS間ルーティング</li>
+                                            <li>ポリシーベース制御</li>
+                                            <li>インターネット標準</li>
+                                            <li>ISP間接続用</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header">
+                                <h4 class="mb-0"><i class="fas fa-layer-group"></i> ネットワーク仮想化技術</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5><i class="fas fa-project-diagram"></i> VLAN（Virtual LAN）</h5>
+                                        <p>物理的に異なる場所にあるデバイスを論理的に同一ネットワークにグループ化する技術です。</p>
+                                        <ul>
+                                            <li><strong>アクセスポート:</strong> 単一VLANに属する</li>
+                                            <li><strong>トランクポート:</strong> 複数VLANのタグ付きフレームを転送</li>
+                                            <li><strong>VLAN ID:</strong> 1-4094の範囲で設定</li>
+                                            <li><strong>利点:</strong> セキュリティ向上、ブロードキャスト制御</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5><i class="fas fa-exchange-alt"></i> NAT/NAPT</h5>
+                                        <p>プライベートIPアドレスとグローバルIPアドレスを変換する技術です。</p>
+                                        <ul>
+                                            <li><strong>NAT:</strong> 1対1のアドレス変換</li>
+                                            <li><strong>NAPT:</strong> ポート番号も含めた変換</li>
+                                            <li><strong>静的NAT:</strong> 固定的なアドレス対応</li>
+                                            <li><strong>動的NAT:</strong> プールからの動的割り当て</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-3 mb-3">
+                            <div class="card-header">
+                                <h4 class="mb-0"><i class="fas fa-cloud"></i> 最新ネットワーク技術</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h5><i class="fas fa-cloud-upload-alt"></i> クラウドネットワーク</h5>
+                                        <ul>
+                                            <li>VPC（Virtual Private Cloud）</li>
+                                            <li>サブネット分割</li>
+                                            <li>セキュリティグループ</li>
+                                            <li>ロードバランサー</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5><i class="fas fa-cogs"></i> SDN</h5>
+                                        <ul>
+                                            <li>コントローラー集中制御</li>
+                                            <li>OpenFlowプロトコル</li>
+                                            <li>ネットワーク仮想化</li>
+                                            <li>プログラマブル制御</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h5><i class="fas fa-microchip"></i> IoT・エッジ</h5>
+                                        <ul>
+                                            <li>MQTT、CoAPプロトコル</li>
+                                            <li>低消費電力通信</li>
+                                            <li>エッジコンピューティング</li>
+                                            <li>5G・LPWANとの連携</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="resources">
+                    <h2 class="section-title"><i class="fas fa-books"></i> 使用教材・リソース</h2>
+                    <div class="content-card">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fas fa-book text-primary"></i> 主要教材
+                                        </h5>
+                                        <ul class="card-text">
+                                            <li>基本情報技術者試験対策テキスト</li>
+                                            <li>ネットワーク技術解説書</li>
+                                            <li>Cisco CCNA Study Guide</li>
+                                            <li>ルーティング・プロトコル詳解</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fas fa-desktop text-success"></i> シミュレータ
+                                        </h5>
+                                        <ul class="card-text">
+                                            <li>Cisco Packet Tracer</li>
+                                            <li>GNS3</li>
+                                            <li>EVE-NG（オンライン）</li>
+                                            <li>Mininet（SDN用）</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fas fa-globe text-warning"></i> 参考サイト
+                                        </h5>
+                                        <ul class="card-text">
+                                            <li><a href="https://www.cisco.com/c/ja_jp/support/docs/ip/routing-information-protocol-rip/13769-5.html" target="_blank">Cisco RIP設定ガイド</a></li>
+                                            <li><a href="https://network.yamaha.com/" target="_blank">ヤマハネットワーク機器</a></li>
+                                            <li><a href="https://www.infraexpert.com/" target="_blank">ネットワークエンジニアとして</a></li>
+                                            <li><a href="https://www.itpassportsiken.com/" target="_blank">IT資格取得支援サイト</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="comprehension-check">
+                    <h2 class="section-title"><i class="fas fa-clipboard-check"></i> 理解度確認項目</h2>
+                    <div class="content-card">
+                        <div class="mb-4">
+                            <h4><i class="fas fa-star text-warning"></i> 基本レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check1">
+                                        <label class="form-check-label" for="check1">
+                                            ルータとスイッチの基本的な違いを説明できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check2">
+                                        <label class="form-check-label" for="check2">
+                                            主要なルーティングプロトコル（RIP、OSPF、BGP）の特徴を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check3">
+                                        <label class="form-check-label" for="check3">
+                                            VLANの基本概念と設定方法を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check4">
+                                        <label class="form-check-label" for="check4">
+                                            NAT/NAPTの仕組みと必要性を説明できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check5">
+                                        <label class="form-check-label" for="check5">
+                                            無線LANの主要セキュリティ規格を理解している
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4><i class="fas fa-medal text-primary"></i> 応用レベル</h4>
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check6">
+                                        <label class="form-check-label" for="check6">
+                                            ネットワーク規模に応じたルーティングプロトコルの選択ができる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check7">
+                                        <label class="form-check-label" for="check7">
+                                            VLAN設計とトランクポート設定を実践できる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check8">
+                                        <label class="form-check-label" for="check8">
+                                            ファイアウォールルールの設計と実装ができる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check9">
+                                        <label class="form-check-label" for="check9">
+                                            クラウドネットワーク（VPC）の基本設計ができる
+                                        </label>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="check10">
+                                        <label class="form-check-label" for="check10">
+                                            IoTネットワークの要件分析と基本設計ができる
+                                        </label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="next-steps">
+                    <h2 class="section-title"><i class="fas fa-arrow-right"></i> 次のステップ</h2>
+                    <div class="content-card next-step-card">
+                        <h3><i class="fas fa-database"></i> 次の日: Day 26 - データベース基礎</h3>
+                        <p>明日はデータベースの基礎知識を学習します。関係モデル、ER図によるデータベース設計、正規化理論、SQL基本構文について理解を深めます。</p>
+                        <div class="alert alert-info mt-3">
+                            <h5><i class="fas fa-lightbulb"></i> 予習のポイント</h5>
+                            <ul class="mb-0">
+                                <li>データベースの種類（階層型、ネットワーク型、関係型）</li>
+                                <li>リレーション、タプル、属性などの基本概念</li>
+                                <li>主キー、外部キーの役割</li>
+                                <li>SQLの基本構文（SELECT、INSERT、UPDATE、DELETE）</li>
+                            </ul>
+                        </div>
+                        <a href="day26.html" class="btn btn-success mt-2">
+                            <i class="fas fa-arrow-right"></i> Day 26の詳細を見る
+                        </a>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="section-title"><i class="fas fa-comments"></i> フィードバック</h2>
+                    <div class="content-card feedback-form">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i> このページの内容についてフィードバックをお寄せください。
+                        </div>
+                        <form id="feedback-form" class="mt-3">
+                            <div class="mb-3">
+                                <label for="rating" class="form-label">理解度</label>
+                                <select class="form-select" id="rating">
+                                    <option value="5">とても理解できた</option>
+                                    <option value="4">理解できた</option>
+                                    <option value="3">普通</option>
+                                    <option value="2">あまり理解できなかった</option>
+                                    <option value="1">理解できなかった</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="feedbackText" class="form-label">コメント</label>
+                                <textarea class="form-control" id="feedbackText" rows="3" placeholder="ネットワーク応用技術の学習で特に興味深かった点や、難しかった内容についてコメントをご記入ください"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">送信</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="position-sticky" style="top: 100px;">
+                    <div class="content-card mb-4">
+                        <h3><i class="fas fa-calendar-check"></i> 学習進捗</h3>
+                        <div class="progress-container">
+                            <p>この日の学習進捗</p>
+                            <div class="progress" style="height: 20px;">
+                                <div id="day-progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>
+                            <p class="text-end mt-2" id="progress-text">0/10 完了</p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="progressChart" style="height: 200px;"></canvas>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button id="resetProgress" class="btn btn-outline-warning btn-sm">
+                                <i class="fas fa-redo"></i> 進捗をリセット
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="fas fa-list"></i> 目次</h3>
+                        <nav id="toc" class="nav flex-column">
+                            <a class="nav-link" href="#scheduleAccordion"><i class="fas fa-clock"></i> 詳細スケジュール</a>
+                            <a class="nav-link" href="#theme-details"><i class="fas fa-network-wired"></i> テーマ詳細</a>
+                            <a class="nav-link" href="#resources"><i class="fas fa-books"></i> 使用教材・リソース</a>
+                            <a class="nav-link" href="#comprehension-check"><i class="fas fa-clipboard-check"></i> 理解度確認項目</a>
+                            <a class="nav-link" href="#next-steps"><i class="fas fa-arrow-right"></i> 次のステップ</a>
+                        </nav>
+                    </div>
+                    
+                    <div class="content-card mb-4">
+                        <h3><i class="fas fa-link"></i> 関連リンク</h3>
+                        <div class="list-group">
+                            <a href="../week/week6.html" class="list-group-item list-group-item-action">
+                                <i class="fas fa-calendar-week"></i> 第6週の概要
+                            </a>
+                            <a href="../month/month2.html" class="list-group-item list-group-item-action">
+                                <i class="fas fa-calendar-alt"></i> 第2ヶ月目の概要
+                            </a>
+                            <a href="../resources/resources.html" class="list-group-item list-group-item-action">
+                                <i class="fas fa-book"></i> 学習リソース
+                            </a>
+                            <a href="../resources/faq.html" class="list-group-item list-group-item-action">
+                                <i class="fas fa-question-circle"></i> よくある質問
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="content-card">
+                        <h3><i class="fas fa-arrows-alt-h"></i> ナビゲーション</h3>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a href="day24.html" class="btn btn-outline-primary">
+                                <i class="fas fa-arrow-left"></i> Day 24
+                            </a>
+                            <a href="day26.html" class="btn btn-outline-primary">
+                                Day 26 <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-light mt-5">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <div class="footer-logo">
+                        <img src="../images/logo/apsa_logo.png" alt="APSA Logo">
+                    </div>
+                    <p>ITエンジニア育成カリキュラムは、未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>カリキュラム</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../month/month1.html">第1ヶ月目</a></li>
+                        <li><a href="../month/month2.html">第2ヶ月目</a></li>
+                        <li><a href="../month/month3.html">第3ヶ月目</a></li>
+                        <li><a href="../resources/advanced.html">応用コース</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h5>リソース</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../resources/resources.html">学習リソース</a></li>
+                        <li><a href="../resources/faq.html">よくある質問</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>お問い合わせ</h5>
+                    <p>本カリキュラムについてのお問い合わせは下記までお願いします。</p>
+                    <a href="mailto:info@apsa.co.jp" class="btn btn-outline-light">
+                        <i class="fas fa-envelope"></i> メールでのお問い合わせ
+                    </a>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-light me-3"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="text-light me-3"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="text-light"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // チェックボックスのイベントリスナーを設定
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+            
+            // 進捗リセットボタン
+            document.getElementById('resetProgress').addEventListener('click', function() {
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                updateProgress();
+            });
+            
+            // 初期進捗更新
+            updateProgress();
+            
+            // プログレスチャートの初期化
+            initProgressChart();
+            
+            // フィードバックフォーム
+            document.getElementById('feedback-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('フィードバックを送信しました。ありがとうございます！');
+                this.reset();
+            });
+        });
+        
+        // 進捗を更新する関数
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            const totalChecks = checkboxes.length;
+            let checkedCount = 0;
+            
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    checkedCount++;
+                }
+            });
+            
+            const progressPercent = totalChecks > 0 ? Math.round((checkedCount / totalChecks) * 100) : 0;
+            
+            // プログレスバーを更新
+            const progressBar = document.getElementById('day-progress');
+            progressBar.style.width = `${progressPercent}%`;
+            progressBar.textContent = `${progressPercent}%`;
+            progressBar.setAttribute('aria-valuenow', progressPercent);
+            
+            // プログレステキストを更新
+            document.getElementById('progress-text').textContent = `${checkedCount}/${totalChecks} 完了`;
+            
+            // チャートを更新
+            updateProgressChart(checkedCount, totalChecks - checkedCount);
+            
+            // ローカルストレージに保存
+            localStorage.setItem('day25Progress', JSON.stringify({
+                checked: checkedCount,
+                total: totalChecks,
+                percent: progressPercent
+            }));
+        }
+        
+        // チャートの初期化
+        function initProgressChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            window.progressChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['完了', '未完了'],
+                    datasets: [{
+                        data: [0, 10],
+                        backgroundColor: ['#198754', '#e9ecef'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // チャートの更新
+        function updateProgressChart(completed, remaining) {
+            if (window.progressChart) {
+                window.progressChart.data.datasets[0].data = [completed, remaining];
+                window.progressChart.update();
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDo773FsCiRecI1kCb7GxkHOo2mWtNktks6RQIK9L%2BD0n6He8zYOFn6lcqm5yzgMXeZYJLeMC7fgpheDXm%2Fdmk7lPotfjmJwyzubP%2Fb%2F5ILpUFQ44HdlusyTi9wN0RoSnn9OH35T3OJ%2BSkMPQQHbaAsajuhMbU7hYKHO64XhtstiBNyzWoJ7onBh1AefT11PRrFKilVC6zdf2eO%2FcxsW5iOtgTMNrLsJxxpQ8hvtsgnqV%2FmjDRr8XXQYcEEqtVMpFCdc4MEwTlId4XWmyaGEqGhk%2FcDOBzl3adv2gId3athLziRk2Lzel1oM2AXQlAvQuTir32ac71MgIVKecV63fHwuy%2BJRte9rOkBTDlfijGXJnajk8PSixTipZiaxh8vf8GYYxrv%2FN6auzEE%2BO3PbozFZb7wMX2k8gaHZCur2%2BPB6ccC3lnYFIb7g0qt%2BJ019rm4b7y2aFqGL6SjSNRocxzZF4iPbF6hxuoY67YtxxjPvSCqRylLIKDvz6gith8uRfOQ%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDo773FsCiRecI1kCb7GxkHOo2mWtNktks6RQIK9L+D0n6He8zYOFn6lcqm5yzgMXeZYJLeMC7fgpheDXm/dmk7lPotfjmJwyzubP/b/5ILpUFQ44HdlusyTi9wN0RoSnn9OH35T3OJ+SkMPQQHbaAsajuhMbU7hYKHO64XhtstiBNyzWoJ7onBh1AefT11PRrFKilVC6zdf2eO/cxsW5iOtgTMNrLsJxxpQ8hvtsgnqV/mjDRr8XXQYcEEqtVMpFCdc4MEwTlId4XWmyaGEqGhk/cDOBzl3adv2gId3athLziRk2Lzel1oM2AXQlAvQuTir32ac71MgIVKecV63fHwuy+JRte9rOkBTDlfijGXJnajk8PSixTipZiaxh8vf8GYYxrv/N6auzEE+O3PbozFZb7wMX2k8gaHZCur2+PB6ccC3lnYFIb7g0qt+J019rm4b7y2aFqGL6SjSNRocxzZF4iPbF6hxuoY67YtxxjPvSCqRylLIKDvz6gith8uRfOQ==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

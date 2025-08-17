@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+/* 
+ITエンジニア育成カリキュラム - メインスタイルシート
+作成日: 2025-07-28
+*/
+
+/* --- 基本設定 --- */
+:root {
+  /* 月別カラーコード */
+  --month1-color: #4472C4; /* 青系: Java Silver */
+  --month2-color: #70AD47; /* 緑系: 基本情報 */
+  --month3-color: #ED7D31; /* オレンジ系: Web開発 */
+  --month4-color: #7030A0; /* 紫系: 応用技術 */
+  
+  /* 基本色 */
+  --primary-color: #333333;
+  --secondary-color: #666666;
+  --accent-color: #0078d7;
+  --light-bg: #f9f9f9;
+  --dark-bg: #333333;
+  --border-color: #dddddd;
+  
+  /* フォントサイズ */
+  --base-font-size: 16px;
+  --small-font-size: 14px;
+  --large-font-size: 18px;
+  --xl-font-size: 24px;
+  --xxl-font-size: 32px;
+}
+
+body {
+  font-family: 'Segoe UI', 'Meiryo UI', sans-serif;
+  line-height: 1.6;
+  color: var(--primary-color);
+  background-color: var(--light-bg);
+  margin: 0;
+  padding: 0;
+  font-size: var(--base-font-size);
+}
+
+/* --- レイアウト --- */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.col {
+  flex: 1;
+  padding: 0 15px;
+}
+
+/* --- ヘッダー --- */
+.site-header {
+  background-color: var(--dark-bg);
+  color: #ffffff;
+  padding: 15px 0;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.site-header h1 {
+  margin: 0;
+  font-size: var(--xxl-font-size);
+}
+
+.site-header p {
+  margin: 5px 0 0;
+  font-size: var(--small-font-size);
+  opacity: 0.8;
+}
+
+/* --- ナビゲーション --- */
+.main-nav {
+  background-color: var(--accent-color);
+  margin-bottom: 30px;
+}
+
+.main-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.main-nav li {
+  margin: 0;
+}
+
+.main-nav a {
+  display: block;
+  padding: 15px 20px;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* --- パンくずリスト --- */
+.breadcrumb {
+  padding: 10px 0;
+  margin-bottom: 20px;
+  font-size: var(--small-font-size);
+  color: var(--secondary-color);
+}
+
+.breadcrumb a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* --- カード --- */
+.card {
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border-color);
+  font-weight: bold;
+  font-size: var(--large-font-size);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-footer {
+  padding: 15px 20px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--light-bg);
+}
+
+/* --- 月別カラーリング --- */
+.month1 .card-header {
+  background-color: var(--month1-color);
+  color: #ffffff;
+}
+
+.month2 .card-header {
+  background-color: var(--month2-color);
+  color: #ffffff;
+}
+
+.month3 .card-header {
+  background-color: var(--month3-color);
+  color: #ffffff;
+}
+
+.month4 .card-header {
+  background-color: var(--month4-color);
+  color: #ffffff;
+}
+
+.month1-accent {
+  color: var(--month1-color);
+}
+
+.month2-accent {
+  color: var(--month2-color);
+}
+
+.month3-accent {
+  color: var(--month3-color);
+}
+
+.month4-accent {
+  color: var(--month4-color);
+}
+
+/* --- タブ --- */
+.tabs {
+  display: flex;
+  margin-bottom: -1px;
+}
+
+.tab {
+  padding: 10px 20px;
+  border: 1px solid var(--border-color);
+  border-bottom: none;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  border-radius: 4px 4px 0 0;
+  margin-right: 5px;
+}
+
+.tab.active {
+  background-color: #ffffff;
+  border-bottom: 1px solid #ffffff;
+}
+
+.tab-content {
+  display: none;
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* --- タイムテーブル --- */
+.timetable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.timetable th, .timetable td {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.timetable th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+}
+
+.timetable .break {
+  background-color: #f9f3e6;
+}
+
+.timetable .lecture {
+  background-color: #e6f7ff;
+}
+
+.timetable .exercise {
+  background-color: #e6ffe6;
+}
+
+.timetable .check {
+  background-color: #ffe6e6;
+}
+
+.timetable .review {
+  background-color: #f2e6ff;
+}
+
+/* --- リソースリンク --- */
+.resource-links {
+  margin-bottom: 20px;
+}
+
+.resource-links h3 {
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 5px;
+  font-size: var(--large-font-size);
+}
+
+.resource-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.resource-links li {
+  margin-bottom: 10px;
+}
+
+.resource-links a {
+  color: var(--accent-color);
+  text-decoration: none;
+  display: block;
+  padding: 5px 0;
+  border-bottom: 1px dotted #eee;
+}
+
+.resource-links a:hover {
+  text-decoration: underline;
+}
+
+.resource-links .description {
+  font-size: var(--small-font-size);
+  color: var(--secondary-color);
+  margin-top: 2px;
+}
+
+/* --- プログレスバー --- */
+.progress-container {
+  width: 100%;
+  height: 20px;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: var(--accent-color);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+  text-align: center;
+  line-height: 20px;
+  color: white;
+  font-size: 12px;
+}
+
+/* --- アラート --- */
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+/* --- フッター --- */
+.site-footer {
+  background-color: var(--dark-bg);
+  color: #ffffff;
+  padding: 30px 0;
+  margin-top: 50px;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* --- レスポンシブデザイン --- */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+  
+  .col {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .main-nav ul {
+    flex-direction: column;
+  }
+  
+  .main-nav li {
+    width: 100%;
+  }
+  
+  .tabs {
+    flex-direction: column;
+  }
+  
+  .tab {
+    margin-right: 0;
+    margin-bottom: 2px;
+  }
+}
+
+/* --- プリント用スタイル --- */
+ {
+  .site-header, .main-nav, .site-footer {
+    display: none;
+  }
+  
+  body {
+    font-size: 12pt;
+    background: #ffffff;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .card {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+  
+  .no-print {
+    display: none;
+  }
+  
+  a {
+    color: #000000;
+    text-decoration: none;
+  }
+}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <h1>ITエンジニア育成カリキュラム</h1>
+            <p>基礎から応用まで段階的に学ぶ3ヶ月カリキュラム</p>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="#" class="active">ホーム</a></li>
+                <li><a href="#">1ヶ月目：Java Silver対策</a></li>
+                <li><a href="#">2ヶ月目：基本情報技術者試験対策</a></li>
+                <li><a href="#">3ヶ月目：Web開発実践</a></li>
+                <li><a href="#">応用技術</a></li>
+                <li><a href="#">学習リソース</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="#">ホーム</a>
+        </div>
+
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i> このカリキュラムは、IT未経験者向けの段階的な学習計画です。各月で明確な目標を設定し、基礎から応用へとステップアップします。
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">カリキュラム概要</div>
+                    <div class="card-body">
+                        <h3>対象者</h3>
+                        <p>20代～30代のIT未経験者（Windows・Office基礎知識レベル）</p>
+                        
+                        <h3>カリキュラム期間</h3>
+                        <p>3ヶ月間（18日×3＝54日）+ 応用（オプション）</p>
+                        
+                        <h3>1日のスケジュール</h3>
+                        <table class="timetable">
+                            <tr>
+                                <th>時間</th>
+                                <th>内容</th>
+                            </tr>
+                            <tr class="lecture">
+                                <td>10:00-10:15</td>
+                                <td>オリエンテーション・前日の復習</td>
+                            </tr>
+                            <tr class="lecture">
+                                <td>10:15-11:00</td>
+                                <td>午前講義パート1</td>
+                            </tr>
+                            <tr class="exercise">
+                                <td>11:00-11:45</td>
+                                <td>午前演習パート1</td>
+                            </tr>
+                            <tr class="break">
+                                <td>11:45-12:45</td>
+                                <td>昼休憩</td>
+                            </tr>
+                            <tr class="lecture">
+                                <td>12:45-13:30</td>
+                                <td>午後講義パート1</td>
+                            </tr>
+                            <tr class="exercise">
+                                <td>13:30-14:15</td>
+                                <td>午後演習パート1</td>
+                            </tr>
+                            <tr class="lecture">
+                                <td>14:15-15:00</td>
+                                <td>午後講義パート2</td>
+                            </tr>
+                            <tr class="break">
+                                <td>15:00-15:10</td>
+                                <td>午後休憩</td>
+                            </tr>
+                            <tr class="exercise">
+                                <td>15:10-15:55</td>
+                                <td>午後演習パート2</td>
+                            </tr>
+                            <tr class="check">
+                                <td>15:55-17:00</td>
+                                <td>理解度チェック</td>
+                            </tr>
+                            <tr class="review">
+                                <td>17:00-17:45</td>
+                                <td>採点・振り返り・質疑応答</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">カリキュラム進行状況</div>
+                    <div class="card-body">
+                        <div style="height: 300px;">
+                            <canvas id="progressChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col">
+                <div class="card month1">
+                    <div class="card-header">1ヶ月目: Java Silver対策</div>
+                    <div class="card-body">
+                        <h3>目標</h3>
+                        <p>Oracle Certified Professional Java SE 17 Developer資格取得レベルの知識習得</p>
+                        
+                        <h3>週別カリキュラム</h3>
+                        <ul>
+                            <li><a href="#">第1週：Java基礎・基本構文</a></li>
+                            <li><a href="#">第2週：オブジェクト指向プログラミング</a></li>
+                            <li><a href="#">第3週：Java言語応用</a></li>
+                            <li><a href="#">第4週：資格試験総仕上げ</a></li>
+                        </ul>
+                        
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 100%">100%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card month2">
+                    <div class="card-header">2ヶ月目: 基本情報技術者試験対策</div>
+                    <div class="card-body">
+                        <h3>目標</h3>
+                        <p>基本情報技術者試験合格レベルの知識習得</p>
+                        
+                        <h3>週別カリキュラム</h3>
+                        <ul>
+                            <li><a href="#">第5週：テクノロジ系(1) - コンピュータシステム</a></li>
+                            <li><a href="#">第6週：テクノロジ系(2) - ネットワーク・データベース</a></li>
+                            <li><a href="#">第7週：アルゴリズム・セキュリティ・マネジメント</a></li>
+                            <li><a href="#">第8週：ストラテジ系と総合対策</a></li>
+                        </ul>
+                        
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 65%">65%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card month3">
+                    <div class="card-header">3ヶ月目: Webアプリケーション開発</div>
+                    <div class="card-body">
+                        <h3>目標</h3>
+                        <p>実用的なWebアプリケーション開発スキル習得</p>
+                        
+                        <h3>週別カリキュラム</h3>
+                        <ul>
+                            <li><a href="#">第9週：フロントエンド基礎</a></li>
+                            <li><a href="#">第10週：バックエンド基礎</a></li>
+                            <li><a href="#">第11週：Spring Boot開発実践</a></li>
+                            <li><a href="#">第12週：総合開発プロジェクト</a></li>
+                        </ul>
+                        
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 30%">30%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card month4">
+                    <div class="card-header">4ヶ月目以降: 応用技術</div>
+                    <div class="card-body">
+                        <h3>オプショナル応用コース</h3>
+                        <ul>
+                            <li><a href="#">フロントエンド応用</a> (3-4週間)</li>
+                            <li><a href="#">バックエンド応用</a> (4-5週間)</li>
+                            <li><a href="#">開発プロセス高度化</a> (3-4週間)</li>
+                            <li><a href="#">ポートフォリオ開発</a> (4-6週間)</li>
+                        </ul>
+                        
+                        <div class="progress-container">
+                            <div class="progress-bar" style="width: 10%">10%</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">学習リソース</div>
+            <div class="card-body">
+                <div class="resource-links">
+                    <h3>公式ドキュメント</h3>
+                    <ul>
+                        <li>
+                            <a href="https://docs.oracle.com/en/java/javase/17/">Java SE Documentation</a>
+                            <div class="description">Java SE 17の公式ドキュメント（Oracle）</div>
+                        </li>
+                        <li>
+                            <a href="https://openjdk.org/projects/jdk/17/">OpenJDK Documentation</a>
+                            <div class="description">OpenJDK 17の公式ドキュメント</div>
+                        </li>
+                        <li>
+                            <a href="https://docs.spring.io/spring-framework/docs/current/reference/html/">Spring Framework Documentation</a>
+                            <div class="description">Spring Frameworkの公式ドキュメント</div>
+                        </li>
+                        <li>
+                            <a href="https://www.postgresql.org/docs/">PostgreSQL Documentation</a>
+                            <div class="description">PostgreSQLの公式ドキュメント</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="resource-links">
+                    <h3>オンライン学習プラットフォーム</h3>
+                    <ul>
+                        <li>
+                            <a href="https://www.w3schools.com/">W3Schools</a>
+                            <div class="description">HTML、CSS、JavaScriptなどのWeb技術の基本を学べる</div>
+                        </li>
+                        <li>
+                            <a href="https://developer.mozilla.org/ja/">MDN Web Docs</a>
+                            <div class="description">MozillaによるWeb技術の包括的な解説</div>
+                        </li>
+                        <li>
+                            <a href="https://docs.oracle.com/javase/tutorial/">Java Tutorials</a>
+                            <div class="description">Oracleが提供するJava公式チュートリアル</div>
+                        </li>
+                        <li>
+                            <a href="https://www.freecodecamp.org/">freeCodeCamp</a>
+                            <div class="description">無料でプログラミングを学べるオンラインプラットフォーム</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <a href="#" class="btn btn-primary">すべてのリソースを見る <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 ITエンジニア育成カリキュラム</p>
+        </div>
+    </footer>
+
+    <script>
+        // 進捗グラフの描画
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        const progressChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: [
+                    'Java基本構文',
+                    'オブジェクト指向',
+                    'Java応用',
+                    'アルゴリズム',
+                    'データベース',
+                    'ネットワーク',
+                    'Web基礎',
+                    'Spring Boot',
+                    'プロジェクト管理'
+                ],
+                datasets: [{
+                    label: '習得スキル',
+                    data: [90, 85, 80, 70, 65, 60, 50, 40, 30],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(54, 162, 235, 1)'
+                }]
+            },
+            options: {
+                elements: {
+                    line: {
+                        borderWidth: 3
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDjWQHmsZ4uY2oozraFn%2FzapHcyiQQn7CYlNXZez80YGBmMLbRSwR8gzXJZxPnGYMHgxsjosd291hVX7qCZG0BwGkgPuiGbh2NvuYhVg7Faoe1MwgP8BWCdDZOK0MsWbYyV%2FaNtyCJJkisNjUJjLUjsyTgKaTU7ARF21%2FO0rB8v6k0UtFVXKc1aJmGpAmv2y3Wh7TV0Dr7Y4iGrLInECT%2FNBenucOn%2Fsrie1byM66fYyVg2w%2FRd%2BCz5aHqFOpL0jMIqXLh4ytAkZcEM7qQDm70kXfMQ%2FaarZyPldJF52K0CokeaXPaXhBzRrETTOJPu8tUtW3sZiuSdTOOe1WclmtQvndUFzJAZbQ0dGYzE0rGO1XogdrJDzFe4OX2rhUOSIIKo6COicO8km9BwQaYgyzrH3EcCuxCIEzr7R19BpGDK%2FLJBp2LY%2BHhgQWsqpFVRWwZUwECJMXEeFWLqgAwruQkPq4LY7fSquwvSUELJ9Jp92j";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDjWQHmsZ4uY2oozraFn/zapHcyiQQn7CYlNXZez80YGBmMLbRSwR8gzXJZxPnGYMHgxsjosd291hVX7qCZG0BwGkgPuiGbh2NvuYhVg7Faoe1MwgP8BWCdDZOK0MsWbYyV/aNtyCJJkisNjUJjLUjsyTgKaTU7ARF21/O0rB8v6k0UtFVXKc1aJmGpAmv2y3Wh7TV0Dr7Y4iGrLInECT/NBenucOn/srie1byM66fYyVg2w/Rd+Cz5aHqFOpL0jMIqXLh4ytAkZcEM7qQDm70kXfMQ/aarZyPldJF52K0CokeaXPaXhBzRrETTOJPu8tUtW3sZiuSdTOOe1WclmtQvndUFzJAZbQ0dGYzE0rGO1XogdrJDzFe4OX2rhUOSIIKo6COicO8km9BwQaYgyzrH3EcCuxCIEzr7R19BpGDK/LJBp2LY+HhgQWsqpFVRWwZUwECJMXEeFWLqgAwruQkPq4LY7fSquwvSUELJ9Jp92j";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

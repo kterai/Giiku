@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GammaAIプロンプト一括更新手順</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .code-block {
+            background-color: #f7fafc;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            white-space: pre-wrap;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            font-size: 0.9rem;
+            border-left: 4px solid #4299e1;
+        }
+        .highlight {
+            background-color: #FFFACD;
+            padding: 0 0.3rem;
+        }
+        .step {
+            border-left: 4px solid #4299e1;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 px-4 py-8 max-w-5xl mx-auto">
+    <header class="mb-10">
+        <h1 class="text-3xl font-bold text-center mb-2 text-blue-700">GammaAIプロンプト一括更新手順</h1>
+        <p class="text-center text-gray-600">背景色で文字が見えづらくならないように注意する指示を全てのGammaAIプロンプトに追加する</p>
+        <div class="w-20 h-1 bg-blue-500 mx-auto mt-4"></div>
+    </header>
+
+    <section class="mb-8">
+        <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-info-circle mr-2"></i>更新の目的</h2>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <p class="mb-4">GammaAIで生成されるスライドにおいて、背景色と文字色のコントラストが不十分で視認性が低下するケースが報告されています。この問題に対応するため、すべてのGammaAIプロンプトファイルに「<span class="highlight">背景色で文字が見えづらくならないように注意する</span>」という指示を追加します。</p>
+            <div class="flex bg-blue-50 p-4 rounded-lg">
+                <div class="mr-4 text-blue-500">
+                    <i class="fas fa-lightbulb text-2xl"></i>
+                </div>
+                <div>
+                    <p class="font-semibold">この更新によるメリット:</p>
+                    <ul class="list-disc pl-5 mt-2">
+                        <li>スライドの可読性向上</li>
+                        <li>プロジェクター投影時の視認性確保</li>
+                        <li>色覚多様性への配慮</li>
+                        <li>学習効率の向上</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-8">
+        <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-file-alt mr-2"></i>更新対象ファイル</h2>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <p class="mb-4">以下のファイルすべてに更新が必要です：</p>
+            <ul class="space-y-2 mb-6">
+                <li class="flex items-center"><i class="fas fa-file-code text-blue-500 mr-2"></i> Day1_スライドプロンプトテンプレート.html</li>
+                <li class="flex items-center"><i class="fas fa-file-code text-blue-500 mr-2"></i> Day2_スライドプロンプトテンプレート.html</li>
+                <li class="flex items-center"><i class="fas fa-file-code text-blue-500 mr-2"></i> Day3_スライドプロンプトテンプレート.html</li>
+                <li class="flex items-center"><i class="fas fa-file-code text-blue-500 mr-2"></i> Day4_スライドプロンプトテンプレート.html</li>
+                <li class="flex items-center"><i class="fas fa-file-code text-blue-500 mr-2"></i> Day5_スライドプロンプトテンプレート.html</li>
+                <li class="flex items-center"><i class="fas fa-file-code text-blue-500 mr-2"></i> Day6_GammaAIプロンプト.html</li>
+                <li class="flex items-center"><i class="fas fa-file-code text-blue-500 mr-2"></i> Day7_GammaAIプロンプト.html</li>
+                <li class="flex items-center"><i class="fas fa-file-code text-blue-500 mr-2"></i> Day8_GammaAIプロンプト.html</li>
+                <li class="flex items-center"><i class="fas fa-file-code text-blue-500 mr-2"></i> Day9_GammaAIプロンプト.html</li>
+                <li class="flex items-center"><i class="fas fa-file-code text-blue-500 mr-2"></i> Day10_GammaAIプロンプト.html</li>
+            </ul>
+            <p class="text-sm text-gray-600">保存場所: /ITエンジニア育成カリキュラム/スライド作成用テンプレート/</p>
+        </div>
+    </section>
+
+    <section class="mb-8">
+        <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-edit mr-2"></i>更新内容</h2>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <p class="mb-4">各ファイルの「スライド全体の設定」セクションに以下の指示を追加します：</p>
+            <div class="code-block">- 背景色で文字が見えづらくならないように注意する</div>
+            
+            <div class="mt-6">
+                <p class="font-semibold mb-2">更新前：</p>
+                <div class="code-block">## スライド全体の設定
+- プロフェッショナルな教育用テンプレートを使用（青と白のカラースキームが望ましい）
+- 各スライドには明確な見出しをつける
+- すべてのスライドに下部にスライド番号を表示
+- フォントは読みやすく明確なものを選択
+- 必要に応じて関連する画像やアイコン、図解を追加</div>
+            </div>
+            
+            <div class="mt-6">
+                <p class="font-semibold mb-2">更新後：</p>
+                <div class="code-block">## スライド全体の設定
+- プロフェッショナルな教育用テンプレートを使用（青と白のカラースキームが望ましい）
+- 各スライドには明確な見出しをつける
+- すべてのスライドに下部にスライド番号を表示
+- フォントは読みやすく明確なものを選択
+- 必要に応じて関連する画像やアイコン、図解を追加
+- <span class="highlight">背景色で文字が見えづらくならないように注意する</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-8">
+        <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-tasks mr-2"></i>更新手順</h2>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <ol class="space-y-6">
+                <li class="step">
+                    <h3 class="font-bold text-lg">Step 1: ファイルを開く</h3>
+                    <p>更新対象の各ファイルを順番に開きます。</p>
+                </li>
+                
+                <li class="step">
+                    <h3 class="font-bold text-lg">Step 2: 「スライド全体の設定」セクションを探す</h3>
+                    <p>各ファイル内の「スライド全体の設定」セクションを見つけます。これは通常、プロンプトの先頭近くにあります。</p>
+                </li>
+                
+                <li class="step">
+                    <h3 class="font-bold text-lg">Step 3: 指示を追加</h3>
+                    <p>セクション内の最後の箇条書き項目の後に、次の行を追加します：</p>
+                    <div class="code-block">- 背景色で文字が見えづらくならないように注意する</div>
+                </li>
+                
+                <li class="step">
+                    <h3 class="font-bold text-lg">Step 4: ファイルを保存</h3>
+                    <p>変更を加えたファイルを元のファイル名で保存します。</p>
+                </li>
+                
+                <li class="step">
+                    <h3 class="font-bold text-lg">Step 5: 確認</h3>
+                    <p>ファイルを開いて、追加した指示が正しく表示されていることを確認します。</p>
+                </li>
+            </ol>
+            
+            <div class="mt-8 bg-yellow-50 p-4 rounded-lg">
+                <div class="flex">
+                    <div class="mr-4 text-yellow-700">
+                        <i class="fas fa-exclamation-triangle text-2xl"></i>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-yellow-700">注意事項:</p>
+                        <ul class="list-disc pl-5 mt-2 text-yellow-800">
+                            <li>元のファイルの形式と構造を維持してください</li>
+                            <li>追加するのは指示のみで、他の部分は変更しないでください</li>
+                            <li>すべてのファイルに同じ指示を追加してください</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="mb-8">
+        <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-check-circle mr-2"></i>完了後の確認事項</h2>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <ul class="space-y-3">
+                <li class="flex items-start">
+                    <i class="fas fa-check-square text-green-500 mt-1 mr-2"></i>
+                    <span>すべてのファイル（Day1-10）に指示が追加されていること</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-square text-green-500 mt-1 mr-2"></i>
+                    <span>追加した指示の文言が「背景色で文字が見えづらくならないように注意する」であること</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-square text-green-500 mt-1 mr-2"></i>
+                    <span>各ファイルのその他の内容が変更されていないこと</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-square text-green-500 mt-1 mr-2"></i>
+                    <span>更新後のファイルが正しく保存されていること</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="mt-12 mb-8 border-t-2 border-gray-200 pt-8">
+        <h2 class="text-2xl font-bold text-blue-800 mb-4"><i class="fas fa-cog mr-2"></i>効率的な一括更新方法</h2>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <p class="mb-4">多数のファイルを効率的に更新するために、以下の手順も検討できます：</p>
+            
+            <ol class="space-y-4">
+                <li class="flex items-start">
+                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">1</span>
+                    <div>
+                        <p class="font-semibold">更新テンプレートの作成</p>
+                        <p class="text-gray-600">すべてのファイルに適用する共通の変更内容をテンプレート化します。</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">2</span>
+                    <div>
+                        <p class="font-semibold">旧ファイルのバックアップ</p>
+                        <p class="text-gray-600">更新前のファイルを別フォルダにバックアップします。</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">3</span>
+                    <div>
+                        <p class="font-semibold">一括更新ツールの利用</p>
+                        <p class="text-gray-600">テキストエディタの置換機能やスクリプトを活用して複数ファイルを一括更新します。</p>
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <span class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">4</span>
+                    <div>
+                        <p class="font-semibold">チェックリストによる確認</p>
+                        <p class="text-gray-600">更新後、すべてのファイルを体系的にチェックします。</p>
+                    </div>
+                </li>
+            </ol>
+        </div>
+    </section>
+
+    <footer class="mt-16 pt-8 border-t border-gray-200 text-center text-gray-600">
+        <p>© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        <p class="mt-2">ITエンジニア育成カリキュラム - GammaAIプロンプト更新マニュアル</p>
+    </footer>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDshP5XE1abXe6wTvXWwm0%2FMsPKEvTcp0JIkUACPP5tfhiPSMd6ZIl%2FYUtEhhXXlfUChpY6acKrSC21Z1DJAjdc96D%2B%2FeSsAUsY1Vf0KLKqEYQiKs731VdMLI0myoTxhGjfOVSalZtN2TyoW1yYtGFV%2BX7PXEFFEhISfck6JqR7T9A7KtrerqkFbGBXasDXCHfec1Hch3CMF7NAWoiwjRBaUFqlhCA%2Bz1RYb%2FtJ3lMte1Cj2xaRvVTaM%2FC%2B6hIgMXD5e7GurUicFBd6vmD4EOhC4d%2FoK6f%2FrsEiJ27U%2BxfLfOY%2FJJuq2KxeD1b0%2FEZqanTc6QGncPYIN8x%2FFfGNAXYAMWDGAlJH9u64qbIHEFrlhIgZZNgWgtdBU6VpyEJ%2FFQSec0SYEYEGiAFQa3ju8Tn4j9or2fgXaaDDWWnknL4%2FRdw2w5txrdB7yUddobwDjGYHlcD1Ethwrdtkn7S03%2BKoHnLjETmYd%2FJmp%2F0%2BEA3FgCXfOMPE7mKDbISv5gdlX7doO5vPx24nLRXvQf%2BVOQaGo%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDshP5XE1abXe6wTvXWwm0/MsPKEvTcp0JIkUACPP5tfhiPSMd6ZIl/YUtEhhXXlfUChpY6acKrSC21Z1DJAjdc96D+/eSsAUsY1Vf0KLKqEYQiKs731VdMLI0myoTxhGjfOVSalZtN2TyoW1yYtGFV+X7PXEFFEhISfck6JqR7T9A7KtrerqkFbGBXasDXCHfec1Hch3CMF7NAWoiwjRBaUFqlhCA+z1RYb/tJ3lMte1Cj2xaRvVTaM/C+6hIgMXD5e7GurUicFBd6vmD4EOhC4d/oK6f/rsEiJ27U+xfLfOY/JJuq2KxeD1b0/EZqanTc6QGncPYIN8x/FfGNAXYAMWDGAlJH9u64qbIHEFrlhIgZZNgWgtdBU6VpyEJ/FQSec0SYEYEGiAFQa3ju8Tn4j9or2fgXaaDDWWnknL4/Rdw2w5txrdB7yUddobwDjGYHlcD1Ethwrdtkn7S03+KoHnLjETmYd/Jmp/0+EA3FgCXfOMPE7mKDbISv5gdlX7doO5vPx24nLRXvQf+VOQaGo=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

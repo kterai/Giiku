@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 40 講義プロンプト: JavaScript基礎・DOM操作・イベント処理</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans leading-relaxed">
+    <div class="min-h-screen py-8">
+        <div class="max-w-4xl mx-auto px-6">
+            <!-- ヘッダー -->
+            <header class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white p-8 rounded-lg shadow-lg mb-8">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-code text-3xl mr-4"></i>
+                    <div>
+                        <h1 class="text-3xl font-bold">JavaScript基礎・DOM操作・イベント処理</h1>
+                        <p class="text-blue-100 mt-2">ITエンジニア育成カリキュラム - Day40 講義プロンプト</p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- プロジェクト概要 -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-project-diagram text-blue-600 mr-3"></i>
+                    プロジェクト名
+                </h2>
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <p class="text-lg font-semibold text-blue-800">
+                        **ITエンジニア育成カリキュラム - Day40: JavaScript基礎構文・DOM操作・イベント処理・非同期処理**
+                    </p>
+                    <p class="text-gray-700 mt-2">
+                        以下の指示に従って、<code class="bg-gray-200 px-2 py-1 rounded">Traini../lecture/lecture40.html</code> を生成してください。
+                    </p>
+                </div>
+            </section>
+
+            <!-- 重要な改善指針 -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-red-600 mb-4 flex items-center">
+                    <i class="fas fa-exclamation-triangle mr-3"></i>
+                    🚨 重要な改善指針
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-green-800 mb-3 flex items-center">
+                            <i class="fas fa-globe mr-2"></i>
+                            🌐 Webアプリケーション開発特化
+                        </h3>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• **実用的なDOM操作**を中心とした解説</li>
+                            <li>• **モダンなイベント処理**パターンの紹介</li>
+                            <li>• **API通信**を意識した非同期処理</li>
+                            <li>• **フォーム処理**の実践的実装方法</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-blue-800 mb-3 flex items-center">
+                            <i class="fas fa-book mr-2"></i>
+                            📚 初心者理解促進重視
+                        </h3>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• **専門用語**は必ず日本語説明を併記</li>
+                            <li>• **なぜそうなるのか**の理由を詳細解説</li>
+                            <li>• **コード例**は段階的に複雑化</li>
+                            <li>• **エラーパターン**と対処法を明示</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-purple-50 p-4 rounded-lg mt-6">
+                    <h3 class="text-lg font-semibold text-purple-800 mb-3 flex items-center">
+                        <i class="fas fa-tools mr-2"></i>
+                        🔧 実践・演習重視
+                    </h3>
+                    <ul class="text-gray-700 space-y-2">
+                        <li>• **段階的なハンズオン**形式で構成</li>
+                        <li>• **実用的なミニプロジェクト**を複数実装</li>
+                        <li>• **デバッグ技法**の実践的指導</li>
+                        <li>• **ベストプラクティス**の具体例提示</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 参照ファイル -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-folder-open text-orange-600 mr-3"></i>
+                    📁 参照ファイル
+                </h2>
+                <ul class="text-gray-700 space-y-2 bg-gray-100 p-4 rounded-lg">
+                    <li>• Traini../day/day40.html</li>
+                    <li>• Traini../lecture/Template_lectureX.html</li>
+                </ul>
+            </section>
+
+            <!-- 学習目標 -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-green-600 mb-4 flex items-center">
+                    <i class="fas fa-target mr-3"></i>
+                    🎯 本日の学習目標
+                </h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <ul class="text-gray-700 space-y-3">
+                            <li>• JavaScript基礎構文（変数宣言・データ型・演算子・制御構文）を**実用レベル**で理解する</li>
+                            <li>• 関数とオブジェクトの高度概念（クロージャ・プロトタイプ・class）を**具体例とともに**マスターする</li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <ul class="text-gray-700 space-y-3">
+                            <li>• DOM操作とイベント処理システムを**実践的なWebアプリ**で活用できる</li>
+                            <li>• 非同期処理（Promise・async/await）を**API通信**で実装できる</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 達成基準 -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-600 mb-4 flex items-center">
+                    <i class="fas fa-check-circle mr-3"></i>
+                    ✅ 達成基準
+                </h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <ul class="text-gray-700 space-y-3">
+                            <li>• JavaScript構文エラーを**自力で特定・修正**できる</li>
+                            <li>• 配列操作メソッド（map・filter・reduce）を**適切に使い分け**できる</li>
+                        </ul>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <ul class="text-gray-700 space-y-3">
+                            <li>• DOM要素の動的な**作成・削除・属性変更**を実装できる</li>
+                            <li>• イベントデリゲーションを使った**効率的なイベント処理**を実装できる</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 講義構成 -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-purple-600 mb-4 flex items-center">
+                    <i class="fas fa-list-alt mr-3"></i>
+                    📋 講義構成（改良版指針）
+                </h2>
+
+                <div class="space-y-6">
+                    <div class="border-l-4 border-red-500 pl-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">1. JavaScript基礎構文の完全理解</h3>
+                        <p class="text-red-600 font-semibold mb-2">❗ 具体例重視：</p>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• 変数宣言（let・const・var）の**実用的な使い分け例**</li>
+                            <li>• データ型の**実際の判定方法**と**型変換パターン**</li>
+                            <li>• 制御構文の**実践的な活用例**（for...of・for...in含む）</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-l-4 border-yellow-500 pl-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">2. 関数とオブジェクトの高度活用</h3>
+                        <p class="text-yellow-600 font-semibold mb-2">⚠️ 必須改良事項：</p>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• **クロージャ：**「なぜ変数が保持されるのか」を図解付きで説明</li>
+                            <li>• **プロトタイプ：**「継承の仕組み」を実コード例で解説</li>
+                            <li>• **class構文：**「ES6以前との違い」を比較表示</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">3. DOM操作の実践マスター</h3>
+                        <p class="text-green-600 font-semibold mb-2">🔧 実践重視：</p>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• **要素取得：**「getElementById vs querySelector」の使い分け</li>
+                            <li>• **動的生成：**「createElement vs innerHTML」の安全性比較</li>
+                            <li>• **スタイル操作：**「style.property vs classList」の適切な選択</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">4. イベント処理の効率化技術</h3>
+                        <p class="text-blue-600 font-semibold mb-2">💡 高度テクニック：</p>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• **イベントデリゲーション：**「なぜ親要素にリスナーを付けるのか」</li>
+                            <li>• **バブリング・キャプチャ：**「イベント伝播の仕組み」を図解</li>
+                            <li>• **パフォーマンス：**「一度だけ実行・パッシブリスナー」の活用</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-l-4 border-indigo-500 pl-4">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">5. 非同期処理とAPI通信の実装</h3>
+                        <p class="text-indigo-600 font-semibold mb-2">🌐 実用性重視：</p>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• **Promise：**「コールバック地獄」からの脱却方法</li>
+                            <li>• **async/await：**「同期的な書き方」で非同期処理を記述</li>
+                            <li>• **エラーハンドリング：**「try-catch」による堅牢なAPI通信</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 演習問題・クイズ仕様 -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-orange-600 mb-4 flex items-center">
+                    <i class="fas fa-question-circle mr-3"></i>
+                    📝 演習問題・理解度クイズ（表示仕様）
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-orange-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-orange-800 mb-3">📋 演習問題</h3>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• 問題文：**常に表示**</li>
+                            <li>• 回答例：**「回答例を表示」ボタン**でクリック表示</li>
+                            <li>• 詳細解説を削減しないよう注意</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-purple-800 mb-3">🧠 理解度クイズ</h3>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• 問題・選択肢：**常に表示**</li>
+                            <li>• 正解・解説：**「回答を表示」ボタン**でクリック表示</li>
+                            <li>• JavaScript showAnswer()関数を実装</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 専門用語説明強化 -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-teal-600 mb-4 flex items-center">
+                    <i class="fas fa-book-open mr-3"></i>
+                    📚 専門用語の説明強化指針
+                </h2>
+
+                <div class="space-y-4">
+                    <div class="bg-teal-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-teal-800 mb-2">1. 初出時の詳細説明</h3>
+                        <p class="text-gray-700">
+                            <strong>例：</strong>「DOM（Document Object Model - HTMLの構造をJavaScriptで操作するための仕組み）では...」
+                        </p>
+                    </div>
+
+                    <div class="bg-teal-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-teal-800 mb-2">2. 日常例・比喩の活用</h3>
+                        <p class="text-gray-700">
+                            <strong>例：</strong>「イベントバブリングは、水中の泡が上に上がるように、子要素から親要素へとイベントが伝わる仕組みです」
+                        </p>
+                    </div>
+
+                    <div class="bg-teal-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-teal-800 mb-2">3. 理由・背景の説明</h3>
+                        <p class="text-gray-700">
+                            <strong>例：</strong>「なぜasync/awaitが登場したかというと、Promiseの.then()チェーンが複雑になりがちだったため」
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 共通仕様 -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-600 mb-4 flex items-center">
+                    <i class="fas fa-cog mr-3"></i>
+                    ⚙️ 共通仕様
+                </h2>
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <ul class="text-gray-700 space-y-2">
+                        <li>• HTML5 / lang="ja" / UTF-8</li>
+                        <li>• <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                        <li>• Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                        <li>• レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                        <li>• コードブロックは <code>&lt;pre&gt;&lt;code class="language-javascript"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                        <li>• 開発環境として Visual Studio Code + Chrome DevTools を記載</li>
+                        <li>• フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 分かりやすさチェックリスト -->
+            <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+                <h2 class="text-2xl font-bold text-green-600 mb-4 flex items-center">
+                    <i class="fas fa-check-double mr-3"></i>
+                    ✅ 分かりやすさチェックリスト
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-green-800 mb-3">📊 コード・図解</h3>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• コード例は段階的に複雑化</li>
+                            <li>• エラーパターンと正しい書き方を併記</li>
+                            <li>• DOM構造は図解で視覚化</li>
+                            <li>• デバッグ方法を具体的に説明</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-green-800 mb-3">📝 文章・説明</h3>
+                        <ul class="text-gray-700 space-y-2">
+                            <li>• 専門用語は必ず日本語説明を併記</li>
+                            <li>• 「なぜ」の理由を必ず説明</li>
+                            <li>• 実用例・比喩を積極活用</li>
+                            <li>• まとめは具体的なメリットを明示</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 出力形式 -->
+            <section class="bg-red-50 border border-red-200 rounded-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-red-600 mb-4 flex items-center">
+                    <i class="fas fa-exclamation-triangle mr-3"></i>
+                    📤 出力形式
+                </h2>
+                <div class="bg-red-100 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold text-red-800 mb-3">⚠️ 重要事項：</h3>
+                    <ul class="text-gray-800 space-y-3">
+                        <li>• **上記の分かりやすさ改善指針をすべて反映**した完成HTMLのみを返す</li>
+                        <li>• 特に「DOM操作とイベント処理」は**必ず実践例付きで詳細解説**すること</li>
+                        <li>• 専門用語の初出時は**日本語説明を併記**すること</li>
+                        <li>• コード例は**段階的に複雑化**させること</li>
+                        <li>• HTMLの見やすさと詳細な解説を**両立**すること</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- フッター -->
+            <footer class="text-center text-gray-600 mt-12 py-6 border-t border-gray-200">
+                <p>© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                <p class="text-sm mt-2">ITエンジニア育成カリキュラム - JavaScript基礎・DOM操作・イベント処理 講義プロンプト</p>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDmBR0mgwZpdNiJz%2FROR5wHH5IpQxxRuM4oNYTXLblqGUDIJMrFvwNQIoxfi7WL1OTZ%2FPXix5t1qBjq4%2FJk4dyWGZuRJUaSPCLr9TWh%2FGSIESCi0NthMKhALAEPW5h27UJiH2lz2rodBnGZlsL%2BlnWogH%2FQPm2ObUiRJH%2FkfmWKwMFYSFJoA1O2TOJe6YtIf7cEWipehrt%2BQ80nY2PeQz292QPys2Kls1fSJEPpjcgqrPytG552%2F6%2BErxmz00rCGi%2Bd3HMDZZTDFTfLAU52wOlnjYjmcgu8U57DlrB7k8Rv7lw%2BWg2NgGDZLW5l%2BKQlWaaU1BcF%2B1CYR3QhKLEwx9yzsi2oWvrp8v1J9TRyy64TTXi1SPrCrzHr3%2FyNwR%2B%2BEUBbGFwm29ZH4ISpHyavYIczpG7aPOJRMaqwAAWW8%2BqusbaKUDeTsUyR%2BOGZi5b8qQvVdgy%2Bh4Vz60MXCFwdeLxfyUWyv%2BDWLXU%2B4TAtTQzfg7MLnnFPl50S2pezIfc1JS%2FKHP722fslrYoR0cYUI46bQ%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDmBR0mgwZpdNiJz/ROR5wHH5IpQxxRuM4oNYTXLblqGUDIJMrFvwNQIoxfi7WL1OTZ/PXix5t1qBjq4/Jk4dyWGZuRJUaSPCLr9TWh/GSIESCi0NthMKhALAEPW5h27UJiH2lz2rodBnGZlsL+lnWogH/QPm2ObUiRJH/kfmWKwMFYSFJoA1O2TOJe6YtIf7cEWipehrt+Q80nY2PeQz292QPys2Kls1fSJEPpjcgqrPytG552/6+Erxmz00rCGi+d3HMDZZTDFTfLAU52wOlnjYjmcgu8U57DlrB7k8Rv7lw+Wg2NgGDZLW5l+KQlWaaU1BcF+1CYR3QhKLEwx9yzsi2oWvrp8v1J9TRyy64TTXi1SPrCrzHr3/yNwR++EUBbGFwm29ZH4ISpHyavYIczpG7aPOJRMaqwAAWW8+qusbaKUDeTsUyR+OGZi5b8qQvVdgy+h4Vz60MXCFwdeLxfyUWyv+DWLXU+4TAtTQzfg7MLnnFPl50S2pezIfc1JS/KHP722fslrYoR0cYUI46bQ=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

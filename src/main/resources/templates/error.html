@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:replace="~{layout :: layout(~{::body})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エラー</title>
+</head>
+<body>
+<h2>エラーが発生しました</h2>
+<p th:text="${message}">予期しないエラーが発生しました。</p>
+<pre th:if="${stackTrace}" th:text="${stackTrace}"></pre>
+</body>
+</html>

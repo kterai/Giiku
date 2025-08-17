@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 6: クラスとオブジェクト | ITエンジニア育成カリキュラム</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="../js/main.js" defer></script>
+</head>
+<body class="bg-gray-100">
+    <script defer src="../js/day-navigation.js"></script>
+    <header class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold">ITエンジニア育成カリキュラム</h1>
+            <p class="mt-2">未経験からプロフェッショナルへ</p>
+        </div>
+    </header>
+    
+    <nav class="bg-blue-800 text-white p-3">
+        <div class="container mx-auto flex flex-wrap">
+            <a href="../index.html" class="mr-6 hover:text-blue-200">ホーム</a>
+            <a href="../resources/resources.html" class="mr-6 hover:text-blue-200">学習リソース</a>
+            <a href="../resources/faq.html" class="mr-6 hover:text-blue-200">FAQ</a>
+            <a href="../progress_and_planning.html" class="hover:text-blue-200">作業進捗と計画</a>
+        </div>
+    </nav>
+    
+    <main class="container mx-auto p-4 my-8 bg-white shadow-lg rounded-lg">
+        <div class="text-right mb-4">
+            <a href="../lecture/lecture6.html" target="_blank" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded">講義スライドを開く</a>
+        </div>
+        <div class="flex flex-wrap">
+            <!-- サイドナビゲーション -->
+            <div class="w-full md:w-1/4 p-4 bg-gray-50 rounded-lg">
+                <h3 class="text-xl font-bold mb-4 text-blue-800 border-b border-blue-300 pb-2">ナビゲーション</h3>
+                <ul class="space-y-2">
+                    <li><a href="#learning-goals" class="text-blue-600 hover:text-blue-800">学習目標</a></li>
+                    <li><a href="#achievement-criteria" class="text-blue-600 hover:text-blue-800">達成基準</a></li>
+                    <li><a href="#schedule" class="text-blue-600 hover:text-blue-800">詳細スケジュール</a></li>
+                    <li><a href="#theme-details" class="text-blue-600 hover:text-blue-800">テーマ詳細</a></li>
+                    <li><a href="#resources" class="text-blue-600 hover:text-blue-800">使用教材・リソース</a></li>
+                    <li><a href="#comprehension-check" class="text-blue-600 hover:text-blue-800">理解度確認項目</a></li>
+                    <li><a href="#next-steps" class="text-blue-600 hover:text-blue-800">次のステップ</a></li>
+                </ul>
+                
+                <h3 class="text-xl font-bold mb-4 mt-8 text-blue-800 border-b border-blue-300 pb-2">関連リンク</h3>
+                <ul class="space-y-2">
+                    <li><a href="../week/week2.html" class="text-blue-600 hover:text-blue-800">第2週: オブジェクト指向プログラミング</a></li>
+                    <li><a href="day5.html" class="text-blue-600 hover:text-blue-800">Day 5: Java Silver模擬テスト①</a></li>
+                    <li><a href="day7.html" class="text-blue-600 hover:text-blue-800">Day 7: カプセル化と継承</a></li>
+                </ul>
+            </div>
+            
+            <!-- メインコンテンツ -->
+            <div class="w-full md:w-3/4 p-4">
+                <h2 class="text-3xl font-bold mb-6 text-blue-900 border-b border-gray-200 pb-2">Day 6: クラスとオブジェクト</h2>
+                
+                <section id="learning-goals" class="mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-800">学習目標</h3>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>オブジェクト指向プログラミングの基本概念を理解する</li>
+                        <li>クラスの設計と実装方法を習得する</li>
+                        <li>オブジェクトの生成と使用方法をマスターする</li>
+                        <li>インスタンス変数とクラス変数の違いを理解する</li>
+                        <li>コンストラクタの目的と実装方法を学ぶ</li>
+                    </ul>
+                </section>
+                
+                <section id="achievement-criteria" class="mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-800">達成基準</h3>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>独自のクラスを設計・実装できる</li>
+                        <li>コンストラクタを適切に定義し使用できる</li>
+                        <li>staticとnon-staticメンバの違いを説明できる</li>
+                        <li>thisキーワードの適切な使用方法を習得する</li>
+                        <li>オブジェクト間の関連を意識したプログラム設計ができる</li>
+                    </ul>
+                </section>
+                
+                <section id="schedule" class="mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-800">詳細スケジュール</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-2 text-blue-700">10:00-10:15 オリエンテーション・前日復習</h4>
+                        <div class="pl-4 border-l-4 border-blue-200 mb-4">
+                            <p>第1週の振り返りと、今日から始まる第2週のオブジェクト指向プログラミングの概要説明を行います。</p>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>第1週の総括（Java基礎文法の振り返り）</li>
+                                <li>オブジェクト指向プログラミングの重要性</li>
+                                <li>第2週の学習の流れと目標</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-2 text-blue-700">10:15-11:45 講義: クラス・オブジェクトの基本概念</h4>
+                        <div class="pl-4 border-l-4 border-blue-200 mb-4">
+                            <p>オブジェクト指向プログラミングの基礎となるクラスとオブジェクトの概念について学習します。</p>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>オブジェクト指向プログラミングの基本概念</li>
+                                <li>クラスとオブジェクトの関係</li>
+                                <li>クラスの定義方法</li>
+                                <li>フィールド変数の宣言と初期化</li>
+                                <li>メソッドの定義と呼び出し</li>
+                                <li>インスタンス生成の仕組み（new演算子）</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-2 text-blue-700">11:45-12:45 昼休憩</h4>
+                        <div class="pl-4 border-l-4 border-blue-200 mb-4">
+                            <p>休憩時間です。昼食をとり、リフレッシュしましょう。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-2 text-blue-700">12:45-14:15 演習: 基本的なクラス設計と実装</h4>
+                        <div class="pl-4 border-l-4 border-blue-200 mb-4">
+                            <p>午前中に学習した内容を踏まえて、実際にクラスを設計・実装する演習を行います。</p>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>シンプルなクラス設計（例: 学生クラス、商品クラスなど）</li>
+                                <li>フィールド変数とメソッドの適切な設計</li>
+                                <li>メソッド間の連携</li>
+                                <li>クラスの責務と役割の考え方</li>
+                                <li>Pleiadesを使用したJavaプログラミング演習</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-2 text-blue-700">14:15-15:55 講義&演習: static要素とコンストラクタ</h4>
+                        <div class="pl-4 border-l-4 border-blue-200 mb-4">
+                            <p>オブジェクトの初期化とクラスレベルの要素について学び、実践します。</p>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>コンストラクタの役割と定義方法</li>
+                                <li>デフォルトコンストラクタと引数付きコンストラクタ</li>
+                                <li>コンストラクタのオーバーロード</li>
+                                <li>thisキーワードの使い方</li>
+                                <li>staticフィールドとstaticメソッド</li>
+                                <li>インスタンス変数とクラス変数の違いと使い分け</li>
+                                <li>staticイニシャライザとインスタンスイニシャライザ</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-2 text-blue-700">15:55-17:00 理解度チェック</h4>
+                        <div class="pl-4 border-l-4 border-blue-200 mb-4">
+                            <p>今日学習した内容の理解度を確認するための小テストと演習を行います。</p>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>クラスとオブジェクトの基本概念に関する小テスト</li>
+                                <li>コンストラクタとstatic要素の理解度チェック</li>
+                                <li>実践的なクラス設計の課題</li>
+                                <li>Java Silverレベルの問題演習</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-2 text-blue-700">17:00-17:45 振り返り・質疑応答</h4>
+                        <div class="pl-4 border-l-4 border-blue-200 mb-4">
+                            <p>一日の学習内容を振り返り、理解が不十分な点について質問・解説を行います。</p>
+                            <ul class="list-disc pl-6 mt-2">
+                                <li>学習内容の総括</li>
+                                <li>理解度チェックの解説</li>
+                                <li>質疑応答</li>
+                                <li>次回の学習内容の予告（カプセル化と継承）</li>
+                                <li>課題の提示</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="theme-details" class="mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-800">テーマ詳細</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-3 text-blue-700">クラスとオブジェクトの基本概念</h4>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="mb-4">オブジェクト指向プログラミングは、プログラムを「オブジェクト」という単位で構成する手法です。Javaでは、クラスがオブジェクトの設計図（テンプレート）となります。</p>
+                            
+                            <h5 class="text-lg font-semibold text-blue-600 mb-2">クラスとオブジェクトの関係</h5>
+                            <ul class="list-disc pl-6 mb-4">
+                                <li><strong>クラス</strong>：オブジェクトの設計図、テンプレート</li>
+                                <li><strong>オブジェクト</strong>：クラスから生成された実体（インスタンス）</li>
+                                <li>一つのクラスから複数のオブジェクトを生成可能</li>
+                                <li>各オブジェクトは独自の状態（フィールド値）を持つ</li>
+                            </ul>
+                            
+                            <h5 class="text-lg font-semibold text-blue-600 mb-2">クラスの基本構造</h5>
+                            <pre class="bg-gray-800 text-white p-4 rounded overflow-x-auto mb-4">
+public class クラス名 {
+    // フィールド（状態）
+    データ型 フィールド名1;
+    データ型 フィールド名2;
+    
+    // コンストラクタ（初期化）
+    public クラス名() {
+        // 初期化処理
+    }
+    
+    // メソッド（振る舞い）
+    戻り値の型 メソッド名1(引数リスト) {
+        // 処理内容
+    }
+    
+    戻り値の型 メソッド名2(引数リスト) {
+        // 処理内容
+    }
+}
+</pre>
+                            
+                            <h5 class="text-lg font-semibold text-blue-600 mb-2">クラスとオブジェクトの例</h5>
+                            <pre class="bg-gray-800 text-white p-4 rounded overflow-x-auto mb-4">
+// クラスの定義
+public class Student {
+    // フィールド
+    String name;
+    int age;
+    int studentId;
+    
+    // コンストラクタ
+    public Student(String name, int age, int studentId) {
+        this.name = name;
+        this.age = age;
+        this.studentId = studentId;
+    }
+    
+    // メソッド
+    public void displayInfo() {
+        System.out.println("名前: " + name);
+        System.out.println("年齢: " + age);
+        System.out.println("学籍番号: " + studentId);
+    }
+}
+
+// クラスの使用例（メインメソッド内）
+public static void main(String[] args) {
+    // オブジェクトの生成
+    Student student1 = new Student("田中太郎", 18, 1001);
+    Student student2 = new Student("山田花子", 19, 1002);
+    
+    // メソッドの呼び出し
+    student1.displayInfo();
+    student2.displayInfo();
+}
+</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-3 text-blue-700">コンストラクタとオブジェクトの初期化</h4>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="mb-4">コンストラクタはオブジェクト生成時に自動的に呼び出される特殊なメソッドで、オブジェクトの初期化を行います。</p>
+                            
+                            <h5 class="text-lg font-semibold text-blue-600 mb-2">コンストラクタの特徴</h5>
+                            <ul class="list-disc pl-6 mb-4">
+                                <li>クラス名と同じ名前を持つ</li>
+                                <li>戻り値の宣言を持たない（voidも記述しない）</li>
+                                <li>new演算子でオブジェクト生成時に自動的に呼び出される</li>
+                                <li>オーバーロード可能（引数の異なる複数のコンストラクタを定義可能）</li>
+                                <li>明示的なコンストラクタ定義がない場合、デフォルトコンストラクタが自動生成される</li>
+                            </ul>
+                            
+                            <h5 class="text-lg font-semibold text-blue-600 mb-2">コンストラクタの例</h5>
+                            <pre class="bg-gray-800 text-white p-4 rounded overflow-x-auto mb-4">
+public class Book {
+    String title;
+    String author;
+    int pages;
+    
+    // デフォルトコンストラクタ
+    public Book() {
+        title = "不明";
+        author = "不明";
+        pages = 0;
+    }
+    
+    // 引数付きコンストラクタ
+    public Book(String title, String author, int pages) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+    }
+    
+    // タイトルとページ数のみ指定するコンストラクタ
+    public Book(String title, int pages) {
+        this.title = title;
+        this.author = "不明";
+        this.pages = pages;
+    }
+}
+
+// 使用例
+Book book1 = new Book(); // デフォルトコンストラクタ
+Book book2 = new Book("Java入門", "山田太郎", 350); // 引数付きコンストラクタ
+Book book3 = new Book("SQL基礎", 200); // タイトルとページ数のみ
+</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-3 text-blue-700">staticメンバとthisキーワード</h4>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <p class="mb-4">staticメンバ（クラス変数・メソッド）とインスタンスメンバの違い、thisキーワードの使用方法について説明します。</p>
+                            
+                            <h5 class="text-lg font-semibold text-blue-600 mb-2">staticメンバの特徴</h5>
+                            <ul class="list-disc pl-6 mb-4">
+                                <li>クラスに属し、全インスタンスで共有される</li>
+                                <li>オブジェクト生成前でもアクセス可能</li>
+                                <li>クラス名.メンバ名 でアクセス可能</li>
+                                <li>静的メソッドからは非静的メンバに直接アクセスできない</li>
+                                <li>メモリ上に1つだけ存在する</li>
+                            </ul>
+                            
+                            <h5 class="text-lg font-semibold text-blue-600 mb-2">thisキーワードの役割</h5>
+                            <ul class="list-disc pl-6 mb-4">
+                                <li>現在のオブジェクト（インスタンス）自身を参照する</li>
+                                <li>ローカル変数とインスタンス変数の名前が同じ場合に区別する</li>
+                                <li>コンストラクタ内で他のコンストラクタを呼び出す（this()）</li>
+                                <li>メソッドチェーンを実装する際に利用（メソッドがthisを返す）</li>
+                            </ul>
+                            
+                            <h5 class="text-lg font-semibold text-blue-600 mb-2">staticとthisの例</h5>
+                            <pre class="bg-gray-800 text-white p-4 rounded overflow-x-auto mb-4">
+public class Counter {
+    // インスタンス変数
+    private int count;
+    
+    // クラス変数（static）
+    private static int totalCount;
+    
+    public Counter() {
+        this(0); // 他のコンストラクタを呼び出す
+    }
+    
+    public Counter(int initialCount) {
+        this.count = initialCount; // thisでインスタンス変数を参照
+        totalCount += initialCount;
+    }
+    
+    // インスタンスメソッド
+    public void increment() {
+        this.count++;
+        totalCount++;
+    }
+    
+    // インスタンスメソッド（thisを返す例）
+    public Counter incrementAndGet() {
+        this.increment();
+        return this; // 自分自身を返す（メソッドチェーン用）
+    }
+    
+    public int getCount() {
+        return count;
+    }
+    
+    // クラスメソッド（static）
+    public static int getTotalCount() {
+        return totalCount;
+    }
+}
+
+// 使用例
+Counter c1 = new Counter(5);
+Counter c2 = new Counter(10);
+
+c1.increment();
+c2.incrementAndGet().incrementAndGet(); // メソッドチェーン
+
+System.out.println("c1カウント: " + c1.getCount()); // 6
+System.out.println("c2カウント: " + c2.getCount()); // 12
+System.out.println("総カウント: " + Counter.getTotalCount()); // 18
+</pre>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="resources" class="mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-800">使用教材・リソース</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg shadow">
+                            <h4 class="text-lg font-semibold mb-2 text-blue-700">開発環境</h4>
+                            <ul class="list-disc pl-6">
+                                <li>Pleiades (Eclipse) - 統合開発環境</li>
+                                <li>Amazon Corretto JDK 17 - Java開発キット</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg shadow">
+                            <h4 class="text-lg font-semibold mb-2 text-blue-700">参考図書</h4>
+                            <ul class="list-disc pl-6">
+                                <li>「スッキリわかるJava入門 第3版」</li>
+                                <li>「Java Silver SE 17 問題集」</li>
+                                <li>「オブジェクト指向でなぜつくるのか」</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg shadow">
+                            <h4 class="text-lg font-semibold mb-2 text-blue-700">オンラインリソース</h4>
+                            <ul class="list-disc pl-6">
+                                <li>Java SE 17 API Documentation</li>
+                                <li>Oracle Java Tutorials - Classes and Objects</li>
+                                <li>Codecademy Java コース</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg shadow">
+                            <h4 class="text-lg font-semibold mb-2 text-blue-700">演習課題</h4>
+                            <ul class="list-disc pl-6">
+                                <li>学生管理システムの基本クラス設計</li>
+                                <li>銀行口座クラスの実装</li>
+                                <li>商品在庫管理クラスの設計</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                
+                <section id="comprehension-check" class="mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-800">理解度確認項目</h3>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-3 text-blue-700">基本レベル</h4>
+                        <ul class="list-disc pl-6">
+                            <li>クラスとオブジェクトの関係を説明できる</li>
+                            <li>基本的なクラスを定義できる</li>
+                            <li>フィールド変数とメソッドを宣言できる</li>
+                            <li>コンストラクタの役割と実装方法を理解している</li>
+                            <li>オブジェクトの生成と使用方法を説明できる</li>
+                            <li>staticキーワードの基本的な意味を理解している</li>
+                            <li>thisキーワードの基本的な使い方を理解している</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="text-xl font-semibold mb-3 text-blue-700">応用レベル</h4>
+                        <ul class="list-disc pl-6">
+                            <li>複数のコンストラクタを適切にオーバーロードできる</li>
+                            <li>this()を使った他コンストラクタの呼び出しができる</li>
+                            <li>クラス設計の基本原則に従ってクラスを設計できる</li>
+                            <li>staticとnon-staticメンバの適切な使い分けができる</li>
+                            <li>thisキーワードを使ったメソッドチェーンが実装できる</li>
+                            <li>オブジェクトのライフサイクルを理解している</li>
+                            <li>複数クラス間の関連を考慮したプログラムが設計できる</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <section id="next-steps" class="mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-800">次のステップ</h3>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                        <h4 class="text-xl font-semibold mb-2 text-blue-700">Day 7: カプセル化と継承</h4>
+                        <p class="mb-3">次回はオブジェクト指向プログラミングの重要な原則であるカプセル化と継承について学びます。アクセス修飾子を活用したデータ隠蔽、継承によるコード再利用の方法を理解し、より堅牢なプログラムの設計方法を身につけます。</p>
+                        <p class="mb-3">予習として、以下の内容について調べておくと理解が深まります：</p>
+                        <ul class="list-disc pl-6">
+                            <li>アクセス修飾子（public, private, protected, デフォルト）の違い</li>
+                            <li>getterとsetterの役割</li>
+                            <li>継承の基本構文（extends キーワード）</li>
+                        </ul>
+                        <a href="day7.html" class="inline-block mt-3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            詳細を見る <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </section>
+                
+                <section id="feedback" class="mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-800">フィードバック</h3>
+                    
+                    <div class="bg-white p-4 rounded-lg border border-gray-300">
+                        <p class="mb-4">このページの内容についてフィードバックをお寄せください。</p>
+                        
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">理解度</label>
+                            <div class="flex items-center">
+                                <span class="mr-2">低</span>
+                                <input type="range" min="1" max="5" class="w-full max-w-xs" id="comprehension-rating">
+                                <span class="ml-2">高</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="feedback-comment" class="block text-gray-700 mb-2">コメント</label>
+                            <textarea id="feedback-comment" rows="4" class="w-full p-2 border border-gray-300 rounded"></textarea>
+                        </div>
+                        
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            送信する
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="bg-gray-800 text-white p-6">
+        <div class="container mx-auto">
+            <div class="flex flex-wrap justify-between">
+                <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                    <h3 class="text-xl font-bold mb-4">学習進捗</h3>
+                    <div class="w-full bg-gray-600 rounded-full h-4 mb-2">
+                        <div class="bg-blue-500 h-4 rounded-full" style="width: 40%"></div>
+                    </div>
+                    <p>Phase 1: Java基礎 - 40%完了</p>
+                </div>
+                
+                <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                    <h3 class="text-xl font-bold mb-4">目次</h3>
+                    <ul>
+                        <li><a href="#scheduleAccordion" class="hover:text-blue-300">詳細スケジュール</a></li>
+                        <li><a href="#theme-details" class="hover:text-blue-300">テーマ詳細</a></li>
+                        <li><a href="#resources" class="hover:text-blue-300">使用教材・リソース</a></li>
+                        <li><a href="#comprehension-check" class="hover:text-blue-300">理解度確認項目</a></li>
+                        <li><a href="#next-steps" class="hover:text-blue-300">次のステップ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="w-full md:w-1/3">
+                    <h3 class="text-xl font-bold mb-4">関連リンク</h3>
+                    <ul>
+                        <li><a href="../index.html" class="hover:text-blue-300">ホーム</a></li>
+                        <li><a href="../week/week2.html" class="hover:text-blue-300">第2週: オブジェクト指向プログラミング</a></li>
+                        <li><a href="../resources/resources.html" class="hover:text-blue-300">学習リソース</a></li>
+                        <li><a href="../resources/faq.html" class="hover:text-blue-300">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-6 border-t border-gray-600 text-center">
+                <p>ITエンジニア育成カリキュラムは、未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+                <hr class="my-4 border-gray-600">
+                <p>&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDo8%2B2NxA8NNlIKbIsLUxh9dd%2F480onbGwe9bGNJRfL1%2BJOeweWLwRTOUAm6zXecsYNuQMF30yWvK6f34dcvWmAZqeqBSo8yIuFZOJGXqdMSjdRSNjowKYkoKxvCD%2B6OwU4zJSvdf9XGZpEei490%2FbMpfa12Jz5Vj0rZyZ9iUp%2Fzw9vw%2BVp2LPdN%2F8la3hWNbAWXjccS%2F99XsgP0JlZ0x6L6wMTqhdjfuKn6UjgzI5Krl9su1nQDob%2FdwlsfcrgDSRAbt1kKiLjATqo%2BIqdauFB29n%2FAJgQMKDAvM4oijP2oNAQwT0MWBoH1oNLfOi5V%2F03i9zI%2BXIlZrx6MFGqLkqDTm6L0K8SjvfGzIbzJBUrNeRe54viOUvTam03Dupr8CPcAXStIcJ2oy1uSB8mqV%2BAD2%2FR%2FXJdNTb9ikQfvKOTFYosQiS6vB5Pg2aCW3EAY3wSjxfieckqDqzfuVGhBhJ4vBGPJ4L6GIETdv3Rcw5San";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDo8+2NxA8NNlIKbIsLUxh9dd/480onbGwe9bGNJRfL1+JOeweWLwRTOUAm6zXecsYNuQMF30yWvK6f34dcvWmAZqeqBSo8yIuFZOJGXqdMSjdRSNjowKYkoKxvCD+6OwU4zJSvdf9XGZpEei490/bMpfa12Jz5Vj0rZyZ9iUp/zw9vw+Vp2LPdN/8la3hWNbAWXjccS/99XsgP0JlZ0x6L6wMTqhdjfuKn6UjgzI5Krl9su1nQDob/dwlsfcrgDSRAbt1kKiLjATqo+IqdauFB29n/AJgQMKDAvM4oijP2oNAQwT0MWBoH1oNLfOi5V/03i9zI+XIlZrx6MFGqLkqDTm6L0K8SjvfGzIbzJBUrNeRe54viOUvTam03Dupr8CPcAXStIcJ2oy1uSB8mqV+AD2/R/XJdNTb9ikQfvKOTFYosQiS6vB5Pg2aCW3EAY3wSjxfieckqDqzfuVGhBhJ4vBGPJ4L6GIETdv3Rcw5San";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

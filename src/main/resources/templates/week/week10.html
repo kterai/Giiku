@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第10週: バックエンド基礎 | ITエンジニア育成カリキュラム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .bg-custom-primary {
+            background-color: #4a6da7;
+        }
+        .bg-custom-secondary {
+            background-color: #f8f9fa;
+        }
+        .text-custom-primary {
+            color: #4a6da7;
+        }
+        .border-custom-primary {
+            border-color: #4a6da7;
+        }
+        .daily-schedule {
+            border-left: 4px solid #4a6da7;
+        }
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background-color: #4a6da7;
+            border-radius: 50%;
+            position: absolute;
+            left: -12px;
+            top: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans">
+    <header class="bg-custom-primary text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <nav class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-2xl font-bold">ITエンジニア育成カリキュラム</h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="../index.html" class="hover:text-gray-300">ホーム</a>
+                    <div class="relative group">
+                        <a href="#" class="hover:text-gray-300">月別カリキュラム</a>
+                        <div class="absolute hidden group-hover:block bg-white text-gray-800 shadow-lg rounded-md p-2 w-48 z-10">
+                            <a href="../month/month1.html" class="block px-4 py-2 hover:bg-gray-100">第1ヶ月目: Java Silver</a>
+                            <a href="../month/month2.html" class="block px-4 py-2 hover:bg-gray-100">第2ヶ月目: 基本情報</a>
+                            <a href="../month/month3.html" class="block px-4 py-2 hover:bg-gray-100">第3ヶ月目: Web開発</a>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <a href="#" class="hover:text-gray-300">週別詳細</a>
+                        <div class="absolute hidden group-hover:block bg-white text-gray-800 shadow-lg rounded-md p-2 w-64 z-10">
+                            <a href="week9.html" class="block px-4 py-2 hover:bg-gray-100">第9週: フロントエンド基礎</a>
+                            <a href="week10.html" class="block px-4 py-2 hover:bg-gray-100 font-bold">第10週: バックエンド基礎</a>
+                            <a href="week11.html" class="block px-4 py-2 hover:bg-gray-100">第11週: Spring Boot開発実践</a>
+                            <a href="week12.html" class="block px-4 py-2 hover:bg-gray-100">第12週: 総合開発</a>
+                        </div>
+                    </div>
+                    <a href="../resources/resources.html" class="hover:text-gray-300">学習リソース</a>
+                    <a href="../resources/faq.html" class="hover:text-gray-300">FAQ</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-white">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 py-4">
+            <a href="../index.html" class="block text-white py-2 px-4 hover:bg-gray-700">ホーム</a>
+            <a href="../month/month3.html" class="block text-white py-2 px-4 hover:bg-gray-700">第3ヶ月目: Web開発</a>
+            <a href="week9.html" class="block text-white py-2 px-4 hover:bg-gray-700">第9週: フロントエンド基礎</a>
+            <a href="week10.html" class="block text-white py-2 px-4 hover:bg-gray-700 font-bold">第10週: バックエンド基礎</a>
+            <a href="../resources/resources.html" class="block text-white py-2 px-4 hover:bg-gray-700">学習リソース</a>
+            <a href="../resources/faq.html" class="block text-white py-2 px-4 hover:bg-gray-700">FAQ</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="text-sm breadcrumbs mb-6">
+            <ul class="flex space-x-2 text-gray-600">
+                <li><a href="../index.html" class="hover:text-blue-600">ホーム</a></li>
+                <li><span class="mx-2">></span></li>
+                <li><a href="../month/month3.html" class="hover:text-blue-600">第3ヶ月目: Web開発</a></li>
+                <li><span class="mx-2">></span></li>
+                <li class="text-gray-900 font-medium">第10週: バックエンド基礎</li>
+            </ul>
+        </div>
+
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h1 class="text-3xl font-bold text-custom-primary mb-4">第10週: バックエンド基礎</h1>
+            <div class="flex items-center mb-6">
+                <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full mr-2">Day 42-46</span>
+                <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">第3ヶ月目</span>
+            </div>
+
+            <div class="mb-6">
+                <h2 class="text-xl font-semibold mb-3">週間目標</h2>
+                <p class="text-gray-700 mb-4">サーバーサイド開発の基礎と、データベースの設計・操作を習得し、Spring Bootを活用したバックエンド開発の基礎を身につけることを目指します。</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-database text-blue-600 mr-2"></i>
+                            <h3 class="font-medium">データベース設計と操作</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">関係データベースの概念理解とSQLによる操作</p>
+                    </div>
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-server text-blue-600 mr-2"></i>
+                            <h3 class="font-medium">サーバーサイド開発</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">Servlet/JSPの基礎からSpring Bootの導入まで</p>
+                    </div>
+                    <div class="bg-blue-50 rounded-lg p-4">
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-cogs text-blue-600 mr-2"></i>
+                            <h3 class="font-medium">MVC設計パターン</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">Spring MVC & Thymeleafによるアプリケーション構築</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4">スキル習得目標</h2>
+                <div class="relative">
+                    <div class="overflow-x-auto">
+                        <div class="h-4 w-full bg-gray-200 rounded-full mb-6">
+                            <div class="h-4 bg-green-500 rounded-full" style="width: 80%;"></div>
+                        </div>
+                        <div class="grid grid-cols-5 text-xs text-center">
+                            <div>開始</div>
+                            <div>フロントエンド</div>
+                            <div class="font-bold">バックエンド</div>
+                            <div>実践開発</div>
+                            <div>ポートフォリオ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-6">日別スケジュール</h2>
+                
+                <div class="space-y-6">
+                    <div class="relative pl-8 daily-schedule pb-6">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-lg font-bold mb-2">Day 42: RDBの基礎・PostgreSQL</h3>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-custom-primary mb-2">学習内容</h4>
+                            <ul class="list-disc list-inside space-y-1 text-gray-700 mb-4">
+                                <li>関係データベースの概念</li>
+                                <li>データベース設計の基本原則（正規化）</li>
+                                <li>PostgreSQLのインストールと環境設定</li>
+                                <li>テーブル作成とCRUD操作の基礎</li>
+                                <li>主キー・外部キー制約</li>
+                            </ul>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">DB設計</span>
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">PostgreSQL</span>
+                                </div>
+                                <a href="../day/day42.html" class="text-sm text-blue-600 hover:underline">詳細 →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative pl-8 daily-schedule pb-6">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-lg font-bold mb-2">Day 43: 応用SQL・トランザクション</h3>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-custom-primary mb-2">学習内容</h4>
+                            <ul class="list-disc list-inside space-y-1 text-gray-700 mb-4">
+                                <li>複雑なSELECT文（JOIN、サブクエリ）</li>
+                                <li>集計関数とGROUP BY句</li>
+                                <li>インデックスの概念と作成</li>
+                                <li>トランザクション管理（ACID特性）</li>
+                                <li>PostgreSQL固有の機能</li>
+                            </ul>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">応用SQL</span>
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">トランザクション</span>
+                                </div>
+                                <a href="../day/day43.html" class="text-sm text-blue-600 hover:underline">詳細 →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative pl-8 daily-schedule pb-6">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-lg font-bold mb-2">Day 44: サーバーサイド開発入門</h3>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-custom-primary mb-2">学習内容</h4>
+                            <ul class="list-disc list-inside space-y-1 text-gray-700 mb-4">
+                                <li>Webアプリケーションの基本構造</li>
+                                <li>サーブレットとJSPの基礎</li>
+                                <li>HTTPリクエスト・レスポンスの仕組み</li>
+                                <li>フォーム処理とパラメータ取得</li>
+                                <li>JDBCによるデータベース連携</li>
+                            </ul>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">Servlet/JSP</span>
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">JDBC</span>
+                                </div>
+                                <a href="../day/day44.html" class="text-sm text-blue-600 hover:underline">詳細 →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative pl-8 daily-schedule pb-6">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-lg font-bold mb-2">Day 45: Spring Boot入門</h3>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-custom-primary mb-2">学習内容</h4>
+                            <ul class="list-disc list-inside space-y-1 text-gray-700 mb-4">
+                                <li>Spring フレームワークの概要</li>
+                                <li>依存性注入（DI）の概念</li>
+                                <li>Spring Bootプロジェクトの作成と構成</li>
+                                <li>Spring BootでのREST APIの基本</li>
+                                <li>単純なCRUD操作の実装</li>
+                            </ul>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">Spring Boot</span>
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">REST API</span>
+                                </div>
+                                <a href="../day/day45.html" class="text-sm text-blue-600 hover:underline">詳細 →</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative pl-8 daily-schedule">
+                        <div class="timeline-dot"></div>
+                        <h3 class="text-lg font-bold mb-2">Day 46: Spring Boot・MVC・Thymeleaf</h3>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-custom-primary mb-2">学習内容</h4>
+                            <ul class="list-disc list-inside space-y-1 text-gray-700 mb-4">
+                                <li>MVCアーキテクチャの概念</li>
+                                <li>Spring MVCの基礎</li>
+                                <li>Thymeleafテンプレートエンジン</li>
+                                <li>フォーム処理と検証</li>
+                                <li>シンプルなWebアプリケーションの構築</li>
+                            </ul>
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">Spring MVC</span>
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">Thymeleaf</span>
+                                </div>
+                                <a href="../day/day46.html" class="text-sm text-blue-600 hover:underline">詳細 →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4">学習リソース</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-book text-blue-600 mr-3 text-xl"></i>
+                            <h3 class="font-semibold">主要教材</h3>
+                        </div>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="https://www.postgresql.org/docs/" target="_blank" class="flex items-center text-blue-600 hover:underline">
+                                <i class="fas fa-link mr-2"></i>PostgreSQL 公式ドキュメント
+                            </a></li>
+                            <li><a href="https://start.spring.io/" target="_blank" class="flex items-center text-blue-600 hover:underline">
+                                <i class="fas fa-link mr-2"></i>Spring Initializr
+                            </a></li>
+                            <li><a href="https://spring.io/guides" target="_blank" class="flex items-center text-blue-600 hover:underline">
+                                <i class="fas fa-link mr-2"></i>Spring 公式ガイド
+                            </a></li>
+                            <li><a href="https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html" target="_blank" class="flex items-center text-blue-600 hover:underline">
+                                <i class="fas fa-link mr-2"></i>Thymeleaf チュートリアル
+                            </a></li>
+                        </ul>
+                    </div>
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-laptop-code text-blue-600 mr-3 text-xl"></i>
+                            <h3 class="font-semibold">実践演習</h3>
+                        </div>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="https://www.postgresqltutorial.com/" target="_blank" class="flex items-center text-blue-600 hover:underline">
+                                <i class="fas fa-link mr-2"></i>PostgreSQL Tutorial
+                            </a></li>
+                            <li><a href="https://www.baeldung.com/spring-boot" target="_blank" class="flex items-center text-blue-600 hover:underline">
+                                <i class="fas fa-link mr-2"></i>Baeldung - Spring Boot チュートリアル
+                            </a></li>
+                            <li><a href="https://github.com/spring-guides/gs-serving-web-content" target="_blank" class="flex items-center text-blue-600 hover:underline">
+                                <i class="fas fa-link mr-2"></i>Spring Boot Web Content サンプル
+                            </a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-6 text-center">
+                    <a href="../resources/resources.html" class="inline-block bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition">すべての学習リソースを見る</a>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold mb-4">理解度チェック</h2>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                    <p class="mb-4 text-gray-700">この週の終了時に以下の項目を理解・実装できているか確認しましょう：</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                            <span>PostgreSQLでデータベースとテーブルを作成し、基本的なCRUD操作とJOINクエリを実行できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                            <span>トランザクション管理の重要性を理解し、適切に実装できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                            <span>Spring Bootプロジェクトを作成し、基本的な設定ができる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                            <span>MVCアーキテクチャに基づいたWebアプリケーションの構造を理解している</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-green-600 mt-1 mr-2"></i>
+                            <span>Thymeleafを使ったシンプルなWebページを作成し、バックエンドからデータを表示できる</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-semibold mb-4">週間プロジェクト: シンプルな顧客管理システム</h2>
+                <div class="bg-gray-50 rounded-lg p-6 border border-gray-200">
+                    <p class="text-gray-700 mb-4">PostgreSQLとSpring Bootを使用して、基本的な顧客情報管理システムを構築します。以下の機能を実装しましょう：</p>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+                        <li>顧客情報のCRUD操作（一覧表示、詳細表示、追加、更新、削除）</li>
+                        <li>検索機能（名前、メールアドレスで検索）</li>
+                        <li>Spring MVCとThymeleafを使用したフロントエンド</li>
+                        <li>適切なエラー処理とバリデーション</li>
+                    </ul>
+                    
+                    <div style="height: 300px;">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="flex justify-between mt-8 space-x-4">
+            <a href="week9.html" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 px-6 rounded-lg transition text-center">
+                <span class="block text-sm text-gray-500">前の週</span>
+                <span class="font-medium">第9週: フロントエンド基礎</span>
+            </a>
+            <a href="week11.html" class="flex-1 bg-custom-primary hover:bg-blue-700 text-white py-3 px-6 rounded-lg transition text-center">
+                <span class="block text-sm text-blue-100">次の週</span>
+                <span class="font-medium">第11週: Spring Boot開発実践</span>
+            </a>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-10 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">ITエンジニア育成カリキュラム</h3>
+                    <p class="text-gray-400 text-sm">
+                        未経験から3ヶ月でIT業界デビューを実現する総合的なカリキュラム。Java、基本情報技術、Webアプリ開発までカバー。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">カリキュラム</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="../month/month1.html" class="hover:text-white">第1ヶ月目: Java Silver</a></li>
+                        <li><a href="../month/month2.html" class="hover:text-white">第2ヶ月目: 基本情報</a></li>
+                        <li><a href="../month/month3.html" class="hover:text-white">第3ヶ月目: Web開発</a></li>
+                        <li><a href="../resources/advanced.html" class="hover:text-white">応用コース (4ヶ月目以降)</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">リソース</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="../resources/resources.html" class="hover:text-white">学習リソース</a></li>
+                        <li><a href="../resources/faq.html" class="hover:text-white">よくある質問</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400 text-sm">
+                <p>&copy; 2025 ITエンジニア育成カリキュラム All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // モバイルメニュートグル
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // 進捗グラフ
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['データベース基礎', 'SQL', 'PostgreSQL操作', 'Servlet/JSP', 'Spring Boot', 'Thymeleaf'],
+                    datasets: [{
+                        label: '習得目標達成度（%）',
+                        data: [90, 85, 80, 70, 60, 55],
+                        backgroundColor: [
+                            'rgba(74, 109, 167, 0.7)',
+                            'rgba(74, 109, 167, 0.7)',
+                            'rgba(74, 109, 167, 0.7)',
+                            'rgba(74, 109, 167, 0.7)',
+                            'rgba(74, 109, 167, 0.7)',
+                            'rgba(74, 109, 167, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(74, 109, 167, 1)',
+                            'rgba(74, 109, 167, 1)',
+                            'rgba(74, 109, 167, 1)',
+                            'rgba(74, 109, 167, 1)',
+                            'rgba(74, 109, 167, 1)',
+                            'rgba(74, 109, 167, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDpoy4k3eFzLI7goQjvKQuRW1vG2qoUqLhDJ4F3sflbByqOJTIZEf5x4TAbHwa%2F5Wej1vBHMvgU0WQOsHamNYWzedxZBR4sxilcYVfwlmpsxvMAJZb8YaN5nk3TTo1PKZFbzG%2BpD4bKHbnt1fBYn41sTmICZcR%2B85BZC6%2FUWTurzrsELz6sc8sJif7DhQKufeLM6o115xqxMZ%2FvBzIuevXFDlNhigJpcjH2DaU3DPLFVVxVVtd55UGYl6aYxK8gj6eh33YJUmw1c0vQENFwdM7E0iGn8CTW4aqvzIilXMq%2FcmXK9qKCeBdYiktjHkZCcSoLqszd%2FtVkFAm2eDiGvoiRTSMEzpe7GG7is8QxvyeZzXeTp7oSoPJWXCUXyODZMAU4Cct2cuFVB7p35hYhMsXJWi7xb9%2B0bk42u8i8zgcJoAgf7OoyUsVoLHqefRAZxzB26lpa4U37qGGzBadlqiy6S3asN1S2J8sjrxf7xrMpFd";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDpoy4k3eFzLI7goQjvKQuRW1vG2qoUqLhDJ4F3sflbByqOJTIZEf5x4TAbHwa/5Wej1vBHMvgU0WQOsHamNYWzedxZBR4sxilcYVfwlmpsxvMAJZb8YaN5nk3TTo1PKZFbzG+pD4bKHbnt1fBYn41sTmICZcR+85BZC6/UWTurzrsELz6sc8sJif7DhQKufeLM6o115xqxMZ/vBzIuevXFDlNhigJpcjH2DaU3DPLFVVxVVtd55UGYl6aYxK8gj6eh33YJUmw1c0vQENFwdM7E0iGn8CTW4aqvzIilXMq/cmXK9qKCeBdYiktjHkZCcSoLqszd/tVkFAm2eDiGvoiRTSMEzpe7GG7is8QxvyeZzXeTp7oSoPJWXCUXyODZMAU4Cct2cuFVB7p35hYhMsXJWi7xb9+0bk42u8i8zgcJoAgf7OoyUsVoLHqefRAZxzB26lpa4U37qGGzBadlqiy6S3asN1S2J8sjrxf7xrMpFd";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

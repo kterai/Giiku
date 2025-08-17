@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロンプト改良版 - Day24: ネットワーク基礎</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.7;
+        }
+        .instruction-box {
+            background: linear-gradient(135deg, #fff8dc 0%, #f0e68c 100%);
+            border: 2px solid #daa520;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .improvement-box {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border: 2px solid #4caf50;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .teaching-tips {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 2px solid #2196f3;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .understanding-support {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border: 2px solid #9c27b0;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .important {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        .code-example {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            margin: 12px 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto max-w-6xl px-4 py-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-network-wired text-blue-600 mr-3"></i>
+                プロンプト改良版 - Day24: ネットワーク基礎
+            </h1>
+            <p class="text-lg text-gray-600">分かりやすさ重視・初心者理解促進を実現する改良版プロンプト指示書</p>
+        </header>
+
+        <div class="instruction-box">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-exclamation-triangle text-yellow-600 mr-2"></i>
+                重要な注意事項
+            </h2>
+            <p class="text-lg mb-4">
+                この文書は実際のHTMLファイルではなく、<strong class="text-blue-600">lecture24.html</strong>を生成するための詳細なプロンプト指示書です。
+            </p>
+            <ul class="list-disc pl-6 space-y-2">
+                <li>既存のDay24内容を<span class="highlight">完全に保持</span>しながら改善指針を追加</li>
+                <li>ネットワーク概念の<span class="highlight">分かりやすさを最優先</span>で設計</li>
+                <li>講師が説明しやすく、受講者が理解しやすい構成を実現</li>
+                <li>表・専門用語・まとめセクションの改善を徹底実施</li>
+            </ul>
+        </div>
+
+        <div class="improvement-box">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-lightbulb text-green-600 mr-2"></i>
+                🎯 ネットワーク基礎・分かりやすさ改善指針
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-xl font-bold text-green-700 mb-3">📊 表・図解の改善要項</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-sm">
+                        <li><strong>OSI参照モデル表</strong>: 各層の具体例・身近な例を併記（例：アプリケーション層→ブラウザ、メール）</li>
+                        <li><strong>TCP/IPプロトコル表</strong>: プロトコル名だけでなく用途・特徴を平易な言葉で説明</li>
+                        <li><strong>IPv4アドレス表</strong>: 数値だけでなく「何を表すか」「なぜ必要か」を明記</li>
+                        <li><strong>サブネット計算表</strong>: 計算手順を段階的に図解で表現</li>
+                        <li><strong>ネットワーク機器表</strong>: 機器名＋役割＋実際の使用場面を記載</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-green-700 mb-3">📝 専門用語の改善要項</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-sm">
+                        <li><strong>OSI</strong>: 「Open Systems Interconnection」＋「異なるメーカーの機器が通信できる仕組み」</li>
+                        <li><strong>TCP/UDP</strong>: 略語＋日本語名＋「信頼性重視/速度重視」の特徴</li>
+                        <li><strong>IPアドレス</strong>: 「インターネット上の住所」など日常例での説明</li>
+                        <li><strong>サブネット</strong>: 「ネットワークの小分け」「マンションの部屋分け」等のアナロジー</li>
+                        <li><strong>ルータ・スイッチ</strong>: 役割を交通整理・郵便局などで例示</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 p-4 bg-white rounded-lg border border-green-300">
+                <h4 class="font-bold text-green-800 mb-2">⚠️ ネットワーク特有の注意点</h4>
+                <ul class="list-disc pl-5 space-y-1 text-sm">
+                    <li>プロトコル階層の概念は「郵便システム」「宅配便」で例示</li>
+                    <li>IPアドレスとMACアドレスの違いを「住所と個人名」で説明</li>
+                    <li>パケット通信を「手紙の分割・再組立」で視覚化</li>
+                    <li>ネットワーク機器の役割を「道路・信号・案内板」で例示</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="teaching-tips">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-chalkboard-teacher text-blue-600 mr-2"></i>
+                📚 講師向け詳細説明指針
+            </h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-blue-700 mb-3">ネットワーク講義の進行ポイント</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-lg border border-blue-200">
+                            <h4 class="font-bold text-blue-800 mb-2">🎯 段階的理解促進</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>身近なインターネット利用から開始</li>
+                                <li>「なぜネットワークが必要か」から説明</li>
+                                <li>簡単な仕組みから複雑な概念へ段階発展</li>
+                                <li>各段階で受講者の理解度を確認</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-blue-200">
+                            <h4 class="font-bold text-blue-800 mb-2">🎨 視覚的説明の活用</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>OSI階層を建物の階層で図解</li>
+                                <li>パケット通信を荷物配送で例示</li>
+                                <li>IPアドレスを住所体系で説明</li>
+                                <li>ネットワーク機器を道路設備で比喩</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-blue-700 mb-3">分野別説明のコツ</h3>
+                    <div class="space-y-3">
+                        <div class="bg-blue-50 p-3 rounded-lg">
+                            <strong class="text-blue-800">OSI参照モデル:</strong> 各層を「仕事の分担」として説明し、実際のアプリケーションとの対応を明示
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-lg">
+                            <strong class="text-blue-800">TCP/IP:</strong> プロトコルを「通信のルール・約束事」として説明し、日常の通信マナーと関連付け
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-lg">
+                            <strong class="text-blue-800">IPアドレス:</strong> 階層構造を郵便番号・住所システムで説明し、実際のアドレス例を豊富に提示
+                        </div>
+                        <div class="bg-blue-50 p-3 rounded-lg">
+                            <strong class="text-blue-800">サブネット:</strong> 計算方法より「なぜ分割するか」の目的から説明し、実践例を重視
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="understanding-support">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-users text-purple-600 mr-2"></i>
+                🎯 受講者理解促進要素
+            </h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-xl font-bold text-purple-700 mb-3">追加すべき詳細説明内容</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-lg border border-purple-200">
+                            <h4 class="font-bold text-purple-800 mb-2">📊 概念の視覚化</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>ネットワーク構成図での全体像表示</li>
+                                <li>パケット流れの動的イメージ</li>
+                                <li>階層構造の立体的表現</li>
+                                <li>プロトコルスタックの図解</li>
+                                <li>サブネット分割の視覚的説明</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg border border-purple-200">
+                            <h4 class="font-bold text-purple-800 mb-2">🔄 段階的学習サポート</h4>
+                            <ul class="list-disc pl-5 space-y-1 text-sm">
+                                <li>「家庭のインターネット」から始める動機付け</li>
+                                <li>基本概念→応用概念の明確な区分</li>
+                                <li>各段階での「確認ポイント」設置</li>
+                                <li>前回学習内容との関連性明示</li>
+                                <li>実務での活用場面の具体例</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-purple-700 mb-3">ネットワーク学習の特別配慮</h3>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <ul class="list-disc pl-5 space-y-2 text-sm">
+                            <li><strong>抽象概念の具体化:</strong> 「データが流れる」→「荷物が運ばれる」のような身近な例示</li>
+                            <li><strong>計算の意味付け:</strong> サブネット計算の「なぜ必要か」を実際の企業ネットワーク例で説明</li>
+                            <li><strong>機器の役割理解:</strong> ルータ・スイッチを「交通整理」「郵便仕分け」で例示</li>
+                            <li><strong>プロトコルの必要性:</strong> 「共通言語の重要性」を国際会議の通訳で説明</li>
+                            <li><strong>セキュリティ意識:</strong> 各層でのセキュリティ対策の重要性を日常例で説明</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="instruction-box">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-code text-orange-600 mr-2"></i>
+                元のDay24プロンプト内容（保持必須）
+            </h2>
+            <div class="bg-white p-4 rounded-lg border border-orange-200">
+                <h3 class="text-lg font-bold mb-3">プロジェクト名：ITエンジニア育成カリキュラム - Day24: ネットワーク基礎</h3>
+                
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="font-bold text-gray-700 mb-2">学習目標:</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-sm">
+                            <li>OSI参照モデル7層の役割と機能を理解する</li>
+                            <li>TCP/IPプロトコルスイートの構成と動作を習得する</li>
+                            <li>IPv4アドレッシング方式の基本を学習する</li>
+                            <li>サブネット計算の基本手法を理解する</li>
+                            <li>ネットワーク通信の基本原理を習得する</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-gray-700 mb-2">主要トピック:</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-sm">
+                            <li>OSI参照モデル（物理層・データリンク層・ネットワーク層・トランスポート層・セッション層・プレゼンテーション層・アプリケーション層）</li>
+                            <li>TCP/IPプロトコル（TCP・UDP・IP・ICMP・ARP等）</li>
+                            <li>IPv4アドレッシング（クラス分類・プライベートアドレス・サブネットマスク）</li>
+                            <li>サブネット計算（ネットワーク分割・CIDR記法・利用可能ホスト数計算）</li>
+                            <li>ネットワーク機器（ハブ・スイッチ・ルータ・ゲートウェイ等）</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-gray-700 mb-2">演習・評価:</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-sm">
+                            <li>演習問題（8問以上）</li>
+                            <li>模擬試験（15問以上）</li>
+                            <li>ITエンジニア豆知識</li>
+                            <li>全問題に詳細な解説を含める</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="improvement-box">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                🎯 Day24特化・実装必須要項
+            </h2>
+            
+            <div class="space-y-4">
+                <div class="bg-white p-4 rounded-lg border border-green-200">
+                    <h3 class="font-bold text-green-800 mb-2">📊 改善必須の表・セクション</h3>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li><strong>OSI参照モデル表:</strong> 各層に「具体例」「身近な例」「主要プロトコル」を併記</li>
+                        <li><strong>TCP vs UDP比較表:</strong> 特徴だけでなく「適用場面」「実際の使用例」を明記</li>
+                        <li><strong>IPv4アドレス分類表:</strong> クラス名だけでなく「使用目的」「割り当て範囲の意味」を説明</li>
+                        <li><strong>サブネット計算例表:</strong> 計算過程を段階的に分解し、各段階の意味を解説</li>
+                        <li><strong>ネットワーク機器機能表:</strong> 機器名＋動作原理＋実際の配置例を図解</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg border border-green-200">
+                    <h3 class="font-bold text-green-800 mb-2">📝 専門用語の詳細解説追加</h3>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li><strong>プロトコル:</strong> 「通信の約束事・ルール」＋具体的な例（HTTP、FTP等）</li>
+                        <li><strong>パケット:</strong> 「データの小包」＋分割・再組立の仕組み図解</li>
+                        <li><strong>ポート番号:</strong> 「アプリケーションの窓口」＋well-knownポートの例示</li>
+                        <li><strong>DNS:</strong> 「インターネットの電話帳」＋名前解決の流れ図解</li>
+                        <li><strong>DHCP:</strong> 「IPアドレス自動配布サービス」＋家庭での実例</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg border border-green-200">
+                    <h3 class="font-bold text-green-800 mb-2">🎯 まとめセクションの改善</h3>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li><strong>階層構造の重要性:</strong> 「なぜ階層に分けるのか」の意義を明確化</li>
+                        <li><strong>プロトコルの役割:</strong> 各プロトコルが「なぜ必要か」を実例で説明</li>
+                        <li><strong>アドレッシングの意味:</strong> IPアドレスの階層構造が「なぜ効率的か」を解説</li>
+                        <li><strong>実務での活用:</strong> 学習内容が「実際の仕事でどう使われるか」を明記</li>
+                        <li><strong>次回への橋渡し:</strong> Day25（ネットワーク応用）との関連性を明示</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="instruction-box">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-file-code text-blue-600 mr-2"></i>
+                出力形式・品質基準
+            </h2>
+            <div class="space-y-3">
+                <div class="bg-blue-50 p-3 rounded-lg">
+                    <p class="font-bold text-blue-800 mb-2">出力仕様:</p>
+                    <p class="text-sm">上記の改善指針をすべて反映した<span class="important">完成HTMLファイル（lecture24.html）のみを出力</span>してください。</p>
+                </div>
+                <div class="bg-blue-50 p-3 rounded-lg">
+                    <p class="font-bold text-blue-800 mb-2">品質確認項目:</p>
+                    <ul class="list-disc pl-5 space-y-1 text-sm">
+                        <li>すべての表に「分かりやすい説明」が併記されているか</li>
+                        <li>専門用語に「日本語説明＋具体例」が含まれているか</li>
+                        <li>まとめセクションが「抽象的でなく具体的」になっているか</li>
+                        <li>初心者が「なぜ・どのように」を理解できる構成になっているか</li>
+                        <li>演習問題・クイズの「回答を表示」ボタンが正しく実装されているか</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center mt-12 pt-8 border-t border-gray-300">
+            <p class="text-gray-600">
+                <i class="fas fa-graduation-cap mr-2"></i>
+                Day24: ネットワーク基礎 - 分かりやすさ改善プロンプト指示書
+            </p>
+            <p class="text-sm text-gray-500 mt-2">
+                既存内容完全保持 + 理解促進要素追加 = 最適化された学習体験の実現
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDopECuptMHGCb7%2BIH1q5ab3mDtLkPtZBDlWNP8B8PrG5RP5cRgJJbH7TXL7o7VIseeqX9HEIyEyU6k4h9UsDTQCGNPl6cUzdgdOqtgpW0YA51yAipakObcjVVeJcBB9dnRDRN8QkiwIKe4Q4kBZb5nmuJxZ0Aj2zFM7e0ahRgJ0rURiJmXU6unRn5KaK460uCnZcS03IyxK5c%2BruQtPnFaWaAAWgkwjyXyiObrUY%2B6%2BDJTfJ6eeY6Ym4Kt0RjW5Qr1VECefoxYLaYqS7%2FW7fYBngEyQF1cbfhHMhKokdYpMNt9BVww23eZnsgN0Eu9OOlkLxYV%2FEwj4nI3uM1ZYiUWOOAhWo8j1A7W7RfjfF68CQKqddHG%2FzSKg1jMTBlrLDCFfsOSlR50tgZZBP3BkVNUgpsslvLQfVPjmsyb%2BZzFMbEL6t1o0FszY65M7PuahXYBn2OxBzHR2aM90nBhjcwr6zDfUBUJ63hPMVMs%2FqT%2BPhPwRbPDIPJUt0gMn1qnU%2Bc4mqWcOA3UifbnK%2Bs0L6dQMLBIroZmFCOEdhEFQrBYPPvZcnVcrUZCjM4ZOplCuTMw%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDopECuptMHGCb7+IH1q5ab3mDtLkPtZBDlWNP8B8PrG5RP5cRgJJbH7TXL7o7VIseeqX9HEIyEyU6k4h9UsDTQCGNPl6cUzdgdOqtgpW0YA51yAipakObcjVVeJcBB9dnRDRN8QkiwIKe4Q4kBZb5nmuJxZ0Aj2zFM7e0ahRgJ0rURiJmXU6unRn5KaK460uCnZcS03IyxK5c+ruQtPnFaWaAAWgkwjyXyiObrUY+6+DJTfJ6eeY6Ym4Kt0RjW5Qr1VECefoxYLaYqS7/W7fYBngEyQF1cbfhHMhKokdYpMNt9BVww23eZnsgN0Eu9OOlkLxYV/Ewj4nI3uM1ZYiUWOOAhWo8j1A7W7RfjfF68CQKqddHG/zSKg1jMTBlrLDCFfsOSlR50tgZZBP3BkVNUgpsslvLQfVPjmsyb+ZzFMbEL6t1o0FszY65M7PuahXYBn2OxBzHR2aM90nBhjcwr6zDfUBUJ63hPMVMs/qT+PhPwRbPDIPJUt0gMn1qnU+c4mqWcOA3UifbnK+s0L6dQMLBIroZmFCOEdhEFQrBYPPvZcnVcrUZCjM4ZOplCuTMw==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

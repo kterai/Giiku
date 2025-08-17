@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day1_IMG2_Prompt - Javaコンパイル実行プロセス</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', Meiryo, sans-serif; }
+        .code-block { background: #f8f9fa; border-left: 4px solid #007bff; }
+        .spec-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <div class="container mx-auto px-6 py-8">
+        <!-- ヘッダー -->
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">
+                <i class="fas fa-code-branch text-blue-600 mr-3"></i>
+                Day1_IMG2_Prompt - Javaコンパイル実行プロセス
+            </h1>
+            <p class="text-lg text-gray-600">Javaソースコードからバイトコード、実行までのフロー図生成仕様</p>
+        </div>
+
+        <!-- 基本情報 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+                <i class="fas fa-info-circle text-blue-500 mr-2"></i>基本情報
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-blue-800 mb-2">ファイル名</h3>
+                    <p class="text-blue-700 font-mono text-lg">lecture1_img02.png</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-green-800 mb-2">画像サイズ</h3>
+                    <p class="text-green-700 font-mono text-lg">1200 × 800 ピクセル</p>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-purple-800 mb-2">用途</h3>
+                    <p class="text-purple-700">JavaSilver Day1講義用図解</p>
+                </div>
+                <div class="bg-yellow-50 p-4 rounded-lg">
+                    <h3 class="font-semibold text-yellow-800 mb-2">対象レベル</h3>
+                    <p class="text-yellow-700">プログラミング初心者向け</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 画像生成仕様 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+                <i class="fas fa-paint-brush text-purple-500 mr-2"></i>画像生成AI用詳細仕様
+            </h2>
+
+            <!-- レイアウト構成 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">レイアウト構成</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
+                        <h4 class="font-semibold text-red-800 mb-2">左エリア (400px)</h4>
+                        <p class="text-red-700 text-sm">Javaソースコード</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                        <h4 class="font-semibold text-blue-800 mb-2">中央エリア (400px)</h4>
+                        <p class="text-blue-700 text-sm">コンパイル・実行プロセス</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+                        <h4 class="font-semibold text-green-800 mb-2">右エリア (400px)</h4>
+                        <p class="text-green-700 text-sm">実行結果・出力</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 詳細仕様 -->
+            <div class="spec-box text-white p-6 rounded-lg mb-6">
+                <h3 class="text-xl font-semibold mb-4">
+                    <i class="fas fa-cogs mr-2"></i>詳細描画仕様
+                </h3>
+                <div class="space-y-4">
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h4 class="font-semibold mb-2">1. 左エリア - Javaソースコード (0-400px)</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>背景色: 薄いグレー (#f8f9fa)</li>
+                            <li>コードエディタ風の外観（黒い枠線）</li>
+                            <li>タイトル: "HelloWorld.java" (上部、14pt明朝体)</li>
+                            <li>コード内容を表示:</li>
+                        </ul>
+                        <div class="code-block p-3 mt-2 rounded text-gray-800 font-mono text-xs">
+public class HelloWorld {<br>
+&nbsp;&nbsp;public static void main(String[] args) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Hello, World!");<br>
+&nbsp;&nbsp;}<br>
+}
+                        </div>
+                    </div>
+
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h4 class="font-semibold mb-2">2. 中央エリア - プロセスフロー (400-800px)</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>背景色: 白 (#ffffff)</li>
+                            <li>上から下への縦方向フロー</li>
+                            <li>各ステップを四角形で表現（幅300px、高さ80px）</li>
+                            <li>ステップ間を太い矢印で接続（青色、幅10px）</li>
+                            <li>各ステップの詳細:</li>
+                        </ul>
+                        <div class="ml-4 mt-2 space-y-2 text-xs">
+                            <div class="bg-yellow-100 text-yellow-800 p-2 rounded">
+                                <strong>ステップ1 (Y:50-130px):</strong> "javac HelloWorld.java"<br>
+                                背景: 薄い黄色、文字: 12pt明朝体黒
+                            </div>
+                            <div class="bg-orange-100 text-orange-800 p-2 rounded">
+                                <strong>ステップ2 (Y:180-260px):</strong> "コンパイル処理"<br>
+                                背景: 薄いオレンジ色、文字: 12pt明朝体黒
+                            </div>
+                            <div class="bg-purple-100 text-purple-800 p-2 rounded">
+                                <strong>ステップ3 (Y:310-390px):</strong> "HelloWorld.class生成"<br>
+                                背景: 薄い紫色、文字: 12pt明朝体黒
+                            </div>
+                            <div class="bg-blue-100 text-blue-800 p-2 rounded">
+                                <strong>ステップ4 (Y:440-520px):</strong> "java HelloWorld"<br>
+                                背景: 薄い青色、文字: 12pt明朝体黒
+                            </div>
+                            <div class="bg-green-100 text-green-800 p-2 rounded">
+                                <strong>ステップ5 (Y:570-650px):</strong> "JVM実行"<br>
+                                背景: 薄い緑色、文字: 12pt明朝体黒
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white bg-opacity-20 p-4 rounded">
+                        <h4 class="font-semibold mb-2">3. 右エリア - 実行結果 (800-1200px)</h4>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>背景色: 黒 (#000000)</li>
+                            <li>コマンドプロンプト/ターミナル風の外観</li>
+                            <li>タイトル: "実行結果" (上部、白色14pt明朝体)</li>
+                            <li>表示内容:</li>
+                        </ul>
+                        <div class="bg-black text-green-400 p-3 mt-2 rounded font-mono text-xs">
+C:\> javac HelloWorld.java<br>
+C:\> java HelloWorld<br>
+Hello, World!<br>
+C:\>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 色彩・フォント指定 -->
+            <div class="bg-gradient-to-r from-blue-100 to-purple-100 p-6 rounded-lg mb-6">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                    <i class="fas fa-palette mr-2"></i>色彩・フォント指定
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold text-gray-700 mb-3">基本色パレット</h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 bg-white border-2 border-gray-300 rounded mr-3"></div>
+                                <span class="text-sm">背景: 白 (#ffffff)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 bg-gray-800 rounded mr-3"></div>
+                                <span class="text-sm">文字: 黒 (#333333)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 bg-blue-500 rounded mr-3"></div>
+                                <span class="text-sm">矢印: 青 (#3b82f6)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-6 h-6 bg-gray-200 rounded mr-3"></div>
+                                <span class="text-sm">枠線: グレー (#e5e7eb)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-gray-700 mb-3">フォント仕様</h4>
+                        <div class="space-y-2 text-sm">
+                            <div><strong>メインテキスト:</strong> 明朝体 14pt</div>
+                            <div><strong>コード部分:</strong> 等幅フォント 12pt</div>
+                            <div><strong>タイトル:</strong> 明朝体 16pt 太字</div>
+                            <div><strong>ステップ文字:</strong> 明朝体 12pt</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 重要注意事項 -->
+            <div class="bg-red-50 border-l-4 border-red-400 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold text-red-800 mb-4">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>重要注意事項
+                </h3>
+                <ul class="list-disc list-inside text-red-700 space-y-2">
+                    <li>各エリアの境界線は薄いグレー（#e5e7eb）で明確に区切る</li>
+                    <li>矢印は太く目立つように描画（幅10px、青色#3b82f6）</li>
+                    <li>ステップの四角形は角を少し丸める（border-radius: 8px相当）</li>
+                    <li>全体的に教育的で見やすいデザインにする</li>
+                    <li>文字は読みやすさを最優先に配置</li>
+                    <li>コードとコマンド部分は等幅フォントを使用</li>
+                    <li>初心者が理解しやすい視覚的な流れを重視</li>
+                </ul>
+            </div>
+
+            <!-- 生成確認チェックリスト -->
+            <div class="bg-green-50 border-l-4 border-green-400 p-6 rounded-lg mt-6">
+                <h3 class="text-xl font-semibold text-green-800 mb-4">
+                    <i class="fas fa-check-circle mr-2"></i>生成確認チェックリスト
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <h4 class="font-semibold text-green-700 mb-2">レイアウト確認</h4>
+                        <ul class="list-disc list-inside text-green-600 text-sm space-y-1">
+                            <li>画像サイズ: 1200×800px</li>
+                            <li>3エリアが均等に配置されている</li>
+                            <li>縦方向のフローが明確</li>
+                            <li>矢印の向きと太さが適切</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-green-700 mb-2">内容確認</h4>
+                        <ul class="list-disc list-inside text-green-600 text-sm space-y-1">
+                            <li>Javaコードが正確に表示</li>
+                            <li>コンパイル手順が順序通り</li>
+                            <li>実行結果が適切に表示</li>
+                            <li>色彩とフォントが仕様通り</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- フッター -->
+        <div class="text-center text-gray-500 text-sm mt-8">
+            <p>JavaSilver Day1講義用画像生成仕様書</p>
+            <p class="mt-1">ファイル生成先: /ITエンジニア育成カリキュラム/images/day1/lecture1_img02.png</p>
+        </div>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDr8rxydMWkyDaxkyIBQNnnseOdP6E0Lfda9R19mHRTN5FefTDAmNA5gy1DjED6dqSNUch1c9%2FcQJqcSl5Rs5mv5ILHxqqtSEQ74RCzw%2FBvByijMcCtYzb2V7pRrYqWA%2FLfjnWmCzOYhn8ZmtnmrN2UPQbILxLHPWI6mBVA5MpP6jhLwU%2BRllvav%2BM245tL2Tjg5g%2FnAovSPWk0N%2FBrGnGJz29cVdbjQjFAvqBBqoNFRwf0RL7sKtMkxkEee0DHV7%2BQ65FgU6qQxMegmYGeUeXu8FEDjqYg9E5oYX7tHkmI38GDYc0t8KRNQ9HQEahWw3dAn8K3SYVzOEB%2BQ6gVLqJ5QIUCLcqlD3m%2FzvrTjSu5EwzUY%2Boe8OUQ%2BdKLLsB9PtOf%2B%2Fld0n4sSDbn6MtPZ0GYS7VCChvxfqpvR6vW1M0p4uiSCjit%2BA600dxu%2FtGCECUKLjjOBJZhHnDyTLcPVG6IR%2BfPBnFSXm6hhsN105WmC3k2TuMiKBQ9uX7QUo%2FaQJCI8%2B1kQ9Rj3QmQCuwNYxpGw%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDr8rxydMWkyDaxkyIBQNnnseOdP6E0Lfda9R19mHRTN5FefTDAmNA5gy1DjED6dqSNUch1c9/cQJqcSl5Rs5mv5ILHxqqtSEQ74RCzw/BvByijMcCtYzb2V7pRrYqWA/LfjnWmCzOYhn8ZmtnmrN2UPQbILxLHPWI6mBVA5MpP6jhLwU+Rllvav+M245tL2Tjg5g/nAovSPWk0N/BrGnGJz29cVdbjQjFAvqBBqoNFRwf0RL7sKtMkxkEee0DHV7+Q65FgU6qQxMegmYGeUeXu8FEDjqYg9E5oYX7tHkmI38GDYc0t8KRNQ9HQEahWw3dAn8K3SYVzOEB+Q6gVLqJ5QIUCLcqlD3m/zvrTjSu5EwzUY+oe8OUQ+dKLLsB9PtOf+/ld0n4sSDbn6MtPZ0GYS7VCChvxfqpvR6vW1M0p4uiSCjit+A600dxu/tGCECUKLjjOBJZhHnDyTLcPVG6IR+fPBnFSXm6hhsN105WmC3k2TuMiKBQ9uX7QUo/aQJCI8+1kQ9Rj3QmQCuwNYxpGw=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

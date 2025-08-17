@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day1_IMG6_Prompt - プリミティブ型vs参照型比較</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
+        <header class="mb-8 border-b pb-6">
+            <h1 class="text-3xl font-bold text-blue-600 mb-2 flex items-center">
+                <i class="fas fa-image mr-3"></i>
+                Day1_IMG6 - プリミティブ型vs参照型比較図
+            </h1>
+            <p class="text-gray-600 text-lg">画像生成AI用詳細仕様書</p>
+            <div class="mt-4 bg-blue-50 p-4 rounded-lg">
+                <p class="text-blue-800"><strong>生成ファイル名:</strong> lecture1_img06.png</p>
+                <p class="text-blue-800"><strong>配置場所:</strong> /ITエンジニア育成カリキュラム/images/day1/</p>
+            </div>
+        </header>
+
+        <main>
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-bullseye mr-2 text-green-500"></i>
+                    画像の目的・用途
+                </h2>
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li>プログラム初心者にプリミティブ型と参照型の根本的な違いを視覚的に理解させる</li>
+                        <li>メモリ上での格納方式の違いを明確に示す</li>
+                        <li>JavaSilver試験でよく出題される重要概念の理解を促進</li>
+                        <li>講師が説明する際の補助教材として使用</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-ruler-combined mr-2 text-purple-500"></i>
+                    基本仕様
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-purple-800 mb-2">サイズ・形式</h3>
+                        <ul class="text-sm text-purple-700 space-y-1">
+                            <li><strong>サイズ:</strong> 1200×800px</li>
+                            <li><strong>解像度:</strong> 300DPI以上</li>
+                            <li><strong>形式:</strong> PNG（透明背景対応）</li>
+                            <li><strong>色深度:</strong> 24bit以上</li>
+                        </ul>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h3 class="font-semibold text-purple-800 mb-2">全体レイアウト</h3>
+                        <ul class="text-sm text-purple-700 space-y-1">
+                            <li><strong>背景色:</strong> 純白（#FFFFFF）</li>
+                            <li><strong>メイン分割:</strong> 左右2分割</li>
+                            <li><strong>余白:</strong> 上下左右各40px</li>
+                            <li><strong>中央分離線:</strong> 2px幅、薄灰色</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-palette mr-2 text-yellow-500"></i>
+                    詳細デザイン仕様
+                </h2>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- 左側：プリミティブ型 -->
+                    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
+                        <h3 class="text-xl font-bold text-blue-800 mb-4 flex items-center">
+                            <i class="fas fa-cube mr-2"></i>
+                            左側：プリミティブ型エリア
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-blue-700 mb-2">タイトル部分</h4>
+                                <ul class="text-sm text-blue-600 space-y-1">
+                                    <li><strong>テキスト:</strong> "プリミティブ型 (Primitive Type)"</li>
+                                    <li><strong>位置:</strong> 左上角から80px下</li>
+                                    <li><strong>フォント:</strong> ゴシック体、24pt、太字</li>
+                                    <li><strong>色:</strong> 濃青（#1E3A8A）</li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-semibold text-blue-700 mb-2">変数表現部分</h4>
+                                <ul class="text-sm text-blue-600 space-y-1">
+                                    <li><strong>位置:</strong> 中央やや上（y=200px付近）</li>
+                                    <li><strong>表現:</strong> 変数名と値を直接格納した箱</li>
+                                    <li><strong>例1:</strong> "int x = 10" → 箱に "x: 10" と表示</li>
+                                    <li><strong>例2:</strong> "double y = 3.14" → 箱に "y: 3.14" と表示</li>
+                                    <li><strong>箱のサイズ:</strong> 150×60px</li>
+                                    <li><strong>箱の色:</strong> 薄青（#DBEAFE）、枠線は青（#3B82F6）</li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-semibold text-blue-700 mb-2">説明テキスト</h4>
+                                <ul class="text-sm text-blue-600 space-y-1">
+                                    <li><strong>位置:</strong> 下部（y=500px以下）</li>
+                                    <li><strong>内容:</strong> "値を直接格納"</li>
+                                    <li><strong>フォント:</strong> 明朝体、16pt、標準</li>
+                                    <li><strong>色:</strong> 黒（#000000）</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 右側：参照型 -->
+                    <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500">
+                        <h3 class="text-xl font-bold text-red-800 mb-4 flex items-center">
+                            <i class="fas fa-share mr-2"></i>
+                            右側：参照型エリア
+                        </h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-red-700 mb-2">タイトル部分</h4>
+                                <ul class="text-sm text-red-600 space-y-1">
+                                    <li><strong>テキスト:</strong> "参照型 (Reference Type)"</li>
+                                    <li><strong>位置:</strong> 右上角から80px下</li>
+                                    <li><strong>フォント:</strong> ゴシック体、24pt、太字</li>
+                                    <li><strong>色:</strong> 濃赤（#991B1B）</li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-semibold text-red-700 mb-2">変数とオブジェクト表現</h4>
+                                <ul class="text-sm text-red-600 space-y-1">
+                                    <li><strong>変数部分:</strong> 左寄り（x=650px付近）</li>
+                                    <li><strong>変数箱:</strong> "str" と表示、150×40px</li>
+                                    <li><strong>変数箱色:</strong> 薄橙（#FED7AA）、枠線は橙（#F97316）</li>
+                                    <li><strong>オブジェクト部分:</strong> 右寄り（x=950px付近）</li>
+                                    <li><strong>オブジェクト箱:</strong> "Hello World" と表示、200×60px</li>
+                                    <li><strong>オブジェクト箱色:</strong> 薄緑（#D1FAE5）、枠線は緑（#10B981）</li>
+                                    <li><strong>矢印:</strong> 変数からオブジェクトへ、3px幅、赤色</li>
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-semibold text-red-700 mb-2">説明テキスト</h4>
+                                <ul class="text-sm text-red-600 space-y-1">
+                                    <li><strong>位置:</strong> 下部（y=500px以下）</li>
+                                    <li><strong>変数説明:</strong> "参照（アドレス）を格納"</li>
+                                    <li><strong>オブジェクト説明:</strong> "実際の値を格納"</li>
+                                    <li><strong>フォント:</strong> 明朝体、16pt、標準</li>
+                                    <li><strong>色:</strong> 黒（#000000）</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-lightbulb mr-2 text-yellow-500"></i>
+                    重要な視覚的要素
+                </h2>
+                <div class="bg-yellow-50 p-6 rounded-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h3 class="font-semibold text-yellow-800 mb-2">強調ポイント</h3>
+                            <ul class="text-sm text-yellow-700 space-y-1">
+                                <li>プリミティブ型は値を直接格納することを強調</li>
+                                <li>参照型は参照を介してオブジェクトにアクセスすることを強調</li>
+                                <li>矢印の太さと色で参照関係を明確に表現</li>
+                                <li>色分けで2つの型の違いを直感的に理解可能</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-yellow-800 mb-2">教育的配慮</h3>
+                            <ul class="text-sm text-yellow-700 space-y-1">
+                                <li>シンプルで分かりやすい例を使用</li>
+                                <li>色覚に配慮した色選択</li>
+                                <li>文字サイズは遠距離からも読みやすく設定</li>
+                                <li>専門用語には英語併記で理解を促進</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-code mr-2 text-indigo-500"></i>
+                    コード例表現
+                </h2>
+                <div class="bg-gray-100 p-6 rounded-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-2">プリミティブ型のコード例</h3>
+                            <div class="bg-blue-100 p-3 rounded font-mono text-sm">
+                                <p>int x = 10;</p>
+                                <p>double y = 3.14;</p>
+                                <p>boolean flag = true;</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">各変数が値を直接保持していることを図で表現</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-2">参照型のコード例</h3>
+                            <div class="bg-red-100 p-3 rounded font-mono text-sm">
+                                <p>String str = "Hello";</p>
+                                <p>int[] array = {1,2,3};</p>
+                                <p>Object obj = new Object();</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">変数は参照を保持し、実体は別の場所に存在することを表現</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-exclamation-triangle mr-2 text-red-500"></i>
+                    生成時の注意点
+                </h2>
+                <div class="bg-red-50 p-6 rounded-lg border border-red-200">
+                    <ul class="list-disc list-inside space-y-2 text-red-700">
+                        <li><strong>文字の可読性:</strong> 全ての文字が明確に読み取れること</li>
+                        <li><strong>比例関係:</strong> 左右のエリアが同じ大きさであること</li>
+                        <li><strong>矢印の方向:</strong> 参照型の矢印が変数からオブジェクトへ正確に向いていること</li>
+                        <li><strong>色のコントラスト:</strong> 背景と文字の色に十分なコントラストがあること</li>
+                        <li><strong>整列:</strong> 各要素が適切に配置され、見やすいレイアウトであること</li>
+                        <li><strong>専門用語:</strong> 英語表記が正確であること（誤植がないこと）</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4 flex items-center">
+                    <i class="fas fa-check-circle mr-2 text-green-500"></i>
+                    生成完了チェックリスト
+                </h2>
+                <div class="bg-green-50 p-6 rounded-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h3 class="font-semibold text-green-800 mb-2">技術的チェック</h3>
+                            <ul class="text-sm text-green-700 space-y-1">
+                                <li>□ ファイル名が lecture1_img06.png</li>
+                                <li>□ サイズが正確に 1200×800px</li>
+                                <li>□ PNG形式で保存済み</li>
+                                <li>□ 解像度が300DPI以上</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-green-800 mb-2">内容チェック</h3>
+                            <ul class="text-sm text-green-700 space-y-1">
+                                <li>□ プリミティブ型と参照型の違いが明確</li>
+                                <li>□ 全ての文字が読みやすい</li>
+                                <li>□ 色分けが適切</li>
+                                <li>□ 矢印の方向が正確</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="mt-8 pt-6 border-t text-center text-gray-500">
+            <p><i class="fas fa-graduation-cap mr-2"></i>ITエンジニア育成カリキュラム - JavaSilver試験対策</p>
+            <p class="text-sm mt-2">この仕様書に基づいて教育効果の高い図解を生成してください</p>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDrH7cYUwJ3af9OpVVVsCSKFV%2B7mhYJkwj2al0C%2BtPYf6I0QVbiBUBDJYXD1nuUW%2Fxoo%2FjiIVvV8OKpPyng0o1SgJbf5EXaftLPHVCOcOK311p0v19KG3tXsoUqKyGoRF5XQwstYFRUMDUe7h%2BVYmKZNbOljTEZMSgE3a8WgzVqKpicsFTyKVERJVw2zFR2heJOxy9SUGr8JdyA7EVPvOqJ7VfvQFPo8P5flTwZJ6kM988Zzm9%2BM1DX%2B0L4s%2BJmcu2q9bkXUjaKLU2ZtSpXOBoJDMyBse2Y909HHAeyF5oRsOGxQhpGFSfUZjFi8ucBAYcILgzB0FwmauVTzcrkxhGK11gGboq%2B6PDP7dhGcZvfPwEVFiPCEXBY5EaVVi0PDaYmPakt4aWwy9g3wEYZVLDxZhWoXnO6Cz9FcAV3xDIcub%2FF0Ky6RG2d383XPVCbkkuOtD3FNlDP%2FL7Pr%2Fr2tJo%2FyB9gOMCwOnKfs%2Fzk5cCnNysyW7zdXNzuoDXxc8NMkVSU1GNHT%2B5vi86eUpW93hK34%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDrH7cYUwJ3af9OpVVVsCSKFV+7mhYJkwj2al0C+tPYf6I0QVbiBUBDJYXD1nuUW/xoo/jiIVvV8OKpPyng0o1SgJbf5EXaftLPHVCOcOK311p0v19KG3tXsoUqKyGoRF5XQwstYFRUMDUe7h+VYmKZNbOljTEZMSgE3a8WgzVqKpicsFTyKVERJVw2zFR2heJOxy9SUGr8JdyA7EVPvOqJ7VfvQFPo8P5flTwZJ6kM988Zzm9+M1DX+0L4s+Jmcu2q9bkXUjaKLU2ZtSpXOBoJDMyBse2Y909HHAeyF5oRsOGxQhpGFSfUZjFi8ucBAYcILgzB0FwmauVTzcrkxhGK11gGboq+6PDP7dhGcZvfPwEVFiPCEXBY5EaVVi0PDaYmPakt4aWwy9g3wEYZVLDxZhWoXnO6Cz9FcAV3xDIcub/F0Ky6RG2d383XPVCbkkuOtD3FNlDP/L7Pr/r2tJo/yB9gOMCwOnKfs/zk5cCnNysyW7zdXNzuoDXxc8NMkVSU1GNHT+5vi86eUpW93hK34=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

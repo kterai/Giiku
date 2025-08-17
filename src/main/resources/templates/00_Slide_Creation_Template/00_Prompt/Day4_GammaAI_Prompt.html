@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day4_スライドプロンプトテンプレート</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .prompt-container {
+            white-space: pre-wrap;
+            font-family: monospace;
+            background-color: #f7f7f7;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        h1, h2, h3 {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="container mx-auto bg-white p-8 rounded-lg shadow-lg">
+        <h1 class="text-3xl mb-6 text-blue-700">ITエンジニア育成カリキュラム - Day4のスライド作成用プロンプト</h1>
+        
+        <div class="mb-6">
+            <p class="mb-4">このテンプレートをGammaAIに入力して、Day4（多次元配列とアルゴリズム）の講義スライドを作成します。</p>
+        </div>
+
+        <div class="prompt-container text-sm">
+プロジェクト名：ITエンジニア育成カリキュラム - Day 4: 多次元配列とアルゴリズム
+
+以下の指示に従って、プログラミング教育用のプロフェッショナルな講義スライドを作成してください。
+
+## スライド全体の設定
+- プロフェッショナルな教育用テンプレートを使用（青と白のカラースキームが望ましい）
+- 各スライドには明確な見出しをつける
+- すべてのスライドに下部にスライド番号を表示
+- フォントは読みやすく明確なものを選択
+- 必要に応じて関連する画像やアイコン、図解を追加
+- 背景色で文字が見えづらくならないように注意する
+
+## スライドの構成
+
+### タイトルスライド
+- タイトル: 「ITエンジニア育成カリキュラム - Day 4」
+- サブタイトル: 「多次元配列とアルゴリズム」
+- 日付: 「2025年」
+- 配列や表のグリッド、またはアルゴリズムのフローを表す適切な画像を配置
+
+### スライド2：本日の学習目標
+以下の箇条書きリストを含める:
+- 多次元配列（2次元配列）の理解と操作方法を習得する
+- 基本的なソートアルゴリズム（バブルソート、選択ソート）を理解し、実装できるようになる
+- 探索アルゴリズム（線形探索、二分探索）の概念と実装方法を習得する
+- アルゴリズムの計算量（時間計算量・空間計算量）の基礎を理解する
+
+### スライド3：1日のスケジュール概要
+時間割を表形式で示す:
+- 10:00-10:15 オリエンテーション・前日復習
+- 10:15-11:00 多次元配列の基礎
+- 11:00-11:45 多次元配列の演習
+- 11:45-12:45 昼休憩
+- 12:45-13:30 ソートアルゴリズム基礎
+- 13:30-14:15 ソートアルゴリズム演習
+- 14:15-15:00 探索アルゴリズム基礎
+- 15:00-15:10 午後休憩
+- 15:10-15:55 探索アルゴリズム演習
+- 15:55-17:00 理解度チェック
+- 17:00-17:45 振り返り・質疑応答
+
+### スライド4：オリエンテーション・前日復習 (10:00-10:15)
+- 前日学習した制御構文の要点復習（if-else, switch, for, while, do-while）
+- 基本的な配列操作の復習（宣言、初期化、アクセス、走査）
+- 本日の学習内容と目標の確認
+- 質問があれば挙手で知らせてください
+
+### スライド5：多次元配列の基礎 (10:15-11:00)
+- 多次元配列の概念と実用例
+- 2次元配列の宣言と初期化の方法
+- 2次元配列へのアクセス方法（行と列のインデックス）
+- 2次元配列の走査（二重ループ）
+- 不規則な2次元配列（ジャグ配列）
+
+### スライド6：2次元配列のコード例 (10:15-11:00 続き)
+次のようなコードと説明を含める:
+```java
+// 2次元配列の宣言と初期化
+int[][] matrix = new int[3][4]; // 3行4列の2次元配列
+
+// 初期値を持つ2次元配列の宣言
+int[][] numbers = {
+    {1, 2, 3, 4},
+    {5, 6, 7, 8},
+    {9, 10, 11, 12}
+};
+
+// 要素へのアクセス
+int value = numbers[1][2]; // 2行目、3列目の要素（値は7）
+
+// 2次元配列の走査
+for (int i = 0; i < numbers.length; i++) {
+    for (int j = 0; j < numbers[i].length; j++) {
+        System.out.print(numbers[i][j] + " ");
+    }
+    System.out.println();
+}
+```
+- コードの各部分の説明
+- 行と列のインデックスは0から始まることを強調
+
+### スライド7：多次元配列の演習 (11:00-11:45)
+以下の演習問題を提示:
+1. 3×3の行列を表す2次元配列を作成し、各要素に1から9までの値を格納して表示するプログラムを作成する
+2. 2つの行列の和を計算するプログラムを作成する
+3. 九九表を2次元配列に格納し、表示するプログラムを作成する
+4. 3×3のマス目に○×ゲームの状態を格納する2次元配列を作成する
+
+### スライド8：昼休憩 (11:45-12:45)
+- 休憩時間です
+- 昼食をとり、リフレッシュしましょう
+- 午後のセッションは12:45から開始します
+（リラックスを促す画像や軽い雑学などを含めるとよい）
+
+### スライド9：ソートアルゴリズム基礎 (12:45-13:30)
+- ソートアルゴリズムの定義と目的
+- アルゴリズムとは何か
+- 計算量（時間計算量・空間計算量）の概念
+- 基本的なソートアルゴリズムの種類（バブルソート、選択ソート、挿入ソート、クイックソートなど）
+- 今回学習するバブルソートと選択ソートの概要
+
+### スライド10：バブルソート (12:45-13:30 続き)
+- バブルソートのアルゴリズム説明
+- 動作原理のビジュアル表現
+- 時間計算量：O(n²)
+- バブルソートの実装例:
+```java
+public static void bubbleSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // 要素を交換
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+```
+- ステップバイステップの動作説明
+
+### スライド11：選択ソート (12:45-13:30 続き)
+- 選択ソートのアルゴリズム説明
+- 動作原理のビジュアル表現
+- 時間計算量：O(n²)
+- 選択ソートの実装例:
+```java
+public static void selectionSort(int[] arr) {
+    int n = arr.length;
+    for (int i = 0; i < n - 1; i++) {
+        // 未ソート部分の最小要素のインデックスを見つける
+        int minIndex = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
+            }
+        }
+        // 見つかった最小要素と現在位置を交換
+        int temp = arr[minIndex];
+        arr[minIndex] = arr[i];
+        arr[i] = temp;
+    }
+}
+```
+- ステップバイステップの動作説明
+
+### スライド12：ソートアルゴリズム演習 (13:30-14:15)
+以下の演習問題を提示:
+1. バブルソートを実装し、整数配列をソートするプログラムを作成する
+2. 選択ソートを実装し、整数配列をソートするプログラムを作成する
+3. 同じデータでバブルソートと選択ソートの処理時間を計測し、比較する
+4. ソートアルゴリズムを拡張して、文字列の配列をソートする
+
+### スライド13：探索アルゴリズム基礎 (14:15-15:00)
+- 探索アルゴリズムの定義と目的
+- 線形探索（リニアサーチ）の概念と特徴
+- 二分探索（バイナリサーチ）の概念と特徴
+- 各アルゴリズムの時間計算量の比較
+- 探索アルゴリズムの選択基準
+
+### スライド14：線形探索 (14:15-15:00 続き)
+- 線形探索のアルゴリズム説明
+- 動作原理のビジュアル表現
+- 時間計算量：O(n)
+- 線形探索の実装例:
+```java
+public static int linearSearch(int[] arr, int target) {
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] == target) {
+            return i; // 見つかった場合はインデックスを返す
+        }
+    }
+    return -1; // 見つからなかった場合は-1を返す
+}
+```
+- 実行例とケーススタディ
+
+### スライド15：二分探索 (14:15-15:00 続き)
+- 二分探索のアルゴリズム説明
+- 動作原理のビジュアル表現
+- 時間計算量：O(log n)
+- 二分探索の前提条件（ソート済み配列）
+- 二分探索の実装例:
+```java
+public static int binarySearch(int[] arr, int target) {
+    int left = 0;
+    int right = arr.length - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        // 中央の要素をチェック
+        if (arr[mid] == target) {
+            return mid; // 見つかった場合はインデックスを返す
+        }
+        
+        // 探索範囲を半分に絞り込む
+        if (arr[mid] < target) {
+            left = mid + 1; // 右半分を探索
+        } else {
+            right = mid - 1; // 左半分を探索
+        }
+    }
+    
+    return -1; // 見つからなかった場合は-1を返す
+}
+```
+- ステップバイステップの動作説明
+
+### スライド16：午後休憩 (15:00-15:10)
+- 短い休憩時間です
+- リフレッシュして、次の演習に備えましょう
+- 演習セッションは15:10から開始します
+
+### スライド17：探索アルゴリズム演習 (15:10-15:55)
+以下の演習問題を提示:
+1. 線形探索を実装し、整数配列から特定の値を探すプログラムを作成する
+2. 二分探索を実装し、ソート済みの整数配列から特定の値を探すプログラムを作成する
+3. 大きなサイズの配列で線形探索と二分探索の実行時間を比較する
+4. 二分探索を用いて、ある値が配列に存在しない場合に挿入すべき位置を求めるプログラムを作成する
+
+### スライド18：アルゴリズムの計算量比較 (15:10-15:55 続き)
+以下のアルゴリズムの計算量を比較表で示す:
+| アルゴリズム | 最良時間計算量 | 平均時間計算量 | 最悪時間計算量 | 空間計算量 | 安定性 |
+| --- | --- | --- | --- | --- | --- |
+| バブルソート | O(n) | O(n²) | O(n²) | O(1) | 安定 |
+| 選択ソート | O(n²) | O(n²) | O(n²) | O(1) | 不安定 |
+| 線形探索 | O(1) | O(n/2) | O(n) | O(1) | - |
+| 二分探索 | O(1) | O(log n) | O(log n) | O(1) | - |
+
+- 各計算量の意味と重要性
+- 実際のアプリケーション開発での計算量の考慮点
+
+### スライド19：理解度チェック (15:55-17:00)
+以下のような問題形式で:
+1. 2次元配列の宣言と初期化に関する問題
+2. バブルソートのアルゴリズムに関する問題
+3. 選択ソートのアルゴリズムに関する問題
+4. 線形探索と二分探索の違いに関する問題
+5. 計算量に関する問題
+6. アルゴリズムの実装に関するコード穴埋め問題
+
+### スライド20：振り返り・質疑応答 (17:00-17:45)
+- 本日の学習内容の要点
+  - 多次元配列の操作方法
+  - ソートアルゴリズム（バブルソート、選択ソート）
+  - 探索アルゴリズム（線形探索、二分探索）
+  - アルゴリズムの計算量
+- 重要な概念の再確認
+- 質問は随時受け付け
+- 次回の準備について
+
+### スライド21：次のステップ
+明日の学習内容の予告:
+- Java Silver模擬テスト①
+- 週次総合テスト
+- 第1週の総復習
+- 弱点分析と強化
+- 第2週（オブジェクト指向）への橋渡し
+
+## 追加の指示
+- 各スライドには説明的なノートを追加し、講師が補足情報を伝えられるようにしてください
+- コードブロックには適切なシンタックスハイライトを適用してください
+- アルゴリズムの動作を説明する図解やアニメーションを含めてください
+- ソートアルゴリズムと探索アルゴリズムの動作を視覚的に理解できる図解を含めてください
+- 多次元配列のメモリレイアウトを示す図解を含めてください
+- 計算量のグラフ（O(1)、O(log n)、O(n)、O(n²)の比較）を含めてください
+- 文字は大きめ、内容は簡潔に、視認性を重視してください
+- Pleiades（Eclipse）でのデバッグ方法についても触れてください
+- Amazon Corretto JDK 17での動作を前提としてください
+
+以上の指示に基づいて、プロフェッショナルな教育用スライドを作成してください。
+        </div>
+
+        <div class="mt-8 border-t pt-4">
+            <h3 class="text-xl mb-4 text-blue-600">使用方法</h3>
+            <ol class="list-decimal pl-6 space-y-2">
+                <li>上記のプロンプトをコピーします</li>
+                <li>GammaAI（<a href="https://gamma.app" class="text-blue-500 underline" target="_blank">https://gamma.app</a>）にアクセスします</li>
+                <li>新規プレゼンテーション作成画面でプロンプトを貼り付けます</li>
+                <li>生成されたスライドを確認し、必要に応じて修正を加えます</li>
+                <li>特にコードサンプルや技術的な説明に誤りがないか確認してください</li>
+            </ol>
+        </div>
+
+        <div class="mt-6 border-t pt-4 text-gray-600 text-sm">
+            <p>© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDlxuzORnNjv0cLUiQy%2FSJdeymXUuDB449FDI6ZdXlFJQ%2BdUJeVQKxlSCOsvNGLiyYkN2QvlJanNBO85rebGH%2F0FvCttl0t8mCbS5%2B8jZ8TcVjRkQdjsQ73bqCC1w4MEqvBOd73wIoxNbqi1s6acrAYYXe93CqWwVCgGgJ5JqDMyIVAl81y1zaje57s1WaAtlqyacvKFQMbYuCvaghc2hrzayrwFLpGAXsksYtslJKZ3dzk2dto154FmO5cyYUE1RuQkLwuzPCHWfc%2B6WqTTkxkzctZh3096qUmfQoaiijJgCCdBJf28Eu0aWy9x2UY4h7pmoe8ZWgvps3nEtF6njGO63VJQ1N%2Fh%2BNYmlFwoo29xnZDG01Ws4JbQGGqT4HuEttjFHmQ0aoezWh9iXsMOIub3uxlaf9wvu2f0FzcYEPNU4ujNjw9yu5tCXgmcgAByxZfNxFSKMkJCFkjWGOXqFlKLGv01pjgvP9ycS8i3u4zgo0EJhm9aU58LgHlV2Q5yk0uaP4Oi326DeiXKr1wHIOpqL6oDrXLROANLuo5p1jDqY";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDlxuzORnNjv0cLUiQy/SJdeymXUuDB449FDI6ZdXlFJQ+dUJeVQKxlSCOsvNGLiyYkN2QvlJanNBO85rebGH/0FvCttl0t8mCbS5+8jZ8TcVjRkQdjsQ73bqCC1w4MEqvBOd73wIoxNbqi1s6acrAYYXe93CqWwVCgGgJ5JqDMyIVAl81y1zaje57s1WaAtlqyacvKFQMbYuCvaghc2hrzayrwFLpGAXsksYtslJKZ3dzk2dto154FmO5cyYUE1RuQkLwuzPCHWfc+6WqTTkxkzctZh3096qUmfQoaiijJgCCdBJf28Eu0aWy9x2UY4h7pmoe8ZWgvps3nEtF6njGO63VJQ1N/h+NYmlFwoo29xnZDG01Ws4JbQGGqT4HuEttjFHmQ0aoezWh9iXsMOIub3uxlaf9wvu2f0FzcYEPNU4ujNjw9yu5tCXgmcgAByxZfNxFSKMkJCFkjWGOXqFlKLGv01pjgvP9ycS8i3u4zgo0EJhm9aU58LgHlV2Q5yk0uaP4Oi326DeiXKr1wHIOpqL6oDrXLROANLuo5p1jDqY";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt_day4_lecture.html（完全改良版）- 配列応用・アルゴリズム基礎</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-blue-800 mb-2">
+                <i class="fas fa-code mr-2"></i>
+                Prompt_day4_lecture.html（完全改良版）
+            </h1>
+            <h2 class="text-xl text-gray-700 mb-4">配列応用・アルゴリズム基礎 講義生成用指示書</h2>
+            <div class="bg-blue-100 border-l-4 border-blue-500 p-4 rounded">
+                <p class="text-blue-800 font-semibold">Day11-36で確立した分かりやすさ改善指針を完全適用</p>
+            </div>
+        </header>
+
+        <main>
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-green-700 mb-4">
+                    <i class="fas fa-project-diagram mr-2"></i>
+                    プロジェクト名：ITエンジニア育成カリキュラム - Day4: 配列応用・アルゴリズム基礎（改良版）
+                </h2>
+                
+                <div class="bg-yellow-100 border border-yellow-400 rounded-lg p-4 mb-6">
+                    <p class="text-gray-800 font-semibold">以下の指示に従って、<code class="bg-yellow-200 px-2 py-1 rounded">Traini../lecture/lecture4.html</code> を生成してください。</p>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-red-700 mb-4">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    🚨 重要な改善指針
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-blue-700 mb-3">
+                            <i class="fas fa-table mr-2"></i>
+                            📊 表・まとめの分かりやすさ重視
+                        </h3>
+                        <ul class="space-y-2 text-sm">
+                            <li>• アルゴリズム名は必ず<strong>日本語説明</strong>を併記</li>
+                            <li>• 計算量表記は<strong>具体例</strong>で補足（「要素数1000なら1000回」）</li>
+                            <li>• 「適用場面」は<strong>実際の開発例</strong>を記載</li>
+                            <li>• まとめは<strong>具体的なメリット</strong>を明示</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-green-700 mb-3">
+                            <i class="fas fa-spell-check mr-2"></i>
+                            🔤 専門用語の扱い
+                        </h3>
+                        <ul class="space-y-2 text-sm">
+                            <li>• 初出時は<strong>（日本語説明）</strong>を併記</li>
+                            <li>• 略語は<strong>正式名称</strong>を明記</li>
+                            <li>• 「なぜそうなるのか」の<strong>理由</strong>を説明</li>
+                            <li>• <strong>日常例・比喩</strong>を積極活用</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-blue-700 mb-4">
+                    <i class="fas fa-folder-open mr-2"></i>
+                    📁 参照ファイル
+                </h2>
+                <div class="bg-gray-100 rounded-lg p-4">
+                    <ul class="space-y-2">
+                        <li>• <code class="bg-white px-2 py-1 rounded">Traini../lecture/lecture4.html</code></li>
+                        <li>• <code class="bg-white px-2 py-1 rounded">Traini../lecture/Template_lectureX.html</code></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-purple-700 mb-4">
+                    <i class="fas fa-cogs mr-2"></i>
+                    ⚙️ 共通仕様
+                </h2>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <ul class="grid md:grid-cols-2 gap-3 text-sm">
+                        <li>• HTML5 / lang="ja" / UTF-8</li>
+                        <li>• <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                        <li>• Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                        <li>• レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                        <li>• コードブロックは <code>&lt;pre&gt;&lt;code class="language-java"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                        <li>• 開発環境として Pleiades (Eclipse) + Amazon Corretto JDK 17 を記載</li>
+                        <li>• フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-green-700 mb-4">
+                    <i class="fas fa-chart-bar mr-2"></i>
+                    📊 表の分かりやすさ改善指針
+                </h2>
+
+                <div class="bg-red-100 border border-red-400 rounded-lg p-4 mb-4">
+                    <h3 class="text-red-800 font-semibold mb-2">❌ 改善前問題例</h3>
+                    <p class="text-sm text-red-700">「バブルソート：O(n²)、適用場面：小規模データ」</p>
+                    <p class="text-xs text-red-600 mt-1">→ 初心者には「O(n²)」の意味や「小規模」の具体的基準が不明</p>
+                </div>
+
+                <div class="bg-green-100 border border-green-400 rounded-lg p-4">
+                    <h3 class="text-green-800 font-semibold mb-3">✅ 改善後の指針</h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold text-green-700 mb-2">アルゴリズム名の説明強化</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• バブルソート → 「バブルソート（泡のように大きい値が浮上する並び替え）」</li>
+                                <li>• クイックソート → 「クイックソート（分割統治で高速並び替え）」</li>
+                                <li>• 線形探索 → 「線形探索（先頭から順番に探す方法）」</li>
+                                <li>• 二分探索 → 「二分探索（半分に分けて効率的に探す方法）」</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-green-700 mb-2">計算量の説明強化</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• O(1) → 「一定時間（データ量に関係なく高速）」</li>
+                                <li>• O(n) → 「線形時間（データ数に比例、1000個なら1000回）」</li>
+                                <li>• O(n²) → 「二乗時間（データ数の二乗、1000個なら1,000,000回）」</li>
+                                <li>• O(log n) → 「対数時間（データ数が倍になっても処理時間は少し増えるだけ）」</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h4 class="font-semibold text-green-700 mb-2">適用場面の具体化</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• 「小規模データ」→「100個以下の成績リスト、商品カタログ」</li>
+                                <li>• 「大規模データ」→「10万件以上の顧客DB、在庫管理システム」</li>
+                                <li>• 「リアルタイム処理」→「検索エンジン、ゲームのスコアランキング」</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-indigo-700 mb-4">
+                    <i class="fas fa-book mr-2"></i>
+                    📚 専門用語の説明強化指針
+                </h2>
+
+                <div class="space-y-6">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-3">1. 初出時の詳細説明</h3>
+                        <p class="text-sm mb-2"><strong>例：</strong></p>
+                        <p class="text-sm bg-gray-100 p-3 rounded">「アルゴリズム（問題を解くための手順・方法）は、料理のレシピのように明確な手順で構成されています」</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-3">2. 日常例・比喩の活用</h3>
+                        <div class="space-y-2 text-sm">
+                            <p><strong>例：</strong></p>
+                            <p class="bg-gray-100 p-3 rounded">「配列のインデックスは住所のようなもので、0番地、1番地、2番地...と順番に割り当てられています」</p>
+                            <p class="bg-gray-100 p-3 rounded">「バブルソートは重い石が水の底に沈むように、大きな値が右端に移動していきます」</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-indigo-700 mb-3">3. 理由・背景の説明</h3>
+                        <p class="text-sm mb-2"><strong>例：</strong></p>
+                        <p class="text-sm bg-gray-100 p-3 rounded">「なぜ二分探索が高速かというと、毎回半分に絞り込むため、1000個のデータでも10回程度で見つかるからです」</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-orange-700 mb-4">
+                    <i class="fas fa-sitemap mr-2"></i>
+                    📋 ページ構成（改良版）
+                </h2>
+
+                <div class="space-y-6">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-orange-700 mb-3">1. ヘッダー & ページング</h3>
+                        <ul class="text-sm space-y-1">
+                            <li>• 前後の講義リンク（Day3 ← Day4 → Day5）</li>
+                            <li>• ページタイトル：「Day4: 配列応用・アルゴリズム基礎」</li>
+                            <li>• サブタイトル：「多次元配列・ソート・探索アルゴリズムの理解と実装」</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-orange-700 mb-3">2. 学習目標</h3>
+                        <ul class="text-sm space-y-1">
+                            <li>• 具体的行動ができるレベルで設定</li>
+                            <li>• 「理解する」→「実装できる」「選択できる」</li>
+                            <li>• JavaSilver試験対応レベルを明示</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-orange-700 mb-3">4. メイン講義（改良版指針）</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">多次元配列の理解と活用</h4>
+                                <p class="text-sm bg-blue-50 p-3 rounded">
+                                    ❗ <strong>具体例重視：</strong>「int[][] scores = new int[3][5];は3クラス×5教科の成績表」など、実用例で説明
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">アルゴリズム性能比較（重要改良箇所）</h4>
+                                <div class="bg-red-50 border border-red-200 p-4 rounded">
+                                    <p class="text-red-800 font-semibold mb-2">⚠️ 必須改良事項：</p>
+                                    <div class="space-y-2 text-sm">
+                                        <p><strong>表の各項目に詳細説明を追加：</strong></p>
+                                        <ul class="ml-4 space-y-1">
+                                            <li>• <strong>時間計算量O(n²)：</strong>「ネストループで全組み合わせチェック（例：100個なら10,000回比較）」</li>
+                                            <li>• <strong>空間計算量O(1)：</strong>「追加メモリ不要（元の配列のみ使用）」</li>
+                                            <li>• <strong>安定性：</strong>「同じ値の順序を保持（例：同点の生徒の順番が変わらない）」</li>
+                                        </ul>
+                                        
+                                        <p><strong>比較表に「実用例」列を追加：</strong></p>
+                                        <ul class="ml-4 space-y-1">
+                                            <li>• バブルソート: 「教育用デモ、小規模データ」</li>
+                                            <li>• クイックソート: 「一般的な並び替え、システム標準」</li>
+                                            <li>• 線形探索: 「小規模リスト、未ソートデータ」</li>
+                                            <li>• 二分探索: 「辞書検索、大規模DBインデックス」</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-orange-700 mb-3">5. 演習問題・理解度クイズ（表示仕様）</h3>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">演習問題</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• 問題文：<strong>常に表示</strong></li>
+                                    <li>• 回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+                                    <li>• 詳細解説を削減しないよう注意</li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 class="font-semibold text-gray-700 mb-2">理解度クイズ</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• 問題・選択肢：<strong>常に表示</strong></li>
+                                    <li>• 正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+                                    <li>• JavaScript showAnswer()関数を実装</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-teal-700 mb-4">
+                    <i class="fas fa-lightbulb mr-2"></i>
+                    📝 まとめセクション改善指針
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-red-100 border border-red-400 rounded-lg p-4">
+                        <h3 class="text-red-800 font-semibold mb-3">❌ 避けるべき抽象的表現</h3>
+                        <ul class="text-sm space-y-1 text-red-700">
+                            <li>• 「アルゴリズムを理解した」</li>
+                            <li>• 「効率的なプログラミングができる」</li>
+                            <li>• 「最適な手法を選択できる」</li>
+                            <li>• 「配列操作をマスターした」</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-green-100 border border-green-400 rounded-lg p-4">
+                        <h3 class="text-green-800 font-semibold mb-3">✅ 推奨する具体的表現</h3>
+                        <ul class="text-sm space-y-1 text-green-700">
+                            <li>• 「バブルソートは教育用に最適、実装が簡単で理解しやすい」</li>
+                            <li>• 「クイックソートは実用的、大量データで威力を発揮」</li>
+                            <li>• 「二分探索は高速検索、ソート済みデータで劇的な効果」</li>
+                            <li>• 「多次元配列で表やマトリックスを効率的に管理」</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-pink-700 mb-4">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    ✅ 分かりやすさチェックリスト
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-pink-700 mb-3">📊 表・図解</h3>
+                        <ul class="text-sm space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-square-check text-green-500 mt-1 mr-2"></i>
+                                アルゴリズム名に必ず日本語説明を併記
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-square-check text-green-500 mt-1 mr-2"></i>
+                                計算量には具体例（「要素数1000なら1000回」）
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-square-check text-green-500 mt-1 mr-2"></i>
+                                適用場面は実際の開発例で説明
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-square-check text-green-500 mt-1 mr-2"></i>
+                                比較表には「実用例」列を追加
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-pink-700 mb-3">📝 文章・説明</h3>
+                        <ul class="text-sm space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-square-check text-green-500 mt-1 mr-2"></i>
+                                略語は正式名称を併記
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-square-check text-green-500 mt-1 mr-2"></i>
+                                「なぜ」の理由を必ず説明
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-square-check text-green-500 mt-1 mr-2"></i>
+                                日常例・比喩を積極活用
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-square-check text-green-500 mt-1 mr-2"></i>
+                                まとめは具体的なメリットを明示
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-red-700 mb-4">
+                    <i class="fas fa-file-export mr-2"></i>
+                    📤 出力形式
+                </h2>
+                
+                <div class="bg-red-100 border border-red-400 rounded-lg p-6">
+                    <p class="text-red-800 font-semibold mb-4">⚠️ 重要事項：</p>
+                    <ul class="space-y-2 text-sm text-red-700">
+                        <li>• <strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+                        <li>• 特に「アルゴリズム性能比較」の表は<strong>必ず詳細説明付きで改良</strong>すること</li>
+                        <li>• 専門用語の初出時は<strong>日本語説明を併記</strong>すること</li>
+                        <li>• まとめセクションは<strong>具体的なメリット</strong>で記載すること</li>
+                        <li>• HTMLの見やすさと詳細な解説を<strong>両立</strong>すること</li>
+                        <li>• 演習問題・理解度クイズは<strong>「回答を表示」ボタン方式</strong>で統一</li>
+                        <li>• 多次元配列、ソート・探索アルゴリズムの<strong>実用例を豊富に</strong>含めること</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer class="mt-12 pt-8 border-t border-gray-300 text-center text-gray-600">
+            <p class="text-sm">
+                <i class="fas fa-copyright mr-1"></i>
+                2025 APSA Co.,Ltd. All Rights Reserved.
+            </p>
+            <p class="text-xs mt-2 opacity-75">
+                Day4講義「配列応用・アルゴリズム基礎」完全改良版Promptファイル
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhbxOzK5eoPAqKe%2F7WBqXCNS0nDvzEZVLndZHxPJi5ysnruFY8xIgk%2BIwiqShZjaF78t0SVBBjrbfqpml5QAaFjBlNlsqJPh3eFd8KD4magUp23OfgoLeF11CNu5moAPcN5z9pLtnwR1x9OoPMeRLrEMjhYpJTx%2B4%2FZb%2BhPTUzpkIbFBs2wGoYFcmU%2BkrbK912ylTttwzId%2FmtmItV3U7n62RMwv%2FETSpy6yBcuj%2BtsoDDvI7MaFRXWyVFPOCyQmAEDbTPY5NTWLwfsInvB1tIlrx661wrfbynS2NmfdpnfEXthwnJThjoinWlx0E3zoGZ9C2l8NL%2BC%2B8nm5qlIS%2FBGCmxpvtLzo6yP6ryvOmuefvzxSOtEx5suN5lC0zjZb5r7v3iSwHnNeMkCMDVyFflNaCxpKslsQT2WzS5k%2F2GVZSt1dgUee0Ip53STbHuwUvhG2FL5%2BcBKVMwmwA7lObQe0iC1HvYp0%2F5wdOkiRDLy2vjWXdzHGJDQfpyl1E4cGoNcuzmPAdUPUKAWcuvNeGZqAp2PJbBQLOC4QA3J8fWHGkvb5k6XooRQqYtTPysx2Kg%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhbxOzK5eoPAqKe/7WBqXCNS0nDvzEZVLndZHxPJi5ysnruFY8xIgk+IwiqShZjaF78t0SVBBjrbfqpml5QAaFjBlNlsqJPh3eFd8KD4magUp23OfgoLeF11CNu5moAPcN5z9pLtnwR1x9OoPMeRLrEMjhYpJTx+4/Zb+hPTUzpkIbFBs2wGoYFcmU+krbK912ylTttwzId/mtmItV3U7n62RMwv/ETSpy6yBcuj+tsoDDvI7MaFRXWyVFPOCyQmAEDbTPY5NTWLwfsInvB1tIlrx661wrfbynS2NmfdpnfEXthwnJThjoinWlx0E3zoGZ9C2l8NL+C+8nm5qlIS/BGCmxpvtLzo6yP6ryvOmuefvzxSOtEx5suN5lC0zjZb5r7v3iSwHnNeMkCMDVyFflNaCxpKslsQT2WzS5k/2GVZSt1dgUee0Ip53STbHuwUvhG2FL5+cBKVMwmwA7lObQe0iC1HvYp0/5wdOkiRDLy2vjWXdzHGJDQfpyl1E4cGoNcuzmPAdUPUKAWcuvNeGZqAp2PJbBQLOC4QA3J8fWHGkvb5k6XooRQqYtTPysx2Kg==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

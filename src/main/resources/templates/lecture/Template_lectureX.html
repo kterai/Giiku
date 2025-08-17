@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaSilver講義 - テンプレート</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding-bottom: 3rem;
+        }
+        .header {
+            position: sticky;
+            top: 0;
+            background-color: #1a237e;
+            color: white;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .lecture-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #1a237e;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #3949ab;
+            padding-bottom: 0.5rem;
+        }
+        h2 {
+            color: #1a237e;
+            font-size: 1.75rem;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.25rem;
+        }
+        h3 {
+            color: #3949ab;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        h4 {
+            color: #5c6bc0;
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 1.5rem auto;
+            display: block;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        li {
+            margin-bottom: 0.5rem;
+        }
+        .page {
+            display: none;
+        }
+        .active-page {
+            display: block;
+        }
+        .btn {
+            padding: 8px 16px;
+            background-color: #3949ab;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #1a237e;
+        }
+        .btn:disabled {
+            background-color: #9fa8da;
+            cursor: not-allowed;
+        }
+        .pagination {
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .answer {
+            background-color: #f3f4f6;
+            border-left: 4px solid #3949ab;
+            padding: 1rem;
+            margin: 1rem 0;
+            display: none;
+        }
+        .code-block {
+            background-color: #282c34;
+            color: #abb2bf;
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            white-space: pre;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 1.5rem 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #e8eaf6;
+            color: #1a237e;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+        .note-box {
+            background-color: #e8f4f8;
+            border-left: 4px solid #0288d1;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .warning-box {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffa000;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        .instructor-note {
+            background-color: #f0f4ff;
+            border: 2px dashed #3949ab;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="flex justify-between items-center p-4">
+            <div class="text-xl font-bold">JavaSilver講義 - テンプレート</div>
+            <div>
+                <button id="prevBtn" class="btn mr-2" disabled><i class="fas fa-arrow-left mr-1"></i> 前へ</button>
+                <span id="pageIndicator" class="mx-2">1/10</span>
+                <button id="nextBtn" class="btn"><i class="fas fa-arrow-right mr-1"></i> 次へ</button>
+            </div>
+        </div>
+        <div class="bg-blue-800 text-white p-2 text-center">
+            <button id="toggleAllAnswers" class="text-white"><i class="fas fa-eye mr-1"></i> すべての回答を表示/非表示</button>
+        </div>
+    </div>
+
+    <div class="lecture-content">
+        <div class="instructor-note">
+            <h3 class="text-blue-800 mb-2"><i class="fas fa-chalkboard-teacher mr-2"></i>講師向け注意事項</h3>
+            <ul class="list-disc ml-5">
+                <li><strong>講義内容と演習問題の整合性：</strong> 演習問題に出てくる内容は必ず事前に講義パートで説明してください。特に専門用語や概念は丁寧に解説が必要です。</li>
+                <li><strong>応用問題の工夫：</strong> 演習問題は講義内容と全く同じではなく、学習者が理解度を試せるよう適度な応用問題を含めてください。ただし、初心者向けなので難しすぎる応用は避けてください。</li>
+                <li><strong>初心者向け解説：</strong> 「リテラル」や「キャスト」などの専門用語は、初めて聞く人にも分かるよう基本概念から丁寧に説明してください。</li>
+                <li><strong>具体例の充実：</strong> 抽象的な概念は必ず具体的なコード例を複数示して理解を助けてください。</li>
+                <li><strong>実務豆知識：</strong> 可能な限り実務での応用例や注意点を含めることで、試験だけでなく実務にも役立つ内容にしてください。</li>
+            </ul>
+        </div>
+
+        <div id="page1" class="page active-page">
+            <h1>本日の学習目標</h1>
+            <ul>
+                <li>目標1を記入</li>
+                <li>目標2を記入</li>
+                <li>目標3を記入</li>
+                <li>目標4を記入</li>
+                <li>目標5を記入</li>
+            </ul>
+
+            <h2>1. トピック1</h2>
+            <h3>サブトピック1.1</h3>
+            <p>トピックの内容を詳細に説明します。専門用語は初心者にも理解できるよう丁寧に解説しましょう。</p>
+            <div class="note-box">
+                <p><strong>初心者向け解説：</strong>ここに専門用語や概念の基本的な説明を記載します。例えば「リテラルとは、プログラム中に直接書かれた値そのものを指します（例：数値の123や文字列の"Hello"など）」</p>
+            </div>
+
+            <h4>サブトピック1.1.1</h4>
+            <ul>
+                <li>ポイント1</li>
+                <li>ポイント2</li>
+                <li>ポイント3</li>
+            </ul>
+
+            <h4>実務豆知識: タイトル</h4>
+            <p>実務での応用例や注意点などを記述します。</p>
+            <ul>
+                <li><strong>ポイント1</strong> - 説明</li>
+                <li><strong>ポイント2</strong> - 説明</li>
+                <li><strong>ポイント3</strong> - 説明</li>
+            </ul>
+        </div>
+
+        <div id="page2" class="page">
+            <h2>2. トピック2</h2>
+            <img src="画像URL" alt="トピック2の図解">
+            <p><strong>図1: 図の説明</strong><br>
+            • <strong>項目1</strong>: 説明文<br>
+            • <strong>項目2</strong>: 説明文<br>
+            • <strong>項目3</strong>: 説明文</p>
+
+            <h3>サブトピック2.1</h3>
+            <p>サブトピックの詳細説明...</p>
+            <ul>
+                <li><strong>項目1：</strong>説明</li>
+                <li><strong>項目2：</strong>説明</li>
+                <li><strong>項目3：</strong>説明</li>
+            </ul>
+
+            <h3>サブトピック2.2</h3>
+            <p>サブトピックの詳細説明...</p>
+
+            <h4>試験頻出ポイント</h4>
+            <p><strong>よく出る問題：</strong>「問題文をここに記述」</p>
+            <div class="answer">
+                <p><strong>答え：</strong>回答内容</p>
+                <p>解説：解答の詳細な解説を記述します。図や例を含めるとさらに理解しやすくなります。</p>
+            </div>
+            <button class="btn toggle-answer mt-2">回答を表示</button>
+            
+            <div class="warning-box">
+                <p><strong>初心者がつまずきやすいポイント：</strong></p>
+                <ul>
+                    <li>つまずきポイント1とその対策</li>
+                    <li>つまずきポイント2とその対策</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="page3" class="page">
+            <h2>3. トピック3</h2>
+            <p>トピックの概要説明...</p>
+
+            <h3>コード例で理解する</h3>
+            <div class="code-block">// コードサンプル
+public class Example {
+    public static void main(String[] args) {
+        // 処理内容
+        System.out.println("Hello, World!");
+    }
+}</div>
+
+            <h4>コードの解説</h4>
+            <ul>
+                <li>1行目：〜の宣言</li>
+                <li>2行目：〜メソッドの定義</li>
+                <li>3-4行目：処理内容の説明</li>
+            </ul>
+
+            <h3>実際の動作を確認</h3>
+            <div class="code-block">// 実行例
+$ javac Example.java
+$ java Example
+Hello, World!</div>
+
+            <h4>初心者がつまづきやすいポイント</h4>
+            <ul>
+                <li><strong>ポイント1</strong> - 詳細な説明と対策</li>
+                <li><strong>ポイント2</strong> - 詳細な説明と対策</li>
+                <li><strong>ポイント3</strong> - 詳細な説明と対策</li>
+            </ul>
+        </div>
+
+        <div id="page4" class="page">
+            <h2>4. トピック4</h2>
+            <img src="画像URL" alt="トピック4の図解">
+            <p><strong>図2: 図の説明</strong><br>
+            詳細な図の説明...</p>
+
+            <h3>サブトピック4.1</h3>
+            <p>サブトピックの詳細説明...</p>
+
+            <h3>サブトピック4.2</h3>
+            <ul>
+                <li><strong>項目1：</strong>説明</li>
+                <li><strong>項目2：</strong>説明</li>
+                <li><strong>項目3：</strong>説明</li>
+            </ul>
+
+            <h3>実務での重要性</h3>
+            <p>このトピックが実務でどのように重要かを説明します：</p>
+            <ul>
+                <li><strong>実務応用1</strong> - 説明</li>
+                <li><strong>実務応用2</strong> - 説明</li>
+                <li><strong>実務応用3</strong> - 説明</li>
+                <li><strong>実務応用4</strong> - 説明</li>
+            </ul>
+        </div>
+
+        <div id="page5" class="page">
+            <h2>5. トピック5</h2>
+            <div class="note-box">
+                <p><strong>重要な概念：</strong>ここにトピックの核となる重要な概念を簡潔に説明します。</p>
+            </div>
+            
+            <p>トピック5の詳細説明...</p>
+
+            <h3>サブトピック5.1</h3>
+            <table>
+                <tr>
+                    <th>列1</th>
+                    <th>列2</th>
+                    <th>列3</th>
+                    <th>列4</th>
+                </tr>
+                <tr>
+                    <td>データ1</td>
+                    <td>データ2</td>
+                    <td>データ3</td>
+                    <td>データ4</td>
+                </tr>
+                <tr>
+                    <td>データ5</td>
+                    <td>データ6</td>
+                    <td>データ7</td>
+                    <td>データ8</td>
+                </tr>
+            </table>
+            <p>表の説明と解説...</p>
+
+            <h3>サブトピック5.2</h3>
+            <div class="code-block">// コード例
+type variable = value;
+// 使用例
+type variable2 = anotherValue;</div>
+
+            <p>コード例の詳細な解説...</p>
+            
+            <div class="warning-box">
+                <p><strong>注意点：</strong>特に注意すべきポイントを強調して記述します。</p>
+                <ul>
+                    <li>注意点1</li>
+                    <li>注意点2</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="page6" class="page">
+            <h2>6. トピック6</h2>
+            <img src="画像URL" alt="トピック6の図解">
+            <p><strong>図3: 図の説明</strong><br>
+            詳細な図の説明...</p>
+
+            <h3>サブトピック6.1</h3>
+            <ul>
+                <li><strong>特性1：</strong>説明</li>
+                <li><strong>特性2：</strong>説明</li>
+                <li><strong>特性3：</strong>説明</li>
+            </ul>
+
+            <h3>サブトピック6.2</h3>
+            <p>サブトピックの詳細説明...</p>
+
+            <h3>実際のコード例で理解</h3>
+            <h4>例1：タイトル</h4>
+            <div class="code-block">// コード例1
+code line 1;
+code line 2;
+code line 3;</div>
+
+            <h4>例2：タイトル</h4>
+            <div class="code-block">// コード例2
+code line 1;
+code line 2;
+code line 3;</div>
+            
+            <p>コード例の比較と解説...</p>
+        </div>
+
+        <div id="page7" class="page">
+            <h2>7. トピック7</h2>
+            <img src="画像URL" alt="トピック7の図解">
+            <p><strong>図4: 図の説明</strong><br>
+            詳細な図の説明...</p>
+
+            <h3>サブトピック7.1</h3>
+            <p>サブトピックの詳細説明...</p>
+
+            <h3>サブトピック7.2</h3>
+            <div class="code-block">// コード例
+code line 1;
+code line 2;
+code line 3;</div>
+
+            <h4>試験頻出ポイント</h4>
+            <p><strong>問題例：</strong>「問題文をここに記述」</p>
+            <div class="answer">
+                <p><strong>答え：</strong>回答内容</p>
+                <p>解説：解答の詳細な解説を記述します。図や例を含めるとさらに理解しやすくなります。</p>
+            </div>
+            <button class="btn toggle-answer mt-2">回答を表示</button>
+            
+            <div class="note-box">
+                <p><strong>実務での応用：</strong>ここでの知識が実務でどのように活きるかを具体例で示します。</p>
+            </div>
+        </div>
+
+        <div id="page8" class="page">
+            <h2>8. 応用知識</h2>
+            <p>ここまでの内容を元にした応用知識を解説します。</p>
+
+            <h3>応用トピック8.1</h3>
+            <p>詳細な説明...</p>
+            <div class="code-block">// 応用コード例
+advanced code line 1;
+advanced code line 2;
+advanced code line 3;</div>
+
+            <h3>応用トピック8.2</h3>
+            <p>詳細な説明...</p>
+
+            <div class="warning-box">
+                <p><strong>高度な注意点：</strong>応用レベルで特に注意すべきポイントを解説します。</p>
+            </div>
+
+            <h4>パフォーマンス最適化の例</h4>
+            <div class="code-block">// 最適化前
+inefficient code;
+
+// 最適化後
+efficient code;</div>
+
+            <p>最適化前後の違いと理由を説明...</p>
+        </div>
+
+        <div id="page9" class="page">
+            <h2>9. 演習問題</h2>
+            
+            <div class="instructor-note">
+                <p><strong>演習問題作成の注意点：</strong></p>
+                <ol>
+                    <li>講義内容を単に再現するだけでなく、適度に応用要素を含める</li>
+                    <li>全く同じ例題ではなく、パターンを変えた問題を作成する</li>
+                    <li>初心者が理解できる難易度を維持する</li>
+                    <li>解答には詳細な解説を必ず含める</li>
+                </ol>
+            </div>
+
+            <h3>問題1: トピックに関する問題</h3>
+            <p>問題文をここに記述します。講義内容を踏まえつつ、少し応用的な要素を含めます。コード例や図表を使うとより理解度を測れます。</p>
+            <div class="code-block">// 問題のコード例
+code line 1;
+code line 2;
+code line 3;</div>
+            <ol>
+                <li>選択肢A</li>
+                <li>選択肢B</li>
+                <li>選択肢C</li>
+                <li>選択肢D</li>
+            </ol>
+            <div class="answer">
+                <p><strong>答え：B</strong></p>
+                <p>解説: 選択肢Bが正解である理由の詳細な説明をここに記述します。誤った選択肢についても、なぜ間違いなのかを説明すると理解が深まります。</p>
+                <div class="code-block">// 解説用のコード
+explanation code;</div>
+                <p>関連する重要ポイント: 問題に関連する追加情報や試験対策のポイントなどを記述します。</p>
+            </div>
+            <button class="btn toggle-answer mt-2">回答を表示</button>
+
+            <h3>問題2: 別のトピックに関する問題</h3>
+            <p>問題文をここに記述します。単なる暗記ではなく理解度を測る問題が望ましいです。</p>
+            <ol>
+                <li>選択肢A</li>
+                <li>選択肢B</li>
+                <li>選択肢C</li>
+                <li>選択肢D</li>
+            </ol>
+            <div class="answer">
+                <p><strong>答え：C</strong></p>
+                <p>解説: 選択肢Cが正解である理由の詳細な説明をここに記述します。</p>
+            </div>
+            <button class="btn toggle-answer mt-2">回答を表示</button>
+
+            <h3>問題3: 応用問題</h3>
+            <p>講義内容を応用した、少し難易度の高い問題を出題します。複数の概念を組み合わせた問題が効果的です。</p>
+            <div class="code-block">// 応用問題のコード
+advanced problem code;</div>
+            <ol>
+                <li>選択肢A</li>
+                <li>選択肢B</li>
+                <li>選択肢C</li>
+                <li>選択肢D</li>
+                <li>選択肢E</li>
+            </ol>
+            <div class="answer">
+                <p><strong>答え：A, D</strong></p>
+                <p>解説: 複数選択が正解の理由と詳細な解説を記載します。特に概念の組み合わせがどのように作用するかを説明します。</p>
+            </div>
+            <button class="btn toggle-answer mt-2">回答を表示</button>
+        </div>
+
+        <div id="page10" class="page">
+            <h2>10. まとめ</h2>
+            <h3>習得した重要ポイント</h3>
+            <h4>基本知識</h4>
+            <ul>
+                <li>ポイント1の要約</li>
+                <li>ポイント2の要約</li>
+                <li>ポイント3の要約</li>
+                <li>ポイント4の要約</li>
+                <li>ポイント5の要約</li>
+            </ul>
+
+            <h4>応用知識</h4>
+            <ul>
+                <li>応用ポイント1の要約</li>
+                <li>応用ポイント2の要約</li>
+                <li>応用ポイント3の要約</li>
+            </ul>
+
+            <h3>次回予告</h3>
+            <p>次回の講義では、〜について学びます。</p>
+            <ul>
+                <li>次回トピック1</li>
+                <li>次回トピック2</li>
+                <li>次回トピック3</li>
+                <li>次回トピック4</li>
+            </ul>
+
+            <h4>次回までの課題</h4>
+            <ol>
+                <li>課題1</li>
+                <li>課題2</li>
+                <li>課題3</li>
+            </ol>
+
+            <h4>お疲れ様でした！</h4>
+            <p>本日の学習内容を復習し、実際にコードを書いて理解を深めましょう。</p>
+            <p>復習推奨時間: XX分 | 追加学習: 関連資料や参考書のページ番号など</p>
+        </div>
+
+        <div class="pagination mt-6">
+            <button id="prevPageBtn" class="btn mr-2" disabled>前のページ</button>
+            <span id="pageDisplay" class="mx-4">1/10</span>
+            <button id="nextPageBtn" class="btn">次のページ</button>
+        </div>
+    </div>
+
+<div class="navigation mt-6 text-center">
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a href="dayX_prev_lecture.html" class="btn"><i class="fas fa-arrow-left mr-1"></i> Day X-1: 前回の講義タイトル</a>
+        <a href="dayX_next_lecture.html" class="btn">Day X+1: 次回の講義タイトル <i class="fas fa-arrow-right ml-1"></i></a>
+    </div>
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-4">
+        <a href="../week/weekX.html" class="btn">第X週のカリキュラム一覧</a>
+        <a href="../month/monthX.html" class="btn">第Xヶ月目のカリキュラム</a>
+    </div>
+</div>
+
+    <script>
+        // ページング機能
+        let currentPage = 1;
+        const totalPages = 10;
+
+        function showPage(pageNum) {
+            // すべてのページを非表示
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active-page');
+            });
+            
+            // 指定ページを表示
+            document.getElementById('page' + pageNum).classList.add('active-page');
+            
+            // ページ番号表示を更新
+            document.getElementById('pageIndicator').textContent = pageNum + '/' + totalPages;
+            document.getElementById('pageDisplay').textContent = pageNum + '/' + totalPages;
+            
+            // ボタン状態を更新
+            document.getElementById('prevBtn').disabled = (pageNum === 1);
+            document.getElementById('nextBtn').disabled = (pageNum === totalPages);
+            document.getElementById('prevPageBtn').disabled = (pageNum === 1);
+            document.getElementById('nextPageBtn').disabled = (pageNum === totalPages);
+            
+            // ページトップにスクロール
+            window.scrollTo(0, 0);
+            
+            // 現在ページを保存
+            currentPage = pageNum;
+        }
+
+        // イベントリスナーを設定
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        });
+
+        document.getElementById('prevPageBtn').addEventListener('click', () => {
+            if (currentPage > 1) {
+                showPage(currentPage - 1);
+            }
+        });
+
+        document.getElementById('nextPageBtn').addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        });
+
+        // キーボードイベント（矢印キーでページ移動）
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentPage > 1) {
+                showPage(currentPage - 1);
+            } else if (e.key === 'ArrowRight' && currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        });
+
+        // 回答表示ボタン
+        document.querySelectorAll('.toggle-answer').forEach(button => {
+            button.addEventListener('click', function() {
+                const answerDiv = this.previousElementSibling;
+                if (answerDiv.style.display === 'block') {
+                    answerDiv.style.display = 'none';
+                    this.textContent = '回答を表示';
+                } else {
+                    answerDiv.style.display = 'block';
+                    this.textContent = '回答を非表示';
+                }
+            });
+        });
+
+        // すべての回答を表示/非表示
+        document.getElementById('toggleAllAnswers').addEventListener('click', function() {
+            const answers = document.querySelectorAll('.answer');
+            const buttons = document.querySelectorAll('.toggle-answer');
+            
+            // 現在の状態を確認（最初の要素で代表）
+            const shouldShow = answers.length > 0 && answers[0].style.display !== 'block';
+            
+            // すべての回答を表示または非表示に
+            answers.forEach(answer => {
+                answer.style.display = shouldShow ? 'block' : 'none';
+            });
+            
+            // ボタンテキストを更新
+            buttons.forEach(button => {
+                button.textContent = shouldShow ? '回答を非表示' : '回答を表示';
+            });
+        });
+
+        // 初期化
+        showPage(1);
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhdWQ7%2BLHNRb6iHLqxbTtGB88imW8eaaVQlRlcjZ4fAoazcnGNnrxz8VDAHq3v0Srl9L5NIxTwn%2B3uLgK%2F0Y5nWTfQhn1vAAsJ9Nmve19Mx9P%2ButvNbMUo%2FV79njXWDLHlkk9j0xCYPY5fwo8amssz8yC6z7y2DEevCGWjfcdRqqGZXTwEbS0paEWwJXs64QVSU6h2rPzzH2E3OL6L%2FAZ6gn%2FORPwOS0uYfMLo5FSjsyUhkSDAp81Pfgs8YeA%2FftT8Dxn0hqYi%2FuyTl46AjNHBju0ZtjvB0%2F2wn2GwpoDeOWFu2omPEUVkW2mvJfr7WrBCE4yaKPJEDexVayeLbrCE1n5KDirI8sNDM7mCYt1uUEpoHCxJ3MydSOc4yG9T5CaP%2Bgo7M6NiIj89FvsiLijb66LpJ0lSF5ZVDz4eFQdRMGVgCUBdkXGGOw6XnR77CtNy0ISZ7KPHK%2FKJRSaYjNAgZ7LMkbb%2FLDxkztsahHpECMvMAgG7Qkc156%2FiO4uc6lrw%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhdWQ7+LHNRb6iHLqxbTtGB88imW8eaaVQlRlcjZ4fAoazcnGNnrxz8VDAHq3v0Srl9L5NIxTwn+3uLgK/0Y5nWTfQhn1vAAsJ9Nmve19Mx9P+utvNbMUo/V79njXWDLHlkk9j0xCYPY5fwo8amssz8yC6z7y2DEevCGWjfcdRqqGZXTwEbS0paEWwJXs64QVSU6h2rPzzH2E3OL6L/AZ6gn/ORPwOS0uYfMLo5FSjsyUhkSDAp81Pfgs8YeA/ftT8Dxn0hqYi/uyTl46AjNHBju0ZtjvB0/2wn2GwpoDeOWFu2omPEUVkW2mvJfr7WrBCE4yaKPJEDexVayeLbrCE1n5KDirI8sNDM7mCYt1uUEpoHCxJ3MydSOc4yG9T5CaP+go7M6NiIj89FvsiLijb66LpJ0lSF5ZVDz4eFQdRMGVgCUBdkXGGOw6XnR77CtNy0ISZ7KPHK/KJRSaYjNAgZ7LMkbb/LDxkztsahHpECMvMAgG7Qkc156/iO4uc6lrw==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

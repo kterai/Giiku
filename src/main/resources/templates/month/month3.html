@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第3ヶ月目: Webアプリケーション開発実践 | ITエンジニア育成カリキュラム</title>
+    <link rel="stylesheet" href="../css/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/lib/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #6c757d;
+            --accent-color: #28a745;
+            --light-bg: #f8f9fa;
+            --dark-bg: #343a40;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand img {
+            max-height: 40px;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #0056b3, #00427a);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .hero-section h1 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            border-radius: 10px 10px 0 0 !important;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .week-card {
+            border-left: 4px solid var(--primary-color);
+            background-color: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+        }
+        
+        .day-item {
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--light-bg);
+            border-radius: 5px;
+        }
+        
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+        }
+        
+        .resource-card {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        
+        .resource-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            color: var(--primary-color);
+        }
+        
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 2rem 0 1rem;
+        }
+        
+        .footer-logo img {
+            max-width: 150px;
+            margin-bottom: 1rem;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-brand img {
+                max-height: 30px;
+            }
+            
+            .hero-section {
+                padding: 2rem 0;
+            }
+            
+            .chart-container {
+                height: 200px;
+            }
+        }
+        
+        .skill-badge {
+            display: inline-block;
+            background-color: #e9ecef;
+            padding: 0.35rem 0.65rem;
+            border-radius: 0.5rem;
+            margin: 0.25rem;
+            font-size: 0.85rem;
+        }
+        
+        .next-step-banner {
+            background: linear-gradient(135deg, #28a745, #20843a);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html">
+                <img src="../images/logo/apsa_logo.png" alt="APSA Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="../index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="monthDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="monthDropdown">
+                            <li><a class="dropdown-item" href="month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item active" href="month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="weekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="weekDropdown">
+                            <li><a class="dropdown-item" href="../week/week9.html">第9週: フロントエンド基礎</a></li>
+                            <li><a class="dropdown-item" href="../week/week10.html">第10週: バックエンド基礎</a></li>
+                            <li><a class="dropdown-item" href="../week/week11.html">第11週: Spring Boot開発実践</a></li>
+                            <li><a class="dropdown-item" href="../week/week12.html">第12週: 総合開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../resources/resources.html">学習リソース</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../resources/faq.html">FAQ</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ヒーローセクション -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>第3ヶ月目: Webアプリケーション開発実践</h1>
+            <p class="lead">フロントエンドとバックエンドの技術を組み合わせ、実用的なWebアプリケーションを開発します</p>
+        </div>
+    </section>
+
+    <!-- メインコンテンツ -->
+    <main class="container pb-5">
+        <!-- 月間概要 -->
+        <section class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0">月間概要</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h3>月間学習目標</h3>
+                            <p>Webアプリケーション開発に必要なフロントエンドとバックエンドの技術を習得し、実際にWebアプリケーションを設計・開発する能力を身につけます。HTML/CSS/JavaScriptによるフロントエンド開発から、Spring Bootを使ったバックエンド開発、データベース連携まで、Webアプリケーション開発の全体像を理解し実践します。</p>
+                            
+                            <h3>達成目標</h3>
+                            <ul>
+                                <li>HTML/CSS/JavaScriptを使ったフロントエンド開発ができる</li>
+                                <li>PostgreSQLでデータベース設計と操作ができる</li>
+                                <li>Spring Bootを使ったバックエンド開発ができる</li>
+                                <li>フロントエンドとバックエンドを連携させたWebアプリケーションを開発できる</li>
+                                <li>開発したアプリケーションをポートフォリオとして提示できる</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card mb-3">
+                                <div class="card-body text-center">
+                                    <h4>学習期間</h4>
+                                    <p class="fs-2">18日間</p>
+                                    <p>Day 37 - Day 54</p>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4>習得スキル</h4>
+                                    <div>
+                                        <span class="skill-badge"><i class="fab fa-html5"></i> HTML5</span>
+                                        <span class="skill-badge"><i class="fab fa-css3-alt"></i> CSS3</span>
+                                        <span class="skill-badge"><i class="fab fa-js"></i> JavaScript</span>
+                                        <span class="skill-badge"><i class="fab fa-bootstrap"></i> Bootstrap</span>
+                                        <span class="skill-badge"><i class="fas fa-database"></i> PostgreSQL</span>
+                                        <span class="skill-badge"><i class="fab fa-java"></i> Spring Boot</span>
+                                        <span class="skill-badge"><i class="fas fa-server"></i> REST API</span>
+                                        <span class="skill-badge"><i class="fas fa-code-branch"></i> Git/GitHub</span>
+                                        <span class="skill-badge"><i class="fas fa-vial"></i> テスト</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 週別スケジュール -->
+        <section class="mb-5">
+            <h2 class="mb-4">週別スケジュール</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="week-card">
+                        <h3>第9週: フロントエンド基礎</h3>
+                        <p>HTML/CSS/JavaScriptの基本から応用までを学び、フロントエンド開発の基礎を身につけます。</p>
+                        <ul>
+                            <li>Day 37: Web開発概要・HTML5基礎</li>
+                            <li>Day 38: CSS基礎・レイアウト</li>
+                            <li>Day 39: レスポンシブデザイン・Bootstrap</li>
+                            <li>Day 40: JavaScript基礎</li>
+                            <li>Day 41: モダンJavaScript・Web制作実習</li>
+                        </ul>
+                        <a href="../week/week9.html" class="btn btn-primary">詳細を見る</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="week-card">
+                        <h3>第10週: バックエンド基礎</h3>
+                        <p>データベース設計から基本的なサーバーサイド開発までを学びます。</p>
+                        <ul>
+                            <li>Day 42: RDBの基礎・PostgreSQL</li>
+                            <li>Day 43: 応用SQL・トランザクション</li>
+                            <li>Day 44: サーバーサイド開発入門</li>
+                            <li>Day 45: Spring Boot入門</li>
+                            <li>Day 46: Spring Boot・MVC・Thymeleaf</li>
+                        </ul>
+                        <a href="../week/week10.html" class="btn btn-primary">詳細を見る</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="week-card">
+                        <h3>第11週: Spring Boot開発実践</h3>
+                        <p>Spring Bootを使った実践的なWebアプリケーション開発を行います。</p>
+                        <ul>
+                            <li>Day 47: Spring Data JPA</li>
+                            <li>Day 48: Spring Security基礎</li>
+                            <li>Day 49: 実践的Webアプリケーション開発</li>
+                            <li>Day 50: テスト・品質管理</li>
+                            <li>Day 51: フロントエンド開発とバックエンド連携</li>
+                        </ul>
+                        <a href="../week/week11.html" class="btn btn-primary">詳細を見る</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="week-card">
+                        <h3>第12週: 総合開発</h3>
+                        <p>これまでに学んだ技術を活用して、総合的なWebアプリケーション開発を行います。</p>
+                        <ul>
+                            <li>Day 52: 総合アプリケーション開発 - 要件定義・設計</li>
+                            <li>Day 53: 総合アプリケーション開発 - 実装</li>
+                            <li>Day 54: 総合アプリケーション開発 - 完成・発表</li>
+                        </ul>
+                        <a href="../week/week12.html" class="btn btn-primary">詳細を見る</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学習リソース -->
+        <section class="mb-5">
+            <h2 class="mb-4">学習リソース</h2>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fab fa-html5"></i>
+                        </div>
+                        <div>
+                            <h4>フロントエンド開発</h4>
+                            <p>MDN Web Docs、W3Schools、freeCodeCamp</p>
+                            <a href="../resources/resources.html#frontend" class="btn btn-sm btn-outline-primary">リソース一覧</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div>
+                            <h4>データベース</h4>
+                            <p>PostgreSQL公式ドキュメント、SQL練習サイト</p>
+                            <a href="../resources/resources.html#database" class="btn btn-sm btn-outline-primary">リソース一覧</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fab fa-java"></i>
+                        </div>
+                        <div>
+                            <h4>Spring Boot</h4>
+                            <p>Spring公式ドキュメント、Baeldungチュートリアル</p>
+                            <a href="../resources/resources.html#spring" class="btn btn-sm btn-outline-primary">リソース一覧</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 進捗状況 -->
+        <section class="mb-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="mb-0">進捗状況</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h4>3ヶ月目の進捗</h4>
+                            <div class="progress-wrapper mb-4">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>総合進捗</span>
+                                    <span id="month3-percentage">0%</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" id="month3-progress" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="weeklyProgressChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <h4>週別チェックリスト</h4>
+                            <div class="accordion" id="weekAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="week9Heading">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#week9Collapse" aria-expanded="false" aria-controls="week9Collapse">
+                                            第9週: フロントエンド基礎
+                                        </button>
+                                    </h2>
+                                    <div id="week9Collapse" class="accordion-collapse collapse" aria-labelledby="week9Heading" data-bs-parent="#weekAccordion">
+                                        <div class="accordion-body">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="day37" data-day="37">
+                                                <label class="form-check-label" for="day37">Day 37: Web開発概要・HTML5基礎</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="day38" data-day="38">
+                                                <label class="form-check-label" for="day38">Day 38: CSS基礎・レイアウト</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="day39" data-day="39">
+                                                <label class="form-check-label" for="day39">Day 39: レスポンシブデザイン・Bootstrap</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="day40" data-day="40">
+                                                <label class="form-check-label" for="day40">Day 40: JavaScript基礎</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="day41" data-day="41">
+                                                <label class="form-check-label" for="day41">Day 41: モダンJavaScript・Web制作実習</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="week10Heading">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#week10Collapse" aria-expanded="false" aria-controls="week10Collapse">
+                                            第10週: バックエンド基礎
+                                        </button>
+                                    </h2>
+                                    <div id="week10Collapse" class="accordion-collapse collapse" aria-labelledby="week10Heading" data-bs-parent="#weekAccordion">
+                                        <div class="accordion-body">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="day42" data-day="42">
+                                                <label class="form-check-label" for="day42">Day 42: RDBの基礎・PostgreSQL</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="day43" data-day="43">
+                                                <label class="form-check-label" for="day43">Day 43: 応用SQL・トランザクション</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="day44" data-day="44">
+                                                <label class="form-check-label" for="day44">Day 44: サーバーサイド開発入門</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="day45" data-day="45">
+                                                <label class="form-check-label" for="day45">Day 45: Spring Boot入門</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="day46" data-day="46">
+                                                <label class="form-check-label" for="day46">Day 46: Spring Boot・MVC・Thymeleaf</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="week11Heading">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#week11Collapse" aria-expanded="false" aria-controls="week11Collapse">
+                                            第11週: Spring Boot開発実践
+                                        </button>
+                                    </h2>
+                                    <div id="week11Collapse" class="accordion-collapse collapse" aria-labelledby="week11Heading" data-bs-parent="#weekAccordion">
+                                        <div class="accordion-body">
+                                            <!-- 他の週と同様にチェックボックスを追加 -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="week12Heading">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#week12Collapse" aria-expanded="false" aria-controls="week12Collapse">
+                                            第12週: 総合開発
+                                        </button>
+                                    </h2>
+                                    <div id="week12Collapse" class="accordion-collapse collapse" aria-labelledby="week12Heading" data-bs-parent="#weekAccordion">
+                                        <div class="accordion-body">
+                                            <!-- 他の週と同様にチェックボックスを追加 -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 次のステップ -->
+        <section class="next-step-banner">
+            <h2>カリキュラム修了後は？</h2>
+            <p>3ヶ月間のカリキュラムを修了した後は、応用コースでさらにスキルを高めることができます。React、TypeScript、マイクロサービス、CI/CDなど、より専門的な技術を学び、キャリアアップに役立てましょう。</p>
+            <a href="../resources/advanced.html" class="btn btn-light">応用コースの詳細を見る</a>
+        </section>
+    </main>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="footer-logo">
+                        <img src="../images/logo/apsa_logo.png" alt="APSA Logo">
+                    </div>
+                    <p>IT未経験者のためのエンジニア育成カリキュラム。3ヶ月間で基礎から実践までを学びます。</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>カリキュラム</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="month1.html" class="text-white">第1ヶ月目</a></li>
+                        <li><a href="month2.html" class="text-white">第2ヶ月目</a></li>
+                        <li><a href="month3.html" class="text-white">第3ヶ月目</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>リソース</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="../resources/resources.html" class="text-white">学習リソース</a></li>
+                        <li><a href="../resources/faq.html" class="text-white">よくある質問</a></li>
+                        <li><a href="../resources/advanced.html" class="text-white">応用コース</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>お問い合わせ</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-envelope me-2"></i> info@apsa.co.jp</li>
+                        <li><i class="bi bi-telephone me-2"></i> 03-1234-5678</li>
+                        <li><i class="bi bi-geo-alt me-2"></i> 東京都千代田区</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="bg-light">
+            <div class="text-center">
+                <p class="mb-0">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- スクリプト -->
+    <script src="../js/lib/jquery.min.js"></script>
+    <script src="../js/lib/bootstrap.bundle.min.js"></script>
+    <script src="../js/lib/chart.umd.min.js"></script>
+    <script>
+        // 進捗チャートの初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            // ローカルストレージから進捗データを取得または初期化
+            initProgressTracker();
+            
+            // 週別進捗チャートの初期化
+            initWeeklyProgressChart();
+        });
+        
+        function initProgressTracker() {
+            // チェックボックスのイベントリスナーを設定
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            checkboxes.forEach(checkbox => {
+                // ローカルストレージから状態を復元
+                const dayNum = checkbox.dataset.day;
+                const isCompleted = localStorage.getItem(`day${dayNum}Completed`) === 'true';
+                checkbox.checked = isCompleted;
+                
+                // 変更イベントのリスナーを追加
+                checkbox.addEventListener('change', updateProgress);
+            });
+            
+            // 初期進捗を計算して表示
+            updateProgress();
+        }
+        
+        function updateProgress() {
+            // 全チェックボックス数とチェック済み数を取得
+            const checkboxes = document.querySelectorAll('.form-check-input');
+            const totalDays = checkboxes.length;
+            let completedDays = 0;
+            
+            // チェック済みの数をカウントし、ローカルストレージも更新
+            checkboxes.forEach(checkbox => {
+                const dayNum = checkbox.dataset.day;
+                localStorage.setItem(`day${dayNum}Completed`, checkbox.checked);
+                if (checkbox.checked) completedDays++;
+            });
+            
+            // 進捗率を計算（0-100%）
+            const progressPercentage = totalDays > 0 ? Math.round((completedDays / totalDays) * 100) : 0;
+            
+            // プログレスバーとテキストを更新
+            const progressBar = document.getElementById('month3-progress');
+            const percentageText = document.getElementById('month3-percentage');
+            
+            progressBar.style.width = `${progressPercentage}%`;
+            percentageText.textContent = `${progressPercentage}%`;
+            
+            // ローカルストレージに全体の進捗を保存
+            localStorage.setItem('month3Progress', progressPercentage);
+            
+            // チャートも更新（存在する場合）
+            if (window.weeklyProgressChart) {
+                updateWeeklyProgressChart();
+            }
+        }
+        
+        function initWeeklyProgressChart() {
+            const ctx = document.getElementById('weeklyProgressChart').getContext('2d');
+            
+            // 週ごとの進捗を計算
+            const weeklyProgress = calculateWeeklyProgress();
+            
+            window.weeklyProgressChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['第9週', '第10週', '第11週', '第12週'],
+                    datasets: [{
+                        label: '進捗率',
+                        data: weeklyProgress,
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(153, 102, 255, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.raw + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function calculateWeeklyProgress() {
+            // 週ごとの進捗を計算するロジック
+            const weeks = [
+                [37, 38, 39, 40, 41], // 第9週
+                [42, 43, 44, 45, 46], // 第10週
+                [47, 48, 49, 50, 51], // 第11週
+                [52, 53, 54]          // 第12週
+            ];
+            
+            return weeks.map(days => {
+                let completed = 0;
+                days.forEach(day => {
+                    if (localStorage.getItem(`day${day}Completed`) === 'true') {
+                        completed++;
+                    }
+                });
+                return Math.round((completed / days.length) * 100);
+            });
+        }
+        
+        function updateWeeklyProgressChart() {
+            const weeklyProgress = calculateWeeklyProgress();
+            window.weeklyProgressChart.data.datasets[0].data = weeklyProgress;
+            window.weeklyProgressChart.update();
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDl6PKLwiQ3poysl81FNec287i2mdgF2pou%2Fu4DQWBuYF4k7%2B%2FoOnMpgeW7QYznFgM1jLDW1%2BrHmNOgkK%2BaOdDePeakjT9zIVIIRnupGrfw4sNGKtaZ%2BUKsFva2eQ80jIQNyrjwWByJsZVDS8RVQ9f6F4ELNlbyLzmzkZriLtIOji5IdCAIiV0HegaIJkRDhsT5n0L97kC9%2B%2FTKsp4Z4CK%2FrkcPwqh33I27wrCJN4oweoJh7rcDh8Il%2FplHdqkkO40aHpO0p69dmNnXSkg4Oi%2BkqspDt0xqtX0FBVXcz4WfLPDnvG2YPC8zoHowNnKqFOZRJSsZnFxy6vGT7qGFzM4Zp3iL5pGgKdefH4q3Sb%2B9w97CG%2FPh5XnCXu94uKivE7QTNOzljp5KWpkelR%2BEtHD6e0cnSuiTbpc4XXvid5KQLPsb%2BKE0xEo3N7%2BHkJRD6B%2BqCUnlrzwLzK2F81gLlsfwNduFAA%2BHdBnNxcpOAiPpVX2%2FRSIfuPU3U5LQjFPpXTFQ%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDl6PKLwiQ3poysl81FNec287i2mdgF2pou/u4DQWBuYF4k7+/oOnMpgeW7QYznFgM1jLDW1+rHmNOgkK+aOdDePeakjT9zIVIIRnupGrfw4sNGKtaZ+UKsFva2eQ80jIQNyrjwWByJsZVDS8RVQ9f6F4ELNlbyLzmzkZriLtIOji5IdCAIiV0HegaIJkRDhsT5n0L97kC9+/TKsp4Z4CK/rkcPwqh33I27wrCJN4oweoJh7rcDh8Il/plHdqkkO40aHpO0p69dmNnXSkg4Oi+kqspDt0xqtX0FBVXcz4WfLPDnvG2YPC8zoHowNnKqFOZRJSsZnFxy6vGT7qGFzM4Zp3iL5pGgKdefH4q3Sb+9w97CG/Ph5XnCXu94uKivE7QTNOzljp5KWpkelR+EtHD6e0cnSuiTbpc4XXvid5KQLPsb+KE0xEo3N7+HkJRD6B+qCUnlrzwLzK2F81gLlsfwNduFAA+HdBnNxcpOAiPpVX2/RSIfuPU3U5LQjFPpXTFQ==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

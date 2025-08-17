@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt_day7_lecture.html（完全改良版）- カプセル化・継承詳細</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <header class="bg-blue-600 text-white p-6 rounded-lg mb-8">
+            <h1 class="text-3xl font-bold mb-2">
+                <i class="fas fa-code mr-3"></i>
+                Prompt_day7_lecture.html（完全改良版）
+            </h1>
+            <p class="text-blue-100 text-lg">Day7講義「カプセル化・継承詳細」HTMLページ生成用完全改良版Promptファイル</p>
+            <p class="text-blue-200 mt-2">Day11-36で確立した分かりやすさ改善指針を完全適用</p>
+        </header>
+
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-blue-500 pb-2">
+                <i class="fas fa-project-diagram mr-2"></i>
+                プロジェクト名：ITエンジニア育成カリキュラム - Day7: カプセル化・継承詳細（改良版）
+            </h2>
+            
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+                <p class="text-red-700 font-semibold">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    以下の指示に従って、<code class="bg-red-100 px-2 py-1 rounded">Traini../lecture/lecture7.html</code> を生成してください。
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-yellow-50 border-2 border-yellow-400 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-yellow-800 mb-4">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                🚨 重要な改善指針
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold text-blue-600 mb-3">
+                        <i class="fas fa-table mr-2"></i>
+                        📊 表・まとめの分かりやすさ重視
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>アクセス修飾子は<strong>具体的な適用例</strong>を併記</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>コンストラクタ呼び出し順序は<strong>図解</strong>で説明</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>「適用場面」は<strong>実際の開発例</strong>を記載</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>まとめは<strong>具体的なメリット</strong>を明示</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-lg font-bold text-green-600 mb-3">
+                        <i class="fas fa-language mr-2"></i>
+                        🔤 専門用語の扱い
+                    </h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>初出時は<strong>（日本語説明）</strong>を併記</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>カプセル化は<strong>「データ隠蔽」</strong>も併記</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>「なぜそうなるのか」の<strong>理由</strong>を説明</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i><strong>日常例・比喩</strong>を積極活用</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-folder-open mr-2"></i>
+                📁 参照ファイル
+            </h2>
+            <div class="bg-gray-100 p-4 rounded-lg">
+                <ul class="space-y-2 text-gray-700">
+                    <li><i class="fas fa-file-code mr-2 text-blue-500"></i><code>Traini../lecture/lecture7.html</code></li>
+                    <li><i class="fas fa-file-alt mr-2 text-green-500"></i><code>Traini../lecture/Template_lectureX.html</code></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-cog mr-2"></i>
+                ⚙️ 共通仕様
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="text-lg font-semibold text-blue-600 mb-3">技術仕様</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><i class="fas fa-code mr-2 text-orange-500"></i>HTML5 / lang="ja" / UTF-8</li>
+                        <li><i class="fas fa-mobile-alt mr-2 text-blue-500"></i><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                        <li><i class="fas fa-paint-brush mr-2 text-purple-500"></i>Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                        <li><i class="fas fa-responsive mr-2 text-green-500"></i>レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-green-600 mb-3">開発環境</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><i class="fas fa-code mr-2 text-gray-600"></i>コードブロックは <code>&lt;pre&gt;&lt;code class="language-java"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                        <li><i class="fas fa-tools mr-2 text-blue-600"></i>開発環境として Pleiades (Eclipse) + Amazon Corretto JDK 17 を記載</li>
+                        <li><i class="fas fa-copyright mr-2 text-gray-500"></i>フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-table mr-2"></i>
+                📊 表の分かりやすさ改善指針
+            </h2>
+            
+            <div class="bg-red-50 border-l-4 border-red-500 p-4 mb-6">
+                <h3 class="text-lg font-bold text-red-700 mb-3">❌ 改善前の問題例</h3>
+                <div class="bg-white p-4 rounded border">
+                    <table class="w-full">
+                        <tr class="bg-gray-100">
+                            <th class="p-2 border">修飾子</th>
+                            <th class="p-2 border">アクセス範囲</th>
+                        </tr>
+                        <tr>
+                            <td class="p-2 border">private</td>
+                            <td class="p-2 border">同一クラス内</td>
+                        </tr>
+                    </table>
+                    <p class="text-red-600 mt-2 text-sm">→ <strong>抽象的で実用例がない</strong></p>
+                </div>
+            </div>
+
+            <div class="bg-green-50 border-l-4 border-green-500 p-4">
+                <h3 class="text-lg font-bold text-green-700 mb-3">✅ 改善後の指針</h3>
+                
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h4 class="font-bold text-blue-600 mb-2">アクセス修飾子の説明強化</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li><i class="fas fa-arrow-right mr-2 text-blue-500"></i><strong>private</strong> → 「同一クラス内のみ（例：銀行口座の残高フィールド）」</li>
+                            <li><i class="fas fa-arrow-right mr-2 text-blue-500"></i><strong>protected</strong> → 「継承クラスからアクセス可能（例：親クラスの共通メソッド）」</li>
+                            <li><i class="fas fa-arrow-right mr-2 text-blue-500"></i><strong>public</strong> → 「どこからでもアクセス可能（例：API公開メソッド）」</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h4 class="font-bold text-green-600 mb-2">コンストラクタ呼び出し順序の図解化</h4>
+                        <ul class="space-y-2 text-gray-700">
+                            <li><i class="fas fa-arrow-right mr-2 text-green-500"></i>「親クラス → 子クラス」の順序を矢印で表現</li>
+                            <li><i class="fas fa-arrow-right mr-2 text-green-500"></i>super()呼び出しのタイミングを明示</li>
+                            <li><i class="fas fa-arrow-right mr-2 text-green-500"></i>実際のコード例でステップ番号を付与</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-book mr-2"></i>
+                📚 専門用語の説明強化指針
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-blue-700 mb-3">1. 初出時の詳細説明</h3>
+                    <div class="bg-white p-3 rounded border">
+                        <p class="text-gray-700 text-sm"><strong>例：</strong></p>
+                        <p class="text-blue-600">「カプセル化（データと処理を一体化し、外部から直接アクセスできないよう隠蔽する仕組み）では...」</p>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-green-700 mb-3">2. 日常例・比喩の活用</h3>
+                    <div class="bg-white p-3 rounded border">
+                        <p class="text-gray-700 text-sm"><strong>例：</strong></p>
+                        <p class="text-green-600">「privateフィールドは金庫の中身のように、直接見ることはできず、専用の方法（getter）でのみアクセス可能」</p>
+                    </div>
+                </div>
+
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-purple-700 mb-3">3. 理由・背景の説明</h3>
+                    <div class="bg-white p-3 rounded border">
+                        <p class="text-gray-700 text-sm"><strong>例：</strong></p>
+                        <p class="text-purple-600">「なぜthisキーワードが必要かというと、引数名とフィールド名が同じ場合に区別するため」</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-sitemap mr-2"></i>
+                📋 ページ構成（改良版）
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-gray-700 mb-3">1. ヘッダー & ページング</h3>
+                    <ul class="space-y-1 text-gray-600">
+                        <li><i class="fas fa-arrow-left mr-2"></i>前ページリンク（Day6: 継承・ポリモーフィズム）</li>
+                        <li><i class="fas fa-arrow-right mr-2"></i>次ページリンク（Day8: 例外処理）</li>
+                        <li><i class="fas fa-title mr-2"></i>Day7: カプセル化・継承詳細</li>
+                        <li><i class="fas fa-subtitle mr-2"></i>アクセス修飾子・コンストラクタ・thisキーワード</li>
+                    </ul>
+                </div>
+
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-blue-700 mb-3">2. 学習目標</h3>
+                    <ul class="space-y-1 text-blue-600">
+                        <li><i class="fas fa-target mr-2"></i>「〜できるようになる」の行動可能な表現で記載</li>
+                        <li><i class="fas fa-target mr-2"></i>アクセス修飾子の使い分けができる</li>
+                        <li><i class="fas fa-target mr-2"></i>コンストラクタの継承関係を理解できる</li>
+                        <li><i class="fas fa-target mr-2"></i>thisキーワードを適切に使用できる</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-green-700 mb-3">4. メイン講義（改良版指針）</h3>
+                    
+                    <div class="space-y-4 mt-4">
+                        <div class="bg-white p-4 rounded-lg border">
+                            <h4 class="font-bold text-red-600 mb-2">❗ アクセス修飾子の詳細解説</h4>
+                            <p class="text-gray-700 mb-2"><strong>具体例重視：</strong>「privateは同じクラス内でのみアクセス可能」だけでなく、「銀行口座クラスの残高フィールドをprivateにする理由」まで説明</p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border">
+                            <h4 class="font-bold text-orange-600 mb-2">⚠️ コンストラクタ呼び出し順序（重要改良箇所）</h4>
+                            <p class="text-gray-700 mb-2"><strong>必須改良事項：</strong></p>
+                            <ul class="space-y-2 text-gray-600 ml-4">
+                                <li><i class="fas fa-check mr-2 text-green-500"></i><strong>図解追加：</strong>「親コンストラクタ → 子コンストラクタ」の流れを矢印で表現</li>
+                                <li><i class="fas fa-check mr-2 text-green-500"></i><strong>実行順序：</strong>「super()は最初の行で実行」の理由と例外</li>
+                                <li><i class="fas fa-check mr-2 text-green-500"></i><strong>実用例：</strong>「Vehicle → Car → SportsCar の継承チェーン」</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border">
+                            <h4 class="font-bold text-blue-600 mb-2">🎯 thisキーワードの使用場面</h4>
+                            <ul class="space-y-2 text-gray-600 ml-4">
+                                <li><i class="fas fa-arrow-right mr-2"></i>フィールドと引数の区別: 「this.name = name;」</li>
+                                <li><i class="fas fa-arrow-right mr-2"></i>他のコンストラクタ呼び出し: 「this(defaultValue);」</li>
+                                <li><i class="fas fa-arrow-right mr-2"></i>メソッドチェーン: 「return this;」</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-tasks mr-2"></i>
+                📝 演習問題・理解度クイズ（表示仕様）
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-blue-700 mb-3">演習問題</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><i class="fas fa-eye mr-2 text-green-500"></i>問題文：<strong>常に表示</strong></li>
+                        <li><i class="fas fa-mouse-pointer mr-2 text-blue-500"></i>回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+                        <li><i class="fas fa-exclamation-triangle mr-2 text-red-500"></i>詳細解説を削減しないよう注意</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-green-700 mb-3">理解度クイズ</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><i class="fas fa-eye mr-2 text-green-500"></i>問題・選択肢：<strong>常に表示</strong></li>
+                        <li><i class="fas fa-mouse-pointer mr-2 text-blue-500"></i>正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+                        <li><i class="fas fa-code mr-2 text-purple-500"></i>JavaScript showAnswer()関数を実装</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-summary mr-2"></i>
+                📝 まとめセクション改善指針
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-red-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-red-700 mb-3">❌ 避けるべき抽象的表現</h3>
+                    <ul class="space-y-2 text-red-600">
+                        <li><i class="fas fa-times mr-2"></i>「カプセル化を理解した」</li>
+                        <li><i class="fas fa-times mr-2"></i>「アクセス修飾子が分かった」</li>
+                        <li><i class="fas fa-times mr-2"></i>「継承の仕組みを学んだ」</li>
+                        <li><i class="fas fa-times mr-2"></i>「thisキーワードを覚えた」</li>
+                    </ul>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-green-700 mb-3">✅ 推奨する具体的表現</h3>
+                    <ul class="space-y-2 text-green-600">
+                        <li><i class="fas fa-check mr-2"></i>「privateで隠蔽し、getterで安全にアクセスできる」</li>
+                        <li><i class="fas fa-check mr-2"></i>「protectedは継承クラスでのみ利用可能で、API設計に有効」</li>
+                        <li><i class="fas fa-check mr-2"></i>「super()で親コンストラクタを最初に呼び出す」</li>
+                        <li><i class="fas fa-check mr-2"></i>「thisで同名フィールドと引数を区別できる」</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-check-double mr-2"></i>
+                ✅ 分かりやすさチェックリスト
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-blue-700 mb-3">📊 表・図解</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="text-gray-700">アクセス修飾子に具体的適用例を併記</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="text-gray-700">コンストラクタ呼び出し順序を図解化</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="text-gray-700">適用場面は実際の開発例で説明</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="text-gray-700">比較表には「実用例」列を追加</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-bold text-green-700 mb-3">📝 文章・説明</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="text-gray-700">専門用語は日本語説明を併記</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="text-gray-700">「なぜ」の理由を必ず説明</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="text-gray-700">日常例・比喩を積極活用</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="mr-2">
+                            <span class="text-gray-700">まとめは具体的なメリットを明示</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-red-100 border-2 border-red-500 rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold text-red-800 mb-4">
+                <i class="fas fa-file-export mr-2"></i>
+                📤 出力形式
+            </h2>
+            
+            <div class="bg-white p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-red-700 mb-3">⚠️ 重要事項：</h3>
+                <ul class="space-y-3 text-gray-700">
+                    <li class="flex items-start">
+                        <i class="fas fa-exclamation-triangle mr-3 text-red-500 mt-1"></i>
+                        <span><strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-table mr-3 text-blue-500 mt-1"></i>
+                        <span>特に「アクセス修飾子詳細表」は<strong>必ず具体例付きで改良</strong>すること</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-sitemap mr-3 text-green-500 mt-1"></i>
+                        <span>「コンストラクタ呼び出し順序」は<strong>図解化</strong>すること</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-language mr-3 text-purple-500 mt-1"></i>
+                        <span>専門用語の初出時は<strong>日本語説明を必ず併記</strong>すること</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-summary mr-3 text-orange-500 mt-1"></i>
+                        <span>まとめセクションは<strong>具体的なメリット</strong>で記載すること</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-balance-scale mr-3 text-teal-500 mt-1"></i>
+                        <span>HTMLの見やすさと詳細な解説を<strong>両立</strong>すること</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <footer class="bg-gray-800 text-white p-6 rounded-lg text-center">
+            <p class="mb-2">
+                <i class="fas fa-graduation-cap mr-2"></i>
+                ITエンジニア育成カリキュラム - Day7講義ページ生成用完全改良版Promptファイル
+            </p>
+            <p class="text-gray-400">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDjlJUbXfbOvJm1WE23G6j4OZzntEwGRdl3WMWzmAEX2gyuIKpGm2MyApiSShggAYbn2H%2BcjRV5xiXmqjL41yM4ktQX5bTpIVhiT6qFrjgAqvtxvLPmxBrwwkrbhEObS%2FHzXsrnBCLSx8DCsGQG5CA%2FgUuyqZynfjsok5AUjFga7k8fDANZAL86pNQTnBOiXrtIM8k4eawbn25t7bhBG8g6qpwb6lVr7vHB%2Bk9aL7BbjoUdmv3AFdaJfRTauczFHJ5poAY2ULpRAajfNPx7nX2PvW22e4ysiEQwhxjmM59KX9nXd194P%2Fw9609x3Yqp1NJhPNooqUCPiylQYUsDSBY%2BoQqttTKTHNYF4rScnh0uMUH9%2Buab03bmrUGA6PPTCxgf2zKpYBPVO5NT2Ev0WUeQ9IY0C%2FHmhmQ0eK8hLvrFSjh5Xmezu2W7319f%2FAjKFZ4X58Mze69PJL0lfoPUi3OCU0xMNT54bNZehWo%2Fi%2BTMK0WXNYJ67iSAFbLxzyXWmT863xZwYuRviyExvZHhe0CE%2BEzVIBTmXV8GOHXtQIGKXcbmvyVezga58Iq2xeE8SnLQ%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDjlJUbXfbOvJm1WE23G6j4OZzntEwGRdl3WMWzmAEX2gyuIKpGm2MyApiSShggAYbn2H+cjRV5xiXmqjL41yM4ktQX5bTpIVhiT6qFrjgAqvtxvLPmxBrwwkrbhEObS/HzXsrnBCLSx8DCsGQG5CA/gUuyqZynfjsok5AUjFga7k8fDANZAL86pNQTnBOiXrtIM8k4eawbn25t7bhBG8g6qpwb6lVr7vHB+k9aL7BbjoUdmv3AFdaJfRTauczFHJ5poAY2ULpRAajfNPx7nX2PvW22e4ysiEQwhxjmM59KX9nXd194P/w9609x3Yqp1NJhPNooqUCPiylQYUsDSBY+oQqttTKTHNYF4rScnh0uMUH9+uab03bmrUGA6PPTCxgf2zKpYBPVO5NT2Ev0WUeQ9IY0C/HmhmQ0eK8hLvrFSjh5Xmezu2W7319f/AjKFZ4X58Mze69PJL0lfoPUi3OCU0xMNT54bNZehWo/i+TMK0WXNYJ67iSAFbLxzyXWmT863xZwYuRviyExvZHhe0CE+EzVIBTmXV8GOHXtQIGKXcbmvyVezga58Iq2xeE8SnLQ==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

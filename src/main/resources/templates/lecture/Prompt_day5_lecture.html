@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt_day5_lecture.html（完全改良版）- オブジェクト指向基礎</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg my-8">
+
+<header class="mb-8 border-b border-gray-200 pb-6">
+<h1 class="text-3xl font-bold text-blue-800 mb-2">
+<i class="fas fa-cube mr-3"></i>Prompt_day5_lecture.html（完全改良版）
+</h1>
+<p class="text-xl text-gray-600">オブジェクト指向基礎講義ページ生成用改良版Promptファイル</p>
+<div class="mt-4 bg-blue-50 p-4 rounded-lg">
+<p class="text-sm text-blue-700">
+<i class="fas fa-info-circle mr-2"></i>
+Day11-36で確立した分かりやすさ改善指針を完全適用し、詳細な技術仕様と具体的な出力形式を指定
+</p>
+</div>
+</header>
+
+<section class="mb-8">
+<h2 class="text-2xl font-bold text-red-600 mb-4">
+<i class="fas fa-exclamation-triangle mr-2"></i>プロジェクト名：ITエンジニア育成カリキュラム - Day5: オブジェクト指向基礎（改良版）
+</h2>
+
+<div class="bg-red-50 p-4 rounded-lg mb-4">
+<p class="text-red-800 font-semibold">
+以下の指示に従って、<code class="bg-red-100 px-2 py-1 rounded">Traini../lecture/lecture5.html</code> を生成してください。
+</p>
+</div>
+</section>
+
+<section class="mb-8">
+<h2 class="text-2xl font-bold text-red-600 mb-4">
+<i class="fas fa-exclamation-circle mr-2"></i>🚨 重要な改善指針
+</h2>
+
+<div class="grid md:grid-cols-2 gap-6">
+<div class="bg-yellow-50 p-4 rounded-lg">
+<h3 class="text-lg font-bold text-yellow-800 mb-3">
+<i class="fas fa-table mr-2"></i>📊 表・まとめの分かりやすさ重視
+</h3>
+<ul class="text-yellow-700 space-y-2">
+<li>• 専門用語は必ず<strong>日本語説明</strong>を併記</li>
+<li>• 概念説明は<strong>具体例</strong>で補足</li>
+<li>• 「適用場面」は<strong>実際の開発例</strong>を記載</li>
+<li>• まとめは<strong>具体的なメリット</strong>を明示</li>
+</ul>
+</div>
+
+<div class="bg-blue-50 p-4 rounded-lg">
+<h3 class="text-lg font-bold text-blue-800 mb-3">
+<i class="fas fa-language mr-2"></i>🔤 専門用語の扱い
+</h3>
+<ul class="text-blue-700 space-y-2">
+<li>• 初出時は<strong>（日本語説明）</strong>を併記</li>
+<li>• 略語は<strong>正式名称</strong>を明記</li>
+<li>• 「なぜそうなるのか」の<strong>理由</strong>を説明</li>
+<li>• <strong>日常例・比喩</strong>を積極活用</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="mb-8">
+<h2 class="text-2xl font-bold text-green-600 mb-4">
+<i class="fas fa-file-alt mr-2"></i>📁 参照ファイル
+</h2>
+<ul class="bg-green-50 p-4 rounded-lg text-green-700">
+<li>• Traini../lecture/lecture5.html</li>
+<li>• Traini../lecture/Template_lectureX.html</li>
+</ul>
+</section>
+
+<section class="mb-8">
+<h2 class="text-2xl font-bold text-purple-600 mb-4">
+<i class="fas fa-cog mr-2"></i>⚙️ 共通仕様
+</h2>
+<div class="bg-purple-50 p-4 rounded-lg">
+<ul class="text-purple-700 space-y-2">
+<li>• HTML5 / lang="ja" / UTF-8</li>
+<li>• <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+<li>• Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+<li>• レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+<li>• コードブロックは <code>&lt;pre&gt;&lt;code class="language-java"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+<li>• 開発環境として Pleiades (Eclipse) + Amazon Corretto JDK 17 を記載</li>
+<li>• フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+</ul>
+</div>
+</section>
+
+<section class="mb-8">
+<h2 class="text-2xl font-bold text-red-600 mb-4">
+<i class="fas fa-table mr-2"></i>📊 表の分かりやすさ改善指針
+</h2>
+
+<div class="bg-red-50 p-4 rounded-lg mb-4">
+<h3 class="text-lg font-bold text-red-800 mb-3">❌ 改善前問題例</h3>
+<div class="bg-red-100 p-3 rounded text-red-700">
+<p>「カプセル化」「継承」「ポリモーフィズム」だけの抽象的な表記</p>
+</div>
+</div>
+
+<div class="bg-green-50 p-4 rounded-lg">
+<h3 class="text-lg font-bold text-green-800 mb-3">✅ 改善後の指針</h3>
+
+<h4 class="font-bold text-green-700 mb-2">オブジェクト指向3大原則の説明強化</h4>
+<ul class="text-green-700 space-y-2 mb-4">
+<li>• <strong>カプセル化</strong> → 「データと処理を一体化し、外部から直接触れないようにする（銀行のATMのように）」</li>
+<li>• <strong>継承</strong> → 「親クラスの機能を子クラスが引き継ぐ（動物→犬→柴犬のような関係）」</li>
+<li>• <strong>ポリモーフィズム</strong> → 「同じ命令でも、対象によって異なる動作をする（「鳴け」で犬は"ワン"、猫は"ニャー"）」</li>
+</ul>
+
+<h4 class="font-bold text-green-700 mb-2">手続き型との比較強化</h4>
+<ul class="text-green-700 space-y-2">
+<li>• <strong>データ管理:</strong> 手続き型「バラバラに管理」→ OOP「クラス内で一元管理」</li>
+<li>• <strong>再利用性:</strong> 手続き型「コピー&ペースト」→ OOP「継承で効率的」</li>
+<li>• <strong>保守性:</strong> 手続き型「影響範囲が不明」→ OOP「変更影響を局所化」</li>
+</ul>
+</div>
+</section>
+
+<section class="mb-8">
+<h2 class="text-2xl font-bold text-indigo-600 mb-4">
+<i class="fas fa-language mr-2"></i>📚 専門用語の説明強化指針
+</h2>
+
+<div class="space-y-4">
+<div class="bg-indigo-50 p-4 rounded-lg">
+<h3 class="text-lg font-bold text-indigo-800 mb-3">1. 初出時の詳細説明</h3>
+<div class="bg-indigo-100 p-3 rounded text-indigo-700">
+<p><strong>例：</strong></p>
+<p>「クラス（オブジェクトの設計図・雛形）では...」</p>
+<p>「インスタンス（クラスから作成された実際のオブジェクト）は...」</p>
+</div>
+</div>
+
+<div class="bg-indigo-50 p-4 rounded-lg">
+<h3 class="text-lg font-bold text-indigo-800 mb-3">2. 日常例・比喩の活用</h3>
+<div class="bg-indigo-100 p-3 rounded text-indigo-700">
+<p><strong>例：</strong></p>
+<p>「クラスは建築の設計図、オブジェクトは実際に建てられた家」</p>
+<p>「カプセル化は薬のカプセルのように、中身を保護して必要な時だけ効果を発揮」</p>
+</div>
+</div>
+
+<div class="bg-indigo-50 p-4 rounded-lg">
+<h3 class="text-lg font-bold text-indigo-800 mb-3">3. 理由・背景の説明</h3>
+<div class="bg-indigo-100 p-3 rounded text-indigo-700">
+<p><strong>例：</strong></p>
+<p>「なぜprivateを使うかというと、外部から勝手にデータを変更されるのを防ぐため」</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="mb-8">
+<h2 class="text-2xl font-bold text-teal-600 mb-4">
+<i class="fas fa-sitemap mr-2"></i>📋 ページ構成（改良版）
+</h2>
+
+<div class="space-y-6">
+<div class="bg-teal-50 p-4 rounded-lg">
+<h3 class="text-lg font-bold text-teal-800 mb-3">1. ヘッダー & ページング</h3>
+<ul class="text-teal-700 space-y-1">
+<li>• 前後ページへのナビゲーションリンク</li>
+<li>• タイトル「オブジェクト指向基礎」とサブタイトル</li>
+<li>• 所要時間・対象レベル・JavaSilver17試験対応の明示</li>
+</ul>
+</div>
+
+<div class="bg-teal-50 p-4 rounded-lg">
+<h3 class="text-lg font-bold text-teal-800 mb-3">2. 学習目標</h3>
+<ul class="text-teal-700 space-y-1">
+<li>• クラスとオブジェクトの概念理解</li>
+<li>• オブジェクト指向3大原則の習得</li>
+<li>• 手続き型との違いの理解</li>
+<li>• カプセル化の実装方法</li>
+<li>• thisキーワードとコンストラクタの使用法</li>
+</ul>
+</div>
+
+<div class="bg-teal-50 p-4 rounded-lg">
+<h3 class="text-lg font-bold text-teal-800 mb-3">4. メイン講義（改良版指針）</h3>
+
+<h4 class="font-bold text-teal-700 mb-2">オブジェクト指向とは</h4>
+<div class="bg-yellow-100 p-3 rounded mb-3">
+<p class="text-yellow-800"><strong>❗ 具体例重視：</strong></p>
+<p>「手続き型では関数とデータが別々、OOPではクラス内に一体化」など、実コード例で説明</p>
+</div>
+
+<h4 class="font-bold text-teal-700 mb-2">オブジェクト指向3大原則比較表（重要改良箇所）</h4>
+<div class="bg-red-100 p-3 rounded mb-3">
+<p class="text-red-800"><strong>⚠️ 必須改良事項：</strong></p>
+<ul class="list-disc list-inside space-y-1">
+<li><strong>各原則に詳細説明を追加：</strong></li>
+<li><strong>カプセル化：</strong>「データ隠蔽による安全性向上（例：銀行口座の残高を直接変更不可）」</li>
+<li><strong>継承：</strong>「コード再利用による開発効率化（例：動物クラス→犬クラス→柴犬クラス）」</li>
+<li><strong>ポリモーフィズム：</strong>「同一インターフェースで異なる動作（例：図形.描画()で円・四角・三角が異なる描画）」</li>
+</ul>
+</div>
+
+<div class="bg-green-100 p-3 rounded mb-3">
+<p class="text-green-800"><strong>比較表に「実用例」列を追加：</strong></p>
+<ul class="list-disc list-inside space-y-1">
+<li>カプセル化: 「ユーザー管理、商品管理」</li>
+<li>継承: 「UI部品、ゲームキャラクター」</li>
+<li>ポリモーフィズム: 「支払い処理、ファイル処理」</li>
+</ul>
+</div>
+
+<h4 class="font-bold text-teal-700 mb-2">手続き型 vs オブジェクト指向比較表</h4>
+<div class="bg-blue-100 p-3 rounded">
+<p class="text-blue-800"><strong>必須実装：</strong></p>
+<ul class="list-disc list-inside space-y-1">
+<li><strong>データ管理:</strong> 手続き型「グローバル変数で共有」vs OOP「オブジェクト内で管理」</li>
+<li><strong>処理の流れ:</strong> 手続き型「上から下へ順次実行」vs OOP「オブジェクト間のメッセージ交換」</li>
+<li><strong>コード再利用:</strong> 手続き型「関数の呼び出し」vs OOP「継承とポリモーフィズム」</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section class="mb-8">
+<h2 class="text-2xl font-bold text-orange-600 mb-4">
+<i class="fas fa-tasks mr-2"></i>📝 演習問題・理解度クイズ（表示仕様）
+</h2>
+
+<div class="bg-orange-50 p-4 rounded-lg mb-4">
+<h3 class="text-lg font-bold text-orange-800 mb-3">演習問題</h3>
+<ul class="text-orange-700 space-y-2">
+<li>• 問題文：<strong>常に表示</strong></li>
+<li>• 回答例：<strong>「回答例を表示」ボタン</strong>でクリック表示</li>
+<li>• 詳細解説を削減しないよう注意</li>
+</ul>
+</div>
+
+<div class="bg-orange-50 p-4 rounded-lg">
+<h3 class="text-lg font-bold text-orange-800 mb-3">理解度クイズ</h3>
+<ul class="text-orange-700 space-y-2">
+<li>• 問題・選択肢：<strong>常に表示</strong></li>
+<li>• 正解・解説：<strong>「回答を表示」ボタン</strong>でクリック表示</li>
+<li>• JavaScript showAnswer()関数を実装</li>
+</ul>
+</div>
+</section>
+
+<section class="mb-8">
+<h2 class="text-2xl font-bold text-pink-600 mb-4">
+<i class="fas fa-clipboard-check mr-2"></i>📝 まとめセクション改善指針
+</h2>
+
+<div class="grid md:grid-cols-2 gap-6">
+<div class="bg-red-50 p-4 rounded-lg">
+<h3 class="text-lg font-bold text-red-800 mb-3">❌ 避けるべき抽象的表現</h3>
+<ul class="text-red-700 space-y-2">
+<li>• 「オブジェクト指向を理解した」</li>
+<li>• 「カプセル化ができる」</li>
+<li>• 「継承の概念を学んだ」</li>
+<li>• 「ポリモーフィズムを習得した」</li>
+</ul>
+</div>
+
+<div class="bg-green-50 p-4 rounded-lg">
+<h3 class="text-lg font-bold text-green-800 mb-3">✅ 推奨する具体的表現</h3>
+<ul class="text-green-700 space-y-2">
+<li>• 「クラスでデータと処理を一体化し、外部からの不正アクセスを防げる」</li>
+<li>• 「継承により重複コードを削減し、保守性を向上できる」</li>
+<li>• 「ポリモーフィズムで柔軟な処理分岐を実装できる」</li>
+<li>• 「thisキーワードでインスタンス変数を明示的に参照できる」</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="mb-8">
+<h2 class="text-2xl font-bold text-cyan-600 mb-4">
+<i class="fas fa-check-double mr-2"></i>✅ 分かりやすさチェックリスト
+</h2>
+
+<div class="grid md:grid-cols-2 gap-6">
+<div class="bg-cyan-50 p-4 rounded-lg">
+<h3 class="text-lg font-bold text-cyan-800 mb-3">📊 表・図解</h3>
+<ul class="text-cyan-700 space-y-2">
+<li>☐ 専門用語に必ず日本語説明を併記</li>
+<li>☐ オブジェクト指向3大原則に具体例付き</li>
+<li>☐ 手続き型との比較は実際の開発例で説明</li>
+<li>☐ 比較表には「実用例」列を追加</li>
+</ul>
+</div>
+
+<div class="bg-cyan-50 p-4 rounded-lg">
+<h3 class="text-lg font-bold text-cyan-800 mb-3">📝 文章・説明</h3>
+<ul class="text-cyan-700 space-y-2">
+<li>☐ 略語は正式名称を併記</li>
+<li>☐ 「なぜ」の理由を必ず説明</li>
+<li>☐ 日常例・比喩を積極活用</li>
+<li>☐ まとめは具体的なメリットを明示</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="mb-8">
+<h2 class="text-2xl font-bold text-red-600 mb-4">
+<i class="fas fa-upload mr-2"></i>📤 出力形式
+</h2>
+
+<div class="bg-red-50 p-4 rounded-lg">
+<div class="text-red-800 space-y-3">
+<p><strong>⚠️ 重要事項：</strong></p>
+<ul class="list-disc list-inside space-y-2">
+<li><strong>上記の分かりやすさ改善指針をすべて反映</strong>した完成HTMLのみを返す</li>
+<li>特に「オブジェクト指向3大原則比較表」は<strong>必ず詳細説明付きで改良</strong>すること</li>
+<li>専門用語の初出時は<strong>日本語説明を併記</strong>すること</li>
+<li>まとめセクションは<strong>具体的なメリット</strong>で記載すること</li>
+<li>HTMLの見やすさと詳細な解説を<strong>両立</strong>すること</li>
+<li><strong>演習問題・理解度クイズは「回答を表示」ボタン方式</strong>で実装すること</li>
+</ul>
+</div>
+</div>
+</section>
+
+<footer class="mt-12 pt-6 border-t border-gray-200 text-center text-gray-500">
+<p><i class="fas fa-copyright mr-2"></i>© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+<p class="text-sm mt-2">Day5講義ページ生成用完全改良版Promptファイル - Day11-36改善指針完全適用版</p>
+</footer>
+
+</div>
+
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDhbxOzK5eoPAqKe%2F7WBqXCNS0nDvzEZVLndZHxPJi5ysnruFY8xIgk%2BIwiqShZjaF78t0SVBBjrbfqpml5QAaFjBlNlsqJPh3eFd8KD4magUp23OfgoLeF11CNu5moAPcN5z9pLtnwR1x9OoPMeRLrEMjhYpJTx%2B4%2FZb%2BhPTUzpkIbFBs2wGoYFcmU%2BkrbK912ylTttwzId%2FmtmItV3U7n5z3OVoB09qbLMTg8kfkwLZGCJVYSHkEa%2FlXiU%2BZZJVxnX3Uj%2BFsFiDDpMgvvbWjGbMTLzKxHkcx1gudKqYiUcXAKARROmQ2pCrUQXjc8okOax%2FIOEouT19zVma6%2FsL4EcPm3F4b0dEo9%2FlbqVU3n3UN%2BSXnVrGNVXbSb2lrV4tgrtxTZ6%2BZ%2Fjey9Qtn3W2ZXEzBAuK%2BNliYZXmRecZV3iffrNW2jgMChLshewMbzn%2FOXl3RpG%2Bo4l%2F775sq54%2B0%2B7X9i646lwwxfuF8SSjj914s3DnhwIs38pV1nO%2BV6gk4XVW7UfRFbCUSsu28mt4dXs%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDhbxOzK5eoPAqKe/7WBqXCNS0nDvzEZVLndZHxPJi5ysnruFY8xIgk+IwiqShZjaF78t0SVBBjrbfqpml5QAaFjBlNlsqJPh3eFd8KD4magUp23OfgoLeF11CNu5moAPcN5z9pLtnwR1x9OoPMeRLrEMjhYpJTx+4/Zb+hPTUzpkIbFBs2wGoYFcmU+krbK912ylTttwzId/mtmItV3U7n5z3OVoB09qbLMTg8kfkwLZGCJVYSHkEa/lXiU+ZZJVxnX3Uj+FsFiDDpMgvvbWjGbMTLzKxHkcx1gudKqYiUcXAKARROmQ2pCrUQXjc8okOax/IOEouT19zVma6/sL4EcPm3F4b0dEo9/lbqVU3n3UN+SXnVrGNVXbSb2lrV4tgrtxTZ6+Z/jey9Qtn3W2ZXEzBAuK+NliYZXmRecZV3iffrNW2jgMChLshewMbzn/OXl3RpG+o4l/775sq54+0+7X9i646lwwxfuF8SSjj914s3DnhwIs38pV1nO+V6gk4XVW7UfRFbCUSsu28mt4dXs=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

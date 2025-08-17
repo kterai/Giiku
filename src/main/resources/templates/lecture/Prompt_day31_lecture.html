@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day31 情報セキュリティ 講義プロンプト - 改良版</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto max-w-6xl px-4 py-8">
+        <!-- ヘッダー -->
+        <header class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg p-6 mb-8">
+            <h1 class="text-3xl font-bold text-center mb-2">
+                <i class="fas fa-shield-alt mr-3"></i>
+                Day31 情報セキュリティ 講義プロンプト - 改良版
+            </h1>
+            <p class="text-center text-blue-100">分かりやすさ改善指針を適用した講師用詳細プロンプト指示書</p>
+        </header>
+
+        <!-- 重要な注意事項 -->
+        <div class="bg-red-50 border-l-4 border-red-500 p-6 mb-8">
+            <h2 class="text-xl font-semibold text-red-800 mb-3">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                重要な注意事項
+            </h2>
+            <p class="text-red-700 mb-3">
+                このファイルはHTMLファイル生成用のプロンプト指示書です。実際のHTMLファイルではなく、<strong>lecture31.html</strong>を生成するための詳細な指示内容が記載されています。
+            </p>
+            <div class="bg-white p-4 rounded border">
+                <h3 class="font-semibold text-red-800 mb-2">分かりやすさ改善指針の適用</h3>
+                <p class="text-red-700">
+                    本プロンプトには、Day11-30で蓄積した「講師が説明しやすく受講者が理解しやすい」講義作りのための改善指針が詳細に反映されています。
+                </p>
+            </div>
+        </div>
+
+        <!-- 基本仕様 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-cog mr-2 text-blue-600"></i>
+                基本仕様
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <i class="fas fa-code text-green-600 mr-2"></i>
+                        <span>HTML5準拠の構造でレスポンシブデザインを実装</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-palette text-blue-600 mr-2"></i>
+                        <span>Tailwind CSS（CDN）とFontAwesome（CDN）を使用</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-arrow-left text-purple-600 mr-2"></i>
+                        <span>ナビゲーション機能（前日・翌日への移動）</span>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <i class="fas fa-mouse-pointer text-orange-600 mr-2"></i>
+                        <span>演習問題・模擬試験の回答表示ボタン機能を実装</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-weight-hanging text-red-600 mr-2"></i>
+                        <span>ファイルサイズ目安：20KB以上</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 生成ファイル情報 -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8">
+            <h3 class="text-lg font-semibold text-blue-800 mb-2">生成するファイル</h3>
+            <div class="bg-white p-4 rounded">
+                <p><strong>ファイル名:</strong> lecture31.html</p>
+                <p><strong>タイトル:</strong> ITエンジニア育成カリキュラム - Day31: 情報セキュリティ</p>
+            </div>
+        </div>
+
+        <!-- 分かりやすさ改善指針 -->
+        <div class="bg-gradient-to-r from-green-500 to-teal-600 text-white rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-lightbulb mr-2"></i>
+                分かりやすさ改善指針【Day31特化版】
+            </h2>
+            
+            <!-- 講師向け詳細説明の強化 -->
+            <div class="bg-white bg-opacity-20 rounded-lg p-4 mb-4">
+                <h3 class="text-lg font-semibold mb-3">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    講師向け詳細説明の強化
+                </h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white bg-opacity-30 p-3 rounded">
+                        <h4 class="font-semibold mb-2">CIA概念の教育ポイント</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• 機密性：「見られてはいけない情報を守る」身近な例から説明</li>
+                            <li>• 完全性：「改ざんされない」ことの重要性を具体例で示す</li>
+                            <li>• 可用性：「使いたい時に使える」システムの価値を説明</li>
+                            <li>• 三要素のバランスの重要性と実際の判断基準</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white bg-opacity-30 p-3 rounded">
+                        <h4 class="font-semibold mb-2">暗号化技術の段階的指導</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• 共通鍵暗号：「同じ鍵で開け閉め」のシンプルな理解</li>
+                            <li>• 公開鍵暗号：「郵便ポスト」の比喩で概念理解</li>
+                            <li>• ハッシュ関数：「指紋」の例えで一意性を説明</li>
+                            <li>• 実際の暗号化手順を段階的にデモンストレーション</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 受講者理解促進要素 -->
+            <div class="bg-white bg-opacity-20 rounded-lg p-4 mb-4">
+                <h3 class="text-lg font-semibold mb-3">
+                    <i class="fas fa-users mr-2"></i>
+                    受講者理解促進要素
+                </h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-white bg-opacity-30 p-3 rounded">
+                        <h4 class="font-semibold mb-2">専門用語の解説強化</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• 各セキュリティ用語に平易な説明を併記</li>
+                            <li>• 略語の正式名称と意味を明示</li>
+                            <li>• 日常生活での例え話を多用</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white bg-opacity-30 p-3 rounded">
+                        <h4 class="font-semibold mb-2">視覚的理解の促進</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• 暗号化プロセスの図解化</li>
+                            <li>• 攻撃手法の可視化</li>
+                            <li>• セキュリティ対策の比較表</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white bg-opacity-30 p-3 rounded">
+                        <h4 class="font-semibold mb-2">実践的な例示</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• 実際のセキュリティインシデント事例</li>
+                            <li>• 身近なセキュリティ脅威の紹介</li>
+                            <li>• 対策の具体的な実装方法</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- セキュリティ特有の分かりづらい箇所の改良 -->
+            <div class="bg-white bg-opacity-20 rounded-lg p-4">
+                <h3 class="text-lg font-semibold mb-3">
+                    <i class="fas fa-tools mr-2"></i>
+                    セキュリティ特有の分かりづらい箇所の改良
+                </h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white bg-opacity-30 p-3 rounded">
+                        <h4 class="font-semibold mb-2">概念理解の改良</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• 認証・認可・監査の違いを明確に区別</li>
+                            <li>• リスクと脅威と脆弱性の関係性を図解</li>
+                            <li>• セキュリティポリシーの階層構造を整理</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white bg-opacity-30 p-3 rounded">
+                        <h4 class="font-semibold mb-2">技術的内容の簡素化</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• 暗号化アルゴリズムの特徴を表形式で整理</li>
+                            <li>• ネットワークセキュリティの設定手順を明確化</li>
+                            <li>• マルウェア対策の優先順位を明示</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 講義構成 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-book-open mr-2 text-blue-600"></i>
+                講義構成
+            </h2>
+
+            <!-- ITエンジニア豆知識 -->
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">
+                    <i class="fas fa-star mr-2 text-yellow-500"></i>
+                    1. ITエンジニア豆知識
+                </h3>
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                    <h4 class="font-semibold text-yellow-800 mb-2">テーマ: 最新のサイバーセキュリティ動向</h4>
+                    <ul class="text-yellow-700 space-y-2">
+                        <li>• ゼロトラストセキュリティの実装事例と効果</li>
+                        <li>• AIを活用したセキュリティ対策の最新技術</li>
+                        <li>• 政府機関・企業のセキュリティガイドライン動向</li>
+                        <li>• リモートワーク環境でのセキュリティ課題と対策</li>
+                        <li>• セキュリティ人材の需要と資格取得のメリット</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 本日の講義内容 -->
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">
+                    <i class="fas fa-graduation-cap mr-2 text-green-600"></i>
+                    2. 本日の講義内容（詳細に記載）
+                </h3>
+                
+                <!-- 学習目標 -->
+                <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-4">
+                    <h4 class="font-semibold text-green-800 mb-2">学習目標</h4>
+                    <ul class="text-green-700 space-y-2">
+                        <li>• CIA（機密性・完全性・可用性）の概念を理解し、実際のシステムで判断基準を適用できる</li>
+                        <li>• 暗号化技術の基本原理を理解し、適切な暗号化方式を選択できる</li>
+                        <li>• 認証技術の種類と特徴を把握し、多要素認証の実装を設計できる</li>
+                        <li>• マルウェア対策の体系的なアプローチを理解し、包括的な対策を立案できる</li>
+                        <li>• サイバー攻撃の手法を知り、適切なインシデント対応手順を実行できる</li>
+                    </ul>
+                </div>
+
+                <!-- 詳細な講義項目 -->
+                <div class="space-y-4">
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-800 mb-3">2.1 CIA（機密性・完全性・可用性）の深い理解</h4>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <h5 class="font-medium mb-2">講師向け詳細説明ポイント:</h5>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• 機密性の説明では、医療情報や個人情報の漏洩事例を具体的に紹介</li>
+                                <li>• 完全性では、金融取引データの改ざん防止の重要性を説明</li>
+                                <li>• 可用性では、システム停止による経済的損失を数値で示す</li>
+                                <li>• 三要素間のトレードオフ関係を実際のシステム設計例で解説</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-800 mb-3">2.2 暗号化技術の段階的理解</h4>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <h5 class="font-medium mb-2">分かりやすい説明アプローチ:</h5>
+                            <ul class="text-sm text-gray-600 space-y-1">
+                                <li>• 共通鍵暗号：「家の鍵」の例で同じ鍵での暗号化・復号化を説明</li>
+                                <li>• 公開鍵暗号：「郵便ポスト」の比喩で、誰でも投函（暗号化）できるが開けられる（復号化）のは持ち主だけという概念を説明</li>
+                                <li>• ハッシュ関数：「指紋」の例でデータの一意性と改ざん検知を説明</li>
+                                <li>• デジタル署名：「印鑑証明」の例で本人確認と改ざん防止を説明</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h4 class="font-semibold text-gray-800 mb-3">2.3 認証技術の体系的理解</h4>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <h5 class="font-medium mb-2">理解促進のための改良表:</h5>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full text-sm">
+                                    <thead class="bg-gray-100">
+                                        <tr>
+                                            <th class="px-3 py-2 text-left">認証要素</th>
+                                            <th class="px-3 py-2 text-left">具体例</th>
+                                            <th class="px-3 py-2 text-left">メリット</th>
+                                            <th class="px-3 py-2 text-left">デメリット</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-gray-600">
+                                        <tr class="border-t">
+                                            <td class="px-3 py-2">知識要素</td>
+                                            <td class="px-3 py-2">パスワード、PIN</td>
+                                            <td class="px-3 py-2">実装が簡単</td>
+                                            <td class="px-3 py-2">忘却・推測リスク</td>
+                                        </tr>
+                                        <tr class="border-t">
+                                            <td class="px-3 py-2">所有要素</td>
+                                            <td class="px-3 py-2">ICカード、スマホ</td>
+                                            <td class="px-3 py-2">物理的証明</td>
+                                            <td class="px-3 py-2">紛失・盗難リスク</td>
+                                        </tr>
+                                        <tr class="border-t">
+                                            <td class="px-3 py-2">生体要素</td>
+                                            <td class="px-3 py-2">指紋、顔認証</td>
+                                            <td class="px-3 py-2">偽造困難</td>
+                                            <td class="px-3 py-2">設備コスト高</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 演習問題・模擬試験の統一仕様 -->
+        <div class="bg-orange-50 border-l-4 border-orange-500 p-6 mb-8">
+            <h2 class="text-xl font-semibold text-orange-800 mb-4">
+                <i class="fas fa-clipboard-check mr-2"></i>
+                演習問題・模擬試験の統一仕様
+            </h2>
+            
+            <div class="bg-white p-4 rounded mb-4">
+                <h3 class="font-semibold text-orange-800 mb-2">重要な制約</h3>
+                <p class="text-orange-700 mb-2">
+                    <strong>演習問題・模擬試験の内容は全て上記講義内容で事前に説明済みの内容から出題する</strong>
+                </p>
+                <p class="text-orange-700">
+                    受講者が講義内容を理解すれば全ての問題に答えられるよう、講義パートで十分な事前説明を行うこと。
+                </p>
+            </div>
+
+            <!-- 演習問題構成 -->
+            <div class="bg-white p-4 rounded mb-4">
+                <h3 class="font-semibold text-orange-800 mb-3">演習問題構成（10問程度）</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <h4 class="font-medium mb-2">問題1-3: CIA基礎理論</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• CIA三要素の定義と重要性</li>
+                            <li>• 実際のシステムでのCIA評価</li>
+                            <li>• セキュリティポリシーの策定</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-medium mb-2">問題4-6: 暗号化技術</h4>
+                        <ul class="text-sm text-gray-600 space-y-1">
+                            <li>• 共通鍵・公開鍵暗号の選択</li>
+                            <li>• ハッシュ関数の用途判断</li>
+                            <li>• デジタル署名の実装設計</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 回答表示ボタンの統一実装 -->
+            <div class="bg-white p-4 rounded">
+                <h3 class="font-semibold text-orange-800 mb-3">回答表示ボタン機能の実装</h3>
+                <div class="bg-gray-100 p-3 rounded">
+                    <code class="text-sm text-gray-800">
+                        &lt;button onclick="toggleAnswer('q1')" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;回答を表示/非表示<br>
+                        &lt;/button&gt;<br>
+                        &lt;div id="q1-answer" class="hidden mt-2 p-4 bg-green-50 border-l-4 border-green-500"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p class="font-semibold text-green-800"&gt;正解: (選択肢)&lt;/p&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p class="text-green-700"&gt;解説...&lt;/p&gt;<br>
+                        &lt;/div&gt;
+                    </code>
+                </div>
+            </div>
+        </div>
+
+        <!-- 技術仕様・実装要件 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-code mr-2 text-purple-600"></i>
+                技術仕様・実装要件
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-3">HTML5構造</h3>
+                    <div class="bg-gray-100 p-3 rounded text-sm">
+                        <code>
+                            &lt;!DOCTYPE html&gt;<br>
+                            &lt;html lang="ja"&gt;<br>
+                            &lt;head&gt;<br>
+                            &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                            &nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;<br>
+                            &nbsp;&nbsp;&lt;title&gt;Day31: 情報セキュリティ&lt;/title&gt;<br>
+                            &nbsp;&nbsp;&lt;link href="tailwind-cdn" rel="stylesheet"&gt;<br>
+                            &nbsp;&nbsp;&lt;link rel="stylesheet" href="fontawesome-cdn"&gt;<br>
+                            &lt;/head&gt;
+                        </code>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-700 mb-3">ナビゲーション機能</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><strong>前日リンク:</strong> lecture30.html</li>
+                        <li><strong>翌日リンク:</strong> lecture32.html</li>
+                        <li><strong>トップページリンク:</strong> ../index.html</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript機能実装 -->
+        <div class="bg-purple-50 border-l-4 border-purple-500 p-6 mb-8">
+            <h2 class="text-xl font-semibold text-purple-800 mb-4">
+                <i class="fas fa-code-branch mr-2"></i>
+                JavaScript機能実装
+            </h2>
+            <div class="bg-white p-4 rounded">
+                <h3 class="font-semibold text-purple-800 mb-3">必須JavaScript機能</h3>
+                <div class="bg-gray-100 p-3 rounded">
+                    <code class="text-sm text-gray-800">
+                        function toggleAnswer(questionId) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;const element = document.getElementById(questionId + '-answer');<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;element.classList.toggle('hidden');<br>
+                        }<br><br>
+                        
+                        function checkAllAnswers() {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// 全回答表示/非表示の切り替え機能<br>
+                        }
+                    </code>
+                </div>
+            </div>
+        </div>
+
+        <!-- 品質基準・検証要件 -->
+        <div class="bg-green-50 border-l-4 border-green-500 p-6 mb-8">
+            <h2 class="text-xl font-semibold text-green-800 mb-4">
+                <i class="fas fa-check-circle mr-2"></i>
+                品質基準・検証要件
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-4 rounded">
+                    <h3 class="font-semibold text-green-800 mb-3">必須要件</h3>
+                    <ul class="space-y-2 text-green-700">
+                        <li>✓ HTML5準拠のマークアップ</li>
+                        <li>✓ Tailwind CSSによるレスポンシブデザイン</li>
+                        <li>✓ FontAwesomeアイコンの適切な使用</li>
+                        <li>✓ 20KB以上のファイルサイズ</li>
+                        <li>✓ 演習問題・模擬試験の回答表示機能</li>
+                        <li>✓ 講義内容で演習・試験内容を事前説明</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-4 rounded">
+                    <h3 class="font-semibold text-green-800 mb-3">検証項目</h3>
+                    <ul class="space-y-2 text-green-700">
+                        <li>✓ HTML構文の正確性</li>
+                        <li>✓ レスポンシブデザインの動作確認</li>
+                        <li>✓ JavaScriptの動作検証</li>
+                        <li>✓ 各リンクの接続確認</li>
+                        <li>✓ 内容の整合性チェック</li>
+                        <li>✓ 分かりやすさ改善指針の適用確認</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- まとめ -->
+        <div class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-4">
+                <i class="fas fa-star mr-2"></i>
+                改良版プロンプトの特徴
+            </h2>
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-white bg-opacity-20 rounded p-4">
+                    <h3 class="font-semibold mb-2">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        包括的な学習内容
+                    </h3>
+                    <p class="text-sm">
+                        情報セキュリティの基礎から実践まで、体系的で理解しやすい構成
+                    </p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded p-4">
+                    <h3 class="font-semibold mb-2">
+                        <i class="fas fa-tools mr-2"></i>
+                        実践的な演習
+                    </h3>
+                    <p class="text-sm">
+                        実際のセキュリティ課題に基づいた演習問題を多数用意
+                    </p>
+                </div>
+                <div class="bg-white bg-opacity-20 rounded p-4">
+                    <h3 class="font-semibold mb-2">
+                        <i class="fas fa-chart-line mr-2"></i>
+                        充実した解説
+                    </h3>
+                    <p class="text-sm">
+                        各問題に詳細な解説と講義内容との関連付けを提供
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-6 text-center">
+                <p class="text-lg font-semibold">
+                    このプロンプト指示書を使用して、分かりやすく実践的なDay31講義HTMLファイルを生成してください
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // デモ用の簡単なトグル機能
+        function toggleSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.classList.toggle('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDlSRzNdteW7toJtaOxkMg32TpuCGyYmFL2AGDPKjyVJVtVL9ZHkN%2BOTaeKrPgamfVx5ugdQG1wku8i71MG7Bzkag3CgtXUvvvdPnzXsCchIEzoJHXKycM3qrgjx4sV%2BO0sZXABknj0CLfsmsi%2BgzdkKPwEEOwBm4k6JEpn5WrCSqXj3vPaHG4rQEm7qQMV3kkhUQn0%2BL8G4xM89LcRoohF1fczhih0RnvLgQQnHXm0dNBmBy0V6qY6he%2BeqRktryOrvF2P0QP3ZkBUKuHsf0FmyFF1D7UgMi9okRNvvDkDpduoZ26yduORvRoSuUMxWHzc8I6erkT6Uci0TIFLewF5g2pHsoaWActDVVqq0lpR1KNxEYh4t%2B68wlGhLqXcptanfbX4azcSUq3fWuXSL7YhAbi0NesfZCdBWqnQYCRFdQqM3mKiYbeMiLevDBU8XZtHyj6i1slw%2Fe3J5ozNGyUtGKYc9KZQSBIKpd1lP%2BIbxC7d95kuJ3lRL0QPsd2BIAv92gUXZ5QZOiOPEt4tY6RCM%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDlSRzNdteW7toJtaOxkMg32TpuCGyYmFL2AGDPKjyVJVtVL9ZHkN+OTaeKrPgamfVx5ugdQG1wku8i71MG7Bzkag3CgtXUvvvdPnzXsCchIEzoJHXKycM3qrgjx4sV+O0sZXABknj0CLfsmsi+gzdkKPwEEOwBm4k6JEpn5WrCSqXj3vPaHG4rQEm7qQMV3kkhUQn0+L8G4xM89LcRoohF1fczhih0RnvLgQQnHXm0dNBmBy0V6qY6he+eqRktryOrvF2P0QP3ZkBUKuHsf0FmyFF1D7UgMi9okRNvvDkDpduoZ26yduORvRoSuUMxWHzc8I6erkT6Uci0TIFLewF5g2pHsoaWActDVVqq0lpR1KNxEYh4t+68wlGhLqXcptanfbX4azcSUq3fWuXSL7YhAbi0NesfZCdBWqnQYCRFdQqM3mKiYbeMiLevDBU8XZtHyj6i1slw/e3J5ozNGyUtGKYc9KZQSBIKpd1lP+IbxC7d95kuJ3lRL0QPsd2BIAv92gUXZ5QZOiOPEt4tY6RCM=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

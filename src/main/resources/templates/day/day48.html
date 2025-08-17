@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム - Day48: Spring Data JPA・データベース連携</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .progress-bar {
+            background: linear-gradient(90deg, #4ade80, #22c55e);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <script defer src="../js/day-navigation.js"></script>
+    <!-- ヘッダー -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-graduation-cap text-3xl"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold">ITエンジニア育成カリキュラム</h1>
+                        <p class="text-blue-100">第11週第3日目</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm text-blue-100">進捗状況</p>
+                    <div class="w-32 bg-blue-200 rounded-full h-2 mt-1">
+                        <div class="progress-bar h-2 rounded-full" style="width: 88.9%"></div>
+                    </div>
+                    <p class="text-xs text-blue-100 mt-1">48/54日完了</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- タイトルセクション -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="border-l-4 border-blue-500 pl-4">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Day48: Spring Data JPA・データベース連携</h2>
+                <p class="text-gray-600">Spring Data JPAを使った効率的なデータベース操作とエンティティマッピングの完全マスター</p>
+            </div>
+        </div>
+
+        <!-- 学習目標 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fas fa-target text-blue-500 mr-2"></i>学習目標
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4">
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                        <span>Spring Data JPAの基礎概念とRepository パターンを理解する</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                        <span>エンティティクラス設計と関連性マッピングをマスターする</span>
+                    </li>
+                </ul>
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                        <span>JPQL とネイティブクエリを効率的に活用する</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                        <span>トランザクション管理とパフォーマンス最適化を実装する</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 達成基準 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fas fa-medal text-yellow-500 mr-2"></i>達成基準
+            </h3>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-yellow-400 mr-2 mt-1"></i>
+                        <span>JPA・Hibernateの仕組みとRepository パターンを説明できる</span>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-yellow-400 mr-2 mt-1"></i>
+                        <span>エンティティクラスと関連性マッピングを適切に設計できる</span>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-yellow-400 mr-2 mt-1"></i>
+                        <span>JPQL とネイティブクエリを使い分けてデータ操作できる</span>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-yellow-400 mr-2 mt-1"></i>
+                        <span>パフォーマンス最適化とトランザクション制御を実装できる</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 詳細スケジュール -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fas fa-clock text-purple-500 mr-2"></i>詳細スケジュール
+            </h3>
+            <div class="space-y-4">
+                <div class="border-l-4 border-blue-400 pl-4 py-2">
+                    <h5 class="font-semibold text-gray-800">10:00-10:15 オリエンテーション</h5>
+                    <p class="text-gray-600 text-sm">前日復習とSpring Data JPA概要、JPA・Hibernateの基礎理解</p>
+                </div>
+                <div class="border-l-4 border-green-400 pl-4 py-2">
+                    <h5 class="font-semibold text-gray-800">10:15-11:00 Spring Data JPA基礎</h5>
+                    <p class="text-gray-600 text-sm">環境構築、Repository パターン、エンティティクラス設計の基本</p>
+                </div>
+                <div class="border-l-4 border-yellow-400 pl-4 py-2">
+                    <h5 class="font-semibold text-gray-800">11:00-11:45 エンティティマッピング詳細</h5>
+                    <p class="text-gray-600 text-sm">関連性マッピング（@OneToMany、@ManyToOne等）と高度なマッピング技法</p>
+                </div>
+                <div class="border-l-4 border-gray-400 pl-4 py-2">
+                    <h5 class="font-semibold text-gray-800">11:45-12:45 昼休憩</h5>
+                    <p class="text-gray-600 text-sm">休憩時間です。昼食をとり、リフレッシュしましょう。</p>
+                </div>
+                <div class="border-l-4 border-red-400 pl-4 py-2">
+                    <h5 class="font-semibold text-gray-800">12:45-13:30 JPQL・ネイティブクエリ</h5>
+                    <p class="text-gray-600 text-sm">クエリメソッド命名規則、JPQL詳細、ネイティブクエリ実装</p>
+                </div>
+                <div class="border-l-4 border-purple-400 pl-4 py-2">
+                    <h5 class="font-semibold text-gray-800">13:30-14:15 トランザクション・最適化</h5>
+                    <p class="text-gray-600 text-sm">@Transactional、ページネーション、N+1問題対策とパフォーマンス最適化</p>
+                </div>
+                <div class="border-l-4 border-indigo-400 pl-4 py-2">
+                    <h5 class="font-semibold text-gray-800">14:15-15:00 総合演習・質疑応答</h5>
+                    <p class="text-gray-600 text-sm">CRUDアプリケーション実装演習と理解度確認</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- テーマ詳細 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fas fa-book-open text-indigo-500 mr-2"></i>テーマ詳細
+            </h3>
+            
+            <div class="mb-6">
+                <h4 class="text-lg font-semibold text-gray-800 mb-3">Spring Data JPA・データベース連携の完全マスター</h4>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    本日はSpring Data JPAを使った効率的なデータベース操作技術を詳しく学習します。
+                    JPA（Java Persistence API）とHibernateの仕組みから始まり、Repository パターンによる
+                    データアクセス層の設計、エンティティクラスの詳細設計と関連性マッピング、
+                    JPQL とネイティブクエリの使い分け、トランザクション管理、パフォーマンス最適化まで、
+                    実践的なWebアプリケーション開発に必要な全ての要素を習得します。
+                </p>
+                
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4">
+                    <h5 class="font-semibold text-blue-800 mb-2">
+                        <i class="fas fa-lightbulb mr-2"></i>重要ポイント
+                    </h5>
+                    <ul class="text-blue-700 space-y-1">
+                        <li>• Spring Data JPAのRepository パターンによる効率的なデータアクセス</li>
+                        <li>• エンティティの関連性マッピング（@OneToOne、@OneToMany、@ManyToOne、@ManyToMany）</li>
+                        <li>• JPQL とネイティブクエリの適切な使い分けと動的クエリ構築</li>
+                        <li>• @Transactionalによるトランザクション管理と分離レベル制御</li>
+                        <li>• N+1問題対策と@EntityGraphによるパフォーマンス最適化</li>
+                    </ul>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h5 class="font-semibold text-green-800 mb-3">
+                            <i class="fas fa-database mr-2"></i>JPA・Hibernate基礎
+                        </h5>
+                        <ul class="text-green-700 text-sm space-y-1">
+                            <li>• JPAとHibernateの関係性</li>
+                            <li>• O/Rマッピングの基本概念</li>
+                            <li>• EntityManagerとRepository</li>
+                            <li>• 遅延読み込みと即座読み込み</li>
+                            <li>• 永続化コンテキスト</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h5 class="font-semibold text-purple-800 mb-3">
+                            <i class="fas fa-code mr-2"></i>エンティティ設計
+                        </h5>
+                        <ul class="text-purple-700 text-sm space-y-1">
+                            <li>• @Entity、@Table、@Id設定</li>          
+                            <li>• @GeneratedValueによるID生成戦略</li>
+                            <li>• @Column制約とバリデーション</li>
+                            <li>• @Temporal、@Lob等の特殊アノテーション</li>
+                            <li>• エンティティライフサイクル</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 使用教材・リソース -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fas fa-tools text-orange-500 mr-2"></i>使用教材・リソース
+            </h3>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-3">
+                        <i class="fas fa-laptop-code text-blue-500 mr-2"></i>開発ツール
+                    </h4>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                            IntelliJ IDEA / Eclipse
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                            Spring Boot 2.7+ / Maven
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                            MySQL 8.0 / H2 Database
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-chevron-right text-blue-400 mr-2"></i>
+                            Spring Data JPA
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-3">
+                        <i class="fas fa-book text-green-500 mr-2"></i>参考資料
+                    </h4>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <i class="fas fa-chevron-right text-green-400 mr-2"></i>
+                            Spring Data JPA公式ドキュメント
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-chevron-right text-green-400 mr-2"></i>
+                            Hibernate ORM リファレンス
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-chevron-right text-green-400 mr-2"></i>
+                            JPA 2.2 仕様書
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-chevron-right text-green-400 mr-2"></i>
+                            Spring Boot JPA Best Practices
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 理解度確認項目 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fas fa-clipboard-check text-red-500 mr-2"></i>理解度確認項目
+            </h3>
+
+            <div class="mb-6">
+                <h4 class="text-lg font-semibold text-gray-800 mb-3">基本レベル</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-2 text-xs"></i>
+                            <span class="text-gray-700">Spring Data JPAとJPA・Hibernateの関係を理解している</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-2 text-xs"></i>
+                            <span class="text-gray-700">Repository インターフェースの基本的な使い方を理解している</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-2 text-xs"></i>
+                            <span class="text-gray-700">エンティティクラスの基本的なアノテーションを理解している</span>
+                        </li>
+                    </ul>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-2 text-xs"></i>
+                            <span class="text-gray-700">基本的なCRUD操作を実装できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-circle text-blue-400 mr-2 mt-2 text-xs"></i>
+                            <span class="text-gray-700">クエリメソッドの命名規則を理解している</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-semibold text-gray-800 mb-3">応用レベル</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-400 mr-2 mt-2 text-xs"></i>
+                            <span class="text-gray-700">複雑な関連性マッピングを適切に設計できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-400 mr-2 mt-2 text-xs"></i>
+                            <span class="text-gray-700">JPQL とネイティブクエリを効率的に活用できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-400 mr-2 mt-2 text-xs"></i>
+                            <span class="text-gray-700">@Transactionalを使ったトランザクション制御ができる</span>
+                        </li>
+                    </ul>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-400 mr-2 mt-2 text-xs"></i>
+                            <span class="text-gray-700">N+1問題を理解し、対策を実装できる</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-star text-yellow-400 mr-2 mt-2 text-xs"></i>
+                            <span class="text-gray-700">監査機能やページネーションを実装できる</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 次のステップ -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fas fa-arrow-right text-green-500 mr-2"></i>次のステップ
+            </h3>
+            
+            <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg">
+                <h4 class="text-lg font-semibold text-gray-800 mb-2">次の日: Day49 - Spring Security・認証・認可</h4>
+                <p class="text-gray-700 mb-4">
+                    明日はSpring Securityを使った認証・認可システムの実装を学習します。
+                    セキュリティ設定、JWT トークン認証、ロールベースアクセス制御など、
+                    Webアプリケーションのセキュリティ対策を包括的に習得します。
+                </p>
+                
+                <div class="bg-white p-4 rounded border-l-4 border-green-400">
+                    <h5 class="font-semibold text-green-800 mb-2">予習のポイント:</h5>
+                    <ul class="text-green-700 text-sm space-y-1">
+                        <li>• Spring Securityの基本概念を調べる</li>
+                        <li>• 認証と認可の違いを理解する</li>
+                        <li>• JWT（JSON Web Token）の仕組みを学習する</li>
+                        <li>• OAuth 2.0の概要を把握する</li>
+                    </ul>
+                </div>
+                
+                <a href="#" class="inline-flex items-center mt-4 text-blue-600 hover:text-blue-800 font-medium">
+                    詳細を見る
+                    <i class="fas fa-external-link-alt ml-2"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- フィードバック -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+                <i class="fas fa-comment-dots text-purple-500 mr-2"></i>フィードバック
+            </h3>
+            <p class="text-gray-600 mb-4">このページの内容についてフィードバックをお寄せください。</p>
+            
+            <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">理解度</label>
+                    <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option>選択してください</option>
+                        <option>完全に理解できた</option>
+                        <option>大部分理解できた</option>
+                        <option>部分的に理解できた</option>
+                        <option>理解が困難だった</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">コメント</label>
+                    <textarea class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3" placeholder="ご意見・ご要望をお聞かせください"></textarea>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">学習進捗</h4>
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span>48日目 / 54日間</span>
+                            <span>88.9%完了</span>
+                        </div>
+                        <div class="w-full bg-gray-700 rounded-full h-2">
+                            <div class="progress-bar h-2 rounded-full" style="width: 88.9%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">目次</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-blue-300">詳細スケジュール</a></li>
+                        <li><a href="#" class="hover:text-blue-300">テーマ詳細</a></li>
+                        <li><a href="#" class="hover:text-blue-300">使用教材・リソース</a></li>
+                        <li><a href="#" class="hover:text-blue-300">理解度確認項目</a></li>
+                        <li><a href="#" class="hover:text-blue-300">次のステップ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">関連リンク</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-blue-300">Spring Data JPA公式</a></li>
+                        <li><a href="#" class="hover:text-blue-300">Hibernate Documentation</a></li>
+                        <li><a href="#" class="hover:text-blue-300">JPA チュートリアル</a></li>
+                        <li><a href="#" class="hover:text-blue-300">Spring Boot ガイド</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">ナビゲーション</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-sm">
+                            <i class="fas fa-arrow-left mr-1"></i>Day47
+                        </a>
+                        <a href="#" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded text-sm">
+                            Day49<i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-4 text-center text-sm text-gray-400">
+                <p>ITエンジニア育成カリキュラムは、未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+                <p class="mt-2">© 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ページ読み込み時のアニメーション
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-hover');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // スムーズスクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDnjtCvKzIVFG3ZX4FqnwHvmEfjAknag0K2rBPaZ4JuNC%2BqMpKEZ7MEbWrjysKpdACRz8Gl%2Bi1mHz5VSiqQhQUd4gUmBNVwPY2p6KO2U0geutE3c0k%2BUKlOCf7nNbWtMmRhPHp4%2FgNrpfZZk1Zx%2FA%2Bjb0uQuRgHj8oC7utT0p%2BOCOl3E9EAH967NTjtyWs4%2FrrVf5B12ym0rA6hwEF99ltDipmk5hhY9jRYGSgtGEP5t9PHWrS9BgAJb4MsHDHkq3GK6Q36dN3JaGV1HMMLbdnKI3YinybQ7hWJYfnb4GQ19ZpaFHCaAWLfKlbZGXpEzmtGZcsg4zUfDqg4027cHN8P%2BNT3VvqDhywtWl5LN0TYSUVcEAOiZgkPK8RHsuVsuQ0UuV5Il6fxl0ctHRrbmKt6SqvrjDleApacceZjnFHAlGdJKuhldDYYC1RVdp3LbrPFLMH0%2FW1dzviWGX%2FcRjdJVW55AyNV5gVh3IPt7zaqht";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDnjtCvKzIVFG3ZX4FqnwHvmEfjAknag0K2rBPaZ4JuNC+qMpKEZ7MEbWrjysKpdACRz8Gl+i1mHz5VSiqQhQUd4gUmBNVwPY2p6KO2U0geutE3c0k+UKlOCf7nNbWtMmRhPHp4/gNrpfZZk1Zx/A+jb0uQuRgHj8oC7utT0p+OCOl3E9EAH967NTjtyWs4/rrVf5B12ym0rA6hwEF99ltDipmk5hhY9jRYGSgtGEP5t9PHWrS9BgAJb4MsHDHkq3GK6Q36dN3JaGV1HMMLbdnKI3YinybQ7hWJYfnb4GQ19ZpaFHCaAWLfKlbZGXpEzmtGZcsg4zUfDqg4027cHN8P+NT3VvqDhywtWl5LN0TYSUVcEAOiZgkPK8RHsuVsuQ0UuV5Il6fxl0ctHRrbmKt6SqvrjDleApacceZjnFHAlGdJKuhldDYYC1RVdp3LbrPFLMH0/W1dzviWGX/cRjdJVW55AyNV5gVh3IPt7zaqht";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

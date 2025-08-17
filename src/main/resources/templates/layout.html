@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" th:fragment="layout(content)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">技育システム</title>
+    <meta name="_csrf" th:content="${_csrf?.token}">
+    <link href="../css/lib/bootstrap.min.css" th:href="@{/webjars/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="../css/lib/bootstrap-icons.css" th:href="@{/webjars/bootstrap-icons/font/bootstrap-icons.css}" rel="stylesheet">
+    <link href="/webjars/fortawesome__fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link th:href="@{/css/giiku-style.css}" rel="stylesheet">
+    <style>
+        footer {
+            background-color: #e3f2fd;
+            color: #0d47a1;
+        }
+        footer a {
+            color: #0d47a1;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd; --bs-navbar-color: #0d47a1; --bs-navbar-hover-color: #0a3575; --bs-navbar-active-color: #0a3575; --bs-navbar-brand-color: #0d47a1; --bs-navbar-brand-hover-color: #0a3575;">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="../static/images/logo/giiku_logo_horizontal.png" th:src="@{images/logo/giiku_logo_horizontal.png}" alt="Giiku Logo" height="30px" class="d-inline-block align-text-top" style="vertical-align: middle;margin-top: -8px;">
+                <span class="ms-2">ITエンジニア育成カリキュラム</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="monthDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="monthDropdown">
+                            <li><a class="dropdown-item" href="month/month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="month/month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="month/month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="weekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="weekDropdown">
+                            <li><a class="dropdown-item" href="week/week1.html">第1週: Java基礎</a></li>
+                            <li><a class="dropdown-item" href="week/week2.html">第2週: オブジェクト指向</a></li>
+                            <li><a class="dropdown-item" href="week/week3.html">第3週: Java応用</a></li>
+                            <li><a class="dropdown-item" href="week/week4.html">第4週: 総仕上げ</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="week/week5.html">第5週: コンピュータシステム</a></li>
+                            <li><a class="dropdown-item" href="week/week6.html">第6週: ネットワーク・DB</a></li>
+                            <li><a class="dropdown-item" href="week/week7.html">第7週: アルゴリズム・セキュリティ</a></li>
+                            <li><a class="dropdown-item" href="week/week8.html">第8週: ストラテジ系</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="week/week9.html">第9週: フロントエンド基礎</a></li>
+                            <li><a class="dropdown-item" href="week/week10.html">第10週: バックエンド基礎</a></li>
+                            <li><a class="dropdown-item" href="week/week11.html">第11週: Spring Boot実践</a></li>
+                            <li><a class="dropdown-item" href="week/week12.html">第12週: 総合開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dayDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            日別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dayDropdown">
+                            <li><a class="dropdown-item" href="day/day1.html">Day 1: オリエンテーシン</a></li>
+                            <li><a class="dropdown-item" href="day/day2.html">Day 2: Java基本型・変数・演算子</a></li>
+                            <li><a class="dropdown-item" href="day/day3.html">Day 3: 制御構文・配列</a></li>
+                            <li><a class="dropdown-item" href="day/day4.html">Day 4: 配列応用・アルゴリズム基礎</a></li>
+                            <li><a class="dropdown-item" href="day/day5.html">Day 5: Java Silver模擬テスト①</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="resourceDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            リソース
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="resourceDropdown">
+                            <li><a class="dropdown-item" href="resources/resources.html">学習リソース</a></li>
+                            <li><a class="dropdown-item" href="resources/faq.html">よくある質問</a></li>
+                            <li><a class="dropdown-item" href="resources/advanced.html">応用コース</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item" th:each="crumb : ${breadcrumbs}" th:classappend="${crumb.last}? 'active'">
+                <a th:href="${crumb.url}" th:text="${crumb.label}"></a>
+            </li>
+        </ol>
+    </nav>
+    <div th:replace="${content}"></div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 mb-4">
+                <div class="footer-logo">
+                    <img src="images/logo/apsa_logo.png" height="30px" alt="APSA Logo" class="mb-3">
+                    <p>ITエンジニア育成カリキュラム</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5>カリキュラム</h5>
+                <ul class="list-unstyled">
+                    <li><a href="month/month1.html">第1ヶ月目: Java Silver</a></li>
+                    <li><a href="month/month2.html">第2ヶ月目: 基本情報</a></li>
+                    <li><a href="month/month3.html">第3ヶ月目: Web開発</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5>リソース</h5>
+                <ul class="list-unstyled">
+                    <li><a href="resources/resources.html">学習リソース</a></li>
+                    <li><a href="resources/faq.html">よくある質問</a></li>
+                    <li><a href="resources/advanced.html">応用コース</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5>その他</h5>
+                <ul class="list-unstyled">
+                    <li><a href="index.html">ホームページ</a></li>
+                    <li><a href="https://www.apsa.co.jp/" target="_blank">APSA公式サイト</a></li>
+                    <li><a href="mailto:info@example.com">お問い合わせ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <p class="mb-0">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="/webjars/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/webjars/chart.js/dist/chart.umd.js"></script>
+    <script src="/webjars/react/umd/react.development.js"></script>
+    <script src="/webjars/react-dom/umd/react-dom.development.js"></script>
+    <script src="/webjars/babel__standalone/babel.min.js"></script>
+</body>
+</html>

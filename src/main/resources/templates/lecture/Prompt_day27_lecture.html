@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day27 プロンプトエンジニアリング応用② 講義プロンプト - 改良版</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .instruction-box { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+        .teaching-tips { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+        .clarity-guide { background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%); }
+        .implementation-guide { background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%); }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="container mx-auto max-w-6xl px-4 py-8">
+        <!-- Header Section -->
+        <header class="gradient-bg text-white p-8 rounded-lg mb-8 shadow-lg">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold mb-4">
+                    <i class="fas fa-brain mr-3"></i>
+                    Day27 プロンプトエンジニアリング応用② 講義プロンプト
+                </h1>
+                <h2 class="text-2xl font-semibold mb-6">データ分析・要約タスク - 改良版</h2>
+                <div class="bg-white bg-opacity-20 p-4 rounded-lg">
+                    <p class="text-lg font-medium">
+                        <i class="fas fa-target mr-2"></i>
+                        講師が説明しやすく、受講者が理解しやすい高品質講義ページ生成指示書
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Important Notice -->
+        <div class="instruction-box p-6 rounded-lg mb-8 border-l-4 border-orange-500">
+            <h2 class="text-2xl font-bold text-orange-800 mb-4">
+                <i class="fas fa-exclamation-triangle mr-2"></i>重要な注意事項
+            </h2>
+            <div class="bg-white bg-opacity-80 p-4 rounded">
+                <p class="text-lg font-semibold text-orange-900 mb-2">
+                    この文書は実際のHTMLファイルではなく、<strong>lecture27.html</strong>を生成するための詳細なプロンプト指示書です。
+                </p>
+                <ul class="list-disc list-inside text-orange-800 space-y-1">
+                    <li>講師向け詳細説明指針を含む</li>
+                    <li>受講者理解促進要素を重視</li>
+                    <li>統一された回答表示ボタン方式を採用</li>
+                    <li>分かりづらい専門用語の改良指針を含む</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Clarity Improvement Guidelines -->
+        <div class="clarity-guide p-6 rounded-lg mb-8 shadow-lg">
+            <h2 class="text-2xl font-bold text-purple-800 mb-6">
+                <i class="fas fa-lightbulb mr-2"></i>🎯 分かりやすさ改善指針（必須実装）
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-5 rounded-lg border-l-4 border-purple-500">
+                    <h3 class="text-xl font-bold text-purple-700 mb-3">
+                        <i class="fas fa-chalkboard-teacher mr-2"></i>講師向け説明強化
+                    </h3>
+                    <ul class="text-purple-800 space-y-2">
+                        <li><strong>段階的理解促進:</strong> データ分析概念を小ステップで説明</li>
+                        <li><strong>視覚的説明:</strong> プロンプト構造を図解で示す</li>
+                        <li><strong>実践例豊富:</strong> 実際のビジネス場面での活用例</li>
+                        <li><strong>対話的進行:</strong> 理解度確認ポイントを明示</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-5 rounded-lg border-l-4 border-green-500">
+                    <h3 class="text-xl font-bold text-green-700 mb-3">
+                        <i class="fas fa-users mr-2"></i>受講者理解促進
+                    </h3>
+                    <ul class="text-green-800 space-y-2">
+                        <li><strong>専門用語解説:</strong> ETL、データレイクなど初出時に詳細説明</li>
+                        <li><strong>アナロジー活用:</strong> 日常例でプロンプト概念を説明</li>
+                        <li><strong>段階的演習:</strong> 基礎→応用→実践の流れ</li>
+                        <li><strong>エラー対策:</strong> よくある失敗例と対処法</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white p-5 rounded-lg mt-6 border-l-4 border-blue-500">
+                <h3 class="text-xl font-bold text-blue-700 mb-3">
+                    <i class="fas fa-table mr-2"></i>表・まとめセクションの改善指針
+                </h3>
+                <div class="grid md:grid-cols-3 gap-4 text-blue-800">
+                    <div>
+                        <h4 class="font-semibold mb-2">専門用語対策</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• 略語は日本語併記</li>
+                            <li>• 初出時に定義説明</li>
+                            <li>• 関連用語との違いを明記</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2">表の分かりやすさ</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• 具体例を併記</li>
+                            <li>• 実用場面を明記</li>
+                            <li>• 判断基準を詳細化</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-2">まとめの改良</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• 抽象的表現を具体化</li>
+                            <li>• 活用方法を明記</li>
+                            <li>• 3つの重要ポイント明示</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teaching Guidelines -->
+        <div class="teaching-tips p-6 rounded-lg mb-8 shadow-lg">
+            <h2 class="text-2xl font-bold text-teal-800 mb-6">
+                <i class="fas fa-graduation-cap mr-2"></i>📚 詳細講義進行指針
+            </h2>
+            
+            <div class="space-y-6">
+                <div class="bg-white p-5 rounded-lg border-l-4 border-teal-500">
+                    <h3 class="text-xl font-bold text-teal-700 mb-3">導入段階（15分）</h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-teal-800">
+                        <div>
+                            <h4 class="font-semibold mb-2">前回の復習と関連付け</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• プロンプトエンジニアリング基礎の要点整理</li>
+                                <li>• データ分析との関連性を図解</li>
+                                <li>• 受講者からの質問時間設定</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">学習目標の明確化</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• 実際のデータ分析事例で動機付け</li>
+                                <li>• 習得後の業務活用場面を3つ提示</li>
+                                <li>• 本日の成果物を具体的に説明</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-lg border-l-4 border-pink-500">
+                    <h3 class="text-xl font-bold text-pink-700 mb-3">展開段階（概念説明・実践）</h3>
+                    <div class="space-y-4 text-pink-800">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-semibold mb-2">データ分析プロンプトの段階的説明</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• 基本概念：なぜプロンプトが必要か</li>
+                                    <li>• 構造化アプローチの具体例</li>
+                                    <li>• 定量vs定性分析の使い分け</li>
+                                    <li>• 各段階での理解度確認</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-2">要約プロンプトの実践的解説</h4>
+                                <ul class="text-sm space-y-1">
+                                    <li>• 要約レベル指定の重要性</li>
+                                    <li>• 文脈保持と情報圧縮のバランス</li>
+                                    <li>• 階層構造活用の具体例</li>
+                                    <li>• 分野別アプローチの使い分け</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-pink-50 p-4 rounded">
+                            <h4 class="font-semibold mb-2">実践演習の設計</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• 段階的難易度設定（基礎→応用→発展）</li>
+                                <li>• ペアワークでプロンプト共有</li>
+                                <li>• 個別サポート時間の確保</li>
+                                <li>• 結果の相互評価とフィードバック</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Structure -->
+        <div class="implementation-guide p-6 rounded-lg mb-8 shadow-lg">
+            <h2 class="text-2xl font-bold text-blue-800 mb-6">
+                <i class="fas fa-cogs mr-2"></i>🏗️ コンテンツ構成（詳細実装指示）
+            </h2>
+
+            <div class="space-y-6">
+                <!-- IT Engineer Knowledge -->
+                <div class="bg-white p-5 rounded-lg border-l-4 border-yellow-500">
+                    <h3 class="text-xl font-bold text-yellow-700 mb-3">
+                        <i class="fas fa-star mr-2"></i>ITエンジニア豆知識（必須4項目以上）
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-4 text-yellow-800">
+                        <div>
+                            <h4 class="font-semibold mb-2">1. ETLプロセスとデータパイプライン</h4>
+                            <p class="text-sm">Extract, Transform, Loadの各段階における品質管理とプロンプト活用法</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">2. ビッグデータ処理アーキテクチャ</h4>
+                            <p class="text-sm">MapReduce、Spark、Kafkaでの分散処理とプロンプト最適化</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">3. データレイクとデータウェアハウス</h4>
+                            <p class="text-sm">構造化・非構造化データの最適保存戦略と分析プロンプト設計</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">4. 自然言語処理による要約技術</h4>
+                            <p class="text-sm">TF-IDF、BERT、GPT活用の自動要約アルゴリズムとプロンプト連携</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Lecture Content -->
+                <div class="bg-white p-5 rounded-lg border-l-4 border-indigo-500">
+                    <h3 class="text-xl font-bold text-indigo-700 mb-3">
+                        <i class="fas fa-book mr-2"></i>メイン講義内容（超詳細実装）
+                    </h3>
+                    <div class="space-y-4 text-indigo-800">
+                        <div class="bg-indigo-50 p-4 rounded">
+                            <h4 class="font-semibold mb-2">1. データ分析プロンプトの基礎理論（各800文字以上）</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• 構造化アプローチの重要性：なぜ体系的思考が必要か</li>
+                                <li>• 定量・定性分析の違い：数値データvs.テキストデータの扱い</li>
+                                <li>• データ種別戦略：時系列・カテゴリ・テキストデータの最適プロンプト</li>
+                                <li>• 分析フレームワーク：5W1H、MECE、ロジックツリーの実践活用</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-indigo-50 p-4 rounded">
+                            <h4 class="font-semibold mb-2">2. 効果的な要約プロンプト設計（各800文字以上）</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• 要約レベル指定：概要・詳細・エグゼクティブサマリーの使い分け</li>
+                                <li>• 文脈保持技術：重要情報を失わない圧縮手法</li>
+                                <li>• 階層構造活用：段階的要約で理解度向上</li>
+                                <li>• 分野別アプローチ：技術・ビジネス・学術文書の特性に応じた手法</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-indigo-50 p-4 rounded">
+                            <h4 class="font-semibold mb-2">3. 複雑データセット分析（各800文字以上）</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• 多変量相関分析：複数変数間の関係性を効率的に把握</li>
+                                <li>• 時系列トレンド分析：季節性・周期性・トレンドの自動抽出</li>
+                                <li>• カテゴリ分布分析：質的データの構造化分析手法</li>
+                                <li>• 外れ値検出：異常値の自動特定と解釈プロンプト</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-indigo-50 p-4 rounded">
+                            <h4 class="font-semibold mb-2">4. ビジネス要約実践（各800文字以上）</h4>
+                            <ul class="text-sm space-y-1">
+                                <li>• 会議録要約：要点抽出・アクションアイテム特定・決定事項整理</li>
+                                <li>• レポート自動生成：データから洞察への変換プロセス</li>
+                                <li>• 競合分析要約：市場情報の構造化と戦略的示唆抽出</li>
+                                <li>• 市場調査洞察：定量・定性データ統合による包括的分析</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exercise and Quiz Implementation -->
+                <div class="bg-white p-5 rounded-lg border-l-4 border-green-500">
+                    <h3 class="text-xl font-bold text-green-700 mb-3">
+                        <i class="fas fa-tasks mr-2"></i>演習・クイズ実装仕様（統一ボタン方式）
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-green-50 p-4 rounded">
+                            <h4 class="font-semibold text-green-800 mb-2">問題表示仕様</h4>
+                            <ul class="text-sm text-green-700 space-y-1">
+                                <li>• <strong>問題文:</strong> 常に表示（非表示にしない）</li>
+                                <li>• <strong>選択肢:</strong> A, B, C, D形式で常に表示</li>
+                                <li>• <strong>回答・解説:</strong> 「回答を表示」ボタンでクリック時に表示</li>
+                                <li>• <strong>JavaScript実装:</strong> 各問題に個別のshowAnswer()関数</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-green-50 p-4 rounded">
+                            <h4 class="font-semibold text-green-800 mb-2">実装必須要素</h4>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <div>
+                                    <h5 class="font-medium mb-1">理解度チェック（8-10問）</h5>
+                                    <ul class="text-xs space-y-1">
+                                        <li>• データ分析基礎概念</li>
+                                        <li>• プロンプト設計原則</li>
+                                        <li>• 要約技術の特徴</li>
+                                        <li>• 各問題200文字以上解説</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium mb-1">演習問題（6-8問）</h5>
+                                    <ul class="text-xs space-y-1">
+                                        <li>• 実践的プロンプト作成</li>
+                                        <li>• ケーススタディ分析</li>
+                                        <li>• トラブルシューティング</li>
+                                        <li>• 各問題300文字以上解説</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium mb-1">模擬試験（12-15問）</h5>
+                                    <ul class="text-xs space-y-1">
+                                        <li>• 総合的な応用問題</li>
+                                        <li>• 実務レベルの課題</li>
+                                        <li>• 高度な分析シナリオ</li>
+                                        <li>• 各問題400文字以上解説</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="bg-white p-6 rounded-lg mb-8 shadow-lg border-l-4 border-purple-500">
+            <h2 class="text-2xl font-bold text-purple-800 mb-6">
+                <i class="fas fa-code mr-2"></i>技術仕様・実装要件
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <div class="bg-purple-50 p-4 rounded">
+                        <h3 class="font-bold text-purple-700 mb-2">HTML/CSS仕様</h3>
+                        <ul class="text-sm text-purple-800 space-y-1">
+                            <li>• HTML5準拠、UTF-8エンコーディング</li>
+                            <li>• Tailwind CSS v2.2.19 CDN使用</li>
+                            <li>• FontAwesome v6.4.0 CDN使用</li>
+                            <li>• レスポンシブ対応（sm/md/lg）</li>
+                            <li>• コントラスト比4.5:1以上確保</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-purple-50 p-4 rounded">
+                        <h3 class="font-bold text-purple-700 mb-2">JavaScript機能</h3>
+                        <ul class="text-sm text-purple-800 space-y-1">
+                            <li>• 回答表示/非表示切り替え</li>
+                            <li>• スムーズスクロール機能</li>
+                            <li>• プログレスバー表示</li>
+                            <li>• アニメーション効果</li>
+                            <li>• 全問題対応のshowAnswer()関数</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="bg-purple-50 p-4 rounded">
+                        <h3 class="font-bold text-purple-700 mb-2">品質基準</h3>
+                        <ul class="text-sm text-purple-800 space-y-1">
+                            <li>• ファイルサイズ：30KB以上</li>
+                            <li>• 講義内容の事前説明完了</li>
+                            <li>• 全問題に回答表示ボタン</li>
+                            <li>• 専門用語の詳細解説</li>
+                            <li>• アクセシビリティ対応</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-purple-50 p-4 rounded">
+                        <h3 class="font-bold text-purple-700 mb-2">ナビゲーション</h3>
+                        <ul class="text-sm text-purple-800 space-y-1">
+                            <li>• 前日：lecture26.html</li>
+                            <li>• 翌日：lecture28.html</li>
+                            <li>• 週一覧：../week/week6.html</li>
+                            <li>• 月一覧：../month/month2.html</li>
+                            <li>• トップ：../index.html</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Final Implementation Instructions -->
+        <div class="instruction-box p-6 rounded-lg mb-8 border-l-4 border-red-500">
+            <h2 class="text-2xl font-bold text-red-800 mb-4">
+                <i class="fas fa-check-circle mr-2"></i>最終実装指示
+            </h2>
+            <div class="bg-white bg-opacity-80 p-4 rounded">
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="font-bold text-red-700 mb-2">必須実装項目チェックリスト</h3>
+                        <div class="grid md:grid-cols-2 gap-4 text-red-800">
+                            <ul class="space-y-1">
+                                <li>✓ 講師向け詳細説明指針の実装</li>
+                                <li>✓ 受講者理解促進要素の充実</li>
+                                <li>✓ 分かりづらい専門用語の改良</li>
+                                <li>✓ 表・まとめセクションの最適化</li>
+                            </ul>
+                            <ul class="space-y-1">
+                                <li>✓ 統一された回答表示ボタン方式</li>
+                                <li>✓ 段階的難易度設定</li>
+                                <li>✓ 実践的な演習問題設計</li>
+                                <li>✓ 包括的な模擬試験実装</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-red-50 p-4 rounded">
+                        <h3 class="font-bold text-red-700 mb-2">重要な注意点</h3>
+                        <ul class="text-red-800 space-y-1">
+                            <li>• 演習・模擬試験の内容は必ず講義内容で事前に詳細説明すること</li>
+                            <li>• 専門用語（ETL、データレイク等）は初出時に丁寧な解説を含めること</li>
+                            <li>• 各問題に200-400文字の詳細解説を付与すること</li>
+                            <li>• 実際のビジネス場面での活用例を豊富に含めること</li>
+                            <li>• レスポンシブ対応と高いアクセシビリティを確保すること</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center py-6 bg-gray-100 rounded-lg">
+            <p class="text-gray-600">
+                <i class="fas fa-copyright mr-1"></i>
+                2025 ITエンジニア育成カリキュラム - Day27プロンプト改良版
+            </p>
+            <p class="text-sm text-gray-500 mt-2">
+                このプロンプト指示書により、高品質で理解しやすいlecture27.htmlが生成されます
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDiPqnDZxPpHJBQwQdZb8qzfrteNQvSQC0XOn5gpucDzP4idji8UT9tonDwt3fe2SAwzg4nC%2FY1sg28NY4RfVhEyuNXiPTFfa0ECFptaSExB2%2Fp74sMM1%2B%2BHrVYen2LIjiNQJTVBTIT%2BFd%2B1Pl62zmrrUyKBZAKSLxV5lpGS4D7ia9h0A52QcdhrLYRlXd38uVPwsw7NDdEkLvJ8H%2Fs1sLjgV4xkQEQmOwNx6zIfV3fk5AQ8iPPfNdDwo79bgefnAx%2BBp8xIGeo8338qUsbErRWCAkKun6ZodS31fc0DwpsooQkGXPavZ%2BvOpIX1u%2F8poGsI6cde4a0Oo%2FGlEO0qKpHsp8mnkoPcQnZJzeTkDUmP23dWltTPtPNv6UrK3cykNSQMzLc9Zsy%2B28PUZtyDi67pe3ussHB3gLgVKH15w%2BhRgxUPDfopj1kDifjQoggLHHEyH5Ljq8TiL7QiYyMXSR0S3FDFayPKXF%2BwD%2Ff5pHX4T25U7RoRfCiau5jMNbZjOytIpoFt%2FPd6QBCjARyRL3SU%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDiPqnDZxPpHJBQwQdZb8qzfrteNQvSQC0XOn5gpucDzP4idji8UT9tonDwt3fe2SAwzg4nC/Y1sg28NY4RfVhEyuNXiPTFfa0ECFptaSExB2/p74sMM1++HrVYen2LIjiNQJTVBTIT+Fd+1Pl62zmrrUyKBZAKSLxV5lpGS4D7ia9h0A52QcdhrLYRlXd38uVPwsw7NDdEkLvJ8H/s1sLjgV4xkQEQmOwNx6zIfV3fk5AQ8iPPfNdDwo79bgefnAx+Bp8xIGeo8338qUsbErRWCAkKun6ZodS31fc0DwpsooQkGXPavZ+vOpIX1u/8poGsI6cde4a0Oo/GlEO0qKpHsp8mnkoPcQnZJzeTkDUmP23dWltTPtPNv6UrK3cykNSQMzLc9Zsy+28PUZtyDi67pe3ussHB3gLgVKH15w+hRgxUPDfopj1kDifjQoggLHHEyH5Ljq8TiL7QiYyMXSR0S3FDFayPKXF+wD/f5pHX4T25U7RoRfCiau5jMNbZjOytIpoFt/Pd6QBCjARyRL3SU=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

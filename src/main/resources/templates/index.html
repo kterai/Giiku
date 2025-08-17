@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITエンジニア育成カリキュラム | APSA</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/lib/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/lib/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --apsa-primary: #2c3e50;
+            --apsa-secondary: #3498db;
+            --apsa-accent: #e74c3c;
+            --apsa-success: #27ae60;
+            --apsa-warning: #f39c12;
+            --apsa-light: #ecf0f1;
+            --apsa-dark: #34495e;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--apsa-primary) !important;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--apsa-primary) 0%, var(--apsa-secondary) 100%);
+            color: white;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .month-card .card-header {
+            background: linear-gradient(135deg, var(--apsa-secondary), var(--apsa-primary));
+            color: white;
+            border: none;
+            font-weight: 600;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 20px 0 20px 60px;
+            border-left: 2px solid var(--apsa-light);
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 25px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--apsa-secondary);
+        }
+
+        .progress-custom {
+            height: 8px;
+            border-radius: 10px;
+        }
+
+        .btn-primary {
+            background-color: var(--apsa-secondary);
+            border-color: var(--apsa-secondary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--apsa-primary);
+            border-color: var(--apsa-primary);
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--apsa-secondary);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--apsa-secondary), var(--apsa-primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .footer {
+            background-color: var(--apsa-dark);
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer h5 {
+            color: var(--apsa-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo {
+            max-height: 60px;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                min-height: 60vh;
+                text-align: center;
+            }
+            
+            .timeline-item {
+                padding-left: 40px;
+            }
+            
+            .card {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Progress Chart Container */
+        .progress-chart-container {
+            position: relative;
+            height: 300px;
+            margin: 2rem 0;
+        }
+
+        /* Statistics Cards */
+        .stat-card {
+            background: linear-gradient(135deg, var(--apsa-secondary), var(--apsa-primary));
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="images/logo/apsa_logo.png" alt="APSA Logo" height="40" class="me-2">
+                <span class="d-none d-sm-inline">ITエンジニア育成カリキュラム</span>
+                <span class="d-sm-none">カリキュラム</span>
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">ホーム</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            月別カリキュラム
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="month/month1.html">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" href="month/month2.html">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" href="month/month3.html">第3ヶ月目: Web開発</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            週別詳細
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="week/week1.html">第1週: Java基礎</a></li>
+                            <li><a class="dropdown-item" href="week/week2.html">第2週: オブジェクト指向</a></li>
+                            <li><a class="dropdown-item" href="week/week3.html">第3週: Java応用</a></li>
+                            <li><a class="dropdown-item" href="week/week4.html">第4週: 総仕上げ</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            リソース
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="resources/resources.html">学習リソース</a></li>
+                            <li><a class="dropdown-item" href="resources/faq.html">FAQ</a></li>
+                            <li><a class="dropdown-item" href="resources/advanced.html">応用コース</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="hero-content">
+                        <h1>IT未経験から<br class="d-sm-none">3ヶ月で<br class="d-sm-none">エンジニアへ</h1>
+                        <p class="lead">体系的に学ぶ、段階的カリキュラム<br>Java Silver・基本情報技術者・Webアプリ開発まで完全サポート</p>
+                        <div class="d-flex flex-column flex-sm-row gap-3">
+                            <a href="#program" class="btn btn-primary btn-lg">
+                                <i class="fas fa-play me-2"></i>カリキュラムを見る
+                            </a>
+                            <a href="resources/faq.html" class="btn btn-outline-light btn-lg">
+                                <i class="fas fa-question-circle me-2"></i>よくある質問
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 d-none d-lg-block">
+                    <div class="text-center">
+                        <div class="progress-chart-container">
+                            <canvas id="heroChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">ヶ月間</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-number">54</div>
+                        <div class="stat-label">日間</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">週間</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">無償教材</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="section-title">育成目標</h2>
+                    <p class="text-center lead mb-5">このカリキュラムは、IT業界未経験者を3ヶ月間で基本的なITエンジニアスキルを習得させ、実際の開発現場で活躍できる人材を育成することを目指しています。段階的な学習設計により、プログラミングの基礎から実践的なWeb開発まで、体系的に学習できる内容となっています。</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h4>段階的学習</h4>
+                        <p>基礎から応用まで、無理のないステップで確実にスキルアップできます。</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h4>資格取得サポート</h4>
+                        <p>Java Silver、基本情報技術者試験の合格を目指した実践的なカリキュラム。</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="text-center">
+                        <div class="feature-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h4>実践重視</h4>
+                        <p>理論だけでなく、実際のWebアプリケーション開発を通じて技術を習得。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Target Audience -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-title">対象者</h2>
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <h4 class="card-title">20代～30代の未経験者</h4>
+                            <p class="card-text">Windows・Microsoft Officeの基本操作ができるレベルからスタート。IT業界への転職やキャリアチェンジを希望する方に最適です。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Section -->
+    <section id="program" class="py-5">
+        <div class="container">
+            <h2 class="section-title">プログラム構成</h2>
+            <p class="text-center lead mb-5">本カリキュラムは、以下の3ヶ月に分けて設計されています。各月は18日間（約4週間）で構成されており、それぞれ明確な目標を持っています。</p>
+
+            <div class="row">
+                <!-- Month 1 -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card month-card h-100">
+                        <div class="card-header text-center py-3">
+                            <h4 class="mb-0">第1ヶ月目</h4>
+                            <h5 class="mb-0">Java Silver 17</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <strong>目標:</strong> Oracle Certified Professional Java SE 17 Developer資格取得レベルの知識習得
+                            </div>
+                            <h6>主な学習内容:</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Java言語基礎・基本構文</li>
+                                <li><i class="fas fa-check text-success me-2"></i>オブジェクト指向プログラミング</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Java言語応用（コレクション、Stream API等）</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Java SE 17の新機能</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="month/month1.html" class="btn btn-primary">詳細を見る</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month 2 -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card month-card h-100">
+                        <div class="card-header text-center py-3">
+                            <h4 class="mb-0">第2ヶ月目</h4>
+                            <h5 class="mb-0">基本情報技術者</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <strong>目標:</strong> 基本情報技術者試験合格レベルのIT基礎知識習得
+                            </div>
+                            <h6>主な学習内容:</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>コンピュータシステム・ハードウェア</li>
+                                <li><i class="fas fa-check text-success me-2"></i>ネットワーク・データベース</li>
+                                <li><i class="fas fa-check text-success me-2"></i>アルゴリズム・セキュリティ</li>
+                                <li><i class="fas fa-check text-success me-2"></i>プロジェクトマネジメント・経営戦略</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="month/month2.html" class="btn btn-primary">詳細を見る</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Month 3 -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card month-card h-100">
+                        <div class="card-header text-center py-3">
+                            <h4 class="mb-0">第3ヶ月目</h4>
+                            <h5 class="mb-0">Web開発</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <strong>目標:</strong> 実用的なWebアプリケーション開発スキルの習得
+                            </div>
+                            <h6>主な学習内容:</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>HTML/CSS/JavaScript基礎</li>
+                                <li><i class="fas fa-check text-success me-2"></i>PostgreSQLとサーバーサイド開発</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Spring Boot実践</li>
+                                <li><i class="fas fa-check text-success me-2"></i>総合開発プロジェクト</li>
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="month/month3.html" class="btn btn-primary">詳細を見る</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Courses -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body p-4">
+                            <h3 class="card-title">4ヶ月目以降（応用コース・オプション）</h3>
+                            <p class="card-text">3ヶ月の基本カリキュラム修了後、以下の応用コースから選択して、さらに専門性を高めることができます。</p>
+                            <div class="row">
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <strong>フロントエンド応用:</strong><br>
+                                    React、TypeScript、Next.js（3-4週間）
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <strong>バックエンド応用:</strong><br>
+                                    Spring応用、マイクロサービス、クラウド連携（4-5週間）
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <strong>開発プロセス高度化:</strong><br>
+                                    Git応用、CI/CD、コンテナ化、アジャイル開発（3-4週間）
+                                </div>
+                                <div class="col-md-3 col-sm-6 mb-2">
+                                    <strong>ポートフォリオ開発:</strong><br>
+                                    オリジナルプロジェクト開発、就職対策（4-6週間）
+                                </div>
+                            </div>
+                            <div class="text-center mt-3">
+                                <a href="resources/advanced.html" class="btn btn-light">応用コースの詳細</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Overview -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">スケジュール概要</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1">第1週: Java基礎</h5>
+                                    <p class="mb-0">Day 1-5: Javaの基本を学ぶ</p>
+                                </div>
+                                <a href="week/week1.html" class="btn btn-sm btn-outline-primary">詳細</a>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1">第2週: オブジェクト指向</h5>
+                                    <p class="mb-0">Day 6-10: OOP概念と実装</p>
+                                </div>
+                                <a href="week/week2.html" class="btn btn-sm btn-outline-primary">詳細</a>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1">第3週: Java応用</h5>
+                                    <p class="mb-0">Day 11-15: コレクション・Stream API</p>
+                                </div>
+                                <a href="week/week3.html" class="btn btn-sm btn-outline-primary">詳細</a>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1">第4週: 総仕上げ</h5>
+                                    <p class="mb-0">Day 16-18: 模擬試験・総合復習</p>
+                                </div>
+                                <a href="week/week4.html" class="btn btn-sm btn-outline-primary">詳細</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="section-title">学習リソース</h2>
+            <p class="text-center lead mb-5">カリキュラム全体を通して、すべて無償で入手可能なリソースのみを使用します。</p>
+            
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <h5 class="card-title">教材・ドキュメント</h5>
+                            <p class="card-text">Oracle公式ドキュメント、オンライン教材、チュートリアル</p>
+                            <a href="resources/resources.html" class="btn btn-outline-primary">詳細を見る</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <h5 class="card-title">開発ツール</h5>
+                            <p class="card-text">Eclipse、Visual Studio Code、PostgreSQL、Spring Bootなど</p>
+                            <a href="resources/resources.html" class="btn btn-outline-primary">詳細を見る</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <div class="feature-icon mb-3">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <h5 class="card-title">演習・問題集</h5>
+                            <p class="card-text">HackerRank、Exercism、IPA公式問題集など</p>
+                            <a href="resources/resources.html" class="btn btn-outline-primary">詳細を見る</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Preview -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="section-title">よくある質問</h2>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    前提知識は必要ですか？
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    プログラミング経験は不要です。IT業界未経験から始められるよう設計しています。
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    1日のスケジュールはどうなっていますか？
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    1日あたり約7時間の学習を想定し、講義と演習を組み合わせた構成になっています。
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    必要な環境は何ですか？
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    一般的なノートPCまたはデスクトップPC（Windows/Mac/Linux）と安定したインターネット接続があれば十分です。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <a href="resources/faq.html" class="btn btn-primary">FAQをもっと見る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2>さあ、一緒に始めましょう</h2>
+                    <p class="lead mb-4">ITエンジニアへの一歩を今日から踏み出しませんか？</p>
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                        <a href="month/month1.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-rocket me-2"></i>カリキュラムを見る
+                        </a>
+                        <a href="resources/faq.html" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-question-circle me-2"></i>質問を確認する
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <img src="images/logo/apsa_logo.png" alt="APSA Logo" class="footer-logo">
+                    <h5>ITエンジニア育成カリキュラム</h5>
+                    <p>IT未経験者を3ヶ月で実践的なエンジニアに育成するカリキュラム</p>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h5>カリキュラム</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="month/month1.html" class="text-white-50">第1ヶ月目: Java Silver</a></li>
+                        <li><a href="month/month2.html" class="text-white-50">第2ヶ月目: 基本情報</a></li>
+                        <li><a href="month/month3.html" class="text-white-50">第3ヶ月目: Web開発</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h5>リソース</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="resources/resources.html" class="text-white-50">学習リソース</a></li>
+                        <li><a href="resources/faq.html" class="text-white-50">よくある質問</a></li>
+                        <li><a href="resources/advanced.html" class="text-white-50">応用コース</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 mb-4">
+                    <h5>進捗確認</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="week/week1.html" class="text-white-50">第1週: Java基礎</a></li>
+                        <li><a href="day/day1.html" class="text-white-50">Day 1: オリエンテーション</a></li>
+                        <li><a href="作業進捗と計画.html" class="text-white-50">作業進捗と計画</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-12 mb-4">
+                    <h5>会社情報</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.apsa.co.jp" class="text-white-50" target="_blank">APSA株式会社</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="my-4 bg-secondary">
+            
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <p class="mb-0">&copy; 2025 APSA Co.,Ltd. All Rights Reserved.</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <small class="text-white-50">ITエンジニア育成カリキュラム</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/lib/bootstrap.bundle.min.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/lib/chart.umd.min.js"></script>
+    
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="js/lib/jquery.min.js"></script>
+    
+    <!-- React (if needed) -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="js/lib/react.production.min.js"></script>
+    <script src="js/lib/react-dom.production.min.js"></script>
+
+    <script>
+        // Hero Chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('heroChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Java Silver', '基本情報', 'Web開発'],
+                        datasets: [{
+                            data: [33, 33, 34],
+                            backgroundColor: [
+                                '#3498db',
+                                '#2c3e50',
+                                '#e74c3c'
+                            ],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    color: 'white',
+                                    padding: 20
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add active class to navigation items on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDvzuOI9EDm%2FGod6QTYM6%2FUbnrWnCp2Y%2Bg%2Fn8oKVOFlxMzng2GreHn0XwnjHL046IyKhCJhixM8xXXhWuqRLmtoxMmCOwkf2M4DO3v%2Fm4NVyJwLyMhFOkZAaTVM4j83PHrAm9N2wSLX7Q6R6v3epfBJBEwgrgtOrZSbVECec8RljQ4vKQDsxP8b5fmmNZ3c37913wpl07sNarYdwm0Cbk6vbuHHYFjliR7wkXqJ1cE%2FvzuW56T61FaUraGSU6KpskEG8%2FIaRvQR6WNZomu%2Fz%2FdVObex0GrVMtrePyirDHijqlCdhV5Wq8QKcrg5aMb4jV3aSrjxZ8nK8mjxhKx5CMu0q23u%2BLvLNcuf06i4A8Q50NfFzUB0zO0MzqS3vZu5%2Bgv0HHKUBGot15TkO4CxM22sTiMqRZmQCqZcElkeLlBOs%2BMmem1G5ucX0cU91mLizk5Z8NNbYJJAPWofuZ9ZqnA3q82cKp9Pm0YrrciLGJmlMx%2B%2FcduZcQR8huXELjJS4hgg%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDvzuOI9EDm/God6QTYM6/UbnrWnCp2Y+g/n8oKVOFlxMzng2GreHn0XwnjHL046IyKhCJhixM8xXXhWuqRLmtoxMmCOwkf2M4DO3v/m4NVyJwLyMhFOkZAaTVM4j83PHrAm9N2wSLX7Q6R6v3epfBJBEwgrgtOrZSbVECec8RljQ4vKQDsxP8b5fmmNZ3c37913wpl07sNarYdwm0Cbk6vbuHHYFjliR7wkXqJ1cE/vzuW56T61FaUraGSU6KpskEG8/IaRvQR6WNZomu/z/dVObex0GrVMtrePyirDHijqlCdhV5Wq8QKcrg5aMb4jV3aSrjxZ8nK8mjxhKx5CMu0q23u+LvLNcuf06i4A8Q50NfFzUB0zO0MzqS3vZu5+gv0HHKUBGot15TkO4CxM22sTiMqRZmQCqZcElkeLlBOs+Mmem1G5ucX0cU91mLizk5Z8NNbYJJAPWofuZ9ZqnA3q82cKp9Pm0YrrciLGJmlMx+/cduZcQR8huXELjJS4hgg==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

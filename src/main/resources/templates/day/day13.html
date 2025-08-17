@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 13: ラムダ式と関数型プログラミング基礎</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .code-block {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        .highlight {
+            background-color: #fef3c7;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+        }
+        .progress-bar {
+            height: 6px;
+            background-color: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .schedule-item {
+            border-left: 4px solid #3b82f6;
+            padding-left: 1rem;
+            margin: 1rem 0;
+        }
+        .concept-card {
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            transition: shadow 0.3s ease;
+        }
+        .concept-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .lambda-example {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <script defer src="../js/day-navigation.js"></script>
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold">ITエンジニア育成カリキュラム</h1>
+                    <p class="text-blue-200">Day 13: ラムダ式と関数型プログラミング基礎</p>
+                </div>
+                <div class="text-right">
+                    <div class="bg-blue-700 px-4 py-2 rounded-lg">
+                        <i class="fas fa-calendar-alt mr-2"></i>
+                        第3週 - 5日目
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- Progress Indicator -->
+        <div class="mb-8">
+            <div class="flex justify-between items-center mb-2">
+                <span class="text-sm font-medium text-gray-700">学習進捗</span>
+                <span class="text-sm font-medium text-gray-700">65% (13/20日)</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 65%;"></div>
+            </div>
+        </div>
+
+        <!-- Learning Objectives -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-target text-blue-600 mr-3"></i>
+                学習目標
+            </h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <span>ラムダ式の基本概念と記法を理解し実装できる</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <span>関数型インターフェースの役割と活用方法を理解する</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <span>メソッド参照の記法と使用場面を理解できる</span>
+                    </li>
+                </ul>
+                <ul class="space-y-3">
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <span>Streamの基本操作を活用してデータ処理ができる</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <span>関数型プログラミングの利点を理解し適用できる</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check-circle text-green-500 mr-3 mt-1"></i>
+                        <span>Java Silver試験レベルのラムダ式問題に対応できる</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Achievement Criteria -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-medal text-yellow-600 mr-3"></i>
+                達成基準
+            </h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-yellow-500 mr-3 mt-1"></i>
+                        <span>ラムダ式を使って簡潔なコードを書けるようになる</span>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-yellow-500 mr-3 mt-1"></i>
+                        <span>適切な関数型インターフェースを選択して使用できる</span>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-yellow-500 mr-3 mt-1"></i>
+                        <span>コレクション操作でStreamを効果的に活用できる</span>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-yellow-500 mr-3 mt-1"></i>
+                        <span>メソッド参照を使ってより読みやすいコードを書ける</span>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-yellow-500 mr-3 mt-1"></i>
+                        <span>関数型プログラミングの概念を説明できる</span>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-star text-yellow-500 mr-3 mt-1"></i>
+                        <span>演習問題で80%以上の正答率を達成する</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Daily Schedule -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-clock text-blue-600 mr-3"></i>
+                詳細スケジュール
+            </h2>
+
+            <div class="space-y-4">
+                <div class="schedule-item bg-blue-50 rounded-lg p-4">
+                    <h3 class="font-bold text-lg text-blue-800 mb-2">10:00-10:15 オリエンテーション・前日復習</h3>
+                    <p class="text-gray-700">前日学習したジェネリクスの概念を振り返り、本日の学習内容であるラムダ式と関数型プログラミングの位置づけを理解します。</p>
+                    <ul class="mt-2 text-sm text-gray-600 list-disc list-inside">
+                        <li>ジェネリクスの復習（型パラメータ、ワイルドカード）</li>
+                        <li>コレクションとジェネリクスの関係の確認</li>
+                        <li>関数型プログラミングの導入と意義</li>
+                    </ul>
+                </div>
+
+                <div class="schedule-item bg-green-50 rounded-lg p-4">
+                    <h3 class="font-bold text-lg text-green-800 mb-2">10:15-11:45 講義：ラムダ式の基本概念</h3>
+                    <p class="text-gray-700">ラムダ式の基本的な記法と概念について学習します。</p>
+                    <ul class="mt-2 text-sm text-gray-600 list-disc list-inside">
+                        <li>ラムダ式とは何か - 匿名関数の簡潔な記法</li>
+                        <li>従来の匿名クラスとの比較</li>
+                        <li>基本的なラムダ式の記法</li>
+                        <li>関数型インターフェースの役割</li>
+                    </ul>
+                </div>
+
+                <div class="schedule-item bg-yellow-50 rounded-lg p-4">
+                    <h3 class="font-bold text-lg text-yellow-800 mb-2">11:45-12:45 昼休憩</h3>
+                    <p class="text-gray-700">休憩時間です。昼食をとり、リフレッシュしましょう。</p>
+                </div>
+
+                <div class="schedule-item bg-purple-50 rounded-lg p-4">
+                    <h3 class="font-bold text-lg text-purple-800 mb-2">12:45-14:15 演習：ラムダ式の実装</h3>
+                    <p class="text-gray-700">実際にラムダ式を書いて、その動作を確認します。</p>
+                    <ul class="mt-2 text-sm text-gray-600 list-disc list-inside">
+                        <li>基本的なラムダ式の実装演習</li>
+                        <li>関数型インターフェースの活用</li>
+                        <li>メソッド参照の実装</li>
+                        <li>コレクション操作でのラムダ式活用</li>
+                    </ul>
+                </div>
+
+                <div class="schedule-item bg-indigo-50 rounded-lg p-4">
+                    <h3 class="font-bold text-lg text-indigo-800 mb-2">14:15-15:00 Stream API基礎</h3>
+                    <p class="text-gray-700">Stream APIの基本的な操作を学習します。</p>
+                    <ul class="mt-2 text-sm text-gray-600 list-disc list-inside">
+                        <li>Streamとは何か</li>
+                        <li>中間操作と終端操作</li>
+                        <li>filter、map、forEachの使い方</li>
+                        <li>コレクションとStreamの関係</li>
+                    </ul>
+                </div>
+
+                <div class="schedule-item bg-red-50 rounded-lg p-4">
+                    <h3 class="font-bold text-lg text-red-800 mb-2">15:00-15:10 午後休憩</h3>
+                    <p class="text-gray-700">短い休憩時間です。リフレッシュして、次のセッションに備えましょう。</p>
+                </div>
+
+                <div class="schedule-item bg-teal-50 rounded-lg p-4">
+                    <h3 class="font-bold text-lg text-teal-800 mb-2">15:10-15:55 総合演習</h3>
+                    <p class="text-gray-700">ラムダ式とStreamを組み合わせた実践的な演習を行います。</p>
+                    <ul class="mt-2 text-sm text-gray-600 list-disc list-inside">
+                        <li>データフィルタリングと変換</li>
+                        <li>集計処理の実装</li>
+                        <li>複雑な条件による検索</li>
+                        <li>パフォーマンスの考慮</li>
+                    </ul>
+                </div>
+
+                <div class="schedule-item bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-bold text-lg text-gray-800 mb-2">15:55-17:00 理解度チェック</h3>
+                    <p class="text-gray-700">本日学習した内容の理解度を確認する演習問題を実施します。</p>
+                </div>
+
+                <div class="schedule-item bg-blue-50 rounded-lg p-4">
+                    <h3 class="font-bold text-lg text-blue-800 mb-2">17:00-17:45 振り返り・質疑応答</h3>
+                    <p class="text-gray-700">本日の学習内容を振り返り、疑問点について質問・解説を行います。</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Theme Details -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-code text-purple-600 mr-3"></i>
+                テーマ詳細
+            </h2>
+
+            <div class="lambda-example mb-6">
+                <h3 class="text-xl font-bold mb-4">
+                    <i class="fas fa-lightbulb mr-2"></i>
+                    ラムダ式とは？
+                </h3>
+                <p class="text-white/90">
+                    ラムダ式は、匿名関数を簡潔に記述するための記法です。Java 8で導入され、関数型プログラミングのスタイルを可能にします。
+                    従来の匿名クラスよりもはるかに読みやすく、簡潔なコードを書くことができます。
+                </p>
+            </div>
+
+            <div class="concept-card">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">従来の匿名クラス vs ラムダ式</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-red-600 mb-2">従来の匿名クラス</h4>
+                        <div class="code-block text-sm">
+// ボタンクリック処理の従来の書き方
+button.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("ボタンがクリックされました");
+    }
+});
+
+// Comparatorを使った並び替え
+Collections.sort(names, new Comparator&lt;String&gt;() {
+    @Override
+    public int compare(String a, String b) {
+        return a.compareTo(b);
+    }
+});
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-green-600 mb-2">ラムダ式</h4>
+                        <div class="code-block text-sm">
+// ラムダ式を使った書き方
+button.addActionListener(e -> 
+    System.out.println("ボタンがクリックされました")
+);
+
+// ラムダ式を使った並び替え
+Collections.sort(names, (a, b) -> a.compareTo(b));
+
+// さらにメソッド参照で簡潔に
+Collections.sort(names, String::compareTo);
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">ラムダ式の基本記法</h3>
+                
+                <div class="space-y-4">
+                    <div class="bg-gray-50 p-4 rounded">
+                        <h4 class="font-bold mb-2">基本形式</h4>
+                        <div class="code-block">
+(引数リスト) -> { 処理内容 }
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="bg-blue-50 p-4 rounded">
+                            <h5 class="font-bold text-blue-800 mb-2">引数なし</h5>
+                            <div class="code-block text-sm">
+() -> System.out.println("Hello");
+                            </div>
+                        </div>
+                        
+                        <div class="bg-green-50 p-4 rounded">
+                            <h5 class="font-bold text-green-800 mb-2">引数1つ</h5>
+                            <div class="code-block text-sm">
+x -> x * 2
+// または
+(x) -> x * 2
+                            </div>
+                        </div>
+                        
+                        <div class="bg-purple-50 p-4 rounded">
+                            <h5 class="font-bold text-purple-800 mb-2">引数複数</h5>
+                            <div class="code-block text-sm">
+(x, y) -> x + y
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">関数型インターフェース</h3>
+                <p class="text-gray-700 mb-4">
+                    ラムダ式は関数型インターフェース（抽象メソッドを1つだけ持つインターフェース）と組み合わせて使用されます。
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-2">主要な関数型インターフェース</h4>
+                        <div class="space-y-2">
+                            <div class="bg-blue-100 p-3 rounded">
+                                <span class="font-mono text-blue-800">Function&lt;T, R&gt;</span>
+                                <br>
+                                <span class="text-sm text-gray-600">引数Tを受け取り、結果Rを返す</span>
+                            </div>
+                            <div class="bg-green-100 p-3 rounded">
+                                <span class="font-mono text-green-800">Predicate&lt;T&gt;</span>
+                                <br>
+                                <span class="text-sm text-gray-600">引数Tを受け取り、boolean を返す</span>
+                            </div>
+                            <div class="bg-purple-100 p-3 rounded">
+                                <span class="font-mono text-purple-800">Consumer&lt;T&gt;</span>
+                                <br>
+                                <span class="text-sm text-gray-600">引数Tを受け取り、何も返さない</span>
+                            </div>
+                            <div class="bg-orange-100 p-3 rounded">
+                                <span class="font-mono text-orange-800">Supplier&lt;T&gt;</span>
+                                <br>
+                                <span class="text-sm text-gray-600">引数なしでTを返す</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold text-gray-800 mb-2">使用例</h4>
+                        <div class="code-block text-sm">
+// Function: 文字列を整数に変換
+Function&lt;String, Integer&gt; converter = 
+    s -> Integer.parseInt(s);
+
+// Predicate: 偶数かどうかをチェック
+Predicate&lt;Integer&gt; isEven = n -> n % 2 == 0;
+
+// Consumer: コンソール出力
+Consumer&lt;String&gt; printer = 
+    s -> System.out.println(s);
+
+// Supplier: ランダムな数値を生成
+Supplier&lt;Double&gt; randomSupplier = 
+    () -> Math.random();
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">メソッド参照</h3>
+                <p class="text-gray-700 mb-4">
+                    既存のメソッドを参照する場合、ラムダ式をさらに簡潔に書くことができます。
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-2">静的メソッド参照</h4>
+                            <div class="code-block text-sm">
+// ラムダ式
+Function&lt;String, Integer&gt; parser = 
+    s -> Integer.parseInt(s);
+
+// メソッド参照
+Function&lt;String, Integer&gt; parser = 
+    Integer::parseInt;
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-2">インスタンスメソッド参照</h4>
+                            <div class="code-block text-sm">
+// ラムダ式
+Consumer&lt;String&gt; printer = 
+    s -> System.out.println(s);
+
+// メソッド参照
+Consumer&lt;String&gt; printer = 
+    System.out::println;
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 p-4 rounded">
+                        <h4 class="font-bold text-yellow-800 mb-2">コンストラクタ参照</h4>
+                        <div class="code-block text-sm">
+// ラムダ式
+Supplier&lt;ArrayList&lt;String&gt;&gt; listSupplier = 
+    () -> new ArrayList&lt;&gt;();
+
+// コンストラクタ参照
+Supplier&lt;ArrayList&lt;String&gt;&gt; listSupplier = 
+    ArrayList::new;
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="concept-card">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">Stream APIの基礎</h3>
+                <p class="text-gray-700 mb-4">
+                    Stream APIは、コレクションのデータを関数型のスタイルで処理するためのAPIです。ラムダ式と組み合わせることで、非常に強力なデータ処理が可能になります。
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-4 rounded-lg">
+                        <h4 class="font-bold mb-2">基本的なStream操作の流れ</h4>
+                        <div class="flex items-center justify-between">
+                            <div class="text-center">
+                                <div class="bg-white/20 rounded-full w-12 h-12 flex items-center justify-center mb-2">1</div>
+                                <span class="text-sm">コレクション</span>
+                            </div>
+                            <i class="fas fa-arrow-right"></i>
+                            <div class="text-center">
+                                <div class="bg-white/20 rounded-full w-12 h-12 flex items-center justify-center mb-2">2</div>
+                                <span class="text-sm">Stream生成</span>
+                            </div>
+                            <i class="fas fa-arrow-right"></i>
+                            <div class="text-center">
+                                <div class="bg-white/20 rounded-full w-12 h-12 flex items-center justify-center mb-2">3</div>
+                                <span class="text-sm">中間操作</span>
+                            </div>
+                            <i class="fas fa-arrow-right"></i>
+                            <div class="text-center">
+                                <div class="bg-white/20 rounded-full w-12 h-12 flex items-center justify-center mb-2">4</div>
+                                <span class="text-sm">終端操作</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-green-800 mb-2">中間操作（途中の処理）</h4>
+                            <div class="space-y-2">
+                                <div class="bg-green-100 p-2 rounded text-sm">
+                                    <span class="font-mono text-green-800">filter()</span> - 条件によるフィルタリング
+                                </div>
+                                <div class="bg-green-100 p-2 rounded text-sm">
+                                    <span class="font-mono text-green-800">map()</span> - データの変換
+                                </div>
+                                <div class="bg-green-100 p-2 rounded text-sm">
+                                    <span class="font-mono text-green-800">sorted()</span> - ソート
+                                </div>
+                                <div class="bg-green-100 p-2 rounded text-sm">
+                                    <span class="font-mono text-green-800">distinct()</span> - 重複除去
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-bold text-blue-800 mb-2">終端操作（最終的な処理）</h4>
+                            <div class="space-y-2">
+                                <div class="bg-blue-100 p-2 rounded text-sm">
+                                    <span class="font-mono text-blue-800">forEach()</span> - 各要素に処理を適用
+                                </div>
+                                <div class="bg-blue-100 p-2 rounded text-sm">
+                                    <span class="font-mono text-blue-800">collect()</span> - 結果をコレクションに収集
+                                </div>
+                                <div class="bg-blue-100 p-2 rounded text-sm">
+                                    <span class="font-mono text-blue-800">count()</span> - 要素数のカウント
+                                </div>
+                                <div class="bg-blue-100 p-2 rounded text-sm">
+                                    <span class="font-mono text-blue-800">reduce()</span> - 要素を集約
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded">
+                        <h4 class="font-bold text-gray-800 mb-2">実用的な例</h4>
+                        <div class="code-block text-sm">
+List&lt;String&gt; names = Arrays.asList("Alice", "Bob", "Charlie", "David");
+
+// 名前が5文字以上のものを大文字に変換して出力
+names.stream()
+     .filter(name -> name.length() >= 5)    // 中間操作: フィルタ
+     .map(String::toUpperCase)              // 中間操作: 大文字変換
+     .forEach(System.out::println);         // 終端操作: 出力
+
+// 結果をListで取得
+List&lt;String&gt; longNames = names.stream()
+                              .filter(name -> name.length() >= 5)
+                              .map(String::toUpperCase)
+                              .collect(Collectors.toList());
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-book text-green-600 mr-3"></i>
+                使用教材・リソース
+            </h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-bold text-gray-800 mb-3">開発環境</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center">
+                            <i class="fas fa-laptop-code text-blue-600 mr-2"></i>
+                            <span><strong>Pleiades (Eclipse)</strong> - 統合開発環境</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-cog text-orange-600 mr-2"></i>
+                            <span><strong>Amazon Corretto JDK 17</strong> - Java開発キット</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-gray-800 mb-3">参考図書</h3>
+                    <div class="space-y-2 text-sm">
+                        <div>・「Java Silver SE 17 対策テキスト」</div>
+                        <div>・「Java SE 8 実践プログラミング」</div>
+                        <div>・「関数型プログラミング実践入門」</div>
+                        <div>・「モダンJavaによるアプリケーション開発」</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6">
+                <h3 class="font-bold text-gray-800 mb-3">オンラインリソース</h3>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div class="space-y-1">
+                        <div>・Oracle: Java 8 Lambda Expressions Tutorial</div>
+                        <div>・Baeldung: Java 8 Lambda Expressions</div>
+                        <div>・Java Magazine: Functional Programming特集</div>
+                    </div>
+                    <div class="space-y-1">
+                        <div>・Stream APIガイド</div>
+                        <div>・関数型インターフェース一覧</div>
+                        <div>・メソッド参照パターン集</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-blue-50 p-4 rounded-lg">
+                <h3 class="font-bold text-blue-800 mb-2">演習課題</h3>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div class="space-y-1">
+                        <div>・コレクション操作の関数型スタイル実装</div>
+                        <div>・カスタム関数型インターフェースの作成</div>
+                        <div>・Stream APIを使ったデータ処理</div>
+                    </div>
+                    <div class="space-y-1">
+                        <div>・メソッド参照の活用パターン</div>
+                        <div>・ファイル処理の関数型実装</div>
+                        <div>・パフォーマンス比較（従来型 vs 関数型）</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comprehension Check -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-check-square text-purple-600 mr-3"></i>
+                理解度確認項目
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-bold text-green-800 mb-3">基本レベル</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-start cursor-pointer">
+                            <input type="checkbox" class="mt-1 mr-2">
+                            <span class="text-sm">ラムダ式の基本的な記法を理解している</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer">
+                            <input type="checkbox" class="mt-1 mr-2">
+                            <span class="text-sm">関数型インターフェースの概念を説明できる</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer">
+                            <input type="checkbox" class="mt-1 mr-2">
+                            <span class="text-sm">基本的なメソッド参照の記法を理解している</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer">
+                            <input type="checkbox" class="mt-1 mr-2">
+                            <span class="text-sm">Streamの基本操作（filter、map、forEach）を使える</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer">
+                            <input type="checkbox" class="mt-1 mr-2">
+                            <span class="text-sm">従来のforループとStreamの違いを説明できる</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer">
+                            <input type="checkbox" class="mt-1 mr-2">
+                            <span class="text-sm">関数型プログラミングの基本概念を理解している</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-bold text-blue-800 mb-3">応用レベル</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-start cursor-pointer">
+                            <input type="checkbox" class="mt-1 mr-2">
+                            <span class="text-sm">複雑なラムダ式を適切に実装できる</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer">
+                            <input type="checkbox" class="mt-1 mr-2">
+                            <span class="text-sm">適切な関数型インターフェースを選択して使用できる</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer">
+                            <input type="checkbox" class="mt-1 mr-2">
+                            <span class="text-sm">メソッド参照を効果的に活用できる</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer">
+                            <input type="checkbox" class="mt-1 mr-2">
+                            <span class="text-sm">Stream操作を組み合わせて複雑な処理を実装できる</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer">
+                            <input type="checkbox" class="mt-1 mr-2">
+                            <span class="text-sm">パフォーマンスを考慮したStream使用ができる</span>
+                        </label>
+                        <label class="flex items-start cursor-pointer">
+                            <input type="checkbox" class="mt-1 mr-2">
+                            <span class="text-sm">関数型と命令型を適切に使い分けできる</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 bg-yellow-50 p-4 rounded-lg">
+                <h3 class="font-bold text-yellow-800 mb-2">
+                    <i class="fas fa-lightbulb mr-2"></i>
+                    学習のポイント
+                </h3>
+                <div class="text-sm text-gray-700 space-y-1">
+                    <div>• ラムダ式は「何をするか」に焦点を当て、「どうやるか」の詳細を隠蔽します</div>
+                    <div>• 最初は従来の書き方と比較して理解を深めましょう</div>
+                    <div>• Stream APIは遅延評価されるため、効率的な処理が可能です</div>
+                    <div>• メソッド参照は可読性を向上させる強力な機能です</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-arrow-right text-indigo-600 mr-3"></i>
+                次のステップ
+            </h2>
+
+            <div class="bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg p-6 mb-6">
+                <h3 class="text-xl font-bold mb-3">
+                    <i class="fas fa-calendar-day mr-2"></i>
+                    Day 14: Stream API詳細とコレクション操作実践
+                </h3>
+                <p class="text-indigo-100 mb-4">
+                    明日は、今日学習したラムダ式の知識を基に、Stream APIのより高度な機能を学習します。
+                    collect操作、並列処理、OptionalクラスなどJava 8以降の重要な機能を実践的に学びます。
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white/10 rounded p-3">
+                        <h4 class="font-bold mb-2">予習のポイント</h4>
+                        <ul class="text-sm text-indigo-100 space-y-1">
+                            <li>• reduce操作の概念</li>
+                            <li>• Collectorsクラスの役割</li>
+                            <li>• Optionalクラスの基本概念</li>
+                            <li>• 並列処理とparallelStream</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white/10 rounded p-3">
+                        <h4 class="font-bold mb-2">復習すべき内容</h4>
+                        <ul class="text-sm text-indigo-100 space-y-1">
+                            <li>• ラムダ式の基本記法</li>
+                            <li>• 関数型インターフェース</li>
+                            <li>• filter、map、forEachの使い方</li>
+                            <li>• メソッド参照のパターン</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg">
+                <h3 class="font-bold text-blue-800 mb-2">今夜の復習課題</h3>
+                <div class="text-sm text-gray-700 space-y-1">
+                    <div>1. 簡単なラムダ式を5つ以上書いて実行してみる</div>
+                    <div>2. 既存のfor文をStreamに書き換えてみる</div>
+                    <div>3. メソッド参照を使った例を3つ実装してみる</div>
+                    <div>4. Function、Predicate、Consumerをそれぞれ使った例を作成する</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feedback -->
+        <section class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-comment text-pink-600 mr-3"></i>
+                フィードバック
+            </h2>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block font-bold text-gray-700 mb-2">理解度</label>
+                    <div class="flex space-x-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="understanding" value="excellent" class="mr-2">
+                            <span class="text-sm">とても良く理解できた</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="understanding" value="good" class="mr-2">
+                            <span class="text-sm">理解できた</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="understanding" value="partial" class="mr-2">
+                            <span class="text-sm">一部理解できなかった</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="understanding" value="difficult" class="mr-2">
+                            <span class="text-sm">ほとんど理解できなかった</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block font-bold text-gray-700 mb-2">コメント</label>
+                    <textarea class="w-full p-3 border border-gray-300 rounded-lg" rows="4" 
+                              placeholder="今日の学習について、感想や質問があればお書きください。"></textarea>
+                </div>
+                
+                <div class="text-center">
+                    <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        フィードバックを送信
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h3 class="text-xl font-bold">ITエンジニア育成カリキュラム</h3>
+                    <p class="text-gray-400">未経験からITエンジニアを目指す方のための体系的な学習プログラムです。</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-gray-400">
+                        © 2025 APSA Co.,Ltd. All Rights Reserved.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // チェックボックスの状態を保存
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem(this.id || 'checkbox_' + Math.random(), this.checked);
+            });
+        });
+        
+        // ページ読み込み時にチェックボックスの状態を復元
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('input[type="checkbox"]').forEach((checkbox, index) => {
+                const saved = localStorage.getItem(checkbox.id || 'checkbox_' + index);
+                if (saved === 'true') {
+                    checkbox.checked = true;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDghOkgL8h9Q7IT6BrTYKyLYg2ofVqgPC1OOrRF7xPgDIn7yjg9f1Kt8vBZa2BpXq9FtayAZYmaMaR7JBSUipTVr%2FWhIQCqVwg0gFHZx3K8FN9uFcjD0kRbu7Dmb3ZZx4CJEHYo%2F9WTU5eyFMPHUVMQjDY9NxkdxCP%2BmooXB4hmx1opmBC6zOr9%2BWIT2iNkbIC%2FJI26WkcXx2Dv4FTlvybAyZOpisXdTQ%2FzwIYjErXdZRwckyM%2Fx6i2nV7HzOoOeHecV31TsJfm1Vk8MpBgmov7a1UXFM2v056lczaJrs9hDH81AEK%2FtLIuDXPQi%2FUFRIL%2BdNpYxlDohjosGYjrQ6spReUKGEEIPuFP%2F76okKwdWPYTsHAPn8bZ3%2FAB%2F2JexiHgfeJc%2Bn0FC8dcMgAUlM%2BWE%2Bf7unjE8JhDtQ4zEVTz4B%2Bd3DVj6sYVASQPz4ZRblOdE%2FOhhWF2A7WANv6ijMTMJG7g2jevkqzKaVgYH98l3i";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDghOkgL8h9Q7IT6BrTYKyLYg2ofVqgPC1OOrRF7xPgDIn7yjg9f1Kt8vBZa2BpXq9FtayAZYmaMaR7JBSUipTVr/WhIQCqVwg0gFHZx3K8FN9uFcjD0kRbu7Dmb3ZZx4CJEHYo/9WTU5eyFMPHUVMQjDY9NxkdxCP+mooXB4hmx1opmBC6zOr9+WIT2iNkbIC/JI26WkcXx2Dv4FTlvybAyZOpisXdTQ/zwIYjErXdZRwckyM/x6i2nV7HzOoOeHecV31TsJfm1Vk8MpBgmov7a1UXFM2v056lczaJrs9hDH81AEK/tLIuDXPQi/UFRIL+dNpYxlDohjosGYjrQ6spReUKGEEIPuFP/76okKwdWPYTsHAPn8bZ3/AB/2JexiHgfeJc+n0FC8dcMgAUlM+WE+f7unjE8JhDtQ4zEVTz4B+d3DVj6sYVASQPz4ZRblOdE/OhhWF2A7WANv6ijMTMJG7g2jevkqzKaVgYH98l3i";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    

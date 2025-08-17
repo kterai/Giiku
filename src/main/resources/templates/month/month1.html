@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layouts/month}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第1ヶ月目: Java Silver 17 対策 | ITエンジニア育成カリキュラム</title>
+</head>
+<body>
+<div layout:fragment="pageheader"
+     th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumb})}"></div>
+
+<section layout:fragment="content">
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="card-title">月間概要</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Java SE 17 Programmer資格取得に必要な知識と技術を習得し、実践的なJavaプログラミングスキルを身につけます。Javaの基礎から応用、オブジェクト指向の概念まですべて体系的に学びます。</p>
+                        
+                        <h3 class="mt-4">達成目標</h3>
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Java SE 17の言語仕様と基本APIを理解する</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> オブジェクト指向プログラミングの概念と実装方法を習得する</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Java Silver試験の出題範囲を網羅する</li>
+                            <li class="list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> 実践的なJavaプログラムを作成できるようになる</li>
+                        </ul>
+                        
+                        <h3>習得スキル</h3>
+                        <div class="d-flex flex-wrap">
+                            <span class="skill-badge"><i class="bi bi-code-square"></i>Java構文・プログラミング技法</span>
+                            <span class="skill-badge"><i class="bi bi-diagram-3"></i>オブジェクト指向3大要素</span>
+                            <span class="skill-badge"><i class="bi bi-exclamation-triangle"></i>例外処理とリソース管理</span>
+                            <span class="skill-badge"><i class="bi bi-collection"></i>コレクションAPIとStream API</span>
+                            <span class="skill-badge"><i class="bi bi-stars"></i>Java SE 17新機能</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="card-title">週別スケジュール</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="timeline-container">
+                            <div class="timeline-item">
+                                <h3>第1週: Java言語基礎・基本構文</h3>
+                                <p>Javaの基礎知識、開発環境の構築から始め、基本的な構文、データ型、制御構造、配列などを学びます。</p>
+                                <div class="week-card p-3">
+                                    <ul class="mb-0">
+                                        <li><strong>Day 1:</strong> オリエンテーション・Java概要</li>
+                                        <li><strong>Day 2:</strong> Java基本型・変数・演算子</li>
+                                        <li><strong>Day 3:</strong> 制御構文・配列</li>
+                                        <li><strong>Day 4:</strong> 配列応用・アルゴリズム基礎</li>
+                                        <li><strong>Day 5:</strong> Java Silver模擬テスト①・週次総合テスト</li>
+                                    </ul>
+                                    <div class="text-end mt-2">
+                                        <a href="../week/week1.html" class="btn btn-outline-primary btn-sm">詳細を見る</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h3>第2週: オブジェクト指向プログラミング</h3>
+                                <p>オブジェクト指向の基本概念とJavaでの実装方法、カプセル化、継承、ポリモーフィズムについて学びます。</p>
+                                <div class="week-card p-3">
+                                    <ul class="mb-0">
+                                        <li><strong>Day 6:</strong> クラス・オブジェクト基礎</li>
+                                        <li><strong>Day 7:</strong> カプセル化・継承</li>
+                                        <li><strong>Day 8:</strong> ポリモーフィズム・抽象クラス</li>
+                                        <li><strong>Day 9:</strong> 例外処理・パッケージ</li>
+                                        <li><strong>Day 10:</strong> Java 17の新機能と模擬テスト②</li>
+                                    </ul>
+                                    <div class="text-end mt-2">
+                                        <a href="../week/week2.html" class="btn btn-outline-primary btn-sm">詳細を見る</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h3>第3週: Java言語応用</h3>
+                                <p>コレクションAPI、ジェネリクス、Stream API、ラムダ式など、Javaの応用的な機能を学びます。</p>
+                                <div class="week-card p-3">
+                                    <ul class="mb-0">
+                                        <li><strong>Day 11:</strong> コレクションAPI基礎</li>
+                                        <li><strong>Day 12:</strong> コレクション応用・ジェネリクス</li>
+                                        <li><strong>Day 13:</strong> Stream API・ラムダ式</li>
+                                        <li><strong>Day 14:</strong> Java SE API応用</li>
+                                        <li><strong>Day 15:</strong> 模擬テスト③と総合演習</li>
+                                    </ul>
+                                    <div class="text-end mt-2">
+                                        <a href="../week/week3.html" class="btn btn-outline-primary btn-sm">詳細を見る</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <h3>第4週: 総仕上げ</h3>
+                                <p>これまで学習した内容の総復習と模擬試験を通じて、Java Silver試験への準備を完了します。</p>
+                                <div class="week-card p-3">
+                                    <ul class="mb-0">
+                                        <li><strong>Day 16:</strong> 総合模擬試験①</li>
+                                        <li><strong>Day 17:</strong> 総合模擬試験②・直前対策</li>
+                                        <li><strong>Day 18:</strong> 最終模擬試験・1ヶ月目総括</li>
+                                    </ul>
+                                    <div class="text-end mt-2">
+                                        <a href="../week/week4.html" class="btn btn-outline-primary btn-sm">詳細を見る</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="card-title">学習リソース</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row resources-list">
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="bi bi-book text-primary me-2"></i>主な教材</h5>
+                                        <ul class="list-unstyled">
+                                            <li><a href="https://docs.oracle.com/javase/jp/17/docs/api/" target="_blank" class="text-decoration-none">Java 17 API ドキュメント <i class="bi bi-box-arrow-up-right small"></i></a></li>
+                                            <li><a href="https://docs.oracle.com/javase/tutorial/" target="_blank" class="text-decoration-none">Oracle Java Tutorials <i class="bi bi-box-arrow-up-right small"></i></a></li>
+                                            <li><a href="https://www.baeldung.com/java-tutorial" target="_blank" class="text-decoration-none">Baeldung Java Tutorial <i class="bi bi-box-arrow-up-right small"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="bi bi-pc-display text-primary me-2"></i>開発環境</h5>
+                                        <ul class="list-unstyled">
+                                            <li><a href="https://adoptopenjdk.net/" target="_blank" class="text-decoration-none">AdoptOpenJDK <i class="bi bi-box-arrow-up-right small"></i></a></li>
+                                            <li><a href="https://www.eclipse.org/downloads/" target="_blank" class="text-decoration-none">Eclipse IDE <i class="bi bi-box-arrow-up-right small"></i></a></li>
+                                            <li><a href="https://code.visualstudio.com/" target="_blank" class="text-decoration-none">Visual Studio Code <i class="bi bi-box-arrow-up-right small"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="bi bi-puzzle text-primary me-2"></i>練習問題</h5>
+                                        <ul class="list-unstyled">
+                                            <li><a href="https://education.oracle.com/java-se-17-programmer-i/pexam_1Z0-829" target="_blank" class="text-decoration-none">Oracle 公式サンプル問題 <i class="bi bi-box-arrow-up-right small"></i></a></li>
+                                            <li><a href="https://www.hackerrank.com/domains/java" target="_blank" class="text-decoration-none">HackerRank Java問題 <i class="bi bi-box-arrow-up-right small"></i></a></li>
+                                            <li><a href="https://exercism.io/tracks/java" target="_blank" class="text-decoration-none">Exercism Java Track <i class="bi bi-box-arrow-up-right small"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="card h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><i class="bi bi-camera-video text-primary me-2"></i>動画教材</h5>
+                                        <ul class="list-unstyled">
+                                            <li><a href="https://www.youtube.com/playlist?list=PLfu_Bpi_zcDOn8ajnuLY6g1C6hc_eeDFl" target="_blank" class="text-decoration-none">Java Programming Masterclass <i class="bi bi-box-arrow-up-right small"></i></a></li>
+                                            <li><a href="https://www.udemy.com/course/java-se-11-developer-1z0-819-ocp-course-part-1/" target="_blank" class="text-decoration-none">Udemy: Java SE Developer Course <i class="bi bi-box-arrow-up-right small"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a href="../resources/resources.html" class="btn btn-primary">全ての学習リソースを見る</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card mb-4 sticky-top" style="top: 100px; z-index: 1;">
+                    <div class="card-header">
+                        <h3 class="card-title">月間進捗状況</h3>
+                    </div>
+                    <div class="card-body">
+                        <h5>進捗グラフ</h5>
+                        <div class="chart-container mb-4">
+                            <canvas id="progressChart"></canvas>
+                        </div>
+                        <h5>週別進捗</h5>
+                        <div class="mb-3">
+                            <label class="form-label d-flex justify-content-between">
+                                <span>第1週: Java言語基礎</span>
+                                <span id="week1Percentage">0%</span>
+                            </label>
+                            <div class="progress">
+                                <div id="week1Progress" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label d-flex justify-content-between">
+                                <span>第2週: オブジェクト指向</span>
+                                <span id="week2Percentage">0%</span>
+                            </label>
+                            <div class="progress">
+                                <div id="week2Progress" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label d-flex justify-content-between">
+                                <span>第3週: Java言語応用</span>
+                                <span id="week3Percentage">0%</span>
+                            </label>
+                            <div class="progress">
+                                <div id="week3Progress" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label d-flex justify-content-between">
+                                <span>第4週: 総仕上げ</span>
+                                <span id="week4Percentage">0%</span>
+                            </label>
+                            <div class="progress">
+                                <div id="week4Progress" class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h3 class="card-title">実践課題例</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">簡易家計簿アプリ</h5>
+                                <p class="card-text">オブジェクト指向設計を活用し、収入・支出を管理する家計簿アプリケーションを開発します。Stream APIを使用したデータの集計・分析機能も実装します。</p>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">タスク管理システム</h5>
+                                <p class="card-text">カテゴリ別のタスク管理、期限設定、優先度設定などの機能を持つコンソールベースのタスク管理システムを開発します。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">次のステップ</h3>
+                    </div>
+                    <div class="card-body">
+                        <h4>第2ヶ月目: 基本情報技術者試験対策</h4>
+                        <p>1ヶ月目で習得したJavaプログラミングの基礎知識をもとに、2ヶ月目ではIT全般の基礎知識を学びます。コンピュータシステム、ネットワーク、データベース、アルゴリズムなど、ITエンジニアとして必須の知識を体系的に習得し、基本情報技術者試験の合格を目指します。</p>
+                        <div class="text-center">
+                            <a href="month2.html" class="btn btn-success">次のカリキュラムを見る</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h3 class="card-title">受講者の声</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="testimonial">
+                            "プログラミング未経験でしたが、段階的に学習できるカリキュラムのおかげでJavaの基礎から応用まで無理なく理解できました。模擬テストも多く、実践的な力が身につきました。"
+                            <div class="text-end mt-2">- 30代 IT業界転職者</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 進捗データの取得またはデフォルト値の設定
+            const week1Progress = parseInt(localStorage.getItem('week1Progress')) || 0;
+            const week2Progress = parseInt(localStorage.getItem('week2Progress')) || 0;
+            const week3Progress = parseInt(localStorage.getItem('week3Progress')) || 0;
+            const week4Progress = parseInt(localStorage.getItem('week4Progress')) || 0;
+            
+            // 週別進捗バーの更新
+            updateWeekProgress(1, week1Progress);
+            updateWeekProgress(2, week2Progress);
+            updateWeekProgress(3, week3Progress);
+            updateWeekProgress(4, week4Progress);
+            
+            // 全体の進捗グラフの更新
+            initProgressChart(week1Progress, week2Progress, week3Progress, week4Progress);
+        });
+        
+        function updateWeekProgress(weekNum, progress) {
+            const progressBar = document.getElementById(`week${weekNum}Progress`);
+            const percentage = document.getElementById(`week${weekNum}Percentage`);
+            
+            if (progressBar && percentage) {
+                progressBar.style.width = `${progress}%`;
+                progressBar.setAttribute('aria-valuenow', progress);
+                percentage.textContent = `${progress}%`;
+                
+                // 進捗に応じた色の変更
+                if (progress < 30) {
+                    progressBar.className = 'progress-bar bg-danger';
+                } else if (progress < 70) {
+                    progressBar.className = 'progress-bar bg-warning';
+                } else {
+                    progressBar.className = 'progress-bar bg-success';
+                }
+                
+                // ローカルストレージに保存
+                localStorage.setItem(`week${weekNum}Progress`, progress);
+            }
+        }
+        
+        function initProgressChart(week1, week2, week3, week4) {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            
+            // 完了した週と未完了の週の数を計算
+            const totalDays = 18;  // 1ヶ月目は18日
+            const completedDays = Math.round((week1 + week2 + week3 + week4) / 400 * totalDays);
+            const remainingDays = totalDays - completedDays;
+            
+            const chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['完了', '未完了'],
+                    datasets: [{
+                        data: [completedDays, remainingDays],
+                        backgroundColor: ['#28a745', '#e9ecef'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.raw || 0;
+                                    return `${label}: ${value}日 (${Math.round(value / totalDays * 100)}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // 中央にテキストを追加
+            Chart.register({
+                id: 'centerText',
+                afterDraw: function(chart) {
+                    const width = chart.width;
+                    const height = chart.height;
+                    const ctx = chart.ctx;
+                    
+                    ctx.restore();
+                    const fontSize = (height / 150).toFixed(2);
+                    ctx.font = fontSize + 'em sans-serif';
+                    ctx.textBaseline = 'middle';
+                    
+                    const totalProgress = Math.round((completedDays / totalDays) * 100);
+                    const text = totalProgress + '%';
+                    const textX = Math.round((width - ctx.measureText(text).width) / 2);
+                    const textY = height / 2;
+                    
+                    ctx.fillStyle = '#333333';
+                    ctx.fillText(text, textX, textY);
+                    ctx.save();
+                }
+            });
+        }
+        
+        // デモ用のイベントハンドラ（実際のアプリケーションではこれを削除または変更してください）
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('.skill-badge')) {
+                // スキルバッジをクリックするとランダムに進捗が更新される（デモ用）
+                const randomProgress = Math.floor(Math.random() * 100) + 1;
+                const weekNum = Math.floor(Math.random() * 4) + 1;
+                updateWeekProgress(weekNum, randomProgress);
+                
+                // 全体の進捗グラフも更新
+                const week1Progress = parseInt(document.getElementById('week1Percentage').textContent);
+                const week2Progress = parseInt(document.getElementById('week2Percentage').textContent);
+                const week3Progress = parseInt(document.getElementById('week3Percentage').textContent);
+                const week4Progress = parseInt(document.getElementById('week4Percentage').textContent);
+                
+                initProgressChart(week1Progress, week2Progress, week3Progress, week4Progress);
+            }
+        });
+    </script>
+</body>
+</html>

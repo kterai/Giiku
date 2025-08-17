@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロンプト改良版 - Day23: 第5週総合確認・模擬試験</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.7;
+            color: #2d3748;
+        }
+        .instruction-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+        .clarity-guidelines {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            border-left: 6px solid #38b2ac;
+        }
+        .content-section {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 16px 0;
+            border-left: 4px solid #4299e1;
+        }
+        .warning-box {
+            background: #fef5e7;
+            border: 2px solid #f6ad55;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+        .highlight {
+            background: #fed7d7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        .code-example {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            margin: 12px 0;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-clipboard-check text-blue-600 mr-3"></i>
+                プロンプト改良版 - Day23: 第5週総合確認・模擬試験
+            </h1>
+            <p class="text-xl text-gray-600">総合復習の分かりやすさを重視した改良版プロンプト指示書</p>
+        </header>
+
+        <div class="instruction-box">
+            <h2 class="text-2xl font-bold mb-4"><i class="fas fa-exclamation-triangle mr-2"></i>重要な注意事項</h2>
+            <p class="text-lg mb-4">この文書は実際のHTMLファイルではなく、<strong>lecture23.html</strong>を生成するための詳細なプロンプト指示書です。</p>
+            <p class="text-base">以下の指示に従って、分かりやすく質の高い講義ページを作成してください。</p>
+        </div>
+
+        <div class="clarity-guidelines">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">
+                <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                🎯 初心者理解重視の必須要項
+            </h2>
+            
+            <div class="content-section">
+                <h3 class="text-xl font-bold mb-4 text-gray-700">■ 表・まとめセクションの分かりやすさ確保</h3>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li><span class="highlight">専門用語は略語だけでなく日本語説明を併記</span> - 例：「OS（オペレーティングシステム）」</li>
+                    <li><span class="highlight">抽象的な表現は具体例・実用例で補完</span> - 理論だけでなく実際の使用場面を明示</li>
+                    <li><span class="highlight">比較表には「なぜその違いが重要か」を明記</span> - 単なる違いではなく実務的意義を説明</li>
+                    <li><span class="highlight">計算量(O記法)には実際の処理時間の目安を併記</span> - 「O(n)は要素数に比例して時間がかかる」など</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h3 class="text-xl font-bold mb-4 text-gray-700">■ 専門用語の徹底解説</h3>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li><span class="highlight">初出時に必ず定義・背景・必要性を説明</span></li>
+                    <li><span class="highlight">日常生活の例え話(アナロジー)を積極活用</span> - 「プロセスは工場の作業員のようなもの」など</li>
+                    <li><span class="highlight">「なぜこの概念が必要なのか」を必ず説明</span></li>
+                    <li><span class="highlight">関連用語との違い・使い分けを明確化</span></li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h3 class="text-xl font-bold mb-4 text-gray-700">■ まとめセクションの改善</h3>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li><span class="highlight">箇条書きだけでなく「どう活用するか」を記載</span></li>
+                    <li><span class="highlight">重要ポイントを3つに絞って強調</span></li>
+                    <li><span class="highlight">次回との関連性を具体的に説明</span></li>
+                    <li><span class="highlight">復習時に参照しやすい構成にする</span></li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h3 class="text-xl font-bold mb-4 text-gray-700">■ 表の改善指針</h3>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li><span class="highlight">単なる数値・記号だけでなく説明文を併記</span></li>
+                    <li><span class="highlight">実際の使用場面・判断基準を明記</span></li>
+                    <li><span class="highlight">初心者が混同しやすい項目は特に詳しく</span></li>
+                    <li><span class="highlight">視覚的な区分け・色分けで理解を促進</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <h3 class="text-lg font-bold mb-2 text-orange-800">
+                <i class="fas fa-info-circle mr-2"></i>Day23特有の注意点
+            </h3>
+            <ul class="list-disc pl-6 space-y-1 text-sm">
+                <li>第5週の総復習のため、<strong>4分野（ハードウェア・OS・数値表現・論理回路）の関連性</strong>を明確に示す</li>
+                <li>各分野の<strong>実務での活用例</strong>を具体的に提示する</li>
+                <li>模擬試験問題は<strong>分野横断的な総合問題</strong>を含める</li>
+                <li>復習方法を<strong>具体的なステップ</strong>で示す</li>
+            </ul>
+        </div>
+
+        <section class="mt-12">
+            <h2 class="text-3xl font-bold mb-8 text-gray-800">
+                <i class="fas fa-file-code text-blue-600 mr-3"></i>
+                Day23講義HTML生成指示
+            </h2>
+
+            <div class="instruction-box">
+                <h3 class="text-xl font-bold mb-4">プロジェクト名：ITエンジニア育成カリキュラム - Day23: 第5週総合確認・模擬試験</h3>
+                <p class="mb-4">以下の指示に従って <code class="bg-gray-200 px-2 py-1 rounded">Traini../lecture/lecture23.html</code> を生成してください。</p>
+            </div>
+
+            <div class="content-section">
+                <h3 class="text-xl font-bold mb-4">📚 参照ファイル</h3>
+                <ul class="list-disc pl-6">
+                    <li>Traini../day/day23.html</li>
+                    <li>Traini../lecture/Template_lectureX.html</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h3 class="text-xl font-bold mb-4">🛠️ 共通仕様</h3>
+                <ul class="list-disc pl-6 space-y-1">
+                    <li>HTML5 / lang="ja" / UTF-8</li>
+                    <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+                    <li>Tailwind CSS v2.2.19 CDN と FontAwesome v6.4.0 CDN を読み込む</li>
+                    <li>レスポンシブ対応、背景と文字のコントラスト比 4.5:1 以上</li>
+                    <li>コードブロックは <code>&lt;pre&gt;&lt;code class="language-java"&gt;&lt;/code&gt;&lt;/pre&gt;</code> を使用</li>
+                    <li>開発環境として Pleiades (Eclipse) + Amazon Corretto JDK 17 を記載</li>
+                    <li>フッターに <code>© 2025 APSA Co.,Ltd. All Rights Reserved.</code> を表示</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h3 class="text-xl font-bold mb-4">📋 ページ構成</h3>
+                
+                <h4 class="text-lg font-semibold mb-2">1. **ヘッダー & ページング**</h4>
+                <ul class="list-disc pl-6 mb-4">
+                    <li>左に前日 <code>lecture22.html</code> へのリンク（FontAwesome <code>fa-chevron-left</code>）</li>
+                    <li>右に翌日 <code>lecture24.html</code> へのリンク（<code>fa-chevron-right</code>）</li>
+                    <li>中央タイトル：<code>ITエンジニア育成カリキュラム - Day23: 第5週総合確認・模擬試験</code></li>
+                    <li>サブタイトル：<code>ハードウェア・OS・数値表現・論理回路の総合復習</code></li>
+                </ul>
+
+                <h4 class="text-lg font-semibold mb-2">2. **学習目標**</h4>
+                <ul class="list-disc pl-6 mb-4">
+                    <li>第5週（第1ヶ月目終了時点）までの学習内容を総合的に復習できる</li>
+                    <li>ハードウェア、OS、数値表現、論理回路の知識を統合的に理解できる</li>
+                    <li>実際の業務場面での応用能力を身につけることができる</li>
+                    <li>模擬試験を通じて理解度を客観的に測定できる</li>
+                    <li>第2ヶ月目以降の学習に向けた基礎固めができる</li>
+                </ul>
+
+                <h4 class="text-lg font-semibold mb-2">3. **スケジュール表**</h4>
+                <div class="code-example">
+| 時間 | 内容 |
+|------|------|
+| 9:00-10:30 | ハードウェア分野総復習 |
+| 10:45-12:00 | OS分野総復習 |
+| 13:00-14:30 | 数値表現分野総復習 |
+| 14:45-16:00 | 論理回路分野総復習 |
+| 16:15-17:30 | 総合模擬試験と解説 |
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3 class="text-xl font-bold mb-4">📖 メイン講義構成</h3>
+                
+                <h4 class="text-lg font-semibold mb-2">■ 各分野の総復習（分かりやすさ重視）</h4>
+                
+                <div class="ml-4 space-y-3">
+                    <div>
+                        <h5 class="font-semibold">h3 `ハードウェア基礎復習`</h5>
+                        <ul class="list-disc pl-6 text-sm space-y-1">
+                            <li><strong>CPU（Central Processing Unit）</strong>：「コンピュータの頭脳」として処理装置の役割を詳細解説</li>
+                            <li><strong>メモリ（Memory）</strong>：「作業机」の例えで主記憶装置の仕組みを説明</li>
+                            <li><strong>ストレージ（Storage）</strong>：「本棚」の例えで補助記憶装置を解説</li>
+                            <li><strong>入出力装置（I/O）</strong>：人間とコンピュータの橋渡し役として説明</li>
+                            <li><strong>実務での活用例</strong>：サーバー選定時の考慮点、性能要件の決め方</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h5 class="font-semibold">h3 `OS基礎復習`</h5>
+                        <ul class="list-disc pl-6 text-sm space-y-1">
+                            <li><strong>プロセス管理</strong>：「交通整理」の例えでスケジューリングを説明</li>
+                            <li><strong>メモリ管理</strong>：「図書館の本の管理」で仮想記憶を解説</li>
+                            <li><strong>ファイルシステム</strong>：「整理整頓システム」としての役割説明</li>
+                            <li><strong>同期・排他制御</strong>：「順番待ち」の例えでデッドロック対策を説明</li>
+                            <li><strong>実務での活用例</strong>：OS選択基準、パフォーマンスチューニング手法</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h5 class="font-semibold">h3 `数値表現復習`</h5>
+                        <ul class="list-disc pl-6 text-sm space-y-1">
+                            <li><strong>基数変換</strong>：「言語の翻訳」として2進数・8進数・16進数変換を説明</li>
+                            <li><strong>負数表現</strong>：「借金の表現方法」として2の補数を解説</li>
+                            <li><strong>浮動小数点</strong>：「科学技術計算」での表現方法を説明</li>
+                            <li><strong>文字コード</strong>：「文字の番号付け」としてASCII・Unicode・UTF-8を解説</li>
+                            <li><strong>実務での活用例</strong>：プログラミングでの数値処理注意点、文字化け対策</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h5 class="font-semibold">h3 `論理回路復習`</h5>
+                        <ul class="list-disc pl-6 text-sm space-y-1">
+                            <li><strong>基本論理ゲート</strong>：「電気スイッチの組み合わせ」として動作原理を説明</li>
+                            <li><strong>ブール代数</strong>：「論理の数学」として式の変形を解説</li>
+                            <li><strong>組合せ回路</strong>：「複雑な判断システム」として設計手法を説明</li>
+                            <li><strong>順序回路</strong>：「記憶機能付きの回路」としてフリップフロップを解説</li>
+                            <li><strong>実務での活用例</strong>：組み込みシステム設計、デジタル信号処理への応用</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h4 class="text-lg font-semibold mb-2 mt-6">■ 分野横断的な関連性の説明</h4>
+                <div class="ml-4">
+                    <h5 class="font-semibold">h3 `4分野の相互関係と実務での統合活用`</h5>
+                    <ul class="list-disc pl-6 text-sm space-y-1">
+                        <li><strong>ハードウェア ↔ OS</strong>：OSがハードウェアを管理・制御する関係</li>
+                        <li><strong>数値表現 ↔ 論理回路</strong>：デジタル情報が回路で処理される仕組み</li>
+                        <li><strong>統合例</strong>：Webサーバー構築時の全分野知識活用方法</li>
+                        <li><strong>実務シナリオ</strong>：システム障害対応時の分野横断的思考プロセス</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3 class="text-xl font-bold mb-4">🎯 演習問題・模擬試験（改善された表示仕様）</h3>
+                
+                <h4 class="text-lg font-semibold mb-2">4. **総合演習問題**</h4>
+                <ul class="list-disc pl-6 mb-4">
+                    <li><strong>問題文は常に表示</strong>、回答例・解説は「回答例を表示」ボタンでクリック時に表示</li>
+                    <li><strong>分野横断問題</strong>：ハードウェア知識とOS知識を組み合わせた実践的問題</li>
+                    <li><strong>段階的難易度</strong>：基礎確認→応用→実践レベルの3段階構成</li>
+                    <li><strong>詳細解説</strong>：「なぜその答えになるのか」の論理的説明を重視</li>
+                </ul>
+
+                <h4 class="text-lg font-semibold mb-2">5. **総合模擬試験**</h4>
+                <ul class="list-disc pl-6 mb-4">
+                    <li><strong>問題文・選択肢は常に表示</strong>、正解・解説は「回答を表示」ボタンでクリック時に表示</li>
+                    <li><strong>20問以上の構成</strong>：各分野5問ずつの均等配分</li>
+                    <li><strong>実務レベル問題</strong>：基本情報技術者試験レベルの実践的出題</li>
+                    <li><strong>分野別集計機能</strong>：JavaScriptで分野別正答率を表示</li>
+                </ul>
+
+                <div class="code-example">
+// 回答表示機能のJavaScript例
+function showAnswer(questionId) {
+    const answerDiv = document.getElementById('answer' + questionId);
+    const button = event.target;
+    
+    if (answerDiv.style.display === 'none') {
+        answerDiv.style.display = 'block';
+        button.textContent = '回答を非表示';
+        button.className = 'btn btn-secondary btn-sm';
+    } else {
+        answerDiv.style.display = 'none';
+        button.textContent = '回答を表示';
+        button.className = 'btn btn-primary btn-sm';
+    }
+}
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h3 class="text-xl font-bold mb-4">💡 ITエンジニア豆知識</h3>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li><strong>システム設計時のハードウェア選定ポイント</strong>：CPU性能・メモリ容量・ストレージ種類の実務的判断基準</li>
+                    <li><strong>OS選択とパフォーマンスチューニング</strong>：Windows・Linux・macOSの特徴と最適化手法</li>
+                    <li><strong>プログラミングでの数値処理注意点</strong>：浮動小数点演算の落とし穴と対策</li>
+                    <li><strong>組み込みシステムでの論理回路活用</strong>：IoTデバイス・スマートフォンでの実装例</li>
+                    <li><strong>第1ヶ月学習の効果的な定着方法</strong>：復習スケジュール・記憶術・実践練習法</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h3 class="text-xl font-bold mb-4">📝 まとめと次回予告（改善仕様）</h3>
+                <h4 class="text-lg font-semibold mb-2">6. **本日のまとめ**</h4>
+                <ul class="list-disc pl-6 mb-4">
+                    <li><strong>具体的成果</strong>：「4分野の基礎知識を統合的に理解し、実務での活用イメージを獲得」</li>
+                    <li><strong>重要ポイント3つ</strong>：
+                        <ol class="list-decimal pl-6 mt-2">
+                            <li>ハードウェア・OS・数値・論理の相互関係理解</li>
+                            <li>分野横断的な問題解決能力の習得</li>
+                            <li>第2ヶ月目学習への基礎固め完了</li>
+                        </ol>
+                    </li>
+                    <li><strong>次回との関連性</strong>：「ネットワーク基礎学習で、コンピュータ同士の通信における4分野知識の応用を学習」</li>
+                </ul>
+
+                <h4 class="text-lg font-semibold mb-2">7. **復習方法の具体的ガイダンス**</h4>
+                <ul class="list-disc pl-6">
+                    <li><strong>週末復習プラン</strong>：各分野30分ずつの集中復習方法</li>
+                    <li><strong>弱点克服法</strong>：模擬試験結果に基づく個別学習計画</li>
+                    <li><strong>知識定着チェック</strong>：自己テスト用チェックリスト提供</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h3 class="text-xl font-bold mb-4">🔗 ナビゲーションリンク</h3>
+                <ul class="list-disc pl-6">
+                    <li>`前日: lecture22.html`</li>
+                    <li>`翌日: lecture24.html`</li>
+                    <li>`第5週一覧: ../week/week5.html`</li>
+                    <li>`第2ヶ月目一覧: ../month/month2.html`</li>
+                </ul>
+            </div>
+
+            <div class="content-section">
+                <h3 class="text-xl font-bold mb-4">🏁 フッター</h3>
+                <p>`© 2025 APSA Co.,Ltd. All Rights Reserved.`</p>
+            </div>
+        </section>
+
+        <div class="warning-box mt-8">
+            <h3 class="text-lg font-bold mb-2 text-orange-800">
+                <i class="fas fa-check-circle mr-2"></i>最終確認事項
+            </h3>
+            <ul class="list-disc pl-6 space-y-1 text-sm">
+                <li><strong>分かりやすさ</strong>：専門用語の日本語併記、具体例の豊富な提供</li>
+                <li><strong>表の明確さ</strong>：数値だけでなく説明文併記、実用例の明示</li>
+                <li><strong>段階的理解</strong>：基礎から応用への論理的な流れ</li>
+                <li><strong>実務関連性</strong>：各分野の実際の活用場面を具体的に説明</li>
+                <li><strong>復習効率</strong>：後から見返しやすい構成とまとめ方</li>
+            </ul>
+        </div>
+
+        <div class="instruction-box mt-8">
+            <h2 class="text-2xl font-bold mb-4">📤 出力形式</h2>
+            <p class="text-lg"><strong class="highlight">上記の分かりやすさ改善要項をすべて含んだ完成HTMLのみを返してください。</strong></p>
+            <p class="text-base mt-2">講師が説明しやすく、受講者が理解しやすい、質の高い総合復習ページの作成をお願いします。</p>
+        </div>
+    </div>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDopECuptMHGCb7%2BIH1q5ab3mDtLkPtZBDlWNP8B8PrG5RP5cRgJJbH7TXL7o7VIseeqX9HEIyEyU6k4h9UsDTQCGNPl6cUzdgdOqtgpW0YA51yAipakObcjVVeJcBB9dnRDRN8QkiwIKe4Q4kBZb5nmuJxZ0Aj2zFM7e0ahRgJ0rURiJmXU6unRn5KaK460uCnZcS03IyxK5c%2BruQtPnFaVe1neRTzJ4FSuKSUl1lgqVk8t9H1dfB9yYClMwrj0oFhVQ59AHpdU%2FWmHxGD%2F4MF%2F2qGtPpX4B%2FgG3BuyJZZJ9km4YhWcQJp8zz4IcXFMEZBMpGit5mZXP3LAYcYyJwRc84vdtu9T8Ss0aOEPy40UW8hthRTCEDOvtkAl6GJCUCZ5HoIQ6opYIXJ4F%2BkwQYWnApGldPwLKeB4CVps703ZGCVIDlWCsrkEkEBbvq1vTOBt7coiBfWaLS8Mf69mO66g2pISRwKoyirxtsLdoc4XgVv3P81XVCtewoGSrH12%2FPyEiDlasyR7Ln%2FcyHC5AeESNx2%2B5PrGXYQkJaCoTXaT949CtUvWYio4Azk%2B7njx2Fw%3D%3D";
+        window.__genspark_locale = "ja-JP";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDopECuptMHGCb7+IH1q5ab3mDtLkPtZBDlWNP8B8PrG5RP5cRgJJbH7TXL7o7VIseeqX9HEIyEyU6k4h9UsDTQCGNPl6cUzdgdOqtgpW0YA51yAipakObcjVVeJcBB9dnRDRN8QkiwIKe4Q4kBZb5nmuJxZ0Aj2zFM7e0ahRgJ0rURiJmXU6unRn5KaK460uCnZcS03IyxK5c+ruQtPnFaVe1neRTzJ4FSuKSUl1lgqVk8t9H1dfB9yYClMwrj0oFhVQ59AHpdU/WmHxGD/4MF/2qGtPpX4B/gG3BuyJZZJ9km4YhWcQJp8zz4IcXFMEZBMpGit5mZXP3LAYcYyJwRc84vdtu9T8Ss0aOEPy40UW8hthRTCEDOvtkAl6GJCUCZ5HoIQ6opYIXJ4F+kwQYWnApGldPwLKeB4CVps703ZGCVIDlWCsrkEkEBbvq1vTOBt7coiBfWaLS8Mf69mO66g2pISRwKoyirxtsLdoc4XgVv3P81XVCtewoGSrH12/PyEiDlasyR7Ln/cyHC5AeESNx2+5PrGXYQkJaCoTXaT949CtUvWYio4Azk+7njx2Fw==";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
