@@ -10,10 +10,10 @@ import java.util.Objects;
 /**
  * 学生プロフィールエンティティ
  * 学生の詳細情報を管理するエンティティ
- * 
- * @author Giiku System
+ *
+ * @author 株式会社アプサ
  * @version 1.0
- * @since 2025-08-16
+ * @since 2025
  */
 @Entity
 @Table(name = "student_profiles", indexes = {
@@ -199,6 +199,20 @@ public class StudentProfile extends BaseEntity {
      */
     public String getDisplayName() {
         return this.studentNumber != null ? this.studentNumber : "学生番号未設定";
+    }
+
+    /**
+     * エイリアスメソッド：学生プロファイルIDを取得
+     */
+    public Long getStudentProfileId() {
+        return getId();
+    }
+
+    /**
+     * エイリアスメソッド：学生プロファイルIDを設定
+     */
+    public void setStudentProfileId(Long id) {
+        setId(id);
     }
 
     /**

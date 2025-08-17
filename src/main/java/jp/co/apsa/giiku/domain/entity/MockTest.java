@@ -25,7 +25,7 @@ import java.util.Objects;
  * 模擬試験エンティティ
  * 研修プログラム内での練習・評価テスト管理
  * 
- * @author Giiku LMS Development Team
+ * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
  */
@@ -41,6 +41,9 @@ public class MockTest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "test_id")
     private Long testId;
+
+    @Column(name = "company_id")
+    private Long companyId;
 
     @NotNull(message = "プログラムIDは必須です")
     @Column(name = "program_id", nullable = false)
@@ -82,6 +85,9 @@ public class MockTest {
     @Size(max = 20, message = "ステータスは20文字以内で入力してください")
     @Column(name = "status", nullable = false, length = 20)
     private String status; // DRAFT, ACTIVE, INACTIVE, ARCHIVED
+
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = true;
 
     @Column(name = "max_attempts")
     @Min(value = 1, message = "最大受験回数は1回以上で設定してください")
@@ -131,19 +137,11 @@ public class MockTest {
     // ビジネスロジックメソッド
 
     /**
-     * テストがアクティブかどうかを判定
-     * @return アクティブな場合true
-     */
-    public boolean isActive() {
-        return "ACTIVE".equals(this.status);
-    }
-
-    /**
      * テストが現在受験可能かどうかを判定
      * @return 受験可能な場合true
      */
     public boolean isAvailableNow() {
-        if (!isActive()) {
+        if (!Boolean.TRUE.equals(this.isActive)) {
             return false;
         }
 
@@ -209,6 +207,38 @@ public class MockTest {
             default:
                 return this.difficultyLevel;
         }
+    }
+
+    /**
+     * ID のエイリアスアクセサ
+     * @return テストID
+     */
+    public Long getId() {
+        return this.testId;
+    }
+
+    /**
+     * ID のエイリアスセッター
+     * @param id テストID
+     */
+    public void setId(Long id) {
+        this.testId = id;
+    }
+
+    /**
+     * 制限時間のエイリアスアクセサ
+     * @return 制限時間（分）
+     */
+    public Integer getDuration() {
+        return this.durationMinutes;
+    }
+
+    /**
+     * 制限時間のエイリアスセッター
+     * @param duration 制限時間（分）
+     */
+    public void setDuration(Integer duration) {
+        this.durationMinutes = duration;
     }
 
     /**

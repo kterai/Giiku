@@ -10,7 +10,6 @@ import jp.co.apsa.giiku.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +19,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.PageImpl;
 
 /**
- * TrainingProgram（研修プログラム）に関するビジネスロジックを提供するサービスクラス
- * 
- * @author Giiku LMS Team
+ * TrainingProgram（研修プログラム）に関するビジネスロジックを提供するサービスクラス。
+ *
+ * @author 株式会社アプサ
  * @version 1.0
- * @since 2025-08-14
+ * @since 2025
  */
 @Service
 @Transactional
@@ -51,6 +51,23 @@ public class TrainingProgramService {
         return trainingProgramRepository.findAll();
     }
 
+    /** キーワードで研修プログラムを検索 */
+    @Transactional(readOnly = true)
+    public Page<TrainingProgram> findAll(String keyword, Pageable pageable) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return trainingProgramRepository.findAll(pageable);
+        }
+        Specification<TrainingProgram> spec = (root, query, cb) ->
+                cb.like(cb.lower(root.get("programName")), "%" + keyword.toLowerCase() + "%");
+        return trainingProgramRepository.findAll(spec, pageable);
+    }
+
+    /** ページングのみの取得 */
+    @Transactional(readOnly = true)
+    public Page<TrainingProgram> findAll(Pageable pageable) {
+        return trainingProgramRepository.findAll(pageable);
+    }
+
     /**
      * IDで研修プログラムを取得
      * 
@@ -70,7 +87,7 @@ public class TrainingProgramService {
      */
     @Transactional(readOnly = true)
     public List<TrainingProgram> findByCompanyId(Long companyId) {
-        return trainingProgramRepository.findByCompanyIdAndIsActiveTrue(companyId);
+        return trainingProgramRepository.findByCompanyIdAndProgramStatus(companyId, TrainingProgram.ProgramStatus.ACTIVE);
     }
 
     /**
@@ -80,7 +97,7 @@ public class TrainingProgramService {
      */
     @Transactional(readOnly = true)
     public List<TrainingProgram> findActivePrograms() {
-        return trainingProgramRepository.findByIsActiveTrueOrderByStartDateAsc();
+        return trainingProgramRepository.findByProgramStatusOrderByStartDateAsc(TrainingProgram.ProgramStatus.ACTIVE);
     }
 
     /**
@@ -91,7 +108,7 @@ public class TrainingProgramService {
      */
     @Transactional(readOnly = true)
     public List<TrainingProgram> findByCategory(String category) {
-        return trainingProgramRepository.findByCategoryAndIsActiveTrueOrderByNameAsc(category);
+        return trainingProgramRepository.findByCategoryAndProgramStatusOrderByProgramNameAsc(category, TrainingProgram.ProgramStatus.ACTIVE);
     }
 
     /**
@@ -102,7 +119,7 @@ public class TrainingProgramService {
      */
     @Transactional(readOnly = true)
     public List<TrainingProgram> findByLevel(String level) {
-        return trainingProgramRepository.findByLevelAndIsActiveTrueOrderByNameAsc(level);
+        return trainingProgramRepository.findByLevelAndProgramStatusOrderByProgramNameAsc(level, TrainingProgram.ProgramStatus.ACTIVE);
     }
 
     /**
@@ -117,7 +134,7 @@ public class TrainingProgramService {
      * @return ページング対応の研修プログラム
      */
     @Transactional(readOnly = true)
-    public Page<TrainingProgram> searchPrograms(Long companyId, String category, String level, 
+    public Page<TrainingProgram> searchPrograms(Long companyId, String category, String level,
                                               Long instructorId, Boolean isActive, Pageable pageable) {
         Specification<TrainingProgram> spec = (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
@@ -134,18 +151,21 @@ public class TrainingProgramService {
                 predicates.add(criteriaBuilder.equal(root.get("level"), level));
             }
 
-            if (instructorId != null) {
-                predicates.add(criteriaBuilder.equal(root.get("instructorId"), instructorId));
-            }
-
             if (isActive != null) {
-                predicates.add(criteriaBuilder.equal(root.get("isActive"), isActive));
+                String status = isActive ? TrainingProgram.ProgramStatus.ACTIVE : TrainingProgram.ProgramStatus.INACTIVE;
+                predicates.add(criteriaBuilder.equal(root.get("programStatus"), status));
             }
 
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
 
         return trainingProgramRepository.findAll(spec, pageable);
+    }
+
+    /** キーワード検索のエイリアス */
+    @Transactional(readOnly = true)
+    public Page<TrainingProgram> searchPrograms(String keyword, Pageable pageable) {
+        return findAll(keyword, pageable);
     }
 
     /**
@@ -163,14 +183,6 @@ public class TrainingProgramService {
             Optional<Company> company = companyRepository.findById(trainingProgram.getCompanyId());
             if (!company.isPresent()) {
                 throw new IllegalArgumentException("指定された企業が存在しません: " + trainingProgram.getCompanyId());
-            }
-        }
-
-        // 講師存在チェック
-        if (trainingProgram.getInstructorId() != null) {
-            Optional<User> instructor = userRepository.findById(trainingProgram.getInstructorId());
-            if (!instructor.isPresent()) {
-                throw new IllegalArgumentException("指定された講師が存在しません: " + trainingProgram.getInstructorId());
             }
         }
 
@@ -210,8 +222,13 @@ public class TrainingProgramService {
         }
 
         TrainingProgram program = trainingProgram.get();
-        program.setIsActive(false);
+        program.setProgramStatus(TrainingProgram.ProgramStatus.INACTIVE);
         trainingProgramRepository.save(program);
+    }
+
+    /** IDで削除（エイリアス） */
+    public void deleteById(Long id) {
+        trainingProgramRepository.deleteById(id);
     }
 
     /**
@@ -235,7 +252,7 @@ public class TrainingProgramService {
      */
     @Transactional(readOnly = true)
     public long countByCompanyId(Long companyId) {
-        return trainingProgramRepository.countByCompanyIdAndIsActiveTrue(companyId);
+        return trainingProgramRepository.countByCompanyIdAndProgramStatus(companyId, TrainingProgram.ProgramStatus.ACTIVE);
     }
 
     /**
@@ -261,7 +278,7 @@ public class TrainingProgramService {
             throw new IllegalArgumentException("研修プログラムが null です");
         }
 
-        if (trainingProgram.getName() == null || trainingProgram.getName().trim().isEmpty()) {
+        if (trainingProgram.getProgramName() == null || trainingProgram.getProgramName().trim().isEmpty()) {
             throw new IllegalArgumentException("研修プログラム名は必須です");
         }
 
@@ -277,11 +294,11 @@ public class TrainingProgramService {
             throw new IllegalArgumentException("開始日は終了日より前である必要があります");
         }
 
-        if (trainingProgram.getMaxStudents() != null && trainingProgram.getMaxStudents() <= 0) {
+        if (trainingProgram.getMaxParticipants() != null && trainingProgram.getMaxParticipants() <= 0) {
             throw new IllegalArgumentException("最大受講者数は正の数である必要があります");
         }
 
-        if (trainingProgram.getDuration() != null && trainingProgram.getDuration() <= 0) {
+        if (trainingProgram.getDurationDays() != null && trainingProgram.getDurationDays() <= 0) {
             throw new IllegalArgumentException("研修期間は正の数である必要があります");
         }
     }

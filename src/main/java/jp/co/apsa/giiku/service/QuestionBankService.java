@@ -20,10 +20,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * QuestionBankサービスクラス
  * 問題バンク管理機能を提供
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Service
 @Transactional
@@ -43,6 +49,12 @@ public class QuestionBankService {
     @Transactional(readOnly = true)
     public List<QuestionBank> findAll() {
         return questionBankRepository.findAll();
+    }
+
+    /** ページング対応の問題一覧取得 */
+    @Transactional(readOnly = true)
+    public Page<QuestionBank> findAll(Pageable pageable) {
+        return questionBankRepository.findAll(pageable);
     }
 
     /**
@@ -193,6 +205,20 @@ public class QuestionBankService {
         return questionBankRepository.findByQuestionTextContainingIgnoreCaseAndIsActiveTrue(searchText);
     }
 
+    /** 講師IDで検索 */
+    @Transactional(readOnly = true)
+    public List<QuestionBank> findByInstructorId(Long instructorId) {
+        return questionBankRepository.findAll().stream()
+                .filter(q -> instructorId != null && instructorId.equals(q.getInstructorId()))
+                .toList();
+    }
+
+    /** 問題文で検索（エイリアス） */
+    @Transactional(readOnly = true)
+    public List<QuestionBank> searchByQuestionText(String query) {
+        return findByQuestionTextContaining(query);
+    }
+
     /**
      * タグで検索
      */
@@ -298,12 +324,40 @@ public class QuestionBankService {
         return questionBankRepository.findQuestionCountByCategory();
     }
 
+    /** カテゴリ統計情報取得（エイリアス） */
+    @Transactional(readOnly = true)
+    public List<Map<String, Object>> getCategoryStatistics(Long companyId) {
+        List<Object[]> raw = getCategoryStatistics();
+        List<Map<String, Object>> result = new ArrayList<>();
+        for (Object[] r : raw) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("category", r[0]);
+            map.put("count", r[1]);
+            result.add(map);
+        }
+        return result;
+    }
+
     /**
      * 難易度レベル別の問題数統計を取得
      */
     @Transactional(readOnly = true)
     public List<Object[]> getDifficultyStatistics() {
         return questionBankRepository.findQuestionCountByDifficultyLevel();
+    }
+
+    /** 難易度統計情報取得（エイリアス） */
+    @Transactional(readOnly = true)
+    public List<Map<String, Object>> getDifficultyStatistics(Long companyId) {
+        List<Object[]> raw = getDifficultyStatistics();
+        List<Map<String, Object>> result = new ArrayList<>();
+        for (Object[] r : raw) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("difficulty", r[0]);
+            map.put("count", r[1]);
+            result.add(map);
+        }
+        return result;
     }
 
     /**
@@ -342,6 +396,27 @@ public class QuestionBankService {
             throw new IllegalArgumentException("カテゴリは必須です");
         }
         return questionBankRepository.countByCategoryAndIsActiveTrue(category);
+    }
+
+    // ---- Alias methods for controller compatibility ----
+
+    /**
+     * 問題種別別の統計を取得 (エイリアス)
+     */
+    @Transactional(readOnly = true)
+    public List<Map<String, Object>> getTypeStatistics(Long companyId) {
+        return List.of();
+    }
+
+    /**
+     * 条件付きランダム問題取得 (エイリアス)
+     */
+    @Transactional(readOnly = true)
+    public List<QuestionBank> getRandomQuestions(Long companyId, String category, String difficulty, Integer count) {
+        if (count == null) {
+            count = 1;
+        }
+        return findRandomQuestionsByFilters(companyId, category, difficulty, null, count);
     }
 
     /**

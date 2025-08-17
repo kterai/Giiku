@@ -10,10 +10,10 @@ import java.time.LocalDateTime;
 /**
  * 講義エンティティ
  * 個別の講義・授業の詳細情報を管理
- * 
- * @author Giiku LMS Team
+ *
+ * @author 株式会社アプサ
  * @version 1.0
- * @since 2024-01
+ * @since 2025
  */
 @Entity
 @Table(name = "lectures")
@@ -131,6 +131,82 @@ public class Lecture extends BaseEntity {
             case "TEST": return "テスト";
             case "DISCUSSION": return "ディスカッション";
             default: return "未分類";
+        }
+    }
+
+    /**
+     * エイリアス: 講義タイトルの取得
+     *
+     * @return 講義タイトル
+     */
+    public String getTitle() {
+        return this.lectureTitle;
+    }
+
+    /**
+     * エイリアス: 講義タイトルの設定
+     *
+     * @param title 講義タイトル
+     */
+    public void setTitle(String title) {
+        this.lectureTitle = title;
+    }
+
+    /**
+     * エイリアス: 研修プログラムIDの取得
+     * 日次スケジュールIDを研修プログラムIDとして扱う
+     *
+     * @return 研修プログラムID
+     */
+    public Long getTrainingProgramId() {
+        return this.dailyScheduleId;
+    }
+
+    /**
+     * エイリアス: 研修プログラムIDの設定
+     *
+     * @param trainingProgramId 研修プログラムID
+     */
+    public void setTrainingProgramId(Long trainingProgramId) {
+        this.dailyScheduleId = trainingProgramId;
+    }
+
+    /**
+     * エイリアス: スケジュール日時の取得
+     * 実施開始日時をスケジュール日時として扱う
+     *
+     * @return スケジュール日時
+     */
+    public LocalDateTime getScheduleDate() {
+        return this.actualStartTime;
+    }
+
+    /**
+     * エイリアス: スケジュール日時の設定
+     *
+     * @param scheduleDate スケジュール日時
+     */
+    public void setScheduleDate(LocalDateTime scheduleDate) {
+        this.actualStartTime = scheduleDate;
+    }
+
+    /**
+     * エイリアス: アクティブ状態の取得
+     *
+     * @return アクティブ状態
+     */
+    public boolean getIsActive() {
+        return !"CANCELLED".equals(this.lectureStatus);
+    }
+
+    /**
+     * エイリアス: アクティブ状態の設定
+     *
+     * @param active アクティブ状態
+     */
+    public void setIsActive(boolean active) {
+        if (!active) {
+            this.lectureStatus = "CANCELLED";
         }
     }
 }

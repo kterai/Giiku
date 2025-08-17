@@ -7,6 +7,10 @@ import java.math.BigDecimal;
 /**
  * 成績エンティティ
  * LMS機能における成績評価管理を行う
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Entity
 @Table(name = "grade")

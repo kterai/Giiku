@@ -2,6 +2,13 @@ package jp.co.apsa.giiku.dto;
 
 import java.time.LocalDateTime;
 
+/**
+ * プログラムスケジュール検索DTO
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
 public class ProgramScheduleSearchDto {
     private Long programId;
     private Long companyId;
@@ -9,6 +16,9 @@ public class ProgramScheduleSearchDto {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private Long instructorId;
+    private String startDateFrom;
+    private String startDateTo;
+    private String location;
 
     public ProgramScheduleSearchDto() {}
 
@@ -29,4 +39,9 @@ public class ProgramScheduleSearchDto {
 
     public Long getInstructorId() { return instructorId; }
     public void setInstructorId(Long instructorId) { this.instructorId = instructorId; }
+
+    // ----- Alias setters used by controller -----
+    public void setStartDateFrom(String startDateFrom) { this.startDateFrom = startDateFrom; }
+    public void setStartDateTo(String startDateTo) { this.startDateTo = startDateTo; }
+    public void setLocation(String location) { this.location = location; }
 }

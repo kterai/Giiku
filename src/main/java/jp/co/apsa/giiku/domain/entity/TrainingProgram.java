@@ -45,6 +45,12 @@ public class TrainingProgram extends BaseEntity {
     @Column(name = "program_name", nullable = false, length = 200)
     private String programName;
 
+    /** programName のエイリアス getter */
+    public String getName() { return programName; }
+
+    /** programName のエイリアス setter */
+    public void setName(String name) { this.programName = name; }
+
     /**
      * プログラム説明
      */

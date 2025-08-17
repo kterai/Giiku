@@ -5,6 +5,10 @@ import java.time.LocalDateTime;
 
 /**
  * プログラムスケジュール作成DTO
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 public class ProgramScheduleCreateDto {
 
@@ -64,4 +68,8 @@ public class ProgramScheduleCreateDto {
 
     public String getLocation() { return location; }
     public void setLocation(String location) { this.location = location; }
+
+    // ---- Alias getters for controller compatibility ----
+    public LocalDateTime getStartDate() { return this.startDateTime; }
+    public LocalDateTime getEndDate() { return this.endDateTime; }
 }

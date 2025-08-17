@@ -7,6 +7,10 @@ import java.util.List;
 /**
  * クイズエンティティ
  * LMS機能におけるクイズ実施管理を行う
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Entity
 @Table(name = "quiz")
@@ -116,6 +120,24 @@ public class Quiz {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    /**
+     * title のエイリアス getter
+     *
+     * @return quizTitle
+     */
+    public String getQuizTitle() {
+        return title;
+    }
+
+    /**
+     * title のエイリアス setter
+     *
+     * @param quizTitle quizTitle
+     */
+    public void setQuizTitle(String quizTitle) {
+        this.title = quizTitle;
     }
 
     public String getDescription() {
@@ -324,6 +346,78 @@ public class Quiz {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    /**
+     * TrainingProgramId のエイリアス getter
+     *
+     * @return programId
+     */
+    public Long getProgramId() {
+        return trainingProgramId;
+    }
+
+    /**
+     * TrainingProgramId のエイリアス setter
+     *
+     * @param programId programId
+     */
+    public void setProgramId(Long programId) {
+        this.trainingProgramId = programId;
+    }
+
+    /**
+     * quizStatus のエイリアス getter
+     *
+     * @return status
+     */
+    public String getStatus() {
+        return quizStatus;
+    }
+
+    /**
+     * quizStatus のエイリアス setter
+     *
+     * @param status status
+     */
+    public void setStatus(String status) {
+        this.quizStatus = status;
+    }
+
+    /**
+     * percentageScore のエイリアス getter
+     *
+     * @return score
+     */
+    public Double getScore() {
+        return percentageScore;
+    }
+
+    /**
+     * percentageScore のエイリアス setter
+     *
+     * @param score score
+     */
+    public void setScore(Double score) {
+        this.percentageScore = score;
+    }
+
+    /**
+     * timeSpentMinutes のエイリアス getter
+     *
+     * @return timeSpent
+     */
+    public Integer getTimeSpent() {
+        return timeSpentMinutes;
+    }
+
+    /**
+     * timeSpentMinutes のエイリアス setter
+     *
+     * @param timeSpent timeSpent
+     */
+    public void setTimeSpent(Integer timeSpent) {
+        this.timeSpentMinutes = timeSpent;
     }
 
     @PrePersist
