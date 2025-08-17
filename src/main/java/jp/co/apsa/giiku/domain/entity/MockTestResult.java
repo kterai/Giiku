@@ -9,6 +9,10 @@ import java.time.Duration;
 /**
  * モックテスト結果を管理するエンティティクラス
  * 学生のテスト受験結果、スコア、時間などの詳細情報を保持します
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Entity
 @Table(name = "mock_test_results", indexes = {
@@ -21,7 +25,7 @@ import java.time.Duration;
     @UniqueConstraint(name = "uk_test_student_attempt", 
                      columnNames = {"testId", "studentId", "attemptNumber"})
 })
-/** The MockTestResult class. */
+
 public class MockTestResult extends BaseEntity {
 
     @NotNull

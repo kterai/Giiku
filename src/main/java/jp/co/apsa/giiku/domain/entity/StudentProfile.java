@@ -10,6 +10,10 @@ import java.util.Objects;
 /**
  * 学生プロフィールエンティティ
  * 学生の詳細情報を管理するエンティティ
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Entity
 @Table(name = "student_profiles", indexes = {
@@ -19,7 +23,6 @@ import java.util.Objects;
     @Index(name = "idx_enrollment_status", columnList = "enrollment_status"),
     @Index(name = "idx_admission_date", columnList = "admission_date")
 })
-/** The StudentProfile class. */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class StudentProfile extends BaseEntity {

@@ -11,6 +11,10 @@ import java.util.Objects;
 /**
  * 研修プログラムエンティティ
  * 研修プログラムの詳細情報を管理するエンティティ
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Entity
 @Table(name = "training_programs", indexes = {
@@ -21,7 +25,6 @@ import java.util.Objects;
     @Index(name = "idx_category", columnList = "category"),
     @Index(name = "idx_level", columnList = "level")
 })
-/** The TrainingProgram class. */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class TrainingProgram extends BaseEntity {

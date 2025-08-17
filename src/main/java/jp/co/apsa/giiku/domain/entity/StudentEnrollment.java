@@ -11,6 +11,10 @@ import java.util.Objects;
 /**
  * 学生登録エンティティ
  * 学生の研修プログラム登録情報を管理するエンティティ
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Entity
 @Table(name = "student_enrollments", indexes = {
@@ -21,7 +25,6 @@ import java.util.Objects;
     @Index(name = "idx_enrollment_date", columnList = "enrollment_date"),
     @Index(name = "idx_student_program_unique", columnList = "student_id,program_id", unique = true)
 })
-/** The StudentEnrollment class. */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class StudentEnrollment extends BaseEntity {
