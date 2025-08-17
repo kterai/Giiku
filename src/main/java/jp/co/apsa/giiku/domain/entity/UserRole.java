@@ -9,6 +9,10 @@ import java.util.Objects;
 /**
  * ユーザーロールエンティティ
  * システム内のユーザーの権限とロール情報を管理するエンティティ
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Entity
 @Table(name = "user_roles", indexes = {
@@ -18,7 +22,6 @@ import java.util.Objects;
     @Index(name = "idx_active", columnList = "active"),
     @Index(name = "idx_user_role_unique", columnList = "user_id,role_name", unique = true)
 })
-/** The UserRole class. */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class UserRole extends BaseEntity {

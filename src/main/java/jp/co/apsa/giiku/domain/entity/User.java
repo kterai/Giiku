@@ -10,6 +10,10 @@ import java.util.Objects;
 /**
  * ユーザーエンティティ
  * システム内のユーザー情報を管理する基本エンティティ
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Entity
 @Table(name = "users", indexes = {
@@ -19,7 +23,7 @@ import java.util.Objects;
     @Index(name = "idx_active", columnList = "active"),
     @Index(name = "idx_role", columnList = "role")
 })
-/** The User class. */
+
 public class User {
 
     @Id
