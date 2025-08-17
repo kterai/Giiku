@@ -23,7 +23,11 @@ public abstract class AbstractController {
      *
      * @param model モデル
      * @param title 画面タイトル
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     protected void setTitle(Model model, String title) {
         model.addAttribute("title", title);
     }
@@ -34,7 +38,11 @@ public abstract class AbstractController {
      * @param message エラーメッセージ
      * @param status  HTTPステータス
      * @return エラー情報を含むレスポンス
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     protected ResponseEntity<Map<String, Object>> createErrorResponse(String message, HttpStatus status) {
         Map<String, Object> body = new HashMap<>();
         body.put("timestamp", LocalDateTime.now());

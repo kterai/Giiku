@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
  * 講師プロファイル拡張エンティティ
  * 既存のUserエンティティに関連付けられる講師専用の情報を管理
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -24,14 +25,22 @@ public class Instructor extends BaseEntity {
 
     /**
      * 講師ID（主キー）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     // ID はBaseEntityから継承
 
     /**
      * 講師IDを取得します。
      *
      * @return 講師ID
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Long getInstructorId() {
         return getId();
     }
@@ -40,7 +49,11 @@ public class Instructor extends BaseEntity {
      * 講師IDを設定します。
      *
      * @param instructorId 講師ID
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void setInstructorId(Long instructorId) {
         setId(instructorId);
     }
@@ -48,14 +61,22 @@ public class Instructor extends BaseEntity {
     /**
      * ユーザーID（外部キー）
      * 既存のUserエンティティとの1:1関係
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Column(name = "user_id", nullable = false, unique = true)
     private Long userId;
 
     /**
      * 講師番号
      * 企業内での一意識別子
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @NotBlank(message = "講師番号は必須です")
     @Size(max = 20, message = "講師番号は20文字以内で入力してください")
     @Column(name = "instructor_number", length = 20, nullable = false)
@@ -64,21 +85,33 @@ public class Instructor extends BaseEntity {
     /**
      * 所属部署ID
      * 講師が所属する部署の識別子
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Column(name = "department_id")
     private Long departmentId;
 
     /**
      * 講師資格取得日
      * 講師として認定された日付
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Column(name = "certification_date")
     private LocalDate certificationDate;
 
     /**
      * 専門分野
      * 講師の専門領域（IT、ビジネス、語学など）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Size(max = 100, message = "専門分野は100文字以内で入力してください")
     @Column(name = "specialization", length = 100)
     private String specialization;
@@ -86,7 +119,11 @@ public class Instructor extends BaseEntity {
     /**
      * 講師レベル
      * 1: 新任, 2: 一般, 3: 上級, 4: エキスパート, 5: マスター
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Min(value = 1, message = "講師レベルは1以上である必要があります")
     @Max(value = 5, message = "講師レベルは5以下である必要があります")
     @Column(name = "instructor_level", nullable = false)
@@ -95,7 +132,11 @@ public class Instructor extends BaseEntity {
     /**
      * 担当コース数
      * 現在担当しているコースの総数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Min(value = 0, message = "担当コース数は0以上である必要があります")
     @Column(name = "assigned_courses_count", nullable = false)
     private Integer assignedCoursesCount = 0;
@@ -103,7 +144,11 @@ public class Instructor extends BaseEntity {
     /**
      * 担当学生数
      * 現在指導している学生の総数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Min(value = 0, message = "担当学生数は0以上である必要があります")
     @Column(name = "assigned_students_count", nullable = false)
     private Integer assignedStudentsCount = 0;
@@ -111,7 +156,11 @@ public class Instructor extends BaseEntity {
     /**
      * 累積指導時間（分）
      * 講師として指導した総時間
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Min(value = 0, message = "指導時間は0以上である必要があります")
     @Column(name = "total_teaching_minutes", nullable = false)
     private Integer totalTeachingMinutes = 0;
@@ -119,7 +168,11 @@ public class Instructor extends BaseEntity {
     /**
      * 講師評価スコア
      * 学生からの評価の平均値（1-5）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @DecimalMin(value = "1.0", message = "評価スコアは1.0以上である必要があります")
     @DecimalMax(value = "5.0", message = "評価スコアは5.0以下である必要があります")
     @Column(name = "rating_score", precision = 3, scale = 2)
@@ -128,7 +181,11 @@ public class Instructor extends BaseEntity {
     /**
      * 評価件数
      * 受けた評価の総件数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Min(value = 0, message = "評価件数は0以上である必要があります")
     @Column(name = "rating_count", nullable = false)
     private Integer ratingCount = 0;
@@ -136,14 +193,22 @@ public class Instructor extends BaseEntity {
     /**
      * 最終指導日時
      * 講師が最後に指導を行った日時
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Column(name = "last_teaching_date")
     private LocalDateTime lastTeachingDate;
 
     /**
      * 自己紹介
      * 講師の経歴や指導方針などの自己紹介文
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Size(max = 1000, message = "自己紹介は1000文字以内で入力してください")
     @Column(name = "bio", length = 1000)
     private String bio;
@@ -151,7 +216,11 @@ public class Instructor extends BaseEntity {
     /**
      * 講師ステータス
      * ACTIVE: 稼働中, INACTIVE: 非稼働, SUSPENDED: 停止, RETIRED: 退任
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @NotBlank(message = "講師ステータスは必須です")
     @Pattern(regexp = "^(ACTIVE|INACTIVE|SUSPENDED|RETIRED)$", 
              message = "講師ステータスは ACTIVE, INACTIVE, SUSPENDED, RETIRED のいずれかである必要があります")
@@ -161,7 +230,11 @@ public class Instructor extends BaseEntity {
     /**
      * 可用性情報
      * 講師の勤務可能時間や曜日などの情報
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Size(max = 500, message = "可用性情報は500文字以内で入力してください")
     @Column(name = "availability", length = 500)
     private String availability;
@@ -169,14 +242,22 @@ public class Instructor extends BaseEntity {
     /**
      * プロファイル更新日時
      * 管理用タイムスタンプ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Column(name = "profile_updated_at")
     private LocalDateTime profileUpdatedAt;
 
     /**
      * エンティティ保存前処理
      * プロファイル更新日時を自動設定
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PrePersist
     @PreUpdate
     protected void onProfileUpdate() {
@@ -187,7 +268,11 @@ public class Instructor extends BaseEntity {
      * 指導時間を追加
      * 
      * @param minutes 追加する指導時間（分）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void addTeachingTime(int minutes) {
         if (minutes > 0) {
             this.totalTeachingMinutes += minutes;
@@ -197,14 +282,22 @@ public class Instructor extends BaseEntity {
 
     /**
      * 担当コース数を増加
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void incrementAssignedCourses() {
         this.assignedCoursesCount++;
     }
 
     /**
      * 担当コース数を減少
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void decrementAssignedCourses() {
         if (this.assignedCoursesCount > 0) {
             this.assignedCoursesCount--;
@@ -213,14 +306,22 @@ public class Instructor extends BaseEntity {
 
     /**
      * 担当学生数を増加
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void incrementAssignedStudents() {
         this.assignedStudentsCount++;
     }
 
     /**
      * 担当学生数を減少
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void decrementAssignedStudents() {
         if (this.assignedStudentsCount > 0) {
             this.assignedStudentsCount--;
@@ -231,7 +332,11 @@ public class Instructor extends BaseEntity {
      * 評価を追加（平均計算）
      * 
      * @param newRating 新しい評価（1-5）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void addRating(double newRating) {
         if (newRating >= 1.0 && newRating <= 5.0) {
             double currentTotal = this.ratingScore * this.ratingCount;
@@ -244,7 +349,11 @@ public class Instructor extends BaseEntity {
      * 講師ステータスがアクティブかどうかを判定
      * 
      * @return アクティブの場合true
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public boolean isActive() {
         return "ACTIVE".equals(this.instructorStatus);
     }
@@ -253,7 +362,11 @@ public class Instructor extends BaseEntity {
      * 講師レベルの文字列表現を取得
      * 
      * @return 講師レベルの日本語表記
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public String getInstructorLevelDisplay() {
         switch (this.instructorLevel) {
             case 1: return "新任";
@@ -269,7 +382,11 @@ public class Instructor extends BaseEntity {
      * 評価スコアの星形式表示を取得
      * 
      * @return 星の数（★☆）形式の文字列
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public String getRatingStarsDisplay() {
         if (this.ratingScore == null || this.ratingScore == 0.0) {
             return "☆☆☆☆☆ (未評価)";

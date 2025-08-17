@@ -6,6 +6,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * HTTPクライアント用のRestTemplateを提供する設定クラス。
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -17,7 +18,11 @@ public class RestTemplateConfig {
      * RestTemplateのBeanを生成します。
      *
      * @return RestTemplateインスタンス
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();

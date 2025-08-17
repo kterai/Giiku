@@ -9,6 +9,7 @@ import java.util.Optional;
 /**
  * Userのリポジトリインターフェース。
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -21,7 +22,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
      *
      * @param username ユーザー名
      * @return 該当ユーザー（存在しない場合は空）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     Optional<User> findByUsername(String username);
 
 }

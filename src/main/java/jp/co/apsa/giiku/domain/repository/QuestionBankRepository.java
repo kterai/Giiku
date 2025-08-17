@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * QuestionBankのリポジトリインターフェース。
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -24,7 +25,11 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Long
      *
      * @param companyId 企業ID
      * @return 該当する問題一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     List<QuestionBank> findByCompanyIdAndIsActiveTrueOrderByCreatedAtDesc(Long companyId);
 
     /**
@@ -32,7 +37,11 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Long
      *
      * @param category カテゴリ
      * @return 該当する問題一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     List<QuestionBank> findByCategoryAndIsActiveTrueOrderByCreatedAtDesc(String category);
 
     /**
@@ -40,7 +49,11 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Long
      *
      * @param difficultyLevel 難易度
      * @return 該当する問題一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     List<QuestionBank> findByDifficultyLevelAndIsActiveTrueOrderByCreatedAtDesc(String difficultyLevel);
 
     /**
@@ -48,14 +61,22 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Long
      *
      * @param questionType 問題種別
      * @return 該当する問題一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     List<QuestionBank> findByQuestionTypeAndIsActiveTrueOrderByCreatedAtDesc(String questionType);
 
     /**
      * 有効な問題を作成日時の降順で取得します。
      *
      * @return 有効な問題一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     List<QuestionBank> findByIsActiveTrueOrderByCreatedAtDesc();
 
     /**
@@ -63,7 +84,11 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Long
      *
      * @param text 検索文字列
      * @return 該当する問題一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     List<QuestionBank> findByQuestionTextContainingIgnoreCaseAndIsActiveTrue(String text);
 
     /**
@@ -71,14 +96,22 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Long
      *
      * @param tag タグ文字列
      * @return 該当する問題一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     List<QuestionBank> findByTagsContainingIgnoreCaseAndIsActiveTrue(String tag);
 
     /**
      * カテゴリ別の問題数を取得します。
      *
      * @return カテゴリと件数の配列リスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Query("SELECT q.category, COUNT(q) FROM QuestionBank q GROUP BY q.category")
     List<Object[]> findQuestionCountByCategory();
 
@@ -86,7 +119,11 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Long
      * 難易度別の問題数を取得します。
      *
      * @return 難易度と件数の配列リスト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Query("SELECT q.difficultyLevel, COUNT(q) FROM QuestionBank q GROUP BY q.difficultyLevel")
     List<Object[]> findQuestionCountByDifficultyLevel();
 
@@ -94,7 +131,11 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Long
      * 有効な問題の件数を取得します。
      *
      * @return 有効な問題数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     long countByIsActiveTrue();
 
     /**
@@ -102,7 +143,11 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Long
      *
      * @param companyId 企業ID
      * @return 問題数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     long countByCompanyIdAndIsActiveTrue(Long companyId);
 
     /**
@@ -110,6 +155,10 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Long
      *
      * @param category カテゴリ
      * @return 問題数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     long countByCategoryAndIsActiveTrue(String category);
 }

@@ -22,6 +22,7 @@ import java.util.Optional;
  * 企業LMS設定管理コントローラー。
  * 企業ごとのLMS設定に関するREST APIを提供する。
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -39,7 +40,11 @@ public class CompanyLmsConfigController {
      *
      * @param pageable ページング情報
      * @return 設定一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping
     public ResponseEntity<Page<CompanyLmsConfig>> getAllCompanyLmsConfigs(
             @PageableDefault(size = 20) Pageable pageable) {
@@ -56,7 +61,11 @@ public class CompanyLmsConfigController {
      *
      * @param id 設定ID
      * @return 企業LMS設定
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/{id}")
     public ResponseEntity<CompanyLmsConfig> getCompanyLmsConfig(@PathVariable @NotNull @Min(1) Long id) {
         try {
@@ -74,7 +83,11 @@ public class CompanyLmsConfigController {
      *
      * @param companyId 企業ID
      * @return 企業LMS設定
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/company/{companyId}")
     public ResponseEntity<CompanyLmsConfig> getCompanyLmsConfigByCompanyId(
             @PathVariable @NotNull @Min(1) Long companyId) {
@@ -91,7 +104,11 @@ public class CompanyLmsConfigController {
      *
      * @param config 設定エンティティ
      * @return 作成された設定
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PostMapping
     public ResponseEntity<CompanyLmsConfig> createCompanyLmsConfig(@Valid @RequestBody CompanyLmsConfig config) {
         try {
@@ -110,7 +127,11 @@ public class CompanyLmsConfigController {
      * @param id 設定ID
      * @param config 更新する設定
      * @return 更新された設定
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PutMapping("/{id}")
     public ResponseEntity<CompanyLmsConfig> updateCompanyLmsConfig(
             @PathVariable @NotNull @Min(1) Long id,
@@ -132,7 +153,11 @@ public class CompanyLmsConfigController {
      * @param id 設定ID
      * @param request 有効フラグ
      * @return メッセージ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PutMapping("/{id}/lms-enabled")
     public ResponseEntity<Map<String, String>> updateLmsEnabled(
             @PathVariable @NotNull @Min(1) Long id,
@@ -154,7 +179,11 @@ public class CompanyLmsConfigController {
      *
      * @param companyId 企業ID
      * @return アクティブ状態
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/company/{companyId}/active-status")
     public ResponseEntity<Map<String, Boolean>> isLmsActiveForCompany(
             @PathVariable @NotNull @Min(1) Long companyId) {
@@ -171,8 +200,20 @@ public class CompanyLmsConfigController {
     // リクエストクラス
     public static class UpdateEnabledRequest {
         private boolean enabled;
+        /**
+         * isEnabled メソッド
+         * @author 株式会社アプサ
+         * @version 1.0
+         * @since 2025
+         */
 
         public boolean isEnabled() { return enabled; }
+        /**
+         * setEnabled メソッド
+         * @author 株式会社アプサ
+         * @version 1.0
+         * @since 2025
+         */
         public void setEnabled(boolean enabled) { this.enabled = enabled; }
     }
 }

@@ -3,6 +3,10 @@ package jp.co.apsa.giiku.exception;
 /**
  * バリデーションエラーが発生した際に投げられる例外クラス
  * フィールドレベルのバリデーション失敗時に詳細情報を提供します
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 public class ValidationException extends RuntimeException {
 
@@ -14,7 +18,11 @@ public class ValidationException extends RuntimeException {
 
     /**
      * デフォルトコンストラクタ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public ValidationException() {
         super("Validation failed");
         this.fieldName = null;
@@ -24,7 +32,11 @@ public class ValidationException extends RuntimeException {
 
     /**
      * メッセージ付きコンストラクタ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public ValidationException(String message) {
         super(message);
         this.fieldName = null;
@@ -34,7 +46,11 @@ public class ValidationException extends RuntimeException {
 
     /**
      * メッセージと原因付きコンストラクタ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public ValidationException(String message, Throwable cause) {
         super(message, cause);
         this.fieldName = null;
@@ -44,7 +60,11 @@ public class ValidationException extends RuntimeException {
 
     /**
      * フィールド名付きコンストラクタ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public ValidationException(String fieldName, String message) {
         super(message);
         this.fieldName = fieldName;
@@ -54,7 +74,11 @@ public class ValidationException extends RuntimeException {
 
     /**
      * 完全コンストラクタ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public ValidationException(String fieldName, Object rejectedValue, String message) {
         super(message);
         this.fieldName = fieldName;
@@ -64,7 +88,11 @@ public class ValidationException extends RuntimeException {
 
     /**
      * エラーコード付きコンストラクタ
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public ValidationException(String fieldName, Object rejectedValue, String message, String errorCode) {
         super(message);
         this.fieldName = fieldName;
@@ -74,28 +102,44 @@ public class ValidationException extends RuntimeException {
 
     /**
      * フィールド名を取得
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public String getFieldName() {
         return fieldName;
     }
 
     /**
      * 拒否された値を取得
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Object getRejectedValue() {
         return rejectedValue;
     }
 
     /**
      * エラーコードを取得
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public String getErrorCode() {
         return errorCode;
     }
 
     /**
      * 必須フィールドエラー用ファクトリメソッド
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public static ValidationException required(String fieldName) {
         return new ValidationException(fieldName, null, 
             "Field " + fieldName + " is required", "REQUIRED_FIELD");
@@ -103,7 +147,11 @@ public class ValidationException extends RuntimeException {
 
     /**
      * 不正な値エラー用ファクトリメソッド
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public static ValidationException invalidValue(String fieldName, Object value) {
         return new ValidationException(fieldName, value, 
             "Invalid value for field " + fieldName, "INVALID_VALUE");
@@ -111,7 +159,11 @@ public class ValidationException extends RuntimeException {
 
     /**
      * 長さエラー用ファクトリメソッド
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public static ValidationException lengthError(String fieldName, Object value, int maxLength) {
         return new ValidationException(fieldName, value, 
             "Field " + fieldName + " exceeds maximum length of " + maxLength, "LENGTH_ERROR");
@@ -119,7 +171,11 @@ public class ValidationException extends RuntimeException {
 
     /**
      * 範囲エラー用ファクトリメソッド
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public static ValidationException rangeError(String fieldName, Object value, String range) {
         return new ValidationException(fieldName, value, 
             "Field " + fieldName + " is out of range: " + range, "RANGE_ERROR");
@@ -127,7 +183,11 @@ public class ValidationException extends RuntimeException {
 
     /**
      * フォーマットエラー用ファクトリメソッド
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public static ValidationException formatError(String fieldName, Object value, String expectedFormat) {
         return new ValidationException(fieldName, value, 
             "Field " + fieldName + " does not match expected format: " + expectedFormat, "FORMAT_ERROR");
@@ -135,7 +195,11 @@ public class ValidationException extends RuntimeException {
 
     /**
      * 詳細情報を含む文字列表現を返す
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

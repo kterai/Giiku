@@ -24,7 +24,8 @@ import java.util.Objects;
 /**
  * 模擬試験エンティティ
  * 研修プログラム内での練習・評価テスト管理
- * 
+ *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -139,7 +140,11 @@ public class MockTest {
     /**
      * テストが現在受験可能かどうかを判定
      * @return 受験可能な場合true
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public boolean isAvailableNow() {
         if (!Boolean.TRUE.equals(this.isActive)) {
             return false;
@@ -155,7 +160,11 @@ public class MockTest {
     /**
      * 1問あたりの平均時間を計算
      * @return 1問あたりの分数
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public double getAverageTimePerQuestion() {
         if (this.totalQuestions == null || this.totalQuestions <= 0) {
             return 0.0;
@@ -166,7 +175,11 @@ public class MockTest {
     /**
      * テストタイプの表示名を取得
      * @return 表示用テストタイプ名
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public String getTestTypeDisplayName() {
         if (this.testType == null) {
             return "未設定";
@@ -191,7 +204,11 @@ public class MockTest {
     /**
      * 難易度レベルの表示名を取得
      * @return 表示用難易度名
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public String getDifficultyDisplayName() {
         if (this.difficultyLevel == null) {
             return "未設定";
@@ -212,7 +229,11 @@ public class MockTest {
     /**
      * ID のエイリアスアクセサ
      * @return テストID
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Long getId() {
         return this.testId;
     }
@@ -220,7 +241,11 @@ public class MockTest {
     /**
      * ID のエイリアスセッター
      * @param id テストID
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void setId(Long id) {
         this.testId = id;
     }
@@ -228,7 +253,11 @@ public class MockTest {
     /**
      * 制限時間のエイリアスアクセサ
      * @return 制限時間（分）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Integer getDuration() {
         return this.durationMinutes;
     }
@@ -236,7 +265,11 @@ public class MockTest {
     /**
      * 制限時間のエイリアスセッター
      * @param duration 制限時間（分）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void setDuration(Integer duration) {
         this.durationMinutes = duration;
     }
@@ -244,7 +277,11 @@ public class MockTest {
     /**
      * テスト時間の表示形式を取得
      * @return フォーマット済み時間表示
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public String getFormattedDuration() {
         if (this.durationMinutes == null || this.durationMinutes <= 0) {
             return "未設定";
@@ -262,6 +299,12 @@ public class MockTest {
         }
     }
 
+    /**
+     * equals メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -270,11 +313,23 @@ public class MockTest {
         return Objects.equals(testId, mockTest.testId);
     }
 
+    /**
+     * hashCode メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Override
     public int hashCode() {
         return Objects.hash(testId);
     }
 
+    /**
+     * toString メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Override
     public String toString() {
         return String.format("MockTest{id=%d, programId=%d, type='%s', title='%s', status='%s'}", 

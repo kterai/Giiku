@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * ログイン関連画面を提供するコントローラー。
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -18,7 +19,11 @@ public class LoginController  extends AbstractController{
      * ルートアクセス時はログインページへリダイレクトします。
      *
      * @return ログインページへのリダイレクト
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/")
     public String root() {
         return "redirect:/login";
@@ -29,7 +34,11 @@ public class LoginController  extends AbstractController{
      *
      * @param logout ログアウト後フラグ
      * @return ログインテンプレート
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/login")
     public String login(@RequestParam(value = "logout", required = false) String logout,
                         Model model) {
@@ -44,7 +53,11 @@ public class LoginController  extends AbstractController{
      *
      * @param model モデル
      * @return ログインテンプレート
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/login-error")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);

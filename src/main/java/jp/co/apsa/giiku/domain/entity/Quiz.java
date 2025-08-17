@@ -8,6 +8,7 @@ import java.util.List;
  * クイズエンティティ
  * LMS機能におけるクイズ実施管理を行う
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -103,20 +104,50 @@ public class Quiz {
     private LocalDateTime updatedAt;
 
     // デフォルトコンストラクタ
+    /**
+     * Quiz メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     public Quiz() {}
 
     // Getter and Setter methods
+    /**
+     * getId メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     public Long getId() {
         return id;
     }
+    /**
+     * setId メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setId(Long id) {
         this.id = id;
     }
+    /**
+     * getTitle メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public String getTitle() {
         return title;
     }
+    /**
+     * setTitle メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setTitle(String title) {
         this.title = title;
@@ -126,7 +157,11 @@ public class Quiz {
      * title のエイリアス getter
      *
      * @return quizTitle
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public String getQuizTitle() {
         return title;
     }
@@ -135,214 +170,530 @@ public class Quiz {
      * title のエイリアス setter
      *
      * @param quizTitle quizTitle
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void setQuizTitle(String quizTitle) {
         this.title = quizTitle;
     }
+    /**
+     * getDescription メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public String getDescription() {
         return description;
     }
+    /**
+     * setDescription メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setDescription(String description) {
         this.description = description;
     }
+    /**
+     * getTrainingProgramId メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Long getTrainingProgramId() {
         return trainingProgramId;
     }
+    /**
+     * setTrainingProgramId メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setTrainingProgramId(Long trainingProgramId) {
         this.trainingProgramId = trainingProgramId;
     }
+    /**
+     * getLectureId メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Long getLectureId() {
         return lectureId;
     }
+    /**
+     * setLectureId メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setLectureId(Long lectureId) {
         this.lectureId = lectureId;
     }
+    /**
+     * getStudentId メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Long getStudentId() {
         return studentId;
     }
+    /**
+     * setStudentId メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setStudentId(Long studentId) {
         this.studentId = studentId;
     }
+    /**
+     * getInstructorId メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Long getInstructorId() {
         return instructorId;
     }
+    /**
+     * setInstructorId メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setInstructorId(Long instructorId) {
         this.instructorId = instructorId;
     }
+    /**
+     * getCompanyId メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Long getCompanyId() {
         return companyId;
     }
+    /**
+     * setCompanyId メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
     }
+    /**
+     * getQuizStatus メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public String getQuizStatus() {
         return quizStatus;
     }
+    /**
+     * setQuizStatus メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setQuizStatus(String quizStatus) {
         this.quizStatus = quizStatus;
     }
+    /**
+     * getTotalQuestions メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Integer getTotalQuestions() {
         return totalQuestions;
     }
+    /**
+     * setTotalQuestions メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setTotalQuestions(Integer totalQuestions) {
         this.totalQuestions = totalQuestions;
     }
+    /**
+     * getAnsweredQuestions メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Integer getAnsweredQuestions() {
         return answeredQuestions;
     }
+    /**
+     * setAnsweredQuestions メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setAnsweredQuestions(Integer answeredQuestions) {
         this.answeredQuestions = answeredQuestions;
     }
+    /**
+     * getTotalPoints メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Integer getTotalPoints() {
         return totalPoints;
     }
+    /**
+     * setTotalPoints メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setTotalPoints(Integer totalPoints) {
         this.totalPoints = totalPoints;
     }
+    /**
+     * getEarnedPoints メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Integer getEarnedPoints() {
         return earnedPoints;
     }
+    /**
+     * setEarnedPoints メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setEarnedPoints(Integer earnedPoints) {
         this.earnedPoints = earnedPoints;
     }
+    /**
+     * getPercentageScore メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Double getPercentageScore() {
         return percentageScore;
     }
+    /**
+     * setPercentageScore メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setPercentageScore(Double percentageScore) {
         this.percentageScore = percentageScore;
     }
+    /**
+     * getPassingScore メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Double getPassingScore() {
         return passingScore;
     }
+    /**
+     * setPassingScore メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setPassingScore(Double passingScore) {
         this.passingScore = passingScore;
     }
+    /**
+     * getIsPassed メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Boolean getIsPassed() {
         return isPassed;
     }
+    /**
+     * setIsPassed メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setIsPassed(Boolean isPassed) {
         this.isPassed = isPassed;
     }
+    /**
+     * getTimeLimitMinutes メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Integer getTimeLimitMinutes() {
         return timeLimitMinutes;
     }
+    /**
+     * setTimeLimitMinutes メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setTimeLimitMinutes(Integer timeLimitMinutes) {
         this.timeLimitMinutes = timeLimitMinutes;
     }
+    /**
+     * getTimeSpentMinutes メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Integer getTimeSpentMinutes() {
         return timeSpentMinutes;
     }
+    /**
+     * setTimeSpentMinutes メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setTimeSpentMinutes(Integer timeSpentMinutes) {
         this.timeSpentMinutes = timeSpentMinutes;
     }
+    /**
+     * getStartTime メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public LocalDateTime getStartTime() {
         return startTime;
     }
+    /**
+     * setStartTime メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
+    /**
+     * getEndTime メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public LocalDateTime getEndTime() {
         return endTime;
     }
+    /**
+     * setEndTime メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
+    /**
+     * getSubmissionTime メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public LocalDateTime getSubmissionTime() {
         return submissionTime;
     }
+    /**
+     * setSubmissionTime メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setSubmissionTime(LocalDateTime submissionTime) {
         this.submissionTime = submissionTime;
     }
+    /**
+     * getGradedTime メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public LocalDateTime getGradedTime() {
         return gradedTime;
     }
+    /**
+     * setGradedTime メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setGradedTime(LocalDateTime gradedTime) {
         this.gradedTime = gradedTime;
     }
+    /**
+     * getStudentAnswers メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public String getStudentAnswers() {
         return studentAnswers;
     }
+    /**
+     * setStudentAnswers メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setStudentAnswers(String studentAnswers) {
         this.studentAnswers = studentAnswers;
     }
+    /**
+     * getQuestionIds メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public String getQuestionIds() {
         return questionIds;
     }
+    /**
+     * setQuestionIds メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setQuestionIds(String questionIds) {
         this.questionIds = questionIds;
     }
+    /**
+     * getFeedback メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public String getFeedback() {
         return feedback;
     }
+    /**
+     * setFeedback メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setFeedback(String feedback) {
         this.feedback = feedback;
     }
+    /**
+     * getIsActive メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public Boolean getIsActive() {
         return isActive;
     }
+    /**
+     * setIsActive メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
     }
+    /**
+     * getCreatedAt メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+    /**
+     * setCreatedAt メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+    /**
+     * getUpdatedAt メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+    /**
+     * setUpdatedAt メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
@@ -352,7 +703,11 @@ public class Quiz {
      * TrainingProgramId のエイリアス getter
      *
      * @return programId
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Long getProgramId() {
         return trainingProgramId;
     }
@@ -361,7 +716,11 @@ public class Quiz {
      * TrainingProgramId のエイリアス setter
      *
      * @param programId programId
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void setProgramId(Long programId) {
         this.trainingProgramId = programId;
     }
@@ -370,7 +729,11 @@ public class Quiz {
      * quizStatus のエイリアス getter
      *
      * @return status
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public String getStatus() {
         return quizStatus;
     }
@@ -379,7 +742,11 @@ public class Quiz {
      * quizStatus のエイリアス setter
      *
      * @param status status
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void setStatus(String status) {
         this.quizStatus = status;
     }
@@ -388,7 +755,11 @@ public class Quiz {
      * percentageScore のエイリアス getter
      *
      * @return score
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Double getScore() {
         return percentageScore;
     }
@@ -397,7 +768,11 @@ public class Quiz {
      * percentageScore のエイリアス setter
      *
      * @param score score
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void setScore(Double score) {
         this.percentageScore = score;
     }
@@ -406,7 +781,11 @@ public class Quiz {
      * timeSpentMinutes のエイリアス getter
      *
      * @return timeSpent
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Integer getTimeSpent() {
         return timeSpentMinutes;
     }
@@ -415,7 +794,11 @@ public class Quiz {
      * timeSpentMinutes のエイリアス setter
      *
      * @param timeSpent timeSpent
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void setTimeSpent(Integer timeSpent) {
         this.timeSpentMinutes = timeSpent;
     }
@@ -450,6 +833,12 @@ public class Quiz {
         updatedAt = LocalDateTime.now();
     }
 
+    /**
+     * toString メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Override
     public String toString() {
         return "Quiz{" +

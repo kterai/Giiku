@@ -21,8 +21,9 @@ import java.util.Objects;
 /**
  * 講義チャプターエンティティ
  * 各講義内の章・セクション単位での学習コンテンツ管理
- * 
- * @author Giiku LMS Development Team
+ *
+ *
+ * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
  */
@@ -112,7 +113,11 @@ public class LectureChapter {
     /**
      * チャプターがアクティブかどうかを判定
      * @return アクティブな場合true
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public boolean isActive() {
         return "ACTIVE".equals(this.status);
     }
@@ -120,7 +125,11 @@ public class LectureChapter {
     /**
      * 必須チャプターかどうかを判定
      * @return 必須チャプターの場合true
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public boolean isRequired() {
         return this.isRequired != null && this.isRequired;
     }
@@ -128,7 +137,11 @@ public class LectureChapter {
     /**
      * チャプター表示用タイトルを生成
      * @return フォーマット済みタイトル
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public String getDisplayTitle() {
         return String.format("第%d章: %s", this.chapterNumber, this.title);
     }
@@ -136,7 +149,11 @@ public class LectureChapter {
     /**
      * 所要時間を時間分形式で取得
      * @return 時間分形式の文字列（例：1時間30分）
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public String getFormattedDuration() {
         if (this.durationMinutes == null || this.durationMinutes <= 0) {
             return "未設定";
@@ -157,13 +174,23 @@ public class LectureChapter {
     /**
      * チャプターの学習リソースが利用可能かチェック
      * @return リソースが利用可能な場合true
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public boolean hasLearningResources() {
         return (this.videoUrl != null && !this.videoUrl.trim().isEmpty()) ||
                (this.documentUrl != null && !this.documentUrl.trim().isEmpty()) ||
                (this.materials != null && !this.materials.trim().isEmpty());
     }
 
+    /**
+     * equals メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -172,11 +199,23 @@ public class LectureChapter {
         return Objects.equals(chapterId, that.chapterId);
     }
 
+    /**
+     * hashCode メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Override
     public int hashCode() {
         return Objects.hash(chapterId);
     }
 
+    /**
+     * toString メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
     @Override
     public String toString() {
         return String.format("LectureChapter{id=%d, lectureId=%d, number=%d, title='%s', status='%s'}", 

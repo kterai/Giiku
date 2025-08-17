@@ -22,6 +22,7 @@ import java.util.HashMap;
  * Service class for managing Instructor entities.
  * Provides comprehensive CRUD operations and specialized instructor management.
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -39,7 +40,11 @@ public class InstructorService {
      * Retrieve all Instructor entities.
      * 
      * @return List of all Instructor entities
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<Instructor> findAll() {
         logger.debug("Finding all Instructor entities");
@@ -53,7 +58,11 @@ public class InstructorService {
      * 
      * @param id The ID to search for
      * @return Optional containing the Instructor if found
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Optional<Instructor> findById(Long id) {
         if (id == null) {
@@ -78,7 +87,11 @@ public class InstructorService {
      * 
      * @param userId The User ID to search for
      * @return Optional containing the Instructor if found
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Optional<Instructor> findByUserId(Long userId) {
         if (userId == null) {
@@ -103,7 +116,11 @@ public class InstructorService {
      * 
      * @param instructorNumber The instructor number to search for
      * @return Optional containing the Instructor if found
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Optional<Instructor> findByInstructorNumber(String instructorNumber) {
         if (!StringUtils.hasText(instructorNumber)) {
@@ -128,7 +145,11 @@ public class InstructorService {
      * 
      * @param departmentId The department ID to search for
      * @return List of Instructors in the specified department
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<Instructor> findByDepartmentId(Long departmentId) {
         if (departmentId == null) {
@@ -146,7 +167,11 @@ public class InstructorService {
      * Find all active Instructors.
      * 
      * @return List of active Instructors
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<Instructor> findActiveInstructors() {
         logger.debug("Finding all active Instructors");
@@ -160,7 +185,11 @@ public class InstructorService {
      * 
      * @param specialization The specialization to search for
      * @return List of Instructors with matching specialization
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<Instructor> findBySpecialization(String specialization) {
         if (!StringUtils.hasText(specialization)) {
@@ -179,7 +208,11 @@ public class InstructorService {
      * 
      * @param level The instructor level to search for
      * @return List of Instructors with the specified level
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<Instructor> findByInstructorLevel(Integer level) {
         if (level == null) {
@@ -199,7 +232,11 @@ public class InstructorService {
      * @param minRating Minimum rating score
      * @param minRatingCount Minimum number of ratings
      * @return List of high-rated Instructors
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<Instructor> findHighRatedInstructors(Double minRating, Integer minRatingCount) {
         if (minRating == null || minRatingCount == null) {
@@ -219,7 +256,11 @@ public class InstructorService {
      * @param minLevel Minimum instructor level
      * @param minTeachingMinutes Minimum teaching minutes
      * @return List of experienced Instructors
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<Instructor> findExperiencedInstructors(Integer minLevel, Integer minTeachingMinutes) {
         if (minLevel == null || minTeachingMinutes == null) {
@@ -239,7 +280,11 @@ public class InstructorService {
      * @param specialization The specialization to search for
      * @param minLevel Minimum instructor level
      * @return List of specialized Instructors
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<Instructor> findSpecializedInstructors(String specialization, Integer minLevel) {
         if (!StringUtils.hasText(specialization) || minLevel == null) {
@@ -258,7 +303,11 @@ public class InstructorService {
      *
      * @param pageable ページング情報
      * @return ページングされた講師一覧
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<Instructor> getAllInstructors(Pageable pageable) {
         return instructorRepository.findAll(pageable);
@@ -269,7 +318,11 @@ public class InstructorService {
      *
      * @param id 講師ID
      * @return 講師情報
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Instructor getInstructorById(Long id) {
         return findById(id).orElse(null);
@@ -280,7 +333,11 @@ public class InstructorService {
      *
      * @param instructor 作成する講師
      * @return 保存された講師
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Instructor createInstructor(Instructor instructor) {
         return save(instructor);
     }
@@ -290,7 +347,11 @@ public class InstructorService {
      *
      * @param instructor 更新対象の講師
      * @return 更新された講師
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Instructor updateInstructor(Instructor instructor) {
         if (instructor.getId() == null) {
             throw new RuntimeException("Instructor ID cannot be null");
@@ -303,7 +364,11 @@ public class InstructorService {
      *
      * @param instructorId 講師ID
      * @param rating 評価値
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void addRating(Long instructorId, double rating) {
         Instructor instructor = instructorRepository.findById(instructorId)
             .orElseThrow(() -> new RuntimeException("Instructor not found with ID: " + instructorId));
@@ -317,7 +382,11 @@ public class InstructorService {
      * @param instructor The Instructor entity to save
      * @return The saved Instructor entity
      * @throws RuntimeException if validation fails or save operation fails
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Instructor save(Instructor instructor) {
         if (instructor == null) {
             logger.error("Attempted to save null Instructor");
@@ -373,7 +442,11 @@ public class InstructorService {
      * @param updatedInstructor The updated Instructor data
      * @return The updated Instructor entity
      * @throws RuntimeException if the entity is not found or update fails
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Instructor update(Long id, Instructor updatedInstructor) {
         if (id == null) {
             logger.error("Attempted to update Instructor with null ID");
@@ -428,7 +501,11 @@ public class InstructorService {
      * @param studentsCount New assigned students count
      * @param teachingMinutes Additional teaching minutes
      * @return The updated Instructor entity
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Instructor updateStatistics(Long instructorId, Integer coursesCount, Integer studentsCount, Integer teachingMinutes) {
         if (instructorId == null) {
             logger.error("Attempted to update statistics with null instructor ID");
@@ -473,7 +550,11 @@ public class InstructorService {
      * @param instructorId The instructor ID
      * @param newRating The new rating score
      * @return The updated Instructor entity
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public Instructor updateRating(Long instructorId, Double newRating) {
         if (instructorId == null || newRating == null) {
             logger.error("Attempted to update rating with null parameters");
@@ -520,7 +601,11 @@ public class InstructorService {
      * 
      * @param id The ID of the Instructor to delete
      * @throws RuntimeException if the entity is not found or deletion fails
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void delete(Long id) {
         if (id == null) {
             logger.error("Attempted to delete Instructor with null ID");
@@ -548,7 +633,11 @@ public class InstructorService {
      * 
      * @param departmentId The department ID to get statistics for
      * @return Map containing instructor statistics
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Map<String, Object> getDepartmentInstructorStats(Long departmentId) {
         if (departmentId == null) {
@@ -595,7 +684,11 @@ public class InstructorService {
      * 
      * @param instructor The Instructor entity to validate
      * @throws RuntimeException if validation fails
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     private void validateInstructor(Instructor instructor) {
         if (instructor.getUserId() == null) {
             logger.error("Validation failed: Instructor user ID is required");

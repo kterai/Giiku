@@ -21,7 +21,11 @@ public abstract class BaseEntity {
     /**
      * プライマリキー（ID）
      * 自動生成される一意の識別子
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -30,7 +34,11 @@ public abstract class BaseEntity {
     /**
      * 作成日時
      * レコードが最初に作成された日時を自動設定
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -38,7 +46,11 @@ public abstract class BaseEntity {
     /**
      * 更新日時
      * レコードが最後に更新された日時を自動設定
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
@@ -46,7 +58,11 @@ public abstract class BaseEntity {
     /**
      * バージョン（楽観ロック）
      * 同時更新制御のためのバージョン番号
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Version
     @Column(name = "version", nullable = false)
     private Long version = 0L;

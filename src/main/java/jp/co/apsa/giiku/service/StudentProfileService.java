@@ -21,6 +21,7 @@ import java.util.Optional;
  * 学生プロフィールサービス。
  * 学生プロフィールに関するビジネスロジックを提供します。
  *
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -36,7 +37,11 @@ public class StudentProfileService {
 
     /**
      * 学生プロフィールを作成
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public StudentProfile create(StudentProfile studentProfile) {
         logger.info("Creating student profile for student number: {}", studentProfile.getStudentNumber());
 
@@ -53,7 +58,11 @@ public class StudentProfileService {
 
     /**
      * 学生プロフィールを更新
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public StudentProfile update(Long id, StudentProfile studentProfile) {
         logger.info("Updating student profile with id: {}", id);
 
@@ -75,7 +84,11 @@ public class StudentProfileService {
 
     /**
      * IDで学生プロフィールを取得
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public StudentProfile findById(Long id) {
         logger.debug("Finding student profile by id: {}", id);
@@ -86,7 +99,11 @@ public class StudentProfileService {
 
     /**
      * 学生番号で学生プロフィールを取得
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public StudentProfile findByStudentNumber(String studentNumber) {
         logger.debug("Finding student profile by student number: {}", studentNumber);
@@ -97,7 +114,11 @@ public class StudentProfileService {
 
     /**
      * 会社IDで学生プロフィール一覧を取得
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<StudentProfile> findByCompanyId(Long companyId) {
         logger.debug("Finding student profiles by company id: {}", companyId);
@@ -107,7 +128,11 @@ public class StudentProfileService {
 
     /**
      * 在籍状況で学生プロフィール一覧を取得
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<StudentProfile> findByEnrollmentStatus(String status) {
         logger.debug("Finding student profiles by enrollment status: {}", status);
@@ -119,7 +144,11 @@ public class StudentProfileService {
 
     /**
      * 学生プロフィール一覧を取得 (エイリアス)
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<StudentProfile> getAllStudentProfiles(Pageable pageable) {
         return findAll(pageable);
@@ -127,7 +156,11 @@ public class StudentProfileService {
 
     /**
      * IDで学生プロフィールを取得 (エイリアス)
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public StudentProfile getStudentProfileById(Long id) {
         return findById(id);
@@ -135,7 +168,11 @@ public class StudentProfileService {
 
     /**
      * ユーザーIDで学生プロフィールを取得 (エイリアス)
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Optional<StudentProfile> getStudentProfileByUserId(Long userId) {
         return studentProfileRepository.findByStudentId(userId);
@@ -143,7 +180,11 @@ public class StudentProfileService {
 
     /**
      * 学生番号で学生プロフィールを取得 (エイリアス)
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Optional<StudentProfile> getStudentProfileByStudentNumber(String studentNumber) {
         return studentProfileRepository.findByStudentNumber(studentNumber);
@@ -151,7 +192,11 @@ public class StudentProfileService {
 
     /**
      * 部署IDで学生プロフィール一覧を取得 (エイリアス)
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<StudentProfile> getStudentProfilesByDepartmentId(Long departmentId, Pageable pageable) {
         // 部署IDによる絞り込みは未実装のため全件返す
@@ -161,7 +206,11 @@ public class StudentProfileService {
 
     /**
      * 学習ステータスで学生プロフィール一覧を取得 (エイリアス)
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<StudentProfile> getStudentProfilesByLearningStatus(String status, Pageable pageable) {
         List<StudentProfile> list = studentProfileRepository.findByEnrollmentStatus(status);
@@ -170,7 +219,11 @@ public class StudentProfileService {
 
     /**
      * 学生プロフィール一覧をページングで取得
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<StudentProfile> findAll(Pageable pageable) {
         logger.debug("Finding all student profiles with pagination");
@@ -180,7 +233,11 @@ public class StudentProfileService {
 
     /**
      * 会社IDでページング取得
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<StudentProfile> findByCompanyId(Long companyId, Pageable pageable) {
         logger.debug("Finding student profiles by company id: {} with pagination", companyId);
@@ -190,7 +247,11 @@ public class StudentProfileService {
 
     /**
      * 学習レベルで学生プロフィールを取得
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public Page<StudentProfile> getStudentProfilesByLearningLevel(Integer level, Pageable pageable) {
         return studentProfileRepository.findAll(pageable);
@@ -198,57 +259,97 @@ public class StudentProfileService {
 
     /**
      * 学生プロフィールを作成 (エイリアス)
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public StudentProfile createStudentProfile(StudentProfile profile) {
         return create(profile);
     }
 
     /**
      * 学生プロフィールを更新 (エイリアス)
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public StudentProfile updateStudentProfile(StudentProfile profile) {
         return update(profile.getId(), profile);
     }
 
-    /** 学習時間を追加 */
+    /** 学習時間を追加 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void addLearningTime(Long id, int minutes) {
         findById(id); // 存在チェックのみ
     }
 
-    /** コース完了数を増加 */
+    /** コース完了数を増加 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void incrementCompletedCourses(Long id) {
         findById(id);
     }
 
-    /** 受講中コース数を増加 */
+    /** 受講中コース数を増加 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void incrementCurrentCourses(Long id) {
         findById(id);
     }
 
-    /** 平均スコアを更新 */
+    /** 平均スコアを更新 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void updateAverageScore(Long id, double newScore, int totalTests) {
         findById(id);
     }
 
-    /** 学習ステータスを更新 */
+    /** 学習ステータスを更新 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void updateLearningStatus(Long id, String status) {
         StudentProfile profile = findById(id);
         profile.setEnrollmentStatus(status);
         studentProfileRepository.save(profile);
     }
 
-    /** 学生プロフィールを削除 (エイリアス) */
+    /** 学生プロフィールを削除 (エイリアス) 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void deleteStudentProfile(Long id) {
         delete(id);
     }
 
-    /** アクティブ学生数を取得 */
+    /** アクティブ学生数を取得 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public long getActiveStudentCount() {
         return studentProfileRepository.count();
     }
 
-    /** 部署別アクティブ学生数を取得 */
+    /** 部署別アクティブ学生数を取得 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public long getActiveStudentCountByDepartment(Long departmentId) {
         return 0L;
@@ -256,7 +357,11 @@ public class StudentProfileService {
 
     /**
      * 学生プロフィールを削除
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     public void delete(Long id) {
         logger.info("Deleting student profile with id: {}", id);
 
@@ -266,7 +371,11 @@ public class StudentProfileService {
 
     /**
      * 学生番号の存在チェック
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public boolean existsByStudentNumber(String studentNumber) {
         return studentProfileRepository.existsByStudentNumber(studentNumber);
@@ -274,7 +383,11 @@ public class StudentProfileService {
 
     /**
      * 在籍中の学生数を取得
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public long countActiveStudents(Long companyId) {
         return studentProfileRepository.countByCompanyIdAndEnrollmentStatus(
@@ -283,7 +396,11 @@ public class StudentProfileService {
 
     /**
      * 学年別学生数を取得
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @Transactional(readOnly = true)
     public List<Object[]> countByGradeAndCompany(Long companyId) {
         return studentProfileRepository.countByGradeLevelAndCompanyId(companyId);
@@ -291,7 +408,11 @@ public class StudentProfileService {
 
     /**
      * バリデーション
-     */
+     
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     private void validateStudentProfile(StudentProfile studentProfile) {
         if (studentProfile == null) {
             throw new ValidationException("Student profile cannot be null");

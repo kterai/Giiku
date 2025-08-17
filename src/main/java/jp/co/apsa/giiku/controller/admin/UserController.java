@@ -16,6 +16,7 @@ import jp.co.apsa.giiku.domain.entity.User;
 
 /**
  * ユーザーマスタを管理するコントローラー。
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -25,12 +26,22 @@ import jp.co.apsa.giiku.domain.entity.User;
 public class UserController {
 
     private final UserAdminService userAdminService;
+    /**
+     * UserController メソッド
+     * @author 株式会社アプサ
+     * @version 1.0
+     * @since 2025
+     */
 
     public UserController(UserAdminService userAdminService) {
         this.userAdminService = userAdminService;
     }
 
-    /** 一覧表示 */
+    /** 一覧表示 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping
     public String list(Model model) {
         model.addAttribute("title", "ユーザー一覧");
@@ -38,7 +49,11 @@ public class UserController {
         return "user_list";
     }
 
-    /** 新規作成フォーム */
+    /** 新規作成フォーム 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/new")
     public String formNew(Model model) {
         model.addAttribute("title", "ユーザー作成");
@@ -46,7 +61,11 @@ public class UserController {
         return "user_detail";
     }
 
-    /** 編集フォーム */
+    /** 編集フォーム 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @GetMapping("/{id}")
     public String formEdit(@PathVariable Long id, Model model) {
         model.addAttribute("title", "ユーザー編集");
@@ -54,7 +73,11 @@ public class UserController {
         return "user_detail";
     }
 
-    /** 登録・更新処理 */
+    /** 登録・更新処理 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PostMapping
     public String save(@Valid User user,
                        BindingResult result,
@@ -75,7 +98,11 @@ public class UserController {
         return "redirect:/admin/users";
     }
 
-    /** 削除処理 */
+    /** 削除処理 
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable Long id) {
         userAdminService.delete(id);

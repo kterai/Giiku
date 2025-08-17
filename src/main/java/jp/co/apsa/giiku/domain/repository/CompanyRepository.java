@@ -9,6 +9,10 @@ import java.util.Optional;
 
 /**
  * Companyのリポジトリインターフェース
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
  */
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
