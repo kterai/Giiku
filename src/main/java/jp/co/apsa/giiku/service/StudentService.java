@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import jp.co.apsa.giiku.domain.entity.Company;
 import jp.co.apsa.giiku.domain.entity.StudentProfile;
 import jp.co.apsa.giiku.domain.repository.CompanyRepository;
 import jp.co.apsa.giiku.domain.repository.StudentProfileRepository;
@@ -21,7 +20,6 @@ import jp.co.apsa.giiku.dto.StudentRequest;
 import jp.co.apsa.giiku.dto.StudentResponse;
 import jp.co.apsa.giiku.dto.StudentStatistics;
 import jp.co.apsa.giiku.exception.StudentNotFoundException;
-import jp.co.apsa.giiku.exception.ValidationException;
 
 /**
  * 学生プロフィールに関するビジネスロジックを提供します。
@@ -108,11 +106,11 @@ public class StudentService {
      * @param id      学生プロフィールID
      * @param profile 更新内容
      * @return 更新された学生プロフィール
-     * @throws IllegalArgumentException ID が存在しない場合
+     * @throws StudentNotFoundException ID が存在しない場合
      */
     public StudentProfile update(Long id, StudentProfile profile) {
         if (!studentProfileRepository.existsById(id)) {
-            throw new IllegalArgumentException("指定された学生プロフィールが存在しません: " + id);
+            throw StudentNotFoundException.byId(id);
         }
         profile.setId(id);
         validate(profile);
@@ -124,11 +122,11 @@ public class StudentService {
      * 学生プロフィールを退学扱いにします。
      *
      * @param id 学生プロフィールID
-     * @throws IllegalArgumentException ID が存在しない場合
+     * @throws StudentNotFoundException ID が存在しない場合
      */
     public void deactivate(Long id) {
         StudentProfile profile = studentProfileRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("指定された学生プロフィールが存在しません: " + id));
+                .orElseThrow(() -> StudentNotFoundException.byId(id));
         profile.setEnrollmentStatus(StudentProfile.EnrollmentStatus.WITHDRAWN);
         studentProfileRepository.save(profile);
     }
@@ -137,42 +135,81 @@ public class StudentService {
      * 学生プロフィールを削除します。
      *
      * @param id 学生プロフィールID
-     * @throws IllegalArgumentException ID が存在しない場合
+     * @throws StudentNotFoundException ID が存在しない場合
      */
     public void delete(Long id) {
         if (!studentProfileRepository.existsById(id)) {
-            throw new IllegalArgumentException("指定された学生プロフィールが存在しません: " + id);
+            throw StudentNotFoundException.byId(id);
         }
         studentProfileRepository.deleteById(id);
     }
 
     // ===== DTO ベースのメソッド =====
 
-    /** 学生一覧取得 */
+    /**
+     * 学生一覧を取得します。
+     *
+     * @param pageable ページ情報
+     * @return 学生レスポンスのページ
+     */
     @Transactional(readOnly = true)
     public Page<StudentResponse> getAllStudents(Pageable pageable) {
-        return Page.empty(pageable);
+        return studentProfileRepository.findAll(pageable).map(this::toStudentResponse);
     }
 
-    /** 学生ID指定取得 */
+    /**
+     * ID を指定して学生情報を取得します。
+     *
+     * @param id 学生プロフィールID
+     * @return 該当する学生レスポンス
+     * @throws StudentNotFoundException 学生が存在しない場合
+     */
     @Transactional(readOnly = true)
     public StudentResponse getStudentById(Long id) {
-        return new StudentResponse();
+        StudentProfile profile = studentProfileRepository.findById(id)
+                .orElseThrow(() -> StudentNotFoundException.byId(id));
+        return toStudentResponse(profile);
     }
 
-    /** 学生新規登録 */
+    /**
+     * 学生情報を新規登録します。
+     *
+     * @param request 登録する学生リクエスト
+     * @return 登録された学生レスポンス
+     */
     public StudentResponse createStudent(StudentRequest request) {
-        return new StudentResponse();
+        StudentProfile profile = toStudentProfile(request);
+        StudentProfile saved = studentProfileRepository.save(profile);
+        return toStudentResponse(saved);
     }
 
-    /** 学生情報更新 */
+    /**
+     * 学生情報を更新します。
+     *
+     * @param id      学生プロフィールID
+     * @param request 更新内容
+     * @return 更新された学生レスポンス
+     * @throws StudentNotFoundException 学生が存在しない場合
+     */
     public StudentResponse updateStudent(Long id, StudentRequest request) {
-        return new StudentResponse();
+        StudentProfile profile = studentProfileRepository.findById(id)
+                .orElseThrow(() -> StudentNotFoundException.byId(id));
+        updateProfileFromRequest(profile, request);
+        StudentProfile saved = studentProfileRepository.save(profile);
+        return toStudentResponse(saved);
     }
 
-    /** 学生削除 */
+    /**
+     * 学生情報を削除します。
+     *
+     * @param id 学生プロフィールID
+     * @throws StudentNotFoundException 学生が存在しない場合
+     */
     public void deleteStudent(Long id) {
-        // no-op
+        if (!studentProfileRepository.existsById(id)) {
+            throw StudentNotFoundException.byId(id);
+        }
+        studentProfileRepository.deleteById(id);
     }
 
     /** 学生検索 */
@@ -218,6 +255,87 @@ public class StudentService {
     /** 学生ステータス更新 */
     public StudentResponse updateStudentStatus(Long id, String status) {
         return new StudentResponse();
+    }
+
+    /**
+     * StudentProfile を StudentResponse に変換します。
+     *
+     * @param profile 変換元の学生プロフィール
+     * @return 変換された学生レスポンス
+     */
+    private StudentResponse toStudentResponse(StudentProfile profile) {
+        StudentResponse response = new StudentResponse();
+        response.setId(profile.getId());
+        response.setStudentNumber(profile.getStudentNumber());
+        response.setCompanyId(profile.getCompanyId());
+        response.setEnrollmentStatus(profile.getEnrollmentStatus());
+        response.setAdmissionDate(profile.getAdmissionDate());
+        response.setExpectedGraduationDate(profile.getExpectedGraduationDate());
+        response.setActualGraduationDate(profile.getActualGraduationDate());
+        response.setGradeLevel(profile.getGradeLevel());
+        response.setClassName(profile.getClassName());
+        response.setMajorField(profile.getMajorField());
+        response.setEmergencyContactName(profile.getEmergencyContactName());
+        response.setEmergencyContactPhone(profile.getEmergencyContactPhone());
+        response.setAddress(profile.getAddress());
+        response.setPhoneNumber(profile.getPhoneNumber());
+        response.setBirthDate(profile.getBirthDate());
+        response.setGender(profile.getGender());
+        response.setNotes(profile.getNotes());
+        response.setCreatedAt(profile.getCreatedAt());
+        response.setUpdatedAt(profile.getUpdatedAt());
+        response.setVersion(profile.getVersion());
+        return response;
+    }
+
+    /**
+     * StudentRequest を StudentProfile に変換します。
+     *
+     * @param request 変換元の学生リクエスト
+     * @return 変換された学生プロフィール
+     */
+    private StudentProfile toStudentProfile(StudentRequest request) {
+        StudentProfile profile = new StudentProfile();
+        profile.setStudentNumber(request.getStudentNumber());
+        profile.setCompanyId(request.getCompanyId());
+        profile.setEnrollmentStatus(request.getEnrollmentStatus());
+        profile.setAdmissionDate(request.getAdmissionDate());
+        profile.setExpectedGraduationDate(request.getExpectedGraduationDate());
+        profile.setGradeLevel(request.getGradeLevel());
+        profile.setClassName(request.getClassName());
+        profile.setMajorField(request.getMajorField());
+        profile.setEmergencyContactName(request.getEmergencyContactName());
+        profile.setEmergencyContactPhone(request.getEmergencyContactPhone());
+        profile.setAddress(request.getAddress());
+        profile.setPhoneNumber(request.getPhoneNumber());
+        profile.setBirthDate(request.getBirthDate());
+        profile.setGender(request.getGender());
+        profile.setNotes(request.getNotes());
+        return profile;
+    }
+
+    /**
+     * リクエストの内容で学生プロフィールを更新します。
+     *
+     * @param profile  更新対象の学生プロフィール
+     * @param request  リクエストデータ
+     */
+    private void updateProfileFromRequest(StudentProfile profile, StudentRequest request) {
+        profile.setStudentNumber(request.getStudentNumber());
+        profile.setCompanyId(request.getCompanyId());
+        profile.setEnrollmentStatus(request.getEnrollmentStatus());
+        profile.setAdmissionDate(request.getAdmissionDate());
+        profile.setExpectedGraduationDate(request.getExpectedGraduationDate());
+        profile.setGradeLevel(request.getGradeLevel());
+        profile.setClassName(request.getClassName());
+        profile.setMajorField(request.getMajorField());
+        profile.setEmergencyContactName(request.getEmergencyContactName());
+        profile.setEmergencyContactPhone(request.getEmergencyContactPhone());
+        profile.setAddress(request.getAddress());
+        profile.setPhoneNumber(request.getPhoneNumber());
+        profile.setBirthDate(request.getBirthDate());
+        profile.setGender(request.getGender());
+        profile.setNotes(request.getNotes());
     }
 
     /**
