@@ -1,9 +1,9 @@
 package jp.co.apsa.giiku.service;
 
-import jp.co.apsa.giiku.domain.entity.ProgramSchedule;
-import jp.co.apsa.giiku.domain.entity.TrainingProgram;
-import jp.co.apsa.giiku.domain.repository.ProgramScheduleRepository;
-import jp.co.apsa.giiku.domain.repository.TrainingProgramRepository;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,18 +13,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.criteria.Predicate;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import jp.co.apsa.giiku.domain.entity.ProgramSchedule;
+import jp.co.apsa.giiku.domain.entity.TrainingProgram;
+import jp.co.apsa.giiku.domain.repository.ProgramScheduleRepository;
+import jp.co.apsa.giiku.domain.repository.TrainingProgramRepository;
 
 /**
- * ProgramSchedule（プログラムスケジュール）に関するビジネスロジックを提供するサービスクラス
- * 
- * @author Giiku LMS Team
+ * ProgramSchedule（プログラムスケジュール）に関するビジネスロジックを提供するサービスクラス。
+ *
+ * @author 株式会社アプサ
  * @version 1.0
- * @since 2025-08-14
+ * @since 2025
  */
 @Service
 @Transactional
@@ -65,7 +64,7 @@ public class ProgramScheduleService {
      */
     @Transactional(readOnly = true)
     public List<ProgramSchedule> findByTrainingProgramId(Long trainingProgramId) {
-        return programScheduleRepository.findByTrainingProgramIdOrderByScheduleDateAsc(trainingProgramId);
+        return programScheduleRepository.findByTrainingProgramIdOrderByStartDateAsc(trainingProgramId);
     }
 
     /**
@@ -77,9 +76,7 @@ public class ProgramScheduleService {
      */
     @Transactional(readOnly = true)
     public List<ProgramSchedule> findSchedulesWithinPeriod(LocalDate startDate, LocalDate endDate) {
-        LocalDateTime startDateTime = startDate.atStartOfDay();
-        LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
-        return programScheduleRepository.findByScheduleDateBetween(startDateTime, endDateTime);
+        return programScheduleRepository.findByStartDateBetween(startDate, endDate);
     }
 
     /**
@@ -116,30 +113,28 @@ public class ProgramScheduleService {
      * @return ページング対応のプログラムスケジュール
      */
     @Transactional(readOnly = true)
-    public Page<ProgramSchedule> searchSchedules(Long trainingProgramId, LocalDate startDate, 
+    public Page<ProgramSchedule> searchSchedules(Long trainingProgramId, LocalDate startDate,
                                                LocalDate endDate, String status, Pageable pageable) {
-        Specification<ProgramSchedule> spec = (root, query, criteriaBuilder) -> {
+        Specification<ProgramSchedule> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
             if (trainingProgramId != null) {
-                predicates.add(criteriaBuilder.equal(root.get("trainingProgramId"), trainingProgramId));
+                predicates.add(cb.equal(root.get("trainingProgramId"), trainingProgramId));
             }
 
             if (startDate != null) {
-                LocalDateTime startDateTime = startDate.atStartOfDay();
-                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("scheduleDate"), startDateTime));
+                predicates.add(cb.greaterThanOrEqualTo(root.get("startDate"), startDate));
             }
 
             if (endDate != null) {
-                LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
-                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("scheduleDate"), endDateTime));
+                predicates.add(cb.lessThanOrEqualTo(root.get("endDate"), endDate));
             }
 
             if (status != null && !status.trim().isEmpty()) {
-                predicates.add(criteriaBuilder.equal(root.get("status"), status));
+                predicates.add(cb.equal(root.get("scheduleStatus"), status));
             }
 
-            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+            return cb.and(predicates.toArray(new Predicate[0]));
         };
 
         return programScheduleRepository.findAll(spec, pageable);
@@ -213,7 +208,7 @@ public class ProgramScheduleService {
         }
 
         ProgramSchedule schedule = programSchedule.get();
-        schedule.setStatus(status);
+        schedule.setScheduleStatus(status);
         programScheduleRepository.save(schedule);
     }
 
@@ -236,7 +231,7 @@ public class ProgramScheduleService {
      */
     @Transactional(readOnly = true)
     public long countCompletedSchedules(Long trainingProgramId) {
-        return programScheduleRepository.countByTrainingProgramIdAndStatus(trainingProgramId, "COMPLETED");
+        return programScheduleRepository.countByTrainingProgramIdAndScheduleStatus(trainingProgramId, "COMPLETED");
     }
 
     /**
@@ -254,16 +249,16 @@ public class ProgramScheduleService {
             throw new IllegalArgumentException("研修プログラムIDは必須です");
         }
 
-        if (programSchedule.getScheduleDate() == null) {
-            throw new IllegalArgumentException("スケジュール日時は必須です");
+        if (programSchedule.getScheduleName() == null || programSchedule.getScheduleName().trim().isEmpty()) {
+            throw new IllegalArgumentException("スケジュール名は必須です");
         }
 
-        if (programSchedule.getTitle() == null || programSchedule.getTitle().trim().isEmpty()) {
-            throw new IllegalArgumentException("スケジュールタイトルは必須です");
+        if (programSchedule.getStartDate() == null || programSchedule.getEndDate() == null) {
+            throw new IllegalArgumentException("開始日と終了日は必須です");
         }
 
-        if (programSchedule.getDurationMinutes() != null && programSchedule.getDurationMinutes() <= 0) {
-            throw new IllegalArgumentException("実施時間は正の数である必要があります");
+        if (programSchedule.getEndDate().isBefore(programSchedule.getStartDate())) {
+            throw new IllegalArgumentException("終了日は開始日以降である必要があります");
         }
     }
 }
