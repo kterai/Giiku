@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layouts/day}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Day Detail</title>
+</head>
+<body>
+<div layout:fragment="pageheader"
+     th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumb})}"></div>
+<section layout:fragment="content">
+    <div class="container">
+        <h2 class="section-title" th:text="${schedule.dailyTheme}">Theme</h2>
+        <p th:text="${schedule.dailyObjectives}"></p>
+        <ul class="list-group" th:if="${schedule != null}">
+            <li class="list-group-item" th:text="'開始: ' + ${schedule.startTime}"></li>
+            <li class="list-group-item" th:text="'終了: ' + ${schedule.endTime}"></li>
+            <li class="list-group-item" th:text="'場所: ' + ${schedule.venue}"></li>
+        </ul>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layouts/lecture}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Lecture Detail</title>
+</head>
+<body class="bg-gray-50 text-gray-900 leading-relaxed">
+<div layout:fragment="pageheader"
+     th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumb})}"></div>
+<section layout:fragment="content">
+    <main class="pt-32 container mx-auto px-4">
+        <h1 class="text-2xl font-bold mb-4" th:text="${lecture.lectureTitle}">Lecture Title</h1>
+        <p th:text="${lecture.lectureContent}">Lecture Content</p>
+    </main>
+</section>
+</body>
+</html>

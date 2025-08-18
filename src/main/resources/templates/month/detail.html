@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{_layouts/month}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pageTitle}">Month Detail</title>
+</head>
+<body>
+<div layout:fragment="pageheader"
+     th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumb})}"></div>
+<section layout:fragment="content">
+    <div class="container">
+        <ul class="list-group">
+            <li class="list-group-item" th:each="schedule : ${schedules}"
+                th:text="'Day ' + ${schedule.dayNumber} + ': ' + ${schedule.dailyTheme}"></li>
+        </ul>
+    </div>
+</section>
+</body>
+</html>

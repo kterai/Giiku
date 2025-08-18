@@ -1,7 +1,7 @@
 package jp.co.apsa.giiku.controller;
 
-import jp.co.apsa.giiku.domain.entity.DailySchedule;
-import jp.co.apsa.giiku.service.DailyScheduleService;
+import jp.co.apsa.giiku.domain.entity.Lecture;
+import jp.co.apsa.giiku.service.LectureService;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,39 +14,39 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 月別ページを表示するコントローラー。
+ * 講義ページを表示するコントローラー。
  *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
  */
 @Controller
-@RequestMapping("/month")
-public class MonthController  extends AbstractController{
+@RequestMapping("/lecture")
+public class LecturePageController extends AbstractController {
 
-    /** 日次スケジュールサービス */
+    /** 講義サービス */
     @Autowired
-    private DailyScheduleService dailyScheduleService;
+    private LectureService lectureService;
 
     /**
-     * 指定された月ページを表示します。
+     * 指定された講義ページを表示します。
      *
-     * @param page ページ名 (例: month1)
+     * @param page ページ名 (例: lecture1)
      * @return 対応するテンプレート
      */
     @GetMapping(path = {"/{page}","/{page}.html"})
-    public String month(@PathVariable String page, Model model) {
-        setTitle(model, "月別カリキュラム");
-        int monthNumber = NumberUtils.toInt(page.replace("month", ""), 1);
-        List<DailySchedule> schedules = dailyScheduleService.findByMonthNumber(monthNumber);
-        String title = "第" + monthNumber + "ヶ月目";
+    public String lecture(@PathVariable String page, Model model) {
+        setTitle(model, "講義詳細");
+        int lectureId = NumberUtils.toInt(page.replace("lecture", ""), 1);
+        Lecture lecture = lectureService.findById((long) lectureId).orElse(null);
+        String title = "Lecture " + lectureId;
         model.addAttribute("pageTitle", title);
-        model.addAttribute("schedules", schedules);
+        model.addAttribute("lecture", lecture);
         model.addAttribute("breadcrumb", List.of(
                 Map.of("label", "ホーム", "href", "/"),
+                Map.of("label", "講義", "href", "/lecture"),
                 Map.of("label", title)
         ));
-        return "month/detail";
+        return "lecture/detail";
     }
 }
-

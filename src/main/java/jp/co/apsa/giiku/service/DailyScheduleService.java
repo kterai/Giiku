@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Comparator;
 
 /**
  * DailySchedule（日次スケジュール）に関するビジネスロジックを提供するサービスクラス。
@@ -300,6 +301,53 @@ public class DailyScheduleService {
     @Transactional(readOnly = true)
     public List<DailySchedule> findByDayOfWeek(String dayOfWeek) {
         return dailyScheduleRepository.findByDayOfWeekOrderByStartTimeAsc(dayOfWeek);
+    }
+
+    /**
+     * 日付通し番号で日次スケジュールを取得します。
+     *
+     * @param dayNumber 日付通し番号
+     * @return 対応する日次スケジュール
+     */
+    @Transactional(readOnly = true)
+    public Optional<DailySchedule> findByDayNumber(int dayNumber) {
+        return dailyScheduleRepository.findAll().stream()
+                .filter(s -> s.getDayNumber() != null && s.getDayNumber() == dayNumber)
+                .findFirst();
+    }
+
+    /**
+     * 指定された週番号に該当する日次スケジュールを取得します。
+     * 1週を7日として計算します。
+     *
+     * @param weekNumber 週番号
+     * @return 日次スケジュールのリスト
+     */
+    @Transactional(readOnly = true)
+    public List<DailySchedule> findByWeekNumber(int weekNumber) {
+        int start = (weekNumber - 1) * 7 + 1;
+        int end = start + 6;
+        return dailyScheduleRepository.findAll().stream()
+                .filter(s -> s.getDayNumber() != null && s.getDayNumber() >= start && s.getDayNumber() <= end)
+                .sorted(Comparator.comparing(DailySchedule::getDayNumber))
+                .toList();
+    }
+
+    /**
+     * 指定された月番号に該当する日次スケジュールを取得します。
+     * 1ヶ月を30日として計算します。
+     *
+     * @param monthNumber 月番号
+     * @return 日次スケジュールのリスト
+     */
+    @Transactional(readOnly = true)
+    public List<DailySchedule> findByMonthNumber(int monthNumber) {
+        int start = (monthNumber - 1) * 30 + 1;
+        int end = start + 29;
+        return dailyScheduleRepository.findAll().stream()
+                .filter(s -> s.getDayNumber() != null && s.getDayNumber() >= start && s.getDayNumber() <= end)
+                .sorted(Comparator.comparing(DailySchedule::getDayNumber))
+                .toList();
     }
 
     /**
