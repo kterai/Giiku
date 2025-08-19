@@ -1,7 +1,7 @@
 package jp.co.apsa.giiku.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
+ * LectureController の簡易テスト
+ *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
@@ -22,6 +24,9 @@ class LectureControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @org.springframework.boot.test.mock.mockito.MockBean
+    private jp.co.apsa.giiku.service.LectureService lectureService;
+
     @org.springframework.boot.autoconfigure.SpringBootApplication(
         exclude = {
             org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration.class,
@@ -33,10 +38,8 @@ class LectureControllerTest {
     }
 
     @Test
-    void lecturePageReturnsView() throws Exception {
-        mockMvc.perform(get("/lecture/lecture1"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("lecture/lecture1"));
+    void getLecturesReturnsOk() throws Exception {
+        mockMvc.perform(get("/api/lectures"))
+                .andExpect(status().isOk());
     }
 }
-
