@@ -1,8 +1,9 @@
 package jp.co.apsa.giiku.dto;
 
 import jakarta.validation.constraints.*;
+
 /**
- * The LectureChapterCreateDto class.
+ * 講義チャプター作成リクエスト DTO。
  *
  * @author 株式会社アプサ
  * @version 1.0
@@ -10,56 +11,62 @@ import jakarta.validation.constraints.*;
  */
 public class LectureChapterCreateDto {
 
+    /** 講義 ID */
     @NotNull
     private Long lectureId;
 
+    /** チャプター番号 */
+    @NotNull
+    @Min(1)
+    private Integer chapterNumber;
+
+    /** タイトル */
     @NotBlank
     @Size(max = 200)
     private String title;
 
+    /** 説明 */
     @Size(max = 1000)
     private String description;
 
-    @NotNull
+    /** 所要時間（分） */
     @Min(1)
-    private Integer orderNumber;
+    private Integer durationMinutes;
 
-    @Min(1)
-    private Integer estimatedMinutes;
+    /** 表示順 */
+    private Integer sortOrder;
 
-    @Size(max = 500)
-    private String contentUrl;
+    /** 有効フラグ */
+    private Boolean isActive = true;
 
-    @Size(max = 50)
-    private String contentType;
-    /** LectureChapterCreateDto メソッド */
+    /** デフォルトコンストラクタ */
     public LectureChapterCreateDto() {}
-    /** getLectureId メソッド */
+
     public Long getLectureId() { return lectureId; }
-    /** setLectureId メソッド */
+
     public void setLectureId(Long lectureId) { this.lectureId = lectureId; }
-    /** getTitle メソッド */
+
+    public Integer getChapterNumber() { return chapterNumber; }
+
+    public void setChapterNumber(Integer chapterNumber) { this.chapterNumber = chapterNumber; }
+
     public String getTitle() { return title; }
-    /** setTitle メソッド */
+
     public void setTitle(String title) { this.title = title; }
-    /** getDescription メソッド */
+
     public String getDescription() { return description; }
-    /** setDescription メソッド */
+
     public void setDescription(String description) { this.description = description; }
-    /** getOrderNumber メソッド */
-    public Integer getOrderNumber() { return orderNumber; }
-    /** setOrderNumber メソッド */
-    public void setOrderNumber(Integer orderNumber) { this.orderNumber = orderNumber; }
-    /** getEstimatedMinutes メソッド */
-    public Integer getEstimatedMinutes() { return estimatedMinutes; }
-    /** setEstimatedMinutes メソッド */
-    public void setEstimatedMinutes(Integer estimatedMinutes) { this.estimatedMinutes = estimatedMinutes; }
-    /** getContentUrl メソッド */
-    public String getContentUrl() { return contentUrl; }
-    /** setContentUrl メソッド */
-    public void setContentUrl(String contentUrl) { this.contentUrl = contentUrl; }
-    /** getContentType メソッド */
-    public String getContentType() { return contentType; }
-    /** setContentType メソッド */
-    public void setContentType(String contentType) { this.contentType = contentType; }
+
+    public Integer getDurationMinutes() { return durationMinutes; }
+
+    public void setDurationMinutes(Integer durationMinutes) { this.durationMinutes = durationMinutes; }
+
+    public Integer getSortOrder() { return sortOrder; }
+
+    public void setSortOrder(Integer sortOrder) { this.sortOrder = sortOrder; }
+
+    public Boolean getIsActive() { return isActive; }
+
+    public void setIsActive(Boolean isActive) { this.isActive = isActive; }
 }
