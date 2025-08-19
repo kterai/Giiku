@@ -7,7 +7,7 @@ INSERT INTO grade_settings (setting_name, exercise_weight, quiz_weight, mock_tes
 VALUES ('Default Grade Settings', 0.40, 0.30, 0.30, 60.00, true, 1);
 
 -- Insert 3 Months
-INSERT INTO months (month_number, month_name, description, created_by) VALUES 
+INSERT INTO months (month_number, title, description, created_by) VALUES
 (1, '第1月', 'Web開発基礎とJavaScript入門', 1),
 (2, '第2月', 'フレームワーク開発とデータベース設計', 1),
 (3, '第3月', '実践開発とプロジェクト統合', 1);

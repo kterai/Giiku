@@ -6,8 +6,10 @@
 CREATE TABLE months (
     id SERIAL PRIMARY KEY,
     month_number INTEGER NOT NULL UNIQUE CHECK (month_number >= 1 AND month_number <= 3),
-    month_name VARCHAR(100) NOT NULL,
+    title VARCHAR(255) NOT NULL,
     description TEXT,
+    objectives TEXT,
+    duration_weeks INTEGER,
     start_date DATE,
     end_date DATE,
     is_active BOOLEAN DEFAULT true,
@@ -18,8 +20,10 @@ CREATE TABLE months (
 );
 
 COMMENT ON COLUMN months.month_number IS '月番号（1-3の月番号）';
-COMMENT ON COLUMN months.month_name IS '月名称（月の表示名）';
+COMMENT ON COLUMN months.title IS '月タイトル（表示名）';
 COMMENT ON COLUMN months.description IS '説明（月の学習内容説明）';
+COMMENT ON COLUMN months.objectives IS '学習目標（その月で達成するべき内容）';
+COMMENT ON COLUMN months.duration_weeks IS '学習期間（週数）';
 COMMENT ON COLUMN months.start_date IS '開始日（月の開始予定日）';
 COMMENT ON COLUMN months.end_date IS '終了日（月の終了予定日）';
 COMMENT ON COLUMN months.is_active IS '有効状態（月の使用可否）';
