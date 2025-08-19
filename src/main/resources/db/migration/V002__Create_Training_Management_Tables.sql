@@ -5,99 +5,165 @@
 -- Training Programs (course definitions that can be copied/reused)
 CREATE TABLE training_programs (
     id SERIAL PRIMARY KEY,
-    program_name VARCHAR(200) NOT NULL COMMENT 'プログラム名（研修プログラムの名称）',
-    description TEXT COMMENT '説明（プログラムの詳細説明）',
-    company_id INTEGER REFERENCES companies(id) COMMENT '会社ID（プログラムを実施する会社）',
-    duration_months INTEGER DEFAULT 3 CHECK (duration_months > 0) COMMENT '期間月数（プログラムの実施期間）',
-    max_students INTEGER DEFAULT 30 CHECK (max_students > 0) COMMENT '最大受講者数（プログラムの定員）',
-    is_template BOOLEAN DEFAULT false COMMENT 'テンプレート（他社コピー用テンプレートか）',
-    is_active BOOLEAN DEFAULT true COMMENT '有効状態（プログラムの使用可否）',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時（レコード作成時刻）',
-    created_by INTEGER REFERENCES users(id) COMMENT '作成者（レコード作成したユーザーID）',
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '更新日時（レコード更新時刻）',
-    updated_by INTEGER REFERENCES users(id) COMMENT '更新者（レコード更新したユーザーID）'
+    program_name VARCHAR(200) NOT NULL,
+    description TEXT,
+    company_id INTEGER REFERENCES companies(id),
+    duration_months INTEGER DEFAULT 3 CHECK (duration_months > 0),
+    max_students INTEGER DEFAULT 30 CHECK (max_students > 0),
+    is_template BOOLEAN DEFAULT false,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER REFERENCES users(id),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_by INTEGER REFERENCES users(id)
 );
+
+COMMENT ON COLUMN training_programs.program_name IS 'プログラム名（研修プログラムの名称）';
+COMMENT ON COLUMN training_programs.description IS '説明（プログラムの詳細説明）';
+COMMENT ON COLUMN training_programs.company_id IS '会社ID（プログラムを実施する会社）';
+COMMENT ON COLUMN training_programs.duration_months IS '期間月数（プログラムの実施期間）';
+COMMENT ON COLUMN training_programs.max_students IS '最大受講者数（プログラムの定員）';
+COMMENT ON COLUMN training_programs.is_template IS 'テンプレート（他社コピー用テンプレートか）';
+COMMENT ON COLUMN training_programs.is_active IS '有効状態（プログラムの使用可否）';
+COMMENT ON COLUMN training_programs.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN training_programs.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN training_programs.updated_at IS '更新日時（レコード更新時刻）';
+COMMENT ON COLUMN training_programs.updated_by IS '更新者（レコード更新したユーザーID）';
 
 -- Training Schedules (specific scheduled instances of programs)
 CREATE TABLE training_schedules (
     id SERIAL PRIMARY KEY,
     training_program_id INTEGER NOT NULL REFERENCES training_programs(id),
-    schedule_name VARCHAR(200) NOT NULL COMMENT 'スケジュール名（実施スケジュールの名称）',
-    start_date DATE NOT NULL COMMENT '開始日（研修開始日）',
-    end_date DATE NOT NULL COMMENT '終了日（研修終了日）',
-    instructor_id INTEGER REFERENCES users(id) COMMENT '講師ID（メイン講師のユーザーID）',
-    status VARCHAR(20) DEFAULT 'planned' CHECK (status IN ('planned', 'active', 'completed', 'cancelled')) COMMENT 'ステータス（スケジュールの状態）',
-    actual_students INTEGER DEFAULT 0 COMMENT '実際受講者数（実際の参加者数）',
-    notes TEXT COMMENT '備考（スケジュールの備考情報）',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時（レコード作成時刻）',
-    created_by INTEGER REFERENCES users(id) COMMENT '作成者（レコード作成したユーザーID）',
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '更新日時（レコード更新時刻）',
-    updated_by INTEGER REFERENCES users(id) COMMENT '更新者（レコード更新したユーザーID）'
+    schedule_name VARCHAR(200) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    instructor_id INTEGER REFERENCES users(id),
+    status VARCHAR(20) DEFAULT 'planned' CHECK (status IN ('planned', 'active', 'completed', 'cancelled')),
+    actual_students INTEGER DEFAULT 0,
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER REFERENCES users(id),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_by INTEGER REFERENCES users(id)
 );
+
+COMMENT ON COLUMN training_schedules.schedule_name IS 'スケジュール名（実施スケジュールの名称）';
+COMMENT ON COLUMN training_schedules.start_date IS '開始日（研修開始日）';
+COMMENT ON COLUMN training_schedules.end_date IS '終了日（研修終了日）';
+COMMENT ON COLUMN training_schedules.instructor_id IS '講師ID（メイン講師のユーザーID）';
+COMMENT ON COLUMN training_schedules.status IS 'ステータス（スケジュールの状態）';
+COMMENT ON COLUMN training_schedules.actual_students IS '実際受講者数（実際の参加者数）';
+COMMENT ON COLUMN training_schedules.notes IS '備考（スケジュールの備考情報）';
+COMMENT ON COLUMN training_schedules.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN training_schedules.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN training_schedules.updated_at IS '更新日時（レコード更新時刻）';
+COMMENT ON COLUMN training_schedules.updated_by IS '更新者（レコード更新したユーザーID）';
 
 -- Instructors (extends users table for instructor-specific information)
 CREATE TABLE instructors (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL UNIQUE REFERENCES users(id),
-    instructor_code VARCHAR(50) UNIQUE COMMENT '講師コード（講師の識別コード）',
-    specialties JSON COMMENT '専門分野（講師の専門分野リスト）',
-    bio TEXT COMMENT '経歴（講師の経歴・プロフィール）',
-    certifications JSON COMMENT '資格（講師の保有資格リスト）',
-    hourly_rate DECIMAL(10,2) COMMENT '時間単価（講師の時間あたり報酬）',
-    is_active BOOLEAN DEFAULT true COMMENT '有効状態（講師の活動状態）',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時（レコード作成時刻）',
-    created_by INTEGER REFERENCES users(id) COMMENT '作成者（レコード作成したユーザーID）',
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '更新日時（レコード更新時刻）',
-    updated_by INTEGER REFERENCES users(id) COMMENT '更新者（レコード更新したユーザーID）'
+    instructor_code VARCHAR(50) UNIQUE,
+    specialties JSON,
+    bio TEXT,
+    certifications JSON,
+    hourly_rate DECIMAL(10,2),
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER REFERENCES users(id),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_by INTEGER REFERENCES users(id)
 );
+
+COMMENT ON COLUMN instructors.instructor_code IS '講師コード（講師の識別コード）';
+COMMENT ON COLUMN instructors.specialties IS '専門分野（講師の専門分野リスト）';
+COMMENT ON COLUMN instructors.bio IS '経歴（講師の経歴・プロフィール）';
+COMMENT ON COLUMN instructors.certifications IS '資格（講師の保有資格リスト）';
+COMMENT ON COLUMN instructors.hourly_rate IS '時間単価（講師の時間あたり報酬）';
+COMMENT ON COLUMN instructors.is_active IS '有効状態（講師の活動状態）';
+COMMENT ON COLUMN instructors.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN instructors.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN instructors.updated_at IS '更新日時（レコード更新時刻）';
+COMMENT ON COLUMN instructors.updated_by IS '更新者（レコード更新したユーザーID）';
 
 -- Students (extends users table for student-specific information)
 CREATE TABLE students (
     id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL UNIQUE REFERENCES users(id),
-    student_code VARCHAR(50) UNIQUE COMMENT '受講者コード（受講者の識別コード）',
-    company_id INTEGER REFERENCES companies(id) COMMENT '所属会社ID（受講者の所属会社）',
-    department VARCHAR(100) COMMENT '部署（受講者の所属部署）',
-    position VARCHAR(100) COMMENT '役職（受講者の役職）',
-    experience_years INTEGER DEFAULT 0 CHECK (experience_years >= 0) COMMENT '経験年数（プログラミング経験年数）',
-    education_background VARCHAR(200) COMMENT '学歴（受講者の学歴）',
-    motivation TEXT COMMENT '受講動機（受講の動機・目標）',
-    is_active BOOLEAN DEFAULT true COMMENT '有効状態（受講者の活動状態）',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時（レコード作成時刻）',
-    created_by INTEGER REFERENCES users(id) COMMENT '作成者（レコード作成したユーザーID）',
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '更新日時（レコード更新時刻）',
-    updated_by INTEGER REFERENCES users(id) COMMENT '更新者（レコード更新したユーザーID）'
+    student_code VARCHAR(50) UNIQUE,
+    company_id INTEGER REFERENCES companies(id),
+    department VARCHAR(100),
+    position VARCHAR(100),
+    experience_years INTEGER DEFAULT 0 CHECK (experience_years >= 0),
+    education_background VARCHAR(200),
+    motivation TEXT,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER REFERENCES users(id),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_by INTEGER REFERENCES users(id)
 );
+
+COMMENT ON COLUMN students.student_code IS '受講者コード（受講者の識別コード）';
+COMMENT ON COLUMN students.company_id IS '所属会社ID（受講者の所属会社）';
+COMMENT ON COLUMN students.department IS '部署（受講者の所属部署）';
+COMMENT ON COLUMN students.position IS '役職（受講者の役職）';
+COMMENT ON COLUMN students.experience_years IS '経験年数（プログラミング経験年数）';
+COMMENT ON COLUMN students.education_background IS '学歴（受講者の学歴）';
+COMMENT ON COLUMN students.motivation IS '受講動機（受講の動機・目標）';
+COMMENT ON COLUMN students.is_active IS '有効状態（受講者の活動状態）';
+COMMENT ON COLUMN students.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN students.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN students.updated_at IS '更新日時（レコード更新時刻）';
+COMMENT ON COLUMN students.updated_by IS '更新者（レコード更新したユーザーID）';
 
 -- Training Assignments (assigns students to specific training schedules)
 CREATE TABLE training_assignments (
     id SERIAL PRIMARY KEY,
     training_schedule_id INTEGER NOT NULL REFERENCES training_schedules(id),
     student_id INTEGER NOT NULL REFERENCES students(id),
-    assignment_date DATE DEFAULT CURRENT_DATE COMMENT '配属日（研修への配属日）',
-    status VARCHAR(20) DEFAULT 'assigned' CHECK (status IN ('assigned', 'active', 'completed', 'dropped', 'transferred')) COMMENT 'ステータス（配属の状態）',
-    completion_date DATE COMMENT '完了日（研修完了日）',
-    final_score DECIMAL(5,2) COMMENT '最終得点（研修の最終得点）',
-    certificate_issued BOOLEAN DEFAULT false COMMENT '修了証発行（修了証の発行可否）',
-    notes TEXT COMMENT '備考（配属に関する備考）',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時（レコード作成時刻）',
-    created_by INTEGER REFERENCES users(id) COMMENT '作成者（レコード作成したユーザーID）',
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '更新日時（レコード更新時刻）',
-    updated_by INTEGER REFERENCES users(id) COMMENT '更新者（レコード更新したユーザーID）'
+    assignment_date DATE DEFAULT CURRENT_DATE,
+    status VARCHAR(20) DEFAULT 'assigned' CHECK (status IN ('assigned', 'active', 'completed', 'dropped', 'transferred')),
+    completion_date DATE,
+    final_score DECIMAL(5,2),
+    certificate_issued BOOLEAN DEFAULT false,
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER REFERENCES users(id),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_by INTEGER REFERENCES users(id)
 );
+
+COMMENT ON COLUMN training_assignments.assignment_date IS '配属日（研修への配属日）';
+COMMENT ON COLUMN training_assignments.status IS 'ステータス（配属の状態）';
+COMMENT ON COLUMN training_assignments.completion_date IS '完了日（研修完了日）';
+COMMENT ON COLUMN training_assignments.final_score IS '最終得点（研修の最終得点）';
+COMMENT ON COLUMN training_assignments.certificate_issued IS '修了証発行（修了証の発行可否）';
+COMMENT ON COLUMN training_assignments.notes IS '備考（配属に関する備考）';
+COMMENT ON COLUMN training_assignments.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN training_assignments.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN training_assignments.updated_at IS '更新日時（レコード更新時刻）';
+COMMENT ON COLUMN training_assignments.updated_by IS '更新者（レコード更新したユーザーID）';
 
 -- Schedule Instructors (allows multiple instructors per schedule)
 CREATE TABLE schedule_instructors (
     id SERIAL PRIMARY KEY,
     training_schedule_id INTEGER NOT NULL REFERENCES training_schedules(id),
     instructor_id INTEGER NOT NULL REFERENCES instructors(id),
-    role VARCHAR(50) DEFAULT 'assistant' CHECK (role IN ('main', 'assistant', 'guest')) COMMENT '役割（講師の役割）',
-    assigned_lectures JSON COMMENT '担当講義（担当する講義のリスト）',
-    start_date DATE COMMENT '開始日（担当開始日）',
-    end_date DATE COMMENT '終了日（担当終了日）',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時（レコード作成時刻）',
-    created_by INTEGER REFERENCES users(id) COMMENT '作成者（レコード作成したユーザーID）'
+    role VARCHAR(50) DEFAULT 'assistant' CHECK (role IN ('main', 'assistant', 'guest')),
+    assigned_lectures JSON,
+    start_date DATE,
+    end_date DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER REFERENCES users(id)
 );
+
+COMMENT ON COLUMN schedule_instructors.role IS '役割（講師の役割）';
+COMMENT ON COLUMN schedule_instructors.assigned_lectures IS '担当講義（担当する講義のリスト）';
+COMMENT ON COLUMN schedule_instructors.start_date IS '開始日（担当開始日）';
+COMMENT ON COLUMN schedule_instructors.end_date IS '終了日（担当終了日）';
+COMMENT ON COLUMN schedule_instructors.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN schedule_instructors.created_by IS '作成者（レコード作成したユーザーID）';
 
 -- Performance indexes for optimization
 CREATE INDEX idx_training_programs_company ON training_programs(company_id);
