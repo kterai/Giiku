@@ -3,8 +3,6 @@ package jp.co.apsa.giiku;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,9 +16,7 @@ import org.slf4j.LoggerFactory;
  * @since 2025
  */
 @SpringBootApplication(scanBasePackages = "jp.co.apsa.giiku")
-@EnableJpaRepositories(basePackages = "jp.co.apsa.giiku.domain.repository")
 @EntityScan(basePackages = "jp.co.apsa.giiku.domain.entity")
-@EnableTransactionManagement
 public class GiikuSystemApplication {
 
     private static final Logger logger = LoggerFactory.getLogger(GiikuSystemApplication.class);
