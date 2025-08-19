@@ -5,68 +5,115 @@
 -- Months table (3 months total)
 CREATE TABLE months (
     id SERIAL PRIMARY KEY,
-    month_number INTEGER NOT NULL UNIQUE CHECK (month_number >= 1 AND month_number <= 3) COMMENT '月番号（1-3の月番号）',
-    month_name VARCHAR(100) NOT NULL COMMENT '月名称（月の表示名）',
-    description TEXT COMMENT '説明（月の学習内容説明）',
-    start_date DATE COMMENT '開始日（月の開始予定日）',
-    end_date DATE COMMENT '終了日（月の終了予定日）',
-    is_active BOOLEAN DEFAULT true COMMENT '有効状態（月の使用可否）',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時（レコード作成時刻）',
-    created_by INTEGER REFERENCES users(id) COMMENT '作成者（レコード作成したユーザーID）',
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '更新日時（レコード更新時刻）',
-    updated_by INTEGER REFERENCES users(id) COMMENT '更新者（レコード更新したユーザーID）'
+    month_number INTEGER NOT NULL UNIQUE CHECK (month_number >= 1 AND month_number <= 3),
+    month_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    start_date DATE,
+    end_date DATE,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER REFERENCES users(id),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_by INTEGER REFERENCES users(id)
 );
+
+COMMENT ON COLUMN months.month_number IS '月番号（1-3の月番号）';
+COMMENT ON COLUMN months.month_name IS '月名称（月の表示名）';
+COMMENT ON COLUMN months.description IS '説明（月の学習内容説明）';
+COMMENT ON COLUMN months.start_date IS '開始日（月の開始予定日）';
+COMMENT ON COLUMN months.end_date IS '終了日（月の終了予定日）';
+COMMENT ON COLUMN months.is_active IS '有効状態（月の使用可否）';
+COMMENT ON COLUMN months.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN months.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN months.updated_at IS '更新日時（レコード更新時刻）';
+COMMENT ON COLUMN months.updated_by IS '更新者（レコード更新したユーザーID）';
 
 -- Weeks table (18 weeks total, 6 weeks per month)
 CREATE TABLE weeks (
     id SERIAL PRIMARY KEY,
     month_id INTEGER NOT NULL REFERENCES months(id),
-    week_number INTEGER NOT NULL CHECK (week_number >= 1 AND week_number <= 18) COMMENT '週番号（1-18の週番号）',
-    week_name VARCHAR(100) NOT NULL COMMENT '週名称（週の表示名）',
-    description TEXT COMMENT '説明（週の学習内容説明）',
-    start_date DATE COMMENT '開始日（週の開始予定日）',
-    end_date DATE COMMENT '終了日（週の終了予定日）',
-    is_active BOOLEAN DEFAULT true COMMENT '有効状態（週の使用可否）',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時（レコード作成時刻）',
-    created_by INTEGER REFERENCES users(id) COMMENT '作成者（レコード作成したユーザーID）',
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '更新日時（レコード更新時刻）',
-    updated_by INTEGER REFERENCES users(id) COMMENT '更新者（レコード更新したユーザーID）'
+    week_number INTEGER NOT NULL CHECK (week_number >= 1 AND week_number <= 18),
+    week_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    start_date DATE,
+    end_date DATE,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER REFERENCES users(id),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_by INTEGER REFERENCES users(id)
 );
+
+COMMENT ON COLUMN weeks.week_number IS '週番号（1-18の週番号）';
+COMMENT ON COLUMN weeks.week_name IS '週名称（週の表示名）';
+COMMENT ON COLUMN weeks.description IS '説明（週の学習内容説明）';
+COMMENT ON COLUMN weeks.start_date IS '開始日（週の開始予定日）';
+COMMENT ON COLUMN weeks.end_date IS '終了日（週の終了予定日）';
+COMMENT ON COLUMN weeks.is_active IS '有効状態（週の使用可否）';
+COMMENT ON COLUMN weeks.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN weeks.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN weeks.updated_at IS '更新日時（レコード更新時刻）';
+COMMENT ON COLUMN weeks.updated_by IS '更新者（レコード更新したユーザーID）';
 
 -- Days table (54 days total, 3 days per week)  
 CREATE TABLE days (
     id SERIAL PRIMARY KEY,
     week_id INTEGER NOT NULL REFERENCES weeks(id),
-    day_number INTEGER NOT NULL CHECK (day_number >= 1 AND day_number <= 54) COMMENT '日番号（1-54の日番号）',
-    day_name VARCHAR(100) NOT NULL COMMENT '日名称（日の表示名）',
-    description TEXT COMMENT '説明（日の学習内容説明）',
-    scheduled_date DATE COMMENT '予定日（日の実施予定日）',
-    is_active BOOLEAN DEFAULT true COMMENT '有効状態（日の使用可否）',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時（レコード作成時刻）',
-    created_by INTEGER REFERENCES users(id) COMMENT '作成者（レコード作成したユーザーID）',
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '更新日時（レコード更新時刻）',
-    updated_by INTEGER REFERENCES users(id) COMMENT '更新者（レコード更新したユーザーID）'
+    day_number INTEGER NOT NULL CHECK (day_number >= 1 AND day_number <= 54),
+    day_name VARCHAR(100) NOT NULL,
+    description TEXT,
+    scheduled_date DATE,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER REFERENCES users(id),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_by INTEGER REFERENCES users(id)
 );
+
+COMMENT ON COLUMN days.day_number IS '日番号（1-54の日番号）';
+COMMENT ON COLUMN days.day_name IS '日名称（日の表示名）';
+COMMENT ON COLUMN days.description IS '説明（日の学習内容説明）';
+COMMENT ON COLUMN days.scheduled_date IS '予定日（日の実施予定日）';
+COMMENT ON COLUMN days.is_active IS '有効状態（日の使用可否）';
+COMMENT ON COLUMN days.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN days.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN days.updated_at IS '更新日時（レコード更新時刻）';
+COMMENT ON COLUMN days.updated_by IS '更新者（レコード更新したユーザーID）';
 
 -- Lectures table (54 lectures total, 1 lecture per day)
 CREATE TABLE lectures (
     id SERIAL PRIMARY KEY,
     day_id INTEGER NOT NULL REFERENCES days(id),
-    lecture_number INTEGER NOT NULL UNIQUE CHECK (lecture_number >= 1 AND lecture_number <= 54) COMMENT '講義番号（1-54の講義番号）',
-    lecture_title VARCHAR(200) NOT NULL COMMENT '講義タイトル（講義の題名）',
-    description TEXT COMMENT '説明（講義の詳細説明）',
-    goals JSON COMMENT '学習目標（講義の学習目標リスト）',
-    content_chapters JSON COMMENT '章構成（講義の章立てリスト）',
-    content_blocks JSON COMMENT '内容ブロック（講義の詳細内容ブロックリスト）',
-    estimated_duration INTEGER DEFAULT 180 COMMENT '予定時間（講義の予定時間（分））',
-    materials_url TEXT COMMENT '教材URL（講義教材のURL）',
-    video_url TEXT COMMENT '動画URL（講義動画のURL）',
-    is_active BOOLEAN DEFAULT true COMMENT '有効状態（講義の使用可否）',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '作成日時（レコード作成時刻）',
-    created_by INTEGER REFERENCES users(id) COMMENT '作成者（レコード作成したユーザーID）',
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '更新日時（レコード更新時刻）',
-    updated_by INTEGER REFERENCES users(id) COMMENT '更新者（レコード更新したユーザーID）'
+    lecture_number INTEGER NOT NULL UNIQUE CHECK (lecture_number >= 1 AND lecture_number <= 54),
+    lecture_title VARCHAR(200) NOT NULL,
+    description TEXT,
+    goals JSON,
+    content_chapters JSON,
+    content_blocks JSON,
+    estimated_duration INTEGER DEFAULT 180,
+    materials_url TEXT,
+    video_url TEXT,
+    is_active BOOLEAN DEFAULT true,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER REFERENCES users(id),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_by INTEGER REFERENCES users(id)
 );
+
+COMMENT ON COLUMN lectures.lecture_number IS '講義番号（1-54の講義番号）';
+COMMENT ON COLUMN lectures.lecture_title IS '講義タイトル（講義の題名）';
+COMMENT ON COLUMN lectures.description IS '説明（講義の詳細説明）';
+COMMENT ON COLUMN lectures.goals IS '学習目標（講義の学習目標リスト）';
+COMMENT ON COLUMN lectures.content_chapters IS '章構成（講義の章立てリスト）';
+COMMENT ON COLUMN lectures.content_blocks IS '内容ブロック（講義の詳細内容ブロックリスト）';
+COMMENT ON COLUMN lectures.estimated_duration IS '予定時間（講義の予定時間（分））';
+COMMENT ON COLUMN lectures.materials_url IS '教材URL（講義教材のURL）';
+COMMENT ON COLUMN lectures.video_url IS '動画URL（講義動画のURL）';
+COMMENT ON COLUMN lectures.is_active IS '有効状態（講義の使用可否）';
+COMMENT ON COLUMN lectures.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN lectures.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN lectures.updated_at IS '更新日時（レコード更新時刻）';
+COMMENT ON COLUMN lectures.updated_by IS '更新者（レコード更新したユーザーID）';
 
 -- Performance indexes
 CREATE INDEX idx_weeks_month ON weeks(month_id);
