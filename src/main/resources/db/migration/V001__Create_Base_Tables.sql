@@ -1,11 +1,10 @@
 -- V001: Create Base Tables for Learning Management System
 -- Creates core hierarchy: months -> weeks -> days -> lectures
 -- Preserves existing users and companies tables
-
--- Months table (3 months total)
+-- Months table (12 months total)
 CREATE TABLE months (
     id SERIAL PRIMARY KEY,
-    month_number INTEGER NOT NULL UNIQUE CHECK (month_number >= 1 AND month_number <= 3),
+    month_number INTEGER NOT NULL UNIQUE CHECK (month_number BETWEEN 1 AND 12),
     title VARCHAR(255) NOT NULL,
     description TEXT,
     objectives TEXT,
@@ -19,7 +18,7 @@ CREATE TABLE months (
     updated_by INTEGER REFERENCES users(id)
 );
 
-COMMENT ON COLUMN months.month_number IS '月番号（1-3の月番号）';
+COMMENT ON COLUMN months.month_number IS '月番号（1-12の月番号）';
 COMMENT ON COLUMN months.title IS '月タイトル（表示名）';
 COMMENT ON COLUMN months.description IS '説明（月の学習内容説明）';
 COMMENT ON COLUMN months.objectives IS '学習目標（その月で達成するべき内容）';
