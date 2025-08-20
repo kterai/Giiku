@@ -19,6 +19,14 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class Lecture extends BaseEntity {
 
+    /** 紐づく日ID */
+    @Column(name = "day_id")
+    private Integer dayId;
+
+    /** 講義番号 */
+    @Column(name = "lecture_number")
+    private Integer lectureNumber;
+
     /** 講義タイトル */
     @NotBlank
     @Size(max = 200)
@@ -39,7 +47,23 @@ public class Lecture extends BaseEntity {
     @Column(name = "difficulty_level", length = 50)
     private String difficultyLevel;
 
+    /** 学習目標(JSON) */
+    @Column(name = "goals", columnDefinition = "jsonb")
+    private String goals;
+
+    /** チャプター一覧(JSON) */
+    @Column(name = "content_chapters", columnDefinition = "jsonb")
+    private String contentChapters;
+
+    /** コンテンツブロック一覧(JSON) */
+    @Column(name = "content_blocks", columnDefinition = "jsonb")
+    private String contentBlocks;
+
     /** 有効フラグ */
     @Column(name = "is_active")
     private Boolean isActive = true;
+
+    /** 作成者ID */
+    @Column(name = "created_by")
+    private Integer createdBy;
 }

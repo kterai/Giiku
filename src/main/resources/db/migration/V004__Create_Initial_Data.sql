@@ -61,7 +61,7 @@ INSERT INTO days (week_id, day_number, day_name, description, created_by) VALUES
 (18, 52, 'Day 52', '最終プロジェクト発表', 1), (18, 53, 'Day 53', '総合復習', 1), (18, 54, 'Day 54', '修了テストと振り返り', 1);
 
 -- Insert all 54 Lectures with detailed content
-INSERT INTO lectures (day_id, lecture_number, lecture_title, description, goals, content_chapters, content_blocks, estimated_duration, created_by) VALUES 
+INSERT INTO lectures (day_id, lecture_number, title, description, goals, content_chapters, content_blocks, duration_minutes, created_by) VALUES 
 -- Month 1: Web基礎 (Lectures 1-18)
 (1, 1, 'HTML基礎構造の理解', 'HTMLの基本的な構造とタグについて学習', '["HTML基本構造理解","主要タグ習得","セマンティックHTML"]', '["HTML概要","基本構造","主要タグ","セマンティック","演習"]', '["HTML概要","DOCTYPE宣言","head/body要素","テキスト要素","リスト要素","リンク・画像","セマンティック要素","フォーム基礎","実践演習","まとめ"]', 180, 1),
 (2, 2, 'CSS基礎スタイリング', 'CSSの基本的な記法とスタイリング技法を学習', '["CSS基本記法","セレクタ・プロパティ","Boxモデル理解"]', '["CSS概要","基本記法","セレクタ","プロパティ","Boxモデル"]', '["CSS概要","セレクタ種類","テキストスタイル","色・背景","Boxモデル","幅・高さ","表示プロパティ","ポジション","実践演習","デバッグツール"]', 180, 1),
