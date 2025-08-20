@@ -85,22 +85,34 @@ COMMENT ON COLUMN days.updated_by IS '更新者（レコード更新したユー
 
 CREATE TABLE lectures (
     id SERIAL PRIMARY KEY,
+    day_id INTEGER REFERENCES days(id),
+    lecture_number INTEGER,
     title VARCHAR(200) NOT NULL,
     description TEXT,
+    goals JSONB,
+    content_chapters JSONB,
+    content_blocks JSONB,
     duration_minutes INTEGER NOT NULL,
     difficulty_level VARCHAR(50),
     is_active BOOLEAN DEFAULT true,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INTEGER REFERENCES users(id),
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     version BIGINT DEFAULT 0 NOT NULL
 );
 
+COMMENT ON COLUMN lectures.day_id IS '紐づく日ID（days.id）';
+COMMENT ON COLUMN lectures.lecture_number IS '講義番号（日内での順序）';
 COMMENT ON COLUMN lectures.title IS '講義タイトル（講義の題名）';
 COMMENT ON COLUMN lectures.description IS '説明（講義の詳細説明）';
+COMMENT ON COLUMN lectures.goals IS '学習目標（JSON配列）';
+COMMENT ON COLUMN lectures.content_chapters IS 'チャプター一覧（JSON配列）';
+COMMENT ON COLUMN lectures.content_blocks IS 'コンテンツブロック一覧（JSON配列）';
 COMMENT ON COLUMN lectures.duration_minutes IS '想定時間（講義の予定時間（分））';
 COMMENT ON COLUMN lectures.difficulty_level IS '難易度レベル（BEGINNER/INTERMEDIATE/ADVANCED）';
 COMMENT ON COLUMN lectures.is_active IS '有効状態（講義の使用可否）';
 COMMENT ON COLUMN lectures.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN lectures.created_by IS '作成者（レコード作成したユーザーID）';
 COMMENT ON COLUMN lectures.updated_at IS '更新日時（レコード更新時刻）';
 COMMENT ON COLUMN lectures.version IS 'バージョン（楽観ロック用）';
 
@@ -164,6 +176,7 @@ COMMENT ON COLUMN lecture_content_blocks.sort_order IS '並び順';
 -- Performance indexes
 CREATE INDEX idx_weeks_month ON weeks(month_id);
 CREATE INDEX idx_days_week ON days(week_id);
+CREATE INDEX idx_lectures_day ON lectures(day_id);
 CREATE INDEX idx_lectures_active ON lectures(is_active);
 CREATE INDEX idx_lecture_chapters_lecture ON lecture_chapters(lecture_id);
 CREATE INDEX idx_lecture_goals_lecture ON lecture_goals(lecture_id);
