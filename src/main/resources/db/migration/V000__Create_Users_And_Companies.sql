@@ -105,7 +105,8 @@ CREATE TABLE months (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_by INTEGER REFERENCES users(id)
 );
-
+COMMENT ON TABLE months IS '月マスタ（学習カリキュラムの月情報を管理）';
+COMMENT ON COLUMN months.id IS '月ID（連番）';
 COMMENT ON COLUMN months.month_number IS '月番号（1-12の月番号）';
 COMMENT ON COLUMN months.title IS '月タイトル（表示名）';
 COMMENT ON COLUMN months.description IS '説明（月の学習内容説明）';
@@ -134,7 +135,9 @@ CREATE TABLE weeks (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_by INTEGER REFERENCES users(id)
 );
-
+COMMENT ON TABLE weeks IS '週マスタ（月に属する週情報を管理）';
+COMMENT ON COLUMN weeks.id IS '週ID（連番）';
+COMMENT ON COLUMN weeks.month_id IS '月ID（紐づく月）';
 COMMENT ON COLUMN weeks.week_number IS '週番号（1-18の週番号）';
 COMMENT ON COLUMN weeks.week_name IS '週名称（週の表示名）';
 COMMENT ON COLUMN weeks.description IS '説明（週の学習内容説明）';
@@ -160,7 +163,9 @@ CREATE TABLE days (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_by INTEGER REFERENCES users(id)
 );
-
+COMMENT ON TABLE days IS '日マスタ（週に属する日情報を管理）';
+COMMENT ON COLUMN days.id IS '日ID（連番）';
+COMMENT ON COLUMN days.week_id IS '週ID（紐づく週）';
 COMMENT ON COLUMN days.day_number IS '日番号（1-54の日番号）';
 COMMENT ON COLUMN days.day_name IS '日名称（日の表示名）';
 COMMENT ON COLUMN days.description IS '説明（日の学習内容説明）';
@@ -188,7 +193,8 @@ CREATE TABLE lectures (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     version BIGINT DEFAULT 0 NOT NULL
 );
-
+COMMENT ON TABLE lectures IS '講義マスタ（各日の講義情報を管理）';
+COMMENT ON COLUMN lectures.id IS '講義ID（連番）';
 COMMENT ON COLUMN lectures.day_id IS '紐づく日ID（days.id）';
 COMMENT ON COLUMN lectures.lecture_number IS '講義番号（日内での順序）';
 COMMENT ON COLUMN lectures.title IS '講義タイトル（講義の題名）';
@@ -945,15 +951,25 @@ COMMENT ON TABLE grade_settings IS '成績設定（成績計算の重み設定�
 
 -- Additional tables needed for the basic data
 
--- System Settings Table
 CREATE TABLE IF NOT EXISTS system_settings (
     id BIGSERIAL PRIMARY KEY,
     setting_key VARCHAR(100) UNIQUE NOT NULL,
     setting_value TEXT NOT NULL,
     description TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_by bigint NOT NULL,
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_by bigint NOT NULL,
+    updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP
 );
+COMMENT ON TABLE system_settings IS 'システム設定（キー・値形式の設定を管理）';
+COMMENT ON COLUMN system_settings.id IS '設定ID（連番）';
+COMMENT ON COLUMN system_settings.setting_key IS '設定キー（設定の識別子）';
+COMMENT ON COLUMN system_settings.setting_value IS '設定値（設定の内容）';
+COMMENT ON COLUMN system_settings.description IS '説明（設定の説明）';
+COMMENT ON COLUMN system_settings.created_by IS '作成者ID（レコード作成ユーザー）';
+COMMENT ON COLUMN system_settings.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN system_settings.updated_by IS '更新者ID（最終更新ユーザー）';
+COMMENT ON COLUMN system_settings.updated_at IS '更新日時（最終更新時刻）';
 
 -- Audit Logs Table
 CREATE TABLE IF NOT EXISTS audit_logs (
@@ -965,9 +981,24 @@ CREATE TABLE IF NOT EXISTS audit_logs (
     new_values JSONB,
     changed_by VARCHAR(100),
     change_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_by bigint NOT NULL,
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_by bigint NOT NULL,
+    updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP
 );
+COMMENT ON TABLE audit_logs IS '監査ログ（操作履歴を管理）';
+COMMENT ON COLUMN audit_logs.id IS 'ログID（連番）';
+COMMENT ON COLUMN audit_logs.table_name IS 'テーブル名（対象テーブル）';
+COMMENT ON COLUMN audit_logs.operation_type IS '操作タイプ（INSERT/UPDATE/DELETE）';
+COMMENT ON COLUMN audit_logs.record_id IS 'レコードID（対象レコード）';
+COMMENT ON COLUMN audit_logs.old_values IS '旧値（変更前の値）';
+COMMENT ON COLUMN audit_logs.new_values IS '新値（変更後の値）';
+COMMENT ON COLUMN audit_logs.changed_by IS '変更者（操作ユーザー）';
+COMMENT ON COLUMN audit_logs.change_timestamp IS '変更日時（操作時刻）';
+COMMENT ON COLUMN audit_logs.created_by IS '作成者ID（レコード作成ユーザー）';
+COMMENT ON COLUMN audit_logs.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN audit_logs.updated_by IS '更新者ID（最終更新ユーザー）';
+COMMENT ON COLUMN audit_logs.updated_at IS '更新日時（最終更新時刻）';
 
 -- Notifications Table
 CREATE TABLE IF NOT EXISTS notifications (
@@ -979,10 +1010,25 @@ CREATE TABLE IF NOT EXISTS notifications (
     is_read BOOLEAN DEFAULT FALSE,
     priority VARCHAR(20) DEFAULT 'medium', -- low, medium, high
     expires_at TIMESTAMP,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by bigint NOT NULL,
+    created_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
+    updated_by bigint NOT NULL,
+    updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+COMMENT ON TABLE notifications IS '通知（ユーザーへの通知を管理）';
+COMMENT ON COLUMN notifications.id IS '通知ID（連番）';
+COMMENT ON COLUMN notifications.user_id IS 'ユーザーID（対象ユーザー）';
+COMMENT ON COLUMN notifications.notification_type IS '通知タイプ（種類）';
+COMMENT ON COLUMN notifications.title IS 'タイトル（通知タイトル）';
+COMMENT ON COLUMN notifications.message IS 'メッセージ（通知本文）';
+COMMENT ON COLUMN notifications.is_read IS '既読フラグ（既読かどうか）';
+COMMENT ON COLUMN notifications.priority IS '優先度（low/medium/high）';
+COMMENT ON COLUMN notifications.expires_at IS '有効期限（通知の期限）';
+COMMENT ON COLUMN notifications.created_by IS '作成者ID（レコード作成ユーザー）';
+COMMENT ON COLUMN notifications.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN notifications.updated_by IS '更新者ID（最終更新ユーザー）';
+COMMENT ON COLUMN notifications.updated_at IS '更新日時（最終更新時刻）';
 
 -- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_audit_logs_table_record ON audit_logs(table_name, record_id);
