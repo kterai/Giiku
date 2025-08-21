@@ -251,37 +251,26 @@ COMMENT ON COLUMN lecture_grades.updated_at IS '更新日時（レコード更�
 -- Student Grade Summaries (overall progress tracking)
 CREATE TABLE student_grade_summaries (
     id SERIAL PRIMARY KEY,
-    training_assignment_id INTEGER NOT NULL REFERENCES training_assignments(id),
-    total_exercise_score INTEGER DEFAULT 0,
-    total_exercise_max_score INTEGER DEFAULT 0,
-    total_quiz_score INTEGER DEFAULT 0,
-    total_quiz_max_score INTEGER DEFAULT 0,
-    mock_test_best_score INTEGER DEFAULT 0,
-    mock_test_max_score INTEGER DEFAULT 100,
-    final_grade NUMERIC(5,2),
-    grade_letter VARCHAR(2),
-    lectures_completed INTEGER DEFAULT 0,
-    total_lectures INTEGER DEFAULT 54,
-    attendance_rate NUMERIC(5,2),
-    progress_percentage NUMERIC(5,2),
-    last_activity_date TIMESTAMP,
+    student_id INTEGER NOT NULL REFERENCES students(id),
+    lecture_id INTEGER NOT NULL REFERENCES lectures(id),
+    exercise_score NUMERIC(5,2) DEFAULT 0,
+    quiz_score NUMERIC(5,2) DEFAULT 0,
+    mock_test_score NUMERIC(5,2) DEFAULT 0,
+    total_score NUMERIC(5,2) DEFAULT 0,
+    grade_status VARCHAR(20),
+    calculated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-COMMENT ON COLUMN student_grade_summaries.total_exercise_score IS '演習総得点（全演習問題の合計得点）';
-COMMENT ON COLUMN student_grade_summaries.total_exercise_max_score IS '演習総満点（全演習問題の満点）';
-COMMENT ON COLUMN student_grade_summaries.total_quiz_score IS 'クイズ総得点（全クイズの合計得点）';
-COMMENT ON COLUMN student_grade_summaries.total_quiz_max_score IS 'クイズ総満点（全クイズの満点）';
-COMMENT ON COLUMN student_grade_summaries.mock_test_best_score IS '模擬試験最高得点（模擬試験の最高得点）';
-COMMENT ON COLUMN student_grade_summaries.mock_test_max_score IS '模擬試験満点（模擬試験の満点）';
-COMMENT ON COLUMN student_grade_summaries.final_grade IS '最終成績（40%演習+30%クイズ+30%模擬試験）';
-COMMENT ON COLUMN student_grade_summaries.grade_letter IS '成績評価（A、B、C、D、Fの評価）';
-COMMENT ON COLUMN student_grade_summaries.lectures_completed IS '完了講義数（完了した講義の数）';
-COMMENT ON COLUMN student_grade_summaries.total_lectures IS '総講義数（全講義の数）';
-COMMENT ON COLUMN student_grade_summaries.attendance_rate IS '出席率（出席講義数/総講義数）';
-COMMENT ON COLUMN student_grade_summaries.progress_percentage IS '進捗率（完了度のパーセンテージ）';
-COMMENT ON COLUMN student_grade_summaries.last_activity_date IS '最終活動日（最後の学習活動日時）';
+COMMENT ON COLUMN student_grade_summaries.student_id IS '学生ID（students.id）';
+COMMENT ON COLUMN student_grade_summaries.lecture_id IS '講義ID（lectures.id）';
+COMMENT ON COLUMN student_grade_summaries.exercise_score IS '演習得点';
+COMMENT ON COLUMN student_grade_summaries.quiz_score IS 'クイズ得点';
+COMMENT ON COLUMN student_grade_summaries.mock_test_score IS '模擬試験得点';
+COMMENT ON COLUMN student_grade_summaries.total_score IS '総合得点';
+COMMENT ON COLUMN student_grade_summaries.grade_status IS '成績評価ステータス';
+COMMENT ON COLUMN student_grade_summaries.calculated_at IS '集計日時';
 COMMENT ON COLUMN student_grade_summaries.created_at IS '作成日時（レコード作成時刻）';
 COMMENT ON COLUMN student_grade_summaries.updated_at IS '更新日時（レコード更新時刻）';
 
@@ -324,7 +313,8 @@ CREATE INDEX idx_quiz_submissions_lecture ON quiz_submissions(lecture_id);
 CREATE INDEX idx_mock_submissions_assignment ON mock_test_submissions(training_assignment_id);
 CREATE INDEX idx_lecture_grades_assignment ON lecture_grades(training_assignment_id);
 CREATE INDEX idx_lecture_grades_lecture ON lecture_grades(lecture_id);
-CREATE INDEX idx_student_summaries_assignment ON student_grade_summaries(training_assignment_id);
+CREATE INDEX idx_student_summaries_student ON student_grade_summaries(student_id);
+CREATE INDEX idx_student_summaries_lecture ON student_grade_summaries(lecture_id);
 
 -- Unique constraints for data integrity
 ALTER TABLE exercise_question_bank ADD CONSTRAINT unique_exercise_question_order
@@ -333,10 +323,10 @@ ALTER TABLE quiz_question_bank ADD CONSTRAINT unique_quiz_question_order
     UNIQUE(lecture_id, question_number);
 ALTER TABLE mock_test_questions ADD CONSTRAINT unique_mock_question_order 
     UNIQUE(mock_test_id, question_order);
-ALTER TABLE lecture_grades ADD CONSTRAINT unique_lecture_assignment_grade 
+ALTER TABLE lecture_grades ADD CONSTRAINT unique_lecture_assignment_grade
     UNIQUE(training_assignment_id, lecture_id);
-ALTER TABLE student_grade_summaries ADD CONSTRAINT unique_student_summary 
-    UNIQUE(training_assignment_id);
+ALTER TABLE student_grade_summaries ADD CONSTRAINT unique_student_summary
+    UNIQUE(student_id, lecture_id);
 
 -- Add constraint to ensure grade weights sum to 1.0
 ALTER TABLE grade_settings ADD CONSTRAINT check_weights_sum 
@@ -352,5 +342,5 @@ COMMENT ON TABLE quiz_submissions IS 'クイズ提出（学生のクイズ解答
 COMMENT ON TABLE mock_test_submissions IS '模擬試験提出（学生の模擬試験受験を管理）';
 COMMENT ON TABLE mock_test_answers IS '模擬試験解答（模擬試験の個別問題解答を管理）';
 COMMENT ON TABLE lecture_grades IS '講義成績（各講義の成績を管理）';
-COMMENT ON TABLE student_grade_summaries IS '学生成績概要（学生の全体成績を管理）';
+COMMENT ON TABLE student_grade_summaries IS '学生成績集計（学生と講義ごとの成績を管理）';
 COMMENT ON TABLE grade_settings IS '成績設定（成績計算の重み設定を管理）';
