@@ -123,15 +123,15 @@ INSERT INTO lectures (day_id, lecture_number, title, description, goals, content
 (54, 54, '修了テストと振り返り', '最終評価と学習振り返り', '["修了テスト","学習振り返り","今後の計画"]', '["修了テスト","振り返り","評価","今後計画","修了式"]', '["修了テスト実施","結果分析","学習成果振り返り","スキル評価","今後の学習計画","キャリア相談","修了証授与","実践演習","ネットワーキング","継続学習リソース"]', 180, 1);
 
 -- Sample Questions for first few lectures
-INSERT INTO exercise_question_bank (lecture_id, question_type, question_text, question_options, correct_answer, answer_explanation, difficulty_level, points, created_by) VALUES 
-(1, 'multiple_choice', 'HTMLの基本構造で、文書型宣言に使用するタグはどれですか？', '{"options": ["<html>", "<!DOCTYPE html>", "<head>", "<body>"]}', '<!DOCTYPE html>', 'DOCTYPE宣言は文書がHTML5であることをブラウザに伝える重要な宣言です。', 2, 5, 1),
-(1, 'multiple_choice', 'HTMLでページのタイトルを設定するタグはどれですか？', '{"options": ["<title>", "<h1>", "<header>", "<meta>"]}', '<title>', '<title>タグはhead要素内に記述し、ブラウザのタブに表示されるタイトルを設定します。', 1, 5, 1),
-(2, 'multiple_choice', 'CSSでクラスセレクタを指定する際に使用する記号はどれですか？', '{"options": ["#", ".", "@", "&"]}', '.', 'クラスセレクタは「.」（ピリオド）を使用してクラス名を指定します。', 1, 5, 1);
+INSERT INTO exercise_question_bank (lecture_id, question_number, question_type, question_text, question_options, correct_answer, explanation, difficulty_level, points, created_by) VALUES
+(1, 1, 'multiple_choice', 'HTMLの基本構造で、文書型宣言に使用するタグはどれですか？', '{"options": ["<html>", "<!DOCTYPE html>", "<head>", "<body>"]}', '<!DOCTYPE html>', 'DOCTYPE宣言は文書がHTML5であることをブラウザに伝える重要な宣言です。', 'intermediate', 5, 1),
+(1, 2, 'multiple_choice', 'HTMLでページのタイトルを設定するタグはどれですか？', '{"options": ["<title>", "<h1>", "<header>", "<meta>"]}', '<title>', '<title>タグはhead要素内に記述し、ブラウザのタブに表示されるタイトルを設定します。', 'basic', 5, 1),
+(2, 1, 'multiple_choice', 'CSSでクラスセレクタを指定する際に使用する記号はどれですか？', '{"options": ["#", ".", "@", "&"]}', '.', 'クラスセレクタは「.」（ピリオド）を使用してクラス名を指定します。', 'basic', 5, 1);
 
 -- Sample Quiz Questions
-INSERT INTO quiz_question_bank (lecture_id, question_type, question_text, question_options, correct_answer, answer_explanation, points, created_by) VALUES 
-(1, 'multiple_choice', 'HTML5のセマンティック要素として正しいものはどれですか？', '{"options": ["<div>", "<span>", "<section>", "<b>"]}', '<section>', '<section>は内容のまとまりを表すセマンティック要素です。', 10, 1),
-(2, 'true_false', 'CSSのBoxモデルでは、marginは要素の内側の余白を指す。', '{"options": ["true", "false"]}', 'false', 'marginは要素の外側の余白です。内側の余白はpaddingです。', 10, 1);
+INSERT INTO quiz_question_bank (lecture_id, question_number, question_type, question_text, option_a, option_b, option_c, option_d, option_e, option_f, correct_answer, explanation, difficulty_level, points, created_by) VALUES
+(1, 1, 'multiple_choice', 'HTML5のセマンティック要素として正しいものはどれですか？', '<div>', '<span>', '<section>', '<b>', NULL, NULL, '<section>', '<section>は内容のまとまりを表すセマンティック要素です。', 'basic', 10, 1),
+(2, 1, 'true_false', 'CSSのBoxモデルでは、marginは要素の内側の余白を指す。', 'true', 'false', NULL, NULL, NULL, NULL, 'false', 'marginは要素の外側の余白です。内側の余白はpaddingです。', 'basic', 10, 1);
 
 -- Mock Tests
 INSERT INTO mock_test_bank (test_name, description, duration_minutes, total_points, passing_score, created_by) VALUES 
