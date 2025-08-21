@@ -36,7 +36,7 @@
 - Java は [Amazon Corretto](https://aws.amazon.com/corretto/) を使用
 - IDE は [Pleiades](https://pleiades.io/) を推奨
 
-## 進捗状況（2025-08-21時点）
+## 進捗状況（2025-08-22時点）
 - **全体進捗:** 56%
 - **月別ページ:** 100%
 - **週別ページ:** 100%
@@ -99,6 +99,8 @@
 - バックエンド：lecturesテーブルにday_id等を追加し、全54講義データを投入
 - バックエンド：mock_test_bankテーブルにdifficulty_levelカラムを追加
 - バックエンド：外部キー命名とCOMMENT記述ルールを追加
+- バックエンド：V001～V008のDDLをV000とschema.sqlに統合
+- バックエンド：統合済みのV001～V003マイグレーションファイルを削除し、V008のDDLを移行
 
 ## 今後のタスク（優先順位順）
 1. `day6.html`〜`day54.html` の作成（残り49日分）
