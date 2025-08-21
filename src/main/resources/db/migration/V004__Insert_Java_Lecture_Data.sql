@@ -976,4 +976,9 @@ public class NameConflictResolution {
 - クラスパスの設定が重要
 - パッケージ構造とディレクトリ構造の一致確認', 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+SELECT setval('lectures_id_seq',           (SELECT MAX(id) FROM lectures));
+SELECT setval('lecture_chapters_id_seq',   (SELECT MAX(id) FROM lecture_chapters));
+SELECT setval('lecture_goals_id_seq',      (SELECT MAX(id) FROM lecture_goals));
+SELECT setval('lecture_content_blocks_id_seq', (SELECT MAX(id) FROM lecture_content_blocks));
+
 COMMIT;
