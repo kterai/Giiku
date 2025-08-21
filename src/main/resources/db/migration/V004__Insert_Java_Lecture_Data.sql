@@ -411,7 +411,7 @@ public class IDETest {
         test.displayAllMessages();
 
         System.out.println("\n=== IDE Features Test ===");
-        System.out.println("1. Try code completion: type 'test.' and see suggestions");
+        System.out.println("1. Try code completion: type ''test.'' and see suggestions");
         System.out.println("2. Try refactoring: right-click on method name");
         System.out.println("3. Try debugging: set breakpoint and run in debug mode");
     }
