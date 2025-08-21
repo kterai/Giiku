@@ -85,6 +85,7 @@ CREATE TABLE mock_test_bank (
     description TEXT,
     duration_minutes INTEGER DEFAULT 120,
     total_points INTEGER DEFAULT 100,
+    difficulty_level VARCHAR(20) DEFAULT 'basic',
     passing_score INTEGER DEFAULT 60,
     is_active BOOLEAN DEFAULT true,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -97,6 +98,7 @@ COMMENT ON COLUMN mock_test_bank.test_name IS 'テスト名（模擬試験の名
 COMMENT ON COLUMN mock_test_bank.description IS '説明（テストの詳細説明）';
 COMMENT ON COLUMN mock_test_bank.duration_minutes IS '試験時間（分単位）';
 COMMENT ON COLUMN mock_test_bank.total_points IS '総得点（テストの満点）';
+COMMENT ON COLUMN mock_test_bank.difficulty_level IS '難易度（basic/intermediate/advanced）';
 COMMENT ON COLUMN mock_test_bank.passing_score IS '合格点（合格に必要な得点）';
 COMMENT ON COLUMN mock_test_bank.is_active IS '有効状態（テストの使用可否）';
 COMMENT ON COLUMN mock_test_bank.created_at IS '作成日時（レコード作成時刻）';
