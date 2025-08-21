@@ -36,7 +36,7 @@
 - Java は [Amazon Corretto](https://aws.amazon.com/corretto/) を使用
 - IDE は [Pleiades](https://pleiades.io/) を推奨
 
-## 進捗状況（2025-08-20時点）
+## 進捗状況（2025-08-21時点）
 - **全体進捗:** 56%
 - **月別ページ:** 100%
 - **週別ページ:** 100%
