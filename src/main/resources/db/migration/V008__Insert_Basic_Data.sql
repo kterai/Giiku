@@ -55,39 +55,15 @@ CREATE INDEX IF NOT EXISTS idx_notifications_type_priority ON notifications(noti
 -- ===============================
 
 INSERT INTO instructors (id, user_id, specialization, experience_years, bio, created_at, updated_at) VALUES
-(1, 1, 'プログラミング基礎,Java,オブジェクト指向', 8, '大学でコンピュータサイエンスを学び、8年間のソフトウェア開発経験を持つ。初心者向けプログラミング教育に情熱を注いでいる。', NOW(), NOW()),
-(2, 2, 'データ構造,アルゴリズム,C++', 12, 'アルゴリズム設計の専門家として12年間の実務経験。効率的なプログラム設計と最適化技術の指導を得意とする。', NOW(), NOW()),
-(3, 3, 'Web開発,JavaScript,HTML,CSS', 6, 'フロントエンド開発のスペシャリスト。モダンなWeb技術を活用した実践的な教育を提供。', NOW(), NOW()),
-(4, 4, 'データベース,SQL,PostgreSQL,MySQL', 10, 'データベース設計とSQL最適化の専門家。大規模システムでの実務経験豊富。', NOW(), NOW()),
-(5, 5, 'Spring Boot,フレームワーク,RESTful API', 7, 'エンタープライズアプリケーション開発の経験者。Spring Boot生態系の深い知識を持つ。', NOW(), NOW()),
-(6, 6, 'テスト駆動開発,品質管理,DevOps', 9, 'ソフトウェア品質向上の専門家。TDDとCI/CDパイプラインの構築指導を得意とする。', NOW(), NOW()),
-(7, 7, 'システム設計,アーキテクチャ,マイクロサービス', 15, '大規模システムアーキテクチャの設計経験15年。エンタープライズレベルの設計パターンを指導。', NOW(), NOW()),
-(8, 8, 'クラウド,AWS,Docker,Kubernetes', 5, 'クラウドネイティブ技術の専門家。コンテナ技術とクラウドインフラの実践的指導。', NOW(), NOW());
+(1, 2, 'データ構造,アルゴリズム,C++', 12, 'アルゴリズム設計の専門家として12年間の実務経験。効率的なプログラム設計と最適化技術の指導を得意とする。', NOW(), NOW());
 
 -- ===============================
 -- STUDENTS DATA (学生データ)
 -- ===============================
 
 INSERT INTO students (id, user_id, enrollment_date, student_status, learning_goals, created_at, updated_at) VALUES
-(1, 9, '2024-01-15', 'active', 'プログラミング基礎を習得し、Webアプリケーション開発ができるようになること', NOW(), NOW()),
-(2, 10, '2024-01-15', 'active', 'データ構造とアルゴリズムを理解し、効率的なプログラムを作成できるようになること', NOW(), NOW()),
-(3, 11, '2024-01-22', 'active', 'フルスタック開発者として就職することを目指す', NOW(), NOW()),
-(4, 12, '2024-01-22', 'active', 'データベース設計とSQL最適化のスキルを身につけること', NOW(), NOW()),
-(5, 13, '2024-02-01', 'active', 'オブジェクト指向プログラミングをマスターすること', NOW(), NOW()),
-(6, 14, '2024-02-01', 'active', 'エンタープライズアプリケーション開発の技術を習得すること', NOW(), NOW()),
-(7, 15, '2024-02-05', 'active', 'システムアーキテクトとしてのキャリアを築くこと', NOW(), NOW()),
-(8, 16, '2024-02-05', 'active', 'DevOpsエンジニアとして転職することを目指す', NOW(), NOW()),
-(9, 17, '2024-02-10', 'active', 'クラウド技術を活用したモダンな開発手法を学ぶこと', NOW(), NOW()),
-(10, 18, '2024-02-10', 'active', 'テスト駆動開発による高品質なソフトウェア開発を学ぶこと', NOW(), NOW()),
-(11, 19, '2024-02-15', 'active', 'AI・機械学習分野への転職を目指すための基礎固め', NOW(), NOW()),
-(12, 20, '2024-02-15', 'active', 'フリーランスエンジニアとして独立するためのスキル習得', NOW(), NOW()),
-(13, 21, '2024-02-20', 'active', 'スタートアップでの開発経験を積むための技術力向上', NOW(), NOW()),
-(14, 22, '2024-02-20', 'active', '大手IT企業への転職を目指すレベルの技術習得', NOW(), NOW()),
-(15, 23, '2024-02-25', 'active', 'プロダクトマネージャーとしての技術理解を深めること', NOW(), NOW());
-
--- ===============================
--- TRAINING PROGRAMS DATA (研修プログラムデータ)
--- ===============================
+(1, 3, '2024-01-15', 'active', 'プログラミング基礎を習得し、Webアプリケーション開発ができるようになること', NOW(), NOW()),
+(2, 4, '2024-01-15', 'active', 'データ構造とアルゴリズムを理解し、効率的なプログラムを作成できるようになること', NOW(), NOW());
 
 INSERT INTO training_programs (id, program_name, description, duration_months, total_hours, difficulty_level, prerequisites, created_at, updated_at) VALUES
 (1, 'プログラミング基礎コース', '初心者向けプログラミング基礎学習プログラム', 12, 480, 'beginner', '特になし（完全初心者歓迎）', NOW(), NOW()),
@@ -102,13 +78,9 @@ INSERT INTO training_programs (id, program_name, description, duration_months, t
 
 INSERT INTO program_schedules (id, program_id, instructor_id, start_date, end_date, max_students, current_students, schedule_status, created_at, updated_at) VALUES
 (1, 1, 1, '2024-01-15', '2025-01-15', 30, 8, 'active', NOW(), NOW()),
-(2, 2, 3, '2024-02-01', '2025-02-01', 25, 5, 'active', NOW(), NOW()),
-(3, 3, 2, '2024-03-01', '2025-03-01', 20, 0, 'scheduled', NOW(), NOW()),
-(4, 4, 7, '2024-04-01', '2025-04-01', 15, 0, 'scheduled', NOW(), NOW()),
-(5, 5, 8, '2024-05-01', '2025-05-01', 20, 0, 'scheduled', NOW(), NOW()),
-(6, 1, 4, '2024-06-01', '2025-06-01', 30, 0, 'scheduled', NOW(), NOW()),
-(7, 2, 5, '2024-07-01', '2025-07-01', 25, 0, 'scheduled', NOW(), NOW()),
-(8, 1, 6, '2024-08-01', '2025-08-01', 30, 0, 'scheduled', NOW(), NOW());
+(2, 2, 1, '2024-02-01', '2025-02-01', 25, 5, 'active', NOW(), NOW()),
+(3, 3, 1, '2024-03-01', '2025-03-01', 20, 0, 'scheduled', NOW(), NOW()),
+(4, 1, 1, '2024-06-01', '2025-06-01', 30, 0, 'scheduled', NOW(), NOW());
 
 -- ===============================
 -- DAILY SCHEDULES DATA (日次スケジュールデータ)
@@ -143,14 +115,7 @@ INSERT INTO student_grade_summaries (id, student_id, lecture_id, exercise_score,
 (5, 2, 1, 72.0, 68.0, 0.0, 70.0, 'good', NOW(), NOW(), NOW()),
 (6, 2, 2, 79.0, 75.0, 0.0, 77.0, 'good', NOW(), NOW(), NOW()),
 (7, 2, 3, 83.0, 80.0, 0.0, 81.5, 'excellent', NOW(), NOW(), NOW()),
-(8, 2, 4, 75.0, 78.0, 0.0, 76.5, 'good', NOW(), NOW(), NOW()),
-(9, 3, 1, 95.0, 92.0, 0.0, 93.5, 'excellent', NOW(), NOW(), NOW()),
-(10, 3, 2, 88.0, 90.0, 0.0, 89.0, 'excellent', NOW(), NOW(), NOW()),
-(11, 4, 1, 65.0, 70.0, 0.0, 67.5, 'satisfactory', NOW(), NOW(), NOW()),
-(12, 4, 2, 70.0, 72.0, 0.0, 71.0, 'good', NOW(), NOW(), NOW()),
-(13, 5, 1, 82.0, 79.0, 0.0, 80.5, 'good', NOW(), NOW(), NOW()),
-(14, 5, 2, 86.0, 84.0, 0.0, 85.0, 'excellent', NOW(), NOW(), NOW()),
-(15, 6, 1, 78.0, 75.0, 0.0, 76.5, 'good', NOW(), NOW(), NOW());
+(8, 2, 4, 75.0, 78.0, 0.0, 76.5, 'good', NOW(), NOW(), NOW());
 
 -- ===============================
 -- MAINTENANCE DATA (保守・管理データ)
@@ -176,8 +141,8 @@ INSERT INTO system_settings (setting_key, setting_value, description, created_at
 
 -- Audit log for system maintenance
 INSERT INTO audit_logs (id, table_name, operation_type, record_id, old_values, new_values, changed_by, change_timestamp, created_at, updated_at) VALUES
-(1, 'students', 'INSERT', 1, NULL, '{"user_id": 9, "enrollment_date": "2024-01-15", "student_status": "active"}', 'system', NOW(), NOW(), NOW()),
-(2, 'instructors', 'INSERT', 1, NULL, '{"user_id": 1, "specialization": "プログラミング基礎,Java,オブジェクト指向"}', 'system', NOW(), NOW(), NOW()),
+(1, 'students', 'INSERT', 1, NULL, '{"user_id": 3, "enrollment_date": "2024-01-15", "student_status": "active"}', 'system', NOW(), NOW(), NOW()),
+(2, 'instructors', 'INSERT', 1, NULL, '{"user_id": 2, "specialization": "データ構造,アルゴリズム,C++"}', 'system', NOW(), NOW(), NOW()),
 (3, 'training_programs', 'INSERT', 1, NULL, '{"program_name": "プログラミング基礎コース", "difficulty_level": "beginner"}', 'system', NOW(), NOW(), NOW());
 
 -- ===============================
@@ -185,11 +150,11 @@ INSERT INTO audit_logs (id, table_name, operation_type, record_id, old_values, n
 -- ===============================
 
 INSERT INTO notifications (id, user_id, notification_type, title, message, is_read, priority, expires_at, created_at, updated_at) VALUES
-(1, 9, 'course_start', 'コース開始のお知らせ', 'プログラミング基礎コースが開始されました。初回授業は2024年1月15日 9:00からです。', false, 'high', '2024-02-15 23:59:59', NOW(), NOW()),
-(2, 10, 'assignment_due', '課題提出期限のお知らせ', '第1回演習課題の提出期限は2024年1月22日です。', false, 'medium', '2024-01-22 23:59:59', NOW(), NOW()),
-(3, 11, 'grade_published', '成績公開のお知らせ', '第1回講義の成績が公開されました。マイページでご確認ください。', false, 'low', '2024-02-22 23:59:59', NOW(), NOW()),
-(4, 1, 'instructor_schedule', '授業スケジュール変更', '2024年1月25日の授業時間が変更になりました。', false, 'high', '2024-01-25 08:00:00', NOW(), NOW()),
-(5, 12, 'system_maintenance', 'システムメンテナンスのお知らせ', '2024年2月10日 2:00-4:00にシステムメンテナンスを実施します。', false, 'medium', '2024-02-10 23:59:59', NOW(), NOW());
+(1, 3, 'course_start', 'コース開始のお知らせ', 'プログラミング基礎コースが開始されました。初回授業は2024年1月15日 9:00からです。', false, 'high', '2024-02-15 23:59:59', NOW(), NOW()),
+(2, 4, 'assignment_due', '課題提出期限のお知らせ', '第1回演習課題の提出期限は2024年1月22日です。', false, 'medium', '2024-01-22 23:59:59', NOW(), NOW()),
+(3, 3, 'grade_published', '成績公開のお知らせ', '第1回講義の成績が公開されました。マイページでご確認ください。', false, 'low', '2024-02-22 23:59:59', NOW(), NOW()),
+(4, 2, 'instructor_schedule', '授業スケジュール変更', '2024年1月25日の授業時間が変更になりました。', false, 'high', '2024-01-25 08:00:00', NOW(), NOW()),
+(5, 4, 'system_maintenance', 'システムメンテナンスのお知らせ', '2024年2月10日 2:00-4:00にシステムメンテナンスを実施します。', false, 'medium', '2024-02-10 23:59:59', NOW(), NOW());
 
 -- ===============================
 -- SEQUENCE UPDATES
