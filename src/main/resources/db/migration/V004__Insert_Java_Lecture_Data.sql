@@ -1,4 +1,4 @@
--- V006__Insert_Java_Lecture_Data.sql
+-- V004__Insert_Java_Lecture_Data.sql
 -- JavaSilver準拠の講義1-3（Java基礎）の詳細データ投入
 -- PostgreSQL17対応、主キー「id」統一、comment形式「名称（説明）」統一
 
