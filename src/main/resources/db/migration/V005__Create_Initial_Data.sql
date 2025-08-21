@@ -122,36 +122,9 @@ INSERT INTO lectures (day_id, lecture_number, title, description, goals, content
 (53, 53, '総合復習', '全体学習内容の復習', '["総合復習","知識整理","実践問題"]', '["復習","知識整理","問題演習","弱点克服","演習"]', '["学習内容総復習","重要概念整理","実践問題演習","弱点分析・克服","総合演習","模擬試験","解説・解答","実践演習","知識定着確認","補強学習"]', 180, 1),
 (54, 54, '修了テストと振り返り', '最終評価と学習振り返り', '["修了テスト","学習振り返り","今後の計画"]', '["修了テスト","振り返り","評価","今後計画","修了式"]', '["修了テスト実施","結果分析","学習成果振り返り","スキル評価","今後の学習計画","キャリア相談","修了証授与","実践演習","ネットワーキング","継続学習リソース"]', 180, 1);
 
--- Sample Questions for first few lectures
-INSERT INTO exercise_question_bank (lecture_id, question_number, question_type, question_text, question_options, correct_answer, explanation, difficulty_level, points, created_by) VALUES
-(1, 1, 'multiple_choice', 'HTMLの基本構造で、文書型宣言に使用するタグはどれですか？', '{"options": ["<html>", "<!DOCTYPE html>", "<head>", "<body>"]}', '<!DOCTYPE html>', 'DOCTYPE宣言は文書がHTML5であることをブラウザに伝える重要な宣言です。', 'intermediate', 5, 1),
-(1, 2, 'multiple_choice', 'HTMLでページのタイトルを設定するタグはどれですか？', '{"options": ["<title>", "<h1>", "<header>", "<meta>"]}', '<title>', '<title>タグはhead要素内に記述し、ブラウザのタブに表示されるタイトルを設定します。', 'basic', 5, 1),
-(2, 1, 'multiple_choice', 'CSSでクラスセレクタを指定する際に使用する記号はどれですか？', '{"options": ["#", ".", "@", "&"]}', '.', 'クラスセレクタは「.」（ピリオド）を使用してクラス名を指定します。', 'basic', 5, 1);
-
--- Sample Quiz Questions
-INSERT INTO quiz_question_bank (lecture_id, question_number, question_type, question_text, option_a, option_b, option_c, option_d, option_e, option_f, correct_answer, explanation, difficulty_level, points, created_by) VALUES
-(1, 1, 'multiple_choice', 'HTML5のセマンティック要素として正しいものはどれですか？', '<div>', '<span>', '<section>', '<b>', NULL, NULL, '<section>', '<section>は内容のまとまりを表すセマンティック要素です。', 'basic', 10, 1),
-(2, 1, 'true_false', 'CSSのBoxモデルでは、marginは要素の内側の余白を指す。', 'true', 'false', NULL, NULL, NULL, NULL, 'false', 'marginは要素の外側の余白です。内側の余白はpaddingです。', 'basic', 10, 1);
-
--- Mock Tests
-INSERT INTO mock_test_bank (test_name, description, duration_minutes, total_points, passing_score, created_by) VALUES 
-('第1月総合テスト', 'Web基礎技術（HTML/CSS/JavaScript）の理解度を測るテスト', 90, 100, 70, 1),
-('第2月総合テスト', 'Backend開発（Node.js/Express/Database）の理解度を測るテスト', 90, 100, 70, 1),  
-('第3月総合テスト', 'React開発とプロジェクト実装の理解度を測るテスト', 90, 100, 70, 1),
-('最終総合テスト', '全カリキュラムの総合的な理解度を測る最終テスト', 120, 100, 70, 1);
-
--- Mock Test Questions
-INSERT INTO mock_test_questions (mock_test_id, question_type, question_text, question_options, correct_answer, answer_explanation, points, question_order, created_by) VALUES 
-(1, 'multiple_choice', 'HTMLでリストを作成する際、順序のないリストに使用するタグはどれですか？', '{"options": ["<ol>", "<ul>", "<li>", "<dl>"]}', '<ul>', '<ul>（unordered list）は順序のないリストを作成するタグです。', 5, 1, 1),
-(1, 'multiple_choice', 'CSSのdisplayプロパティで、要素をブロックレベル要素として表示する値はどれですか？', '{"options": ["inline", "block", "none", "flex"]}', 'block', 'display: blockは要素をブロックレベル要素として表示します。', 5, 2, 1);
-
 -- Update sequences to current max values
 SELECT setval('months_id_seq', (SELECT MAX(id) FROM months));
-SELECT setval('weeks_id_seq', (SELECT MAX(id) FROM weeks));  
+SELECT setval('weeks_id_seq', (SELECT MAX(id) FROM weeks));
 SELECT setval('days_id_seq', (SELECT MAX(id) FROM days));
 SELECT setval('lectures_id_seq', (SELECT MAX(id) FROM lectures));
-SELECT setval('exercise_question_bank_id_seq', (SELECT MAX(id) FROM exercise_question_bank));
-SELECT setval('quiz_question_bank_id_seq', (SELECT MAX(id) FROM quiz_question_bank));
-SELECT setval('mock_test_bank_id_seq', (SELECT MAX(id) FROM mock_test_bank));
-SELECT setval('mock_test_questions_id_seq', (SELECT MAX(id) FROM mock_test_questions));
 SELECT setval('grade_settings_id_seq', (SELECT MAX(id) FROM grade_settings));
