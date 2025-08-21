@@ -6,12 +6,13 @@
 CREATE TABLE exercise_question_bank (
     id SERIAL PRIMARY KEY,
     lecture_id INTEGER NOT NULL REFERENCES lectures(id),
-    question_type VARCHAR(20) NOT NULL CHECK (question_type IN ('multiple_choice', 'essay', 'code', 'fill_blank')),
+    question_number INTEGER NOT NULL,
+    question_type VARCHAR(20) DEFAULT 'multiple_choice' NOT NULL CHECK (question_type IN ('multiple_choice', 'essay', 'code', 'fill_blank')),
     question_text TEXT NOT NULL,
     question_options JSON,
     correct_answer TEXT,
-    answer_explanation TEXT,
-    difficulty_level INTEGER DEFAULT 1 CHECK (difficulty_level BETWEEN 1 AND 5),
+    explanation TEXT,
+    difficulty_level VARCHAR(20) DEFAULT 'basic',
     points INTEGER DEFAULT 5 CHECK (points > 0),
     is_active BOOLEAN DEFAULT true,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -20,11 +21,12 @@ CREATE TABLE exercise_question_bank (
     updated_by INTEGER REFERENCES users(id)
 );
 
+COMMENT ON COLUMN exercise_question_bank.question_number IS '問題番号（講義内での順序）';
 COMMENT ON COLUMN exercise_question_bank.question_text IS '問題文（演習問題の内容）';
 COMMENT ON COLUMN exercise_question_bank.question_options IS '選択肢（多択問題の場合）';
 COMMENT ON COLUMN exercise_question_bank.correct_answer IS '正解（多択・穴埋め問題の正答）';
-COMMENT ON COLUMN exercise_question_bank.answer_explanation IS '解説（問題の解答説明）';
-COMMENT ON COLUMN exercise_question_bank.difficulty_level IS '難易度（1-5の5段階評価）';
+COMMENT ON COLUMN exercise_question_bank.explanation IS '解説（問題の解答説明）';
+COMMENT ON COLUMN exercise_question_bank.difficulty_level IS '難易度（basic/intermediate/advanced）';
 COMMENT ON COLUMN exercise_question_bank.points IS '配点（問題の得点）';
 COMMENT ON COLUMN exercise_question_bank.is_active IS '有効状態（問題の使用可否）';
 COMMENT ON COLUMN exercise_question_bank.created_at IS '作成日時（レコード作成時刻）';
@@ -36,11 +38,18 @@ COMMENT ON COLUMN exercise_question_bank.updated_by IS '更新者（レコード
 CREATE TABLE quiz_question_bank (
     id SERIAL PRIMARY KEY,
     lecture_id INTEGER NOT NULL REFERENCES lectures(id),
-    question_type VARCHAR(20) NOT NULL CHECK (question_type IN ('multiple_choice', 'true_false', 'short_answer')),
+    question_number INTEGER NOT NULL,
+    question_type VARCHAR(20) DEFAULT 'multiple_choice' NOT NULL CHECK (question_type IN ('multiple_choice', 'true_false', 'short_answer')),
     question_text TEXT NOT NULL,
-    question_options JSON,
+    option_a TEXT,
+    option_b TEXT,
+    option_c TEXT,
+    option_d TEXT,
+    option_e TEXT,
+    option_f TEXT,
     correct_answer TEXT NOT NULL,
-    answer_explanation TEXT,
+    explanation TEXT,
+    difficulty_level VARCHAR(20) DEFAULT 'basic',
     time_limit INTEGER DEFAULT 60,
     points INTEGER DEFAULT 10 CHECK (points > 0),
     is_active BOOLEAN DEFAULT true,
@@ -50,10 +59,17 @@ CREATE TABLE quiz_question_bank (
     updated_by INTEGER REFERENCES users(id)
 );
 
+COMMENT ON COLUMN quiz_question_bank.question_number IS '問題番号（講義内での順序）';
 COMMENT ON COLUMN quiz_question_bank.question_text IS '問題文（クイズ問題の内容）';
-COMMENT ON COLUMN quiz_question_bank.question_options IS '選択肢（多択問題の場合）';
+COMMENT ON COLUMN quiz_question_bank.option_a IS '選択肢A';
+COMMENT ON COLUMN quiz_question_bank.option_b IS '選択肢B';
+COMMENT ON COLUMN quiz_question_bank.option_c IS '選択肢C';
+COMMENT ON COLUMN quiz_question_bank.option_d IS '選択肢D';
+COMMENT ON COLUMN quiz_question_bank.option_e IS '選択肢E';
+COMMENT ON COLUMN quiz_question_bank.option_f IS '選択肢F';
 COMMENT ON COLUMN quiz_question_bank.correct_answer IS '正解（クイズ問題の正答）';
-COMMENT ON COLUMN quiz_question_bank.answer_explanation IS '解説（問題の解答説明）';
+COMMENT ON COLUMN quiz_question_bank.explanation IS '解説（問題の解答説明）';
+COMMENT ON COLUMN quiz_question_bank.difficulty_level IS '難易度（basic/intermediate/advanced）';
 COMMENT ON COLUMN quiz_question_bank.time_limit IS '制限時間（秒単位）';
 COMMENT ON COLUMN quiz_question_bank.points IS '配点（問題の得点）';
 COMMENT ON COLUMN quiz_question_bank.is_active IS '有効状態（問題の使用可否）';
@@ -309,10 +325,10 @@ CREATE INDEX idx_lecture_grades_lecture ON lecture_grades(lecture_id);
 CREATE INDEX idx_student_summaries_assignment ON student_grade_summaries(training_assignment_id);
 
 -- Unique constraints for data integrity
-ALTER TABLE exercise_question_bank ADD CONSTRAINT unique_exercise_question_order 
-    UNIQUE(lecture_id, question_text);
-ALTER TABLE quiz_question_bank ADD CONSTRAINT unique_quiz_question_order 
-    UNIQUE(lecture_id, question_text);
+ALTER TABLE exercise_question_bank ADD CONSTRAINT unique_exercise_question_order
+    UNIQUE(lecture_id, question_number);
+ALTER TABLE quiz_question_bank ADD CONSTRAINT unique_quiz_question_order
+    UNIQUE(lecture_id, question_number);
 ALTER TABLE mock_test_questions ADD CONSTRAINT unique_mock_question_order 
     UNIQUE(mock_test_id, question_order);
 ALTER TABLE lecture_grades ADD CONSTRAINT unique_lecture_assignment_grade 
