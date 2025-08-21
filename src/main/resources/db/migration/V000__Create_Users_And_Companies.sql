@@ -14,15 +14,15 @@ CREATE TABLE public.companies (
                                   updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP
 );
 
-COMMENT ON TABLE public.companies IS '会社マスタ';
-COMMENT ON COLUMN public.companies.id IS '会社ID';
-COMMENT ON COLUMN public.companies.name IS '会社名';
-COMMENT ON COLUMN public.companies.code IS '会社コード';
-COMMENT ON COLUMN public.companies.active IS '有効フラグ';
-COMMENT ON COLUMN public.companies.created_by IS '作成者ID';
-COMMENT ON COLUMN public.companies.created_at IS '作成日時';
-COMMENT ON COLUMN public.companies.updated_by IS '更新者ID';
-COMMENT ON COLUMN public.companies.updated_at IS '更新日時';
+COMMENT ON TABLE public.companies IS '会社マスタ（会社情報を管理）';
+COMMENT ON COLUMN public.companies.id IS '会社ID（連番）';
+COMMENT ON COLUMN public.companies.name IS '会社名（会社の名称）';
+COMMENT ON COLUMN public.companies.code IS '会社コード（ユニークな識別コード）';
+COMMENT ON COLUMN public.companies.active IS '有効フラグ（利用可否）';
+COMMENT ON COLUMN public.companies.created_by IS '作成者ID（レコード作成ユーザー）';
+COMMENT ON COLUMN public.companies.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN public.companies.updated_by IS '更新者ID（最終更新ユーザー）';
+COMMENT ON COLUMN public.companies.updated_at IS '更新日時（最終更新時刻）';
 
 CREATE SEQUENCE public.companies_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE public.companies ALTER COLUMN id SET DEFAULT nextval('public.companies_id_seq'::regclass);
@@ -48,21 +48,21 @@ CREATE TABLE public.users (
                               updated_at timestamp with time zone DEFAULT CURRENT_TIMESTAMP
 );
 
-COMMENT ON TABLE public.users IS 'ユーザーマスタ';
-COMMENT ON COLUMN public.users.id IS 'ユーザーID';
-COMMENT ON COLUMN public.users.username IS 'ユーザー名';
-COMMENT ON COLUMN public.users.password IS 'パスワード（ハッシュ化）';
-COMMENT ON COLUMN public.users.email IS 'メールアドレス';
-COMMENT ON COLUMN public.users.name IS '氏名';
-COMMENT ON COLUMN public.users.company_id IS '会社ID';
-COMMENT ON COLUMN public.users.role IS 'ロール（ADMIN/INSTRUCTOR/TRAINEE）';
+COMMENT ON TABLE public.users IS 'ユーザーマスタ（ユーザー情報を管理）';
+COMMENT ON COLUMN public.users.id IS 'ユーザーID（連番）';
+COMMENT ON COLUMN public.users.username IS 'ユーザー名（ログインID）';
+COMMENT ON COLUMN public.users.password IS 'パスワード（ハッシュ化済み）';
+COMMENT ON COLUMN public.users.email IS 'メールアドレス（連絡先）';
+COMMENT ON COLUMN public.users.name IS '氏名（フルネーム）';
+COMMENT ON COLUMN public.users.company_id IS '会社ID（所属会社）';
+COMMENT ON COLUMN public.users.role IS 'ロール（利用者権限：ADMIN/INSTRUCTOR/TRAINEE）';
 COMMENT ON COLUMN public.users.gender IS '性別（1:男性、2:女性、3:無選択）';
-COMMENT ON COLUMN public.users.birthday IS '誕生日';
-COMMENT ON COLUMN public.users.active IS '有効フラグ';
-COMMENT ON COLUMN public.users.created_by IS '作成者ID';
-COMMENT ON COLUMN public.users.created_at IS '作成日時';
-COMMENT ON COLUMN public.users.updated_by IS '更新者ID';
-COMMENT ON COLUMN public.users.updated_at IS '更新日時';
+COMMENT ON COLUMN public.users.birthday IS '誕生日（生年月日）';
+COMMENT ON COLUMN public.users.active IS '有効フラグ（利用可否）';
+COMMENT ON COLUMN public.users.created_by IS '作成者ID（レコード作成ユーザー）';
+COMMENT ON COLUMN public.users.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN public.users.updated_by IS '更新者ID（最終更新ユーザー）';
+COMMENT ON COLUMN public.users.updated_at IS '更新日時（最終更新時刻）';
 
 CREATE SEQUENCE public.users_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);

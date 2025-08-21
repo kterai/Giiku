@@ -6,7 +6,7 @@
 
 DDL 作成時のカラム並び順を統一し、チーム内での開発効率を高めることが目的です。例示した配置を参考に、既存テーブルの見直しや新規テーブル作成時の指針としてください。
 
-また、全てのテーブルはサロゲートキー `id` を主キーとし、外部キーのカラム名は `<テーブル名>_id` に統一します。
+また、全てのテーブルはサロゲートキー `id` を主キーとし、外部キーのカラム名は `<テーブル名>_id` に統一します。さらに、テーブルおよびカラムには必ず `COMMENT` を付与し、「名称（説明）」形式で記述します。
 
 例:
 ```sql
@@ -19,5 +19,7 @@ CREATE TABLE sample_table (
     updated_by BIGINT NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
+COMMENT ON TABLE sample_table IS 'サンプルテーブル（用途の説明）';
+COMMENT ON COLUMN sample_table.name IS '名前（サンプル名）';
 ```
 管理カラムを追加・更新する際も順序を崩さないよう注意してください。
