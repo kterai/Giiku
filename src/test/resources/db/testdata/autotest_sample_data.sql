@@ -22,5 +22,5 @@ VALUES
 -- ========================================
 -- シーケンスの調整（次は5から）
 -- ========================================
-SELECT setval('public.users_id_seq', 6, false);
-SELECT setval('public.companies_id_seq', 3, false);
+SELECT setval('public.users_id_seq', (SELECT MAX(id) FROM users));
+SELECT setval('public.companies_id_seq', (SELECT MAX(id) FROM companies));
