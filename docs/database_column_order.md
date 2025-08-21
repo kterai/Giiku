@@ -2,6 +2,17 @@
 
 各テーブルの管理情報カラム（`created_by`, `created_at`, `updated_by`, `updated_at`）は必ず最後に配置します。その他の業務カラムを定義した後、監査目的のカラムを末尾へ追加することでDDLの可読性と拡張性を保ちます。
 
+すべてのDDL文は `src/main/resources/db/migration/V000__Create_Users_And_Companies.sql` と `src/main/resources/db/schema.sql` の両方に同一内容で記載します。
+
+管理情報カラムは以下の型と制約で定義し、順序を崩さないでください。
+
+```
+created_by BIGINT NOT NULL,
+created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+updated_by BIGINT NOT NULL,
+updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+```
+
 ## 本書の目的
 
 DDL 作成時のカラム並び順を統一し、チーム内での開発効率を高めることが目的です。例示した配置を参考に、既存テーブルの見直しや新規テーブル作成時の指針としてください。
