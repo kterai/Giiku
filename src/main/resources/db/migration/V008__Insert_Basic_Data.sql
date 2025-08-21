@@ -51,6 +51,30 @@ CREATE INDEX IF NOT EXISTS idx_notifications_type_priority ON notifications(noti
 -- Essential supporting data for the Learning Management System
 
 -- ===============================
+-- USERS DATA (ユーザーデータ)
+-- ===============================
+
+INSERT INTO users (id, username, password, email, name, company_id, role, gender, birthday, active, created_by, created_at, updated_by, updated_at) VALUES
+(6, 'tdd_expert', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'tdd_expert@apsa.co.jp', '講師 六郎', 1, 'INSTRUCTOR', 1, '1982-06-06', true, 1, NOW(), 1, NOW()),
+(7, 'arch_master', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'arch_master@apsa.co.jp', '講師 七郎', 1, 'INSTRUCTOR', 1, '1978-07-07', true, 1, NOW(), 1, NOW()),
+(8, 'cloud_guru', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'cloud_guru@apsa.co.jp', '講師 八郎', 1, 'INSTRUCTOR', 2, '1990-08-08', true, 1, NOW(), 1, NOW()),
+(9, 'student01', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student01@trainee.co.jp', '受講者01', 2, 'TRAINEE', 1, '1997-09-01', true, 1, NOW(), 1, NOW()),
+(10, 'student02', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student02@trainee.co.jp', '受講者02', 2, 'TRAINEE', 2, '1997-10-02', true, 1, NOW(), 1, NOW()),
+(11, 'student03', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student03@trainee.co.jp', '受講者03', 2, 'TRAINEE', 1, '1997-11-03', true, 1, NOW(), 1, NOW()),
+(12, 'student04', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student04@trainee.co.jp', '受講者04', 2, 'TRAINEE', 2, '1997-12-04', true, 1, NOW(), 1, NOW()),
+(13, 'student05', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student05@trainee.co.jp', '受講者05', 2, 'TRAINEE', 1, '1998-01-05', true, 1, NOW(), 1, NOW()),
+(14, 'student06', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student06@trainee.co.jp', '受講者06', 2, 'TRAINEE', 2, '1998-02-06', true, 1, NOW(), 1, NOW()),
+(15, 'student07', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student07@trainee.co.jp', '受講者07', 2, 'TRAINEE', 1, '1998-03-07', true, 1, NOW(), 1, NOW()),
+(16, 'student08', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student08@trainee.co.jp', '受講者08', 2, 'TRAINEE', 2, '1998-04-08', true, 1, NOW(), 1, NOW()),
+(17, 'student09', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student09@trainee.co.jp', '受講者09', 2, 'TRAINEE', 1, '1998-05-09', true, 1, NOW(), 1, NOW()),
+(18, 'student10', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student10@trainee.co.jp', '受講者10', 2, 'TRAINEE', 2, '1998-06-10', true, 1, NOW(), 1, NOW()),
+(19, 'student11', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student11@trainee.co.jp', '受講者11', 2, 'TRAINEE', 1, '1998-07-11', true, 1, NOW(), 1, NOW()),
+(20, 'student12', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student12@trainee.co.jp', '受講者12', 2, 'TRAINEE', 2, '1998-08-12', true, 1, NOW(), 1, NOW()),
+(21, 'student13', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student13@trainee.co.jp', '受講者13', 2, 'TRAINEE', 1, '1998-09-13', true, 1, NOW(), 1, NOW()),
+(22, 'student14', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student14@trainee.co.jp', '受講者14', 2, 'TRAINEE', 2, '1998-10-14', true, 1, NOW(), 1, NOW()),
+(23, 'student15', '$2b$12$wSzqgNX0.nsNqrAvyGyJbudYp8wkjOdv52kZTSSFz0Sj2gCA7v4I2', 'student15@trainee.co.jp', '受講者15', 2, 'TRAINEE', 1, '1998-11-15', true, 1, NOW(), 1, NOW());
+
+-- ===============================
 -- INSTRUCTORS DATA (講師データ)
 -- ===============================
 
@@ -195,6 +219,7 @@ INSERT INTO notifications (id, user_id, notification_type, title, message, is_re
 -- SEQUENCE UPDATES
 -- ===============================
 
+SELECT setval('public.users_id_seq', (SELECT MAX(id) FROM users));
 SELECT setval('instructors_id_seq', (SELECT MAX(id) FROM instructors));
 SELECT setval('students_id_seq', (SELECT MAX(id) FROM students));
 SELECT setval('training_programs_id_seq', (SELECT MAX(id) FROM training_programs));
