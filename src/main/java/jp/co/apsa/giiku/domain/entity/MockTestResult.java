@@ -16,14 +16,14 @@ import java.time.Duration;
  */
 @Entity
 @Table(name = "mock_test_results", indexes = {
-    @Index(name = "idx_mock_test_results_test_id", columnList = "testId"),
-    @Index(name = "idx_mock_test_results_student_id", columnList = "studentId"),
-    @Index(name = "idx_mock_test_results_company_id", columnList = "companyId"),
+    @Index(name = "idx_mock_test_results_test_id", columnList = "test_id"),
+    @Index(name = "idx_mock_test_results_student_id", columnList = "student_id"),
+    @Index(name = "idx_mock_test_results_company_id", columnList = "company_id"),
     @Index(name = "idx_mock_test_results_status", columnList = "status"),
-    @Index(name = "idx_mock_test_results_created_at", columnList = "createdAt")
+    @Index(name = "idx_mock_test_results_created_at", columnList = "created_at")
 }, uniqueConstraints = {
-    @UniqueConstraint(name = "uk_test_student_attempt", 
-                     columnNames = {"testId", "studentId", "attemptNumber"})
+    @UniqueConstraint(name = "uk_test_student_attempt",
+                     columnNames = {"test_id", "student_id", "attempt_number"})
 })
 
 public class MockTestResult extends BaseEntity {

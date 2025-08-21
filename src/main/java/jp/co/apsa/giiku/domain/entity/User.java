@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -23,7 +24,6 @@ import java.util.Objects;
     @Index(name = "idx_active", columnList = "active"),
     @Index(name = "idx_role", columnList = "role")
 })
-
 public class User {
 
     @Id
@@ -47,15 +47,10 @@ public class User {
     @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
 
-    @NotBlank(message = "名前（名）は必須です")
-    @Size(max = 50, message = "名前（名）は50文字以下で入力してください")
-    @Column(name = "first_name", nullable = false, length = 50)
-    private String firstName;
-
-    @NotBlank(message = "名前（姓）は必須です")
-    @Size(max = 50, message = "名前（姓）は50文字以下で入力してください")
-    @Column(name = "last_name", nullable = false, length = 50)
-    private String lastName;
+    @NotBlank(message = "氏名は必須です")
+    @Size(max = 100, message = "氏名は100文字以下で入力してください")
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
 
     @NotNull(message = "会社IDは必須です")
     @Column(name = "company_id", nullable = false)
@@ -66,167 +61,122 @@ public class User {
     @Column(name = "role", nullable = false, length = 50)
     private String role;
 
+    @NotNull(message = "性別は必須です")
+    @Min(1)
+    @Max(3)
+    @Column(name = "gender", nullable = false)
+    private Integer gender;
+
+    @NotNull(message = "誕生日は必須です")
+    @Column(name = "birthday", nullable = false)
+    private LocalDate birthday;
+
     @NotNull(message = "アクティブ状態は必須です")
     @Column(name = "active", nullable = false)
     private Boolean active = true;
+
+    @NotNull(message = "作成者IDは必須です")
+    @Column(name = "created_by", nullable = false, updatable = false)
+    private Long createdBy;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @NotNull(message = "更新者IDは必須です")
+    @Column(name = "updated_by", nullable = false)
+    private Long updatedBy;
+
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @Column(name = "last_login_at")
-    private LocalDateTime lastLoginAt;
-
-    @Size(max = 500, message = "プロフィール画像URLは500文字以下で入力してください")
-    @Column(name = "profile_image_url", length = 500)
-    private String profileImageUrl;
-
-    // コンストラクタ
     /** User メソッド */
     public User() {
         this.active = true;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
     }
+
     /** User メソッド */
-    public User(String username, String password, String email, String firstName, 
-                String lastName, Long companyId, String role) {
+    public User(String username, String password, String email, String name,
+                Long companyId, String role, Integer gender, LocalDate birthday,
+                Long createdBy, Long updatedBy) {
         this();
         this.username = username;
         this.password = password;
         this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.companyId = companyId;
         this.role = role;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.createdBy = createdBy;
+        this.updatedBy = updatedBy;
     }
 
     // Getter and Setter methods
     /** getId メソッド */
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
     /** setId メソッド */
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
     /** getUsername メソッド */
-    public String getUsername() {
-        return username;
-    }
+    public String getUsername() { return username; }
     /** setUsername メソッド */
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public void setUsername(String username) { this.username = username; }
     /** getPassword メソッド */
-    public String getPassword() {
-        return password;
-    }
+    public String getPassword() { return password; }
     /** setPassword メソッド */
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public void setPassword(String password) { this.password = password; }
     /** getEmail メソッド */
-    public String getEmail() {
-        return email;
-    }
+    public String getEmail() { return email; }
     /** setEmail メソッド */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    /** getFirstName メソッド */
-    public String getFirstName() {
-        return firstName;
-    }
-    /** setFirstName メソッド */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-    /** getLastName メソッド */
-    public String getLastName() {
-        return lastName;
-    }
-    /** setLastName メソッド */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    public void setEmail(String email) { this.email = email; }
+    /** getName メソッド */
+    public String getName() { return name; }
+    /** setName メソッド */
+    public void setName(String name) { this.name = name; }
     /** getCompanyId メソッド */
-    public Long getCompanyId() {
-        return companyId;
-    }
+    public Long getCompanyId() { return companyId; }
     /** setCompanyId メソッド */
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
-    }
+    public void setCompanyId(Long companyId) { this.companyId = companyId; }
     /** getRole メソッド */
-    public String getRole() {
-        return role;
-    }
+    public String getRole() { return role; }
     /** setRole メソッド */
-    public void setRole(String role) {
-        this.role = role;
-    }
+    public void setRole(String role) { this.role = role; }
+    /** getGender メソッド */
+    public Integer getGender() { return gender; }
+    /** setGender メソッド */
+    public void setGender(Integer gender) { this.gender = gender; }
+    /** getBirthday メソッド */
+    public LocalDate getBirthday() { return birthday; }
+    /** setBirthday メソッド */
+    public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
     /** getActive メソッド */
-    public Boolean getActive() {
-        return active;
-    }
+    public Boolean getActive() { return active; }
     /** setActive メソッド */
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
+    public void setActive(Boolean active) { this.active = active; }
+    /** getCreatedBy メソッド */
+    public Long getCreatedBy() { return createdBy; }
+    /** setCreatedBy メソッド */
+    public void setCreatedBy(Long createdBy) { this.createdBy = createdBy; }
     /** getCreatedAt メソッド */
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
     /** setCreatedAt メソッド */
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    /** getUpdatedBy メソッド */
+    public Long getUpdatedBy() { return updatedBy; }
+    /** setUpdatedBy メソッド */
+    public void setUpdatedBy(Long updatedBy) { this.updatedBy = updatedBy; }
     /** getUpdatedAt メソッド */
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
     /** setUpdatedAt メソッド */
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-    /** getLastLoginAt メソッド */
-    public LocalDateTime getLastLoginAt() {
-        return lastLoginAt;
-    }
-    /** setLastLoginAt メソッド */
-    public void setLastLoginAt(LocalDateTime lastLoginAt) {
-        this.lastLoginAt = lastLoginAt;
-    }
-    /** getProfileImageUrl メソッド */
-    public String getProfileImageUrl() {
-        return profileImageUrl;
-    }
-    /** setProfileImageUrl メソッド */
-    public void setProfileImageUrl(String profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
-    }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 
     // ビジネスメソッド
     /**
      * フルネームを取得
-     * @return 姓 + 名のフルネーム
+     * @return 氏名
      */
-    public String getFullName() {
-        return lastName + " " + firstName;
-    }
-
-    /**
-     * アクティブなユーザーかどうかを判定
-     * @return アクティブな場合true
-     */
-    public boolean isActive() {
-        return active != null && active;
-    }
+    public String getFullName() { return name; }
 
     /**
      * ユーザーが指定された権限を持っているかを判定
@@ -235,11 +185,6 @@ public class User {
      */
     public boolean hasRole(String targetRole) {
         return role != null && role.equals(targetRole);
-    }
-
-    /** 最終ログイン時刻を更新 */
-    public void updateLastLogin() {
-        this.lastLoginAt = LocalDateTime.now();
     }
 
     /** ユーザーを無効化 */
@@ -261,8 +206,8 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) && 
-               Objects.equals(username, user.username) && 
+        return Objects.equals(id, user.id) &&
+               Objects.equals(username, user.username) &&
                Objects.equals(email, user.email);
     }
 
@@ -276,18 +221,18 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", companyId=" + companyId +
-                ", role='" + role + '\'' +
-                ", active=" + active +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", lastLoginAt=" + lastLoginAt +
-                ", profileImageUrl='" + profileImageUrl + '\'' +
-                '}';
+               "id=" + id +
+               ", username='" + username + '\'' +
+               ", email='" + email + '\'' +
+               ", name='" + name + '\'' +
+               ", companyId=" + companyId +
+               ", role='" + role + '\'' +
+               ", active=" + active +
+               ", createdBy=" + createdBy +
+               ", createdAt=" + createdAt +
+               ", updatedBy=" + updatedBy +
+               ", updatedAt=" + updatedAt +
+               '}';
     }
 }
+
