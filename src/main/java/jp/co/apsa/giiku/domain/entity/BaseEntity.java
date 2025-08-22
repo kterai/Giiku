@@ -3,7 +3,11 @@ package jp.co.apsa.giiku.domain.entity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
@@ -16,6 +20,8 @@ import java.time.LocalDateTime;
  */
 @MappedSuperclass
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class BaseEntity {
 
     /**
@@ -28,12 +34,28 @@ public abstract class BaseEntity {
     private Long id;
 
     /**
+     * 作成者ID
+     * レコードを作成したユーザーID
+     */
+    @CreatedBy
+    @Column(name = "created_by", nullable = false, updatable = false)
+    private Long createdBy;
+
+    /**
      * 作成日時
      * レコードが最初に作成された日時を自動設定
      */
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    /**
+     * 更新者ID
+     * 最後にレコードを更新したユーザーID
+     */
+    @LastModifiedBy
+    @Column(name = "updated_by", nullable = false)
+    private Long updatedBy;
 
     /**
      * 更新日時

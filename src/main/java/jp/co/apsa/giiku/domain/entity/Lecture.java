@@ -63,7 +63,4 @@ public class Lecture extends BaseEntity {
     @Column(name = "is_active")
     private Boolean isActive = true;
 
-    /** 作成者ID */
-    @Column(name = "created_by")
-    private Integer createdBy;
 }
