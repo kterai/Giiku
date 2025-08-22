@@ -643,9 +643,11 @@ CREATE TABLE daily_schedules (
     scheduled_date DATE NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
-    classroom VARCHAR(50),
-    schedule_status VARCHAR(20) DEFAULT 'scheduled',
+    venue VARCHAR(100),
+    daily_theme VARCHAR(200),
+    daily_objectives VARCHAR(500),
     notes TEXT,
+    daily_status VARCHAR(20) DEFAULT 'SCHEDULED',
     created_by BIGINT REFERENCES users(id),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT REFERENCES users(id),
@@ -657,9 +659,11 @@ COMMENT ON COLUMN daily_schedules.day_id IS '日ID（days.id）';
 COMMENT ON COLUMN daily_schedules.scheduled_date IS '実施日';
 COMMENT ON COLUMN daily_schedules.start_time IS '開始時間';
 COMMENT ON COLUMN daily_schedules.end_time IS '終了時間';
-COMMENT ON COLUMN daily_schedules.classroom IS '教室';
-COMMENT ON COLUMN daily_schedules.schedule_status IS 'スケジュール状態';
+COMMENT ON COLUMN daily_schedules.venue IS '会場';
+COMMENT ON COLUMN daily_schedules.daily_theme IS '日次テーマ';
+COMMENT ON COLUMN daily_schedules.daily_objectives IS '日次目標';
 COMMENT ON COLUMN daily_schedules.notes IS '備考';
+COMMENT ON COLUMN daily_schedules.daily_status IS '日次ステータス';
 COMMENT ON COLUMN daily_schedules.created_by IS '作成者（レコード作成したユーザーID）';
 COMMENT ON COLUMN daily_schedules.created_at IS '作成日時（レコード作成時刻）';
 COMMENT ON COLUMN daily_schedules.updated_by IS '更新者（レコード更新したユーザーID）';

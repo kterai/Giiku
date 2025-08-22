@@ -38,22 +38,26 @@ INSERT INTO program_schedules (id, program_id, instructor_id, start_date, end_da
 -- DAILY SCHEDULES DATA (日次スケジュールデータ)
 -- ===============================
 
-INSERT INTO daily_schedules (id, program_schedule_id, day_id, scheduled_date, start_time, end_time, classroom, schedule_status, notes, created_by, created_at, updated_by, updated_at) VALUES
-(1, 1, 1, '2024-01-15', '09:00:00', '12:00:00', 'A101', 'completed', '初回オリエンテーション実施', 1, NOW(), 1, NOW()),
-(2, 1, 2, '2024-01-16', '09:00:00', '12:00:00', 'A101', 'completed', NULL, 1, NOW(), 1, NOW()),
-(3, 1, 3, '2024-01-17', '09:00:00', '12:00:00', 'A101', 'completed', NULL, 1, NOW(), 1, NOW()),
-(4, 1, 4, '2024-01-18', '09:00:00', '12:00:00', 'A101', 'completed', NULL, 1, NOW(), 1, NOW()),
-(5, 1, 5, '2024-01-19', '09:00:00', '12:00:00', 'A101', 'completed', '週末課題説明', 1, NOW(), 1, NOW()),
-(6, 1, 6, '2024-01-22', '09:00:00', '12:00:00', 'A101', 'scheduled', NULL, 1, NOW(), 1, NOW()),
-(7, 1, 7, '2024-01-23', '09:00:00', '12:00:00', 'A101', 'scheduled', NULL, 1, NOW(), 1, NOW()),
-(8, 1, 8, '2024-01-24', '09:00:00', '12:00:00', 'A101', 'scheduled', NULL, 1, NOW(), 1, NOW()),
-(9, 1, 9, '2024-01-25', '09:00:00', '12:00:00', 'A101', 'scheduled', NULL, 1, NOW(), 1, NOW()),
-(10, 1, 10, '2024-01-26', '09:00:00', '12:00:00', 'A101', 'scheduled', NULL, 1, NOW(), 1, NOW()),
-(11, 2, 17, '2024-02-01', '13:00:00', '17:00:00', 'B201', 'scheduled', 'Web開発コース開始', 1, NOW(), 1, NOW()),
-(12, 2, 18, '2024-02-02', '13:00:00', '17:00:00', 'B201', 'scheduled', NULL, 1, NOW(), 1, NOW()),
-(13, 2, 19, '2024-02-05', '13:00:00', '17:00:00', 'B201', 'scheduled', NULL, 1, NOW(), 1, NOW()),
-(14, 2, 20, '2024-02-06', '13:00:00', '17:00:00', 'B201', 'scheduled', NULL, 1, NOW(), 1, NOW()),
-(15, 2, 21, '2024-02-07', '13:00:00', '17:00:00', 'B201', 'scheduled', NULL, 1, NOW(), 1, NOW());
+INSERT INTO daily_schedules (
+    id, program_schedule_id, day_id, scheduled_date, start_time, end_time,
+    venue, daily_theme, daily_objectives, notes, daily_status,
+    created_by, created_at, updated_by, updated_at
+) VALUES
+(1, 1, 1, '2024-01-15', '09:00:00', '12:00:00', 'A101', NULL, NULL, '初回オリエンテーション実施', 'COMPLETED', 1, NOW(), 1, NOW()),
+(2, 1, 2, '2024-01-16', '09:00:00', '12:00:00', 'A101', NULL, NULL, NULL, 'COMPLETED', 1, NOW(), 1, NOW()),
+(3, 1, 3, '2024-01-17', '09:00:00', '12:00:00', 'A101', NULL, NULL, NULL, 'COMPLETED', 1, NOW(), 1, NOW()),
+(4, 1, 4, '2024-01-18', '09:00:00', '12:00:00', 'A101', NULL, NULL, NULL, 'COMPLETED', 1, NOW(), 1, NOW()),
+(5, 1, 5, '2024-01-19', '09:00:00', '12:00:00', 'A101', NULL, NULL, '週末課題説明', 'COMPLETED', 1, NOW(), 1, NOW()),
+(6, 1, 6, '2024-01-22', '09:00:00', '12:00:00', 'A101', NULL, NULL, NULL, 'SCHEDULED', 1, NOW(), 1, NOW()),
+(7, 1, 7, '2024-01-23', '09:00:00', '12:00:00', 'A101', NULL, NULL, NULL, 'SCHEDULED', 1, NOW(), 1, NOW()),
+(8, 1, 8, '2024-01-24', '09:00:00', '12:00:00', 'A101', NULL, NULL, NULL, 'SCHEDULED', 1, NOW(), 1, NOW()),
+(9, 1, 9, '2024-01-25', '09:00:00', '12:00:00', 'A101', NULL, NULL, NULL, 'SCHEDULED', 1, NOW(), 1, NOW()),
+(10, 1, 10, '2024-01-26', '09:00:00', '12:00:00', 'A101', NULL, NULL, NULL, 'SCHEDULED', 1, NOW(), 1, NOW()),
+(11, 2, 17, '2024-02-01', '13:00:00', '17:00:00', 'B201', NULL, NULL, 'Web開発コース開始', 'SCHEDULED', 1, NOW(), 1, NOW()),
+(12, 2, 18, '2024-02-02', '13:00:00', '17:00:00', 'B201', NULL, NULL, NULL, 'SCHEDULED', 1, NOW(), 1, NOW()),
+(13, 2, 19, '2024-02-05', '13:00:00', '17:00:00', 'B201', NULL, NULL, NULL, 'SCHEDULED', 1, NOW(), 1, NOW()),
+(14, 2, 20, '2024-02-06', '13:00:00', '17:00:00', 'B201', NULL, NULL, NULL, 'SCHEDULED', 1, NOW(), 1, NOW()),
+(15, 2, 21, '2024-02-07', '13:00:00', '17:00:00', 'B201', NULL, NULL, NULL, 'SCHEDULED', 1, NOW(), 1, NOW());
 
 -- ===============================
 -- STUDENT GRADE SUMMARIES DATA (学生成績集計データ)
