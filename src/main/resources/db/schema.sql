@@ -625,10 +625,10 @@ CREATE TABLE mock_tests (
     question_types VARCHAR(200),
     start_date TIMESTAMP,
     end_date TIMESTAMP,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE,
-    created_by BIGINT REFERENCES users(id),
-    updated_by BIGINT REFERENCES users(id)
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    created_by BIGINT REFERENCES users(id) NOT NULL,
+    updated_by BIGINT REFERENCES users(id) NOT NULL
 );
 
 CREATE INDEX idx_mock_tests_program_id ON mock_tests(program_id);
