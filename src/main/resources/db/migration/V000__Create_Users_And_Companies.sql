@@ -141,7 +141,7 @@ COMMENT ON COLUMN user_roles.updated_at IS '更新日時（最終更新時刻）
 -- Preserves existing users and companies tables
 -- Months table (12 months total)
 CREATE TABLE months (
-    id SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     month_number INTEGER NOT NULL UNIQUE CHECK (month_number BETWEEN 1 AND 12),
     title VARCHAR(255) NOT NULL,
     description TEXT,
@@ -172,8 +172,8 @@ COMMENT ON COLUMN months.updated_by IS '更新者（レコード更新したユ�
 
 -- Weeks table (18 weeks total, 6 weeks per month)
 CREATE TABLE weeks (
-    id SERIAL PRIMARY KEY,
-    month_id INTEGER NOT NULL REFERENCES months(id),
+    id BIGSERIAL PRIMARY KEY,
+    month_id BIGINT NOT NULL REFERENCES months(id),
     week_number INTEGER NOT NULL CHECK (week_number >= 1 AND week_number <= 18),
     week_name VARCHAR(100) NOT NULL,
     description TEXT,
@@ -201,8 +201,8 @@ COMMENT ON COLUMN weeks.updated_by IS '更新者（レコード更新したユ�
 
 -- Days table (54 days total, 3 days per week)  
 CREATE TABLE days (
-    id SERIAL PRIMARY KEY,
-    week_id INTEGER NOT NULL REFERENCES weeks(id),
+    id BIGSERIAL PRIMARY KEY,
+    week_id BIGINT NOT NULL REFERENCES weeks(id),
     day_number INTEGER NOT NULL CHECK (day_number >= 1 AND day_number <= 54),
     day_name VARCHAR(100) NOT NULL,
     description TEXT,
@@ -227,8 +227,8 @@ COMMENT ON COLUMN days.updated_at IS '更新日時（レコード更新時刻）
 COMMENT ON COLUMN days.updated_by IS '更新者（レコード更新したユーザーID）';
 
 CREATE TABLE lectures (
-    id SERIAL PRIMARY KEY,
-    day_id INTEGER REFERENCES days(id),
+    id BIGSERIAL PRIMARY KEY,
+    day_id BIGINT REFERENCES days(id),
     lecture_number INTEGER,
     title VARCHAR(200) NOT NULL,
     description TEXT,
@@ -264,8 +264,8 @@ COMMENT ON COLUMN lectures.updated_by IS '更新者（レコード更新した�
 
 -- Lecture chapters table
 CREATE TABLE lecture_chapters (
-    id SERIAL PRIMARY KEY,
-    lecture_id INTEGER NOT NULL REFERENCES lectures(id),
+    id BIGSERIAL PRIMARY KEY,
+    lecture_id BIGINT NOT NULL REFERENCES lectures(id),
     chapter_number INTEGER NOT NULL,
     title VARCHAR(200) NOT NULL,
     description TEXT,
@@ -294,8 +294,8 @@ COMMENT ON COLUMN lecture_chapters.updated_at IS '更新日時（レコード更
 
 -- Lecture goals table
 CREATE TABLE lecture_goals (
-    id SERIAL PRIMARY KEY,
-    lecture_id INTEGER NOT NULL REFERENCES lectures(id),
+    id BIGSERIAL PRIMARY KEY,
+    lecture_id BIGINT NOT NULL REFERENCES lectures(id),
     goal_description TEXT NOT NULL,
     sort_order INTEGER,
     version BIGINT DEFAULT 0 NOT NULL,
@@ -316,8 +316,8 @@ COMMENT ON COLUMN lecture_goals.updated_at IS '更新日時（レコード更新
 
 -- Lecture content blocks table
 CREATE TABLE lecture_content_blocks (
-    id SERIAL PRIMARY KEY,
-    chapter_id INTEGER NOT NULL REFERENCES lecture_chapters(id),
+    id BIGSERIAL PRIMARY KEY,
+    chapter_id BIGINT NOT NULL REFERENCES lecture_chapters(id),
     block_type VARCHAR(50) NOT NULL,
     title VARCHAR(200) NOT NULL,
     content TEXT,
@@ -367,10 +367,10 @@ COMMENT ON TABLE lecture_content_blocks IS '講義コンテンツブロックテ
 
 -- Training Programs (course definitions that can be copied/reused)
 CREATE TABLE training_programs (
-    id SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     program_name VARCHAR(200) NOT NULL,
     description TEXT,
-    company_id INTEGER REFERENCES companies(id),
+    company_id BIGINT REFERENCES companies(id),
     duration_months INTEGER DEFAULT 3 CHECK (duration_months > 0),
     total_hours INTEGER DEFAULT 0,
     difficulty_level VARCHAR(20),
@@ -401,12 +401,12 @@ COMMENT ON COLUMN training_programs.updated_by IS '更新者（レコード更�
 
 -- Training Schedules (specific scheduled instances of programs)
 CREATE TABLE training_schedules (
-    id SERIAL PRIMARY KEY,
-    training_program_id INTEGER NOT NULL REFERENCES training_programs(id),
+    id BIGSERIAL PRIMARY KEY,
+    training_program_id BIGINT NOT NULL REFERENCES training_programs(id),
     schedule_name VARCHAR(200) NOT NULL,
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
-    instructor_id INTEGER REFERENCES users(id),
+    instructor_id BIGINT REFERENCES users(id),
     status VARCHAR(20) DEFAULT 'planned' CHECK (status IN ('planned', 'active', 'completed', 'cancelled')),
     actual_students INTEGER DEFAULT 0,
     notes TEXT,
@@ -430,8 +430,8 @@ COMMENT ON COLUMN training_schedules.updated_by IS '更新者（レコード更�
 
 -- Instructors (extends users table for instructor-specific information)
 CREATE TABLE instructors (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL UNIQUE REFERENCES users(id),
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL UNIQUE REFERENCES users(id),
     instructor_code VARCHAR(50) UNIQUE,
     specialties JSON,
     specialization TEXT,
@@ -461,10 +461,10 @@ COMMENT ON COLUMN instructors.updated_by IS '更新者（レコード更新し�
 
 -- Students (extends users table for student-specific information)
 CREATE TABLE students (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER NOT NULL UNIQUE REFERENCES users(id),
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL UNIQUE REFERENCES users(id),
     student_code VARCHAR(50) UNIQUE,
-    company_id INTEGER REFERENCES companies(id),
+    company_id BIGINT REFERENCES companies(id),
     department VARCHAR(100),
     position VARCHAR(100),
     experience_years INTEGER DEFAULT 0 CHECK (experience_years >= 0),
@@ -558,9 +558,9 @@ CREATE INDEX idx_admission_date ON student_profiles(admission_date);
 
 -- Training Assignments (assigns students to specific training schedules)
 CREATE TABLE training_assignments (
-    id SERIAL PRIMARY KEY,
-    training_schedule_id INTEGER NOT NULL REFERENCES training_schedules(id),
-    student_id INTEGER NOT NULL REFERENCES students(id),
+    id BIGSERIAL PRIMARY KEY,
+    training_schedule_id BIGINT NOT NULL REFERENCES training_schedules(id),
+    student_id BIGINT NOT NULL REFERENCES students(id),
     assignment_date DATE DEFAULT CURRENT_DATE,
     status VARCHAR(20) DEFAULT 'assigned' CHECK (status IN ('assigned', 'active', 'completed', 'dropped', 'transferred')),
     completion_date DATE,
@@ -586,9 +586,9 @@ COMMENT ON COLUMN training_assignments.updated_by IS '更新者（レコード�
 
 -- Schedule Instructors (allows multiple instructors per schedule)
 CREATE TABLE schedule_instructors (
-    id SERIAL PRIMARY KEY,
-    training_schedule_id INTEGER NOT NULL REFERENCES training_schedules(id),
-    instructor_id INTEGER NOT NULL REFERENCES instructors(id),
+    id BIGSERIAL PRIMARY KEY,
+    training_schedule_id BIGINT NOT NULL REFERENCES training_schedules(id),
+    instructor_id BIGINT NOT NULL REFERENCES instructors(id),
     role VARCHAR(50) DEFAULT 'assistant' CHECK (role IN ('main', 'assistant', 'guest')),
     assigned_lectures JSON,
     start_date DATE,
@@ -610,9 +610,9 @@ COMMENT ON COLUMN schedule_instructors.updated_at IS '更新日時（レコー�
 
 -- Program Schedules (overall schedule per training program)
 CREATE TABLE program_schedules (
-    id SERIAL PRIMARY KEY,
-    program_id INTEGER NOT NULL REFERENCES training_programs(id),
-    instructor_id INTEGER REFERENCES instructors(id),
+    id BIGSERIAL PRIMARY KEY,
+    program_id BIGINT NOT NULL REFERENCES training_programs(id),
+    instructor_id BIGINT REFERENCES instructors(id),
     start_date DATE NOT NULL,
     end_date DATE NOT NULL,
     max_students INTEGER DEFAULT 0,
@@ -638,9 +638,9 @@ COMMENT ON COLUMN program_schedules.updated_at IS '更新日時（レコード�
 
 -- Daily Schedules (daily breakdown for a program schedule)
 CREATE TABLE daily_schedules (
-    id SERIAL PRIMARY KEY,
-    program_schedule_id INTEGER NOT NULL REFERENCES program_schedules(id),
-    day_id INTEGER NOT NULL REFERENCES days(id),
+    id BIGSERIAL PRIMARY KEY,
+    program_schedule_id BIGINT NOT NULL REFERENCES program_schedules(id),
+    day_id BIGINT NOT NULL REFERENCES days(id),
     scheduled_date DATE NOT NULL,
     start_time TIME NOT NULL,
     end_time TIME NOT NULL,
@@ -714,7 +714,7 @@ COMMENT ON TABLE program_schedules IS 'プログラムスケジュール（研�
 COMMENT ON TABLE daily_schedules IS '日次スケジュール（各プログラムスケジュールの1日単位の予定を管理）';
 
 CREATE TABLE mock_tests (
-    test_id SERIAL PRIMARY KEY,
+    test_id BIGSERIAL PRIMARY KEY,
     company_id BIGINT REFERENCES companies(id),
     program_id BIGINT NOT NULL REFERENCES training_programs(id),
     test_type VARCHAR(50) NOT NULL,
@@ -773,7 +773,7 @@ COMMENT ON COLUMN mock_tests.updated_by IS '更新者ID';
         -- 模擬試験の受験結果を格納するテーブル
 
 CREATE TABLE mock_test_results (
-                                   id SERIAL PRIMARY KEY,
+                                   id BIGSERIAL PRIMARY KEY,
                                    test_id BIGINT NOT NULL,
                                    student_id BIGINT NOT NULL,
                                    company_id BIGINT NOT NULL,
@@ -815,8 +815,8 @@ ALTER TABLE mock_test_results
 
 -- Exercise Question Bank (20+ questions per lecture)
 CREATE TABLE exercise_question_bank (
-    id SERIAL PRIMARY KEY,
-    lecture_id INTEGER NOT NULL REFERENCES lectures(id),
+    id BIGSERIAL PRIMARY KEY,
+    lecture_id BIGINT NOT NULL REFERENCES lectures(id),
     question_number INTEGER NOT NULL,
     question_type VARCHAR(20) DEFAULT 'multiple_choice' NOT NULL CHECK (question_type IN ('multiple_choice', 'essay', 'code', 'fill_blank')),
     question_text TEXT NOT NULL,
@@ -847,8 +847,8 @@ COMMENT ON COLUMN exercise_question_bank.updated_by IS '更新者（レコード
 
 -- Quiz Question Bank (per lecture)
 CREATE TABLE quiz_question_bank (
-    id SERIAL PRIMARY KEY,
-    lecture_id INTEGER NOT NULL REFERENCES lectures(id),
+    id BIGSERIAL PRIMARY KEY,
+    lecture_id BIGINT NOT NULL REFERENCES lectures(id),
     question_number INTEGER NOT NULL,
     question_type VARCHAR(20) DEFAULT 'multiple_choice' NOT NULL CHECK (question_type IN ('multiple_choice', 'true_false', 'short_answer')),
     question_text TEXT NOT NULL,
@@ -891,7 +891,7 @@ COMMENT ON COLUMN quiz_question_bank.updated_by IS '更新者（レコード更�
 
 -- Mock Test Question Bank (comprehensive assessment)
 CREATE TABLE mock_test_bank (
-    id SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     test_name VARCHAR(200) NOT NULL,
     description TEXT,
     duration_minutes INTEGER DEFAULT 120,
@@ -919,8 +919,8 @@ COMMENT ON COLUMN mock_test_bank.updated_by IS '更新者（レコード更新�
 
 -- Mock Test Questions (links to question bank)
 CREATE TABLE mock_test_questions (
-    id SERIAL PRIMARY KEY,
-    mock_test_id INTEGER NOT NULL REFERENCES mock_test_bank(id),
+    id BIGSERIAL PRIMARY KEY,
+    mock_test_id BIGINT NOT NULL REFERENCES mock_test_bank(id),
     question_type VARCHAR(20) NOT NULL CHECK (question_type IN ('multiple_choice', 'essay', 'code', 'true_false')),
     question_text TEXT NOT NULL,
     question_options JSON,
@@ -948,10 +948,10 @@ COMMENT ON COLUMN mock_test_questions.updated_by IS '更新者（レコード更
 
 -- Exercise Submissions (student exercise attempts)
 CREATE TABLE exercise_submissions (
-    id SERIAL PRIMARY KEY,
-    training_assignment_id INTEGER NOT NULL REFERENCES training_assignments(id),
-    lecture_id INTEGER NOT NULL REFERENCES lectures(id),
-    question_id INTEGER NOT NULL REFERENCES exercise_question_bank(id),
+    id BIGSERIAL PRIMARY KEY,
+    training_assignment_id BIGINT NOT NULL REFERENCES training_assignments(id),
+    lecture_id BIGINT NOT NULL REFERENCES lectures(id),
+    question_id BIGINT NOT NULL REFERENCES exercise_question_bank(id),
     student_answer TEXT,
     is_correct BOOLEAN,
     points_earned INTEGER DEFAULT 0,
@@ -979,10 +979,10 @@ COMMENT ON COLUMN exercise_submissions.updated_at IS '更新日時（レコー�
 
 -- Quiz Submissions (student quiz attempts)
 CREATE TABLE quiz_submissions (
-    id SERIAL PRIMARY KEY,
-    training_assignment_id INTEGER NOT NULL REFERENCES training_assignments(id),
-    lecture_id INTEGER NOT NULL REFERENCES lectures(id),
-    question_id INTEGER NOT NULL REFERENCES quiz_question_bank(id),
+    id BIGSERIAL PRIMARY KEY,
+    training_assignment_id BIGINT NOT NULL REFERENCES training_assignments(id),
+    lecture_id BIGINT NOT NULL REFERENCES lectures(id),
+    question_id BIGINT NOT NULL REFERENCES quiz_question_bank(id),
     student_answer TEXT NOT NULL,
     is_correct BOOLEAN NOT NULL,
     points_earned INTEGER DEFAULT 0,
@@ -1006,9 +1006,9 @@ COMMENT ON COLUMN quiz_submissions.updated_at IS '更新日時（レコード更
 
 -- Mock Test Submissions (student mock test attempts)
 CREATE TABLE mock_test_submissions (
-    id SERIAL PRIMARY KEY,
-    training_assignment_id INTEGER NOT NULL REFERENCES training_assignments(id),
-    mock_test_id INTEGER NOT NULL REFERENCES mock_test_bank(id),
+    id BIGSERIAL PRIMARY KEY,
+    training_assignment_id BIGINT NOT NULL REFERENCES training_assignments(id),
+    mock_test_id BIGINT NOT NULL REFERENCES mock_test_bank(id),
     start_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     end_time TIMESTAMP,
     total_score INTEGER DEFAULT 0,
@@ -1034,9 +1034,9 @@ COMMENT ON COLUMN mock_test_submissions.updated_at IS '更新日時（レコー�
 
 -- Mock Test Question Answers (individual question responses)
 CREATE TABLE mock_test_answers (
-    id SERIAL PRIMARY KEY,
-    mock_test_submission_id INTEGER NOT NULL REFERENCES mock_test_submissions(id),
-    question_id INTEGER NOT NULL REFERENCES mock_test_questions(id),
+    id BIGSERIAL PRIMARY KEY,
+    mock_test_submission_id BIGINT NOT NULL REFERENCES mock_test_submissions(id),
+    question_id BIGINT NOT NULL REFERENCES mock_test_questions(id),
     student_answer TEXT,
     is_correct BOOLEAN,
     points_earned INTEGER DEFAULT 0,
@@ -1064,9 +1064,9 @@ COMMENT ON COLUMN mock_test_answers.updated_at IS '更新日時（レコード�
 
 -- Lecture Grades (per lecture assessment summary)
 CREATE TABLE lecture_grades (
-    id SERIAL PRIMARY KEY,
-    training_assignment_id INTEGER NOT NULL REFERENCES training_assignments(id),
-    lecture_id INTEGER NOT NULL REFERENCES lectures(id),
+    id BIGSERIAL PRIMARY KEY,
+    training_assignment_id BIGINT NOT NULL REFERENCES training_assignments(id),
+    lecture_id BIGINT NOT NULL REFERENCES lectures(id),
     exercise_score INTEGER DEFAULT 0,
     exercise_max_score INTEGER DEFAULT 100,
     quiz_score INTEGER DEFAULT 0,
@@ -1098,9 +1098,9 @@ COMMENT ON COLUMN lecture_grades.updated_at IS '更新日時（レコード更�
 
 -- Student Grade Summaries (overall progress tracking)
 CREATE TABLE student_grade_summaries (
-    id SERIAL PRIMARY KEY,
-    student_id INTEGER NOT NULL REFERENCES students(id),
-    lecture_id INTEGER NOT NULL REFERENCES lectures(id),
+    id BIGSERIAL PRIMARY KEY,
+    student_id BIGINT NOT NULL REFERENCES students(id),
+    lecture_id BIGINT NOT NULL REFERENCES lectures(id),
     exercise_score NUMERIC(5,2) DEFAULT 0,
     quiz_score NUMERIC(5,2) DEFAULT 0,
     mock_test_score NUMERIC(5,2) DEFAULT 0,
@@ -1128,7 +1128,7 @@ COMMENT ON COLUMN student_grade_summaries.updated_at IS '更新日時（レコ�
 
 -- Grade Calculation Settings (configurable scoring weights)
 CREATE TABLE grade_settings (
-    id SERIAL PRIMARY KEY,
+    id BIGSERIAL PRIMARY KEY,
     setting_name VARCHAR(100) NOT NULL UNIQUE,
     exercise_weight NUMERIC(3,2) DEFAULT 0.40 CHECK (exercise_weight BETWEEN 0 AND 1),
     quiz_weight NUMERIC(3,2) DEFAULT 0.30 CHECK (quiz_weight BETWEEN 0 AND 1),
