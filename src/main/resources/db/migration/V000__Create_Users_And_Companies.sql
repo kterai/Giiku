@@ -1278,6 +1278,69 @@ COMMENT ON COLUMN notifications.created_at IS '作成日時（レコード作成
 COMMENT ON COLUMN notifications.updated_by IS '更新者ID（最終更新ユーザー）';
 COMMENT ON COLUMN notifications.updated_at IS '更新日時（最終更新時刻）';
 
+-- Company LMS configuration table
+CREATE TABLE company_lms_configs (
+    id BIGSERIAL PRIMARY KEY,
+    company_id BIGINT NOT NULL UNIQUE REFERENCES companies(id),
+    lms_enabled BOOLEAN NOT NULL DEFAULT TRUE,
+    max_students INTEGER NOT NULL DEFAULT 100 CHECK (max_students >= 1),
+    max_instructors INTEGER NOT NULL DEFAULT 10 CHECK (max_instructors >= 1),
+    max_courses INTEGER NOT NULL DEFAULT 50 CHECK (max_courses >= 1),
+    self_registration_enabled BOOLEAN NOT NULL DEFAULT FALSE,
+    instructor_rating_enabled BOOLEAN NOT NULL DEFAULT TRUE,
+    progress_notification_enabled BOOLEAN NOT NULL DEFAULT TRUE,
+    certificate_enabled BOOLEAN NOT NULL DEFAULT TRUE,
+    reporting_enabled BOOLEAN NOT NULL DEFAULT TRUE,
+    custom_theme VARCHAR(2000),
+    logo_url VARCHAR(500),
+    timezone VARCHAR(50) DEFAULT 'Asia/Tokyo',
+    language VARCHAR(10) DEFAULT 'ja',
+    notification_email VARCHAR(100),
+    session_timeout_minutes INTEGER NOT NULL DEFAULT 480 CHECK (session_timeout_minutes >= 30 AND session_timeout_minutes <= 1440),
+    password_expiry_days INTEGER CHECK (password_expiry_days >= 30 AND password_expiry_days <= 365),
+    max_file_size_mb INTEGER NOT NULL DEFAULT 50 CHECK (max_file_size_mb >= 1 AND max_file_size_mb <= 1000),
+    backup_frequency VARCHAR(20) CHECK (backup_frequency IN ('DAILY','WEEKLY','MONTHLY')),
+    config_effective_from TIMESTAMP WITH TIME ZONE,
+    config_effective_to TIMESTAMP WITH TIME ZONE,
+    config_description VARCHAR(1000),
+    config_updated_at TIMESTAMP WITH TIME ZONE,
+    version BIGINT NOT NULL DEFAULT 0,
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+COMMENT ON TABLE company_lms_configs IS '企業LMS設定（企業ごとのLMS機能設定を管理）';
+COMMENT ON COLUMN company_lms_configs.company_id IS '企業ID（companies.id）';
+COMMENT ON COLUMN company_lms_configs.lms_enabled IS 'LMS機能有効フラグ';
+COMMENT ON COLUMN company_lms_configs.max_students IS '最大学生数';
+COMMENT ON COLUMN company_lms_configs.max_instructors IS '最大講師数';
+COMMENT ON COLUMN company_lms_configs.max_courses IS '最大コース数';
+COMMENT ON COLUMN company_lms_configs.self_registration_enabled IS 'セルフ登録許可フラグ';
+COMMENT ON COLUMN company_lms_configs.instructor_rating_enabled IS '講師評価機能有効フラグ';
+COMMENT ON COLUMN company_lms_configs.progress_notification_enabled IS '学習進捗通知有効フラグ';
+COMMENT ON COLUMN company_lms_configs.certificate_enabled IS '証明書発行有効フラグ';
+COMMENT ON COLUMN company_lms_configs.reporting_enabled IS 'レポート機能有効フラグ';
+COMMENT ON COLUMN company_lms_configs.custom_theme IS 'カスタムテーマ設定（JSON形式）';
+COMMENT ON COLUMN company_lms_configs.logo_url IS 'ロゴURL';
+COMMENT ON COLUMN company_lms_configs.timezone IS 'タイムゾーン';
+COMMENT ON COLUMN company_lms_configs.language IS '言語設定';
+COMMENT ON COLUMN company_lms_configs.notification_email IS '通知メール送信元アドレス';
+COMMENT ON COLUMN company_lms_configs.session_timeout_minutes IS 'セッション有効期限（分）';
+COMMENT ON COLUMN company_lms_configs.password_expiry_days IS 'パスワード有効期限（日）';
+COMMENT ON COLUMN company_lms_configs.max_file_size_mb IS 'ファイルアップロード最大サイズ（MB）';
+COMMENT ON COLUMN company_lms_configs.backup_frequency IS 'バックアップ頻度';
+COMMENT ON COLUMN company_lms_configs.config_effective_from IS '設定有効開始日時';
+COMMENT ON COLUMN company_lms_configs.config_effective_to IS '設定有効終了日時';
+COMMENT ON COLUMN company_lms_configs.config_description IS '設定説明';
+COMMENT ON COLUMN company_lms_configs.config_updated_at IS '設定更新日時';
+COMMENT ON COLUMN company_lms_configs.version IS 'バージョン（楽観ロック用）';
+COMMENT ON COLUMN company_lms_configs.created_by IS '作成者ID（レコード作成ユーザー）';
+COMMENT ON COLUMN company_lms_configs.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN company_lms_configs.updated_by IS '更新者ID（最終更新ユーザー）';
+COMMENT ON COLUMN company_lms_configs.updated_at IS '更新日時（最終更新時刻）';
+
 -- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_audit_logs_table_record ON audit_logs(table_name, record_id);
 CREATE INDEX IF NOT EXISTS idx_notifications_user_read ON notifications(user_id, is_read);
