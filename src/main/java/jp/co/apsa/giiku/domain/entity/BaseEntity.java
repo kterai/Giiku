@@ -1,7 +1,9 @@
 package jp.co.apsa.giiku.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 全エンティティの基底クラス
@@ -26,6 +28,7 @@ public abstract class BaseEntity {
     @Column(name = "id")
     private Long id;
 
+    /**
      * バージョン（楽観ロック）
      * 同時更新制御のためのバージョン番号
      */
