@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.LocalDateTime;
 
 /**
  * 日次スケジュールエンティティ
@@ -21,7 +20,7 @@ import java.time.LocalDateTime;
 @Table(name = "daily_schedules")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class DailySchedule extends BaseEntity {
+public class DailySchedule extends AuditableEntity {
 
     // ID はBaseEntityから継承
 
@@ -29,14 +28,13 @@ public class DailySchedule extends BaseEntity {
     @Column(name = "program_schedule_id", nullable = false)
     private Long programScheduleId;
 
-    /** 対象日 */
-    @Column(name = "target_date", nullable = false)
-    private LocalDate targetDate;
+    /** スケジュール日 */
+    @Column(name = "scheduled_date", nullable = false)
+    private LocalDate scheduledDate;
 
-    /** 日付通し番号（1日目、2日目など） */
-    @Min(value = 1, message = "日付通し番号は1以上である必要があります")
-    @Column(name = "day_number", nullable = false)
-    private Integer dayNumber;
+    /** 日ID */
+    @Column(name = "day_id")
+    private Long dayId;
 
     /** 開始時刻 */
     @Column(name = "start_time", nullable = false)
@@ -72,15 +70,14 @@ public class DailySchedule extends BaseEntity {
     @Column(name = "daily_status", length = 20, nullable = false)
     private String dailyStatus = "SCHEDULED";
 
-    /** 更新日時 */
-    @Column(name = "daily_updated_at")
-    private LocalDateTime dailyUpdatedAt;
+    /** 作成者ID */
+    @Column(name = "created_by", updatable = false)
+    private Long createdBy;
 
-    @PrePersist
-    @PreUpdate
-    protected void onUpdate() {
-        this.dailyUpdatedAt = LocalDateTime.now();
-    }
+    /** 更新者ID */
+    @Column(name = "updated_by")
+    private Long updatedBy;
+
     /** isCompleted メソッド */
     public boolean isCompleted() {
         return "COMPLETED".equals(this.dailyStatus);
@@ -99,16 +96,16 @@ public class DailySchedule extends BaseEntity {
      * @return 対象日
      */
     public LocalDate getScheduleDate() {
-        return this.targetDate;
+        return this.scheduledDate;
     }
 
     /**
      * 互換用のスケジュール日設定メソッド。
      *
-     * @param scheduleDate 対象日
+     * @param scheduleDate スケジュール日
      */
     public void setScheduleDate(LocalDate scheduleDate) {
-        this.targetDate = scheduleDate;
+        this.scheduledDate = scheduleDate;
     }
 
     /**

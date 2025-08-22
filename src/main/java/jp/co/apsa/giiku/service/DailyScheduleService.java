@@ -79,7 +79,7 @@ public class DailyScheduleService {
      */
     @Transactional(readOnly = true)
     public List<DailySchedule> findByProgramScheduleId(Long programScheduleId) {
-        return dailyScheduleRepository.findByProgramScheduleIdOrderByTargetDateAscStartTimeAsc(programScheduleId);
+        return dailyScheduleRepository.findByProgramScheduleIdOrderByScheduledDateAscStartTimeAsc(programScheduleId);
     }
 
     /**
@@ -90,7 +90,7 @@ public class DailyScheduleService {
      */
     @Transactional(readOnly = true)
     public List<DailySchedule> findByScheduleDate(LocalDate scheduleDate) {
-        return dailyScheduleRepository.findByTargetDateOrderByStartTimeAsc(scheduleDate);
+        return dailyScheduleRepository.findByScheduledDateOrderByStartTimeAsc(scheduleDate);
     }
 
     /**
@@ -102,7 +102,7 @@ public class DailyScheduleService {
      */
     @Transactional(readOnly = true) 
     public List<DailySchedule> findSchedulesWithinPeriod(LocalDate startDate, LocalDate endDate) {
-        return dailyScheduleRepository.findByTargetDateBetweenOrderByTargetDateAscStartTimeAsc(startDate, endDate);
+        return dailyScheduleRepository.findByScheduledDateBetweenOrderByScheduledDateAscStartTimeAsc(startDate, endDate);
     }
 
     /**
@@ -149,7 +149,7 @@ public class DailyScheduleService {
             }
 
             if (scheduleDate != null) {
-                predicates.add(criteriaBuilder.equal(root.get("targetDate"), scheduleDate));
+                predicates.add(criteriaBuilder.equal(root.get("scheduledDate"), scheduleDate));
             }
 
             if (status != null && !status.trim().isEmpty()) {
@@ -222,13 +222,13 @@ public class DailyScheduleService {
 
     @Transactional(readOnly = true)
     public Page<DailySchedule> findByScheduleDateBetween(LocalDate startDate, LocalDate endDate, Pageable pageable) {
-        List<DailySchedule> list = dailyScheduleRepository.findByTargetDateBetweenOrderByTargetDateAscStartTimeAsc(startDate, endDate);
+        List<DailySchedule> list = dailyScheduleRepository.findByScheduledDateBetweenOrderByScheduledDateAscStartTimeAsc(startDate, endDate);
         return new PageImpl<>(list, pageable, list.size());
     }
 
     @Transactional(readOnly = true)
     public List<DailySchedule> findByScheduleDateBetween(LocalDate startDate, LocalDate endDate) {
-        return dailyScheduleRepository.findByTargetDateBetweenOrderByTargetDateAscStartTimeAsc(startDate, endDate);
+        return dailyScheduleRepository.findByScheduledDateBetweenOrderByScheduledDateAscStartTimeAsc(startDate, endDate);
     }
 
     @Transactional(readOnly = true)

@@ -24,7 +24,7 @@ import java.util.Objects;
 })
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserRole extends BaseEntity {
+public class UserRole extends AuditableEntity {
 
     /** ユーザーID（Userテーブルとの外部キー） */
     @NotNull(message = "ユーザーIDは必須です")

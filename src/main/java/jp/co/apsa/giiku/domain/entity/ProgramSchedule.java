@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 /**
  * プログラムスケジュールエンティティ
@@ -20,58 +19,55 @@ import java.time.LocalDateTime;
 @Table(name = "program_schedules")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ProgramSchedule extends BaseEntity {
+public class ProgramSchedule extends AuditableEntity {
 
     // ID はBaseEntityから継承
 
     /** 研修プログラムID（外部キー） */
-    @Column(name = "training_program_id", nullable = false)
-    private Long trainingProgramId;
+    @NotNull(message = "研修プログラムIDは必須です")
+    @Column(name = "program_id", nullable = false)
+    private Long programId;
 
-    /** スケジュール名 */
-    @NotBlank(message = "スケジュール名は必須です")
-    @Size(max = 100, message = "スケジュール名は100文字以内で入力してください")
-    @Column(name = "schedule_name", length = 100, nullable = false)
-    private String scheduleName;
-
-    /** スケジュール説明 */
-    @Size(max = 500, message = "スケジュール説明は500文字以内で入力してください")
-    @Column(name = "schedule_description", length = 500)
-    private String scheduleDescription;
+    /** 講師ID（外部キー） */
+    @Column(name = "instructor_id")
+    private Long instructorId;
 
     /** 開始日 */
+    @NotNull(message = "開始日は必須です")
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
 
     /** 終了日 */
+    @NotNull(message = "終了日は必須です")
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
+    /** 最大受講者数 */
+    @Min(value = 0, message = "最大受講者数は0以上である必要があります")
+    @Column(name = "max_students", nullable = false)
+    private Integer maxStudents = 0;
+
+    /** 現在の受講者数 */
+    @Min(value = 0, message = "現在の受講者数は0以上である必要があります")
+    @Column(name = "current_students", nullable = false)
+    private Integer currentStudents = 0;
+
     /** スケジュールステータス */
     @NotBlank(message = "スケジュールステータスは必須です")
-    @Pattern(regexp = "^(DRAFT|ACTIVE|COMPLETED|CANCELLED)$")
+    @Pattern(regexp = "^(scheduled|active|completed|cancelled)$")
     @Column(name = "schedule_status", length = 20, nullable = false)
-    private String scheduleStatus = "DRAFT";
+    private String scheduleStatus = "scheduled";
 
-    /** 総日数 */
-    @Min(value = 1, message = "総日数は1以上である必要があります")
-    @Column(name = "total_days", nullable = false)
-    private Integer totalDays;
+    /** 作成者（ユーザーID） */
+    @Column(name = "created_by")
+    private Long createdBy;
 
-    /** 更新日時 */
-    @Column(name = "schedule_updated_at")
-    private LocalDateTime scheduleUpdatedAt;
+    /** 更新者（ユーザーID） */
+    @Column(name = "updated_by")
+    private Long updatedBy;
 
-    @PrePersist
-    @PreUpdate
-    protected void onUpdate() {
-        this.scheduleUpdatedAt = LocalDateTime.now();
-        if (this.startDate != null && this.endDate != null) {
-            this.totalDays = (int) (this.endDate.toEpochDay() - this.startDate.toEpochDay() + 1);
-        }
-    }
     /** isActive メソッド */
     public boolean isActive() {
-        return "ACTIVE".equals(this.scheduleStatus);
+        return "active".equals(this.scheduleStatus);
     }
 }

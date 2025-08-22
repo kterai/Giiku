@@ -67,12 +67,12 @@ public class ProgramScheduleService {
     /**
      * 研修プログラムIDでスケジュールを取得
      *
-     * @param trainingProgramId 研修プログラムID
+     * @param programId 研修プログラムID
      * @return プログラムスケジュールのリスト
      */
     @Transactional(readOnly = true)
-    public List<ProgramSchedule> findByTrainingProgramId(Long trainingProgramId) {
-        return programScheduleRepository.findByTrainingProgramIdOrderByStartDateAsc(trainingProgramId);
+    public List<ProgramSchedule> findByProgramId(Long programId) {
+        return programScheduleRepository.findByProgramIdOrderByStartDateAsc(programId);
     }
 
     /**
@@ -113,7 +113,7 @@ public class ProgramScheduleService {
     /**
      * 複合条件でプログラムスケジュールを検索
      *
-     * @param trainingProgramId 研修プログラムID（オプション）
+     * @param programId 研修プログラムID（オプション）
      * @param startDate 開始日（オプション）
      * @param endDate 終了日（オプション）
      * @param status ステータス（オプション）
@@ -121,13 +121,13 @@ public class ProgramScheduleService {
      * @return ページング対応のプログラムスケジュール
      */
     @Transactional(readOnly = true)
-    public Page<ProgramSchedule> searchSchedules(Long trainingProgramId, LocalDate startDate,
-                                               LocalDate endDate, String status, Pageable pageable) {
+    public Page<ProgramSchedule> searchSchedules(Long programId, LocalDate startDate,
+                                                LocalDate endDate, String status, Pageable pageable) {
         Specification<ProgramSchedule> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
-            if (trainingProgramId != null) {
-                predicates.add(cb.equal(root.get("trainingProgramId"), trainingProgramId));
+            if (programId != null) {
+                predicates.add(cb.equal(root.get("programId"), programId));
             }
 
             if (startDate != null) {
@@ -159,10 +159,10 @@ public class ProgramScheduleService {
         validateProgramSchedule(programSchedule);
 
         // 研修プログラム存在チェック
-        if (programSchedule.getTrainingProgramId() != null) {
-            Optional<TrainingProgram> trainingProgram = trainingProgramRepository.findById(programSchedule.getTrainingProgramId());
+        if (programSchedule.getProgramId() != null) {
+            Optional<TrainingProgram> trainingProgram = trainingProgramRepository.findById(programSchedule.getProgramId());
             if (!trainingProgram.isPresent()) {
-                throw new IllegalArgumentException("指定された研修プログラムが存在しません: " + programSchedule.getTrainingProgramId());
+                throw new IllegalArgumentException("指定された研修プログラムが存在しません: " + programSchedule.getProgramId());
             }
         }
 
@@ -223,23 +223,23 @@ public class ProgramScheduleService {
     /**
      * 研修プログラムのスケジュール数を取得
      *
-     * @param trainingProgramId 研修プログラムID
+     * @param programId 研修プログラムID
      * @return スケジュール数
      */
     @Transactional(readOnly = true)
-    public long countByTrainingProgramId(Long trainingProgramId) {
-        return programScheduleRepository.countByTrainingProgramId(trainingProgramId);
+    public long countByProgramId(Long programId) {
+        return programScheduleRepository.countByProgramId(programId);
     }
 
     /**
      * 完了済みスケジュール数を取得
      *
-     * @param trainingProgramId 研修プログラムID
+     * @param programId 研修プログラムID
      * @return 完了済みスケジュール数
      */
     @Transactional(readOnly = true)
-    public long countCompletedSchedules(Long trainingProgramId) {
-        return programScheduleRepository.countByTrainingProgramIdAndScheduleStatus(trainingProgramId, "COMPLETED");
+    public long countCompletedSchedules(Long programId) {
+        return programScheduleRepository.countByProgramIdAndScheduleStatus(programId, "COMPLETED");
     }
 
     // ---- Additional methods for controller compatibility ----
@@ -259,7 +259,7 @@ public class ProgramScheduleService {
 
     @Transactional(readOnly = true)
     public List<ProgramScheduleResponseDto> getSchedulesByProgramId(Long programId, String sortBy, String sortDir) {
-        List<ProgramSchedule> list = programScheduleRepository.findByTrainingProgramIdOrderByStartDateAsc(programId);
+        List<ProgramSchedule> list = programScheduleRepository.findByProgramIdOrderByStartDateAsc(programId);
         return list.stream().map(this::toDto).toList();
     }
 
@@ -274,12 +274,14 @@ public class ProgramScheduleService {
 
     public ProgramScheduleResponseDto createProgramSchedule(ProgramScheduleCreateDto dto) {
         ProgramSchedule entity = new ProgramSchedule();
-        entity.setTrainingProgramId(dto.getProgramId());
-        entity.setScheduleName(dto.getTitle());
-        entity.setScheduleDescription(dto.getDescription());
+        entity.setProgramId(dto.getProgramId());
+        entity.setInstructorId(dto.getInstructorId());
         entity.setStartDate(dto.getStartDateTime().toLocalDate());
         entity.setEndDate(dto.getEndDateTime().toLocalDate());
-        entity.setScheduleStatus("ACTIVE");
+        if (dto.getCapacity() != null) {
+            entity.setMaxStudents(dto.getCapacity());
+        }
+        entity.setScheduleStatus("active");
         ProgramSchedule saved = programScheduleRepository.save(entity);
         return toDto(saved);
     }
@@ -290,10 +292,10 @@ public class ProgramScheduleService {
             return Optional.empty();
         }
         ProgramSchedule entity = opt.get();
-        if (dto.getTitle() != null) entity.setScheduleName(dto.getTitle());
-        if (dto.getDescription() != null) entity.setScheduleDescription(dto.getDescription());
+        if (dto.getInstructorId() != null) entity.setInstructorId(dto.getInstructorId());
         if (dto.getStartDateTime() != null) entity.setStartDate(dto.getStartDateTime().toLocalDate());
         if (dto.getEndDateTime() != null) entity.setEndDate(dto.getEndDateTime().toLocalDate());
+        if (dto.getCapacity() != null) entity.setMaxStudents(dto.getCapacity());
         ProgramSchedule saved = programScheduleRepository.save(entity);
         return Optional.of(toDto(saved));
     }
@@ -322,9 +324,9 @@ public class ProgramScheduleService {
     @Transactional(readOnly = true)
     public ProgramScheduleStatsDto getProgramScheduleStats(Long programId, String period) {
         ProgramScheduleStatsDto dto = new ProgramScheduleStatsDto();
-        long total = programScheduleRepository.countByTrainingProgramId(programId);
+        long total = programScheduleRepository.countByProgramId(programId);
         dto.setTotalSchedules(total);
-        dto.setCompletedSchedules(programScheduleRepository.countByTrainingProgramIdAndScheduleStatus(programId, "COMPLETED"));
+        dto.setCompletedSchedules(programScheduleRepository.countByProgramIdAndScheduleStatus(programId, "COMPLETED"));
         if (total > 0) {
             dto.setCompletionRate(dto.getCompletedSchedules() / (double) total);
         }
@@ -339,16 +341,13 @@ public class ProgramScheduleService {
     public ProgramScheduleResponseDto duplicateSchedule(Long id, String newStartDate, String newEndDate) {
         ProgramSchedule original = programScheduleRepository.findById(id).orElseThrow();
         ProgramSchedule copy = new ProgramSchedule();
-        copy.setTrainingProgramId(original.getTrainingProgramId());
-        copy.setScheduleName(original.getScheduleName());
-        copy.setScheduleDescription(original.getScheduleDescription());
+        copy.setProgramId(original.getProgramId());
+        copy.setInstructorId(original.getInstructorId());
         copy.setScheduleStatus(original.getScheduleStatus());
-        if (newStartDate != null) {
-            copy.setStartDate(LocalDate.parse(newStartDate));
-        }
-        if (newEndDate != null) {
-            copy.setEndDate(LocalDate.parse(newEndDate));
-        }
+        copy.setMaxStudents(original.getMaxStudents());
+        copy.setCurrentStudents(original.getCurrentStudents());
+        copy.setStartDate(newStartDate != null ? LocalDate.parse(newStartDate) : original.getStartDate());
+        copy.setEndDate(newEndDate != null ? LocalDate.parse(newEndDate) : original.getEndDate());
         ProgramSchedule saved = programScheduleRepository.save(copy);
         return toDto(saved);
     }
@@ -356,12 +355,15 @@ public class ProgramScheduleService {
     private ProgramScheduleResponseDto toDto(ProgramSchedule schedule) {
         ProgramScheduleResponseDto dto = new ProgramScheduleResponseDto();
         dto.setId(schedule.getId());
-        dto.setProgramId(schedule.getTrainingProgramId());
-        dto.setTitle(schedule.getScheduleName());
-        dto.setDescription(schedule.getScheduleDescription());
+        dto.setProgramId(schedule.getProgramId());
         dto.setStartDateTime(schedule.getStartDate() != null ? schedule.getStartDate().atStartOfDay() : null);
         dto.setEndDateTime(schedule.getEndDate() != null ? schedule.getEndDate().atStartOfDay() : null);
+        dto.setCapacity(schedule.getMaxStudents());
+        dto.setCurrentParticipants(schedule.getCurrentStudents());
+        dto.setInstructorId(schedule.getInstructorId());
         dto.setStatus(schedule.getScheduleStatus());
+        dto.setCreatedAt(schedule.getCreatedAt());
+        dto.setUpdatedAt(schedule.getUpdatedAt());
         return dto;
     }
 
@@ -376,12 +378,8 @@ public class ProgramScheduleService {
             throw new IllegalArgumentException("プログラムスケジュールが null です");
         }
 
-        if (programSchedule.getTrainingProgramId() == null) {
+        if (programSchedule.getProgramId() == null) {
             throw new IllegalArgumentException("研修プログラムIDは必須です");
-        }
-
-        if (programSchedule.getScheduleName() == null || programSchedule.getScheduleName().trim().isEmpty()) {
-            throw new IllegalArgumentException("スケジュール名は必須です");
         }
 
         if (programSchedule.getStartDate() == null || programSchedule.getEndDate() == null) {
