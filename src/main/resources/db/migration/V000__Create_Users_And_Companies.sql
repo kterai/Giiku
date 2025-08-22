@@ -647,6 +647,7 @@ CREATE TABLE daily_schedules (
     classroom VARCHAR(50),
     schedule_status VARCHAR(20) DEFAULT 'scheduled',
     notes TEXT,
+    version BIGINT NOT NULL DEFAULT 0,
     created_by BIGINT REFERENCES users(id),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT REFERENCES users(id),
@@ -661,6 +662,7 @@ COMMENT ON COLUMN daily_schedules.end_time IS '終了時間';
 COMMENT ON COLUMN daily_schedules.classroom IS '教室';
 COMMENT ON COLUMN daily_schedules.schedule_status IS 'スケジュール状態';
 COMMENT ON COLUMN daily_schedules.notes IS '備考';
+COMMENT ON COLUMN daily_schedules.version IS 'バージョン（楽観ロック用）';
 COMMENT ON COLUMN daily_schedules.created_by IS '作成者（レコード作成したユーザーID）';
 COMMENT ON COLUMN daily_schedules.created_at IS '作成日時（レコード作成時刻）';
 COMMENT ON COLUMN daily_schedules.updated_by IS '更新者（レコード更新したユーザーID）';
