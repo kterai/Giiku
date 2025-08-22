@@ -378,6 +378,7 @@ CREATE TABLE training_programs (
     max_students INTEGER DEFAULT 30 CHECK (max_students > 0),
     is_template BOOLEAN DEFAULT false,
     is_active BOOLEAN DEFAULT true,
+    version BIGINT NOT NULL DEFAULT 0,
     created_by BIGINT REFERENCES users(id),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT REFERENCES users(id),
@@ -394,6 +395,7 @@ COMMENT ON COLUMN training_programs.prerequisites IS '受講前提条件（事�
 COMMENT ON COLUMN training_programs.max_students IS '最大受講者数（プログラムの定員）';
 COMMENT ON COLUMN training_programs.is_template IS 'テンプレート（他社コピー用テンプレートか）';
 COMMENT ON COLUMN training_programs.is_active IS '有効状態（プログラムの使用可否）';
+COMMENT ON COLUMN training_programs.version IS 'バージョン（楽観ロック用）';
 COMMENT ON COLUMN training_programs.created_at IS '作成日時（レコード作成時刻）';
 COMMENT ON COLUMN training_programs.created_by IS '作成者（レコード作成したユーザーID）';
 COMMENT ON COLUMN training_programs.updated_at IS '更新日時（レコード更新時刻）';
@@ -440,6 +442,7 @@ CREATE TABLE instructors (
     certifications JSON,
     hourly_rate DECIMAL(10,2),
     is_active BOOLEAN DEFAULT true,
+    version BIGINT NOT NULL DEFAULT 0,
     created_by BIGINT REFERENCES users(id),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT REFERENCES users(id),
@@ -454,6 +457,7 @@ COMMENT ON COLUMN instructors.bio IS '経歴（講師の経歴・プロフィー
 COMMENT ON COLUMN instructors.certifications IS '資格（講師の保有資格リスト）';
 COMMENT ON COLUMN instructors.hourly_rate IS '時間単価（講師の時間あたり報酬）';
 COMMENT ON COLUMN instructors.is_active IS '有効状態（講師の活動状態）';
+COMMENT ON COLUMN instructors.version IS 'バージョン（楽観ロック用）';
 COMMENT ON COLUMN instructors.created_at IS '作成日時（レコード作成時刻）';
 COMMENT ON COLUMN instructors.created_by IS '作成者（レコード作成したユーザーID）';
 COMMENT ON COLUMN instructors.updated_at IS '更新日時（レコード更新時刻）';
@@ -618,6 +622,7 @@ CREATE TABLE program_schedules (
     max_students INTEGER DEFAULT 0,
     current_students INTEGER DEFAULT 0,
     schedule_status VARCHAR(20) DEFAULT 'scheduled',
+    version BIGINT NOT NULL DEFAULT 0,
     created_by BIGINT REFERENCES users(id),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT REFERENCES users(id),
@@ -631,6 +636,7 @@ COMMENT ON COLUMN program_schedules.end_date IS '終了日';
 COMMENT ON COLUMN program_schedules.max_students IS '最大受講者数';
 COMMENT ON COLUMN program_schedules.current_students IS '現在の受講者数';
 COMMENT ON COLUMN program_schedules.schedule_status IS 'スケジュール状態';
+COMMENT ON COLUMN program_schedules.version IS 'バージョン（楽観ロック用）';
 COMMENT ON COLUMN program_schedules.created_by IS '作成者（レコード作成したユーザーID）';
 COMMENT ON COLUMN program_schedules.created_at IS '作成日時（レコード作成時刻）';
 COMMENT ON COLUMN program_schedules.updated_by IS '更新者（レコード更新したユーザーID）';
