@@ -4,31 +4,31 @@
 
 -- 講義1: Java言語基礎（8チャプター）の投入
 INSERT INTO lectures (id, title, description, duration_minutes, difficulty_level, is_active, created_by, created_at, updated_by, updated_at) VALUES
-(1, 'Java言語基礎', 'Java言語の基本概念、構文、特徴を学び、プログラミングの基礎を身につけます。コメント、命名規則、リテラル、コンパイルプロセスまで包括的に学習します。', 480, 'BEGINNER', true, 1, 1, 1, CURRENT_TIMESTAMP);
+(1, 'Java言語基礎', 'Java言語の基本概念、構文、特徴を学び、プログラミングの基礎を身につけます。コメント、命名規則、リテラル、コンパイルプロセスまで包括的に学習します。', 480, 'BEGINNER', true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義1のチャプター投入
 INSERT INTO lecture_chapters (id, lecture_id, chapter_number, title, description, duration_minutes, sort_order, is_active, created_by, created_at, updated_by, updated_at) VALUES
-(1, 1, 1, 'Javaとは何か', 'Java言語の歴史、特徴、用途について学びます。プラットフォーム独立性やオブジェクト指向の概念を理解します。', 60, 1, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(2, 1, 2, 'Javaの特徴と利点', 'Write Once, Run Anywhere、ガベージコレクション、豊富なライブラリなどJavaの主要な特徴を詳しく学習します。', 60, 2, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(3, 1, 3, 'プログラムの基本構造', 'Javaプログラムの基本構造、mainメソッド、クラス定義の書き方を実践的に学びます。', 60, 3, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(4, 1, 4, 'コメントの書き方', '単行コメント、複数行コメント、JavaDocコメントの書き方と活用方法を学習します。', 45, 4, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(5, 1, 5, '命名規則', 'Java言語の命名規則（クラス名、メソッド名、変数名、定数名）を詳しく学び、適切なコーディング習慣を身につけます。', 45, 5, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(6, 1, 6, 'リテラル', '整数リテラル、浮動小数点リテラル、文字リテラル、文字列リテラル、論理リテラルについて学習します。', 60, 6, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(7, 1, 7, 'セミコロンと文の終了', 'Javaにおける文の終了規則、セミコロンの使い方、ブロック文について学習します。', 30, 7, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(8, 1, 8, 'コンパイルと実行の流れ', 'javac、java コマンドの使い方、クラスファイルの生成プロセス、実行環境について詳しく学習します。', 60, 8, true, 1, 1, 1, CURRENT_TIMESTAMP);
+(1, 1, 1, 'Javaとは何か', 'Java言語の歴史、特徴、用途について学びます。プラットフォーム独立性やオブジェクト指向の概念を理解します。', 60, 1, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(2, 1, 2, 'Javaの特徴と利点', 'Write Once, Run Anywhere、ガベージコレクション、豊富なライブラリなどJavaの主要な特徴を詳しく学習します。', 60, 2, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(3, 1, 3, 'プログラムの基本構造', 'Javaプログラムの基本構造、mainメソッド、クラス定義の書き方を実践的に学びます。', 60, 3, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(4, 1, 4, 'コメントの書き方', '単行コメント、複数行コメント、JavaDocコメントの書き方と活用方法を学習します。', 45, 4, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(5, 1, 5, '命名規則', 'Java言語の命名規則（クラス名、メソッド名、変数名、定数名）を詳しく学び、適切なコーディング習慣を身につけます。', 45, 5, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(6, 1, 6, 'リテラル', '整数リテラル、浮動小数点リテラル、文字リテラル、文字列リテラル、論理リテラルについて学習します。', 60, 6, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(7, 1, 7, 'セミコロンと文の終了', 'Javaにおける文の終了規則、セミコロンの使い方、ブロック文について学習します。', 30, 7, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(8, 1, 8, 'コンパイルと実行の流れ', 'javac、java コマンドの使い方、クラスファイルの生成プロセス、実行環境について詳しく学習します。', 60, 8, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義1の学習目標投入
 INSERT INTO lecture_goals (id, lecture_id, goal_description, sort_order, created_by, created_at, updated_by, updated_at) VALUES
-(1, 1, 'Java言語の歴史と特徴を理解し、他のプログラミング言語との違いを説明できる', 1, 1, 1, 1, CURRENT_TIMESTAMP),
-(2, 1, 'プラットフォーム独立性の概念とJVMの役割を理解する', 2, 1, 1, 1, CURRENT_TIMESTAMP),
-(3, 1, 'Javaプログラムの基本構造を理解し、簡単なHello Worldプログラムを作成できる', 3, 1, 1, 1, CURRENT_TIMESTAMP),
-(4, 1, '適切な命名規則に従ってクラス、メソッド、変数の名前を付けることができる', 4, 1, 1, 1, CURRENT_TIMESTAMP),
-(5, 1, '各種リテラルの書き方と使い方を理解し、実際のコードで使用できる', 5, 1, 1, 1, CURRENT_TIMESTAMP),
-(6, 1, 'コメントの種類と書き方を理解し、保守性の高いコードを書くことができる', 6, 1, 1, 1, CURRENT_TIMESTAMP),
-(7, 1, 'コンパイルから実行までの流れを理解し、エラーの原因を特定できる', 7, 1, 1, 1, CURRENT_TIMESTAMP);
+(1, 1, 'Java言語の歴史と特徴を理解し、他のプログラミング言語との違いを説明できる', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(2, 1, 'プラットフォーム独立性の概念とJVMの役割を理解する', 2, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(3, 1, 'Javaプログラムの基本構造を理解し、簡単なHello Worldプログラムを作成できる', 3, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(4, 1, '適切な命名規則に従ってクラス、メソッド、変数の名前を付けることができる', 4, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(5, 1, '各種リテラルの書き方と使い方を理解し、実際のコードで使用できる', 5, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(6, 1, 'コメントの種類と書き方を理解し、保守性の高いコードを書くことができる', 6, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(7, 1, 'コンパイルから実行までの流れを理解し、エラーの原因を特定できる', 7, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 -- 講義1-1のコンテンツブロック投入
 INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
-(1, 1, 'OVERVIEW', '概要', 'Java言語は1995年にSun Microsystems（現Oracle）によって開発されたオブジェクト指向プログラミング言語です。「Write Once, Run Anywhere」の理念のもと、プラットフォーム独立性を実現し、現在では企業システム開発からモバイルアプリケーション開発まで幅広く使用されています。', 1, 1, 1, 1, CURRENT_TIMESTAMP),
+(1, 1, 'OVERVIEW', '概要', 'Java言語は1995年にSun Microsystems（現Oracle）によって開発されたオブジェクト指向プログラミング言語です。「Write Once, Run Anywhere」の理念のもと、プラットフォーム独立性を実現し、現在では企業システム開発からモバイルアプリケーション開発まで幅広く使用されています。', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (2, 1, 'DETAIL', 'Javaの歴史と発展', 'Java言語は以下のような発展を遂げてきました：
 
 ■ 1991年: Green Project開始（組み込みシステム向け言語Oak）
@@ -39,7 +39,7 @@ INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, 
 ■ 2017年以降: 6ヶ月リリースサイクル導入（Java 9～）
 ■ 2021年: Java 17 LTS（Long Term Support）リリース
 
-現在のJavaは単なるプログラミング言語ではなく、JVM（Java Virtual Machine）、JRE（Java Runtime Environment）、JDK（Java Development Kit）を含む包括的な開発・実行プラットフォームとして位置づけられています。', 2, 1, 1, 1, CURRENT_TIMESTAMP),
+現在のJavaは単なるプログラミング言語ではなく、JVM（Java Virtual Machine）、JRE（Java Runtime Environment）、JDK（Java Development Kit）を含む包括的な開発・実行プラットフォームとして位置づけられています。', 2, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (3, 1, 'EXAMPLE', 'Javaの活用分野', '■ 企業システム開発
 - 基幹業務システム
 - Webアプリケーション（Spring Framework）
@@ -60,7 +60,7 @@ INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, 
 
 ■ IoT・組み込みシステム
 - 産業用制御システム
-- スマートデバイス', 3, 1, 1, 1, CURRENT_TIMESTAMP),
+- スマートデバイス', 3, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (4, 1, 'CODE', 'Hello World プログラム', '最初のJavaプログラムを見てみましょう：
 
 ```java
@@ -82,7 +82,7 @@ public class HelloWorld {
 - public class HelloWorld: publicクラスの定義
 - main メソッド: プログラムの実行開始点
 - System.out.println(): コンソール出力メソッド
-- コメント: プログラムの説明', 4, 1, 1, 1, CURRENT_TIMESTAMP),
+- コメント: プログラムの説明', 4, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (5, 1, 'NOTE', '重要なポイント', '■ プラットフォーム独立性
 Javaプログラムは一度コンパイルすると、JVMがインストールされた任意のOS上で実行可能です。
 
@@ -93,11 +93,11 @@ Javaは純粋なオブジェクト指向言語で、すべてのコードはク�
 変数の型は明示的に宣言する必要があり、コンパイル時に型チェックが行われます。
 
 ■ 自動メモリ管理
-ガベージコレクションにより、不要になったオブジェクトのメモリが自動的に解放されます。', 5, 1, 1, 1, CURRENT_TIMESTAMP);
+ガベージコレクションにより、不要になったオブジェクトのメモリが自動的に解放されます。', 5, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義1-2のコンテンツブロック投入
 INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
-(6, 2, 'OVERVIEW', '概要', 'Javaの主要な特徴と利点を詳しく学習します。プラットフォーム独立性、オブジェクト指向、メモリ管理、セキュリティ、豊富なライブラリなど、Javaが企業システム開発で選ばれる理由を理解します。', 1, 1, 1, 1, CURRENT_TIMESTAMP),
+(6, 2, 'OVERVIEW', '概要', 'Javaの主要な特徴と利点を詳しく学習します。プラットフォーム独立性、オブジェクト指向、メモリ管理、セキュリティ、豊富なライブラリなど、Javaが企業システム開発で選ばれる理由を理解します。', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (7, 2, 'DETAIL', 'Write Once, Run Anywhere（WORA）', 'Javaの最大の特徴の一つは、プラットフォーム独立性です：
 
 ■ コンパイルプロセス
@@ -119,7 +119,7 @@ INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, 
 - バイトコードの実行
 - メモリ管理（ガベージコレクション）
 - セキュリティ管理
-- 最適化（JIT コンパイル）', 2, 1, 1, 1, CURRENT_TIMESTAMP),
+- 最適化（JIT コンパイル）', 2, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (8, 2, 'DETAIL', 'オブジェクト指向プログラミング', 'Javaは純粋なオブジェクト指向言語です：
 
 ■ 基本概念
@@ -143,7 +143,7 @@ INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, 
 
 4. 抽象化（Abstraction）
    - 複雑な実装を隠し、必要な機能のみを公開
-   - abstract クラス、interface の活用', 3, 1, 1, 1, CURRENT_TIMESTAMP),
+   - abstract クラス、interface の活用', 3, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (9, 2, 'CODE', 'オブジェクト指向の実例', '```java
 // Student クラスの定義（カプセル化の例）
 public class Student {
@@ -192,7 +192,7 @@ public class StudentTest {
         System.out.println("変更後: " + student.getName());
     }
 }
-```', 4, 1, 1, 1, CURRENT_TIMESTAMP),
+```', 4, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (10, 2, 'NOTE', 'Javaの性能特性', '■ JITコンパイル
 - 実行時に頻繁に使用されるコードを機械語にコンパイル
 - C/C++に匹敵する実行速度を実現
@@ -210,34 +210,34 @@ public class StudentTest {
 ■ 開発効率
 - IDEによる強力な開発支援
 - 豊富なフレームワーク（Spring、Hibernate等）
-- テストフレームワーク（JUnit、Mockito等）', 5, 1, 1, 1, CURRENT_TIMESTAMP);
+- テストフレームワーク（JUnit、Mockito等）', 5, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義2: 開発環境構築（7チャプター）の投入
 INSERT INTO lectures (id, title, description, duration_minutes, difficulty_level, is_active, created_by, created_at, updated_by, updated_at) VALUES
-(2, '開発環境構築', 'Java開発に必要な環境構築を実践的に学習。JDKインストール、IDE設定、プロジェクト作成、デバッグ環境の構築まで、実際の開発フローに沿って学びます。', 420, 'BEGINNER', true, 1, 1, 1, CURRENT_TIMESTAMP);
+(2, '開発環境構築', 'Java開発に必要な環境構築を実践的に学習。JDKインストール、IDE設定、プロジェクト作成、デバッグ環境の構築まで、実際の開発フローに沿って学びます。', 420, 'BEGINNER', true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義2のチャプター投入
 INSERT INTO lecture_chapters (id, lecture_id, chapter_number, title, description, duration_minutes, sort_order, is_active, created_by, created_at, updated_by, updated_at) VALUES
-(9, 2, 1, 'JDKのインストール', 'Oracle JDKとOpenJDKの違い、適切なバージョンの選択、各OS（Windows、macOS、Linux）でのインストール手順を学習します。', 60, 1, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(10, 2, 2, 'IDEの選択と設定', 'IntelliJ IDEA、Eclipse、Visual Studio Codeの特徴比較と、基本設定、プラグイン導入を実践的に学びます。', 75, 2, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(11, 2, 3, 'プロジェクトの作成', 'IDE上でのJavaプロジェクト作成、フォルダ構成の理解、ビルドパスの設定を学習します。', 60, 3, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(12, 2, 4, 'コンパイル環境の確認', 'コマンドライン、IDE両方でのコンパイル手順、エラーメッセージの読み方、トラブルシューティングを学習します。', 60, 4, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(13, 2, 5, 'デバッグ環境の設定', 'ブレークポイントの設定、ステップ実行、変数の監視など、効果的なデバッグ技術を習得します。', 60, 5, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(14, 2, 6, '外部ライブラリの管理', 'classpathの概念、JARファイルの追加、Maven/Gradleビルドツールの基本的な使い方を学習します。', 60, 6, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(15, 2, 7, 'バージョン管理システムの導入', 'Git/GitHubの基本操作、IDE連携、Javaプロジェクトでのバージョン管理のベストプラクティスを学習します。', 45, 7, true, 1, 1, 1, CURRENT_TIMESTAMP);
+(9, 2, 1, 'JDKのインストール', 'Oracle JDKとOpenJDKの違い、適切なバージョンの選択、各OS（Windows、macOS、Linux）でのインストール手順を学習します。', 60, 1, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(10, 2, 2, 'IDEの選択と設定', 'IntelliJ IDEA、Eclipse、Visual Studio Codeの特徴比較と、基本設定、プラグイン導入を実践的に学びます。', 75, 2, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(11, 2, 3, 'プロジェクトの作成', 'IDE上でのJavaプロジェクト作成、フォルダ構成の理解、ビルドパスの設定を学習します。', 60, 3, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(12, 2, 4, 'コンパイル環境の確認', 'コマンドライン、IDE両方でのコンパイル手順、エラーメッセージの読み方、トラブルシューティングを学習します。', 60, 4, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(13, 2, 5, 'デバッグ環境の設定', 'ブレークポイントの設定、ステップ実行、変数の監視など、効果的なデバッグ技術を習得します。', 60, 5, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(14, 2, 6, '外部ライブラリの管理', 'classpathの概念、JARファイルの追加、Maven/Gradleビルドツールの基本的な使い方を学習します。', 60, 6, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(15, 2, 7, 'バージョン管理システムの導入', 'Git/GitHubの基本操作、IDE連携、Javaプロジェクトでのバージョン管理のベストプラクティスを学習します。', 45, 7, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義2の学習目標投入
 INSERT INTO lecture_goals (id, lecture_id, goal_description, sort_order, created_by, created_at, updated_by, updated_at) VALUES
-(8, 2, 'JDKを正しくインストールし、コマンドラインからjavac、javaコマンドを実行できる', 1, 1, 1, 1, CURRENT_TIMESTAMP),
-(9, 2, 'IDEを使用してJavaプロジェクトを作成し、基本的な設定を行うことができる', 2, 1, 1, 1, CURRENT_TIMESTAMP),
-(10, 2, 'コンパイルエラーの内容を理解し、適切に修正することができる', 3, 1, 1, 1, CURRENT_TIMESTAMP),
-(11, 2, 'デバッガーを使用してプログラムの動作を追跡し、バグを特定できる', 4, 1, 1, 1, CURRENT_TIMESTAMP),
-(12, 2, '外部ライブラリをプロジェクトに追加し、利用することができる', 5, 1, 1, 1, CURRENT_TIMESTAMP),
-(13, 2, 'バージョン管理システムを使用してソースコードを管理できる', 6, 1, 1, 1, CURRENT_TIMESTAMP);
+(8, 2, 'JDKを正しくインストールし、コマンドラインからjavac、javaコマンドを実行できる', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(9, 2, 'IDEを使用してJavaプロジェクトを作成し、基本的な設定を行うことができる', 2, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(10, 2, 'コンパイルエラーの内容を理解し、適切に修正することができる', 3, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(11, 2, 'デバッガーを使用してプログラムの動作を追跡し、バグを特定できる', 4, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(12, 2, '外部ライブラリをプロジェクトに追加し、利用することができる', 5, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(13, 2, 'バージョン管理システムを使用してソースコードを管理できる', 6, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義2-1のコンテンツブロック投入（JDKのインストール）
 INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
-(11, 9, 'OVERVIEW', '概要', 'Java開発を始めるために最も重要なのがJDK（Java Development Kit）のインストールです。JDKにはJavaコンパイラ（javac）、Java実行環境（JRE）、開発ツール群が含まれています。Oracle JDKとOpenJDKの違いを理解し、開発目的に応じた適切な選択を行います。', 1, 1, 1, 1, CURRENT_TIMESTAMP),
+(11, 9, 'OVERVIEW', '概要', 'Java開発を始めるために最も重要なのがJDK（Java Development Kit）のインストールです。JDKにはJavaコンパイラ（javac）、Java実行環境（JRE）、開発ツール群が含まれています。Oracle JDKとOpenJDKの違いを理解し、開発目的に応じた適切な選択を行います。', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (12, 9, 'DETAIL', 'JDKの種類と選択', '■ Oracle JDK vs OpenJDK
 【Oracle JDK】
 - Oracle社が提供する商用JDK
@@ -254,7 +254,7 @@ INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, 
 ■ バージョン選択の指針
 - 学習目的: OpenJDK 17 LTS（無料、最新LTS）
 - 企業開発: Java 8, 11, 17 LTS（長期サポート）
-- 最新機能試用: 最新バージョン（6ヶ月ごとにリリース）', 2, 1, 1, 1, CURRENT_TIMESTAMP),
+- 最新機能試用: 最新バージョン（6ヶ月ごとにリリース）', 2, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (13, 9, 'CODE', 'Windows環境インストール確認', '```bash
 # コマンドプロンプトで実行
 java -version
@@ -273,7 +273,7 @@ OpenJDK 64-Bit Server VM Temurin-17.0.2+8 (build 17.0.2+8, mixed mode, sharing)
 2. システム環境変数でJAVA_HOMEを設定
    - 変数名: JAVA_HOME
    - 変数値: C:\Program Files\Eclipse Adoptium\jdk-17.0.x-hotspot
-3. PATHに%JAVA_HOME%\binを追加', 3, 1, 1, 1, CURRENT_TIMESTAMP),
+3. PATHに%JAVA_HOME%\binを追加', 3, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (14, 9, 'CODE', 'インストール確認用サンプル', '```java
 // InstallationCheck.java
 public class InstallationCheck {
@@ -302,7 +302,7 @@ javac InstallationCheck.java
 
 # 実行
 java InstallationCheck
-```', 4, 1, 1, 1, CURRENT_TIMESTAMP),
+```', 4, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (15, 9, 'NOTE', 'トラブルシューティング', '■ よくある問題と対処法
 
 【問題1】「javacが見つからない」
@@ -326,11 +326,11 @@ which javac
 # 環境変数の確認
 echo $JAVA_HOME
 echo $PATH
-```', 5, 1, 1, 1, CURRENT_TIMESTAMP);
+```', 5, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義2-2のコンテンツブロック投入（IDEの選択と設定）
 INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
-(16, 10, 'OVERVIEW', '概要', 'IDE（統合開発環境）は、Java開発の生産性を大幅に向上させるツールです。主要なJava IDE（IntelliJ IDEA、Eclipse、Visual Studio Code）の特徴を比較し、用途に応じた選択方法を学習します。その後、選択したIDEの基本設定とプラグイン導入を実践的に行います。', 1, 1, 1, 1, CURRENT_TIMESTAMP),
+(16, 10, 'OVERVIEW', '概要', 'IDE（統合開発環境）は、Java開発の生産性を大幅に向上させるツールです。主要なJava IDE（IntelliJ IDEA、Eclipse、Visual Studio Code）の特徴を比較し、用途に応じた選択方法を学習します。その後、選択したIDEの基本設定とプラグイン導入を実践的に行います。', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (17, 10, 'DETAIL', '主要Java IDEの比較', '■ IntelliJ IDEA
 【特徴】
 - JetBrains製の高機能IDE
@@ -367,7 +367,7 @@ INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, 
 - 起動が高速
 - モダンなUI
 - 多言語対応
-- 豊富な拡張機能', 2, 1, 1, 1, CURRENT_TIMESTAMP),
+- 豊富な拡張機能', 2, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (18, 10, 'CODE', 'IDE設定確認用プロジェクト', '```java
 // IDETestProject/src/main/java/com/example/IDETest.java
 package com.example;
@@ -416,7 +416,7 @@ public class IDETest {
         System.out.println("3. Try debugging: set breakpoint and run in debug mode");
     }
 }
-```', 3, 1, 1, 1, CURRENT_TIMESTAMP),
+```', 3, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (19, 10, 'NOTE', 'IDE選択の指針とTips', '■ 用途別IDE選択指針
 
 【学習・個人開発】
@@ -442,33 +442,33 @@ public class IDETest {
 ■ パフォーマンス最適化
 - ヒープサイズの調整（-Xmx設定）
 - 不要なプラグインの無効化
-- インデックス設定の最適化', 4, 1, 1, 1, CURRENT_TIMESTAMP);
+- インデックス設定の最適化', 4, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義3: パッケージとインポート（6チャプター）の投入
 INSERT INTO lectures (id, title, description, duration_minutes, difficulty_level, is_active, created_by, created_at, updated_by, updated_at) VALUES
-(3, 'パッケージとインポート', 'Javaのパッケージシステムを理解し、名前空間の管理、クラスの整理、再利用可能なコードの作成方法を学習します。大規模開発に必要な基礎知識を身につけます。', 360, 'BEGINNER', true, 1, 1, 1, CURRENT_TIMESTAMP);
+(3, 'パッケージとインポート', 'Javaのパッケージシステムを理解し、名前空間の管理、クラスの整理、再利用可能なコードの作成方法を学習します。大規模開発に必要な基礎知識を身につけます。', 360, 'BEGINNER', true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義3のチャプター投入
 INSERT INTO lecture_chapters (id, lecture_id, chapter_number, title, description, duration_minutes, sort_order, is_active, created_by, created_at, updated_by, updated_at) VALUES
-(16, 3, 1, 'パッケージの概念', 'パッケージとは何か、なぜ必要なのかを理解し、Java標準パッケージの構造を学習します。', 60, 1, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(17, 3, 2, 'パッケージの作成', 'package文の書き方、ディレクトリ構造との関係、パッケージ内でのクラス定義方法を実践的に学びます。', 60, 2, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(18, 3, 3, 'importステートメント', 'import文の基本的な使い方、単一クラスのインポート、パッケージ全体のインポートを学習します。', 60, 3, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(19, 3, 4, '静的インポート', 'static importの概念と使用方法、適切な使用場面と注意点を学習します。', 45, 4, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(20, 3, 5, 'パッケージの階層構造', 'サブパッケージの作成、階層構造の設計方針、企業での命名規則を学習します。', 60, 5, true, 1, 1, 1, CURRENT_TIMESTAMP),
-(21, 3, 6, '名前空間の管理', 'パッケージによる名前の競合回避、FQCN（完全修飾クラス名）の使用、ベストプラクティスを学習します。', 75, 6, true, 1, 1, 1, CURRENT_TIMESTAMP);
+(16, 3, 1, 'パッケージの概念', 'パッケージとは何か、なぜ必要なのかを理解し、Java標準パッケージの構造を学習します。', 60, 1, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(17, 3, 2, 'パッケージの作成', 'package文の書き方、ディレクトリ構造との関係、パッケージ内でのクラス定義方法を実践的に学びます。', 60, 2, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(18, 3, 3, 'importステートメント', 'import文の基本的な使い方、単一クラスのインポート、パッケージ全体のインポートを学習します。', 60, 3, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(19, 3, 4, '静的インポート', 'static importの概念と使用方法、適切な使用場面と注意点を学習します。', 45, 4, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(20, 3, 5, 'パッケージの階層構造', 'サブパッケージの作成、階層構造の設計方針、企業での命名規則を学習します。', 60, 5, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(21, 3, 6, '名前空間の管理', 'パッケージによる名前の競合回避、FQCN（完全修飾クラス名）の使用、ベストプラクティスを学習します。', 75, 6, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義3の学習目標投入
 INSERT INTO lecture_goals (id, lecture_id, goal_description, sort_order, created_by, created_at, updated_by, updated_at) VALUES
-(14, 3, 'パッケージの概念と必要性を理解し、説明することができる', 1, 1, 1, 1, CURRENT_TIMESTAMP),
-(15, 3, 'package文を使用してクラスをパッケージに所属させることができる', 2, 1, 1, 1, CURRENT_TIMESTAMP),
-(16, 3, 'import文を適切に使用して他のパッケージのクラスを利用できる', 3, 1, 1, 1, CURRENT_TIMESTAMP),
-(17, 3, '静的インポートを理解し、適切な場面で使用することができる', 4, 1, 1, 1, CURRENT_TIMESTAMP),
-(18, 3, '階層的なパッケージ構造を設計し、実装することができる', 5, 1, 1, 1, CURRENT_TIMESTAMP),
-(19, 3, '名前空間の衝突を理解し、適切に回避する方法を知っている', 6, 1, 1, 1, CURRENT_TIMESTAMP);
+(14, 3, 'パッケージの概念と必要性を理解し、説明することができる', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(15, 3, 'package文を使用してクラスをパッケージに所属させることができる', 2, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(16, 3, 'import文を適切に使用して他のパッケージのクラスを利用できる', 3, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(17, 3, '静的インポートを理解し、適切な場面で使用することができる', 4, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(18, 3, '階層的なパッケージ構造を設計し、実装することができる', 5, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(19, 3, '名前空間の衝突を理解し、適切に回避する方法を知っている', 6, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義3-1のコンテンツブロック投入（パッケージの概念）
 INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
-(20, 16, 'OVERVIEW', '概要', 'パッケージはJavaにおける名前空間（namespace）の仕組みです。関連するクラスやインターフェースをグループ化し、名前の衝突を避け、コードの整理と再利用を促進します。大規模なソフトウェア開発には不可欠な概念を基礎から理解します。', 1, 1, 1, 1, CURRENT_TIMESTAMP),
+(20, 16, 'OVERVIEW', '概要', 'パッケージはJavaにおける名前空間（namespace）の仕組みです。関連するクラスやインターフェースをグループ化し、名前の衝突を避け、コードの整理と再利用を促進します。大規模なソフトウェア開発には不可欠な概念を基礎から理解します。', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (21, 16, 'DETAIL', 'パッケージの必要性', '■ 名前の衝突回避
 異なる開発者や組織が同じクラス名を使用する場合の問題：
 
@@ -507,7 +507,7 @@ public class Logger {
         System.out.println("B社Logger: " + message);
     }
 }
-```', 2, 1, 1, 1, CURRENT_TIMESTAMP),
+```', 2, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (22, 16, 'DETAIL', 'Java標準パッケージの構造', '■ 主要な標準パッケージ
 
 【java.lang】
@@ -544,7 +544,7 @@ public class Logger {
 - 逆ドメイン名記法（Reverse Domain Name Notation）
 - 例: com.oracle.database, org.apache.commons
 - 小文字のみ使用
-- 単語区切りはドット（.）', 3, 1, 1, 1, CURRENT_TIMESTAMP),
+- 単語区切りはドット（.）', 3, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (23, 16, 'EXAMPLE', 'パッケージ使用例', '■ パッケージを使用した実際の例
 ```java
 // com/school/model/Student.java
@@ -600,7 +600,7 @@ public class StudentService {
         // 学生データの処理
     }
 }
-```', 4, 1, 1, 1, CURRENT_TIMESTAMP),
+```', 4, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (24, 16, 'DETAIL', 'パッケージとディレクトリ構造', '■ パッケージとフォルダの対応関係
 パッケージ名とディレクトリ構造は完全に一致する必要があります：
 
@@ -634,7 +634,7 @@ classes/
 
 # 実行時のクラスパス指定
 java -cp classes com.school.model.Student
-```', 5, 1, 1, 1, CURRENT_TIMESTAMP),
+```', 5, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (25, 16, 'NOTE', 'パッケージ設計のベストプラクティス', '■ 命名規則のガイドライン
 1. 逆ドメイン名記法の使用
    - 正: com.example.myapp
@@ -670,11 +670,11 @@ com.company.project
 - パッケージ名の変更は大きな影響を与える
 - 初期設計時に十分検討する
 - チーム内での命名規則統一が重要
-- リファクタリング時のパッケージ移動に注意', 6, 1, 1, 1, CURRENT_TIMESTAMP);
+- リファクタリング時のパッケージ移動に注意', 6, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義3-2のコンテンツブロック投入（パッケージの作成）
 INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
-(26, 17, 'OVERVIEW', '概要', 'package文を使用して実際にパッケージを作成する方法を学習します。ディレクトリ構造の作成から、package文の記述、コンパイルと実行までの一連の流れを実践的に理解します。', 1, 1, 1, 1, CURRENT_TIMESTAMP),
+(26, 17, 'OVERVIEW', '概要', 'package文を使用して実際にパッケージを作成する方法を学習します。ディレクトリ構造の作成から、package文の記述、コンパイルと実行までの一連の流れを実践的に理解します。', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (27, 17, 'CODE', 'パッケージ作成の実践例', '■ ディレクトリ構造の作成
 ```bash
 # プロジェクト構造を作成
@@ -763,7 +763,7 @@ public class CalculatorApp {
         System.out.println("除算: " + calc.divide(a, b));
     }
 }
-```', 2, 1, 1, 1, CURRENT_TIMESTAMP),
+```', 2, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (28, 17, 'CODE', 'コンパイルと実行', '■ コンパイル手順
 ```bash
 # パッケージを含むクラスのコンパイル
@@ -802,7 +802,7 @@ jar cvf calculator.jar -C classes .
 
 # JARファイルからの実行
 java -cp calculator.jar com.mycompany.calculator.CalculatorApp
-```', 3, 1, 1, 1, CURRENT_TIMESTAMP),
+```', 3, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (29, 17, 'NOTE', 'package文の記述ルール', '■ package文の基本ルール
 1. **ファイルの先頭に記述**: package文はソースファイルの最初（コメントを除く）に記述
 2. **セミコロンで終了**: package文は必ずセミコロンで終了
@@ -839,11 +839,11 @@ package com.mycompany.helper;  // エラー
 ■ パッケージなしクラス（デフォルトパッケージ）
 - package文を記述しない場合、クラスはデフォルトパッケージに所属
 - 本格的な開発では推奨されない
-- 他のパッケージからインポートできない制限あり', 4, 1, 1, 1, CURRENT_TIMESTAMP);
+- 他のパッケージからインポートできない制限あり', 4, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義3-3のコンテンツブロック投入（importステートメント）
 INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
-(30, 18, 'OVERVIEW', '概要', 'import文を使用して他のパッケージのクラスを利用する方法を学習します。単一クラスのインポート、パッケージ全体のインポート、静的インポートの使い方と、それぞれの適切な使用場面を理解します。', 1, 1, 1, 1, CURRENT_TIMESTAMP),
+(30, 18, 'OVERVIEW', '概要', 'import文を使用して他のパッケージのクラスを利用する方法を学習します。単一クラスのインポート、パッケージ全体のインポート、静的インポートの使い方と、それぞれの適切な使用場面を理解します。', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (31, 18, 'CODE', 'import文の基本的な使い方', '■ 単一クラスのインポート（推奨）
 ```java
 // com/mycompany/main/Application.java
@@ -895,7 +895,7 @@ public class WildcardImportExample {
         System.out.println("今日の日付: " + today);
     }
 }
-```', 2, 1, 1, 1, CURRENT_TIMESTAMP),
+```', 2, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (32, 18, 'CODE', 'FQCN（完全修飾クラス名）の使用', '■ インポートなしでクラスを使用
 ```java
 package com.mycompany.main;
@@ -945,7 +945,7 @@ public class NameConflictResolution {
         System.out.println("SQL Date: " + sqlDate);
     }
 }
-```', 3, 1, 1, 1, CURRENT_TIMESTAMP),
+```', 3, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (33, 18, 'NOTE', 'import文のベストプラクティス', '■ 推奨される使い方
 1. **明示的インポート**: 使用するクラスを個別に指定
    ```java
@@ -974,7 +974,7 @@ public class NameConflictResolution {
 ■ コンパイル時の注意点
 - インポートエラーはコンパイル時に検出
 - クラスパスの設定が重要
-- パッケージ構造とディレクトリ構造の一致確認', 4, 1, 1, 1, CURRENT_TIMESTAMP);
+- パッケージ構造とディレクトリ構造の一致確認', 4, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 SELECT setval('lectures_id_seq',           (SELECT MAX(id) FROM lectures));
 SELECT setval('lecture_chapters_id_seq',   (SELECT MAX(id) FROM lecture_chapters));
