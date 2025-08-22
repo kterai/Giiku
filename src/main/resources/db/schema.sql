@@ -86,6 +86,56 @@ CREATE TRIGGER update_users_updated_at
 
 
 -- ========================================
+-- user_roles（ユーザーロール）テーブル定義
+-- ========================================
+CREATE TABLE user_roles (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL REFERENCES users(id),
+    role_name VARCHAR(50) NOT NULL,
+    company_id BIGINT REFERENCES companies(id),
+    role_description VARCHAR(255),
+    permission_level INTEGER NOT NULL CHECK (permission_level BETWEEN 1 AND 5),
+    active BOOLEAN NOT NULL DEFAULT TRUE,
+    valid_from TIMESTAMP WITH TIME ZONE,
+    valid_until TIMESTAMP WITH TIME ZONE,
+    granted_by_user_id BIGINT REFERENCES users(id),
+    special_permissions VARCHAR(1000),
+    notes VARCHAR(500),
+    version BIGINT DEFAULT 0 NOT NULL,
+    created_by BIGINT REFERENCES users(id) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Indexes
+CREATE INDEX idx_user_roles_user_id ON user_roles(user_id);
+CREATE INDEX idx_user_roles_role_name ON user_roles(role_name);
+CREATE INDEX idx_user_roles_company_id ON user_roles(company_id);
+CREATE INDEX idx_user_roles_active ON user_roles(active);
+CREATE UNIQUE INDEX idx_user_roles_user_role_unique ON user_roles(user_id, role_name);
+
+-- Comments
+COMMENT ON TABLE user_roles IS 'ユーザーロール（ユーザーごとのロール情報）';
+COMMENT ON COLUMN user_roles.id IS 'ユーザーロールID（連番）';
+COMMENT ON COLUMN user_roles.user_id IS 'ユーザーID（users.id）';
+COMMENT ON COLUMN user_roles.role_name IS 'ロール名';
+COMMENT ON COLUMN user_roles.company_id IS '会社ID（適用される会社）';
+COMMENT ON COLUMN user_roles.role_description IS 'ロールの説明';
+COMMENT ON COLUMN user_roles.permission_level IS '権限レベル';
+COMMENT ON COLUMN user_roles.active IS 'アクティブ状態';
+COMMENT ON COLUMN user_roles.valid_from IS '有効開始日時';
+COMMENT ON COLUMN user_roles.valid_until IS '有効終了日時';
+COMMENT ON COLUMN user_roles.granted_by_user_id IS '付与者ユーザーID';
+COMMENT ON COLUMN user_roles.special_permissions IS '特別権限';
+COMMENT ON COLUMN user_roles.notes IS '備考';
+COMMENT ON COLUMN user_roles.version IS 'バージョン（楽観ロック用）';
+COMMENT ON COLUMN user_roles.created_by IS '作成者ID（レコード作成ユーザー）';
+COMMENT ON COLUMN user_roles.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN user_roles.updated_by IS '更新者ID（最終更新ユーザー）';
+COMMENT ON COLUMN user_roles.updated_at IS '更新日時（最終更新時刻）';
+
+-- ========================================
 -- V001: Create Base Tables for Learning Management System
 -- Creates core hierarchy: months -> weeks -> days -> lectures
 -- Preserves existing users and companies tables
