@@ -100,10 +100,10 @@ CREATE TABLE months (
     start_date DATE,
     end_date DATE,
     is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_by INTEGER REFERENCES users(id)
+    created_by BIGINT REFERENCES users(id) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 COMMENT ON TABLE months IS '月マスタ（学習カリキュラムの月情報を管理）';
 COMMENT ON COLUMN months.id IS '月ID（連番）';
@@ -130,10 +130,10 @@ CREATE TABLE weeks (
     start_date DATE,
     end_date DATE,
     is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_by INTEGER REFERENCES users(id)
+    created_by BIGINT REFERENCES users(id) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 COMMENT ON TABLE weeks IS '週マスタ（月に属する週情報を管理）';
 COMMENT ON COLUMN weeks.id IS '週ID（連番）';
@@ -158,10 +158,10 @@ CREATE TABLE days (
     description TEXT,
     scheduled_date DATE,
     is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_by INTEGER REFERENCES users(id)
+    created_by BIGINT REFERENCES users(id) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 COMMENT ON TABLE days IS '日マスタ（週に属する日情報を管理）';
 COMMENT ON COLUMN days.id IS '日ID（連番）';
@@ -188,10 +188,11 @@ CREATE TABLE lectures (
     duration_minutes INTEGER NOT NULL,
     difficulty_level VARCHAR(50),
     is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    version BIGINT DEFAULT 0 NOT NULL
+    version BIGINT DEFAULT 0 NOT NULL,
+    created_by BIGINT REFERENCES users(id) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 COMMENT ON TABLE lectures IS '講義マスタ（各日の講義情報を管理）';
 COMMENT ON COLUMN lectures.id IS '講義ID（連番）';
@@ -209,6 +210,7 @@ COMMENT ON COLUMN lectures.created_at IS '作成日時（レコード作成時�
 COMMENT ON COLUMN lectures.created_by IS '作成者（レコード作成したユーザーID）';
 COMMENT ON COLUMN lectures.updated_at IS '更新日時（レコード更新時刻）';
 COMMENT ON COLUMN lectures.version IS 'バージョン（楽観ロック用）';
+COMMENT ON COLUMN lectures.updated_by IS '更新者（レコード更新したユーザーID）';
 
 -- Lecture chapters table
 CREATE TABLE lecture_chapters (
@@ -220,9 +222,11 @@ CREATE TABLE lecture_chapters (
     duration_minutes INTEGER,
     sort_order INTEGER,
     is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    version BIGINT DEFAULT 0 NOT NULL
+    version BIGINT DEFAULT 0 NOT NULL,
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN lecture_chapters.lecture_id IS '講義ID（lectures.id）';
@@ -232,6 +236,11 @@ COMMENT ON COLUMN lecture_chapters.description IS 'チャプター説明';
 COMMENT ON COLUMN lecture_chapters.duration_minutes IS 'チャプター想定時間（分）';
 COMMENT ON COLUMN lecture_chapters.sort_order IS '並び順';
 COMMENT ON COLUMN lecture_chapters.is_active IS '有効状態（チャプターの使用可否）';
+COMMENT ON COLUMN lecture_chapters.version IS 'バージョン（楽観ロック用）';
+COMMENT ON COLUMN lecture_chapters.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN lecture_chapters.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN lecture_chapters.updated_by IS '更新者（レコード更新したユーザーID）';
+COMMENT ON COLUMN lecture_chapters.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Lecture goals table
 CREATE TABLE lecture_goals (
@@ -239,14 +248,21 @@ CREATE TABLE lecture_goals (
     lecture_id INTEGER NOT NULL REFERENCES lectures(id),
     goal_description TEXT NOT NULL,
     sort_order INTEGER,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    version BIGINT DEFAULT 0 NOT NULL
+    version BIGINT DEFAULT 0 NOT NULL,
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN lecture_goals.lecture_id IS '講義ID（lectures.id）';
 COMMENT ON COLUMN lecture_goals.goal_description IS '学習目標の説明';
 COMMENT ON COLUMN lecture_goals.sort_order IS '並び順';
+COMMENT ON COLUMN lecture_goals.version IS 'バージョン（楽観ロック用）';
+COMMENT ON COLUMN lecture_goals.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN lecture_goals.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN lecture_goals.updated_by IS '更新者（レコード更新したユーザーID）';
+COMMENT ON COLUMN lecture_goals.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Lecture content blocks table
 CREATE TABLE lecture_content_blocks (
@@ -256,9 +272,11 @@ CREATE TABLE lecture_content_blocks (
     title VARCHAR(200) NOT NULL,
     content TEXT,
     sort_order INTEGER,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    version BIGINT DEFAULT 0 NOT NULL
+    version BIGINT DEFAULT 0 NOT NULL,
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN lecture_content_blocks.chapter_id IS 'チャプターID（lecture_chapters.id）';
@@ -266,6 +284,11 @@ COMMENT ON COLUMN lecture_content_blocks.block_type IS 'ブロック種別';
 COMMENT ON COLUMN lecture_content_blocks.title IS 'ブロックタイトル';
 COMMENT ON COLUMN lecture_content_blocks.content IS 'ブロック内容';
 COMMENT ON COLUMN lecture_content_blocks.sort_order IS '並び順';
+COMMENT ON COLUMN lecture_content_blocks.version IS 'バージョン（楽観ロック用）';
+COMMENT ON COLUMN lecture_content_blocks.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN lecture_content_blocks.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN lecture_content_blocks.updated_by IS '更新者（レコード更新したユーザーID）';
+COMMENT ON COLUMN lecture_content_blocks.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Performance indexes
 CREATE INDEX idx_weeks_month ON weeks(month_id);
@@ -305,10 +328,10 @@ CREATE TABLE training_programs (
     max_students INTEGER DEFAULT 30 CHECK (max_students > 0),
     is_template BOOLEAN DEFAULT false,
     is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_by INTEGER REFERENCES users(id)
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN training_programs.program_name IS 'プログラム名（研修プログラムの名称）';
@@ -337,10 +360,10 @@ CREATE TABLE training_schedules (
     status VARCHAR(20) DEFAULT 'planned' CHECK (status IN ('planned', 'active', 'completed', 'cancelled')),
     actual_students INTEGER DEFAULT 0,
     notes TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_by INTEGER REFERENCES users(id)
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN training_schedules.schedule_name IS 'スケジュール名（実施スケジュールの名称）';
@@ -367,10 +390,10 @@ CREATE TABLE instructors (
     certifications JSON,
     hourly_rate DECIMAL(10,2),
     is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_by INTEGER REFERENCES users(id)
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN instructors.instructor_code IS '講師コード（講師の識別コード）';
@@ -401,10 +424,10 @@ CREATE TABLE students (
     student_status VARCHAR(20),
     learning_goals TEXT,
     is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_by INTEGER REFERENCES users(id)
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN students.student_code IS '受講者コード（受講者の識別コード）';
@@ -434,10 +457,10 @@ CREATE TABLE training_assignments (
     final_score DECIMAL(5,2),
     certificate_issued BOOLEAN DEFAULT false,
     notes TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_by INTEGER REFERENCES users(id)
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN training_assignments.assignment_date IS '配属日（研修への配属日）';
@@ -460,16 +483,20 @@ CREATE TABLE schedule_instructors (
     assigned_lectures JSON,
     start_date DATE,
     end_date DATE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id)
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN schedule_instructors.role IS '役割（講師の役割）';
 COMMENT ON COLUMN schedule_instructors.assigned_lectures IS '担当講義（担当する講義のリスト）';
 COMMENT ON COLUMN schedule_instructors.start_date IS '開始日（担当開始日）';
 COMMENT ON COLUMN schedule_instructors.end_date IS '終了日（担当終了日）';
-COMMENT ON COLUMN schedule_instructors.created_at IS '作成日時（レコード作成時刻）';
 COMMENT ON COLUMN schedule_instructors.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN schedule_instructors.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN schedule_instructors.updated_by IS '更新者（レコード更新したユーザーID）';
+COMMENT ON COLUMN schedule_instructors.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Program Schedules (overall schedule per training program)
 CREATE TABLE program_schedules (
@@ -481,8 +508,10 @@ CREATE TABLE program_schedules (
     max_students INTEGER DEFAULT 0,
     current_students INTEGER DEFAULT 0,
     schedule_status VARCHAR(20) DEFAULT 'scheduled',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN program_schedules.program_id IS '研修プログラムID（training_programs.id）';
@@ -492,6 +521,10 @@ COMMENT ON COLUMN program_schedules.end_date IS '終了日';
 COMMENT ON COLUMN program_schedules.max_students IS '最大受講者数';
 COMMENT ON COLUMN program_schedules.current_students IS '現在の受講者数';
 COMMENT ON COLUMN program_schedules.schedule_status IS 'スケジュール状態';
+COMMENT ON COLUMN program_schedules.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN program_schedules.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN program_schedules.updated_by IS '更新者（レコード更新したユーザーID）';
+COMMENT ON COLUMN program_schedules.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Daily Schedules (daily breakdown for a program schedule)
 CREATE TABLE daily_schedules (
@@ -504,8 +537,10 @@ CREATE TABLE daily_schedules (
     classroom VARCHAR(50),
     schedule_status VARCHAR(20) DEFAULT 'scheduled',
     notes TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN daily_schedules.program_schedule_id IS 'プログラムスケジュールID（program_schedules.id）';
@@ -516,6 +551,10 @@ COMMENT ON COLUMN daily_schedules.end_time IS '終了時間';
 COMMENT ON COLUMN daily_schedules.classroom IS '教室';
 COMMENT ON COLUMN daily_schedules.schedule_status IS 'スケジュール状態';
 COMMENT ON COLUMN daily_schedules.notes IS '備考';
+COMMENT ON COLUMN daily_schedules.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN daily_schedules.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN daily_schedules.updated_by IS '更新者（レコード更新したユーザーID）';
+COMMENT ON COLUMN daily_schedules.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Performance indexes for optimization
 CREATE INDEX idx_program_schedules_program ON program_schedules(program_id);
@@ -587,9 +626,11 @@ CREATE TABLE mock_test_results (
                                    test_title VARCHAR(100),
                                    student_name VARCHAR(100),
                                    remarks VARCHAR(500),
-                                   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                                   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                                   version BIGINT NOT NULL DEFAULT 0
+                                   version BIGINT NOT NULL DEFAULT 0,
+                                   created_by BIGINT REFERENCES users(id),
+                                   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+                                   updated_by BIGINT REFERENCES users(id),
+                                   updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- インデックス
@@ -619,10 +660,10 @@ CREATE TABLE exercise_question_bank (
     difficulty_level VARCHAR(20) DEFAULT 'basic',
     points INTEGER DEFAULT 5 CHECK (points > 0),
     is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_by INTEGER REFERENCES users(id)
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN exercise_question_bank.question_number IS '問題番号（講義内での順序）';
@@ -657,10 +698,10 @@ CREATE TABLE quiz_question_bank (
     time_limit INTEGER DEFAULT 60,
     points INTEGER DEFAULT 10 CHECK (points > 0),
     is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_by INTEGER REFERENCES users(id)
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN quiz_question_bank.question_number IS '問題番号（講義内での順序）';
@@ -692,10 +733,10 @@ CREATE TABLE mock_test_bank (
     difficulty_level VARCHAR(20) DEFAULT 'basic',
     passing_score INTEGER DEFAULT 60,
     is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_by INTEGER REFERENCES users(id)
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN mock_test_bank.test_name IS 'テスト名（模擬試験の名称）';
@@ -721,10 +762,10 @@ CREATE TABLE mock_test_questions (
     answer_explanation TEXT,
     points INTEGER DEFAULT 5 CHECK (points > 0),
     question_order INTEGER NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_by INTEGER REFERENCES users(id)
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN mock_test_questions.question_text IS '問題文（模擬試験問題の内容）';
@@ -735,6 +776,7 @@ COMMENT ON COLUMN mock_test_questions.points IS '配点（問題の得点）';
 COMMENT ON COLUMN mock_test_questions.question_order IS '問題順序（テスト内での順番）';
 COMMENT ON COLUMN mock_test_questions.created_at IS '作成日時（レコード作成時刻）';
 COMMENT ON COLUMN mock_test_questions.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN mock_test_questions.updated_by IS '更新者（レコード更新したユーザーID）';
 COMMENT ON COLUMN mock_test_questions.updated_at IS '更新日時（レコード更新時刻）';
 COMMENT ON COLUMN mock_test_questions.updated_by IS '更新者（レコード更新したユーザーID）';
 
@@ -750,7 +792,11 @@ CREATE TABLE exercise_submissions (
     submission_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     graded_at TIMESTAMP,
     graded_by INTEGER REFERENCES users(id),
-    feedback TEXT
+    feedback TEXT,
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN exercise_submissions.student_answer IS '解答（学生の回答内容）';
@@ -760,6 +806,10 @@ COMMENT ON COLUMN exercise_submissions.submission_time IS '提出時刻（解答
 COMMENT ON COLUMN exercise_submissions.graded_at IS '採点時刻（採点完了時刻）';
 COMMENT ON COLUMN exercise_submissions.graded_by IS '採点者（採点したユーザーID）';
 COMMENT ON COLUMN exercise_submissions.feedback IS 'フィードバック（採点者からのコメント）';
+COMMENT ON COLUMN exercise_submissions.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN exercise_submissions.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN exercise_submissions.updated_by IS '更新者（レコード更新したユーザーID）';
+COMMENT ON COLUMN exercise_submissions.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Quiz Submissions (student quiz attempts)
 CREATE TABLE quiz_submissions (
@@ -771,7 +821,11 @@ CREATE TABLE quiz_submissions (
     is_correct BOOLEAN NOT NULL,
     points_earned INTEGER DEFAULT 0,
     time_taken INTEGER,
-    submission_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    submission_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN quiz_submissions.student_answer IS '解答（学生の回答内容）';
@@ -779,6 +833,10 @@ COMMENT ON COLUMN quiz_submissions.is_correct IS '正誤（回答の正誤判定
 COMMENT ON COLUMN quiz_submissions.points_earned IS '獲得点（得られた得点）';
 COMMENT ON COLUMN quiz_submissions.time_taken IS '回答時間（秒単位）';
 COMMENT ON COLUMN quiz_submissions.submission_time IS '提出時刻（解答提出時刻）';
+COMMENT ON COLUMN quiz_submissions.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN quiz_submissions.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN quiz_submissions.updated_by IS '更新者（レコード更新したユーザーID）';
+COMMENT ON COLUMN quiz_submissions.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Mock Test Submissions (student mock test attempts)
 CREATE TABLE mock_test_submissions (
@@ -790,7 +848,11 @@ CREATE TABLE mock_test_submissions (
     total_score INTEGER DEFAULT 0,
     is_passed BOOLEAN,
     is_completed BOOLEAN DEFAULT false,
-    submission_time TIMESTAMP
+    submission_time TIMESTAMP,
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN mock_test_submissions.start_time IS '開始時刻（テスト開始時刻）';
@@ -799,6 +861,10 @@ COMMENT ON COLUMN mock_test_submissions.total_score IS '総得点（テストの
 COMMENT ON COLUMN mock_test_submissions.is_passed IS '合格状態（合格可否）';
 COMMENT ON COLUMN mock_test_submissions.is_completed IS '完了状態（テスト完了可否）';
 COMMENT ON COLUMN mock_test_submissions.submission_time IS '提出時刻（テスト提出時刻）';
+COMMENT ON COLUMN mock_test_submissions.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN mock_test_submissions.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN mock_test_submissions.updated_by IS '更新者（レコード更新したユーザーID）';
+COMMENT ON COLUMN mock_test_submissions.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Mock Test Question Answers (individual question responses)
 CREATE TABLE mock_test_answers (
@@ -811,7 +877,11 @@ CREATE TABLE mock_test_answers (
     answer_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     graded_at TIMESTAMP,
     graded_by INTEGER REFERENCES users(id),
-    feedback TEXT
+    feedback TEXT,
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN mock_test_answers.student_answer IS '解答（学生の回答内容）';
@@ -821,6 +891,10 @@ COMMENT ON COLUMN mock_test_answers.answer_time IS '回答時刻（問題回答�
 COMMENT ON COLUMN mock_test_answers.graded_at IS '採点時刻（採点完了時刻）';
 COMMENT ON COLUMN mock_test_answers.graded_by IS '採点者（採点したユーザーID）';
 COMMENT ON COLUMN mock_test_answers.feedback IS 'フィードバック（採点者からのコメント）';
+COMMENT ON COLUMN mock_test_answers.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN mock_test_answers.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN mock_test_answers.updated_by IS '更新者（レコード更新したユーザーID）';
+COMMENT ON COLUMN mock_test_answers.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Lecture Grades (per lecture assessment summary)
 CREATE TABLE lecture_grades (
@@ -836,8 +910,10 @@ CREATE TABLE lecture_grades (
     completion_date TIMESTAMP,
     grade_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     instructor_feedback TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN lecture_grades.exercise_score IS '演習得点（演習問題の合計得点）';
@@ -849,7 +925,9 @@ COMMENT ON COLUMN lecture_grades.completion_status IS '完了状況（講義の�
 COMMENT ON COLUMN lecture_grades.completion_date IS '完了日時（講義完了時刻）';
 COMMENT ON COLUMN lecture_grades.grade_date IS '採点日時（成績記録時刻）';
 COMMENT ON COLUMN lecture_grades.instructor_feedback IS '講師コメント（講師からのフィードバック）';
+COMMENT ON COLUMN lecture_grades.created_by IS '作成者（レコード作成したユーザーID）';
 COMMENT ON COLUMN lecture_grades.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN lecture_grades.updated_by IS '更新者（レコード更新したユーザーID）';
 COMMENT ON COLUMN lecture_grades.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Student Grade Summaries (overall progress tracking)
@@ -863,8 +941,10 @@ CREATE TABLE student_grade_summaries (
     total_score NUMERIC(5,2) DEFAULT 0,
     grade_status VARCHAR(20),
     calculated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN student_grade_summaries.student_id IS '学生ID（students.id）';
@@ -875,7 +955,9 @@ COMMENT ON COLUMN student_grade_summaries.mock_test_score IS '模擬試験得点
 COMMENT ON COLUMN student_grade_summaries.total_score IS '総合得点';
 COMMENT ON COLUMN student_grade_summaries.grade_status IS '成績評価ステータス';
 COMMENT ON COLUMN student_grade_summaries.calculated_at IS '集計日時';
+COMMENT ON COLUMN student_grade_summaries.created_by IS '作成者（レコード作成したユーザーID）';
 COMMENT ON COLUMN student_grade_summaries.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN student_grade_summaries.updated_by IS '更新者（レコード更新したユーザーID）';
 COMMENT ON COLUMN student_grade_summaries.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Grade Calculation Settings (configurable scoring weights)
@@ -887,10 +969,10 @@ CREATE TABLE grade_settings (
     mock_test_weight NUMERIC(3,2) DEFAULT 0.30 CHECK (mock_test_weight BETWEEN 0 AND 1),
     passing_threshold NUMERIC(5,2) DEFAULT 60.00,
     is_active BOOLEAN DEFAULT true,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    created_by INTEGER REFERENCES users(id),
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_by INTEGER REFERENCES users(id)
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON COLUMN grade_settings.setting_name IS '設定名（成績設定の名称）';
