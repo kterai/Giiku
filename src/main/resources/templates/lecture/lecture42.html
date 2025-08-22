@@ -686,8 +686,8 @@ CREATE TABLE customers (
     customer_name VARCHAR(100) NOT NULL,
     birth_date DATE CHECK (birth_date <= CURRENT_DATE),
     gender CHAR(1) CHECK (gender IN ('M', 'F', 'O')),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     is_active BOOLEAN DEFAULT true
 );
 
@@ -699,7 +699,7 @@ CREATE TABLE products (
     stock_quantity INTEGER NOT NULL CHECK (stock_quantity >= 0),
     category_id INTEGER REFERENCES categories(category_id)
         ON DELETE RESTRICT ON UPDATE CASCADE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- 注文テーブル
@@ -1118,7 +1118,7 @@ CREATE TABLE customers (
     email VARCHAR(255) UNIQUE NOT NULL,
     birth_date DATE,
     address TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- 商品テーブル
@@ -1128,7 +1128,7 @@ CREATE TABLE products (
     price DECIMAL(10,2) NOT NULL CHECK (price >= 0),
     stock_quantity INTEGER NOT NULL CHECK (stock_quantity >= 0),
     category_id INTEGER REFERENCES categories(category_id),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- 注文テーブル
