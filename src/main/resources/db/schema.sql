@@ -86,6 +86,73 @@ CREATE TRIGGER update_users_updated_at
 
 
 -- ========================================
+-- company_lms_configs（企業LMS設定）テーブル定義
+-- ========================================
+CREATE TABLE company_lms_configs (
+    id BIGSERIAL PRIMARY KEY,
+    company_id BIGINT NOT NULL UNIQUE REFERENCES companies(id),
+    lms_enabled BOOLEAN NOT NULL DEFAULT true,
+    max_students INTEGER NOT NULL DEFAULT 100,
+    max_instructors INTEGER NOT NULL DEFAULT 10,
+    max_courses INTEGER NOT NULL DEFAULT 50,
+    self_registration_enabled BOOLEAN NOT NULL DEFAULT false,
+    instructor_rating_enabled BOOLEAN NOT NULL DEFAULT true,
+    progress_notification_enabled BOOLEAN NOT NULL DEFAULT true,
+    certificate_enabled BOOLEAN NOT NULL DEFAULT true,
+    reporting_enabled BOOLEAN NOT NULL DEFAULT true,
+    custom_theme VARCHAR(2000),
+    logo_url VARCHAR(500),
+    timezone VARCHAR(50) DEFAULT 'Asia/Tokyo',
+    language VARCHAR(10) DEFAULT 'ja',
+    notification_email VARCHAR(100),
+    session_timeout_minutes INTEGER NOT NULL DEFAULT 480,
+    password_expiry_days INTEGER DEFAULT 90,
+    max_file_size_mb INTEGER NOT NULL DEFAULT 50,
+    backup_frequency VARCHAR(20) DEFAULT 'WEEKLY',
+    config_effective_from TIMESTAMP WITH TIME ZONE,
+    config_effective_to TIMESTAMP WITH TIME ZONE,
+    config_description VARCHAR(1000),
+    config_updated_at TIMESTAMP WITH TIME ZONE,
+    created_by BIGINT REFERENCES users(id) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    updated_by BIGINT REFERENCES users(id) NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    version BIGINT DEFAULT 0 NOT NULL
+);
+
+COMMENT ON TABLE company_lms_configs IS '企業LMS設定';
+COMMENT ON COLUMN company_lms_configs.id IS '設定ID（連番）';
+COMMENT ON COLUMN company_lms_configs.company_id IS '企業ID（companies.id）';
+COMMENT ON COLUMN company_lms_configs.lms_enabled IS 'LMS機能有効フラグ';
+COMMENT ON COLUMN company_lms_configs.max_students IS '最大学生数';
+COMMENT ON COLUMN company_lms_configs.max_instructors IS '最大講師数';
+COMMENT ON COLUMN company_lms_configs.max_courses IS '最大コース数';
+COMMENT ON COLUMN company_lms_configs.self_registration_enabled IS 'セルフ登録許可フラグ';
+COMMENT ON COLUMN company_lms_configs.instructor_rating_enabled IS '講師評価機能有効フラグ';
+COMMENT ON COLUMN company_lms_configs.progress_notification_enabled IS '学習進捗通知有効フラグ';
+COMMENT ON COLUMN company_lms_configs.certificate_enabled IS '証明書発行有効フラグ';
+COMMENT ON COLUMN company_lms_configs.reporting_enabled IS 'レポート機能有効フラグ';
+COMMENT ON COLUMN company_lms_configs.custom_theme IS 'カスタムテーマ設定（JSON形式）';
+COMMENT ON COLUMN company_lms_configs.logo_url IS 'ロゴURL';
+COMMENT ON COLUMN company_lms_configs.timezone IS 'タイムゾーン';
+COMMENT ON COLUMN company_lms_configs.language IS '言語設定';
+COMMENT ON COLUMN company_lms_configs.notification_email IS '通知メール送信元アドレス';
+COMMENT ON COLUMN company_lms_configs.session_timeout_minutes IS 'セッション有効期限（分）';
+COMMENT ON COLUMN company_lms_configs.password_expiry_days IS 'パスワード有効期限（日）';
+COMMENT ON COLUMN company_lms_configs.max_file_size_mb IS 'ファイルアップロード最大サイズ（MB）';
+COMMENT ON COLUMN company_lms_configs.backup_frequency IS 'バックアップ頻度';
+COMMENT ON COLUMN company_lms_configs.config_effective_from IS '設定有効開始日時';
+COMMENT ON COLUMN company_lms_configs.config_effective_to IS '設定有効終了日時';
+COMMENT ON COLUMN company_lms_configs.config_description IS '設定説明';
+COMMENT ON COLUMN company_lms_configs.config_updated_at IS '設定更新日時';
+COMMENT ON COLUMN company_lms_configs.created_by IS '作成者（レコード作成ユーザー）';
+COMMENT ON COLUMN company_lms_configs.created_at IS '作成日時';
+COMMENT ON COLUMN company_lms_configs.updated_by IS '更新者（レコード更新ユーザー）';
+COMMENT ON COLUMN company_lms_configs.updated_at IS '更新日時';
+COMMENT ON COLUMN company_lms_configs.version IS 'バージョン（楽観ロック）';
+
+
+-- ========================================
 -- V001: Create Base Tables for Learning Management System
 -- Creates core hierarchy: months -> weeks -> days -> lectures
 -- Preserves existing users and companies tables
