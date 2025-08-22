@@ -727,7 +727,7 @@ REFRESH MATERIALIZED VIEW CONCURRENTLY monthly_sales_summary;
 CREATE TABLE product_attributes (
     product_id INTEGER,
     attributes JSONB,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- JSONBインデックス
@@ -742,7 +742,7 @@ WHERE attributes @> '{"color": "red", "size": "large"}';
 CREATE TABLE product_tags (
     product_id INTEGER,
     tags TEXT[],
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- 配列検索
@@ -796,7 +796,7 @@ cursor.execute(
 
 -- ✅ 安全: 関数を使用した入力検証
 CREATE OR REPLACE FUNCTION safe_user_search(p_email TEXT)
-RETURNS TABLE(user_id INTEGER, username VARCHAR, email VARCHAR, created_at TIMESTAMP)
+RETURNS TABLE(user_id INTEGER, username VARCHAR, email VARCHAR, created_at TIMESTAMP WITH TIME ZONE)
 LANGUAGE plpgsql
 AS $$
 BEGIN
@@ -909,8 +909,8 @@ CREATE TABLE customer_pii (
     encrypted_ssn TEXT, -- 暗号化された社会保障番号
     encrypted_phone TEXT, -- 暗号化された電話番号
     encrypted_address TEXT, -- 暗号化された住所
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- 3. 監査ログテーブルの作成
