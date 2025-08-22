@@ -2,18 +2,16 @@ package jp.co.apsa.giiku.domain.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
- * 問題バンクエンティティ
- * LMS機能における問題管理を行う
+ * 演習問題バンクエンティティ
  *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
  */
 @Entity
-@Table(name = "question_bank")
+@Table(name = "exercise_question_bank")
 public class QuestionBank {
 
     @Id
@@ -21,169 +19,197 @@ public class QuestionBank {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "lecture_id", nullable = false)
+    private Long lectureId;
+
+    @Column(name = "question_number", nullable = false)
+    private Integer questionNumber;
+
+    @Column(name = "question_type", nullable = false, length = 20)
+    private String questionType;
+
     @Column(name = "question_text", nullable = false, columnDefinition = "TEXT")
     private String questionText;
 
-    @Column(name = "question_type", nullable = false, length = 50)
-    private String questionType; // MULTIPLE_CHOICE, TRUE_FALSE, SHORT_ANSWER, ESSAY
-
-    @Column(name = "category", nullable = false, length = 100)
-    private String category;
-
-    @Column(name = "difficulty_level", nullable = false, length = 20)
-    private String difficultyLevel; // BEGINNER, INTERMEDIATE, ADVANCED, EXPERT
+    @Column(name = "question_options", columnDefinition = "JSON")
+    private String questionOptions;
 
     @Column(name = "correct_answer", columnDefinition = "TEXT")
     private String correctAnswer;
 
-    @Column(name = "options", columnDefinition = "TEXT")
-    private String options; // JSON形式で選択肢を格納（多肢選択問題用）
-
-    @Column(name = "explanation", columnDefinition = "TEXT") 
+    @Column(name = "explanation", columnDefinition = "TEXT")
     private String explanation;
 
-    @Column(name = "points", nullable = false)
+    @Column(name = "difficulty_level", length = 20)
+    private String difficultyLevel;
+
+    @Column(name = "points")
     private Integer points;
 
-    @Column(name = "tags", length = 500)
-    private String tags; // カンマ区切りのタグ
-
-    @Column(name = "company_id")
-    private Long companyId;
-
-    @Column(name = "instructor_id")
-    private Long instructorId;
-
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "is_active")
     private Boolean isActive = true;
+
+    @Column(name = "created_by")
+    private Long createdBy;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    @Column(name = "updated_by")
+    private Long updatedBy;
+
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // デフォルトコンストラクタ
-    /** QuestionBank メソッド */
-    public QuestionBank() {}
+    /** デフォルトコンストラクタ */
+    public QuestionBank() {
+    }
 
-    // Getter and Setter methods
     /** getId メソッド */
     public Long getId() {
         return id;
     }
+
     /** setId メソッド */
     public void setId(Long id) {
         this.id = id;
     }
-    /** getQuestionText メソッド */
-    public String getQuestionText() {
-        return questionText;
+
+    /** getLectureId メソッド */
+    public Long getLectureId() {
+        return lectureId;
     }
-    /** setQuestionText メソッド */
-    public void setQuestionText(String questionText) {
-        this.questionText = questionText;
+
+    /** setLectureId メソッド */
+    public void setLectureId(Long lectureId) {
+        this.lectureId = lectureId;
     }
+
+    /** getQuestionNumber メソッド */
+    public Integer getQuestionNumber() {
+        return questionNumber;
+    }
+
+    /** setQuestionNumber メソッド */
+    public void setQuestionNumber(Integer questionNumber) {
+        this.questionNumber = questionNumber;
+    }
+
     /** getQuestionType メソッド */
     public String getQuestionType() {
         return questionType;
     }
+
     /** setQuestionType メソッド */
     public void setQuestionType(String questionType) {
         this.questionType = questionType;
     }
-    /** getCategory メソッド */
-    public String getCategory() {
-        return category;
+
+    /** getQuestionText メソッド */
+    public String getQuestionText() {
+        return questionText;
     }
-    /** setCategory メソッド */
-    public void setCategory(String category) {
-        this.category = category;
+
+    /** setQuestionText メソッド */
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
     }
-    /** getDifficultyLevel メソッド */
-    public String getDifficultyLevel() {
-        return difficultyLevel;
+
+    /** getQuestionOptions メソッド */
+    public String getQuestionOptions() {
+        return questionOptions;
     }
-    /** setDifficultyLevel メソッド */
-    public void setDifficultyLevel(String difficultyLevel) {
-        this.difficultyLevel = difficultyLevel;
+
+    /** setQuestionOptions メソッド */
+    public void setQuestionOptions(String questionOptions) {
+        this.questionOptions = questionOptions;
     }
+
     /** getCorrectAnswer メソッド */
     public String getCorrectAnswer() {
         return correctAnswer;
     }
+
     /** setCorrectAnswer メソッド */
     public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
-    /** getOptions メソッド */
-    public String getOptions() {
-        return options;
-    }
-    /** setOptions メソッド */
-    public void setOptions(String options) {
-        this.options = options;
-    }
+
     /** getExplanation メソッド */
     public String getExplanation() {
         return explanation;
     }
+
     /** setExplanation メソッド */
     public void setExplanation(String explanation) {
         this.explanation = explanation;
     }
+
+    /** getDifficultyLevel メソッド */
+    public String getDifficultyLevel() {
+        return difficultyLevel;
+    }
+
+    /** setDifficultyLevel メソッド */
+    public void setDifficultyLevel(String difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
+    }
+
     /** getPoints メソッド */
     public Integer getPoints() {
         return points;
     }
+
     /** setPoints メソッド */
     public void setPoints(Integer points) {
         this.points = points;
     }
-    /** getTags メソッド */
-    public String getTags() {
-        return tags;
-    }
-    /** setTags メソッド */
-    public void setTags(String tags) {
-        this.tags = tags;
-    }
-    /** getCompanyId メソッド */
-    public Long getCompanyId() {
-        return companyId;
-    }
-    /** setCompanyId メソッド */
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
-    }
-    /** getInstructorId メソッド */
-    public Long getInstructorId() {
-        return instructorId;
-    }
-    /** setInstructorId メソッド */
-    public void setInstructorId(Long instructorId) {
-        this.instructorId = instructorId;
-    }
+
     /** getIsActive メソッド */
     public Boolean getIsActive() {
         return isActive;
     }
+
     /** setIsActive メソッド */
-    public void setIsActive(Boolean isActive) {
-        this.isActive = isActive;
+    public void setIsActive(Boolean active) {
+        isActive = active;
     }
+
+    /** getCreatedBy メソッド */
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    /** setCreatedBy メソッド */
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+
     /** getCreatedAt メソッド */
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     /** setCreatedAt メソッド */
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
+    /** getUpdatedBy メソッド */
+    public Long getUpdatedBy() {
+        return updatedBy;
+    }
+
+    /** setUpdatedBy メソッド */
+    public void setUpdatedBy(Long updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
     /** getUpdatedAt メソッド */
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+
     /** setUpdatedAt メソッド */
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
@@ -212,10 +238,10 @@ public class QuestionBank {
     public String toString() {
         return "QuestionBank{" +
                 "id=" + id +
-                ", questionText='" + questionText + "'" +
-                ", questionType='" + questionType + "'" +
-                ", category='" + category + "'" +
-                ", difficultyLevel='" + difficultyLevel + "'" +
+                ", lectureId=" + lectureId +
+                ", questionNumber=" + questionNumber +
+                ", questionType='" + questionType + '\'' +
+                ", difficultyLevel='" + difficultyLevel + '\'' +
                 ", points=" + points +
                 ", isActive=" + isActive +
                 '}';
