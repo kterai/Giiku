@@ -13,6 +13,8 @@ import lombok.Data;
  */
 @MappedSuperclass
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class BaseEntity {
 
     /**
@@ -24,7 +26,6 @@ public abstract class BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    /**
      * バージョン（楽観ロック）
      * 同時更新制御のためのバージョン番号
      */
