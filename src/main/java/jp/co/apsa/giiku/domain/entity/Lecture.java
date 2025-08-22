@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 @Table(name = "lectures")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Lecture extends BaseEntity {
+public class Lecture extends AuditableEntity {
 
     /** 紐づく日ID */
     @Column(name = "day_id")
@@ -62,5 +62,4 @@ public class Lecture extends BaseEntity {
     /** 有効フラグ */
     @Column(name = "is_active")
     private Boolean isActive = true;
-
 }

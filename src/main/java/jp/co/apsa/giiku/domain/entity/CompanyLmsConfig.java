@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @Table(name = "company_lms_configs")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CompanyLmsConfig extends BaseEntity {
+public class CompanyLmsConfig extends AuditableEntity {
 
     // ID はBaseEntityから継承
 

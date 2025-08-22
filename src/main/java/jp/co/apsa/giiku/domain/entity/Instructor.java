@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Table(name = "instructors")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Instructor extends BaseEntity {
+public class Instructor extends AuditableEntity {
 
     /** 講師ID（主キー） */
     // ID はBaseEntityから継承
