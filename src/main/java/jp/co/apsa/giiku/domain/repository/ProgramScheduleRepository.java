@@ -23,10 +23,10 @@ public interface ProgramScheduleRepository extends JpaRepository<ProgramSchedule
     /**
      * 指定した研修プログラムのスケジュールを開始日の昇順で取得します。
      *
-     * @param trainingProgramId 研修プログラムID
+     * @param programId 研修プログラムID
      * @return スケジュールのリスト
      */
-    List<ProgramSchedule> findByTrainingProgramIdOrderByStartDateAsc(Long trainingProgramId);
+    List<ProgramSchedule> findByProgramIdOrderByStartDateAsc(Long programId);
 
     /**
      * 指定期間内に開始されるスケジュールを取得します。
@@ -40,17 +40,17 @@ public interface ProgramScheduleRepository extends JpaRepository<ProgramSchedule
     /**
      * 指定した研修プログラムに紐づくスケジュール数を取得します。
      *
-     * @param trainingProgramId 研修プログラムID
+     * @param programId 研修プログラムID
      * @return スケジュール数
      */
-    long countByTrainingProgramId(Long trainingProgramId);
+    long countByProgramId(Long programId);
 
     /**
      * 指定した研修プログラムの特定ステータスのスケジュール数を取得します。
      *
-     * @param trainingProgramId 研修プログラムID
+     * @param programId 研修プログラムID
      * @param scheduleStatus    スケジュールステータス
      * @return スケジュール数
      */
-    long countByTrainingProgramIdAndScheduleStatus(Long trainingProgramId, String scheduleStatus);
+    long countByProgramIdAndScheduleStatus(Long programId, String scheduleStatus);
 }
