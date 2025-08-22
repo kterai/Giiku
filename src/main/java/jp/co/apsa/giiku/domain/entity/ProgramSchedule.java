@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Table(name = "program_schedules")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ProgramSchedule extends BaseEntity {
+public class ProgramSchedule extends AuditableEntity {
 
     // ID はBaseEntityから継承
 

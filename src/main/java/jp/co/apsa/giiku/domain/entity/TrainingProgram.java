@@ -27,7 +27,7 @@ import java.util.Objects;
 })
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TrainingProgram extends BaseEntity {
+public class TrainingProgram extends AuditableEntity {
 
     /** プログラムコード（一意識別子） */
     @NotBlank(message = "プログラムコードは必須です")

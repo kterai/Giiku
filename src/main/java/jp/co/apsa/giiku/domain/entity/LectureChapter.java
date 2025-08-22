@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
 @Table(name = "lecture_chapters")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class LectureChapter extends BaseEntity {
+public class LectureChapter extends AuditableEntity {
 
     /** 講義ID */
     @NotNull

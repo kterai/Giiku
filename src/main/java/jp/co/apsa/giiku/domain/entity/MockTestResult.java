@@ -26,7 +26,7 @@ import java.time.Duration;
                      columnNames = {"test_id", "student_id", "attempt_number"})
 })
 
-public class MockTestResult extends BaseEntity {
+public class MockTestResult extends AuditableEntity {
 
     @NotNull
     @Column(name = "test_id", nullable = false)

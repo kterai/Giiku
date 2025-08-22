@@ -27,7 +27,7 @@ import java.util.Objects;
 })
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class StudentEnrollment extends BaseEntity {
+public class StudentEnrollment extends AuditableEntity {
 
     /** 学生ID（Userテーブルとの外部キー） */
     @NotNull(message = "学生IDは必須です")

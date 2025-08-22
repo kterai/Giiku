@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Table(name = "daily_schedules")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class DailySchedule extends BaseEntity {
+public class DailySchedule extends AuditableEntity {
 
     // ID はBaseEntityから継承
 
