@@ -119,20 +119,24 @@ public class MockTest {
 
     // 監査フィールド
     @CreatedDate
+    @NotNull(message = "作成日時は必須です")
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
+    @NotNull(message = "更新日時は必須です")
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @CreatedBy
-    @Column(name = "created_by", length = 100, updatable = false)
-    private String createdBy;
+    @NotNull(message = "作成者IDは必須です")
+    @Column(name = "created_by", updatable = false)
+    private Long createdBy;
 
     @LastModifiedBy
-    @Column(name = "updated_by", length = 100)
-    private String updatedBy;
+    @NotNull(message = "更新者IDは必須です")
+    @Column(name = "updated_by")
+    private Long updatedBy;
 
     // ビジネスロジックメソッド
 
