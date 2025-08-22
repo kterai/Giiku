@@ -496,6 +496,66 @@ COMMENT ON COLUMN students.created_by IS '作成者（レコード作成した�
 COMMENT ON COLUMN students.updated_at IS '更新日時（レコード更新時刻）';
 COMMENT ON COLUMN students.updated_by IS '更新者（レコード更新したユーザーID）';
 
+-- Student Profiles (student detailed information)
+CREATE TABLE student_profiles (
+    id BIGSERIAL PRIMARY KEY,
+    student_id BIGINT NOT NULL UNIQUE REFERENCES users(id),
+    student_number VARCHAR(20) NOT NULL UNIQUE,
+    company_id BIGINT NOT NULL REFERENCES companies(id),
+    enrollment_status VARCHAR(20) NOT NULL,
+    admission_date DATE NOT NULL,
+    expected_graduation_date DATE,
+    actual_graduation_date DATE,
+    grade_level INTEGER CHECK (grade_level BETWEEN 1 AND 4),
+    class_name VARCHAR(10),
+    major_field VARCHAR(100),
+    emergency_contact_name VARCHAR(100),
+    emergency_contact_phone VARCHAR(20),
+    emergency_contact_relationship VARCHAR(50),
+    address VARCHAR(500),
+    phone_number VARCHAR(20),
+    birth_date DATE,
+    gender VARCHAR(10),
+    notes VARCHAR(2000),
+    version BIGINT DEFAULT 0 NOT NULL,
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+COMMENT ON TABLE student_profiles IS '学生プロフィール（学生詳細情報を管理）';
+COMMENT ON COLUMN student_profiles.student_id IS '学生ID（users.id）';
+COMMENT ON COLUMN student_profiles.student_number IS '学生番号（一意識別子）';
+COMMENT ON COLUMN student_profiles.company_id IS '会社ID（学生が所属する会社）';
+COMMENT ON COLUMN student_profiles.enrollment_status IS '在籍状況（ENROLLED/GRADUATED/SUSPENDED/WITHDRAWN）';
+COMMENT ON COLUMN student_profiles.admission_date IS '入学日';
+COMMENT ON COLUMN student_profiles.expected_graduation_date IS '卒業予定日';
+COMMENT ON COLUMN student_profiles.actual_graduation_date IS '実際の卒業日';
+COMMENT ON COLUMN student_profiles.grade_level IS '学年';
+COMMENT ON COLUMN student_profiles.class_name IS 'クラス';
+COMMENT ON COLUMN student_profiles.major_field IS '専攻分野';
+COMMENT ON COLUMN student_profiles.emergency_contact_name IS '緊急連絡先名';
+COMMENT ON COLUMN student_profiles.emergency_contact_phone IS '緊急連絡先電話番号';
+COMMENT ON COLUMN student_profiles.emergency_contact_relationship IS '緊急連絡先関係性';
+COMMENT ON COLUMN student_profiles.address IS '住所';
+COMMENT ON COLUMN student_profiles.phone_number IS '電話番号';
+COMMENT ON COLUMN student_profiles.birth_date IS '生年月日';
+COMMENT ON COLUMN student_profiles.gender IS '性別（MALE/FEMALE/OTHER）';
+COMMENT ON COLUMN student_profiles.notes IS '特記事項・備考';
+COMMENT ON COLUMN student_profiles.version IS 'バージョン（楽観ロック用）';
+COMMENT ON COLUMN student_profiles.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN student_profiles.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN student_profiles.updated_by IS '更新者（レコード更新したユーザーID）';
+COMMENT ON COLUMN student_profiles.updated_at IS '更新日時（レコード更新時刻）';
+
+-- Indexes for student_profiles
+CREATE UNIQUE INDEX idx_student_id ON student_profiles(student_id);
+CREATE UNIQUE INDEX idx_student_number ON student_profiles(student_number);
+CREATE INDEX idx_company_id ON student_profiles(company_id);
+CREATE INDEX idx_enrollment_status ON student_profiles(enrollment_status);
+CREATE INDEX idx_admission_date ON student_profiles(admission_date);
+
 -- Training Assignments (assigns students to specific training schedules)
 CREATE TABLE training_assignments (
     id SERIAL PRIMARY KEY,
