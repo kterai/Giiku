@@ -447,6 +447,7 @@ CREATE TABLE instructors (
     bio VARCHAR(1000),
     instructor_status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',
     availability VARCHAR(500),
+    is_active BOOLEAN DEFAULT true,
     profile_updated_at TIMESTAMP WITH TIME ZONE,
     version BIGINT NOT NULL DEFAULT 0,
     created_by BIGINT REFERENCES users(id),
@@ -469,6 +470,7 @@ COMMENT ON COLUMN instructors.last_teaching_date IS '最終指導日時';
 COMMENT ON COLUMN instructors.bio IS '自己紹介';
 COMMENT ON COLUMN instructors.instructor_status IS '講師ステータス';
 COMMENT ON COLUMN instructors.availability IS '可用性情報';
+COMMENT ON COLUMN instructors.is_active IS '有効状態（講師の活動状態）';
 COMMENT ON COLUMN instructors.profile_updated_at IS 'プロファイル更新日時';
 COMMENT ON COLUMN instructors.version IS 'バージョン（楽観ロック用）';
 COMMENT ON COLUMN instructors.created_at IS '作成日時（レコード作成時刻）';
