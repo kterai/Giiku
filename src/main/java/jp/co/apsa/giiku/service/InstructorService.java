@@ -13,6 +13,8 @@ import org.springframework.util.StringUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Optional;
 import java.util.Map;
@@ -343,7 +345,7 @@ public class InstructorService {
             instructor.setTotalTeachingMinutes(0);
         }
         if (instructor.getRatingScore() == null) {
-            instructor.setRatingScore(0.0);
+            instructor.setRatingScore(BigDecimal.ZERO);
         }
         if (instructor.getRatingCount() == null) {
             instructor.setRatingCount(0);
@@ -496,10 +498,12 @@ public class InstructorService {
         Instructor instructor = instructorOpt.get();
 
         // Calculate new average rating
-        Double currentRating = instructor.getRatingScore() != null ? instructor.getRatingScore() : 0.0;
+        BigDecimal currentRating = instructor.getRatingScore() != null ? instructor.getRatingScore() : BigDecimal.ZERO;
         Integer currentCount = instructor.getRatingCount() != null ? instructor.getRatingCount() : 0;
 
-        Double newAverageRating = ((currentRating * currentCount) + newRating) / (currentCount + 1);
+        BigDecimal newAverageRating = currentRating.multiply(BigDecimal.valueOf(currentCount))
+            .add(BigDecimal.valueOf(newRating))
+            .divide(BigDecimal.valueOf(currentCount + 1), 2, RoundingMode.HALF_UP);
 
         instructor.setRatingScore(newAverageRating);
         instructor.setRatingCount(currentCount + 1);
@@ -571,7 +575,7 @@ public class InstructorService {
         // Calculate average statistics for active instructors
         if (!activeInstructors.isEmpty()) {
             double avgRating = activeInstructors.stream()
-                .mapToDouble(i -> i.getRatingScore() != null ? i.getRatingScore() : 0.0)
+                .mapToDouble(i -> i.getRatingScore() != null ? i.getRatingScore().doubleValue() : 0.0)
                 .average().orElse(0.0);
             double avgLevel = activeInstructors.stream()
                 .mapToInt(i -> i.getInstructorLevel() != null ? i.getInstructorLevel() : 1)
