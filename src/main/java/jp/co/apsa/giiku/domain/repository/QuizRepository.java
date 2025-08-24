@@ -27,46 +27,46 @@ public interface QuizRepository extends JpaRepository<Quiz, Long>, JpaSpecificat
     List<Quiz> findByStudentIdOrderByStartTimeDesc(Long studentId);
 
     /**
-     * プログラムIDでクイズを取得
+     * トレーニングプログラムIDでクイズを取得
      *
-     * @param programId プログラムID
+     * @param trainingProgramId トレーニングプログラムID
      * @return クイズリスト
      */
-    List<Quiz> findByProgramIdOrderByStartTimeDesc(Long programId);
+    List<Quiz> findByTrainingProgramIdOrderByStartTimeDesc(Long trainingProgramId);
 
     /**
-     * ステータスでクイズを取得（開始時刻順）
+     * クイズステータスでクイズを取得（開始時刻順）
      *
-     * @param status クイズステータス
+     * @param quizStatus クイズステータス
      * @return クイズリスト
      */
-    List<Quiz> findByStatusOrderByStartTimeDesc(String status);
+    List<Quiz> findByQuizStatusOrderByStartTimeDesc(String quizStatus);
 
     /**
-     * ステータスでクイズを取得（終了時刻順）
+     * クイズステータスでクイズを取得（終了時刻順）
      *
-     * @param status クイズステータス
+     * @param quizStatus クイズステータス
      * @return クイズリスト
      */
-    List<Quiz> findByStatusOrderByEndTimeDesc(String status);
+    List<Quiz> findByQuizStatusOrderByEndTimeDesc(String quizStatus);
 
     /**
-     * 学生IDとステータスでクイズを取得（開始時刻順）
+     * 学生IDとクイズステータスでクイズを取得（開始時刻順）
      *
      * @param studentId 学生ID
-     * @param status クイズステータス
+     * @param quizStatus クイズステータス
      * @return クイズリスト
      */
-    List<Quiz> findByStudentIdAndStatusOrderByStartTimeDesc(Long studentId, String status);
+    List<Quiz> findByStudentIdAndQuizStatusOrderByStartTimeDesc(Long studentId, String quizStatus);
 
     /**
-     * 学生IDとステータスでクイズを取得（終了時刻順）
+     * 学生IDとクイズステータスでクイズを取得（終了時刻順）
      *
      * @param studentId 学生ID
-     * @param status クイズステータス
+     * @param quizStatus クイズステータス
      * @return クイズリスト
      */
-    List<Quiz> findByStudentIdAndStatusOrderByEndTimeDesc(Long studentId, String status);
+    List<Quiz> findByStudentIdAndQuizStatusOrderByEndTimeDesc(Long studentId, String quizStatus);
 
     /**
      * プログラム別平均スコアを取得
@@ -93,7 +93,7 @@ public interface QuizRepository extends JpaRepository<Quiz, Long>, JpaSpecificat
      * @param status クイズステータス
      * @return 件数
      */
-    long countByStatus(String status);
+    long countByQuizStatus(String quizStatus);
 
     /**
      * 学生別件数を取得

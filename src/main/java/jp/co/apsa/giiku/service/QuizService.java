@@ -132,7 +132,7 @@ public class QuizService {
         if (programId == null) {
             throw new IllegalArgumentException("プログラムIDは必須です");
         }
-        return quizRepository.findByProgramIdOrderByStartTimeDesc(programId);
+        return quizRepository.findByTrainingProgramIdOrderByStartTimeDesc(programId);
     }
 
     /** ステータスでクイズを検索 */
@@ -141,19 +141,19 @@ public class QuizService {
         if (!StringUtils.hasText(status)) {
             throw new IllegalArgumentException("ステータスは必須です");
         }
-        return quizRepository.findByStatusOrderByStartTimeDesc(status);
+        return quizRepository.findByQuizStatusOrderByStartTimeDesc(status);
     }
 
     /** 進行中のクイズを取得 */
     @Transactional(readOnly = true)
     public List<Quiz> findInProgressQuizzes() {
-        return quizRepository.findByStatusOrderByStartTimeDesc("IN_PROGRESS");
+        return quizRepository.findByQuizStatusOrderByStartTimeDesc("IN_PROGRESS");
     }
 
     /** 完了したクイズを取得 */
     @Transactional(readOnly = true)
     public List<Quiz> findCompletedQuizzes() {
-        return quizRepository.findByStatusOrderByEndTimeDesc("COMPLETED");
+        return quizRepository.findByQuizStatusOrderByEndTimeDesc("COMPLETED");
     }
 
     /** 学生の進行中クイズを取得 */
@@ -162,7 +162,7 @@ public class QuizService {
         if (studentId == null) {
             throw new IllegalArgumentException("学生IDは必須です");
         }
-        return quizRepository.findByStudentIdAndStatusOrderByStartTimeDesc(studentId, "IN_PROGRESS");
+        return quizRepository.findByStudentIdAndQuizStatusOrderByStartTimeDesc(studentId, "IN_PROGRESS");
     }
 
     /** 学生の完了クイズを取得 */
@@ -171,7 +171,7 @@ public class QuizService {
         if (studentId == null) {
             throw new IllegalArgumentException("学生IDは必須です");
         }
-        return quizRepository.findByStudentIdAndStatusOrderByEndTimeDesc(studentId, "COMPLETED");
+        return quizRepository.findByStudentIdAndQuizStatusOrderByEndTimeDesc(studentId, "COMPLETED");
     }
 
     /** プログラムの平均スコアを取得 */
@@ -207,11 +207,11 @@ public class QuizService {
             }
 
             if (programId != null) {
-                predicates.add(criteriaBuilder.equal(root.get("programId"), programId));
+                predicates.add(criteriaBuilder.equal(root.get("trainingProgramId"), programId));
             }
 
             if (StringUtils.hasText(status)) {
-                predicates.add(criteriaBuilder.equal(root.get("status"), status));
+                predicates.add(criteriaBuilder.equal(root.get("quizStatus"), status));
             }
 
             if (startTimeFrom != null) {
@@ -348,7 +348,7 @@ public class QuizService {
         if (!StringUtils.hasText(status)) {
             throw new IllegalArgumentException("ステータスは必須です");
         }
-        return quizRepository.countByStatus(status);
+        return quizRepository.countByQuizStatus(status);
     }
 
     /** 学生別のクイズ数をカウント */
@@ -369,7 +369,7 @@ public class QuizService {
 
     @Transactional(readOnly = true)
     public List<Quiz> findByQuizStatus(String status) {
-        return findByStatus(status);
+        return quizRepository.findByQuizStatusOrderByStartTimeDesc(status);
     }
 
     @Transactional(readOnly = true)
