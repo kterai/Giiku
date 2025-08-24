@@ -430,18 +430,24 @@ COMMENT ON COLUMN training_schedules.created_by IS '作成者（レコード作�
 COMMENT ON COLUMN training_schedules.updated_at IS '更新日時（レコード更新時刻）';
 COMMENT ON COLUMN training_schedules.updated_by IS '更新者（レコード更新したユーザーID）';
 
--- Instructors (extends users table for instructor-specific information)
 CREATE TABLE instructors (
     id BIGSERIAL PRIMARY KEY,
     user_id BIGINT NOT NULL UNIQUE REFERENCES users(id),
-    instructor_code VARCHAR(50) UNIQUE,
-    specialties JSON,
-    specialization TEXT,
-    experience_years INTEGER,
-    bio TEXT,
-    certifications JSON,
-    hourly_rate DECIMAL(10,2),
-    is_active BOOLEAN DEFAULT true,
+    instructor_number VARCHAR(20) NOT NULL,
+    department_id BIGINT,
+    certification_date DATE,
+    specialization VARCHAR(100),
+    instructor_level INTEGER NOT NULL DEFAULT 1 CHECK (instructor_level BETWEEN 1 AND 5),
+    assigned_courses_count INTEGER NOT NULL DEFAULT 0,
+    assigned_students_count INTEGER NOT NULL DEFAULT 0,
+    total_teaching_minutes INTEGER NOT NULL DEFAULT 0,
+    rating_score DECIMAL(3,2) DEFAULT 0.0,
+    rating_count INTEGER NOT NULL DEFAULT 0,
+    last_teaching_date TIMESTAMP WITH TIME ZONE,
+    bio VARCHAR(1000),
+    instructor_status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',
+    availability VARCHAR(500),
+    profile_updated_at TIMESTAMP WITH TIME ZONE,
     version BIGINT NOT NULL DEFAULT 0,
     created_by BIGINT REFERENCES users(id),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -449,14 +455,21 @@ CREATE TABLE instructors (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
-COMMENT ON COLUMN instructors.instructor_code IS '講師コード（講師の識別コード）';
-COMMENT ON COLUMN instructors.specialties IS '専門分野（講師の専門分野リスト）';
+COMMENT ON COLUMN instructors.instructor_number IS '講師番号（企業内での識別子）';
+COMMENT ON COLUMN instructors.department_id IS '所属部署ID';
+COMMENT ON COLUMN instructors.certification_date IS '講師資格取得日';
 COMMENT ON COLUMN instructors.specialization IS '専門分野（主な指導領域）';
-COMMENT ON COLUMN instructors.experience_years IS '経験年数（講師としての実務年数）';
-COMMENT ON COLUMN instructors.bio IS '経歴（講師の経歴・プロフィール）';
-COMMENT ON COLUMN instructors.certifications IS '資格（講師の保有資格リスト）';
-COMMENT ON COLUMN instructors.hourly_rate IS '時間単価（講師の時間あたり報酬）';
-COMMENT ON COLUMN instructors.is_active IS '有効状態（講師の活動状態）';
+COMMENT ON COLUMN instructors.instructor_level IS '講師レベル';
+COMMENT ON COLUMN instructors.assigned_courses_count IS '担当コース数';
+COMMENT ON COLUMN instructors.assigned_students_count IS '担当学生数';
+COMMENT ON COLUMN instructors.total_teaching_minutes IS '累積指導時間（分）';
+COMMENT ON COLUMN instructors.rating_score IS '講師評価スコア';
+COMMENT ON COLUMN instructors.rating_count IS '評価件数';
+COMMENT ON COLUMN instructors.last_teaching_date IS '最終指導日時';
+COMMENT ON COLUMN instructors.bio IS '自己紹介';
+COMMENT ON COLUMN instructors.instructor_status IS '講師ステータス';
+COMMENT ON COLUMN instructors.availability IS '可用性情報';
+COMMENT ON COLUMN instructors.profile_updated_at IS 'プロファイル更新日時';
 COMMENT ON COLUMN instructors.version IS 'バージョン（楽観ロック用）';
 COMMENT ON COLUMN instructors.created_at IS '作成日時（レコード作成時刻）';
 COMMENT ON COLUMN instructors.created_by IS '作成者（レコード作成したユーザーID）';
@@ -559,6 +572,72 @@ CREATE UNIQUE INDEX idx_student_number ON student_profiles(student_number);
 CREATE INDEX idx_company_id ON student_profiles(company_id);
 CREATE INDEX idx_enrollment_status ON student_profiles(enrollment_status);
 CREATE INDEX idx_admission_date ON student_profiles(admission_date);
+
+-- Student Enrollments (registration of students to training programs)
+CREATE TABLE student_enrollments (
+    id BIGSERIAL PRIMARY KEY,
+    student_id BIGINT NOT NULL REFERENCES users(id),
+    program_id BIGINT NOT NULL REFERENCES training_programs(id),
+    company_id BIGINT NOT NULL REFERENCES companies(id),
+    enrollment_status VARCHAR(20) NOT NULL,
+    enrollment_date DATE NOT NULL,
+    start_date DATE,
+    completion_date DATE,
+    progress_percentage DECIMAL(5,2),
+    final_score DECIMAL(5,2),
+    passed BOOLEAN NOT NULL DEFAULT false,
+    attempt_count INTEGER NOT NULL DEFAULT 0,
+    max_attempts INTEGER,
+    instructor_id BIGINT REFERENCES instructors(id),
+    certificate_number VARCHAR(50),
+    certificate_issued_date DATE,
+    enrollment_fee DECIMAL(10,2),
+    payment_status VARCHAR(20),
+    payment_date DATE,
+    notes VARCHAR(1000),
+    last_access_date TIMESTAMP,
+    version BIGINT NOT NULL DEFAULT 0,
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Indexes
+CREATE INDEX idx_student_enrollments_student_id ON student_enrollments(student_id);
+CREATE INDEX idx_student_enrollments_program_id ON student_enrollments(program_id);
+CREATE INDEX idx_student_enrollments_company_id ON student_enrollments(company_id);
+CREATE INDEX idx_student_enrollments_status ON student_enrollments(enrollment_status);
+CREATE INDEX idx_student_enrollments_date ON student_enrollments(enrollment_date);
+CREATE UNIQUE INDEX idx_student_program_unique ON student_enrollments(student_id, program_id);
+
+-- Comments
+COMMENT ON TABLE student_enrollments IS '学生登録（研修プログラムへの登録情報）';
+COMMENT ON COLUMN student_enrollments.student_id IS '学生ID（users.id）';
+COMMENT ON COLUMN student_enrollments.program_id IS '研修プログラムID（training_programs.id）';
+COMMENT ON COLUMN student_enrollments.company_id IS '会社ID（companies.id）';
+COMMENT ON COLUMN student_enrollments.enrollment_status IS '登録状況';
+COMMENT ON COLUMN student_enrollments.enrollment_date IS '登録日';
+COMMENT ON COLUMN student_enrollments.start_date IS '開始日';
+COMMENT ON COLUMN student_enrollments.completion_date IS '修了日';
+COMMENT ON COLUMN student_enrollments.progress_percentage IS '進捗率';
+COMMENT ON COLUMN student_enrollments.final_score IS '最終スコア';
+COMMENT ON COLUMN student_enrollments.passed IS '合格フラグ';
+COMMENT ON COLUMN student_enrollments.attempt_count IS '試験回数';
+COMMENT ON COLUMN student_enrollments.max_attempts IS '最大試験回数';
+COMMENT ON COLUMN student_enrollments.instructor_id IS '講師ID';
+COMMENT ON COLUMN student_enrollments.certificate_number IS '修了証明書番号';
+COMMENT ON COLUMN student_enrollments.certificate_issued_date IS '修了証明書発行日';
+COMMENT ON COLUMN student_enrollments.enrollment_fee IS '登録料金';
+COMMENT ON COLUMN student_enrollments.payment_status IS '支払い状況';
+COMMENT ON COLUMN student_enrollments.payment_date IS '支払い日';
+COMMENT ON COLUMN student_enrollments.notes IS '特記事項・備考';
+COMMENT ON COLUMN student_enrollments.last_access_date IS '最終アクセス日時';
+COMMENT ON COLUMN student_enrollments.version IS 'バージョン（楽観ロック用）';
+COMMENT ON COLUMN student_enrollments.created_by IS '作成者（レコード作成ユーザーID）';
+COMMENT ON COLUMN student_enrollments.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN student_enrollments.updated_by IS '更新者（レコード更新ユーザーID）';
+COMMENT ON COLUMN student_enrollments.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Training Assignments (assigns students to specific training schedules)
 CREATE TABLE training_assignments (
@@ -856,6 +935,67 @@ COMMENT ON COLUMN exercise_question_bank.created_at IS '作成日時（レコー
 COMMENT ON COLUMN exercise_question_bank.created_by IS '作成者（レコード作成したユーザーID）';
 COMMENT ON COLUMN exercise_question_bank.updated_at IS '更新日時（レコード更新時刻）';
 COMMENT ON COLUMN exercise_question_bank.updated_by IS '更新者（レコード更新したユーザーID）';
+
+-- Quiz (tracks quiz execution for students)
+CREATE TABLE quiz (
+    id BIGSERIAL PRIMARY KEY,
+    title VARCHAR(200) NOT NULL,
+    description TEXT,
+    training_program_id BIGINT REFERENCES training_programs(id),
+    lecture_id BIGINT REFERENCES lectures(id),
+    student_id BIGINT NOT NULL REFERENCES users(id),
+    instructor_id BIGINT REFERENCES instructors(id),
+    company_id BIGINT REFERENCES companies(id),
+    quiz_status VARCHAR(20) NOT NULL,
+    total_questions INTEGER,
+    answered_questions INTEGER DEFAULT 0,
+    total_points INTEGER,
+    earned_points INTEGER DEFAULT 0,
+    percentage_score DOUBLE PRECISION,
+    passing_score DOUBLE PRECISION DEFAULT 70.0,
+    is_passed BOOLEAN DEFAULT false,
+    time_limit_minutes INTEGER,
+    time_spent_minutes INTEGER DEFAULT 0,
+    start_time TIMESTAMP WITH TIME ZONE,
+    end_time TIMESTAMP WITH TIME ZONE,
+    submission_time TIMESTAMP WITH TIME ZONE,
+    graded_time TIMESTAMP WITH TIME ZONE,
+    student_answers TEXT,
+    question_ids TEXT,
+    feedback TEXT,
+    is_active BOOLEAN NOT NULL DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE
+);
+
+COMMENT ON TABLE quiz IS 'クイズ実施情報';
+COMMENT ON COLUMN quiz.title IS 'タイトル';
+COMMENT ON COLUMN quiz.description IS '説明';
+COMMENT ON COLUMN quiz.training_program_id IS '研修プログラムID';
+COMMENT ON COLUMN quiz.lecture_id IS '講義ID';
+COMMENT ON COLUMN quiz.student_id IS '受講者ID';
+COMMENT ON COLUMN quiz.instructor_id IS '講師ID';
+COMMENT ON COLUMN quiz.company_id IS '会社ID';
+COMMENT ON COLUMN quiz.quiz_status IS 'クイズステータス';
+COMMENT ON COLUMN quiz.total_questions IS '総問題数';
+COMMENT ON COLUMN quiz.answered_questions IS '回答済み問題数';
+COMMENT ON COLUMN quiz.total_points IS '総得点';
+COMMENT ON COLUMN quiz.earned_points IS '獲得点';
+COMMENT ON COLUMN quiz.percentage_score IS '得点率';
+COMMENT ON COLUMN quiz.passing_score IS '合格基準点';
+COMMENT ON COLUMN quiz.is_passed IS '合否';
+COMMENT ON COLUMN quiz.time_limit_minutes IS '制限時間（分）';
+COMMENT ON COLUMN quiz.time_spent_minutes IS '経過時間（分）';
+COMMENT ON COLUMN quiz.start_time IS '開始時刻';
+COMMENT ON COLUMN quiz.end_time IS '終了時刻';
+COMMENT ON COLUMN quiz.submission_time IS '提出時刻';
+COMMENT ON COLUMN quiz.graded_time IS '採点時刻';
+COMMENT ON COLUMN quiz.student_answers IS '学生回答';
+COMMENT ON COLUMN quiz.question_ids IS '問題IDリスト';
+COMMENT ON COLUMN quiz.feedback IS 'フィードバック';
+COMMENT ON COLUMN quiz.is_active IS '有効状態';
+COMMENT ON COLUMN quiz.created_at IS '作成日時';
+COMMENT ON COLUMN quiz.updated_at IS '更新日時';
 
 -- Quiz Question Bank (per lecture)
 CREATE TABLE quiz_question_bank (
