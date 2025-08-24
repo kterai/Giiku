@@ -103,6 +103,7 @@
 - バックエンド：統合済みのV001～V003マイグレーションファイルを削除し、V008のDDLを移行
 - バックエンド：mock_testsテーブルを新設しエンティティをスキーマに対応
 - バックエンド：instructorsテーブルを再構成し、student_enrollments・quizテーブルを追加
+- バックエンド：instructors初期データから存在しないexperience_yearsカラムを削除
 
 ## 今後のタスク（優先順位順）
 1. `day6.html`〜`day54.html` の作成（残り49日分）
