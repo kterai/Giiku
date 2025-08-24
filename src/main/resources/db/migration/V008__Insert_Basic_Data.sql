@@ -6,8 +6,8 @@
 -- INSTRUCTORS DATA (講師データ)
 -- ===============================
 
-INSERT INTO instructors (id, user_id, specialization, bio, created_by, created_at, updated_by, updated_at) VALUES
-(1, 2, 'データ構造,アルゴリズム,C++', 'アルゴリズム設計の専門家として12年間の実務経験。効率的なプログラム設計と最適化技術の指導を得意とする。', 1, NOW(), 1, NOW());
+INSERT INTO instructors (id, user_id, instructor_number, specialization, bio, created_by, created_at, updated_by, updated_at) VALUES
+(1, 2, 'INS-0001', 'データ構造,アルゴリズム,C++', 'アルゴリズム設計の専門家として12年間の実務経験。効率的なプログラム設計と最適化技術の指導を得意とする。', 1, NOW(), 1, NOW());
 
 -- ===============================
 -- STUDENTS DATA (学生データ)
