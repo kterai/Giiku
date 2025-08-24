@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * 講師プロファイル拡張エンティティ
@@ -121,7 +123,7 @@ public class Instructor extends AuditableEntity {
     @DecimalMin(value = "1.0", message = "評価スコアは1.0以上である必要があります")
     @DecimalMax(value = "5.0", message = "評価スコアは5.0以下である必要があります")
     @Column(name = "rating_score", precision = 3, scale = 2)
-    private Double ratingScore = 0.0;
+    private BigDecimal ratingScore = BigDecimal.ZERO;
 
     /**
      * 評価件数
@@ -224,9 +226,10 @@ public class Instructor extends AuditableEntity {
      */
     public void addRating(double newRating) {
         if (newRating >= 1.0 && newRating <= 5.0) {
-            double currentTotal = this.ratingScore * this.ratingCount;
+            BigDecimal currentTotal = this.ratingScore.multiply(BigDecimal.valueOf(this.ratingCount));
             this.ratingCount++;
-            this.ratingScore = (currentTotal + newRating) / this.ratingCount;
+            BigDecimal newTotal = currentTotal.add(BigDecimal.valueOf(newRating));
+            this.ratingScore = newTotal.divide(BigDecimal.valueOf(this.ratingCount), 2, RoundingMode.HALF_UP);
         }
     }
 
@@ -261,12 +264,13 @@ public class Instructor extends AuditableEntity {
      * @return 星の数（★☆）形式の文字列
      */
     public String getRatingStarsDisplay() {
-        if (this.ratingScore == null || this.ratingScore == 0.0) {
+        if (this.ratingScore == null || BigDecimal.ZERO.compareTo(this.ratingScore) == 0) {
             return "☆☆☆☆☆ (未評価)";
         }
 
-        int fullStars = (int) Math.floor(this.ratingScore);
-        boolean halfStar = (this.ratingScore - fullStars) >= 0.5;
+        int fullStars = this.ratingScore.setScale(0, RoundingMode.DOWN).intValue();
+        boolean halfStar = this.ratingScore.subtract(BigDecimal.valueOf(fullStars))
+                             .compareTo(new BigDecimal("0.5")) >= 0;
 
         StringBuilder stars = new StringBuilder();
         for (int i = 0; i < fullStars; i++) {
@@ -280,6 +284,6 @@ public class Instructor extends AuditableEntity {
             stars.append("☆");
         }
 
-        return stars.toString() + String.format(" (%.1f)", this.ratingScore);
+        return stars.toString() + String.format(" (%.1f)", this.ratingScore.doubleValue());
     }
 }
