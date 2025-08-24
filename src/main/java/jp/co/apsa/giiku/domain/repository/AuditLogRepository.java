@@ -29,18 +29,18 @@ import java.util.List;
 public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
 
     /**
-     * ユーザーIDで監査ログを検索（ページネーション対応）
-     * 
+     * 作成者IDで監査ログを検索（ページネーション対応）
+     *
      * 学習ポイント：
      * - 大量データの効率的な表示
      * - Pageableによるページネーション
      * - 降順ソート（最新順）
-     * 
-     * @param userId ユーザーID
+     *
+     * @param createdBy 作成者ID
      * @param pageable ページネーション情報
      * @return 監査ログのページ
      */
-    Page<AuditLog> findByUserIdOrderByCreatedAtDesc(Long userId, Pageable pageable);
+    Page<AuditLog> findByCreatedByOrderByCreatedAtDesc(Long createdBy, Pageable pageable);
 
     /**
      * テーブル名とレコードIDで監査ログを検索
@@ -54,13 +54,13 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
         String tableName, String recordId, Pageable pageable);
 
     /**
-     * イベントタイプで監査ログを検索
-     * 
-     * @param eventType イベントタイプ
+     * 操作種別で監査ログを検索
+     *
+     * @param operationType 操作種別
      * @param pageable ページネーション情報
      * @return 監査ログのページ
      */
-    Page<AuditLog> findByEventTypeOrderByCreatedAtDesc(String eventType, Pageable pageable);
+    Page<AuditLog> findByOperationTypeOrderByCreatedAtDesc(String operationType, Pageable pageable);
 
     /**
      * 日時範囲で監査ログを検索
@@ -80,39 +80,29 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
 
     /**
      * 複合条件での監査ログ検索
-     * 
-     * @param userId ユーザーID（null許可）
+     *
+     * @param createdBy 作成者ID（null許可）
      * @param tableName テーブル名（null許可）
-     * @param eventType イベントタイプ（null許可）
+     * @param operationType 操作種別（null許可）
      * @param startDate 開始日時（null許可）
      * @param endDate 終了日時（null許可）
      * @param pageable ページネーション情報
      * @return 監査ログのページ
      */
     @Query("SELECT al FROM AuditLog al " +
-           "WHERE (:userId IS NULL OR al.userId = :userId) " +
+           "WHERE (:createdBy IS NULL OR al.createdBy = :createdBy) " +
            "AND (:tableName IS NULL OR al.tableName = :tableName) " +
-           "AND (:eventType IS NULL OR al.eventType = :eventType) " +
+           "AND (:operationType IS NULL OR al.operationType = :operationType) " +
            "AND (:startDate IS NULL OR al.createdAt >= :startDate) " +
            "AND (:endDate IS NULL OR al.createdAt <= :endDate) " +
            "ORDER BY al.createdAt DESC")
     Page<AuditLog> findByComplexConditions(
-        @Param("userId") Long userId,
+        @Param("createdBy") Long createdBy,
         @Param("tableName") String tableName,
-        @Param("eventType") String eventType,
+        @Param("operationType") String operationType,
         @Param("startDate") LocalDateTime startDate,
         @Param("endDate") LocalDateTime endDate,
         Pageable pageable);
-
-    /**
-     * IPアドレスで監査ログを検索
-     * セキュリティ監査でのIP追跡用
-     * 
-     * @param ipAddress IPアドレス
-     * @param pageable ページネーション情報
-     * @return 監査ログのページ
-     */
-    Page<AuditLog> findByIpAddressOrderByCreatedAtDesc(String ipAddress, Pageable pageable);
 
     /**
      * 特定期間の監査ログ件数を取得
@@ -129,32 +119,32 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
         @Param("endDate") LocalDateTime endDate);
 
     /**
-     * イベントタイプ別の集計データを取得
-     * 
+     * 操作種別別の集計データを取得
+     *
      * @param startDate 開始日時
      * @param endDate 終了日時
-     * @return イベントタイプ別件数
+     * @return 操作種別別件数
      */
-    @Query("SELECT al.eventType, COUNT(al) AS cnt FROM AuditLog al " +
+    @Query("SELECT al.operationType, COUNT(al) AS cnt FROM AuditLog al " +
            "WHERE al.createdAt BETWEEN :startDate AND :endDate " +
-           "GROUP BY al.eventType " +
+           "GROUP BY al.operationType " +
            "ORDER BY cnt DESC")
-    List<Object[]> countByEventTypeAndCreatedAtBetween(
+    List<Object[]> countByOperationTypeAndCreatedAtBetween(
         @Param("startDate") LocalDateTime startDate,
         @Param("endDate") LocalDateTime endDate);
 
     /**
-     * ユーザー別の活動集計データを取得
-     * 
+     * 作成者別の活動集計データを取得
+     *
      * @param startDate 開始日時
      * @param endDate 終了日時
-     * @return ユーザー別活動件数
+     * @return 作成者別活動件数
      */
-    @Query("SELECT al.userId, COUNT(al) AS cnt FROM AuditLog al " +
+    @Query("SELECT al.createdBy, COUNT(al) AS cnt FROM AuditLog al " +
            "WHERE al.createdAt BETWEEN :startDate AND :endDate " +
-           "GROUP BY al.userId " +
+           "GROUP BY al.createdBy " +
            "ORDER BY cnt DESC")
-    List<Object[]> countByUserIdAndCreatedAtBetween(
+    List<Object[]> countByCreatedByAndCreatedAtBetween(
         @Param("startDate") LocalDateTime startDate,
         @Param("endDate") LocalDateTime endDate);
 
