@@ -21,7 +21,7 @@ public class Lecture extends AuditableEntity {
 
     /** 紐づく日ID */
     @Column(name = "day_id")
-    private Integer dayId;
+    private Long dayId;
 
     /** 講義番号 */
     @Column(name = "lecture_number")
