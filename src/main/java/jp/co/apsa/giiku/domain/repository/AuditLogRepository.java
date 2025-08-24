@@ -115,14 +115,6 @@ public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
     Page<AuditLog> findByIpAddressOrderByCreatedAtDesc(String ipAddress, Pageable pageable);
 
     /**
-     * セッションIDで監査ログを検索
-     * 
-     * @param sessionId セッションID
-     * @return 監査ログリスト
-     */
-    List<AuditLog> findBySessionIdOrderByCreatedAtAsc(String sessionId);
-
-    /**
      * 特定期間の監査ログ件数を取得
      * 統計・レポート用
      * 

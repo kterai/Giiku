@@ -65,7 +65,7 @@ public class User {
     @Min(1)
     @Max(3)
     @Column(name = "gender", nullable = false)
-    private Integer gender;
+    private Short gender;
 
     @NotNull(message = "誕生日は必須です")
     @Column(name = "birthday", nullable = false)
@@ -98,7 +98,7 @@ public class User {
 
     /** User メソッド */
     public User(String username, String password, String email, String name,
-                Long companyId, String role, Integer gender, LocalDate birthday,
+                Long companyId, String role, Short gender, LocalDate birthday,
                 Long createdBy, Long updatedBy) {
         this();
         this.username = username;
@@ -143,9 +143,9 @@ public class User {
     /** setRole メソッド */
     public void setRole(String role) { this.role = role; }
     /** getGender メソッド */
-    public Integer getGender() { return gender; }
+    public Short getGender() { return gender; }
     /** setGender メソッド */
-    public void setGender(Integer gender) { this.gender = gender; }
+    public void setGender(Short gender) { this.gender = gender; }
     /** getBirthday メソッド */
     public LocalDate getBirthday() { return birthday; }
     /** setBirthday メソッド */
