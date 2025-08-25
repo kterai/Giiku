@@ -63,7 +63,7 @@ public class WeekController  extends AbstractController{
                 Map.of("label", month != null ? month.getTitle() : "", "url", month != null ? "/month/month" + month.getMonthNumber() : "", "last", false),
                 Map.of("label", week.getWeekName(), "url", "/week/week" + weekNumber, "last", true)
         ));
-        return "week/detail";
+        return "week";
     }
 }
 

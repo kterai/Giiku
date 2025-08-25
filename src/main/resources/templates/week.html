@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{_layouts/week}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${week.weekName}">Week</title>
+</head>
+<body>
+<div layout:fragment="pageheader" th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumbs})}"></div>
+<section layout:fragment="content">
+    <div class="container mb-5">
+        <div class="card mb-4">
+            <div class="card-header">週間概要</div>
+            <div class="card-body">
+                <p th:text="${week.description}">Description</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">日別スケジュール</div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:each="day : ${days}">
+                        <a th:href="@{/day/day{num}(num=${day.dayNumber})}" th:text="${day.dayName}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

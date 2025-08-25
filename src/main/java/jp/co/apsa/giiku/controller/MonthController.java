@@ -55,7 +55,7 @@ public class MonthController  extends AbstractController{
                 Map.of("label", "ホーム", "url", "/", "last", false),
                 Map.of("label", month.getTitle(), "url", "/month/month" + monthNumber, "last", true)
         ));
-        return "month/detail";
+        return "month";
     }
 }
 

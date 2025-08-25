@@ -71,7 +71,7 @@ public class DayController extends AbstractController {
                 Map.of("label", week != null ? week.getWeekName() : "", "url", week != null ? "/week/week" + week.getWeekNumber() : "", "last", false),
                 Map.of("label", day.getDayName(), "url", "/day/day" + dayNumber, "last", true)
         ));
-        return "day/detail";
+        return "day";
     }
 }
 

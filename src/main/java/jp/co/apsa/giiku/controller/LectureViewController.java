@@ -73,6 +73,6 @@ public class LectureViewController extends AbstractController {
         }
         breadcrumbs.add(Map.of("label", lecture.getTitle(), "url", "/lecture/" + id, "last", true));
         model.addAttribute("breadcrumbs", breadcrumbs);
-        return "lecture/detail";
+        return "lecture";
     }
 }
