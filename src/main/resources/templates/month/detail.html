@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{layout :: layout(~{::content})}">
+    <div th:fragment="content">
+        <h1 th:text="${month.title}">Month Title</h1>
+        <p th:text="${month.description}">Description</p>
+        <ul>
+            <li th:each="week : ${weeks}">
+                <a th:href="@{/week/week{num}(num=${week.weekNumber})}" th:text="${week.weekName}"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+</html>

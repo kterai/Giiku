@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{layout :: layout(~{::content})}">
+    <div th:fragment="content">
+        <h1 th:text="${day.dayName}">Day Title</h1>
+        <p th:text="${day.description}">Description</p>
+        <ul>
+            <li th:each="lecture : ${lectures}">
+                <a th:href="@{/lecture/{id}(id=${lecture.id})}" th:text="${lecture.title}"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+</html>

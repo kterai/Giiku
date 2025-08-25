@@ -18,6 +18,9 @@ import java.util.List;
 @Repository
 public interface LectureRepository extends JpaRepository<Lecture, Long>, JpaSpecificationExecutor<Lecture> {
 
+    /** 日IDで講義一覧を取得 */
+    List<Lecture> findByDayId(Long dayId);
+
     default List<Lecture> findByTrainingProgramIdAndIsActiveTrue(Long trainingProgramId) {
         return findAll();
     }
