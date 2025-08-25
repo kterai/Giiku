@@ -43,6 +43,17 @@ public class LectureViewController extends AbstractController {
     private MonthService monthService;
 
     /**
+     * 静的講義スライドを表示します。
+     *
+     * @param number 講義番号
+     * @return テンプレート
+     */
+    @GetMapping("/lecture{number}.html")
+    public String lectureSlide(@PathVariable Long number) {
+        return "lecture/lecture" + number;
+    }
+
+    /**
      * 講義詳細を表示します。
      *
      * @param id 講義ID
