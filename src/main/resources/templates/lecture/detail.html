@@ -1,9 +1,0 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<div th:replace="~{layout :: layout(~{::content})}">
-    <div th:fragment="content">
-        <h1 th:text="${lecture.title}">Lecture Title</h1>
-        <p th:text="${lecture.description}">Description</p>
-    </div>
-</div>
-</html>
