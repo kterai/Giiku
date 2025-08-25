@@ -22,7 +22,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd; --bs-navbar-color: #0d47a1; --bs-navbar-hover-color: #0a3575; --bs-navbar-active-color: #0a3575; --bs-navbar-brand-color: #0d47a1; --bs-navbar-brand-hover-color: #0a3575;">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" th:href="@{/}">
                 <img src="../static/images/logo/giiku_logo_horizontal.png" th:src="@{images/logo/giiku_logo_horizontal.png}" alt="Giiku Logo" height="30px" class="d-inline-block align-text-top" style="vertical-align: middle;margin-top: -8px;">
                 <span class="ms-2">ITエンジニア育成カリキュラム</span>
             </a>
@@ -32,16 +32,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">ホーム</a>
+                        <a class="nav-link" th:href="@{/}">ホーム</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="monthDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             月別カリキュラム
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="monthDropdown">
-                            <li><a class="dropdown-item" href="month/month1.html">第1ヶ月目: Java Silver</a></li>
-                            <li><a class="dropdown-item" href="month/month2.html">第2ヶ月目: 基本情報</a></li>
-                            <li><a class="dropdown-item" href="month/month3.html">第3ヶ月目: Web開発</a></li>
+                            <li th:each="m : ${navMonths}">
+                                <a class="dropdown-item" th:href="${m.href}" th:text="${m.label}"></a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -49,20 +49,9 @@
                             週別詳細
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="weekDropdown">
-                            <li><a class="dropdown-item" href="week/week1.html">第1週: Java基礎</a></li>
-                            <li><a class="dropdown-item" href="week/week2.html">第2週: オブジェクト指向</a></li>
-                            <li><a class="dropdown-item" href="week/week3.html">第3週: Java応用</a></li>
-                            <li><a class="dropdown-item" href="week/week4.html">第4週: 総仕上げ</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="week/week5.html">第5週: コンピュータシステム</a></li>
-                            <li><a class="dropdown-item" href="week/week6.html">第6週: ネットワーク・DB</a></li>
-                            <li><a class="dropdown-item" href="week/week7.html">第7週: アルゴリズム・セキュリティ</a></li>
-                            <li><a class="dropdown-item" href="week/week8.html">第8週: ストラテジ系</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="week/week9.html">第9週: フロントエンド基礎</a></li>
-                            <li><a class="dropdown-item" href="week/week10.html">第10週: バックエンド基礎</a></li>
-                            <li><a class="dropdown-item" href="week/week11.html">第11週: Spring Boot実践</a></li>
-                            <li><a class="dropdown-item" href="week/week12.html">第12週: 総合開発</a></li>
+                            <li th:each="w : ${navWeeks}">
+                                <a class="dropdown-item" th:href="${w.href}" th:text="${w.label}"></a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -70,11 +59,9 @@
                             日別カリキュラム
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="dayDropdown">
-                            <li><a class="dropdown-item" href="day/day1.html">Day 1: オリエンテーシン</a></li>
-                            <li><a class="dropdown-item" href="day/day2.html">Day 2: Java基本型・変数・演算子</a></li>
-                            <li><a class="dropdown-item" href="day/day3.html">Day 3: 制御構文・配列</a></li>
-                            <li><a class="dropdown-item" href="day/day4.html">Day 4: 配列応用・アルゴリズム基礎</a></li>
-                            <li><a class="dropdown-item" href="day/day5.html">Day 5: Java Silver模擬テスト①</a></li>
+                            <li th:each="d : ${navDays}">
+                                <a class="dropdown-item" th:href="${d.href}" th:text="${d.label}"></a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -82,9 +69,9 @@
                             リソース
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="resourceDropdown">
-                            <li><a class="dropdown-item" href="resources/resources.html">学習リソース</a></li>
-                            <li><a class="dropdown-item" href="resources/faq.html">よくある質問</a></li>
-                            <li><a class="dropdown-item" href="resources/advanced.html">応用コース</a></li>
+                            <li><a class="dropdown-item" th:href="@{/resources/resources}">学習リソース</a></li>
+                            <li><a class="dropdown-item" th:href="@{/resources/faq}">よくある質問</a></li>
+                            <li><a class="dropdown-item" th:href="@{/resources/advanced}">応用コース</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -113,23 +100,23 @@
             <div class="col-lg-3 col-md-6 mb-4">
                 <h5>カリキュラム</h5>
                 <ul class="list-unstyled">
-                    <li><a href="month/month1.html">第1ヶ月目: Java Silver</a></li>
-                    <li><a href="month/month2.html">第2ヶ月目: 基本情報</a></li>
-                    <li><a href="month/month3.html">第3ヶ月目: Web開発</a></li>
+                    <li th:each="m : ${navMonths}">
+                        <a th:href="${m.href}" th:text="${m.label}"></a>
+                    </li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
                 <h5>リソース</h5>
                 <ul class="list-unstyled">
-                    <li><a href="resources/resources.html">学習リソース</a></li>
-                    <li><a href="resources/faq.html">よくある質問</a></li>
-                    <li><a href="resources/advanced.html">応用コース</a></li>
+                    <li><a th:href="@{/resources/resources}">学習リソース</a></li>
+                    <li><a th:href="@{/resources/faq}">よくある質問</a></li>
+                    <li><a th:href="@{/resources/advanced}">応用コース</a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
                 <h5>その他</h5>
                 <ul class="list-unstyled">
-                    <li><a href="index.html">ホームページ</a></li>
+                    <li><a th:href="@{/}">ホームページ</a></li>
                     <li><a href="https://www.apsa.co.jp/" target="_blank">APSA公式サイト</a></li>
                     <li><a href="mailto:info@example.com">お問い合わせ</a></li>
                 </ul>

@@ -37,6 +37,12 @@ public class LectureService {
         return lectureRepository.findById(id);
     }
 
+    /** 日IDで講義一覧を取得 */
+    @Transactional(readOnly = true)
+    public List<Lecture> findByDayId(Long dayId) {
+        return lectureRepository.findByDayId(dayId);
+    }
+
     /** 講義を保存 */
     public Lecture save(Lecture lecture) {
         return lectureRepository.save(lecture);

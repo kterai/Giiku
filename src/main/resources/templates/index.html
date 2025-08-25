@@ -209,7 +209,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
                 <img src="images/logo/apsa_logo.png" alt="APSA Logo" height="40" class="me-2">
                 <span class="d-none d-sm-inline">ITエンジニア育成カリキュラム</span>
                 <span class="d-sm-none">カリキュラム</span>
@@ -229,9 +229,9 @@
                             月別カリキュラム
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="month/month1.html">第1ヶ月目: Java Silver</a></li>
-                            <li><a class="dropdown-item" href="month/month2.html">第2ヶ月目: 基本情報</a></li>
-                            <li><a class="dropdown-item" href="month/month3.html">第3ヶ月目: Web開発</a></li>
+                            <li><a class="dropdown-item" th:href="@{/month/month1}">第1ヶ月目: Java Silver</a></li>
+                            <li><a class="dropdown-item" th:href="@{/month/month2}">第2ヶ月目: 基本情報</a></li>
+                            <li><a class="dropdown-item" th:href="@{/month/month3}">第3ヶ月目: Web開発</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -239,10 +239,10 @@
                             週別詳細
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="week/week1.html">第1週: Java基礎</a></li>
-                            <li><a class="dropdown-item" href="week/week2.html">第2週: オブジェクト指向</a></li>
-                            <li><a class="dropdown-item" href="week/week3.html">第3週: Java応用</a></li>
-                            <li><a class="dropdown-item" href="week/week4.html">第4週: 総仕上げ</a></li>
+                            <li><a class="dropdown-item" th:href="@{/week/week1}">第1週: Java基礎</a></li>
+                            <li><a class="dropdown-item" th:href="@{/week/week2}">第2週: オブジェクト指向</a></li>
+                            <li><a class="dropdown-item" th:href="@{/week/week3}">第3週: Java応用</a></li>
+                            <li><a class="dropdown-item" th:href="@{/week/week4}">第4週: 総仕上げ</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -250,9 +250,9 @@
                             リソース
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="resources/resources.html">学習リソース</a></li>
-                            <li><a class="dropdown-item" href="resources/faq.html">FAQ</a></li>
-                            <li><a class="dropdown-item" href="resources/advanced.html">応用コース</a></li>
+                            <li><a class="dropdown-item" th:href="@{/resources/resources}">学習リソース</a></li>
+                            <li><a class="dropdown-item" th:href="@{/resources/faq}">FAQ</a></li>
+                            <li><a class="dropdown-item" th:href="@{/resources/advanced}">応用コース</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -272,7 +272,7 @@
                             <a href="#program" class="btn btn-primary btn-lg">
                                 <i class="fas fa-play me-2"></i>カリキュラムを見る
                             </a>
-                            <a href="resources/faq.html" class="btn btn-outline-light btn-lg">
+                            <a th:href="@{/resources/faq}" class="btn btn-outline-light btn-lg">
                                 <i class="fas fa-question-circle me-2"></i>よくある質問
                             </a>
                         </div>
@@ -407,7 +407,7 @@
                             </ul>
                         </div>
                         <div class="card-footer text-center">
-                            <a href="month/month1.html" class="btn btn-primary">詳細を見る</a>
+                            <a th:href="@{/month/month1}" class="btn btn-primary">詳細を見る</a>
                         </div>
                     </div>
                 </div>
@@ -432,7 +432,7 @@
                             </ul>
                         </div>
                         <div class="card-footer text-center">
-                            <a href="month/month2.html" class="btn btn-primary">詳細を見る</a>
+                            <a th:href="@{/month/month2}" class="btn btn-primary">詳細を見る</a>
                         </div>
                     </div>
                 </div>
@@ -457,7 +457,7 @@
                             </ul>
                         </div>
                         <div class="card-footer text-center">
-                            <a href="month/month3.html" class="btn btn-primary">詳細を見る</a>
+                            <a th:href="@{/month/month3}" class="btn btn-primary">詳細を見る</a>
                         </div>
                     </div>
                 </div>
@@ -489,7 +489,7 @@
                                 </div>
                             </div>
                             <div class="text-center mt-3">
-                                <a href="resources/advanced.html" class="btn btn-light">応用コースの詳細</a>
+                                <a th:href="@{/resources/advanced}" class="btn btn-light">応用コースの詳細</a>
                             </div>
                         </div>
                     </div>
@@ -511,7 +511,7 @@
                                     <h5 class="mb-1">第1週: Java基礎</h5>
                                     <p class="mb-0">Day 1-5: Javaの基本を学ぶ</p>
                                 </div>
-                                <a href="week/week1.html" class="btn btn-sm btn-outline-primary">詳細</a>
+                                <a th:href="@{/week/week1}" class="btn btn-sm btn-outline-primary">詳細</a>
                             </div>
                         </div>
                         <div class="timeline-item">
@@ -520,7 +520,7 @@
                                     <h5 class="mb-1">第2週: オブジェクト指向</h5>
                                     <p class="mb-0">Day 6-10: OOP概念と実装</p>
                                 </div>
-                                <a href="week/week2.html" class="btn btn-sm btn-outline-primary">詳細</a>
+                                <a th:href="@{/week/week2}" class="btn btn-sm btn-outline-primary">詳細</a>
                             </div>
                         </div>
                         <div class="timeline-item">
@@ -529,7 +529,7 @@
                                     <h5 class="mb-1">第3週: Java応用</h5>
                                     <p class="mb-0">Day 11-15: コレクション・Stream API</p>
                                 </div>
-                                <a href="week/week3.html" class="btn btn-sm btn-outline-primary">詳細</a>
+                                <a th:href="@{/week/week3}" class="btn btn-sm btn-outline-primary">詳細</a>
                             </div>
                         </div>
                         <div class="timeline-item">
@@ -538,7 +538,7 @@
                                     <h5 class="mb-1">第4週: 総仕上げ</h5>
                                     <p class="mb-0">Day 16-18: 模擬試験・総合復習</p>
                                 </div>
-                                <a href="week/week4.html" class="btn btn-sm btn-outline-primary">詳細</a>
+                                <a th:href="@{/week/week4}" class="btn btn-sm btn-outline-primary">詳細</a>
                             </div>
                         </div>
                     </div>
@@ -562,7 +562,7 @@
                             </div>
                             <h5 class="card-title">教材・ドキュメント</h5>
                             <p class="card-text">Oracle公式ドキュメント、オンライン教材、チュートリアル</p>
-                            <a href="resources/resources.html" class="btn btn-outline-primary">詳細を見る</a>
+                            <a th:href="@{/resources/resources}" class="btn btn-outline-primary">詳細を見る</a>
                         </div>
                     </div>
                 </div>
@@ -575,7 +575,7 @@
                             </div>
                             <h5 class="card-title">開発ツール</h5>
                             <p class="card-text">Eclipse、Visual Studio Code、PostgreSQL、Spring Bootなど</p>
-                            <a href="resources/resources.html" class="btn btn-outline-primary">詳細を見る</a>
+                            <a th:href="@{/resources/resources}" class="btn btn-outline-primary">詳細を見る</a>
                         </div>
                     </div>
                 </div>
@@ -588,7 +588,7 @@
                             </div>
                             <h5 class="card-title">演習・問題集</h5>
                             <p class="card-text">HackerRank、Exercism、IPA公式問題集など</p>
-                            <a href="resources/resources.html" class="btn btn-outline-primary">詳細を見る</a>
+                            <a th:href="@{/resources/resources}" class="btn btn-outline-primary">詳細を見る</a>
                         </div>
                     </div>
                 </div>
@@ -645,7 +645,7 @@
                     </div>
                     
                     <div class="text-center mt-4">
-                        <a href="resources/faq.html" class="btn btn-primary">FAQをもっと見る</a>
+                        <a th:href="@{/resources/faq}" class="btn btn-primary">FAQをもっと見る</a>
                     </div>
                 </div>
             </div>
@@ -660,10 +660,10 @@
                     <h2>さあ、一緒に始めましょう</h2>
                     <p class="lead mb-4">ITエンジニアへの一歩を今日から踏み出しませんか？</p>
                     <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-                        <a href="month/month1.html" class="btn btn-primary btn-lg">
+                        <a th:href="@{/month/month1}" class="btn btn-primary btn-lg">
                             <i class="fas fa-rocket me-2"></i>カリキュラムを見る
                         </a>
-                        <a href="resources/faq.html" class="btn btn-outline-primary btn-lg">
+                        <a th:href="@{/resources/faq}" class="btn btn-outline-primary btn-lg">
                             <i class="fas fa-question-circle me-2"></i>質問を確認する
                         </a>
                     </div>
@@ -685,26 +685,26 @@
                 <div class="col-lg-2 col-md-4 mb-4">
                     <h5>カリキュラム</h5>
                     <ul class="list-unstyled">
-                        <li><a href="month/month1.html" class="text-white-50">第1ヶ月目: Java Silver</a></li>
-                        <li><a href="month/month2.html" class="text-white-50">第2ヶ月目: 基本情報</a></li>
-                        <li><a href="month/month3.html" class="text-white-50">第3ヶ月目: Web開発</a></li>
+                        <li><a th:href="@{/month/month1}" class="text-white-50">第1ヶ月目: Java Silver</a></li>
+                        <li><a th:href="@{/month/month2}" class="text-white-50">第2ヶ月目: 基本情報</a></li>
+                        <li><a th:href="@{/month/month3}" class="text-white-50">第3ヶ月目: Web開発</a></li>
                     </ul>
                 </div>
                 
                 <div class="col-lg-2 col-md-4 mb-4">
                     <h5>リソース</h5>
                     <ul class="list-unstyled">
-                        <li><a href="resources/resources.html" class="text-white-50">学習リソース</a></li>
-                        <li><a href="resources/faq.html" class="text-white-50">よくある質問</a></li>
-                        <li><a href="resources/advanced.html" class="text-white-50">応用コース</a></li>
+                        <li><a th:href="@{/resources/resources}" class="text-white-50">学習リソース</a></li>
+                        <li><a th:href="@{/resources/faq}" class="text-white-50">よくある質問</a></li>
+                        <li><a th:href="@{/resources/advanced}" class="text-white-50">応用コース</a></li>
                     </ul>
                 </div>
                 
                 <div class="col-lg-2 col-md-4 mb-4">
                     <h5>進捗確認</h5>
                     <ul class="list-unstyled">
-                        <li><a href="week/week1.html" class="text-white-50">第1週: Java基礎</a></li>
-                        <li><a href="day/day1.html" class="text-white-50">Day 1: オリエンテーション</a></li>
+                        <li><a th:href="@{/week/week1}" class="text-white-50">第1週: Java基礎</a></li>
+                        <li><a th:href="@{/day/day1}" class="text-white-50">Day 1: オリエンテーション</a></li>
                         <li><a href="作業進捗と計画.html" class="text-white-50">作業進捗と計画</a></li>
                     </ul>
                 </div>

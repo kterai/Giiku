@@ -1,15 +1,23 @@
 package jp.co.apsa.giiku.controller;
 
 import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
 
+import jp.co.apsa.giiku.domain.entity.Month;
+import jp.co.apsa.giiku.domain.entity.Week;
+import jp.co.apsa.giiku.service.DayService;
+import jp.co.apsa.giiku.service.MonthService;
+import jp.co.apsa.giiku.service.WeekService;
 /**
  * 週別ページを表示するコントローラー。
  *
@@ -21,6 +29,18 @@ import java.util.Map;
 @RequestMapping("/week")
 public class WeekController  extends AbstractController{
 
+    /** 週サービス */
+    @Autowired
+    private WeekService weekService;
+
+    /** 日サービス */
+    @Autowired
+    private DayService dayService;
+
+    /** 月サービス */
+    @Autowired
+    private MonthService monthService;
+
     /**
      * 指定された週ページを表示します。
      *
@@ -29,17 +49,21 @@ public class WeekController  extends AbstractController{
      */
     @GetMapping(path = {"/{page}","/{page}.html"})
     public String week(@PathVariable String page, Model model) {
-        setTitle(model, "週別詳細");
-        String title = "第" + page.replace("week", "") + "週目";
-        int monthNumber = ((NumberUtils.toInt(page.replace("week", ""), 1)) / 4 + 1);
-        String monthTitle = "第" + monthNumber + "ヶ月目";
-        model.addAttribute("pageTitle", title);
-        model.addAttribute("breadcrumb", List.of(
-                Map.of("label", "ホーム", "href", "/"),
-                Map.of("label", monthTitle, "href", "/month" + monthNumber),
-                Map.of("label", title)
+        int weekNumber = NumberUtils.toInt(page.replace("week", ""), 1);
+        Week week = weekService.findByWeekNumber(weekNumber)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Month month = monthService.findById(week.getMonthId()).orElse(null);
+
+        setTitle(model, week.getWeekName());
+        model.addAttribute("pageTitle", week.getWeekName());
+        model.addAttribute("week", week);
+        model.addAttribute("days", dayService.findByWeekId(week.getId()));
+        model.addAttribute("breadcrumbs", List.of(
+                Map.of("label", "ホーム", "url", "/", "last", false),
+                Map.of("label", month != null ? month.getTitle() : "", "url", month != null ? "/month/month" + month.getMonthNumber() : "", "last", false),
+                Map.of("label", week.getWeekName(), "url", "/week/week" + weekNumber, "last", true)
         ));
-        return "week/" + page;
+        return "week/detail";
     }
 }
 
