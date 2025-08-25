@@ -20,8 +20,9 @@
             <div class="card-header">講義一覧</div>
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item" th:each="lecture : ${lectures}">
+                    <li class="list-group-item d-flex justify-content-between align-items-center" th:each="lecture : ${lectures}">
                         <a th:href="@{/lecture/{id}(id=${lecture.id})}" th:text="${lecture.title}"></a>
+                        <a th:href="@{/lecture/lecture{num}.html(num=${lecture.lectureNumber})}" target="_blank" class="btn btn-warning btn-sm ms-2">講義スライドを開く</a>
                     </li>
                 </ul>
             </div>
