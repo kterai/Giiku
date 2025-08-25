@@ -150,6 +150,7 @@ CREATE TABLE months (
     start_date DATE,
     end_date DATE,
     is_active BOOLEAN DEFAULT true,
+    version BIGINT DEFAULT 0 NOT NULL,
     created_by BIGINT REFERENCES users(id) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT REFERENCES users(id) NOT NULL,
@@ -165,6 +166,7 @@ COMMENT ON COLUMN months.duration_weeks IS '学習期間（週数）';
 COMMENT ON COLUMN months.start_date IS '開始日（月の開始予定日）';
 COMMENT ON COLUMN months.end_date IS '終了日（月の終了予定日）';
 COMMENT ON COLUMN months.is_active IS '有効状態（月の使用可否）';
+COMMENT ON COLUMN months.version IS 'バージョン（楽観ロック用）';
 COMMENT ON COLUMN months.created_at IS '作成日時（レコード作成時刻）';
 COMMENT ON COLUMN months.created_by IS '作成者（レコード作成したユーザーID）';
 COMMENT ON COLUMN months.updated_at IS '更新日時（レコード更新時刻）';
@@ -180,6 +182,7 @@ CREATE TABLE weeks (
     start_date DATE,
     end_date DATE,
     is_active BOOLEAN DEFAULT true,
+    version BIGINT DEFAULT 0 NOT NULL,
     created_by BIGINT REFERENCES users(id) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT REFERENCES users(id) NOT NULL,
@@ -194,6 +197,7 @@ COMMENT ON COLUMN weeks.description IS '説明（週の学習内容説明）';
 COMMENT ON COLUMN weeks.start_date IS '開始日（週の開始予定日）';
 COMMENT ON COLUMN weeks.end_date IS '終了日（週の終了予定日）';
 COMMENT ON COLUMN weeks.is_active IS '有効状態（週の使用可否）';
+COMMENT ON COLUMN weeks.version IS 'バージョン（楽観ロック用）';
 COMMENT ON COLUMN weeks.created_at IS '作成日時（レコード作成時刻）';
 COMMENT ON COLUMN weeks.created_by IS '作成者（レコード作成したユーザーID）';
 COMMENT ON COLUMN weeks.updated_at IS '更新日時（レコード更新時刻）';
@@ -208,6 +212,7 @@ CREATE TABLE days (
     description TEXT,
     scheduled_date DATE,
     is_active BOOLEAN DEFAULT true,
+    version BIGINT DEFAULT 0 NOT NULL,
     created_by BIGINT REFERENCES users(id) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT REFERENCES users(id) NOT NULL,
@@ -221,6 +226,7 @@ COMMENT ON COLUMN days.day_name IS '日名称（日の表示名）';
 COMMENT ON COLUMN days.description IS '説明（日の学習内容説明）';
 COMMENT ON COLUMN days.scheduled_date IS '予定日（日の実施予定日）';
 COMMENT ON COLUMN days.is_active IS '有効状態（日の使用可否）';
+COMMENT ON COLUMN days.version IS 'バージョン（楽観ロック用）';
 COMMENT ON COLUMN days.created_at IS '作成日時（レコード作成時刻）';
 COMMENT ON COLUMN days.created_by IS '作成者（レコード作成したユーザーID）';
 COMMENT ON COLUMN days.updated_at IS '更新日時（レコード更新時刻）';
