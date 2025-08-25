@@ -5,29 +5,78 @@
     <title th:text="${day.dayName}">Day</title>
 </head>
 <body>
-<div layout:fragment="pageheader" th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumbs})}"></div>
+<div layout:fragment="pageheader"
+     th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumbs})}"></div>
 <section layout:fragment="content">
-    <div class="container mb-5">
-        <div class="card mb-4">
-            <div class="card-header">
-                <h2 class="card-title" th:text="${day.dayName}">Day Title</h2>
-            </div>
-            <div class="card-body">
-                <p th:text="${day.description}">Description</p>
-            </div>
+  <div class="container mb-5">
+    <!-- ヘッダカード -->
+    <div class="card mb-4 shadow-sm">
+      <div class="card-body">
+        <div class="d-flex align-items-start justify-content-between">
+          <div>
+            <h2 class="h4 mb-2">
+              <i class="bi bi-calendar2-week me-2 text-primary"></i>
+              <span th:text="${day.dayName}">Day Title</span>
+            </h2>
+            <p class="text-muted mb-0" th:if="${day.description}" th:text="${day.description}">Description</p>
+          </div>
+          <div class="text-end">
+            <span class="badge rounded-pill text-bg-secondary">
+              <i class="bi bi-journal-text me-1"></i>
+              <span th:text="${lectureCount}">0</span> 件
+            </span>
+          </div>
         </div>
-        <div class="card">
-            <div class="card-header">講義一覧</div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item d-flex justify-content-between align-items-center" th:each="lecture : ${lectures}">
-                        <a th:href="@{/lecture/{id}(id=${lecture.id})}" th:text="${lecture.title}"></a>
-                        <a th:href="@{/lecture/lecture{num}.html(num=${lecture.lectureNumber})}" target="_blank" class="btn btn-warning btn-sm ms-2">講義スライドを開く</a>
-                    </li>
-                </ul>
-            </div>
+        <div class="mt-3 d-flex gap-2">
+          <a class="btn btn-outline-secondary btn-sm"
+             th:if="${prevDay != null}"
+             th:href="@{/day/day{num}(num=${prevDay.dayNumber})}">
+            <i class="bi bi-arrow-left"></i> 前の日
+          </a>
+          <a class="btn btn-outline-secondary btn-sm"
+             th:if="${nextDay != null}"
+             th:href="@{/day/day{num}(num=${nextDay.dayNumber})}">
+            次の日 <i class="bi bi-arrow-right"></i>
+          </a>
         </div>
+      </div>
     </div>
+
+    <!-- 講義リスト -->
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <span><i class="bi bi-collection-play me-2"></i>講義一覧</span>
+        <small class="text-muted" th:text="${lectureCount} + ' 件'">0 件</small>
+      </div>
+      <div class="card-body p-0">
+        <div class="list-group list-group-flush">
+          <div class="list-group-item py-3"
+               th:each="lecture : ${lectures}">
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="me-3">
+                <div class="fw-semibold" th:text="${lecture.title}">Lecture Title</div>
+                <small class="text-muted" th:if="${lecture.lectureNumber}">
+                  No.<span th:text="${lecture.lectureNumber}">1</span>
+                </small>
+              </div>
+              <div class="d-flex gap-2">
+                <a class="btn btn-sm btn-primary"
+                   th:href="@{/lecture/{id}(id=${lecture.id})}">
+                  <i class="bi bi-journal-text me-1"></i> 詳細
+                </a>
+                <a class="btn btn-sm btn-warning"
+                   th:if="${lecture.lectureNumber}"
+                   th:href="@{/lecture/lecture{num}.html(num=${lecture.lectureNumber})}"
+                   target="_blank">
+                  <i class="bi bi-sliders me-1"></i> スライド
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 </body>
 </html>

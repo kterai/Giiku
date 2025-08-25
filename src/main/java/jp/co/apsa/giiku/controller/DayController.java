@@ -1,5 +1,6 @@
 package jp.co.apsa.giiku.controller;
 
+import java.util.Optional;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,7 +65,17 @@ public class DayController extends AbstractController {
         setTitle(model, day.getDayName());
         model.addAttribute("pageTitle", day.getDayName());
         model.addAttribute("day", day);
-        model.addAttribute("lectures", lectureService.findByDayId(day.getId()));
+        var lectures = lectureService.findByDayId(day.getId());
+        model.addAttribute("lectures", lectures);
+        model.addAttribute("lectureCount", lectures != null ? lectures.size() : 0);
+
+        // 前日 / 翌日（存在する場合のみ表示）
+        int prevNo = dayNumber - 1;
+        int nextNo = dayNumber + 1;
+        Optional<Day> prevDay = prevNo >= 1 ? dayService.findByDayNumber(prevNo) : Optional.empty();
+        Optional<Day> nextDay = dayService.findByDayNumber(nextNo);
+        prevDay.ifPresent(d -> model.addAttribute("prevDay", d));
+        nextDay.ifPresent(d -> model.addAttribute("nextDay", d));
         model.addAttribute("breadcrumbs", List.of(
                 Map.of("label", "ホーム", "url", "/", "last", false),
                 Map.of("label", month != null ? month.getTitle() : "", "url", month != null ? "/month/month" + month.getMonthNumber() : "", "last", false),
