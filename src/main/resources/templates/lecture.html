@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{_layouts/lecture}">
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
@@ -10,330 +9,248 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
 </head>
-<body>
-<div layout:fragment="pageheader" th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumbs})}"></div>
 <body class="bg-gray-50 text-gray-900 leading-relaxed">
 
 <div layout:fragment="pageheader"
      th:replace="~{_fragments/headers :: page(title=${pageTitle}, breadcrumb=${breadcrumbs})}"></div>
 
 <section layout:fragment="content">
-    <div class="container mb-5">
-        <div class="card">
-            <div class="card-body">
-                <h2 th:text="${lecture.title}">Lecture Title</h2>
-                <p th:text="${lecture.description}">Description</p>
-                <main class="pt-32">
-                    <!-- 講義ヘッダー -->
-                    <header class="bg-blue-800 text-white py-4 shadow-lg">
-                        <div class="container mx-auto px-4">
-                            <h1 class="text-2xl md:text-3xl font-bold text-center mb-2">
-                                <i class="fas fa-coffee mr-2"></i>
-                                <span th:text="${lecture.title}">講義タイトル</span>
-                            </h1>
-                            <p class="text-center text-blue-200 text-lg" th:text="${lecture.description}">講義説明</p>
-                            <div class="mt-3 text-center text-sm">
+    <main class="pt-32">
+        <!-- 講義ヘッダー -->
+        <header class="bg-blue-800 text-white py-4 shadow-lg">
+            <div class="container mx-auto px-4">
+                <h1 class="text-2xl md:text-3xl font-bold text-center mb-2">
+                    <i class="fas fa-coffee mr-2"></i>
+                    <span th:text="${lecture.title}">講義タイトル</span>
+                </h1>
+                <p class="text-center text-blue-200 text-lg" th:text="${lecture.description}">講義説明</p>
+                <div class="mt-3 text-center text-sm">
                     <span class="bg-blue-700 px-3 py-1 rounded-full mr-2">
                         所要時間: <span th:text="${lecture.durationMinutes}">90</span>分
                     </span>
-                                <span class="bg-blue-700 px-3 py-1 rounded-full mr-2"
-                                      th:if="${lecture.difficultyLevel}">
+                    <span class="bg-blue-700 px-3 py-1 rounded-full mr-2"
+                          th:if="${lecture.difficultyLevel}">
                         レベル: <span th:text="${lecture.difficultyLevel}">初級</span>
                     </span>
-                                <span class="bg-blue-700 px-3 py-1 rounded-full">
+                    <span class="bg-blue-700 px-3 py-1 rounded-full">
                         講義番号: <span th:text="${lecture.lectureNumber}">1</span>
                     </span>
-                            </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container mx-auto px-4 py-8 max-w-6xl">
+
+            <!-- 学習目標セクション -->
+            <section class="bg-white rounded-lg shadow-lg p-6 mb-8" th:if="${goals != null and !goals.isEmpty()}">
+                <h2 class="text-2xl font-bold text-blue-800 mb-4">
+                    <i class="fas fa-target mr-2"></i>本日の学習目標
+                </h2>
+                <div class="space-y-4">
+                    <div th:each="goal : ${goals}">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mr-2 mt-1"></i>
+                            <span th:text="${goal.goalDescription}">学習目標項目</span>
                         </div>
-                    </header>
+                    </div>
+                </div>
+            </section>
 
-                    <div class="container mx-auto px-4 py-8 max-w-6xl">
+            <!-- コンテンツチャプターセクション -->
+            <div th:each="chapter, iterStat : ${contentChapters}" class="mb-8" th:if="${contentChapters != null and !contentChapters.isEmpty()}">
+                <section class="bg-white rounded-lg shadow-lg p-6">
+                    <h2 class="text-2xl font-bold mb-4 text-purple-800"
+                        th:text="${chapter.chapterNumber + '. ' + chapter.title}">
+                        チャプタータイトル
+                    </h2>
 
-                        <!-- 学習目標セクション -->
-                        <section class="bg-white rounded-lg shadow-lg p-6 mb-8" th:if="${goals}">
-                            <h2 class="text-2xl font-bold text-blue-800 mb-4">
-                                <i class="fas fa-target mr-2"></i>本日の学習目標
-                            </h2>
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div th:each="goalCategory : ${goals}">
-                                    <h3 class="font-bold mb-3" th:class="${goalCategory.type == 'knowledge' ? 'text-green-600' : 'text-blue-600'}">
-                                        <span th:text="${goalCategory.icon}">🎯</span>
-                                        <span th:text="${goalCategory.title}">目標タイトル</span>
-                                    </h3>
-                                    <ul class="space-y-2">
-                                        <li class="flex items-start" th:each="goal : ${goalCategory.items}">
-                                            <i class="fas fa-check-circle mr-2 mt-1"
-                                               th:class="${goalCategory.type == 'knowledge' ? 'text-green-500' : 'text-blue-500'}"></i>
-                                            <span th:utext="${goal}">学習目標項目</span>
-                                        </li>
-                                    </ul>
-                                </div>
+                    <!-- チャプター説明 -->
+                    <div th:if="${chapter.description}" class="mb-6">
+                        <p th:text="${chapter.description}">チャプター説明</p>
+                    </div>
+
+                    <!-- チャプターの所要時間 -->
+                    <div th:if="${chapter.durationMinutes}" class="mb-4">
+                        <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">
+                            所要時間: <span th:text="${chapter.durationMinutes}">30</span>分
+                        </span>
+                    </div>
+
+                    <!-- このチャプターのコンテンツブロック -->
+                    <div th:with="blocks=${chapterContentBlocks[chapter.id]}" th:if="${blocks != null and !blocks.isEmpty()}">
+                        <h3 class="text-lg font-semibold mb-4 text-gray-700">コンテンツ</h3>
+                        <div th:each="block : ${blocks}" class="mb-6 p-4 border rounded-lg">
+                            <h4 class="font-medium text-gray-800 mb-2" th:text="${block.title}">ブロックタイトル</h4>
+
+                            <div class="bg-gray-50 p-3 rounded mb-3">
+                                <span class="text-xs font-medium text-gray-500 uppercase tracking-wide"
+                                      th:text="${block.blockType}">ブロック種別</span>
                             </div>
-                        </section>
 
-                        <!-- コンテンツチャプターセクション -->
-                        <div th:each="chapter, iterStat : ${contentChapters}" class="mb-8">
-                            <section class="bg-white rounded-lg shadow-lg p-6">
-                                <h2 class="text-2xl font-bold mb-4"
-                                    th:class="${'text-' + (chapter.color ?: 'purple') + '-800'}"
-                                    th:text="${iterStat.count + '. ' + chapter.title}">
-                                    チャプタータイトル
-                                </h2>
-
-                                <!-- 講師向けポイント -->
-                                <div class="border-l-4 p-4 mb-6"
-                                     th:if="${chapter.instructorNotes}"
-                                     th:class="${'bg-' + (chapter.color ?: 'blue') + '-50 border-' + (chapter.color ?: 'blue') + '-400'}">
-                                    <h3 class="font-bold mb-2" th:class="${'text-' + (chapter.color ?: 'blue') + '-700'}">
-                                        <i class="fas fa-lightbulb mr-2"></i>講師向けポイント
-                                    </h3>
-                                    <p class="text-sm" th:utext="${chapter.instructorNotes}">講師向け注意事項</p>
-                                </div>
-
-                                <!-- チャプター説明 -->
-                                <div th:if="${chapter.description}" class="mb-6">
-                                    <p th:utext="${chapter.description}">チャプター説明</p>
-                                </div>
-
-                                <!-- コンテンツブロック -->
-                                <div th:each="block : ${chapter.contentBlocks}" class="mb-6">
-
-                                    <!-- テーブル形式のコンテンツ -->
-                                    <div th:if="${block.type == 'table'}" class="overflow-x-auto mb-6">
-                                        <table class="w-full border-collapse border border-gray-300 bg-white">
-                                            <thead>
-                                            <tr class="bg-gray-100">
-                                                <th th:each="header : ${block.headers}"
-                                                    class="border border-gray-300 p-3 text-left"
-                                                    th:text="${header}">ヘッダー</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr th:each="row, rowStat : ${block.rows}"
-                                                th:class="${rowStat.odd ? 'bg-gray-50' : ''}">
-                                                <td th:each="cell : ${row}"
-                                                    class="border border-gray-300 p-3"
-                                                    th:utext="${cell}">セル内容</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                    <!-- ステップ形式のコンテンツ -->
-                                    <div th:if="${block.type == 'steps'}" class="space-y-6">
-                                        <div th:each="step, stepStat : ${block.steps}"
-                                             class="border border-gray-200 rounded-lg p-4">
-                                            <h4 class="font-bold mb-3" th:class="${'text-' + (step.color ?: 'blue') + '-600'}">
-                                    <span class="px-2 py-1 rounded-full text-sm mr-2"
-                                          th:class="${'bg-' + (step.color ?: 'blue') + '-100'}">
-                                        <span th:text="${step.stepNumber ?: ('手順' + (stepStat.count))}">Step 1</span>
-                                    </span>
-                                                <span th:text="${step.title}">ステップタイトル</span>
-                                            </h4>
-
-                                            <div th:if="${step.description}"
-                                                 class="rounded-lg p-4 mb-4"
-                                                 th:class="${'bg-' + (step.color ?: 'blue') + '-50'}">
-                                                <p class="text-sm" th:utext="${step.description}">ステップ説明</p>
-                                            </div>
-
-                                            <!-- ステップ詳細 -->
-                                            <div th:if="${step.details}">
-                                                <ol class="space-y-2 text-sm">
-                                                    <li th:each="detail, detailStat : ${step.details}"
-                                                        class="flex items-start">
-                                            <span class="flex-shrink-0 px-2 py-1 rounded-full text-xs font-medium mr-3 mt-0.5"
-                                                  th:class="${'bg-' + (step.color ?: 'blue') + '-100 text-' + (step.color ?: 'blue') + '-800'}"
-                                                  th:text="${detailStat.count}">1</span>
-                                                        <span th:utext="${detail}">詳細内容</span>
-                                                    </li>
-                                                </ol>
-                                            </div>
-                                        </div>
+                            <div th:if="${block.content}" class="prose">
+                                <div th:switch="${block.blockType}">
+                                    <!-- テキストコンテンツ -->
+                                    <div th:case="'text'" class="prose">
+                                        <p th:utext="${block.content}">コンテンツ内容</p>
                                     </div>
 
                                     <!-- コードブロック -->
-                                    <div th:if="${block.type == 'code'}" class="code-highlight rounded-lg p-4 mb-4 bg-gray-900">
-                            <pre class="text-white overflow-x-auto"><code th:class="${'language-' + (block.language ?: 'java')}"
-                                                                          th:text="${block.code}">コード内容</code></pre>
+                                    <div th:case="'code'" class="code-highlight rounded-lg p-4 mb-4 bg-gray-900">
+                                        <pre class="text-white overflow-x-auto"><code th:text="${block.content}">コード内容</code></pre>
                                     </div>
 
-                                    <!-- 説明ボックス -->
-                                    <div th:if="${block.type == 'explanation'}"
-                                         class="rounded-lg p-4"
-                                         th:class="${'bg-' + (block.color ?: 'yellow') + '-50 border border-' + (block.color ?: 'yellow') + '-200'}">
-                                        <h4 class="font-bold mb-2"
-                                            th:class="${'text-' + (block.color ?: 'yellow') + '-800'}">
-                                            <i th:class="${block.icon ?: 'fas fa-quote-left'}" class="mr-2"></i>
-                                            <span th:text="${block.title}">説明タイトル</span>
-                                        </h4>
-                                        <p th:utext="${block.content}">説明内容</p>
+                                    <!-- 画像 -->
+                                    <div th:case="'image'" class="text-center">
+                                        <img th:src="${block.content}" th:alt="${block.title}" class="max-w-full h-auto mx-auto rounded">
                                     </div>
 
-                                    <!-- リスト形式 -->
-                                    <div th:if="${block.type == 'list'}" class="mb-4">
-                                        <h4 th:if="${block.title}" class="font-semibold mb-2" th:text="${block.title}">リストタイトル</h4>
-                                        <ul class="space-y-1" th:class="${block.listStyle ?: 'text-sm'}">
-                                            <li th:each="item : ${block.items}" th:utext="${item}">リスト項目</li>
-                                        </ul>
+                                    <!-- リスト -->
+                                    <div th:case="'list'" class="prose">
+                                        <div th:utext="${block.content}">リスト内容</div>
                                     </div>
 
-                                    <!-- アラートボックス -->
-                                    <div th:if="${block.type == 'alert'}"
-                                         class="rounded-lg p-4 border-l-4"
-                                         th:class="${'bg-' + (block.alertType ?: 'info') + '-50 border-' + (block.alertType ?: 'info') + '-400'}">
-                                        <h4 class="font-bold mb-2" th:class="${'text-' + (block.alertType ?: 'info') + '-700'}">
-                                            <i th:class="${block.icon ?: 'fas fa-info-circle'}" class="mr-2"></i>
-                                            <span th:text="${block.title}">アラートタイトル</span>
-                                        </h4>
-                                        <p class="text-sm" th:utext="${block.content}">アラート内容</p>
+                                    <!-- その他のコンテンツ -->
+                                    <div th:case="*" class="prose">
+                                        <div th:utext="${block.content}">その他のコンテンツ</div>
                                     </div>
                                 </div>
-
-                                <!-- トラブルシューティング -->
-                                <div th:if="${chapter.troubleshooting}"
-                                     class="mt-6 bg-orange-50 border-l-4 border-orange-400 p-4 rounded">
-                                    <h4 class="font-bold text-orange-700 mb-3">
-                                        <i class="fas fa-wrench mr-2"></i>よくあるトラブルと対処法
-                                    </h4>
-                                    <div class="overflow-x-auto">
-                                        <table class="w-full border-collapse border border-gray-300 text-sm">
-                                            <thead>
-                                            <tr class="bg-orange-100">
-                                                <th class="border border-gray-300 p-2 text-left">エラー症状</th>
-                                                <th class="border border-gray-300 p-2 text-left">原因</th>
-                                                <th class="border border-gray-300 p-2 text-left">対処法</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr th:each="trouble, troubleStat : ${chapter.troubleshooting}"
-                                                th:class="${troubleStat.odd ? 'bg-gray-50' : ''}">
-                                                <td class="border border-gray-300 p-2" th:text="${trouble.symptom}">エラー症状</td>
-                                                <td class="border border-gray-300 p-2" th:text="${trouble.cause}">原因</td>
-                                                <td class="border border-gray-300 p-2" th:utext="${trouble.solution}">対処法</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </section>
+                            </div>
                         </div>
-
-                        <!-- 演習問題セクション -->
-                        <section th:if="${exercises}" class="bg-white rounded-lg shadow-lg p-6 mb-8">
-                            <h2 class="text-2xl font-bold text-indigo-800 mb-4">
-                                <i class="fas fa-dumbbell mr-2"></i>演習問題
-                            </h2>
-
-                            <div th:each="exercise, exStat : ${exercises}" class="border border-gray-200 rounded-lg p-4 mb-6">
-                                <h3 class="font-bold text-blue-600 mb-3"
-                                    th:text="${'演習問題' + (exStat.count) + ': ' + exercise.title}">演習問題タイトル</h3>
-                                <p class="mb-3" th:utext="${exercise.description}">問題説明</p>
-
-                                <ol th:if="${exercise.questions}" class="space-y-2 mb-4">
-                                    <li th:each="question, qStat : ${exercise.questions}"
-                                        th:text="${(qStat.count) + '. ' + question}">質問内容</li>
-                                </ol>
-
-                                <button th:onclick="'toggleAnswer(\'answer' + ${exStat.count} + '\')'"
-                                        class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
-                                    <i class="fas fa-eye mr-2"></i>回答例を表示
-                                </button>
-
-                                <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')"
-                                     th:id="'answer' + ${exStat.count}"
-                                     class="answer-content mt-4 bg-blue-50 border-l-4 border-blue-400 p-4 rounded"
-                                     style="display: none;">
-                                    <h4 class="font-semibold mb-2">回答例：</h4>
-                                    <div class="space-y-3 text-sm">
-                                        <div th:each="answer : ${exercise.answers}">
-                                            <p class="font-medium" th:text="${answer.question}">質問</p>
-                                            <p th:utext="${answer.answer}">回答</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- 追加リソース -->
-                        <section th:if="${additionalResources}" class="bg-white rounded-lg shadow-lg p-6 mb-8">
-                            <h2 class="text-2xl font-bold text-purple-800 mb-4">
-                                <i class="fas fa-link mr-2"></i>追加学習リソース
-                            </h2>
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <div th:each="resource : ${additionalResources}">
-                                    <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                                        <h4 class="font-semibold mb-2" th:text="${resource.title}">リソースタイトル</h4>
-                                        <p class="text-sm text-gray-600 mb-2" th:text="${resource.description}">説明</p>
-                                        <a th:href="${resource.url}" target="_blank"
-                                           class="text-blue-600 hover:text-blue-800 text-sm">
-                                            <i class="fas fa-external-link-alt mr-1"></i>
-                                            <span th:text="${resource.linkText ?: 'リンクを開く'}">リンクテキスト</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-
-                        <!-- ナビゲーション -->
-                        <section class="flex justify-between items-center bg-white rounded-lg shadow-lg p-6">
-                            <div>
-                                <a th:if="${previousLecture}"
-                                   th:href="@{/lecture/{id}(id=${previousLecture.id})}"
-                                   class="inline-flex items-center px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors">
-                                    <i class="fas fa-arrow-left mr-2"></i>
-                                    前の講義: <span th:text="${previousLecture.title}">前の講義</span>
-                                </a>
-                            </div>
-                            <div>
-                                <a th:if="${nextLecture}"
-                                   th:href="@{/lecture/{id}(id=${nextLecture.id})}"
-                                   class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
-                                    次の講義: <span th:text="${nextLecture.title}">次の講義</span>
-                                    <i class="fas fa-arrow-right ml-2"></i>
-                                </a>
-                            </div>
-                        </section>
                     </div>
-                </main>
 
-                <!-- JavaScript -->
-                <script>
-                    function toggleAnswer(answerId) {
-                        const answerElement = document.getElementById(answerId);
-                        if (answerElement) {
-                            const isHidden = answerElement.style.display === 'none';
-                            answerElement.style.display = isHidden ? 'block' : 'none';
+                    <!-- コンテンツブロックがない場合のメッセージ -->
+                    <div th:if="${chapterContentBlocks[chapter.id] == null or chapterContentBlocks[chapter.id].isEmpty()}"
+                         class="bg-gray-50 p-4 rounded-lg text-center text-gray-500">
+                        <p>このチャプターのコンテンツは準備中です。</p>
+                    </div>
+                </section>
+            </div>
 
-                            // ボタンテキストを変更
-                            const button = document.querySelector(`[onclick*="${answerId}"]`);
-                            if (button) {
-                                const icon = button.querySelector('i');
-                                const text = button.querySelector('i + *') || button.childNodes[1];
-                                if (isHidden) {
-                                    icon.className = 'fas fa-eye-slash mr-2';
-                                    text.textContent = '回答例を非表示';
-                                } else {
-                                    icon.className = 'fas fa-eye mr-2';
-                                    text.textContent = '回答例を表示';
-                                }
-                            }
-                        }
+            <!-- チャプターがない場合のメッセージ -->
+            <section th:if="${contentChapters == null or contentChapters.isEmpty()}"
+                     class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <div class="text-center text-gray-500">
+                    <i class="fas fa-book-open text-4xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">コンテンツ準備中</h3>
+                    <p>この講義のコンテンツは現在準備中です。しばらくお待ちください。</p>
+                </div>
+            </section>
+
+            <!-- 演習問題セクション -->
+            <section th:if="${exercises != null and !exercises.isEmpty()}" class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-indigo-800 mb-4">
+                    <i class="fas fa-dumbbell mr-2"></i>演習問題
+                </h2>
+
+                <div th:each="exercise, exStat : ${exercises}" class="border border-gray-200 rounded-lg p-4 mb-6">
+                    <h3 class="font-bold text-blue-600 mb-3"
+                        th:text="${'演習問題' + (exStat.count) + ': ' + exercise.title}">演習問題タイトル</h3>
+                    <p class="mb-3" th:utext="${exercise.description}">問題説明</p>
+
+                    <ol th:if="${exercise.questions}" class="space-y-2 mb-4">
+                        <li th:each="question, qStat : ${exercise.questions}"
+                            th:text="${(qStat.count) + '. ' + question}">質問内容</li>
+                    </ol>
+
+                    <button th:onclick="'toggleAnswer(\'answer' + ${exStat.count} + '\')'"
+                            class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors">
+                        <i class="fas fa-eye mr-2"></i>回答例を表示
+                    </button>
+
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')"
+                         th:id="'answer' + ${exStat.count}"
+                         class="answer-content mt-4 bg-blue-50 border-l-4 border-blue-400 p-4 rounded"
+                         style="display: none;">
+                        <h4 class="font-semibold mb-2">回答例：</h4>
+                        <div class="space-y-3 text-sm">
+                            <div th:each="answer : ${exercise.answers}">
+                                <p class="font-medium" th:text="${answer.question}">質問</p>
+                                <p th:utext="${answer.answer}">回答</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 追加リソース -->
+            <section th:if="${additionalResources != null and !additionalResources.isEmpty()}" class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-purple-800 mb-4">
+                    <i class="fas fa-link mr-2"></i>追加学習リソース
+                </h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div th:each="resource : ${additionalResources}">
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                            <h4 class="font-semibold mb-2" th:text="${resource.title}">リソースタイトル</h4>
+                            <p class="text-sm text-gray-600 mb-2" th:text="${resource.description}">説明</p>
+                            <a th:href="${resource.url}" target="_blank"
+                               class="text-blue-600 hover:text-blue-800 text-sm">
+                                <i class="fas fa-external-link-alt mr-1"></i>
+                                <span th:text="${resource.linkText ?: 'リンクを開く'}">リンクテキスト</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ナビゲーション -->
+            <section class="flex justify-between items-center bg-white rounded-lg shadow-lg p-6">
+                <div>
+                    <a th:if="${previousLecture}"
+                       th:href="@{/lecture/{id}(id=${previousLecture.id})}"
+                       class="inline-flex items-center px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors">
+                        <i class="fas fa-arrow-left mr-2"></i>
+                        前の講義: <span th:text="${previousLecture.title}">前の講義</span>
+                    </a>
+                </div>
+                <div>
+                    <a th:if="${nextLecture}"
+                       th:href="@{/lecture/{id}(id=${nextLecture.id})}"
+                       class="inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+                        次の講義: <span th:text="${nextLecture.title}">次の講義</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        function toggleAnswer(answerId) {
+            const answerElement = document.getElementById(answerId);
+            if (answerElement) {
+                const isHidden = answerElement.style.display === 'none';
+                answerElement.style.display = isHidden ? 'block' : 'none';
+
+                // ボタンテキストを変更
+                const button = document.querySelector(`[onclick*="${answerId}"]`);
+                if (button) {
+                    const icon = button.querySelector('i');
+                    const text = button.querySelector('i + *') || button.childNodes[1];
+                    if (isHidden) {
+                        icon.className = 'fas fa-eye-slash mr-2';
+                        text.textContent = '回答例を非表示';
+                    } else {
+                        icon.className = 'fas fa-eye mr-2';
+                        text.textContent = '回答例を表示';
                     }
+                }
+            }
+        }
 
-                    // コードブロックの構文ハイライト
-                    document.addEventListener('DOMContentLoaded', function() {
-                        // Prism.jsがロードされている場合のみ実行
-                        if (typeof Prism !== 'undefined') {
-                            Prism.highlightAll();
-                        }
-                    });
-                </script>
+        // コードブロックの構文ハイライト
+        document.addEventListener('DOMContentLoaded', function() {
+            // Prism.jsがロードされている場合のみ実行
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+        });
+    </script>
 
-                <!-- Syntax Highlighting -->
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-java.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-sql.min.js"></script>
+    <!-- Syntax Highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-sql.min.js"></script>
 </section>
 </body>
 </html>
