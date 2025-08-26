@@ -1,6 +1,5 @@
 package jp.co.apsa.giiku.controller;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Map;
 
 import jp.co.apsa.giiku.domain.entity.Day;
@@ -115,20 +113,8 @@ public class LectureViewController extends AbstractController {
             chapterContentBlocks.put(chapter.getId(), blocks);
         }
         model.addAttribute("chapterContentBlocks", chapterContentBlocks);
-        
-        model.addAttribute("exercises", null);
-        model.addAttribute("additionalResources", null);
 
-        // JSONフィールドをパース
-        logger.debug("=== Lecture Debug Info ===");
-        logger.debug("Lecture ID: {}", lecture.getId());
-        logger.debug("Goals JSON: '{}'", lecture.getGoals());
-        logger.debug("Content Chapters JSON: '{}'", lecture.getContentChapters());
-        logger.debug("Content Blocks JSON: '{}'", lecture.getContentBlocks());
-        
-        model.addAttribute("goals", parseJsonField(lecture.getGoals(), List.class));
-        model.addAttribute("contentChapters", parseJsonField(lecture.getContentChapters(), List.class));
-        model.addAttribute("contentBlocks", parseJsonField(lecture.getContentBlocks(), List.class));
+        // JSONフィールド（演習・追加リソース）をパース
         model.addAttribute("exercises", parseJsonField(getExercisesJson(lecture), List.class));
         model.addAttribute("additionalResources", parseJsonField(getAdditionalResourcesJson(lecture), List.class));
         
