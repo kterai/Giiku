@@ -7,6 +7,12 @@
 - Keep the monthly plan in this README consistent with any curriculum updates.
 - CSS や JS ライブラリは WebJar を利用し、Thymeleaf の `th:` 属性で読み込む。
 
+- 次のディレクトリ配下のファイルは変更しないこと:
+  - `src/main/resources/templates/month/`
+  - `src/main/resources/templates/week/`
+  - `src/main/resources/templates/day/`
+  - `src/main/resources/templates/lecture/`
+
 - すべての Web ページはスマートフォンでも閲覧しやすいレスポンシブデザインとする。
 
 - Codex は質問への回答を原則日本語で行う。
