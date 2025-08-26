@@ -69,14 +69,10 @@ public class DozerConfig {
                                 .exclude("updatedAt");
                         mapping(Quiz.class, Quiz.class, TypeMappingOptions.oneWay())
                                 .exclude("id")
-                                .exclude("version")
-                                .exclude("createdBy")
                                 .exclude("createdAt")
-                                .exclude("updatedBy")
                                 .exclude("updatedAt");
                         mapping(QuestionBank.class, QuestionBank.class, TypeMappingOptions.oneWay())
                                 .exclude("id")
-                                .exclude("version")
                                 .exclude("createdBy")
                                 .exclude("createdAt")
                                 .exclude("updatedBy")
@@ -96,8 +92,7 @@ public class DozerConfig {
                                 .exclude("updatedBy")
                                 .exclude("updatedAt");
                         mapping(MockTest.class, MockTest.class, TypeMappingOptions.oneWay())
-                                .exclude("id")
-                                .exclude("version")
+                                .exclude("testId")
                                 .exclude("createdBy")
                                 .exclude("createdAt")
                                 .exclude("updatedBy")
