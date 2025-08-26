@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map;
 
@@ -23,6 +24,12 @@ import jp.co.apsa.giiku.domain.entity.Lecture;
 import jp.co.apsa.giiku.domain.entity.Month;
 import jp.co.apsa.giiku.domain.entity.Week;
 import jp.co.apsa.giiku.service.DayService;
+import jp.co.apsa.giiku.service.LectureChapterService;
+import jp.co.apsa.giiku.service.LectureGoalService;
+import jp.co.apsa.giiku.service.LectureContentBlockService;
+import jp.co.apsa.giiku.domain.entity.LectureChapter;
+import jp.co.apsa.giiku.domain.entity.LectureGoal;
+import jp.co.apsa.giiku.domain.entity.LectureContentBlock;
 import jp.co.apsa.giiku.service.LectureService;
 import jp.co.apsa.giiku.service.MonthService;
 import jp.co.apsa.giiku.service.WeekService;
@@ -49,6 +56,13 @@ public class LectureViewController extends AbstractController {
     private WeekService weekService;
     @Autowired
     private MonthService monthService;
+
+    @Autowired
+    private LectureChapterService lectureChapterService;
+    @Autowired
+    private LectureGoalService lectureGoalService;
+    @Autowired
+    private LectureContentBlockService lectureContentBlockService;
 
     /**
      * 静的講義スライドを表示します。
@@ -79,6 +93,31 @@ public class LectureViewController extends AbstractController {
         setTitle(model, lecture.getTitle());
         model.addAttribute("pageTitle", lecture.getTitle());
         model.addAttribute("lecture", lecture);
+
+        // 正規化されたテーブルからデータを取得
+        logger.debug("=== Lecture Debug Info ===");
+        logger.debug("Lecture ID: {}", lecture.getId());
+        
+        // 正規化テーブルからデータ取得
+        List<LectureGoal> goals = lectureGoalService.findByLectureIdOrderBySortOrder(lecture.getId());
+        List<LectureChapter> chapters = lectureChapterService.findByLectureIdOrderBySortOrder(lecture.getId());
+        
+        logger.debug("Found {} goals", goals.size());
+        logger.debug("Found {} chapters", chapters.size());
+        
+        model.addAttribute("goals", goals);
+        model.addAttribute("contentChapters", chapters);
+        
+        // 各チャプターのコンテンツブロックを取得
+        Map<Long, List<LectureContentBlock>> chapterContentBlocks = new HashMap<>();
+        for (LectureChapter chapter : chapters) {
+            List<LectureContentBlock> blocks = lectureContentBlockService.findByChapterIdOrderBySortOrder(chapter.getId());
+            chapterContentBlocks.put(chapter.getId(), blocks);
+        }
+        model.addAttribute("chapterContentBlocks", chapterContentBlocks);
+        
+        model.addAttribute("exercises", null);
+        model.addAttribute("additionalResources", null);
 
         // JSONフィールドをパース
         logger.debug("=== Lecture Debug Info ===");
