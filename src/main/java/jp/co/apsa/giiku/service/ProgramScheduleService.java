@@ -25,6 +25,7 @@ import jp.co.apsa.giiku.dto.ProgramScheduleResponseDto;
 import jp.co.apsa.giiku.dto.ProgramScheduleSearchDto;
 import jp.co.apsa.giiku.dto.ProgramScheduleStatsDto;
 import jp.co.apsa.giiku.dto.ProgramScheduleUpdateDto;
+import com.github.dozermapper.core.Mapper;
 
 /**
  * ProgramSchedule（プログラムスケジュール）に関するビジネスロジックを提供するサービスクラス。
@@ -42,6 +43,9 @@ public class ProgramScheduleService {
 
     @Autowired
     private TrainingProgramRepository trainingProgramRepository;
+
+    @Autowired
+    private Mapper mapper;
 
     /**
      * 全てのプログラムスケジュールを取得
@@ -340,12 +344,7 @@ public class ProgramScheduleService {
 
     public ProgramScheduleResponseDto duplicateSchedule(Long id, String newStartDate, String newEndDate) {
         ProgramSchedule original = programScheduleRepository.findById(id).orElseThrow();
-        ProgramSchedule copy = new ProgramSchedule();
-        copy.setProgramId(original.getProgramId());
-        copy.setInstructorId(original.getInstructorId());
-        copy.setScheduleStatus(original.getScheduleStatus());
-        copy.setMaxStudents(original.getMaxStudents());
-        copy.setCurrentStudents(original.getCurrentStudents());
+        ProgramSchedule copy = mapper.map(original, ProgramSchedule.class);
         copy.setStartDate(newStartDate != null ? LocalDate.parse(newStartDate) : original.getStartDate());
         copy.setEndDate(newEndDate != null ? LocalDate.parse(newEndDate) : original.getEndDate());
         ProgramSchedule saved = programScheduleRepository.save(copy);

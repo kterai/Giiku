@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import jp.co.apsa.giiku.service.MonthService;
+import jp.co.apsa.giiku.service.WeekService;
+import jp.co.apsa.giiku.service.DayService;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.security.web.csrf.DefaultCsrfToken;
 import org.springframework.test.web.servlet.MockMvc;
@@ -23,6 +27,15 @@ class LoginControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private MonthService monthService;
+
+    @MockBean
+    private WeekService weekService;
+
+    @MockBean
+    private DayService dayService;
 
     private CsrfToken csrfToken() {
         return new DefaultCsrfToken("X-CSRF-TOKEN", "_csrf", "token");
