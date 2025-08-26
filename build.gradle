@@ -66,6 +66,9 @@ dependencies {
 
     // Object Mapping
     implementation 'com.github.dozermapper:dozer-core:6.5.2'
+    // JAXB (for Dozer)
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.2'
 
     // WebJars
     implementation 'org.webjars.npm:bootstrap:5.3.3'
