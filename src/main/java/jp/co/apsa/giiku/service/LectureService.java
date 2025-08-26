@@ -25,6 +25,11 @@ public class LectureService {
     @Autowired
     private LectureRepository lectureRepository;
 
+    /** 指定された日IDの講義を講義番号順で取得 */
+    public List<Lecture> findByDayIdOrderByLectureNumber(Long dayId) {
+        return lectureRepository.findByDayIdOrderByLectureNumber(dayId);
+    }
+
     /** すべての講義を取得 */
     @Transactional(readOnly = true)
     public List<Lecture> findAll() {

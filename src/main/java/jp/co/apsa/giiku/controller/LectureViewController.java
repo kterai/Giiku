@@ -1,5 +1,9 @@
 package jp.co.apsa.giiku.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -11,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Map;
 
 import jp.co.apsa.giiku.domain.entity.Day;
@@ -32,6 +37,9 @@ import jp.co.apsa.giiku.service.WeekService;
 @Controller
 @RequestMapping("/lecture")
 public class LectureViewController extends AbstractController {
+
+    private static final Logger logger = LoggerFactory.getLogger(LectureViewController.class);
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private LectureService lectureService;
@@ -63,6 +71,7 @@ public class LectureViewController extends AbstractController {
     public String lecture(@PathVariable Long id, Model model) {
         Lecture lecture = lectureService.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        
         Day day = lecture.getDayId() != null ? dayService.findById(lecture.getDayId()).orElse(null) : null;
         Week week = day != null ? weekService.findById(day.getWeekId()).orElse(null) : null;
         Month month = week != null ? monthService.findById(week.getMonthId()).orElse(null) : null;
@@ -71,6 +80,22 @@ public class LectureViewController extends AbstractController {
         model.addAttribute("pageTitle", lecture.getTitle());
         model.addAttribute("lecture", lecture);
 
+        // JSONフィールドをパース
+        logger.debug("=== Lecture Debug Info ===");
+        logger.debug("Lecture ID: {}", lecture.getId());
+        logger.debug("Goals JSON: '{}'", lecture.getGoals());
+        logger.debug("Content Chapters JSON: '{}'", lecture.getContentChapters());
+        logger.debug("Content Blocks JSON: '{}'", lecture.getContentBlocks());
+        
+        model.addAttribute("goals", parseJsonField(lecture.getGoals(), List.class));
+        model.addAttribute("contentChapters", parseJsonField(lecture.getContentChapters(), List.class));
+        model.addAttribute("contentBlocks", parseJsonField(lecture.getContentBlocks(), List.class));
+        model.addAttribute("exercises", parseJsonField(getExercisesJson(lecture), List.class));
+        model.addAttribute("additionalResources", parseJsonField(getAdditionalResourcesJson(lecture), List.class));
+        
+        // 前後の講義を取得
+        setPreviousNextLectures(model, lecture);
+        
         List<Map<String, Object>> breadcrumbs = new ArrayList<>();
         breadcrumbs.add(Map.of("label", "ホーム", "url", "/", "last", false));
         if (month != null) {
@@ -84,6 +109,98 @@ public class LectureViewController extends AbstractController {
         }
         breadcrumbs.add(Map.of("label", lecture.getTitle(), "url", "/lecture/" + id, "last", true));
         model.addAttribute("breadcrumbs", breadcrumbs);
+        
         return "lecture";
+    }
+
+    /**
+     * JSONフィールドをパースして指定の型に変換
+     */
+    private <T> T parseJsonField(String jsonString, Class<T> targetType) {
+        if (jsonString == null || jsonString.trim().isEmpty()) {
+            logger.debug("JSON string is null or empty: '{}'", jsonString);
+            return null;
+        }
+        try {
+            return objectMapper.readValue(jsonString, targetType);
+        } catch (Exception e) {
+            logger.warn("Failed to parse JSON field: " + jsonString, e);
+            return null;
+        }
+    }
+
+    /**
+     * 演習問題のJSONを取得（将来的にDBフィールドに追加予定）
+     */
+    private String getExercisesJson(Lecture lecture) {
+        // 現時点では固定値、将来的にはlecture.getExercises()など
+        return """
+            [
+                {
+                    "title": "Javaの特徴理解",
+                    "description": "以下の質問に答えてください：",
+                    "questions": [
+                        "Javaが「Write Once, Run Anywhere」と呼ばれる理由を、具体例を交えて説明してください。",
+                        "JDK、JRE、JVMの違いと役割を説明してください。",
+                        "なぜJavaでメモリ管理を意識する必要が少ないのか説明してください。"
+                    ],
+                    "answers": [
+                        {
+                            "question": "1. 「Write Once, Run Anywhere」の理由：",
+                            "answer": "Javaコードは一度コンパイルするとバイトコードという中間言語に変換され、JVM（Java仮想マシン）上で実行される。JVMが各OS（Windows、Mac、Linux）に対応しているため、同じバイトコードがどのプラットフォームでも動作する。"
+                        },
+                        {
+                            "question": "2. JDK、JRE、JVMの違い：",
+                            "answer": "<ul><li><strong>JVM</strong>：Javaプログラムを実行する仮想マシン</li><li><strong>JRE</strong>：Java実行環境（JVM + ライブラリ）</li><li><strong>JDK</strong>：Java開発キット（JRE + 開発ツール）</li></ul>"
+                        }
+                    ]
+                }
+            ]
+            """;
+    }
+
+    /**
+     * 追加リソースのJSONを取得（将来的にDBフィールドに追加予定）
+     */
+    private String getAdditionalResourcesJson(Lecture lecture) {
+        // 現時点では固定値、将来的にはlecture.getAdditionalResources()など
+        return """
+            [
+                {
+                    "title": "Oracle Java公式ドキュメント",
+                    "description": "Java言語仕様とAPIドキュメント",
+                    "url": "https://docs.oracle.com/javase/17/",
+                    "linkText": "公式ドキュメントを見る"
+                },
+                {
+                    "title": "Java Silver試験対策",
+                    "description": "Oracle Certified Java Programmer Silver SE 17",
+                    "url": "https://education.oracle.com/java-se-17-developer/pexam_1Z0-829",
+                    "linkText": "試験詳細を確認"
+                }
+            ]
+            """;
+    }
+
+    /**
+     * 前後の講義を設定
+     */
+    private void setPreviousNextLectures(Model model, Lecture currentLecture) {
+        try {
+            // 同じ日の前後の講義を取得
+            if (currentLecture.getDayId() != null) {
+                List<Lecture> dayLectures = lectureService.findByDayIdOrderByLectureNumber(currentLecture.getDayId());
+                
+                for (int i = 0; i < dayLectures.size(); i++) {
+                    if (dayLectures.get(i).getId().equals(currentLecture.getId())) {
+                        if (i > 0) model.addAttribute("previousLecture", dayLectures.get(i - 1));
+                        if (i < dayLectures.size() - 1) model.addAttribute("nextLecture", dayLectures.get(i + 1));
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.warn("Failed to set previous/next lectures", e);
+        }
     }
 }
