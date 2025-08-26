@@ -11,6 +11,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.dozermapper.core.Mapper;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +31,9 @@ public class LectureChapterService {
 
     @Autowired
     private LectureChapterRepository lectureChapterRepository;
+
+    @Autowired
+    private Mapper mapper;
 
     /**
      * チャプター一覧を取得する（ページング・ソート対応）
@@ -179,15 +184,11 @@ public class LectureChapterService {
     public LectureChapterResponseDto duplicateChapter(Long id, Long targetLectureId) {
         return lectureChapterRepository.findById(id)
                 .map(originalChapter -> {
-                    LectureChapter duplicatedChapter = new LectureChapter();
+                    LectureChapter duplicatedChapter = mapper.map(originalChapter, LectureChapter.class);
                     duplicatedChapter.setLectureId(targetLectureId != null ? targetLectureId : originalChapter.getLectureId());
                     duplicatedChapter.setChapterNumber(getNextChapterNumber(duplicatedChapter.getLectureId()));
                     duplicatedChapter.setTitle(originalChapter.getTitle() + " (コピー)");
-                    duplicatedChapter.setDescription(originalChapter.getDescription());
-                    duplicatedChapter.setDurationMinutes(originalChapter.getDurationMinutes());
                     duplicatedChapter.setSortOrder(getNextSortOrder(duplicatedChapter.getLectureId()));
-                    duplicatedChapter.setIsActive(originalChapter.getIsActive());
-
                     LectureChapter saved = lectureChapterRepository.save(duplicatedChapter);
                     return convertToResponseDto(saved);
                 })

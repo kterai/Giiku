@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import jp.co.apsa.giiku.service.MonthService;
+import jp.co.apsa.giiku.service.WeekService;
+import jp.co.apsa.giiku.service.DayService;
 import org.springframework.test.web.servlet.MockMvc;
 
 /**
@@ -27,6 +30,15 @@ class DashboardControllerTest {
 
     @MockBean
     private DashboardService dashboardService;
+
+    @MockBean
+    private MonthService monthService;
+
+    @MockBean
+    private WeekService weekService;
+
+    @MockBean
+    private DayService dayService;
 
     @org.springframework.boot.autoconfigure.SpringBootApplication(
         exclude = {
