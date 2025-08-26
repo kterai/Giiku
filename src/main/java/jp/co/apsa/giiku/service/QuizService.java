@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import jakarta.persistence.criteria.Predicate;
+import com.github.dozermapper.core.Mapper;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,9 @@ public class QuizService {
 
     @Autowired
     private TrainingProgramRepository trainingProgramRepository;
+
+    @Autowired
+    private Mapper mapper;
 
     /** 全てのクイズを取得 */
     @Transactional(readOnly = true)
@@ -94,11 +98,7 @@ public class QuizService {
         validateQuiz(quiz);
 
         // 基本情報の更新
-        existing.setStudentAnswers(quiz.getStudentAnswers());
-        existing.setScore(quiz.getScore());
-        existing.setStatus(quiz.getStatus());
-        existing.setEndTime(quiz.getEndTime());
-        existing.setTimeSpent(quiz.getTimeSpent());
+        mapper.map(quiz, existing);
         existing.setUpdatedAt(LocalDateTime.now());
 
         return quizRepository.save(existing);

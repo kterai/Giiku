@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import com.github.dozermapper.core.Mapper;
 
 /**
  * MockTestサービスクラス
@@ -44,6 +45,9 @@ public class MockTestService {
 
     @Autowired
     private CompanyRepository companyRepository;
+
+    @Autowired
+    private Mapper mapper;
 
     /** 全てのモックテストを取得 */
     @Transactional(readOnly = true)
@@ -103,14 +107,7 @@ public class MockTestService {
         validateMockTest(mockTest);
 
         // 基本情報の更新
-        existingTest.setTitle(mockTest.getTitle());
-        existingTest.setDescription(mockTest.getDescription());
-        existingTest.setTestType(mockTest.getTestType());
-        existingTest.setDuration(mockTest.getDuration());
-        existingTest.setTotalQuestions(mockTest.getTotalQuestions());
-        existingTest.setPassingScore(mockTest.getPassingScore());
-        existingTest.setDifficultyLevel(mockTest.getDifficultyLevel());
-        existingTest.setIsActive(mockTest.getIsActive());
+        mapper.map(mockTest, existingTest);
         existingTest.setUpdatedAt(LocalDateTime.now());
 
         return mockTestRepository.save(existingTest);

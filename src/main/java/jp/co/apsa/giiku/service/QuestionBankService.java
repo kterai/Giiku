@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import com.github.dozermapper.core.Mapper;
 
 /**
  * QuestionBankサービスクラス
@@ -27,6 +28,9 @@ public class QuestionBankService {
 
     @Autowired
     private QuestionBankRepository questionBankRepository;
+
+    @Autowired
+    private Mapper mapper;
 
     @Transactional(readOnly = true)
     public List<QuestionBank> findAll() {
@@ -65,16 +69,7 @@ public class QuestionBankService {
 
         validateQuestion(question);
 
-        existing.setLectureId(question.getLectureId());
-        existing.setQuestionNumber(question.getQuestionNumber());
-        existing.setQuestionType(question.getQuestionType());
-        existing.setQuestionText(question.getQuestionText());
-        existing.setQuestionOptions(question.getQuestionOptions());
-        existing.setCorrectAnswer(question.getCorrectAnswer());
-        existing.setExplanation(question.getExplanation());
-        existing.setDifficultyLevel(question.getDifficultyLevel());
-        existing.setPoints(question.getPoints());
-        existing.setIsActive(question.getIsActive());
+        mapper.map(question, existing);
         existing.setUpdatedAt(LocalDateTime.now());
 
         return questionBankRepository.save(existing);

@@ -9,14 +9,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.MapperModelContext;
+import com.github.dozermapper.core.metadata.MappingMetadata;
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -48,13 +52,58 @@ class MockTestServiceTest {
     @Mock
     private CompanyRepository companyRepository;
 
-    @InjectMocks
     private MockTestService mockTestService;
+    private Mapper mapper;
 
     private MockTest mockTest;
 
     @BeforeEach
     void setUp() {
+        mapper = new Mapper() {
+            @Override
+            public <T> T map(Object source, Class<T> destinationClass) {
+                if (source == null) {
+                    throw new NullPointerException();
+                }
+                try {
+                    T dest = destinationClass.getDeclaredConstructor().newInstance();
+                    BeanUtils.copyProperties(source, dest);
+                    return dest;
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public void map(Object source, Object destination) {
+                if (source == null || destination == null) {
+                    throw new NullPointerException();
+                }
+                BeanUtils.copyProperties(source, destination);
+            }
+
+            @Override
+            public <T> T map(Object source, Class<T> destinationClass, String mapId) {
+                return map(source, destinationClass);
+            }
+
+            @Override
+            public void map(Object source, Object destination, String mapId) {
+                map(source, destination);
+            }
+
+            @Override
+            public MappingMetadata getMappingMetadata() { return null; }
+
+            @Override
+            public MapperModelContext getMapperModelContext() { return null; }
+        };
+        mockTestService = new MockTestService();
+        ReflectionTestUtils.setField(mockTestService, "mockTestRepository", mockTestRepository);
+        ReflectionTestUtils.setField(mockTestService, "trainingProgramRepository", trainingProgramRepository);
+        ReflectionTestUtils.setField(mockTestService, "companyRepository", companyRepository);
+        ReflectionTestUtils.setField(mockTestService, "mapper", mapper);
+
         mockTest = new MockTest();
         mockTest.setTestId(1L);
         mockTest.setProgramId(10L);

@@ -10,6 +10,13 @@ import com.github.dozermapper.core.loader.api.TypeMappingOptions;
 
 import jp.co.apsa.giiku.domain.entity.LectureChapter;
 import jp.co.apsa.giiku.domain.entity.ProgramSchedule;
+import jp.co.apsa.giiku.domain.entity.StudentProfile;
+import jp.co.apsa.giiku.domain.entity.StudentEnrollment;
+import jp.co.apsa.giiku.domain.entity.Quiz;
+import jp.co.apsa.giiku.domain.entity.QuestionBank;
+import jp.co.apsa.giiku.domain.entity.Instructor;
+import jp.co.apsa.giiku.domain.entity.UserRole;
+import jp.co.apsa.giiku.domain.entity.MockTest;
 
 /**
  * Dozer の設定を提供するコンフィグレーションクラス。
@@ -40,6 +47,55 @@ public class DozerConfig {
                                 .exclude("updatedBy")
                                 .exclude("updatedAt");
                         mapping(LectureChapter.class, LectureChapter.class, TypeMappingOptions.oneWay())
+                                .exclude("id")
+                                .exclude("version")
+                                .exclude("createdBy")
+                                .exclude("createdAt")
+                                .exclude("updatedBy")
+                                .exclude("updatedAt");
+                        mapping(StudentProfile.class, StudentProfile.class, TypeMappingOptions.oneWay())
+                                .exclude("id")
+                                .exclude("version")
+                                .exclude("createdBy")
+                                .exclude("createdAt")
+                                .exclude("updatedBy")
+                                .exclude("updatedAt");
+                        mapping(StudentEnrollment.class, StudentEnrollment.class, TypeMappingOptions.oneWay())
+                                .exclude("id")
+                                .exclude("version")
+                                .exclude("createdBy")
+                                .exclude("createdAt")
+                                .exclude("updatedBy")
+                                .exclude("updatedAt");
+                        mapping(Quiz.class, Quiz.class, TypeMappingOptions.oneWay())
+                                .exclude("id")
+                                .exclude("version")
+                                .exclude("createdBy")
+                                .exclude("createdAt")
+                                .exclude("updatedBy")
+                                .exclude("updatedAt");
+                        mapping(QuestionBank.class, QuestionBank.class, TypeMappingOptions.oneWay())
+                                .exclude("id")
+                                .exclude("version")
+                                .exclude("createdBy")
+                                .exclude("createdAt")
+                                .exclude("updatedBy")
+                                .exclude("updatedAt");
+                        mapping(Instructor.class, Instructor.class, TypeMappingOptions.oneWay())
+                                .exclude("id")
+                                .exclude("version")
+                                .exclude("createdBy")
+                                .exclude("createdAt")
+                                .exclude("updatedBy")
+                                .exclude("updatedAt");
+                        mapping(UserRole.class, UserRole.class, TypeMappingOptions.oneWay())
+                                .exclude("id")
+                                .exclude("version")
+                                .exclude("createdBy")
+                                .exclude("createdAt")
+                                .exclude("updatedBy")
+                                .exclude("updatedAt");
+                        mapping(MockTest.class, MockTest.class, TypeMappingOptions.oneWay())
                                 .exclude("id")
                                 .exclude("version")
                                 .exclude("createdBy")

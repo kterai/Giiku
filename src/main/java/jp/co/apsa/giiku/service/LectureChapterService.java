@@ -90,13 +90,7 @@ public class LectureChapterService {
      * @return 作成されたチャプター
      */
     public LectureChapterResponseDto createChapter(LectureChapterCreateDto dto) {
-        LectureChapter chapter = new LectureChapter();
-        chapter.setLectureId(dto.getLectureId());
-        chapter.setChapterNumber(dto.getChapterNumber());
-        chapter.setTitle(dto.getTitle());
-        chapter.setDescription(dto.getDescription());
-        chapter.setDurationMinutes(dto.getDurationMinutes());
-        chapter.setSortOrder(dto.getSortOrder());
+        LectureChapter chapter = mapper.map(dto, LectureChapter.class);
         chapter.setIsActive(dto.getIsActive() != null ? dto.getIsActive() : true);
 
         LectureChapter saved = lectureChapterRepository.save(chapter);
@@ -113,25 +107,7 @@ public class LectureChapterService {
     public Optional<LectureChapterResponseDto> updateChapter(Long id, LectureChapterUpdateDto dto) {
         return lectureChapterRepository.findById(id)
                 .map(chapter -> {
-                    if (dto.getChapterNumber() != null) {
-                        chapter.setChapterNumber(dto.getChapterNumber());
-                    }
-                    if (dto.getTitle() != null) {
-                        chapter.setTitle(dto.getTitle());
-                    }
-                    if (dto.getDescription() != null) {
-                        chapter.setDescription(dto.getDescription());
-                    }
-                    if (dto.getDurationMinutes() != null) {
-                        chapter.setDurationMinutes(dto.getDurationMinutes());
-                    }
-                    if (dto.getSortOrder() != null) {
-                        chapter.setSortOrder(dto.getSortOrder());
-                    }
-                    if (dto.getIsActive() != null) {
-                        chapter.setIsActive(dto.getIsActive());
-                    }
-
+                    mapper.map(dto, chapter);
                     LectureChapter saved = lectureChapterRepository.save(chapter);
                     return convertToResponseDto(saved);
                 });
@@ -212,18 +188,7 @@ public class LectureChapterService {
      * @return レスポンスDTO
      */
     private LectureChapterResponseDto convertToResponseDto(LectureChapter chapter) {
-        LectureChapterResponseDto dto = new LectureChapterResponseDto();
-        dto.setId(chapter.getId());
-        dto.setLectureId(chapter.getLectureId());
-        dto.setChapterNumber(chapter.getChapterNumber());
-        dto.setTitle(chapter.getTitle());
-        dto.setDescription(chapter.getDescription());
-        dto.setDurationMinutes(chapter.getDurationMinutes());
-        dto.setSortOrder(chapter.getSortOrder());
-        dto.setIsActive(chapter.getIsActive());
-        dto.setCreatedAt(chapter.getCreatedAt());
-        dto.setUpdatedAt(chapter.getUpdatedAt());
-        return dto;
+        return mapper.map(chapter, LectureChapterResponseDto.class);
     }
 
     /**
