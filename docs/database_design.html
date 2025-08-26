@@ -1,0 +1,890 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giiku データベース設計書（日本語対応版） - ER図・テーブル仕様</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .table-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .domain-user { border-left: 4px solid #3B82F6; }
+        .domain-content { border-left: 4px solid #10B981; }
+        .domain-evaluation { border-left: 4px solid #F59E0B; }
+        .domain-system { border-left: 4px solid #8B5CF6; }
+        .er-diagram { max-width: 100%; overflow: visible; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Header -->
+<header class="bg-white shadow-lg">
+    <div class="container mx-auto px-6 py-4">
+        <h1 class="text-3xl font-bold text-gray-800">
+            <i class="fas fa-database text-blue-600 mr-3"></i>
+            Giiku データベース設計書
+        </h1>
+        <p class="text-gray-600 mt-2">ITエンジニア育成プラットフォーム - 包括的データモデル仕様（日本語対応版）</p>
+    </div>
+</header>
+
+<!-- Navigation -->
+<nav class="bg-blue-600 text-white">
+    <div class="container mx-auto px-6 py-3">
+        <div class="flex flex-wrap space-x-6 text-sm">
+            <a href="#overview" class="hover:text-blue-200"><i class="fas fa-chart-pie mr-1"></i>システム概要</a>
+            <a href="#domains" class="hover:text-blue-200"><i class="fas fa-layer-group mr-1"></i>ドメイン分類</a>
+            <a href="#er-diagram" class="hover:text-blue-200"><i class="fas fa-project-diagram mr-1"></i>ER図</a>
+            <a href="#tables" class="hover:text-blue-200"><i class="fas fa-table mr-1"></i>テーブル仕様</a>
+            <a href="#relationships" class="hover:text-blue-200"><i class="fas fa-link mr-1"></i>関係性</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="container mx-auto px-6 py-8">
+
+    <!-- System Overview -->
+    <section id="overview" class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-blue-600 pb-2">
+            <i class="fas fa-chart-pie text-blue-600 mr-2"></i>システム概要
+        </h2>
+
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+            <h3 class="text-xl font-semibold mb-4 text-gray-700">データベース駆動型学習管理システム（LMS）</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div>
+                    <h4 class="font-semibold text-gray-700 mb-3">
+                        <i class="fas fa-bullseye text-blue-500 mr-2"></i>主要特徴
+                    </h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>26エンティティによる包括的データモデル</li>
+                        <li>ドメイン駆動設計（DDD）アーキテクチャ</li>
+                        <li>マルチテナント対応の企業管理</li>
+                        <li>階層化されたカリキュラム構造</li>
+                        <li>包括的な進捗・評価システム</li>
+                        <li>監査ログによるコンプライアンス対応</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-700 mb-3">
+                        <i class="fas fa-cogs text-green-500 mr-2"></i>技術仕様
+                    </h4>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li><strong>RDBMS:</strong> PostgreSQL 15+</li>
+                        <li><strong>ORM:</strong> Spring Data JPA</li>
+                        <li><strong>Migration:</strong> Flyway</li>
+                        <li><strong>Audit:</strong> Spring Data JPA Auditing</li>
+                        <li><strong>Security:</strong> Spring Security</li>
+                        <li><strong>Validation:</strong> Bean Validation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-blue-100 rounded-lg p-4 text-center">
+                <i class="fas fa-users text-blue-600 text-2xl mb-2"></i>
+                <h4 class="font-semibold text-blue-800">ユーザー管理</h4>
+                <p class="text-blue-600 text-sm">6エンティティ</p>
+            </div>
+            <div class="bg-green-100 rounded-lg p-4 text-center">
+                <i class="fas fa-book text-green-600 text-2xl mb-2"></i>
+                <h4 class="font-semibold text-green-800">学習コンテンツ</h4>
+                <p class="text-green-600 text-sm">10エンティティ</p>
+            </div>
+            <div class="bg-yellow-100 rounded-lg p-4 text-center">
+                <i class="fas fa-chart-line text-yellow-600 text-2xl mb-2"></i>
+                <h4 class="font-semibold text-yellow-800">評価・進捗</h4>
+                <p class="text-yellow-600 text-sm">7エンティティ</p>
+            </div>
+            <div class="bg-purple-100 rounded-lg p-4 text-center">
+                <i class="fas fa-server text-purple-600 text-2xl mb-2"></i>
+                <h4 class="font-semibold text-purple-800">システム基盤</h4>
+                <p class="text-purple-600 text-sm">3エンティティ</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Domain Classification -->
+    <section id="domains" class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-blue-600 pb-2">
+            <i class="fas fa-layer-group text-blue-600 mr-2"></i>ドメイン分類
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- User Management Domain -->
+            <div class="bg-white rounded-lg shadow domain-user">
+                <div class="p-4 bg-blue-50 rounded-t-lg">
+                    <h3 class="text-lg font-semibold text-blue-800">
+                        <i class="fas fa-users mr-2"></i>ユーザー・権限管理ドメイン
+                    </h3>
+                </div>
+                <div class="p-4">
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between"><span class="font-medium">User</span><span class="text-gray-600">ユーザー基本情報</span></div>
+                        <div class="flex justify-between"><span class="font-medium">UserRole</span><span class="text-gray-600">ユーザー権限</span></div>
+                        <div class="flex justify-between"><span class="font-medium">StudentProfile</span><span class="text-gray-600">受講者プロファイル</span></div>
+                        <div class="flex justify-between"><span class="font-medium">StudentEnrollment</span><span class="text-gray-600">受講登録</span></div>
+                        <div class="flex justify-between"><span class="font-medium">Instructor</span><span class="text-gray-600">講師情報</span></div>
+                        <div class="flex justify-between"><span class="font-medium">Company</span><span class="text-gray-600">企業情報</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Content Domain -->
+            <div class="bg-white rounded-lg shadow domain-content">
+                <div class="p-4 bg-green-50 rounded-t-lg">
+                    <h3 class="text-lg font-semibold text-green-800">
+                        <i class="fas fa-book mr-2"></i>学習コンテンツドメイン
+                    </h3>
+                </div>
+                <div class="p-4">
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between"><span class="font-medium">TrainingProgram</span><span class="text-gray-600">研修プログラム</span></div>
+                        <div class="flex justify-between"><span class="font-medium">Month</span><span class="text-gray-600">月別カリキュラム</span></div>
+                        <div class="flex justify-between"><span class="font-medium">Week</span><span class="text-gray-600">週別カリキュラム</span></div>
+                        <div class="flex justify-between"><span class="font-medium">Day</span><span class="text-gray-600">日別カリキュラム</span></div>
+                        <div class="flex justify-between"><span class="font-medium">Lecture</span><span class="text-gray-600">講義</span></div>
+                        <div class="flex justify-between"><span class="font-medium">LectureChapter</span><span class="text-gray-600">講義章</span></div>
+                        <div class="flex justify-between"><span class="font-medium">LectureContentBlock</span><span class="text-gray-600">講義コンテンツブロック</span></div>
+                        <div class="flex justify-between"><span class="font-medium">LectureGoal</span><span class="text-gray-600">講義目標</span></div>
+                        <div class="flex justify-between"><span class="font-medium">DailySchedule</span><span class="text-gray-600">日別スケジュール</span></div>
+                        <div class="flex justify-between"><span class="font-medium">ProgramSchedule</span><span class="text-gray-600">プログラムスケジュール</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Evaluation Domain -->
+            <div class="bg-white rounded-lg shadow domain-evaluation">
+                <div class="p-4 bg-yellow-50 rounded-t-lg">
+                    <h3 class="text-lg font-semibold text-yellow-800">
+                        <i class="fas fa-chart-line mr-2"></i>評価・進捗管理ドメイン
+                    </h3>
+                </div>
+                <div class="p-4">
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between"><span class="font-medium">Quiz</span><span class="text-gray-600">クイズ</span></div>
+                        <div class="flex justify-between"><span class="font-medium">MockTest</span><span class="text-gray-600">模擬試験</span></div>
+                        <div class="flex justify-between"><span class="font-medium">QuestionBank</span><span class="text-gray-600">問題バンク</span></div>
+                        <div class="flex justify-between"><span class="font-medium">MockTestResult</span><span class="text-gray-600">模擬試験結果</span></div>
+                        <div class="flex justify-between"><span class="font-medium">LectureGrade</span><span class="text-gray-600">講義成績</span></div>
+                        <div class="flex justify-between"><span class="font-medium">StudentGradeSummary</span><span class="text-gray-600">受講者成績集計</span></div>
+                        <div class="flex justify-between"><span class="font-medium">CompanyLmsConfig</span><span class="text-gray-600">企業LMS設定</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Foundation Domain -->
+            <div class="bg-white rounded-lg shadow domain-system">
+                <div class="p-4 bg-purple-50 rounded-t-lg">
+                    <h3 class="text-lg font-semibold text-purple-800">
+                        <i class="fas fa-server mr-2"></i>システム基盤ドメイン
+                    </h3>
+                </div>
+                <div class="p-4">
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between"><span class="font-medium">BaseEntity</span><span class="text-gray-600">基底エンティティ</span></div>
+                        <div class="flex justify-between"><span class="font-medium">AuditableEntity</span><span class="text-gray-600">監査可能エンティティ</span></div>
+                        <div class="flex justify-between"><span class="font-medium">AuditLog</span><span class="text-gray-600">監査ログ</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ER Diagram -->
+    <section id="er-diagram" class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-blue-600 pb-2">
+            <i class="fas fa-project-diagram text-blue-600 mr-2"></i>ER図 - エンティティ関係図
+        </h2>
+
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="mb-4">
+                <h3 class="text-lg font-semibold mb-2">凡例</h3>
+                <div class="flex flex-wrap gap-4 text-sm">
+                    <div class="flex items-center"><div class="w-4 h-4 bg-blue-200 border-blue-500 border-2 mr-2"></div>ユーザー管理</div>
+                    <div class="flex items-center"><div class="w-4 h-4 bg-green-200 border-green-500 border-2 mr-2"></div>学習コンテンツ</div>
+                    <div class="flex items-center"><div class="w-4 h-4 bg-yellow-200 border-yellow-500 border-2 mr-2"></div>評価・進捗</div>
+                    <div class="flex items-center"><div class="w-4 h-4 bg-purple-200 border-purple-500 border-2 mr-2"></div>システム基盤</div>
+                </div>
+            </div>
+
+            <!-- SVG ER Diagram -->
+            <svg class="w-full er-diagram" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+                <!-- User Management Domain -->
+                <g id="user-domain">
+                    <!-- Company -->
+                    <rect x="50" y="50" width="120" height="80" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2" rx="5"/>
+                    <text x="110" y="75" text-anchor="middle" class="text-xs font-bold">Company</text>
+                    <text x="110" y="90" text-anchor="middle" class="text-xs">企業情報</text>
+                    <text x="110" y="105" text-anchor="middle" class="text-xs">company_id (PK)</text>
+                    <text x="110" y="118" text-anchor="middle" class="text-xs">company_name</text>
+
+                    <!-- User -->
+                    <rect x="220" y="50" width="120" height="80" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2" rx="5"/>
+                    <text x="280" y="75" text-anchor="middle" class="text-xs font-bold">User</text>
+                    <text x="280" y="90" text-anchor="middle" class="text-xs">ユーザー</text>
+                    <text x="280" y="105" text-anchor="middle" class="text-xs">user_id (PK)</text>
+                    <text x="280" y="118" text-anchor="middle" class="text-xs">username</text>
+
+                    <!-- UserRole -->
+                    <rect x="390" y="50" width="120" height="80" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2" rx="5"/>
+                    <text x="450" y="75" text-anchor="middle" class="text-xs font-bold">UserRole</text>
+                    <text x="450" y="90" text-anchor="middle" class="text-xs">ユーザー権限</text>
+                    <text x="450" y="105" text-anchor="middle" class="text-xs">role_id (PK)</text>
+                    <text x="450" y="118" text-anchor="middle" class="text-xs">role_name</text>
+
+                    <!-- StudentProfile -->
+                    <rect x="50" y="170" width="120" height="80" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2" rx="5"/>
+                    <text x="110" y="195" text-anchor="middle" class="text-xs font-bold">StudentProfile</text>
+                    <text x="110" y="210" text-anchor="middle" class="text-xs">受講者プロファイル</text>
+                    <text x="110" y="225" text-anchor="middle" class="text-xs">student_id (PK)</text>
+                    <text x="110" y="238" text-anchor="middle" class="text-xs">user_id (FK)</text>
+
+                    <!-- Instructor -->
+                    <rect x="220" y="170" width="120" height="80" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2" rx="5"/>
+                    <text x="280" y="195" text-anchor="middle" class="text-xs font-bold">Instructor</text>
+                    <text x="280" y="210" text-anchor="middle" class="text-xs">講師情報</text>
+                    <text x="280" y="225" text-anchor="middle" class="text-xs">instructor_id (PK)</text>
+                    <text x="280" y="238" text-anchor="middle" class="text-xs">user_id (FK)</text>
+                </g>
+
+                <!-- Learning Content Domain -->
+                <g id="content-domain">
+                    <!-- TrainingProgram -->
+                    <rect x="600" y="50" width="140" height="80" fill="#D1FAE5" stroke="#10B981" stroke-width="2" rx="5"/>
+                    <text x="670" y="75" text-anchor="middle" class="text-xs font-bold">TrainingProgram</text>
+                    <text x="670" y="90" text-anchor="middle" class="text-xs">研修プログラム</text>
+                    <text x="670" y="105" text-anchor="middle" class="text-xs">program_id (PK)</text>
+                    <text x="670" y="118" text-anchor="middle" class="text-xs">company_id (FK)</text>
+
+                    <!-- Month -->
+                    <rect x="800" y="50" width="120" height="80" fill="#D1FAE5" stroke="#10B981" stroke-width="2" rx="5"/>
+                    <text x="860" y="75" text-anchor="middle" class="text-xs font-bold">Month</text>
+                    <text x="860" y="90" text-anchor="middle" class="text-xs">月別カリキュラム</text>
+                    <text x="860" y="105" text-anchor="middle" class="text-xs">month_id (PK)</text>
+                    <text x="860" y="118" text-anchor="middle" class="text-xs">program_id (FK)</text>
+
+                    <!-- Week -->
+                    <rect x="980" y="50" width="120" height="80" fill="#D1FAE5" stroke="#10B981" stroke-width="2" rx="5"/>
+                    <text x="1040" y="75" text-anchor="middle" class="text-xs font-bold">Week</text>
+                    <text x="1040" y="90" text-anchor="middle" class="text-xs">週別カリキュラム</text>
+                    <text x="1040" y="105" text-anchor="middle" class="text-xs">week_id (PK)</text>
+                    <text x="1040" y="118" text-anchor="middle" class="text-xs">month_id (FK)</text>
+
+                    <!-- Day -->
+                    <rect x="600" y="170" width="120" height="80" fill="#D1FAE5" stroke="#10B981" stroke-width="2" rx="5"/>
+                    <text x="660" y="195" text-anchor="middle" class="text-xs font-bold">Day</text>
+                    <text x="660" y="210" text-anchor="middle" class="text-xs">日別カリキュラム</text>
+                    <text x="660" y="225" text-anchor="middle" class="text-xs">day_id (PK)</text>
+                    <text x="660" y="238" text-anchor="middle" class="text-xs">week_id (FK)</text>
+
+                    <!-- Lecture -->
+                    <rect x="800" y="170" width="120" height="80" fill="#D1FAE5" stroke="#10B981" stroke-width="2" rx="5"/>
+                    <text x="860" y="195" text-anchor="middle" class="text-xs font-bold">Lecture</text>
+                    <text x="860" y="210" text-anchor="middle" class="text-xs">講義</text>
+                    <text x="860" y="225" text-anchor="middle" class="text-xs">lecture_id (PK)</text>
+                    <text x="860" y="238" text-anchor="middle" class="text-xs">day_id (FK)</text>
+
+                    <!-- LectureChapter -->
+                    <rect x="980" y="170" width="120" height="80" fill="#D1FAE5" stroke="#10B981" stroke-width="2" rx="5"/>
+                    <text x="1040" y="195" text-anchor="middle" class="text-xs font-bold">LectureChapter</text>
+                    <text x="1040" y="210" text-anchor="middle" class="text-xs">講義章</text>
+                    <text x="1040" y="225" text-anchor="middle" class="text-xs">chapter_id (PK)</text>
+                    <text x="1040" y="238" text-anchor="middle" class="text-xs">lecture_id (FK)</text>
+                </g>
+
+                <!-- Evaluation Domain -->
+                <g id="evaluation-domain">
+                    <!-- Quiz -->
+                    <rect x="50" y="320" width="120" height="80" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2" rx="5"/>
+                    <text x="110" y="345" text-anchor="middle" class="text-xs font-bold">Quiz</text>
+                    <text x="110" y="360" text-anchor="middle" class="text-xs">クイズ</text>
+                    <text x="110" y="375" text-anchor="middle" class="text-xs">quiz_id (PK)</text>
+                    <text x="110" y="388" text-anchor="middle" class="text-xs">lecture_id (FK)</text>
+
+                    <!-- MockTest -->
+                    <rect x="220" y="320" width="120" height="80" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2" rx="5"/>
+                    <text x="280" y="345" text-anchor="middle" class="text-xs font-bold">MockTest</text>
+                    <text x="280" y="360" text-anchor="middle" class="text-xs">模擬試験</text>
+                    <text x="280" y="375" text-anchor="middle" class="text-xs">test_id (PK)</text>
+                    <text x="280" y="388" text-anchor="middle" class="text-xs">program_id (FK)</text>
+
+                    <!-- LectureGrade -->
+                    <rect x="390" y="320" width="120" height="80" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2" rx="5"/>
+                    <text x="450" y="345" text-anchor="middle" class="text-xs font-bold">LectureGrade</text>
+                    <text x="450" y="360" text-anchor="middle" class="text-xs">講義成績</text>
+                    <text x="450" y="375" text-anchor="middle" class="text-xs">grade_id (PK)</text>
+                    <text x="450" y="388" text-anchor="middle" class="text-xs">student_id (FK)</text>
+
+                    <!-- StudentEnrollment -->
+                    <rect x="390" y="170" width="140" height="80" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2" rx="5"/>
+                    <text x="460" y="195" text-anchor="middle" class="text-xs font-bold">StudentEnrollment</text>
+                    <text x="460" y="210" text-anchor="middle" class="text-xs">受講登録</text>
+                    <text x="460" y="225" text-anchor="middle" class="text-xs">enrollment_id (PK)</text>
+                    <text x="460" y="238" text-anchor="middle" class="text-xs">student_id (FK)</text>
+                </g>
+
+                <!-- System Foundation Domain -->
+                <g id="system-domain">
+                    <!-- BaseEntity -->
+                    <rect x="50" y="450" width="120" height="80" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="2" rx="5"/>
+                    <text x="110" y="475" text-anchor="middle" class="text-xs font-bold">BaseEntity</text>
+                    <text x="110" y="490" text-anchor="middle" class="text-xs">基底エンティティ</text>
+                    <text x="110" y="505" text-anchor="middle" class="text-xs">id (PK)</text>
+                    <text x="110" y="518" text-anchor="middle" class="text-xs">created_at</text>
+
+                    <!-- AuditableEntity -->
+                    <rect x="220" y="450" width="120" height="80" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="2" rx="5"/>
+                    <text x="280" y="475" text-anchor="middle" class="text-xs font-bold">AuditableEntity</text>
+                    <text x="280" y="490" text-anchor="middle" class="text-xs">監査可能</text>
+                    <text x="280" y="505" text-anchor="middle" class="text-xs">extends BaseEntity</text>
+                    <text x="280" y="518" text-anchor="middle" class="text-xs">updated_at</text>
+
+                    <!-- AuditLog -->
+                    <rect x="390" y="450" width="120" height="80" fill="#EDE9FE" stroke="#8B5CF6" stroke-width="2" rx="5"/>
+                    <text x="450" y="475" text-anchor="middle" class="text-xs font-bold">AuditLog</text>
+                    <text x="450" y="490" text-anchor="middle" class="text-xs">監査ログ</text>
+                    <text x="450" y="505" text-anchor="middle" class="text-xs">log_id (PK)</text>
+                    <text x="450" y="518" text-anchor="middle" class="text-xs">action_type</text>
+                </g>
+
+                <!-- Relationships -->
+                <!-- Company -> User -->
+                <line x1="170" y1="90" x2="220" y2="90" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                <!-- User -> StudentProfile -->
+                <line x1="280" y1="130" x2="280" y2="150" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <line x1="280" y1="150" x2="110" y2="150" stroke="#666" stroke-width="2"/>
+                <line x1="110" y1="150" x2="110" y2="170" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                <!-- User -> Instructor -->
+                <line x1="280" y1="130" x2="280" y2="170" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                <!-- TrainingProgram -> Month -->
+                <line x1="740" y1="90" x2="800" y2="90" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                <!-- Month -> Week -->
+                <line x1="920" y1="90" x2="980" y2="90" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                <!-- Week -> Day -->
+                <line x1="1040" y1="130" x2="1040" y2="150" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <line x1="1040" y1="150" x2="660" y2="150" stroke="#666" stroke-width="2"/>
+                <line x1="660" y1="150" x2="660" y2="170" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                <!-- Day -> Lecture -->
+                <line x1="720" y1="210" x2="800" y2="210" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                <!-- Lecture -> LectureChapter -->
+                <line x1="920" y1="210" x2="980" y2="210" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                <!-- BaseEntity -> AuditableEntity -->
+                <line x1="170" y1="490" x2="220" y2="490" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+
+                <!-- Arrow marker definition -->
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Table Specifications -->
+    <section id="tables" class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-blue-600 pb-2">
+            <i class="fas fa-table text-blue-600 mr-2"></i>テーブル仕様書
+        </h2>
+
+        <!-- User Management Tables -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4 text-blue-800">
+                <i class="fas fa-users mr-2"></i>ユーザー・権限管理テーブル
+            </h3>
+
+            <!-- User Table -->
+            <div class="bg-white rounded-lg shadow mb-6">
+                <div class="table-header text-white p-4 rounded-t-lg">
+                    <h4 class="text-lg font-semibold">User（ユーザー）</h4>
+                    <p class="text-sm opacity-90">システム利用者の基本情報を管理</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">カラム名（英語）</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">日本語名</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">データ型</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">制約</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">説明</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">user_id</td><td class="px-4 py-2">ユーザーID</td><td class="px-4 py-2">BIGSERIAL</td><td class="px-4 py-2">PK</td><td class="px-4 py-2">ユーザーの一意識別子</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">username</td><td class="px-4 py-2">ユーザー名</td><td class="px-4 py-2">VARCHAR(50)</td><td class="px-4 py-2">UNIQUE, NOT NULL</td><td class="px-4 py-2">ログイン用ユーザー名</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">email</td><td class="px-4 py-2">メールアドレス</td><td class="px-4 py-2">VARCHAR(255)</td><td class="px-4 py-2">UNIQUE, NOT NULL</td><td class="px-4 py-2">連絡用メールアドレス</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">password_hash</td><td class="px-4 py-2">パスワードハッシュ</td><td class="px-4 py-2">VARCHAR(255)</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">暗号化されたパスワード</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">first_name</td><td class="px-4 py-2">名</td><td class="px-4 py-2">VARCHAR(50)</td><td class="px-4 py-2"></td><td class="px-4 py-2">利用者の名</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">last_name</td><td class="px-4 py-2">姓</td><td class="px-4 py-2">VARCHAR(50)</td><td class="px-4 py-2"></td><td class="px-4 py-2">利用者の姓</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">company_id</td><td class="px-4 py-2">企業ID</td><td class="px-4 py-2">BIGINT</td><td class="px-4 py-2">FK</td><td class="px-4 py-2">所属企業への参照</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">role_id</td><td class="px-4 py-2">権限ID</td><td class="px-4 py-2">BIGINT</td><td class="px-4 py-2">FK</td><td class="px-4 py-2">ユーザー権限への参照</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">is_active</td><td class="px-4 py-2">有効フラグ</td><td class="px-4 py-2">BOOLEAN</td><td class="px-4 py-2">DEFAULT TRUE</td><td class="px-4 py-2">アカウントの有効/無効状態</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">last_login_at</td><td class="px-4 py-2">最終ログイン日時</td><td class="px-4 py-2">TIMESTAMP</td><td class="px-4 py-2"></td><td class="px-4 py-2">最後にログインした日時</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">created_at</td><td class="px-4 py-2">作成日時</td><td class="px-4 py-2">TIMESTAMP</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">レコード作成日時</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">updated_at</td><td class="px-4 py-2">更新日時</td><td class="px-4 py-2">TIMESTAMP</td><td class="px-4 py-2"></td><td class="px-4 py-2">レコード最終更新日時</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Company Table -->
+            <div class="bg-white rounded-lg shadow mb-6">
+                <div class="table-header text-white p-4 rounded-t-lg">
+                    <h4 class="text-lg font-semibold">Company（企業）</h4>
+                    <p class="text-sm opacity-90">企業情報とマルチテナント管理</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">カラム名（英語）</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">日本語名</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">データ型</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">制約</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">説明</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">company_id</td><td class="px-4 py-2">企業ID</td><td class="px-4 py-2">BIGSERIAL</td><td class="px-4 py-2">PK</td><td class="px-4 py-2">企業の一意識別子</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">company_name</td><td class="px-4 py-2">企業名</td><td class="px-4 py-2">VARCHAR(255)</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">正式な企業名称</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">domain</td><td class="px-4 py-2">ドメイン</td><td class="px-4 py-2">VARCHAR(255)</td><td class="px-4 py-2">UNIQUE</td><td class="px-4 py-2">企業のWebドメイン</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">address</td><td class="px-4 py-2">住所</td><td class="px-4 py-2">TEXT</td><td class="px-4 py-2"></td><td class="px-4 py-2">企業の所在地</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">contact_email</td><td class="px-4 py-2">連絡先メール</td><td class="px-4 py-2">VARCHAR(255)</td><td class="px-4 py-2"></td><td class="px-4 py-2">企業担当者メールアドレス</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">phone_number</td><td class="px-4 py-2">電話番号</td><td class="px-4 py-2">VARCHAR(20)</td><td class="px-4 py-2"></td><td class="px-4 py-2">企業の連絡先電話番号</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">contract_start_date</td><td class="px-4 py-2">契約開始日</td><td class="px-4 py-2">DATE</td><td class="px-4 py-2"></td><td class="px-4 py-2">サービス契約開始日</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">contract_end_date</td><td class="px-4 py-2">契約終了日</td><td class="px-4 py-2">DATE</td><td class="px-4 py-2"></td><td class="px-4 py-2">サービス契約終了日</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">is_active</td><td class="px-4 py-2">有効フラグ</td><td class="px-4 py-2">BOOLEAN</td><td class="px-4 py-2">DEFAULT TRUE</td><td class="px-4 py-2">企業アカウントの有効状態</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">created_at</td><td class="px-4 py-2">作成日時</td><td class="px-4 py-2">TIMESTAMP</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">レコード作成日時</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- UserRole Table -->
+            <div class="bg-white rounded-lg shadow mb-6">
+                <div class="table-header text-white p-4 rounded-t-lg">
+                    <h4 class="text-lg font-semibold">UserRole（ユーザー権限）</h4>
+                    <p class="text-sm opacity-90">システム内でのユーザー権限を定義</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">カラム名（英語）</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">日本語名</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">データ型</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">制約</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">説明</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">role_id</td><td class="px-4 py-2">権限ID</td><td class="px-4 py-2">BIGSERIAL</td><td class="px-4 py-2">PK</td><td class="px-4 py-2">権限の一意識別子</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">role_name</td><td class="px-4 py-2">権限名</td><td class="px-4 py-2">VARCHAR(50)</td><td class="px-4 py-2">UNIQUE, NOT NULL</td><td class="px-4 py-2">権限の名称（ADMIN/INSTRUCTOR/STUDENT）</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">description</td><td class="px-4 py-2">説明</td><td class="px-4 py-2">TEXT</td><td class="px-4 py-2"></td><td class="px-4 py-2">権限の詳細説明</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">permissions</td><td class="px-4 py-2">許可操作</td><td class="px-4 py-2">JSONB</td><td class="px-4 py-2"></td><td class="px-4 py-2">権限で許可される操作一覧</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">created_at</td><td class="px-4 py-2">作成日時</td><td class="px-4 py-2">TIMESTAMP</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">レコード作成日時</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Learning Content Tables -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4 text-green-800">
+                <i class="fas fa-book mr-2"></i>学習コンテンツテーブル
+            </h3>
+
+            <!-- TrainingProgram Table -->
+            <div class="bg-white rounded-lg shadow mb-6">
+                <div class="table-header text-white p-4 rounded-t-lg">
+                    <h4 class="text-lg font-semibold">TrainingProgram（研修プログラム）</h4>
+                    <p class="text-sm opacity-90">企業向け研修プログラム全体の管理</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">カラム名（英語）</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">日本語名</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">データ型</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">制約</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">説明</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">program_id</td><td class="px-4 py-2">プログラムID</td><td class="px-4 py-2">BIGSERIAL</td><td class="px-4 py-2">PK</td><td class="px-4 py-2">研修プログラムの一意識別子</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">program_name</td><td class="px-4 py-2">プログラム名</td><td class="px-4 py-2">VARCHAR(255)</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">研修プログラムの名称</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">description</td><td class="px-4 py-2">説明</td><td class="px-4 py-2">TEXT</td><td class="px-4 py-2"></td><td class="px-4 py-2">プログラムの詳細説明</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">company_id</td><td class="px-4 py-2">企業ID</td><td class="px-4 py-2">BIGINT</td><td class="px-4 py-2">FK, NOT NULL</td><td class="px-4 py-2">対象企業への参照</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">duration_weeks</td><td class="px-4 py-2">期間（週数）</td><td class="px-4 py-2">INTEGER</td><td class="px-4 py-2">DEFAULT 12</td><td class="px-4 py-2">プログラムの全体期間</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">start_date</td><td class="px-4 py-2">開始日</td><td class="px-4 py-2">DATE</td><td class="px-4 py-2"></td><td class="px-4 py-2">プログラム開始日</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">end_date</td><td class="px-4 py-2">終了日</td><td class="px-4 py-2">DATE</td><td class="px-4 py-2"></td><td class="px-4 py-2">プログラム終了日</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">max_students</td><td class="px-4 py-2">最大受講者数</td><td class="px-4 py-2">INTEGER</td><td class="px-4 py-2">DEFAULT 30</td><td class="px-4 py-2">受講可能な最大人数</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">is_active</td><td class="px-4 py-2">有効フラグ</td><td class="px-4 py-2">BOOLEAN</td><td class="px-4 py-2">DEFAULT TRUE</td><td class="px-4 py-2">プログラムの有効状態</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">created_at</td><td class="px-4 py-2">作成日時</td><td class="px-4 py-2">TIMESTAMP</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">レコード作成日時</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Lecture Table -->
+            <div class="bg-white rounded-lg shadow mb-6">
+                <div class="table-header text-white p-4 rounded-t-lg">
+                    <h4 class="text-lg font-semibold">Lecture（講義）</h4>
+                    <p class="text-sm opacity-90">個別の講義コンテンツを管理</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">カラム名（英語）</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">日本語名</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">データ型</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">制約</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">説明</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">lecture_id</td><td class="px-4 py-2">講義ID</td><td class="px-4 py-2">BIGSERIAL</td><td class="px-4 py-2">PK</td><td class="px-4 py-2">講義の一意識別子</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">title</td><td class="px-4 py-2">タイトル</td><td class="px-4 py-2">VARCHAR(255)</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">講義のタイトル</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">description</td><td class="px-4 py-2">説明</td><td class="px-4 py-2">TEXT</td><td class="px-4 py-2"></td><td class="px-4 py-2">講義の詳細説明</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">day_id</td><td class="px-4 py-2">日ID</td><td class="px-4 py-2">BIGINT</td><td class="px-4 py-2">FK, NOT NULL</td><td class="px-4 py-2">カリキュラム日への参照</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">instructor_id</td><td class="px-4 py-2">講師ID</td><td class="px-4 py-2">BIGINT</td><td class="px-4 py-2">FK</td><td class="px-4 py-2">担当講師への参照</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">estimated_minutes</td><td class="px-4 py-2">予定時間（分）</td><td class="px-4 py-2">INTEGER</td><td class="px-4 py-2">DEFAULT 90</td><td class="px-4 py-2">講義の予定所要時間</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">difficulty_level</td><td class="px-4 py-2">難易度</td><td class="px-4 py-2">VARCHAR(20)</td><td class="px-4 py-2">DEFAULT 'BEGINNER'</td><td class="px-4 py-2">講義の難易度（BEGINNER/INTERMEDIATE/ADVANCED）</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">content_url</td><td class="px-4 py-2">コンテンツURL</td><td class="px-4 py-2">TEXT</td><td class="px-4 py-2"></td><td class="px-4 py-2">講義資料へのURL</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">video_url</td><td class="px-4 py-2">動画URL</td><td class="px-4 py-2">TEXT</td><td class="px-4 py-2"></td><td class="px-4 py-2">講義動画へのURL</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">order_index</td><td class="px-4 py-2">表示順序</td><td class="px-4 py-2">INTEGER</td><td class="px-4 py-2">DEFAULT 1</td><td class="px-4 py-2">日内での講義順序</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">is_published</td><td class="px-4 py-2">公開フラグ</td><td class="px-4 py-2">BOOLEAN</td><td class="px-4 py-2">DEFAULT FALSE</td><td class="px-4 py-2">受講者への公開状態</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">created_at</td><td class="px-4 py-2">作成日時</td><td class="px-4 py-2">TIMESTAMP</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">レコード作成日時</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evaluation Tables -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4 text-yellow-800">
+                <i class="fas fa-chart-line mr-2"></i>評価・進捗管理テーブル
+            </h3>
+
+            <!-- Quiz Table -->
+            <div class="bg-white rounded-lg shadow mb-6">
+                <div class="table-header text-white p-4 rounded-t-lg">
+                    <h4 class="text-lg font-semibold">Quiz（クイズ）</h4>
+                    <p class="text-sm opacity-90">講義に関連するクイズ・小テスト</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">カラム名（英語）</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">日本語名</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">データ型</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">制約</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">説明</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">quiz_id</td><td class="px-4 py-2">クイズID</td><td class="px-4 py-2">BIGSERIAL</td><td class="px-4 py-2">PK</td><td class="px-4 py-2">クイズの一意識別子</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">title</td><td class="px-4 py-2">タイトル</td><td class="px-4 py-2">VARCHAR(255)</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">クイズのタイトル</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">description</td><td class="px-4 py-2">説明</td><td class="px-4 py-2">TEXT</td><td class="px-4 py-2"></td><td class="px-4 py-2">クイズの説明・概要</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">lecture_id</td><td class="px-4 py-2">講義ID</td><td class="px-4 py-2">BIGINT</td><td class="px-4 py-2">FK, NOT NULL</td><td class="px-4 py-2">関連する講義への参照</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">total_questions</td><td class="px-4 py-2">問題数</td><td class="px-4 py-2">INTEGER</td><td class="px-4 py-2">DEFAULT 10</td><td class="px-4 py-2">クイズの総問題数</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">passing_score</td><td class="px-4 py-2">合格点</td><td class="px-4 py-2">INTEGER</td><td class="px-4 py-2">DEFAULT 70</td><td class="px-4 py-2">合格に必要な得点（%）</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">time_limit_minutes</td><td class="px-4 py-2">制限時間（分）</td><td class="px-4 py-2">INTEGER</td><td class="px-4 py-2">DEFAULT 30</td><td class="px-4 py-2">クイズの制限時間</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">max_attempts</td><td class="px-4 py-2">最大受験回数</td><td class="px-4 py-2">INTEGER</td><td class="px-4 py-2">DEFAULT 3</td><td class="px-4 py-2">受験可能回数の上限</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">is_published</td><td class="px-4 py-2">公開フラグ</td><td class="px-4 py-2">BOOLEAN</td><td class="px-4 py-2">DEFAULT FALSE</td><td class="px-4 py-2">受講者への公開状態</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">created_at</td><td class="px-4 py-2">作成日時</td><td class="px-4 py-2">TIMESTAMP</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">レコード作成日時</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- LectureGrade Table -->
+            <div class="bg-white rounded-lg shadow mb-6">
+                <div class="table-header text-white p-4 rounded-t-lg">
+                    <h4 class="text-lg font-semibold">LectureGrade（講義成績）</h4>
+                    <p class="text-sm opacity-90">受講者の個別講義における成績</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">カラム名（英語）</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">日本語名</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">データ型</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">制約</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">説明</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">grade_id</td><td class="px-4 py-2">成績ID</td><td class="px-4 py-2">BIGSERIAL</td><td class="px-4 py-2">PK</td><td class="px-4 py-2">成績の一意識別子</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">student_id</td><td class="px-4 py-2">受講者ID</td><td class="px-4 py-2">BIGINT</td><td class="px-4 py-2">FK, NOT NULL</td><td class="px-4 py-2">受講者への参照</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">lecture_id</td><td class="px-4 py-2">講義ID</td><td class="px-4 py-2">BIGINT</td><td class="px-4 py-2">FK, NOT NULL</td><td class="px-4 py-2">講義への参照</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">attendance_status</td><td class="px-4 py-2">出席状況</td><td class="px-4 py-2">VARCHAR(20)</td><td class="px-4 py-2">DEFAULT 'ABSENT'</td><td class="px-4 py-2">出席状況（PRESENT/ABSENT/LATE）</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">completion_percentage</td><td class="px-4 py-2">完了率（%）</td><td class="px-4 py-2">INTEGER</td><td class="px-4 py-2">DEFAULT 0</td><td class="px-4 py-2">講義内容の完了率</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">quiz_score</td><td class="px-4 py-2">クイズ得点</td><td class="px-4 py-2">INTEGER</td><td class="px-4 py-2"></td><td class="px-4 py-2">関連クイズの得点</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">assignment_score</td><td class="px-4 py-2">課題得点</td><td class="px-4 py-2">INTEGER</td><td class="px-4 py-2"></td><td class="px-4 py-2">課題の得点</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">feedback</td><td class="px-4 py-2">フィードバック</td><td class="px-4 py-2">TEXT</td><td class="px-4 py-2"></td><td class="px-4 py-2">講師からのフィードバック</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">start_time</td><td class="px-4 py-2">開始時刻</td><td class="px-4 py-2">TIMESTAMP</td><td class="px-4 py-2"></td><td class="px-4 py-2">講義開始時刻</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">end_time</td><td class="px-4 py-2">終了時刻</td><td class="px-4 py-2">TIMESTAMP</td><td class="px-4 py-2"></td><td class="px-4 py-2">講義終了時刻</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">created_at</td><td class="px-4 py-2">作成日時</td><td class="px-4 py-2">TIMESTAMP</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">レコード作成日時</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Foundation Tables -->
+        <div class="mb-8">
+            <h3 class="text-xl font-semibold mb-4 text-purple-800">
+                <i class="fas fa-server mr-2"></i>システム基盤テーブル
+            </h3>
+
+            <!-- BaseEntity Table -->
+            <div class="bg-white rounded-lg shadow mb-6">
+                <div class="table-header text-white p-4 rounded-t-lg">
+                    <h4 class="text-lg font-semibold">BaseEntity（基底エンティティ）</h4>
+                    <p class="text-sm opacity-90">すべてのエンティティの基底クラス</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">カラム名（英語）</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">日本語名</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">データ型</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">制約</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">説明</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">id</td><td class="px-4 py-2">ID</td><td class="px-4 py-2">BIGSERIAL</td><td class="px-4 py-2">PK</td><td class="px-4 py-2">エンティティの一意識別子</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">created_at</td><td class="px-4 py-2">作成日時</td><td class="px-4 py-2">TIMESTAMP</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">レコード作成日時</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">created_by</td><td class="px-4 py-2">作成者</td><td class="px-4 py-2">VARCHAR(50)</td><td class="px-4 py-2"></td><td class="px-4 py-2">レコード作成ユーザー</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- AuditLog Table -->
+            <div class="bg-white rounded-lg shadow mb-6">
+                <div class="table-header text-white p-4 rounded-t-lg">
+                    <h4 class="text-lg font-semibold">AuditLog（監査ログ）</h4>
+                    <p class="text-sm opacity-90">システム内のすべての操作を記録</p>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">カラム名（英語）</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">日本語名</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">データ型</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">制約</th>
+                            <th class="px-4 py-2 text-left text-sm font-semibold">説明</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">log_id</td><td class="px-4 py-2">ログID</td><td class="px-4 py-2">BIGSERIAL</td><td class="px-4 py-2">PK</td><td class="px-4 py-2">監査ログの一意識別子</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">user_id</td><td class="px-4 py-2">ユーザーID</td><td class="px-4 py-2">BIGINT</td><td class="px-4 py-2">FK</td><td class="px-4 py-2">操作実行ユーザーへの参照</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">action_type</td><td class="px-4 py-2">操作種別</td><td class="px-4 py-2">VARCHAR(50)</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">操作の種類（CREATE/UPDATE/DELETE/LOGIN等）</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">table_name</td><td class="px-4 py-2">テーブル名</td><td class="px-4 py-2">VARCHAR(100)</td><td class="px-4 py-2"></td><td class="px-4 py-2">操作対象のテーブル名</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">record_id</td><td class="px-4 py-2">レコードID</td><td class="px-4 py-2">BIGINT</td><td class="px-4 py-2"></td><td class="px-4 py-2">操作対象レコードのID</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">old_values</td><td class="px-4 py-2">変更前値</td><td class="px-4 py-2">JSONB</td><td class="px-4 py-2"></td><td class="px-4 py-2">変更前のデータ（JSON形式）</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">new_values</td><td class="px-4 py-2">変更後値</td><td class="px-4 py-2">JSONB</td><td class="px-4 py-2"></td><td class="px-4 py-2">変更後のデータ（JSON形式）</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">ip_address</td><td class="px-4 py-2">IPアドレス</td><td class="px-4 py-2">INET</td><td class="px-4 py-2"></td><td class="px-4 py-2">操作元IPアドレス</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">user_agent</td><td class="px-4 py-2">ユーザーエージェント</td><td class="px-4 py-2">TEXT</td><td class="px-4 py-2"></td><td class="px-4 py-2">ブラウザ情報</td></tr>
+                        <tr class="border-t"><td class="px-4 py-2 font-mono">timestamp</td><td class="px-4 py-2">実行日時</td><td class="px-4 py-2">TIMESTAMP</td><td class="px-4 py-2">NOT NULL</td><td class="px-4 py-2">操作実行日時</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Relationships -->
+    <section id="relationships" class="mb-12">
+        <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b-2 border-blue-600 pb-2">
+            <i class="fas fa-link text-blue-600 mr-2"></i>エンティティ関係性・制約
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+            <!-- Primary Relationships -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">
+                    <i class="fas fa-arrow-right text-blue-500 mr-2"></i>主要な関係性
+                </h3>
+                <div class="space-y-3 text-sm">
+                    <div class="p-3 bg-blue-50 rounded">
+                        <strong>Company → User (1:N)</strong><br>
+                        <span class="text-gray-600">一つの企業に複数のユーザーが所属</span>
+                    </div>
+                    <div class="p-3 bg-green-50 rounded">
+                        <strong>User → StudentProfile (1:1)</strong><br>
+                        <span class="text-gray-600">ユーザーと受講者プロファイルの対応</span>
+                    </div>
+                    <div class="p-3 bg-yellow-50 rounded">
+                        <strong>TrainingProgram → Month → Week → Day (階層構造)</strong><br>
+                        <span class="text-gray-600">カリキュラムの階層的な構造管理</span>
+                    </div>
+                    <div class="p-3 bg-purple-50 rounded">
+                        <strong>Day → Lecture (1:N)</strong><br>
+                        <span class="text-gray-600">一日に複数の講義が存在</span>
+                    </div>
+                    <div class="p-3 bg-red-50 rounded">
+                        <strong>Student × Lecture → LectureGrade (M:N)</strong><br>
+                        <span class="text-gray-600">受講者と講義の成績管理（中間テーブル）</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Constraints and Indexes -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">
+                    <i class="fas fa-shield-alt text-green-500 mr-2"></i>制約・インデックス設計
+                </h3>
+                <div class="space-y-3 text-sm">
+                    <div>
+                        <strong class="text-blue-600">外部キー制約</strong>
+                        <ul class="mt-2 list-disc list-inside text-gray-600 space-y-1">
+                            <li>ON DELETE CASCADE: 企業削除時のユーザー削除</li>
+                            <li>ON DELETE RESTRICT: 参照される講義の削除制限</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong class="text-green-600">一意性制約</strong>
+                        <ul class="mt-2 list-disc list-inside text-gray-600 space-y-1">
+                            <li>User.username（ユーザー名の重複防止）</li>
+                            <li>User.email（メールアドレスの重複防止）</li>
+                            <li>Company.domain（企業ドメインの重複防止）</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong class="text-yellow-600">パフォーマンスインデックス</strong>
+                        <ul class="mt-2 list-disc list-inside text-gray-600 space-y-1">
+                            <li>User.company_id（企業別ユーザー検索）</li>
+                            <li>Lecture.day_id（日別講義検索）</li>
+                            <li>LectureGrade.student_id（受講者別成績）</li>
+                            <li>AuditLog.timestamp（時系列検索）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Integrity -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">
+                    <i class="fas fa-database text-purple-500 mr-2"></i>データ整合性
+                </h3>
+                <div class="space-y-3 text-sm">
+                    <div>
+                        <strong class="text-purple-600">チェック制約</strong>
+                        <ul class="mt-2 list-disc list-inside text-gray-600 space-y-1">
+                            <li>Quiz.passing_score: 0-100の範囲制限</li>
+                            <li>LectureGrade.completion_percentage: 0-100の範囲</li>
+                            <li>TrainingProgram.duration_weeks: 正の値制限</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong class="text-red-600">論理削除</strong>
+                        <ul class="mt-2 list-disc list-inside text-gray-600 space-y-1">
+                            <li>User.is_active（ユーザーの無効化）</li>
+                            <li>Company.is_active（企業アカウント無効化）</li>
+                            <li>TrainingProgram.is_active（プログラム無効化）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Considerations -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">
+                    <i class="fas fa-tachometer-alt text-orange-500 mr-2"></i>パフォーマンス考慮事項
+                </h3>
+                <div class="space-y-3 text-sm">
+                    <div>
+                        <strong class="text-orange-600">分割戦略</strong>
+                        <ul class="mt-2 list-disc list-inside text-gray-600 space-y-1">
+                            <li>AuditLog: 月別パーティション分割</li>
+                            <li>LectureGrade: 企業別分割の検討</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong class="text-blue-600">キャッシュ戦略</strong>
+                        <ul class="mt-2 list-disc list-inside text-gray-600 space-y-1">
+                            <li>UserRole: マスタデータのメモリキャッシュ</li>
+                            <li>TrainingProgram: 企業別プログラム情報</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-3 gap-6">
+            <div>
+                <h4 class="text-lg font-semibold mb-3">
+                    <i class="fas fa-database mr-2"></i>Giiku DB設計書
+                </h4>
+                <p class="text-gray-400 text-sm">
+                    ITエンジニア育成プラットフォームの包括的なデータベース設計仕様書
+                </p>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-3">技術仕様</h4>
+                <ul class="text-gray-400 text-sm space-y-1">
+                    <li>PostgreSQL 15+</li>
+                    <li>Spring Data JPA</li>
+                    <li>Flyway Migration</li>
+                    <li>JPA Auditing</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-3">カバー範囲</h4>
+                <ul class="text-gray-400 text-sm space-y-1">
+                    <li>26エンティティ</li>
+                    <li>4ドメイン分類</li>
+                    <li>包括的ER図</li>
+                    <li>詳細テーブル仕様</li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400 text-sm">
+            <p>&copy; 2025 Giiku Database Design Document. Generated for comprehensive system documentation.</p>
+        </div>
+    </div>
+</footer>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"974fc33dbc94d3e7","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.8.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+</body>
+</html>
+<script id="html_badge_script1">
+    window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+        "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDkEA4BUTQSIxvw0Wa9RGIwgT7tlf7Pe2zMYnSAyXJMo1rHCXr3entk%2FHwi43RxYPnAMsXYUJJkBvLd2V6OkrPnrd8BjL6UlTmyjB3vnrvyCNaS0%2F6LqsfrJujTI6GMAtY%2BhbH1PotaBqQPZf9PsIWjcCuFBbNlbE58H198KJgAX%2FOMM5Cgln65wsiRtl1SwtZqrNN9TkHgWn91VPbrkytOlXBbaMQ6rmAy6fHeUJGXmsUcGlNXq3B5I8GVmXeARwXB%2FZ6LO9eugkGVExaY7WUezW1W5qwigeyzNXpKL5fGAtkUC8JYt4gFkygRhlpgXmUBAgh69yepGvk%2F6wyG%2BKddly%2BNPu0mHCPF2FQrTO0qLUar6uxWoZywolOeu0jyVHMT3xAsFhe2Cons9POmV9yxvVk6BnX%2FaTb3gQmxkOU0g%2F2zZNu09UmDb1hhDnmgjZSDc9r8bsnt7U8La49MndxbioZeDP9BqP0MEfC%2FtLdkp%2FKBBhBGWGRI0PFm9CrFNKdauNi6Cscy2EQarqnUo%2B9nw%3D";
+    window.__genspark_locale = "ja-JP";
+    window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDkEA4BUTQSIxvw0Wa9RGIwgT7tlf7Pe2zMYnSAyXJMo1rHCXr3entk/Hwi43RxYPnAMsXYUJJkBvLd2V6OkrPnrd8BjL6UlTmyjB3vnrvyCNaS0/6LqsfrJujTI6GMAtY+hbH1PotaBqQPZf9PsIWjcCuFBbNlbE58H198KJgAX/OMM5Cgln65wsiRtl1SwtZqrNN9TkHgWn91VPbrkytOlXBbaMQ6rmAy6fHeUJGXmsUcGlNXq3B5I8GVmXeARwXB/Z6LO9eugkGVExaY7WUezW1W5qwigeyzNXpKL5fGAtkUC8JYt4gFkygRhlpgXmUBAgh69yepGvk/6wyG+Kddly+NPu0mHCPF2FQrTO0qLUar6uxWoZywolOeu0jyVHMT3xAsFhe2Cons9POmV9yxvVk6BnX/aTb3gQmxkOU0g/2zZNu09UmDb1hhDnmgjZSDc9r8bsnt7U8La49MndxbioZeDP9BqP0MEfC/tLdkp/KBBhBGWGRI0PFm9CrFNKdauNi6Cscy2EQarqnUo+9nw=";
+</script>
+
+<script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
