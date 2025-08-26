@@ -277,9 +277,7 @@ public class ProgramScheduleService {
     }
 
     public ProgramScheduleResponseDto createProgramSchedule(ProgramScheduleCreateDto dto) {
-        ProgramSchedule entity = new ProgramSchedule();
-        entity.setProgramId(dto.getProgramId());
-        entity.setInstructorId(dto.getInstructorId());
+        ProgramSchedule entity = mapper.map(dto, ProgramSchedule.class);
         entity.setStartDate(dto.getStartDateTime().toLocalDate());
         entity.setEndDate(dto.getEndDateTime().toLocalDate());
         if (dto.getCapacity() != null) {
@@ -296,7 +294,7 @@ public class ProgramScheduleService {
             return Optional.empty();
         }
         ProgramSchedule entity = opt.get();
-        if (dto.getInstructorId() != null) entity.setInstructorId(dto.getInstructorId());
+        mapper.map(dto, entity);
         if (dto.getStartDateTime() != null) entity.setStartDate(dto.getStartDateTime().toLocalDate());
         if (dto.getEndDateTime() != null) entity.setEndDate(dto.getEndDateTime().toLocalDate());
         if (dto.getCapacity() != null) entity.setMaxStudents(dto.getCapacity());
@@ -352,17 +350,11 @@ public class ProgramScheduleService {
     }
 
     private ProgramScheduleResponseDto toDto(ProgramSchedule schedule) {
-        ProgramScheduleResponseDto dto = new ProgramScheduleResponseDto();
-        dto.setId(schedule.getId());
-        dto.setProgramId(schedule.getProgramId());
+        ProgramScheduleResponseDto dto = mapper.map(schedule, ProgramScheduleResponseDto.class);
         dto.setStartDateTime(schedule.getStartDate() != null ? schedule.getStartDate().atStartOfDay() : null);
         dto.setEndDateTime(schedule.getEndDate() != null ? schedule.getEndDate().atStartOfDay() : null);
         dto.setCapacity(schedule.getMaxStudents());
         dto.setCurrentParticipants(schedule.getCurrentStudents());
-        dto.setInstructorId(schedule.getInstructorId());
-        dto.setStatus(schedule.getScheduleStatus());
-        dto.setCreatedAt(schedule.getCreatedAt());
-        dto.setUpdatedAt(schedule.getUpdatedAt());
         return dto;
     }
 

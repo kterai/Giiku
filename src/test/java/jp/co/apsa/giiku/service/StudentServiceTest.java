@@ -12,9 +12,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.MapperModelContext;
+import com.github.dozermapper.core.metadata.MappingMetadata;
+import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -43,14 +46,55 @@ class StudentServiceTest {
     @Mock
     private CompanyRepository companyRepository;
 
-    @InjectMocks
     private StudentService studentService;
+    private Mapper mapper;
 
     private StudentProfile profile;
     private StudentRequest request;
 
     @BeforeEach
     void setUp() {
+        mapper = new Mapper() {
+            @Override
+            public <T> T map(Object source, Class<T> destinationClass) {
+                if (source == null) {
+                    throw new NullPointerException();
+                }
+                try {
+                    T dest = destinationClass.getDeclaredConstructor().newInstance();
+                    BeanUtils.copyProperties(source, dest);
+                    return dest;
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
+            @Override
+            public void map(Object source, Object destination) {
+                if (source == null || destination == null) {
+                    throw new NullPointerException();
+                }
+                BeanUtils.copyProperties(source, destination);
+            }
+
+            @Override
+            public <T> T map(Object source, Class<T> destinationClass, String mapId) {
+                return map(source, destinationClass);
+            }
+
+            @Override
+            public void map(Object source, Object destination, String mapId) {
+                map(source, destination);
+            }
+
+            @Override
+            public MappingMetadata getMappingMetadata() { return null; }
+
+            @Override
+            public MapperModelContext getMapperModelContext() { return null; }
+        };
+        studentService = new StudentService(studentProfileRepository, userRepository, companyRepository, mapper);
+
         profile = new StudentProfile(1L, "S001", 100L, LocalDate.now());
         profile.setId(1L);
 

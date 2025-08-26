@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.github.dozermapper.core.Mapper;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,6 +34,9 @@ public class StudentProfileService {
 
     @Autowired
     private StudentProfileRepository studentProfileRepository;
+
+    @Autowired
+    private Mapper mapper;
 
     /** 学生プロフィールを作成 */
     public StudentProfile create(StudentProfile studentProfile) {
@@ -56,16 +60,7 @@ public class StudentProfileService {
         StudentProfile existingProfile = findById(id);
 
         // 更新可能なフィールドのみ更新
-        existingProfile.setEnrollmentStatus(studentProfile.getEnrollmentStatus());
-        existingProfile.setGradeLevel(studentProfile.getGradeLevel());
-        existingProfile.setClassName(studentProfile.getClassName());
-        existingProfile.setMajorField(studentProfile.getMajorField());
-        existingProfile.setEmergencyContactName(studentProfile.getEmergencyContactName());
-        existingProfile.setEmergencyContactPhone(studentProfile.getEmergencyContactPhone());
-        existingProfile.setEmergencyContactRelationship(studentProfile.getEmergencyContactRelationship());
-        existingProfile.setAddress(studentProfile.getAddress());
-        existingProfile.setPhoneNumber(studentProfile.getPhoneNumber());
-
+        mapper.map(studentProfile, existingProfile);
         return studentProfileRepository.save(existingProfile);
     }
 

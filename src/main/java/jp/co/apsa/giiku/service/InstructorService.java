@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Map;
 import java.util.HashMap;
+import com.github.dozermapper.core.Mapper;
 
 /**
  * Service class for managing Instructor entities.
@@ -36,6 +37,9 @@ public class InstructorService {
 
     @Autowired
     private InstructorRepository instructorRepository;
+
+    @Autowired
+    private Mapper mapper;
 
     /**
      * Retrieve all Instructor entities.
@@ -398,15 +402,7 @@ public class InstructorService {
         Instructor existingInstructor = existingInstructorOpt.get();
 
         // Update fields while preserving ID and creation timestamp
-        existingInstructor.setUserId(updatedInstructor.getUserId());
-        existingInstructor.setInstructorNumber(updatedInstructor.getInstructorNumber());
-        existingInstructor.setDepartmentId(updatedInstructor.getDepartmentId());
-        existingInstructor.setCertificationDate(updatedInstructor.getCertificationDate());
-        existingInstructor.setSpecialization(updatedInstructor.getSpecialization());
-        existingInstructor.setInstructorLevel(updatedInstructor.getInstructorLevel());
-        existingInstructor.setBio(updatedInstructor.getBio());
-        existingInstructor.setInstructorStatus(updatedInstructor.getInstructorStatus());
-        existingInstructor.setAvailability(updatedInstructor.getAvailability());
+        mapper.map(updatedInstructor, existingInstructor);
         existingInstructor.setProfileUpdatedAt(LocalDateTime.now());
 
         // Validate updated instructor

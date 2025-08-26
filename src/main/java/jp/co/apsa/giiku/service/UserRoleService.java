@@ -28,6 +28,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import com.github.dozermapper.core.Mapper;
 
 /**
  * UserRoleサービスクラス。
@@ -50,6 +51,9 @@ public class UserRoleService {
     @Autowired
     private CompanyRepository companyRepository;
 
+    @Autowired
+    private Mapper mapper;
+
     /**
      * エンティティをレスポンスDTOに変換します。
      *
@@ -57,16 +61,7 @@ public class UserRoleService {
      * @return レスポンスDTO
      */
     private UserRoleResponseDto toResponseDto(UserRole userRole) {
-        UserRoleResponseDto dto = new UserRoleResponseDto();
-        dto.setId(userRole.getId());
-        dto.setUserId(userRole.getUserId());
-        dto.setRoleName(userRole.getRoleName());
-        dto.setCompanyId(userRole.getCompanyId());
-        dto.setDescription(userRole.getRoleDescription());
-        dto.setIsActive(userRole.getActive());
-        dto.setCreatedAt(userRole.getCreatedAt());
-        dto.setUpdatedAt(userRole.getUpdatedAt());
-        return dto;
+        return mapper.map(userRole, UserRoleResponseDto.class);
     }
 
     /** 全てのユーザー役割を取得 */
@@ -113,12 +108,7 @@ public class UserRoleService {
         validateUserRole(userRole);
 
         // 基本情報の更新
-        existing.setRoleName(userRole.getRoleName());
-        existing.setSpecialPermissions(userRole.getSpecialPermissions());
-        existing.setActive(userRole.getActive());
-        existing.setValidFrom(userRole.getValidFrom());
-        existing.setValidUntil(userRole.getValidUntil());
-        existing.setRoleDescription(userRole.getRoleDescription());
+        mapper.map(userRole, existing);
         existing.setUpdatedAt(LocalDateTime.now());
 
         return userRoleRepository.save(existing);
@@ -273,11 +263,7 @@ public class UserRoleService {
      * @return 作成されたレスポンスDTO
      */
     public UserRoleResponseDto createUserRole(UserRoleCreateDto createDto) {
-        UserRole entity = new UserRole();
-        entity.setUserId(createDto.getUserId());
-        entity.setRoleName(createDto.getRoleName());
-        entity.setCompanyId(createDto.getCompanyId());
-        entity.setRoleDescription(createDto.getDescription());
+        UserRole entity = mapper.map(createDto, UserRole.class);
         UserRole saved = save(entity);
         return toResponseDto(saved);
     }
@@ -291,15 +277,7 @@ public class UserRoleService {
      */
     public Optional<UserRoleResponseDto> updateUserRole(Long id, UserRoleUpdateDto updateDto) {
         return userRoleRepository.findById(id).map(existing -> {
-            if (updateDto.getRoleName() != null) {
-                existing.setRoleName(updateDto.getRoleName());
-            }
-            if (updateDto.getDescription() != null) {
-                existing.setRoleDescription(updateDto.getDescription());
-            }
-            if (updateDto.getIsActive() != null) {
-                existing.setActive(updateDto.getIsActive());
-            }
+            mapper.map(updateDto, existing);
             existing.setUpdatedAt(LocalDateTime.now());
             return toResponseDto(userRoleRepository.save(existing));
         });

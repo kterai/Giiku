@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import com.github.dozermapper.core.Mapper;
 
 import jp.co.apsa.giiku.domain.entity.StudentProfile;
 import jp.co.apsa.giiku.domain.repository.CompanyRepository;
@@ -35,15 +36,18 @@ public class StudentService {
     private final StudentProfileRepository studentProfileRepository;
     private final UserRepository userRepository;
     private final CompanyRepository companyRepository;
+    private final Mapper mapper;
 
     /** StudentService メソッド */
     @Autowired
     public StudentService(StudentProfileRepository studentProfileRepository,
                           UserRepository userRepository,
-                          CompanyRepository companyRepository) {
+                          CompanyRepository companyRepository,
+                          Mapper mapper) {
         this.studentProfileRepository = studentProfileRepository;
         this.userRepository = userRepository;
         this.companyRepository = companyRepository;
+        this.mapper = mapper;
     }
 
     /**
@@ -257,28 +261,7 @@ public class StudentService {
      * @return 変換された学生レスポンス
      */
     private StudentResponse toStudentResponse(StudentProfile profile) {
-        StudentResponse response = new StudentResponse();
-        response.setId(profile.getId());
-        response.setStudentNumber(profile.getStudentNumber());
-        response.setCompanyId(profile.getCompanyId());
-        response.setEnrollmentStatus(profile.getEnrollmentStatus());
-        response.setAdmissionDate(profile.getAdmissionDate());
-        response.setExpectedGraduationDate(profile.getExpectedGraduationDate());
-        response.setActualGraduationDate(profile.getActualGraduationDate());
-        response.setGradeLevel(profile.getGradeLevel());
-        response.setClassName(profile.getClassName());
-        response.setMajorField(profile.getMajorField());
-        response.setEmergencyContactName(profile.getEmergencyContactName());
-        response.setEmergencyContactPhone(profile.getEmergencyContactPhone());
-        response.setAddress(profile.getAddress());
-        response.setPhoneNumber(profile.getPhoneNumber());
-        response.setBirthDate(profile.getBirthDate());
-        response.setGender(profile.getGender());
-        response.setNotes(profile.getNotes());
-        response.setCreatedAt(profile.getCreatedAt());
-        response.setUpdatedAt(profile.getUpdatedAt());
-        response.setVersion(profile.getVersion());
-        return response;
+        return mapper.map(profile, StudentResponse.class);
     }
 
     /**
@@ -288,23 +271,7 @@ public class StudentService {
      * @return 変換された学生プロフィール
      */
     private StudentProfile toStudentProfile(StudentRequest request) {
-        StudentProfile profile = new StudentProfile();
-        profile.setStudentNumber(request.getStudentNumber());
-        profile.setCompanyId(request.getCompanyId());
-        profile.setEnrollmentStatus(request.getEnrollmentStatus());
-        profile.setAdmissionDate(request.getAdmissionDate());
-        profile.setExpectedGraduationDate(request.getExpectedGraduationDate());
-        profile.setGradeLevel(request.getGradeLevel());
-        profile.setClassName(request.getClassName());
-        profile.setMajorField(request.getMajorField());
-        profile.setEmergencyContactName(request.getEmergencyContactName());
-        profile.setEmergencyContactPhone(request.getEmergencyContactPhone());
-        profile.setAddress(request.getAddress());
-        profile.setPhoneNumber(request.getPhoneNumber());
-        profile.setBirthDate(request.getBirthDate());
-        profile.setGender(request.getGender());
-        profile.setNotes(request.getNotes());
-        return profile;
+        return mapper.map(request, StudentProfile.class);
     }
 
     /**
@@ -314,21 +281,7 @@ public class StudentService {
      * @param request  リクエストデータ
      */
     private void updateProfileFromRequest(StudentProfile profile, StudentRequest request) {
-        profile.setStudentNumber(request.getStudentNumber());
-        profile.setCompanyId(request.getCompanyId());
-        profile.setEnrollmentStatus(request.getEnrollmentStatus());
-        profile.setAdmissionDate(request.getAdmissionDate());
-        profile.setExpectedGraduationDate(request.getExpectedGraduationDate());
-        profile.setGradeLevel(request.getGradeLevel());
-        profile.setClassName(request.getClassName());
-        profile.setMajorField(request.getMajorField());
-        profile.setEmergencyContactName(request.getEmergencyContactName());
-        profile.setEmergencyContactPhone(request.getEmergencyContactPhone());
-        profile.setAddress(request.getAddress());
-        profile.setPhoneNumber(request.getPhoneNumber());
-        profile.setBirthDate(request.getBirthDate());
-        profile.setGender(request.getGender());
-        profile.setNotes(request.getNotes());
+        mapper.map(request, profile);
     }
 
     /**

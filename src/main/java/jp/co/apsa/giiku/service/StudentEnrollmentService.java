@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.criteria.Predicate;
+import com.github.dozermapper.core.Mapper;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -40,6 +41,9 @@ public class StudentEnrollmentService {
 
     @Autowired
     private TrainingProgramRepository trainingProgramRepository;
+
+    @Autowired
+    private Mapper mapper;
 
     /** 全ての受講登録を取得 */
     @Transactional(readOnly = true)
@@ -86,11 +90,7 @@ public class StudentEnrollmentService {
         validateEnrollment(enrollment);
 
         // 基本情報の更新（学生IDとプログラムIDは変更不可）
-        existing.setEnrollmentStatus(enrollment.getEnrollmentStatus());
-        existing.setProgressPercentage(enrollment.getProgressPercentage());
-        existing.setCompletionDate(enrollment.getCompletionDate());
-        existing.setFinalScore(enrollment.getFinalScore());
-        existing.setNotes(enrollment.getNotes());
+        mapper.map(enrollment, existing);
         existing.setUpdatedAt(LocalDateTime.now());
 
         return studentEnrollmentRepository.save(existing);
