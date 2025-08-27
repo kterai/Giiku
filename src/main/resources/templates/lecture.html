@@ -155,8 +155,9 @@
                     <p class="mb-3" th:utext="${exercise.questionText}">問題説明</p>
 
                     <button th:onclick="'toggleAnswer(\'answer' + ${exStat.count} + '\')'"
-                            class="btn btn-primary">
-                        <i class="fas fa-eye me-2"></i>回答例を表示
+                            class="btn btn-primary d-flex align-items-center gap-2">
+                        <i class="fas fa-eye"></i>
+                        <span class="answer-toggle-label">回答例を表示</span>
                     </button>
 
                     <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')"
@@ -222,13 +223,15 @@
                 const button = document.querySelector(`[onclick*="${answerId}"]`);
                 if (button) {
                     const icon = button.querySelector('i');
-                    const text = button.querySelector('i + *') || button.childNodes[1];
-                    if (isHidden) {
-                        icon.className = 'fas fa-eye-slash me-2';
-                        text.textContent = '回答例を非表示';
-                    } else {
-                        icon.className = 'fas fa-eye me-2';
-                        text.textContent = '回答例を表示';
+                    const label = button.querySelector('.answer-toggle-label');
+                    if (icon && label) {
+                        if (isHidden) {
+                            icon.className = 'fas fa-eye-slash';
+                            label.textContent = '回答例を非表示';
+                        } else {
+                            icon.className = 'fas fa-eye';
+                            label.textContent = '回答例を表示';
+                        }
                     }
                 }
             }
