@@ -121,6 +121,14 @@ public class QuestionBankService {
     }
 
     @Transactional(readOnly = true)
+    public List<QuestionBank> findByLectureIdOrderByQuestionNumber(Long lectureId) {
+        if (lectureId == null) {
+            throw new IllegalArgumentException("講義IDは必須です");
+        }
+        return questionBankRepository.findByLectureIdOrderByQuestionNumber(lectureId);
+    }
+
+    @Transactional(readOnly = true)
     public long countAll() {
         return questionBankRepository.count();
     }
