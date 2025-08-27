@@ -90,7 +90,7 @@
                                     <div th:switch="${block.blockType}">
                                         <!-- テキストコンテンツ -->
                                         <div th:case="'text'">
-                                            <p th:utext="${block.content}">コンテンツ内容</p>
+                                            <pre class="formatted-text" th:utext="${block.content}">コンテンツ内容</pre>
                                         </div>
 
                                         <!-- コードブロック -->
