@@ -28,9 +28,11 @@ import jp.co.apsa.giiku.service.LectureContentBlockService;
 import jp.co.apsa.giiku.domain.entity.LectureChapter;
 import jp.co.apsa.giiku.domain.entity.LectureGoal;
 import jp.co.apsa.giiku.domain.entity.LectureContentBlock;
+import jp.co.apsa.giiku.domain.entity.QuizQuestionBank;
 import jp.co.apsa.giiku.service.LectureService;
 import jp.co.apsa.giiku.service.MonthService;
 import jp.co.apsa.giiku.service.WeekService;
+import jp.co.apsa.giiku.service.QuizQuestionBankService;
 
 /**
  * 講義詳細ページを表示するコントローラー。
@@ -61,6 +63,8 @@ public class LectureViewController extends AbstractController {
     private LectureGoalService lectureGoalService;
     @Autowired
     private LectureContentBlockService lectureContentBlockService;
+    @Autowired
+    private QuizQuestionBankService quizQuestionBankService;
 
     /**
      * 静的講義スライドを表示します。
@@ -105,7 +109,7 @@ public class LectureViewController extends AbstractController {
         
         model.addAttribute("goals", goals);
         model.addAttribute("contentChapters", chapters);
-        
+
         // 各チャプターのコンテンツブロックを取得
         Map<Long, List<LectureContentBlock>> chapterContentBlocks = new HashMap<>();
         for (LectureChapter chapter : chapters) {
@@ -113,6 +117,10 @@ public class LectureViewController extends AbstractController {
             chapterContentBlocks.put(chapter.getId(), blocks);
         }
         model.addAttribute("chapterContentBlocks", chapterContentBlocks);
+
+        // 理解度テストのクイズ問題を取得
+        List<QuizQuestionBank> quizQuestions = quizQuestionBankService.findByLectureId(lecture.getId());
+        model.addAttribute("quizQuestions", quizQuestions);
 
         // JSONフィールド（演習・追加リソース）をパース
         model.addAttribute("exercises", parseJsonField(getExercisesJson(lecture), List.class));
