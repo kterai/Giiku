@@ -11,6 +11,7 @@
     border-radius: 8px;
     overflow-x: auto;
     font-family: 'Courier New', monospace;
+    color: #e2e8f0;
 }
 
 .code-block pre {
