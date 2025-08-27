@@ -28,9 +28,11 @@ import jp.co.apsa.giiku.service.LectureContentBlockService;
 import jp.co.apsa.giiku.domain.entity.LectureChapter;
 import jp.co.apsa.giiku.domain.entity.LectureGoal;
 import jp.co.apsa.giiku.domain.entity.LectureContentBlock;
+import jp.co.apsa.giiku.domain.entity.QuizQuestionBank;
 import jp.co.apsa.giiku.service.LectureService;
 import jp.co.apsa.giiku.service.MonthService;
 import jp.co.apsa.giiku.service.WeekService;
+import jp.co.apsa.giiku.service.QuizQuestionBankService;
 import jp.co.apsa.giiku.service.QuestionBankService;
 import jp.co.apsa.giiku.domain.entity.QuestionBank;
 
@@ -64,7 +66,10 @@ public class LectureViewController extends AbstractController {
     @Autowired
     private LectureContentBlockService lectureContentBlockService;
     @Autowired
+    private QuizQuestionBankService quizQuestionBankService;
+    @Autowired
     private QuestionBankService questionBankService;
+
 
     /**
      * 静的講義スライドを表示します。
@@ -109,7 +114,7 @@ public class LectureViewController extends AbstractController {
         
         model.addAttribute("goals", goals);
         model.addAttribute("contentChapters", chapters);
-        
+
         // 各チャプターのコンテンツブロックを取得
         Map<Long, List<LectureContentBlock>> chapterContentBlocks = new HashMap<>();
         for (LectureChapter chapter : chapters) {
@@ -118,9 +123,14 @@ public class LectureViewController extends AbstractController {
         }
         model.addAttribute("chapterContentBlocks", chapterContentBlocks);
 
+        // 理解度テストのクイズ問題を取得
+        List<QuizQuestionBank> quizQuestions = quizQuestionBankService.findByLectureId(lecture.getId());
+        model.addAttribute("quizQuestions", quizQuestions);
+
         // 演習問題と追加リソースを設定
         List<QuestionBank> exercises = questionBankService.findByLectureIdOrderByQuestionNumber(lecture.getId());
         model.addAttribute("exercises", exercises);
+
         model.addAttribute("additionalResources", parseJsonField(getAdditionalResourcesJson(lecture), List.class));
         
         // 前後の講義を取得
