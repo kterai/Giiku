@@ -87,7 +87,7 @@
                                 </div>
 
                                 <div th:if="${block.content}">
-                                    <div th:switch="${block.blockType}">
+                                    <div th:switch="${#strings.toLowerCase(block.blockType)}">
                                         <!-- テキストコンテンツ -->
                                         <div th:case="'text'">
                                             <pre class="formatted-text" th:utext="${block.content}">コンテンツ内容</pre>
