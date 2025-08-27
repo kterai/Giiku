@@ -141,12 +141,12 @@
                         <li th:if="${quiz.optionF}" th:text="${#strings.substringAfter(quiz.optionF, '. ')}">選択肢F</li>
                     </ol>
                     <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')">
-                        <button th:onclick="'showAnswer(\'answer' + ${quizStat.count} + '\')'"
+                        <button th:onclick="'showAnswer(\'quiz-answer' + ${quizStat.count} + '\')'"
                                 class="btn btn-primary d-flex align-items-center gap-2 mt-2">
                             <i class="fas fa-eye"></i>
                             <span class="answer-toggle-label">回答を表示</span>
                         </button>
-                        <div th:id="'answer' + ${quizStat.count}"
+                        <div th:id="'quiz-answer' + ${quizStat.count}"
                              class="answer-content">
                             <h4 class="fw-semibold mb-2">正解：<span class="text-danger" th:text="${quiz.correctAnswer}">1</span></h4>
                             <p th:if="${quiz.explanation}" class="mt-0" th:utext="${quiz.explanation}">解説文</p>
@@ -167,14 +167,14 @@
                     <p class="mb-3" th:utext="${exercise.questionText}">問題説明</p>
 
                     <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')"
-                            th:onclick="'toggleAnswer(\'answer' + ${exStat.count} + '\')'"
+                            th:onclick="'toggleAnswer(\'exercise-answer' + ${exStat.count} + '\')'"
                             class="btn btn-primary d-flex align-items-center gap-2">
                         <i class="fas fa-eye"></i>
                         <span class="answer-toggle-label">回答例を表示</span>
                     </button>
 
                     <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')"
-                         th:id="'answer' + ${exStat.count}"
+                         th:id="'exercise-answer' + ${exStat.count}"
                          class="answer-content">
                         <h4 class="fw-semibold mb-2">回答例：</h4>
                         <p th:utext="${exercise.correctAnswer}">回答</p>
