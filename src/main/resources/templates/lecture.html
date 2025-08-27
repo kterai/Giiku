@@ -105,12 +105,12 @@
 
                                         <!-- リスト -->
                                         <div th:case="'list'">
-                                            <div th:utext="${block.content}">リスト内容</div>
+                                            <pre class="formatted-text" th:utext="${block.content}">リスト内容</pre>
                                         </div>
 
                                         <!-- その他のコンテンツ -->
                                         <div th:case="*">
-                                            <div th:utext="${block.content}">その他のコンテンツ</div>
+                                            <pre class="formatted-text" th:utext="${block.content}">その他のコンテンツ</pre>
                                         </div>
                                     </div>
                                 </div>
