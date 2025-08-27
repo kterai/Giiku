@@ -130,7 +130,7 @@
                 <h2 class="fw-bold text-primary mb-4">
                     <i class="fas fa-question-circle me-2"></i>理解度テスト
                 </h2>
-                <div th:each="quiz : ${quizQuestions}" class="mb-4">
+                <div th:each="quiz, quizStat : ${quizQuestions}" class="mb-4">
                     <h3 class="fw-semibold mb-2" th:text="${quiz.questionNumber + '. ' + quiz.questionText}">問題文</h3>
                     <ul class="list-unstyled ms-3">
                         <li th:if="${quiz.optionA}" th:text="${'A. ' + quiz.optionA}">選択肢A</li>
@@ -140,6 +140,19 @@
                         <li th:if="${quiz.optionE}" th:text="${'E. ' + quiz.optionE}">選択肢E</li>
                         <li th:if="${quiz.optionF}" th:text="${'F. ' + quiz.optionF}">選択肢F</li>
                     </ul>
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')"
+                            th:onclick="'showAnswer(\'answer' + ${quizStat.count} + '\')'"
+                            class="btn btn-primary d-flex align-items-center gap-2 mt-2">
+                        <i class="fas fa-eye"></i>
+                        <span class="answer-toggle-label">回答を表示</span>
+                    </button>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')"
+                         th:id="'answer' + ${quizStat.count}"
+                         class="answer-content">
+                        <h4 class="fw-semibold mb-2">正解：</h4>
+                        <p th:text="${quiz.correctAnswer}">正解</p>
+                        <p th:if="${quiz.explanation}" th:utext="${quiz.explanation}">解説</p>
+                    </div>
                 </div>
             </section>
 
@@ -213,6 +226,30 @@
 
     <!-- JavaScript -->
     <script>
+        function showAnswer(answerId) {
+            const answerElement = document.getElementById(answerId);
+            if (answerElement) {
+                const isHidden = answerElement.style.display === 'none';
+                answerElement.style.display = isHidden ? 'block' : 'none';
+
+                // ボタンテキストを変更
+                const button = document.querySelector(`[onclick*="${answerId}"]`);
+                if (button) {
+                    const icon = button.querySelector('i');
+                    const label = button.querySelector('.answer-toggle-label');
+                    if (icon && label) {
+                        if (isHidden) {
+                            icon.className = 'fas fa-eye-slash';
+                            label.textContent = '回答を非表示';
+                        } else {
+                            icon.className = 'fas fa-eye';
+                            label.textContent = '回答を表示';
+                        }
+                    }
+                }
+            }
+        }
+
         function toggleAnswer(answerId) {
             const answerElement = document.getElementById(answerId);
             if (answerElement) {
