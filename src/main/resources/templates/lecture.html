@@ -151,13 +151,8 @@
 
                 <div th:each="exercise, exStat : ${exercises}" class="border rounded p-4 mb-4">
                     <h3 class="fw-bold text-primary mb-3"
-                        th:text="${'演習問題' + (exStat.count) + ': ' + exercise.title}">演習問題タイトル</h3>
-                    <p class="mb-3" th:utext="${exercise.description}">問題説明</p>
-
-                    <ol th:if="${exercise.questions}" class="mb-4 ps-3">
-                        <li th:each="question, qStat : ${exercise.questions}"
-                            th:text="${(qStat.count) + '. ' + question}" class="mb-2">質問内容</li>
-                    </ol>
+                        th:text="${'演習問題' + exercise.questionNumber}">演習問題タイトル</h3>
+                    <p class="mb-3" th:utext="${exercise.questionText}">問題説明</p>
 
                     <button th:onclick="'toggleAnswer(\'answer' + ${exStat.count} + '\')'"
                             class="btn btn-primary">
@@ -168,16 +163,11 @@
                          th:id="'answer' + ${exStat.count}"
                          class="answer-content">
                         <h4 class="fw-semibold mb-2">回答例：</h4>
-                        <div class="d-flex flex-column gap-3 small">
-                            <div th:each="answer : ${exercise.answers}">
-                                <p class="fw-semibold" th:text="${answer.question}">質問</p>
-                                <p th:utext="${answer.answer}">回答</p>
-                            </div>
-                        </div>
+                        <p th:utext="${exercise.correctAnswer}">回答</p>
+                        <p th:if="${exercise.explanation}" th:utext="${exercise.explanation}">解説</p>
                     </div>
                 </div>
             </section>
-
             <!-- 追加リソース -->
             <section th:if="${additionalResources != null and !additionalResources.isEmpty()}" class="bg-white rounded shadow p-4 mb-4">
                 <h2 class="fw-bold text-primary mb-4">
