@@ -140,18 +140,18 @@
                         <li th:if="${quiz.optionE}" th:text="${'E. ' + quiz.optionE}">選択肢E</li>
                         <li th:if="${quiz.optionF}" th:text="${'F. ' + quiz.optionF}">選択肢F</li>
                     </ul>
-                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')"
-                            th:onclick="'showAnswer(\'answer' + ${quizStat.count} + '\')'"
-                            class="btn btn-primary d-flex align-items-center gap-2 mt-2">
-                        <i class="fas fa-eye"></i>
-                        <span class="answer-toggle-label">回答を表示</span>
-                    </button>
-                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')"
-                         th:id="'answer' + ${quizStat.count}"
-                         class="answer-content">
-                        <h4 class="fw-semibold mb-2">正解：</h4>
-                        <p th:text="${quiz.correctAnswer}">正解</p>
-                        <p th:if="${quiz.explanation}" th:utext="${quiz.explanation}">解説</p>
+                    <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')">
+                        <button th:onclick="'showAnswer(\'answer' + ${quizStat.count} + '\')'"
+                                class="btn btn-primary d-flex align-items-center gap-2 mt-2">
+                            <i class="fas fa-eye"></i>
+                            <span class="answer-toggle-label">回答を表示</span>
+                        </button>
+                        <div th:id="'answer' + ${quizStat.count}"
+                             class="answer-content">
+                            <h4 class="fw-semibold mb-2">正解：</h4>
+                            <p th:text="${quiz.correctAnswer}">正解</p>
+                            <p th:if="${quiz.explanation}" th:utext="${quiz.explanation}">解説</p>
+                        </div>
                     </div>
                 </div>
             </section>
