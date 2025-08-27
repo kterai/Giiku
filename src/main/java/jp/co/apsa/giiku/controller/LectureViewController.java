@@ -31,6 +31,8 @@ import jp.co.apsa.giiku.domain.entity.LectureContentBlock;
 import jp.co.apsa.giiku.service.LectureService;
 import jp.co.apsa.giiku.service.MonthService;
 import jp.co.apsa.giiku.service.WeekService;
+import jp.co.apsa.giiku.service.QuestionBankService;
+import jp.co.apsa.giiku.domain.entity.QuestionBank;
 
 /**
  * 講義詳細ページを表示するコントローラー。
@@ -61,6 +63,8 @@ public class LectureViewController extends AbstractController {
     private LectureGoalService lectureGoalService;
     @Autowired
     private LectureContentBlockService lectureContentBlockService;
+    @Autowired
+    private QuestionBankService questionBankService;
 
     /**
      * 静的講義スライドを表示します。
@@ -114,8 +118,9 @@ public class LectureViewController extends AbstractController {
         }
         model.addAttribute("chapterContentBlocks", chapterContentBlocks);
 
-        // JSONフィールド（演習・追加リソース）をパース
-        model.addAttribute("exercises", parseJsonField(getExercisesJson(lecture), List.class));
+        // 演習問題と追加リソースを設定
+        List<QuestionBank> exercises = questionBankService.findByLectureIdOrderByQuestionNumber(lecture.getId());
+        model.addAttribute("exercises", exercises);
         model.addAttribute("additionalResources", parseJsonField(getAdditionalResourcesJson(lecture), List.class));
         
         // 前後の講義を取得
@@ -152,36 +157,6 @@ public class LectureViewController extends AbstractController {
             logger.warn("Failed to parse JSON field: " + jsonString, e);
             return null;
         }
-    }
-
-    /**
-     * 演習問題のJSONを取得（将来的にDBフィールドに追加予定）
-     */
-    private String getExercisesJson(Lecture lecture) {
-        // 現時点では固定値、将来的にはlecture.getExercises()など
-        return """
-            [
-                {
-                    "title": "Javaの特徴理解",
-                    "description": "以下の質問に答えてください：",
-                    "questions": [
-                        "Javaが「Write Once, Run Anywhere」と呼ばれる理由を、具体例を交えて説明してください。",
-                        "JDK、JRE、JVMの違いと役割を説明してください。",
-                        "なぜJavaでメモリ管理を意識する必要が少ないのか説明してください。"
-                    ],
-                    "answers": [
-                        {
-                            "question": "1. 「Write Once, Run Anywhere」の理由：",
-                            "answer": "Javaコードは一度コンパイルするとバイトコードという中間言語に変換され、JVM（Java仮想マシン）上で実行される。JVMが各OS（Windows、Mac、Linux）に対応しているため、同じバイトコードがどのプラットフォームでも動作する。"
-                        },
-                        {
-                            "question": "2. JDK、JRE、JVMの違い：",
-                            "answer": "<ul><li><strong>JVM</strong>：Javaプログラムを実行する仮想マシン</li><li><strong>JRE</strong>：Java実行環境（JVM + ライブラリ）</li><li><strong>JDK</strong>：Java開発キット（JRE + 開発ツール）</li></ul>"
-                        }
-                    ]
-                }
-            ]
-            """;
     }
 
     /**

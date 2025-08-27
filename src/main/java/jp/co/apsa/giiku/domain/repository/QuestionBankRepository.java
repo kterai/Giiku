@@ -51,6 +51,14 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Long
     List<QuestionBank> findByQuestionTextContainingIgnoreCaseAndIsActiveTrue(String text);
 
     /**
+     * 講義IDで検索し、問題番号の昇順で取得します。
+     *
+     * @param lectureId 講義ID
+     * @return 該当する問題一覧
+     */
+    List<QuestionBank> findByLectureIdOrderByQuestionNumber(Long lectureId);
+
+    /**
      * 難易度別の問題数を取得します。
      *
      * @return 難易度と件数の配列リスト
