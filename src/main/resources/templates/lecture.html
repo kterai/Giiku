@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${lecture.title}">Lecture</title>
-    <link rel="stylesheet" th:href="@{/webjars/prismjs/themes/prism.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/prismjs/1.29.0/themes/prism.min.css}">
 </head>
 <body class="bg-light text-dark">
 
@@ -95,7 +95,7 @@
 
                                         <!-- コードブロック -->
                                         <div th:case="'code'" class="code-block mb-4">
-                                            <pre><code th:text="${block.content}">コード内容</code></pre>
+                                            <pre><code class="language-java" th:text="${block.content}">コード内容</code></pre>
                                         </div>
 
                                         <!-- 画像 -->
@@ -235,9 +235,9 @@
     </script>
 
     <!-- Syntax Highlighting -->
-    <script th:src="@{/webjars/prismjs/prism.min.js}"></script>
-    <script th:src="@{/webjars/prismjs/components/prism-java.min.js}"></script>
-    <script th:src="@{/webjars/prismjs/components/prism-sql.min.js}"></script>
+    <script th:src="@{/webjars/prismjs/1.29.0/prism.min.js}"></script>
+    <script th:src="@{/webjars/prismjs/1.29.0/components/prism-java.min.js}"></script>
+    <script th:src="@{/webjars/prismjs/1.29.0/components/prism-sql.min.js}"></script>
 </section>
 </body>
 </html>

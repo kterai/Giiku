@@ -14,6 +14,10 @@
     font-family: 'Courier New', monospace;
 }
 
+.code-block pre {
+    margin-bottom: 0;
+}
+
 .answer-section,
 .answer-content {
     display: none;
