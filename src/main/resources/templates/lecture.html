@@ -149,7 +149,10 @@
                         <div th:id="'answer' + ${quizStat.count}"
                              class="answer-content">
                             <h4 class="fw-semibold mb-2">正解：<span class="text-danger" th:text="${quiz.correctAnswer}">1</span></h4>
-                            <p th:if="${quiz.explanation}" th:utext="${quiz.explanation}">解説</p>
+                            <div th:if="${quiz.explanation}">
+                                <h5 class="fw-semibold">解説：</h5>
+                                <p th:utext="${quiz.explanation}">解説文</p>
+                            </div>
                         </div>
                     </div>
                 </div>
