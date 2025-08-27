@@ -229,8 +229,7 @@
         function showAnswer(answerId) {
             const answerElement = document.getElementById(answerId);
             if (answerElement) {
-                const isHidden = answerElement.style.display === 'none';
-                answerElement.style.display = isHidden ? 'block' : 'none';
+                const isShown = answerElement.classList.toggle('show');
 
                 // ボタンテキストを変更
                 const button = document.querySelector(`[onclick*="${answerId}"]`);
@@ -238,7 +237,7 @@
                     const icon = button.querySelector('i');
                     const label = button.querySelector('.answer-toggle-label');
                     if (icon && label) {
-                        if (isHidden) {
+                        if (isShown) {
                             icon.className = 'fas fa-eye-slash';
                             label.textContent = '回答を非表示';
                         } else {
@@ -253,8 +252,7 @@
         function toggleAnswer(answerId) {
             const answerElement = document.getElementById(answerId);
             if (answerElement) {
-                const isHidden = answerElement.style.display === 'none';
-                answerElement.style.display = isHidden ? 'block' : 'none';
+                const isShown = answerElement.classList.toggle('show');
 
                 // ボタンテキストを変更
                 const button = document.querySelector(`[onclick*="${answerId}"]`);
@@ -262,7 +260,7 @@
                     const icon = button.querySelector('i');
                     const label = button.querySelector('.answer-toggle-label');
                     if (icon && label) {
-                        if (isHidden) {
+                        if (isShown) {
                             icon.className = 'fas fa-eye-slash';
                             label.textContent = '回答例を非表示';
                         } else {
