@@ -132,14 +132,14 @@
                 </h2>
                 <div th:each="quiz, quizStat : ${quizQuestions}" class="mb-4">
                     <h3 class="fw-semibold mb-2" th:text="${quiz.questionNumber + '. ' + quiz.questionText}">問題文</h3>
-                    <ul class="list-unstyled ms-3">
-                        <li th:if="${quiz.optionA}" th:text="${'A. ' + quiz.optionA}">選択肢A</li>
-                        <li th:if="${quiz.optionB}" th:text="${'B. ' + quiz.optionB}">選択肢B</li>
-                        <li th:if="${quiz.optionC}" th:text="${'C. ' + quiz.optionC}">選択肢C</li>
-                        <li th:if="${quiz.optionD}" th:text="${'D. ' + quiz.optionD}">選択肢D</li>
-                        <li th:if="${quiz.optionE}" th:text="${'E. ' + quiz.optionE}">選択肢E</li>
-                        <li th:if="${quiz.optionF}" th:text="${'F. ' + quiz.optionF}">選択肢F</li>
-                    </ul>
+                    <ol class="quiz-options ms-3">
+                        <li th:if="${quiz.optionA}" th:text="${quiz.optionA}">選択肢A</li>
+                        <li th:if="${quiz.optionB}" th:text="${quiz.optionB}">選択肢B</li>
+                        <li th:if="${quiz.optionC}" th:text="${quiz.optionC}">選択肢C</li>
+                        <li th:if="${quiz.optionD}" th:text="${quiz.optionD}">選択肢D</li>
+                        <li th:if="${quiz.optionE}" th:text="${quiz.optionE}">選択肢E</li>
+                        <li th:if="${quiz.optionF}" th:text="${quiz.optionF}">選択肢F</li>
+                    </ol>
                     <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')">
                         <button th:onclick="'showAnswer(\'answer' + ${quizStat.count} + '\')'"
                                 class="btn btn-primary d-flex align-items-center gap-2 mt-2">
