@@ -167,7 +167,8 @@
                         th:text="${'演習問題' + exercise.questionNumber}">演習問題タイトル</h3>
                     <p class="mb-3" th:utext="${exercise.questionText}">問題説明</p>
 
-                    <button th:onclick="'toggleAnswer(\'answer' + ${exStat.count} + '\')'"
+                    <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')"
+                            th:onclick="'toggleAnswer(\'answer' + ${exStat.count} + '\')'"
                             class="btn btn-primary d-flex align-items-center gap-2">
                         <i class="fas fa-eye"></i>
                         <span class="answer-toggle-label">回答例を表示</span>
