@@ -25,7 +25,7 @@ import jp.co.apsa.giiku.service.DayService;
 import jp.co.apsa.giiku.service.LectureChapterService;
 import jp.co.apsa.giiku.service.LectureGoalService;
 import jp.co.apsa.giiku.service.LectureContentBlockService;
-import jp.co.apsa.giiku.domain.entity.LectureChapter;
+import jp.co.apsa.giiku.domain.entity.Chapter;
 import jp.co.apsa.giiku.domain.entity.LectureGoal;
 import jp.co.apsa.giiku.domain.entity.LectureContentBlock;
 import jp.co.apsa.giiku.domain.entity.QuizQuestionBank;
@@ -107,7 +107,7 @@ public class LectureViewController extends AbstractController {
         
         // 正規化テーブルからデータ取得
         List<LectureGoal> goals = lectureGoalService.findByLectureIdOrderBySortOrder(lecture.getId());
-        List<LectureChapter> chapters = lectureChapterService.findByLectureIdOrderBySortOrder(lecture.getId());
+        List<Chapter> chapters = lectureChapterService.findByLectureIdOrderBySortOrder(lecture.getId());
         
         logger.debug("Found {} goals", goals.size());
         logger.debug("Found {} chapters", chapters.size());
@@ -117,7 +117,7 @@ public class LectureViewController extends AbstractController {
 
         // 各チャプターのコンテンツブロックを取得
         Map<Long, List<LectureContentBlock>> chapterContentBlocks = new HashMap<>();
-        for (LectureChapter chapter : chapters) {
+        for (Chapter chapter : chapters) {
             List<LectureContentBlock> blocks = lectureContentBlockService.findByChapterIdOrderBySortOrder(chapter.getId());
             chapterContentBlocks.put(chapter.getId(), blocks);
         }

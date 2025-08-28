@@ -8,7 +8,8 @@ import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.loader.api.BeanMappingBuilder;
 import com.github.dozermapper.core.loader.api.TypeMappingOptions;
 
-import jp.co.apsa.giiku.domain.entity.LectureChapter;
+import jp.co.apsa.giiku.domain.entity.Chapter;
+import jp.co.apsa.giiku.domain.entity.LectureChapterLink;
 import jp.co.apsa.giiku.domain.entity.ProgramSchedule;
 import jp.co.apsa.giiku.domain.entity.StudentProfile;
 import jp.co.apsa.giiku.domain.entity.StudentEnrollment;
@@ -46,7 +47,14 @@ public class DozerConfig {
                                 .exclude("createdAt")
                                 .exclude("updatedBy")
                                 .exclude("updatedAt");
-                        mapping(LectureChapter.class, LectureChapter.class, TypeMappingOptions.oneWay())
+                        mapping(Chapter.class, Chapter.class, TypeMappingOptions.oneWay())
+                                .exclude("id")
+                                .exclude("version")
+                                .exclude("createdBy")
+                                .exclude("createdAt")
+                                .exclude("updatedBy")
+                                .exclude("updatedAt");
+                        mapping(LectureChapterLink.class, LectureChapterLink.class, TypeMappingOptions.oneWay())
                                 .exclude("id")
                                 .exclude("version")
                                 .exclude("createdBy")
