@@ -268,10 +268,9 @@ COMMENT ON COLUMN lectures.updated_at IS '更新日時（レコード更新時�
 COMMENT ON COLUMN lectures.version IS 'バージョン（楽観ロック用）';
 COMMENT ON COLUMN lectures.updated_by IS '更新者（レコード更新したユーザーID）';
 
--- Lecture chapters table
-CREATE TABLE lecture_chapters (
+-- Chapters table
+CREATE TABLE chapters (
     id BIGSERIAL PRIMARY KEY,
-    lecture_id BIGINT NOT NULL REFERENCES lectures(id),
     chapter_number INTEGER NOT NULL,
     title VARCHAR(200) NOT NULL,
     description TEXT,
@@ -285,18 +284,37 @@ CREATE TABLE lecture_chapters (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
-COMMENT ON COLUMN lecture_chapters.lecture_id IS '講義ID（lectures.id）';
-COMMENT ON COLUMN lecture_chapters.chapter_number IS 'チャプター番号';
-COMMENT ON COLUMN lecture_chapters.title IS 'チャプタータイトル';
-COMMENT ON COLUMN lecture_chapters.description IS 'チャプター説明';
-COMMENT ON COLUMN lecture_chapters.duration_minutes IS 'チャプター想定時間（分）';
-COMMENT ON COLUMN lecture_chapters.sort_order IS '並び順';
-COMMENT ON COLUMN lecture_chapters.is_active IS '有効状態（チャプターの使用可否）';
-COMMENT ON COLUMN lecture_chapters.version IS 'バージョン（楽観ロック用）';
-COMMENT ON COLUMN lecture_chapters.created_by IS '作成者（レコード作成したユーザーID）';
-COMMENT ON COLUMN lecture_chapters.created_at IS '作成日時（レコード作成時刻）';
-COMMENT ON COLUMN lecture_chapters.updated_by IS '更新者（レコード更新したユーザーID）';
-COMMENT ON COLUMN lecture_chapters.updated_at IS '更新日時（レコード更新時刻）';
+COMMENT ON COLUMN chapters.chapter_number IS 'チャプター番号';
+COMMENT ON COLUMN chapters.title IS 'チャプタータイトル';
+COMMENT ON COLUMN chapters.description IS 'チャプター説明';
+COMMENT ON COLUMN chapters.duration_minutes IS 'チャプター想定時間（分）';
+COMMENT ON COLUMN chapters.sort_order IS '並び順';
+COMMENT ON COLUMN chapters.is_active IS '有効状態（チャプターの使用可否）';
+COMMENT ON COLUMN chapters.version IS 'バージョン（楽観ロック用）';
+COMMENT ON COLUMN chapters.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN chapters.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN chapters.updated_by IS '更新者（レコード更新したユーザーID）';
+COMMENT ON COLUMN chapters.updated_at IS '更新日時（レコード更新時刻）';
+
+-- Lecture and chapter relationship table
+CREATE TABLE lecture_chapter_links (
+    id BIGSERIAL PRIMARY KEY,
+    lecture_id BIGINT NOT NULL REFERENCES lectures(id),
+    chapter_id BIGINT NOT NULL REFERENCES chapters(id),
+    sort_order INTEGER,
+    created_by BIGINT REFERENCES users(id),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_by BIGINT REFERENCES users(id),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+COMMENT ON COLUMN lecture_chapter_links.lecture_id IS '講義ID（lectures.id）';
+COMMENT ON COLUMN lecture_chapter_links.chapter_id IS 'チャプターID（chapters.id）';
+COMMENT ON COLUMN lecture_chapter_links.sort_order IS '並び順';
+COMMENT ON COLUMN lecture_chapter_links.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN lecture_chapter_links.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN lecture_chapter_links.updated_by IS '更新者（レコード更新したユーザーID）';
+COMMENT ON COLUMN lecture_chapter_links.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Lecture goals table
 CREATE TABLE lecture_goals (
@@ -320,10 +338,10 @@ COMMENT ON COLUMN lecture_goals.created_at IS '作成日時（レコード作成
 COMMENT ON COLUMN lecture_goals.updated_by IS '更新者（レコード更新したユーザーID）';
 COMMENT ON COLUMN lecture_goals.updated_at IS '更新日時（レコード更新時刻）';
 
--- Lecture content blocks table
-CREATE TABLE lecture_content_blocks (
+-- Chapter content blocks table
+CREATE TABLE chapter_content_blocks (
     id BIGSERIAL PRIMARY KEY,
-    chapter_id BIGINT NOT NULL REFERENCES lecture_chapters(id),
+    chapter_id BIGINT NOT NULL REFERENCES chapters(id),
     block_type VARCHAR(50) NOT NULL,
     title VARCHAR(200) NOT NULL,
     content TEXT,
@@ -335,25 +353,26 @@ CREATE TABLE lecture_content_blocks (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
-COMMENT ON COLUMN lecture_content_blocks.chapter_id IS 'チャプターID（lecture_chapters.id）';
-COMMENT ON COLUMN lecture_content_blocks.block_type IS 'ブロック種別';
-COMMENT ON COLUMN lecture_content_blocks.title IS 'ブロックタイトル';
-COMMENT ON COLUMN lecture_content_blocks.content IS 'ブロック内容';
-COMMENT ON COLUMN lecture_content_blocks.sort_order IS '並び順';
-COMMENT ON COLUMN lecture_content_blocks.version IS 'バージョン（楽観ロック用）';
-COMMENT ON COLUMN lecture_content_blocks.created_by IS '作成者（レコード作成したユーザーID）';
-COMMENT ON COLUMN lecture_content_blocks.created_at IS '作成日時（レコード作成時刻）';
-COMMENT ON COLUMN lecture_content_blocks.updated_by IS '更新者（レコード更新したユーザーID）';
-COMMENT ON COLUMN lecture_content_blocks.updated_at IS '更新日時（レコード更新時刻）';
+COMMENT ON COLUMN chapter_content_blocks.chapter_id IS 'チャプターID（chapters.id）';
+COMMENT ON COLUMN chapter_content_blocks.block_type IS 'ブロック種別';
+COMMENT ON COLUMN chapter_content_blocks.title IS 'ブロックタイトル';
+COMMENT ON COLUMN chapter_content_blocks.content IS 'ブロック内容';
+COMMENT ON COLUMN chapter_content_blocks.sort_order IS '並び順';
+COMMENT ON COLUMN chapter_content_blocks.version IS 'バージョン（楽観ロック用）';
+COMMENT ON COLUMN chapter_content_blocks.created_by IS '作成者（レコード作成したユーザーID）';
+COMMENT ON COLUMN chapter_content_blocks.created_at IS '作成日時（レコード作成時刻）';
+COMMENT ON COLUMN chapter_content_blocks.updated_by IS '更新者（レコード更新したユーザーID）';
+COMMENT ON COLUMN chapter_content_blocks.updated_at IS '更新日時（レコード更新時刻）';
 
 -- Performance indexes
 CREATE INDEX idx_weeks_month ON weeks(month_id);
 CREATE INDEX idx_days_week ON days(week_id);
 CREATE INDEX idx_lectures_day ON lectures(day_id);
 CREATE INDEX idx_lectures_active ON lectures(is_active);
-CREATE INDEX idx_lecture_chapters_lecture ON lecture_chapters(lecture_id);
 CREATE INDEX idx_lecture_goals_lecture ON lecture_goals(lecture_id);
-CREATE INDEX idx_content_blocks_chapter ON lecture_content_blocks(chapter_id);
+CREATE INDEX idx_content_blocks_chapter ON chapter_content_blocks(chapter_id);
+CREATE INDEX idx_lecture_chapter_links_lecture ON lecture_chapter_links(lecture_id);
+CREATE INDEX idx_lecture_chapter_links_chapter ON lecture_chapter_links(chapter_id);
 
 -- Unique constraints
 ALTER TABLE weeks ADD CONSTRAINT unique_week_per_month UNIQUE(month_id, week_number);
@@ -364,9 +383,10 @@ COMMENT ON TABLE months IS '月テーブル（3ヶ月のカリキュラム月を
 COMMENT ON TABLE weeks IS '週テーブル（18週のカリキュラム週を管理）';
 COMMENT ON TABLE days IS '日テーブル（54日のカリキュラム日を管理）';
 COMMENT ON TABLE lectures IS '講義テーブル（講義の基本情報を管理）';
-COMMENT ON TABLE lecture_chapters IS '講義チャプターテーブル（講義内の章情報を管理）';
+COMMENT ON TABLE chapters IS 'チャプターテーブル（章情報を管理）';
+COMMENT ON TABLE lecture_chapter_links IS '講義チャプター関連テーブル（講義とチャプターの紐付け）';
 COMMENT ON TABLE lecture_goals IS '講義目標テーブル（講義の学習目標を管理）';
-COMMENT ON TABLE lecture_content_blocks IS '講義コンテンツブロックテーブル（チャプター内のコンテンツを管理）';
+COMMENT ON TABLE chapter_content_blocks IS 'チャプターコンテンツブロックテーブル（チャプター内のコンテンツを管理）';
 -- V002: Create Training Management Tables
 -- Creates training programs, schedules, assignments, and user role extensions
 -- Supports instructor and student management with course copying functionality
