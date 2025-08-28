@@ -369,6 +369,8 @@ CREATE INDEX idx_weeks_month ON weeks(month_id);
 CREATE INDEX idx_days_week ON days(week_id);
 CREATE INDEX idx_lectures_day ON lectures(day_id);
 CREATE INDEX idx_lectures_active ON lectures(is_active);
+CREATE INDEX idx_chapters_number ON chapters(chapter_number);
+CREATE INDEX idx_chapters_active ON chapters(is_active);
 CREATE INDEX idx_lecture_goals_lecture ON lecture_goals(lecture_id);
 CREATE INDEX idx_content_blocks_chapter ON chapter_content_blocks(chapter_id);
 CREATE INDEX idx_lecture_chapter_links_lecture ON lecture_chapter_links(lecture_id);
