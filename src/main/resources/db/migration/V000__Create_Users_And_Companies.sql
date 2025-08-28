@@ -302,6 +302,7 @@ CREATE TABLE lecture_chapter_links (
     lecture_id BIGINT NOT NULL REFERENCES lectures(id),
     chapter_id BIGINT NOT NULL REFERENCES chapters(id),
     sort_order INTEGER,
+    version BIGINT DEFAULT 0 NOT NULL,
     created_by BIGINT REFERENCES users(id),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_by BIGINT REFERENCES users(id),
@@ -311,6 +312,7 @@ CREATE TABLE lecture_chapter_links (
 COMMENT ON COLUMN lecture_chapter_links.lecture_id IS '講義ID（lectures.id）';
 COMMENT ON COLUMN lecture_chapter_links.chapter_id IS 'チャプターID（chapters.id）';
 COMMENT ON COLUMN lecture_chapter_links.sort_order IS '並び順';
+COMMENT ON COLUMN lecture_chapter_links.version IS 'バージョン（楽観ロック用）';
 COMMENT ON COLUMN lecture_chapter_links.created_by IS '作成者（レコード作成したユーザーID）';
 COMMENT ON COLUMN lecture_chapter_links.created_at IS '作成日時（レコード作成時刻）';
 COMMENT ON COLUMN lecture_chapter_links.updated_by IS '更新者（レコード更新したユーザーID）';
