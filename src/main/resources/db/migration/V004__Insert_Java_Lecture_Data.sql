@@ -1075,6 +1075,20 @@ INSERT INTO lectures (day_id, lecture_number, title, description, goals, content
 (53, 53, '総合復習', '全体学習内容の復習', '["総合復習","知識整理","実践問題"]', '["復習","知識整理","問題演習","弱点克服","演習"]', '["学習内容総復習","重要概念整理","実践問題演習","弱点分析・克服","総合演習","模擬試験","解説・解答","実践演習","知識定着確認","補強学習"]', 180, 1, 1),
 (54, 54, '修了テストと振り返り', '最終評価と学習振り返り', '["修了テスト","学習振り返り","今後の計画"]', '["修了テスト","振り返り","評価","今後計画","修了式"]', '["修了テスト実施","結果分析","学習成果振り返り","スキル評価","今後の学習計画","キャリア相談","修了証授与","実践演習","ネットワーキング","継続学習リソース"]', 180, 1, 1);
 
+-- ※ 第1回〜第21回のチャプターは上部で個別に登録済み
+-- 追加チャプター（第22回〜第54回）
+INSERT INTO chapters (id, chapter_number, title, description, duration_minutes, sort_order, is_active, created_by, created_at, updated_by, updated_at)
+SELECT gs, 1,
+       CONCAT('自動生成チャプター', gs::text),
+       CONCAT('自動生成チャプター', gs::text),
+       60, 1, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP
+FROM generate_series(22,54) AS gs;
+
+-- 対応する講義との紐付け（チャプターID=講義IDで1件ずつ紐付け）
+INSERT INTO lecture_chapter_links (id, lecture_id, chapter_id, sort_order, created_by, created_at, updated_by, updated_at)
+SELECT gs, gs, gs, 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP
+FROM generate_series(22,54) AS gs;
+
 
 SELECT setval('chapters_id_seq', (SELECT MAX(id) FROM chapters));
 SELECT setval('lecture_chapter_links_id_seq', (SELECT MAX(id) FROM lecture_chapter_links));
