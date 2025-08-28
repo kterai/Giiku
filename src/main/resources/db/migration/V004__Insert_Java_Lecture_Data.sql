@@ -29,7 +29,7 @@ INSERT INTO lecture_goals (id, lecture_id, goal_description, sort_order, created
 (6, 1, 'コメントの種類と書き方を理解し、保守性の高いコードを書くことができる', 6, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (7, 1, 'コンパイルから実行までの流れを理解し、エラーの原因を特定できる', 7, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 -- 講義1-1のコンテンツブロック投入
-INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
+INSERT INTO chapter_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
 (1, 1, 'OVERVIEW', '概要', 'Java言語は1995年にSun Microsystems（現Oracle）によって開発されたオブジェクト指向プログラミング言語です。「Write Once, Run Anywhere」の理念のもと、プラットフォーム独立性を実現し、現在では企業システム開発からモバイルアプリケーション開発まで幅広く使用されています。', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (2, 1, 'DETAIL', 'Javaの歴史と発展', 'Java言語は以下のような発展を遂げてきました：
 
@@ -98,7 +98,7 @@ Javaは純粋なオブジェクト指向言語で、すべてのコードはク�
 ガベージコレクションにより、不要になったオブジェクトのメモリが自動的に解放されます。', 5, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義1-2のコンテンツブロック投入
-INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
+INSERT INTO chapter_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
 (6, 2, 'OVERVIEW', '概要', 'Javaの主要な特徴と利点を詳しく学習します。プラットフォーム独立性、オブジェクト指向、メモリ管理、セキュリティ、豊富なライブラリなど、Javaが企業システム開発で選ばれる理由を理解します。', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (7, 2, 'DETAIL', 'Write Once, Run Anywhere（WORA）', 'Javaの最大の特徴の一つは、プラットフォーム独立性です：
 
@@ -240,7 +240,7 @@ INSERT INTO lecture_goals (id, lecture_id, goal_description, sort_order, created
 (13, 2, 'バージョン管理システムを使用してソースコードを管理できる', 6, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義2-1のコンテンツブロック投入（JDKのインストール）
-INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
+INSERT INTO chapter_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
 (11, 9, 'OVERVIEW', '概要', 'Java開発を始めるために最も重要なのがJDK（Java Development Kit）のインストールです。JDKにはJavaコンパイラ（javac）、Java実行環境（JRE）、開発ツール群が含まれています。Oracle JDKとOpenJDKの違いを理解し、開発目的に応じた適切な選択を行います。', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (12, 9, 'DETAIL', 'JDKの種類と選択', '■ Oracle JDK vs OpenJDK
 【Oracle JDK】
@@ -333,7 +333,7 @@ echo $PATH
 ```', 5, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義2-2のコンテンツブロック投入（IDEの選択と設定）
-INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
+INSERT INTO chapter_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
 (16, 10, 'OVERVIEW', '概要', 'IDE（統合開発環境）は、Java開発の生産性を大幅に向上させるツールです。主要なJava IDE（IntelliJ IDEA、Eclipse、Visual Studio Code）の特徴を比較し、用途に応じた選択方法を学習します。その後、選択したIDEの基本設定とプラグイン導入を実践的に行います。', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (17, 10, 'DETAIL', '主要Java IDEの比較', '■ IntelliJ IDEA
 【特徴】
@@ -473,7 +473,7 @@ INSERT INTO lecture_goals (id, lecture_id, goal_description, sort_order, created
 (19, 3, '名前空間の衝突を理解し、適切に回避する方法を知っている', 6, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義3-1のコンテンツブロック投入（パッケージの概念）
-INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
+INSERT INTO chapter_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
 (20, 16, 'OVERVIEW', '概要', 'パッケージはJavaにおける名前空間（namespace）の仕組みです。関連するクラスやインターフェースをグループ化し、名前の衝突を避け、コードの整理と再利用を促進します。大規模なソフトウェア開発には不可欠な概念を基礎から理解します。', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (21, 16, 'DETAIL', 'パッケージの必要性', '■ 名前の衝突回避
 異なる開発者や組織が同じクラス名を使用する場合の問題：
@@ -679,7 +679,7 @@ com.company.project
 - リファクタリング時のパッケージ移動に注意', 6, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義3-2のコンテンツブロック投入（パッケージの作成）
-INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
+INSERT INTO chapter_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
 (26, 17, 'OVERVIEW', '概要', 'package文を使用して実際にパッケージを作成する方法を学習します。ディレクトリ構造の作成から、package文の記述、コンパイルと実行までの一連の流れを実践的に理解します。', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (27, 17, 'CODE', 'パッケージ作成の実践例', '■ ディレクトリ構造の作成
 ```bash
@@ -848,7 +848,7 @@ package com.mycompany.helper;  // エラー
 - 他のパッケージからインポートできない制限あり', 4, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義3-3のコンテンツブロック投入（importステートメント）
-INSERT INTO lecture_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
+INSERT INTO chapter_content_blocks (id, chapter_id, block_type, title, content, sort_order, created_by, created_at, updated_by, updated_at) VALUES
 (30, 18, 'OVERVIEW', '概要', 'import文を使用して他のパッケージのクラスを利用する方法を学習します。単一クラスのインポート、パッケージ全体のインポート、静的インポートの使い方と、それぞれの適切な使用場面を理解します。', 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
 (31, 18, 'CODE', 'import文の基本的な使い方', '■ 単一クラスのインポート（推奨）
 ```java
@@ -1049,6 +1049,6 @@ INSERT INTO lectures (day_id, lecture_number, title, description, goals, content
 
 SELECT setval('lecture_chapters_id_seq',   (SELECT MAX(id) FROM lecture_chapters));
 SELECT setval('lecture_goals_id_seq',      (SELECT MAX(id) FROM lecture_goals));
-SELECT setval('lecture_content_blocks_id_seq', (SELECT MAX(id) FROM lecture_content_blocks));
+SELECT setval('chapter_content_blocks_id_seq', (SELECT MAX(id) FROM chapter_content_blocks));
 
 COMMIT;

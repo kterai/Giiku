@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 講義コンテンツブロックエンティティ
+ * チャプターコンテンツブロックエンティティ
  * チャプター内の個別コンテンツを保持する。
  *
  * @author 株式会社アプサ
@@ -14,7 +14,7 @@ import lombok.EqualsAndHashCode;
  * @since 2025
  */
 @Entity
-@Table(name = "lecture_content_blocks")
+@Table(name = "chapter_content_blocks")
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class LectureContentBlock extends AuditableEntity {
