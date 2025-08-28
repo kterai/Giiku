@@ -3,6 +3,7 @@ package jp.co.apsa.giiku.domain.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import jp.co.apsa.giiku.domain.entity.QuestionBank;
 
@@ -51,12 +52,13 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Long
     List<QuestionBank> findByQuestionTextContainingIgnoreCaseAndIsActiveTrue(String text);
 
     /**
-     * 講義IDで検索し、問題番号の昇順で取得します。
+     * チャプターIDで検索し、問題番号の昇順で取得します。
      *
-     * @param lectureId 講義ID
+     * @param chapterId チャプターID
      * @return 該当する問題一覧
      */
-    List<QuestionBank> findByLectureIdOrderByQuestionNumber(Long lectureId);
+    @Query("SELECT q FROM QuestionBank q WHERE q.chapter.id = :chapterId ORDER BY q.questionNumber")
+    List<QuestionBank> findByChapterIdOrderByQuestionNumber(@Param("chapterId") Long chapterId);
 
     /**
      * 難易度別の問題数を取得します。

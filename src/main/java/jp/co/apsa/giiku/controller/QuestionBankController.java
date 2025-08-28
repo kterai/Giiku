@@ -80,4 +80,11 @@ public class QuestionBankController extends AbstractController {
         List<QuestionBank> questions = questionBankService.searchByQuestionText(query);
         return ResponseEntity.ok(questions);
     }
+
+    /** チャプターIDで問題を取得 */
+    @GetMapping("/chapter/{chapterId}")
+    public ResponseEntity<List<QuestionBank>> getByChapter(@PathVariable Long chapterId) {
+        List<QuestionBank> questions = questionBankService.findByChapterIdOrderByQuestionNumber(chapterId);
+        return ResponseEntity.ok(questions);
+    }
 }

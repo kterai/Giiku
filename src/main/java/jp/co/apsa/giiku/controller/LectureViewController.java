@@ -123,12 +123,14 @@ public class LectureViewController extends AbstractController {
         }
         model.addAttribute("chapterContentBlocks", chapterContentBlocks);
 
-        // 理解度テストのクイズ問題を取得
-        List<QuizQuestionBank> quizQuestions = quizQuestionBankService.findByLectureId(lecture.getId());
+        // 理解度テストと演習問題をチャプター単位で取得
+        List<QuizQuestionBank> quizQuestions = new ArrayList<>();
+        List<QuestionBank> exercises = new ArrayList<>();
+        for (Chapter chapter : chapters) {
+            quizQuestions.addAll(quizQuestionBankService.findByChapterId(chapter.getId()));
+            exercises.addAll(questionBankService.findByChapterIdOrderByQuestionNumber(chapter.getId()));
+        }
         model.addAttribute("quizQuestions", quizQuestions);
-
-        // 演習問題と追加リソースを設定
-        List<QuestionBank> exercises = questionBankService.findByLectureIdOrderByQuestionNumber(lecture.getId());
         model.addAttribute("exercises", exercises);
 
         model.addAttribute("additionalResources", parseJsonField(getAdditionalResourcesJson(lecture), List.class));

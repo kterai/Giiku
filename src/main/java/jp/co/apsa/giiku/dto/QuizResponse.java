@@ -16,7 +16,7 @@ public class QuizResponse {
     private String title;
     private String description;
     private Long trainingProgramId;
-    private Long lectureId;
+    private Long chapterId;
     private Long studentId;
     private Long instructorId;
     private Long companyId;
@@ -45,7 +45,7 @@ public class QuizResponse {
     // 全フィールドのコンストラクタ
     /** QuizResponse メソッド */
     public QuizResponse(Long id, String title, String description, Long trainingProgramId,
-                       Long lectureId, Long studentId, Long instructorId, Long companyId,
+                       Long chapterId, Long studentId, Long instructorId, Long companyId,
                        String quizStatus, BigDecimal timeLimit, BigDecimal maxScore,
                        BigDecimal passingScore, Integer attemptLimit, Integer currentAttempt,
                        LocalDateTime startTime, LocalDateTime endTime, LocalDateTime submissionTime,
@@ -56,7 +56,7 @@ public class QuizResponse {
         this.title = title;
         this.description = description;
         this.trainingProgramId = trainingProgramId;
-        this.lectureId = lectureId;
+        this.chapterId = chapterId;
         this.studentId = studentId;
         this.instructorId = instructorId;
         this.companyId = companyId;
@@ -126,10 +126,10 @@ public class QuizResponse {
     public Long getTrainingProgramId() { return trainingProgramId; }
     /** setTrainingProgramId メソッド */
     public void setTrainingProgramId(Long trainingProgramId) { this.trainingProgramId = trainingProgramId; }
-    /** getLectureId メソッド */
-    public Long getLectureId() { return lectureId; }
-    /** setLectureId メソッド */
-    public void setLectureId(Long lectureId) { this.lectureId = lectureId; }
+    /** getChapterId メソッド */
+    public Long getChapterId() { return chapterId; }
+    /** setChapterId メソッド */
+    public void setChapterId(Long chapterId) { this.chapterId = chapterId; }
     /** getStudentId メソッド */
     public Long getStudentId() { return studentId; }
     /** setStudentId メソッド */
