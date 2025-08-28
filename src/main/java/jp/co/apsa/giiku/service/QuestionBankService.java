@@ -121,11 +121,11 @@ public class QuestionBankService {
     }
 
     @Transactional(readOnly = true)
-    public List<QuestionBank> findByLectureIdOrderByQuestionNumber(Long lectureId) {
-        if (lectureId == null) {
-            throw new IllegalArgumentException("講義IDは必須です");
+    public List<QuestionBank> findByChapterIdOrderByQuestionNumber(Long chapterId) {
+        if (chapterId == null) {
+            throw new IllegalArgumentException("チャプターIDは必須です");
         }
-        return questionBankRepository.findByLectureIdOrderByQuestionNumber(lectureId);
+        return questionBankRepository.findByChapterIdOrderByQuestionNumber(chapterId);
     }
 
     @Transactional(readOnly = true)
@@ -142,8 +142,8 @@ public class QuestionBankService {
         if (question == null) {
             throw new IllegalArgumentException("問題は必須です");
         }
-        if (question.getLectureId() == null) {
-            throw new IllegalArgumentException("講義IDは必須です");
+        if (question.getChapterId() == null) {
+            throw new IllegalArgumentException("チャプターIDは必須です");
         }
         if (question.getQuestionNumber() == null) {
             throw new IllegalArgumentException("問題番号は必須です");

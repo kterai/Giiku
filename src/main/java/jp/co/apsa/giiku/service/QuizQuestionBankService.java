@@ -23,13 +23,13 @@ public class QuizQuestionBankService {
     private QuizQuestionBankRepository quizQuestionBankRepository;
 
     /**
-     * 指定された講義IDのクイズ問題を取得します。
+     * 指定されたチャプターIDのクイズ問題を取得します。
      *
-     * @param lectureId 講義ID
+     * @param chapterId チャプターID
      * @return クイズ問題一覧
      */
     @Transactional(readOnly = true)
-    public List<QuizQuestionBank> findByLectureId(Long lectureId) {
-        return quizQuestionBankRepository.findByLectureIdOrderByQuestionNumber(lectureId);
+    public List<QuizQuestionBank> findByChapterId(Long chapterId) {
+        return quizQuestionBankRepository.findByChapterIdOrderByQuestionNumber(chapterId);
     }
 }

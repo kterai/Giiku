@@ -468,6 +468,10 @@ public class QuizService {
             throw new IllegalArgumentException("プログラムIDは必須です");
         }
 
+        if (quiz.getChapterId() == null) {
+            throw new IllegalArgumentException("チャプターIDは必須です");
+        }
+
         // 学生存在チェック
         if (!studentProfileRepository.existsById(quiz.getStudentId())) {
             throw new IllegalArgumentException("指定された学生が存在しません");

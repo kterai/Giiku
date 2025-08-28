@@ -22,7 +22,7 @@ public class QuizRequest {
 
     private Long trainingProgramId;
 
-    private Long lectureId;
+    private Long chapterId;
 
     private Long studentId;
 
@@ -89,10 +89,10 @@ public class QuizRequest {
     public Long getTrainingProgramId() { return trainingProgramId; }
     /** setTrainingProgramId メソッド */
     public void setTrainingProgramId(Long trainingProgramId) { this.trainingProgramId = trainingProgramId; }
-    /** getLectureId メソッド */
-    public Long getLectureId() { return lectureId; }
-    /** setLectureId メソッド */
-    public void setLectureId(Long lectureId) { this.lectureId = lectureId; }
+    /** getChapterId メソッド */
+    public Long getChapterId() { return chapterId; }
+    /** setChapterId メソッド */
+    public void setChapterId(Long chapterId) { this.chapterId = chapterId; }
     /** getStudentId メソッド */
     public Long getStudentId() { return studentId; }
     /** setStudentId メソッド */

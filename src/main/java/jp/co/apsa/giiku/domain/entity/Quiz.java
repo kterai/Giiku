@@ -30,8 +30,9 @@ public class Quiz {
     @Column(name = "training_program_id")
     private Long trainingProgramId;
 
-    @Column(name = "lecture_id")
-    private Long lectureId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chapter_id")
+    private Chapter chapter;
 
     @Column(name = "student_id", nullable = false)
     private Long studentId;
@@ -157,13 +158,34 @@ public class Quiz {
     public void setTrainingProgramId(Long trainingProgramId) {
         this.trainingProgramId = trainingProgramId;
     }
-    /** getLectureId メソッド */
-    public Long getLectureId() {
-        return lectureId;
+    /** getChapter メソッド */
+    public Chapter getChapter() {
+        return chapter;
     }
-    /** setLectureId メソッド */
-    public void setLectureId(Long lectureId) {
-        this.lectureId = lectureId;
+    /** setChapter メソッド */
+    public void setChapter(Chapter chapter) {
+        this.chapter = chapter;
+    }
+
+    /**
+     * chapterId のエイリアス getter
+     *
+     * @return chapterId
+     */
+    public Long getChapterId() {
+        return chapter != null ? chapter.getId() : null;
+    }
+
+    /**
+     * chapterId のエイリアス setter
+     *
+     * @param chapterId chapterId
+     */
+    public void setChapterId(Long chapterId) {
+        if (this.chapter == null) {
+            this.chapter = new Chapter();
+        }
+        this.chapter.setId(chapterId);
     }
     /** getStudentId メソッド */
     public Long getStudentId() {

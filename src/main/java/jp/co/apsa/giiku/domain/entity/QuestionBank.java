@@ -19,8 +19,9 @@ public class QuestionBank {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "lecture_id", nullable = false)
-    private Long lectureId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chapter_id", nullable = false)
+    private Chapter chapter;
 
     @Column(name = "question_number", nullable = false)
     private Integer questionNumber;
@@ -75,14 +76,35 @@ public class QuestionBank {
         this.id = id;
     }
 
-    /** getLectureId メソッド */
-    public Long getLectureId() {
-        return lectureId;
+    /** getChapter メソッド */
+    public Chapter getChapter() {
+        return chapter;
     }
 
-    /** setLectureId メソッド */
-    public void setLectureId(Long lectureId) {
-        this.lectureId = lectureId;
+    /** setChapter メソッド */
+    public void setChapter(Chapter chapter) {
+        this.chapter = chapter;
+    }
+
+    /**
+     * chapterId のエイリアス getter
+     *
+     * @return chapterId
+     */
+    public Long getChapterId() {
+        return chapter != null ? chapter.getId() : null;
+    }
+
+    /**
+     * chapterId のエイリアス setter
+     *
+     * @param chapterId chapterId
+     */
+    public void setChapterId(Long chapterId) {
+        if (this.chapter == null) {
+            this.chapter = new Chapter();
+        }
+        this.chapter.setId(chapterId);
     }
 
     /** getQuestionNumber メソッド */
@@ -238,7 +260,7 @@ public class QuestionBank {
     public String toString() {
         return "QuestionBank{" +
                 "id=" + id +
-                ", lectureId=" + lectureId +
+                ", chapterId=" + getChapterId() +
                 ", questionNumber=" + questionNumber +
                 ", questionType='" + questionType + '\'' +
                 ", difficultyLevel='" + difficultyLevel + '\'' +
