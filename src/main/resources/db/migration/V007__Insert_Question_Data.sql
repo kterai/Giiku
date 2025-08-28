@@ -1,12 +1,12 @@
 -- V007__Insert_Question_Data.sql
--- 各講義40問以上：演習20問+理解度テスト20問
--- Comprehensive question bank with exercise and quiz questions
+-- 各チャプター40問以上：演習20問+理解度テスト20問
+-- Comprehensive chapter-based question bank with exercise and quiz questions
 
 -- ===============================
 -- EXERCISE QUESTION BANK (演習問題)
 -- ===============================
 
-INSERT INTO exercise_question_bank (id, lecture_id, question_number, question_text, correct_answer, explanation, difficulty_level, points, created_by, created_at, updated_by, updated_at) VALUES
+INSERT INTO exercise_question_bank (id, chapter_id, question_number, question_text, correct_answer, explanation, difficulty_level, points, created_by, created_at, updated_by, updated_at) VALUES
 (1, 1, 1, '【演習問題1】変数の宣言方法について説明してください（第1回）', 'Javaにおける変数の宣言は型名 変数名 = 初期値; の形式で行います。例：int number = 10;', 'この問題はプログラミング基礎の理解を深めるための演習問題です。', 'basic', 10, 1, NOW(), 1, NOW()),
 (2, 1, 2, '【演習問題2】条件分岐のif文の基本構文を書いてください（第1回）', 'if (条件式) { 処理1; } else { 処理2; }', 'この問題はプログラミング基礎の理解を深めるための演習問題です。', 'basic', 10, 1, NOW(), 1, NOW()),
 (3, 1, 3, '【演習問題3】for文を使った繰り返し処理の例を示してください（第1回）', 'for (int i = 0; i < 10; i++) { System.out.println(i); }', 'この問題はプログラミング基礎の理解を深めるための演習問題です。', 'intermediate', 15, 1, NOW(), 1, NOW()),
@@ -1092,7 +1092,7 @@ INSERT INTO exercise_question_bank (id, lecture_id, question_number, question_te
 -- QUIZ QUESTION BANK (理解度テスト)
 -- ===============================
 
-INSERT INTO quiz_question_bank (id, lecture_id, question_number, question_text, option_a, option_b, option_c, option_d, correct_answer, explanation, difficulty_level, points, created_by, created_at, updated_by, updated_at) VALUES
+INSERT INTO quiz_question_bank (id, chapter_id, question_number, question_text, option_a, option_b, option_c, option_d, correct_answer, explanation, difficulty_level, points, created_by, created_at, updated_by, updated_at) VALUES
 (21, 1, 1, '【理解度テスト1】Javaの基本データ型でないものはどれですか？（第1回）', '1. int', '2. String', '3. double', '4. boolean', '2', 'この問題はプログラミング基礎の理解度を確認するためのテスト問題です。', 'basic', 5, 1, NOW(), 1, NOW()),
 (22, 1, 2, '【理解度テスト2】if文の条件式に使用できる演算子はどれですか？（第1回）', '1. ==', '2. !=', '3. <=', '4. すべて', '4', 'この問題はプログラミング基礎の理解度を確認するためのテスト問題です。', 'basic', 5, 1, NOW(), 1, NOW()),
 (23, 1, 3, '【理解度テスト3】配列のインデックスは何から始まりますか？（第1回）', '1. 1', '2. 0', '3. -1', '4. 任意', '2', 'この問題はプログラミング基礎の理解度を確認するためのテスト問題です。', 'basic', 5, 1, NOW(), 1, NOW()),
@@ -2186,6 +2186,6 @@ INSERT INTO mock_test_bank (id, test_name, description, duration_minutes, total_
 (5, 'Web開発基礎 - 総合模擬試験1', 'Web開発の基礎技術の理解度を総合的に評価する模擬試験', 120, 100, 'intermediate', 1, NOW(), 1, NOW());
 
 -- SEQUENCE UPDATES
-SELECT setval('exercise_question_bank_id_seq', (SELECT MAX(id) FROM exercise_question_bank));
-SELECT setval('quiz_question_bank_id_seq', (SELECT MAX(id) FROM quiz_question_bank));
-SELECT setval('mock_test_bank_id_seq', (SELECT MAX(id) FROM mock_test_bank));
+SELECT setval('exercise_question_bank_id_seq', 2140);
+SELECT setval('quiz_question_bank_id_seq', 2160);
+SELECT setval('mock_test_bank_id_seq', 5);
