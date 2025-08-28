@@ -1,7 +1,9 @@
 package jp.co.apsa.giiku.service;
 
-import jp.co.apsa.giiku.domain.entity.LectureChapter;
-import jp.co.apsa.giiku.domain.repository.LectureChapterRepository;
+import jp.co.apsa.giiku.domain.entity.Chapter;
+import jp.co.apsa.giiku.domain.entity.LectureChapterLink;
+import jp.co.apsa.giiku.domain.repository.ChapterRepository;
+import jp.co.apsa.giiku.domain.repository.LectureChapterLinkRepository;
 import jp.co.apsa.giiku.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,7 +21,7 @@ import java.util.stream.Collectors;
 
 /**
  * 講義チャプターサービス
- * 講義チャプターのビジネスロジックを提供する。
+ * チャプターおよびリンクのビジネスロジックを提供する。
  *
  * @author 株式会社アプサ
  * @version 1.0
@@ -30,7 +32,10 @@ import java.util.stream.Collectors;
 public class LectureChapterService {
 
     @Autowired
-    private LectureChapterRepository lectureChapterRepository;
+    private ChapterRepository chapterRepository;
+
+    @Autowired
+    private LectureChapterLinkRepository lectureChapterLinkRepository;
 
     @Autowired
     private Mapper mapper;
@@ -49,8 +54,8 @@ public class LectureChapterService {
         Sort sort = Sort.by(direction, sortBy);
         Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<LectureChapter> chapters = lectureChapterRepository.findAll(pageable);
-        return chapters.map(this::convertToResponseDto);
+        Page<Chapter> chapters = chapterRepository.findAll(pageable);
+        return chapters.map(ch -> convertToResponseDto(ch, lectureChapterLinkRepository.findByChapterId(ch.getId()).orElse(null)));
     }
 
     /**
@@ -60,8 +65,8 @@ public class LectureChapterService {
      * @return チャプター情報
      */
     public Optional<LectureChapterResponseDto> getChapterById(Long id) {
-        return lectureChapterRepository.findById(id)
-                .map(this::convertToResponseDto);
+        return chapterRepository.findById(id)
+                .map(chapter -> convertToResponseDto(chapter, lectureChapterLinkRepository.findByChapterId(id).orElse(null)));
     }
 
     /**
@@ -72,14 +77,14 @@ public class LectureChapterService {
      * @return チャプター一覧
      */
     public List<LectureChapterResponseDto> getChaptersByLectureId(Long lectureId, String sortDir) {
-        List<LectureChapter> chapters;
+        List<LectureChapterLink> links;
         if ("DESC".equalsIgnoreCase(sortDir)) {
-            chapters = lectureChapterRepository.findByLectureIdOrderBySortOrderDesc(lectureId);
+            links = lectureChapterLinkRepository.findByLectureIdOrderBySortOrderDesc(lectureId);
         } else {
-            chapters = lectureChapterRepository.findByLectureIdOrderBySortOrder(lectureId);
+            links = lectureChapterLinkRepository.findByLectureIdOrderBySortOrder(lectureId);
         }
-        return chapters.stream()
-                .map(this::convertToResponseDto)
+        return links.stream()
+                .map(link -> convertToResponseDto(link.getChapter(), link))
                 .collect(Collectors.toList());
     }
 
@@ -90,11 +95,16 @@ public class LectureChapterService {
      * @return 作成されたチャプター
      */
     public LectureChapterResponseDto createChapter(LectureChapterCreateDto dto) {
-        LectureChapter chapter = mapper.map(dto, LectureChapter.class);
+        Chapter chapter = mapper.map(dto, Chapter.class);
         chapter.setIsActive(dto.getIsActive() != null ? dto.getIsActive() : true);
+        Chapter savedChapter = chapterRepository.save(chapter);
 
-        LectureChapter saved = lectureChapterRepository.save(chapter);
-        return convertToResponseDto(saved);
+        LectureChapterLink link = new LectureChapterLink();
+        link.setLectureId(dto.getLectureId());
+        link.setChapter(savedChapter);
+        link.setSortOrder(dto.getSortOrder() != null ? dto.getSortOrder() : getNextSortOrder(dto.getLectureId()));
+        LectureChapterLink savedLink = lectureChapterLinkRepository.save(link);
+        return convertToResponseDto(savedChapter, savedLink);
     }
 
     /**
@@ -105,11 +115,19 @@ public class LectureChapterService {
      * @return 更新されたチャプター
      */
     public Optional<LectureChapterResponseDto> updateChapter(Long id, LectureChapterUpdateDto dto) {
-        return lectureChapterRepository.findById(id)
+        return chapterRepository.findById(id)
                 .map(chapter -> {
                     mapper.map(dto, chapter);
-                    LectureChapter saved = lectureChapterRepository.save(chapter);
-                    return convertToResponseDto(saved);
+                    Chapter savedChapter = chapterRepository.save(chapter);
+                    if (dto.getSortOrder() != null) {
+                        lectureChapterLinkRepository.findByChapterId(id)
+                                .ifPresent(link -> {
+                                    link.setSortOrder(dto.getSortOrder());
+                                    lectureChapterLinkRepository.save(link);
+                                });
+                    }
+                    LectureChapterLink link = lectureChapterLinkRepository.findByChapterId(id).orElse(null);
+                    return convertToResponseDto(savedChapter, link);
                 });
     }
 
@@ -119,7 +137,8 @@ public class LectureChapterService {
      * @param id チャプターID
      */
     public void deleteChapter(Long id) {
-        lectureChapterRepository.deleteById(id);
+        lectureChapterLinkRepository.deleteByChapterId(id);
+        chapterRepository.deleteById(id);
     }
 
     /**
@@ -130,24 +149,19 @@ public class LectureChapterService {
      * @return 更新されたチャプター一覧
      */
     public List<LectureChapterResponseDto> reorderChapters(Long lectureId, List<Long> chapterIds) {
-        List<LectureChapter> chapters = lectureChapterRepository.findByLectureIdOrderBySortOrder(lectureId);
-
-        // 並び順を更新
         for (int i = 0; i < chapterIds.size(); i++) {
-            final int sortOrder = i + 1; // finalまたは事実上のfinalな変数を作成
+            final int sortOrder = i + 1;
             Long chapterId = chapterIds.get(i);
-            chapters.stream()
-                    .filter(chapter -> chapter.getId().equals(chapterId))
-                    .findFirst()
-                    .ifPresent(chapter -> chapter.setSortOrder(sortOrder)); // finalな変数を使用
+            lectureChapterLinkRepository.findByChapterId(chapterId)
+                    .ifPresent(link -> {
+                        link.setSortOrder(sortOrder);
+                        lectureChapterLinkRepository.save(link);
+                    });
         }
-
-        // 更新されたチャプターを保存
-        List<LectureChapter> savedChapters = lectureChapterRepository.saveAll(chapters);
-        return savedChapters.stream()
-                .map(this::convertToResponseDto)
+        List<LectureChapterLink> updatedLinks = lectureChapterLinkRepository.findByLectureIdOrderBySortOrder(lectureId);
+        return updatedLinks.stream()
+                .map(link -> convertToResponseDto(link.getChapter(), link))
                 .collect(Collectors.toList());
-
     }
 
     /**
@@ -158,17 +172,23 @@ public class LectureChapterService {
      * @return 複製されたチャプター
      */
     public LectureChapterResponseDto duplicateChapter(Long id, Long targetLectureId) {
-        return lectureChapterRepository.findById(id)
-                .map(originalChapter -> {
-                    LectureChapter duplicatedChapter = mapper.map(originalChapter, LectureChapter.class);
-                    duplicatedChapter.setLectureId(targetLectureId != null ? targetLectureId : originalChapter.getLectureId());
-                    duplicatedChapter.setChapterNumber(getNextChapterNumber(duplicatedChapter.getLectureId()));
-                    duplicatedChapter.setTitle(originalChapter.getTitle() + " (コピー)");
-                    duplicatedChapter.setSortOrder(getNextSortOrder(duplicatedChapter.getLectureId()));
-                    LectureChapter saved = lectureChapterRepository.save(duplicatedChapter);
-                    return convertToResponseDto(saved);
-                })
+        Chapter originalChapter = chapterRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("チャプターが見つかりません: " + id));
+        Long lectureId = targetLectureId != null ? targetLectureId : lectureChapterLinkRepository.findByChapterId(id)
+                .map(LectureChapterLink::getLectureId)
+                .orElseThrow(() -> new RuntimeException("リンクが見つかりません: " + id));
+
+        Chapter duplicatedChapter = mapper.map(originalChapter, Chapter.class);
+        duplicatedChapter.setTitle(originalChapter.getTitle() + " (コピー)");
+        duplicatedChapter.setChapterNumber(getNextChapterNumber(lectureId));
+        Chapter savedChapter = chapterRepository.save(duplicatedChapter);
+
+        LectureChapterLink link = new LectureChapterLink();
+        link.setLectureId(lectureId);
+        link.setChapter(savedChapter);
+        link.setSortOrder(getNextSortOrder(lectureId));
+        LectureChapterLink savedLink = lectureChapterLinkRepository.save(link);
+        return convertToResponseDto(savedChapter, savedLink);
     }
 
     /**
@@ -177,18 +197,27 @@ public class LectureChapterService {
      * @param lectureId 講義ID
      * @return チャプター一覧
      */
-    public List<LectureChapter> findByLectureIdOrderBySortOrder(Long lectureId) {
-        return lectureChapterRepository.findByLectureIdOrderBySortOrder(lectureId);
+    public List<Chapter> findByLectureIdOrderBySortOrder(Long lectureId) {
+        return lectureChapterLinkRepository.findByLectureIdOrderBySortOrder(lectureId)
+                .stream()
+                .map(LectureChapterLink::getChapter)
+                .collect(Collectors.toList());
     }
 
     /**
      * エンティティをレスポンスDTOに変換する
      *
      * @param chapter チャプターエンティティ
+     * @param link リンクエンティティ
      * @return レスポンスDTO
      */
-    private LectureChapterResponseDto convertToResponseDto(LectureChapter chapter) {
-        return mapper.map(chapter, LectureChapterResponseDto.class);
+    private LectureChapterResponseDto convertToResponseDto(Chapter chapter, LectureChapterLink link) {
+        LectureChapterResponseDto dto = mapper.map(chapter, LectureChapterResponseDto.class);
+        if (link != null) {
+            dto.setLectureId(link.getLectureId());
+            dto.setSortOrder(link.getSortOrder());
+        }
+        return dto;
     }
 
     /**
@@ -198,7 +227,7 @@ public class LectureChapterService {
      * @return 次のチャプター番号
      */
     private Integer getNextChapterNumber(Long lectureId) {
-        return lectureChapterRepository.findMaxChapterNumberByLectureId(lectureId)
+        return lectureChapterLinkRepository.findMaxChapterNumberByLectureId(lectureId)
                 .orElse(0) + 1;
     }
 
@@ -209,7 +238,7 @@ public class LectureChapterService {
      * @return 次のソート順
      */
     private Integer getNextSortOrder(Long lectureId) {
-        return lectureChapterRepository.findMaxSortOrderByLectureId(lectureId)
+        return lectureChapterLinkRepository.findMaxSortOrderByLectureId(lectureId)
                 .orElse(0) + 1;
     }
 }

@@ -6,23 +6,18 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * 講義チャプターエンティティ
- * 各講義に紐づくチャプター情報を保持する。
+ * チャプターエンティティ
+ * 講義に依存しないチャプター情報を保持する。
  *
  * @author 株式会社アプサ
  * @version 1.0
  * @since 2025
  */
 @Entity
-@Table(name = "lecture_chapters")
+@Table(name = "chapters")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class LectureChapter extends AuditableEntity {
-
-    /** 講義ID */
-    @NotNull
-    @Column(name = "lecture_id", nullable = false)
-    private Long lectureId;
+public class Chapter extends AuditableEntity {
 
     /** チャプター番号 */
     @NotNull
@@ -45,7 +40,7 @@ public class LectureChapter extends AuditableEntity {
     @Column(name = "duration_minutes")
     private Integer durationMinutes;
 
-    /** 表示順 */
+    /** デフォルトの表示順 */
     @Column(name = "sort_order")
     private Integer sortOrder;
 
