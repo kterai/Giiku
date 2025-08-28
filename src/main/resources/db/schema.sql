@@ -937,10 +937,10 @@ ALTER TABLE mock_test_results
 -- Creates comprehensive question bank, submission tracking, and grade management
 -- Supports exercises, quizzes, and mock tests with detailed scoring
 
--- Exercise Question Bank (20+ questions per lecture)
+-- Exercise Question Bank (20+ questions per chapter)
 CREATE TABLE exercise_question_bank (
     id BIGSERIAL PRIMARY KEY,
-    lecture_id BIGINT NOT NULL REFERENCES lectures(id),
+    chapter_id BIGINT NOT NULL REFERENCES chapters(id),
     question_number INTEGER NOT NULL,
     question_type VARCHAR(20) DEFAULT 'multiple_choice' NOT NULL CHECK (question_type IN ('multiple_choice', 'essay', 'code', 'fill_blank')),
     question_text TEXT NOT NULL,
@@ -956,7 +956,8 @@ CREATE TABLE exercise_question_bank (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
-COMMENT ON COLUMN exercise_question_bank.question_number IS '問題番号（講義内での順序）';
+COMMENT ON COLUMN exercise_question_bank.chapter_id IS 'チャプターID（chapters.id）';
+COMMENT ON COLUMN exercise_question_bank.question_number IS '問題番号（チャプター内での順序）';
 COMMENT ON COLUMN exercise_question_bank.question_text IS '問題文（演習問題の内容）';
 COMMENT ON COLUMN exercise_question_bank.question_options IS '選択肢（多択問題の場合）';
 COMMENT ON COLUMN exercise_question_bank.correct_answer IS '正解（多択・穴埋め問題の正答）';
@@ -1030,10 +1031,10 @@ COMMENT ON COLUMN quiz.is_active IS '有効状態';
 COMMENT ON COLUMN quiz.created_at IS '作成日時';
 COMMENT ON COLUMN quiz.updated_at IS '更新日時';
 
--- Quiz Question Bank (per lecture)
+-- Quiz Question Bank (per chapter)
 CREATE TABLE quiz_question_bank (
     id BIGSERIAL PRIMARY KEY,
-    lecture_id BIGINT NOT NULL REFERENCES lectures(id),
+    chapter_id BIGINT NOT NULL REFERENCES chapters(id),
     question_number INTEGER NOT NULL,
     question_type VARCHAR(20) DEFAULT 'multiple_choice' NOT NULL CHECK (question_type IN ('multiple_choice', 'true_false', 'short_answer')),
     question_text TEXT NOT NULL,
@@ -1055,7 +1056,8 @@ CREATE TABLE quiz_question_bank (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
-COMMENT ON COLUMN quiz_question_bank.question_number IS '問題番号（講義内での順序）';
+COMMENT ON COLUMN quiz_question_bank.chapter_id IS 'チャプターID（chapters.id）';
+COMMENT ON COLUMN quiz_question_bank.question_number IS '問題番号（チャプター内での順序）';
 COMMENT ON COLUMN quiz_question_bank.question_text IS '問題文（クイズ問題の内容）';
 COMMENT ON COLUMN quiz_question_bank.option_a IS '選択肢A';
 COMMENT ON COLUMN quiz_question_bank.option_b IS '選択肢B';
@@ -1135,7 +1137,7 @@ COMMENT ON COLUMN mock_test_questions.updated_by IS '更新者（レコード更
 CREATE TABLE exercise_submissions (
     id BIGSERIAL PRIMARY KEY,
     training_assignment_id BIGINT NOT NULL REFERENCES training_assignments(id),
-    lecture_id BIGINT NOT NULL REFERENCES lectures(id),
+    chapter_id BIGINT NOT NULL REFERENCES chapters(id),
     question_id BIGINT NOT NULL REFERENCES exercise_question_bank(id),
     student_answer TEXT,
     is_correct BOOLEAN,
@@ -1150,6 +1152,7 @@ CREATE TABLE exercise_submissions (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+COMMENT ON COLUMN exercise_submissions.chapter_id IS 'チャプターID（chapters.id）';
 COMMENT ON COLUMN exercise_submissions.student_answer IS '解答（学生の回答内容）';
 COMMENT ON COLUMN exercise_submissions.is_correct IS '正誤（回答の正誤判定）';
 COMMENT ON COLUMN exercise_submissions.points_earned IS '獲得点（得られた得点）';
@@ -1166,7 +1169,7 @@ COMMENT ON COLUMN exercise_submissions.updated_at IS '更新日時（レコー�
 CREATE TABLE quiz_submissions (
     id BIGSERIAL PRIMARY KEY,
     training_assignment_id BIGINT NOT NULL REFERENCES training_assignments(id),
-    lecture_id BIGINT NOT NULL REFERENCES lectures(id),
+    chapter_id BIGINT NOT NULL REFERENCES chapters(id),
     question_id BIGINT NOT NULL REFERENCES quiz_question_bank(id),
     student_answer TEXT NOT NULL,
     is_correct BOOLEAN NOT NULL,
@@ -1179,6 +1182,7 @@ CREATE TABLE quiz_submissions (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
+COMMENT ON COLUMN quiz_submissions.chapter_id IS 'チャプターID（chapters.id）';
 COMMENT ON COLUMN quiz_submissions.student_answer IS '解答（学生の回答内容）';
 COMMENT ON COLUMN quiz_submissions.is_correct IS '正誤（回答の正誤判定）';
 COMMENT ON COLUMN quiz_submissions.points_earned IS '獲得点（得られた得点）';
@@ -1338,15 +1342,15 @@ COMMENT ON COLUMN grade_settings.updated_at IS '更新日時（レコード更�
 COMMENT ON COLUMN grade_settings.updated_by IS '更新者（レコード更新したユーザーID）';
 
 -- Performance Indexes for optimization
-CREATE INDEX idx_exercise_questions_lecture ON exercise_question_bank(lecture_id);
+CREATE INDEX idx_exercise_questions_chapter ON exercise_question_bank(chapter_id);
 CREATE INDEX idx_exercise_questions_active ON exercise_question_bank(is_active);
-CREATE INDEX idx_quiz_questions_lecture ON quiz_question_bank(lecture_id);
+CREATE INDEX idx_quiz_questions_chapter ON quiz_question_bank(chapter_id);
 CREATE INDEX idx_quiz_questions_active ON quiz_question_bank(is_active);
 CREATE INDEX idx_mock_test_active ON mock_test_bank(is_active);
 CREATE INDEX idx_exercise_submissions_assignment ON exercise_submissions(training_assignment_id);
-CREATE INDEX idx_exercise_submissions_lecture ON exercise_submissions(lecture_id);
+CREATE INDEX idx_exercise_submissions_chapter ON exercise_submissions(chapter_id);
 CREATE INDEX idx_quiz_submissions_assignment ON quiz_submissions(training_assignment_id);
-CREATE INDEX idx_quiz_submissions_lecture ON quiz_submissions(lecture_id);
+CREATE INDEX idx_quiz_submissions_chapter ON quiz_submissions(chapter_id);
 CREATE INDEX idx_mock_submissions_assignment ON mock_test_submissions(training_assignment_id);
 CREATE INDEX idx_lecture_grades_assignment ON lecture_grades(training_assignment_id);
 CREATE INDEX idx_lecture_grades_lecture ON lecture_grades(lecture_id);
@@ -1354,10 +1358,10 @@ CREATE INDEX idx_student_summaries_student ON student_grade_summaries(student_id
 CREATE INDEX idx_student_summaries_lecture ON student_grade_summaries(lecture_id);
 
 -- Unique constraints for data integrity
-ALTER TABLE exercise_question_bank ADD CONSTRAINT unique_exercise_question_order
-    UNIQUE(lecture_id, question_number);
-ALTER TABLE quiz_question_bank ADD CONSTRAINT unique_quiz_question_order
-    UNIQUE(lecture_id, question_number);
+ALTER TABLE exercise_question_bank ADD CONSTRAINT unique_exercise_question_chapter_order
+    UNIQUE(chapter_id, question_number);
+ALTER TABLE quiz_question_bank ADD CONSTRAINT unique_quiz_question_chapter_order
+    UNIQUE(chapter_id, question_number);
 ALTER TABLE mock_test_questions ADD CONSTRAINT unique_mock_question_order 
     UNIQUE(mock_test_id, question_order);
 ALTER TABLE lecture_grades ADD CONSTRAINT unique_lecture_assignment_grade
@@ -1370,8 +1374,8 @@ ALTER TABLE grade_settings ADD CONSTRAINT check_weights_sum
     CHECK (exercise_weight + quiz_weight + mock_test_weight = 1.0);
 
 -- Comments on tables
-COMMENT ON TABLE exercise_question_bank IS '演習問題バンク（各講義の演習問題を管理）';
-COMMENT ON TABLE quiz_question_bank IS 'クイズ問題バンク（各講義のクイズ問題を管理）';
+COMMENT ON TABLE exercise_question_bank IS '演習問題バンク（各チャプターの演習問題を管理）';
+COMMENT ON TABLE quiz_question_bank IS 'クイズ問題バンク（各チャプターのクイズ問題を管理）';
 COMMENT ON TABLE mock_test_bank IS '模擬試験バンク（模擬試験の定義を管理）';
 COMMENT ON TABLE mock_test_questions IS '模擬試験問題（模擬試験の個別問題を管理）';
 COMMENT ON TABLE exercise_submissions IS '演習提出（学生の演習問題解答を管理）';
