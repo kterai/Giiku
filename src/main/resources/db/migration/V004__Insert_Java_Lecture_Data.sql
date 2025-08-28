@@ -8,16 +8,26 @@ INSERT INTO lectures (
 ) VALUES
 (1, 1, 1, 'Java言語基礎', 'Java言語の基本概念、構文、特徴を学び、プログラミングの基礎を身につけます。コメント、命名規則、リテラル、コンパイルプロセスまで包括的に学習します。', 480, 'BEGINNER', true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
--- 講義1のチャプター投入
-INSERT INTO lecture_chapters (id, lecture_id, chapter_number, title, description, duration_minutes, sort_order, is_active, created_by, created_at, updated_by, updated_at) VALUES
-(1, 1, 1, 'Javaとは何か', 'Java言語の歴史、特徴、用途について学びます。プラットフォーム独立性やオブジェクト指向の概念を理解します。', 60, 1, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(2, 1, 2, 'Javaの特徴と利点', 'Write Once, Run Anywhere、ガベージコレクション、豊富なライブラリなどJavaの主要な特徴を詳しく学習します。', 60, 2, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(3, 1, 3, 'プログラムの基本構造', 'Javaプログラムの基本構造、mainメソッド、クラス定義の書き方を実践的に学びます。', 60, 3, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(4, 1, 4, 'コメントの書き方', '単行コメント、複数行コメント、JavaDocコメントの書き方と活用方法を学習します。', 45, 4, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(5, 1, 5, '命名規則', 'Java言語の命名規則（クラス名、メソッド名、変数名、定数名）を詳しく学び、適切なコーディング習慣を身につけます。', 45, 5, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(6, 1, 6, 'リテラル', '整数リテラル、浮動小数点リテラル、文字リテラル、文字列リテラル、論理リテラルについて学習します。', 60, 6, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(7, 1, 7, 'セミコロンと文の終了', 'Javaにおける文の終了規則、セミコロンの使い方、ブロック文について学習します。', 30, 7, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(8, 1, 8, 'コンパイルと実行の流れ', 'javac、java コマンドの使い方、クラスファイルの生成プロセス、実行環境について詳しく学習します。', 60, 8, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
+INSERT INTO chapters (id, chapter_number, title, description, duration_minutes, sort_order, is_active, created_by, created_at, updated_by, updated_at) VALUES
+(1, 1, 'Javaとは何か', 'Java言語の歴史、特徴、用途について学びます。プラットフォーム独立性やオブジェクト指向の概念を理解します。', 60, 1, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(2, 2, 'Javaの特徴と利点', 'Write Once, Run Anywhere、ガベージコレクション、豊富なライブラリなどJavaの主要な特徴を詳しく学習します。', 60, 2, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(3, 3, 'プログラムの基本構造', 'Javaプログラムの基本構造、mainメソッド、クラス定義の書き方を実践的に学びます。', 60, 3, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(4, 4, 'コメントの書き方', '単行コメント、複数行コメント、JavaDocコメントの書き方と活用方法を学習します。', 45, 4, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(5, 5, '命名規則', 'Java言語の命名規則（クラス名、メソッド名、変数名、定数名）を詳しく学び、適切なコーディング習慣を身につけます。', 45, 5, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(6, 6, 'リテラル', '整数リテラル、浮動小数点リテラル、文字リテラル、文字列リテラル、論理リテラルについて学習します。', 60, 6, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(7, 7, 'セミコロンと文の終了', 'Javaにおける文の終了規則、セミコロンの使い方、ブロック文について学習します。', 30, 7, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(8, 8, 'コンパイルと実行の流れ', 'javac、java コマンドの使い方、クラスファイルの生成プロセス、実行環境について詳しく学習します。', 60, 8, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
+
+-- 講義1とチャプターの紐付け
+INSERT INTO lecture_chapter_links (id, lecture_id, chapter_id, sort_order, created_by, created_at, updated_by, updated_at) VALUES
+(1, 1, 1, 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(2, 1, 2, 2, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(3, 1, 3, 3, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(4, 1, 4, 4, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(5, 1, 5, 5, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(6, 1, 6, 6, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(7, 1, 7, 7, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(8, 1, 8, 8, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義1の学習目標投入
 INSERT INTO lecture_goals (id, lecture_id, goal_description, sort_order, created_by, created_at, updated_by, updated_at) VALUES
@@ -221,14 +231,24 @@ INSERT INTO lectures (
 (2, 2, 1, '開発環境構築', 'Java開発に必要な環境構築を実践的に学習。JDKインストール、IDE設定、プロジェクト作成、デバッグ環境の構築まで、実際の開発フローに沿って学びます。', 420, 'BEGINNER', true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義2のチャプター投入
-INSERT INTO lecture_chapters (id, lecture_id, chapter_number, title, description, duration_minutes, sort_order, is_active, created_by, created_at, updated_by, updated_at) VALUES
-(9, 2, 1, 'JDKのインストール', 'Oracle JDKとOpenJDKの違い、適切なバージョンの選択、各OS（Windows、macOS、Linux）でのインストール手順を学習します。', 60, 1, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(10, 2, 2, 'IDEの選択と設定', 'IntelliJ IDEA、Eclipse、Visual Studio Codeの特徴比較と、基本設定、プラグイン導入を実践的に学びます。', 75, 2, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(11, 2, 3, 'プロジェクトの作成', 'IDE上でのJavaプロジェクト作成、フォルダ構成の理解、ビルドパスの設定を学習します。', 60, 3, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(12, 2, 4, 'コンパイル環境の確認', 'コマンドライン、IDE両方でのコンパイル手順、エラーメッセージの読み方、トラブルシューティングを学習します。', 60, 4, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(13, 2, 5, 'デバッグ環境の設定', 'ブレークポイントの設定、ステップ実行、変数の監視など、効果的なデバッグ技術を習得します。', 60, 5, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(14, 2, 6, '外部ライブラリの管理', 'classpathの概念、JARファイルの追加、Maven/Gradleビルドツールの基本的な使い方を学習します。', 60, 6, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(15, 2, 7, 'バージョン管理システムの導入', 'Git/GitHubの基本操作、IDE連携、Javaプロジェクトでのバージョン管理のベストプラクティスを学習します。', 45, 7, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
+INSERT INTO chapters (id, chapter_number, title, description, duration_minutes, sort_order, is_active, created_by, created_at, updated_by, updated_at) VALUES
+(9, 1, 'JDKのインストール', 'Oracle JDKとOpenJDKの違い、適切なバージョンの選択、各OS（Windows、macOS、Linux）でのインストール手順を学習します。', 60, 1, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(10, 2, 'IDEの選択と設定', 'IntelliJ IDEA、Eclipse、Visual Studio Codeの特徴比較と、基本設定、プラグイン導入を実践的に学びます。', 75, 2, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(11, 3, 'プロジェクトの作成', 'IDE上でのJavaプロジェクト作成、フォルダ構成の理解、ビルドパスの設定を学習します。', 60, 3, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(12, 4, 'コンパイル環境の確認', 'コマンドライン、IDE両方でのコンパイル手順、エラーメッセージの読み方、トラブルシューティングを学習します。', 60, 4, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(13, 5, 'デバッグ環境の設定', 'ブレークポイントの設定、ステップ実行、変数の監視など、効果的なデバッグ技術を習得します。', 60, 5, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(14, 6, '外部ライブラリの管理', 'classpathの概念、JARファイルの追加、Maven/Gradleビルドツールの基本的な使い方を学習します。', 60, 6, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(15, 7, 'バージョン管理システムの導入', 'Git/GitHubの基本操作、IDE連携、Javaプロジェクトでのバージョン管理のベストプラクティスを学習します。', 45, 7, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
+
+-- 講義2とチャプターの紐付け
+INSERT INTO lecture_chapter_links (id, lecture_id, chapter_id, sort_order, created_by, created_at, updated_by, updated_at) VALUES
+(9, 2, 9, 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(10, 2, 10, 2, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(11, 2, 11, 3, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(12, 2, 12, 4, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(13, 2, 13, 5, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(14, 2, 14, 6, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(15, 2, 15, 7, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義2の学習目標投入
 INSERT INTO lecture_goals (id, lecture_id, goal_description, sort_order, created_by, created_at, updated_by, updated_at) VALUES
@@ -455,13 +475,22 @@ INSERT INTO lectures (
 (3, 3, 1, 'パッケージとインポート', 'Javaのパッケージシステムを理解し、名前空間の管理、クラスの整理、再利用可能なコードの作成方法を学習します。大規模開発に必要な基礎知識を身につけます。', 360, 'BEGINNER', true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義3のチャプター投入
-INSERT INTO lecture_chapters (id, lecture_id, chapter_number, title, description, duration_minutes, sort_order, is_active, created_by, created_at, updated_by, updated_at) VALUES
-(16, 3, 1, 'パッケージの概念', 'パッケージとは何か、なぜ必要なのかを理解し、Java標準パッケージの構造を学習します。', 60, 1, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(17, 3, 2, 'パッケージの作成', 'package文の書き方、ディレクトリ構造との関係、パッケージ内でのクラス定義方法を実践的に学びます。', 60, 2, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(18, 3, 3, 'importステートメント', 'import文の基本的な使い方、単一クラスのインポート、パッケージ全体のインポートを学習します。', 60, 3, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(19, 3, 4, '静的インポート', 'static importの概念と使用方法、適切な使用場面と注意点を学習します。', 45, 4, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(20, 3, 5, 'パッケージの階層構造', 'サブパッケージの作成、階層構造の設計方針、企業での命名規則を学習します。', 60, 5, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
-(21, 3, 6, '名前空間の管理', 'パッケージによる名前の競合回避、FQCN（完全修飾クラス名）の使用、ベストプラクティスを学習します。', 75, 6, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
+INSERT INTO chapters (id, chapter_number, title, description, duration_minutes, sort_order, is_active, created_by, created_at, updated_by, updated_at) VALUES
+(16, 1, 'パッケージの概念', 'パッケージとは何か、なぜ必要なのかを理解し、Java標準パッケージの構造を学習します。', 60, 1, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(17, 2, 'パッケージの作成', 'package文の書き方、ディレクトリ構造との関係、パッケージ内でのクラス定義方法を実践的に学びます。', 60, 2, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(18, 3, 'importステートメント', 'import文の基本的な使い方、単一クラスのインポート、パッケージ全体のインポートを学習します。', 60, 3, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(19, 4, '静的インポート', 'static importの概念と使用方法、適切な使用場面と注意点を学習します。', 45, 4, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(20, 5, 'パッケージの階層構造', 'サブパッケージの作成、階層構造の設計方針、企業での命名規則を学習します。', 60, 5, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(21, 6, '名前空間の管理', 'パッケージによる名前の競合回避、FQCN（完全修飾クラス名）の使用、ベストプラクティスを学習します。', 75, 6, true, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
+
+-- 講義3とチャプターの紐付け
+INSERT INTO lecture_chapter_links (id, lecture_id, chapter_id, sort_order, created_by, created_at, updated_by, updated_at) VALUES
+(16, 3, 16, 1, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(17, 3, 17, 2, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(18, 3, 18, 3, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(19, 3, 19, 4, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(20, 3, 20, 5, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP),
+(21, 3, 21, 6, 1, CURRENT_TIMESTAMP, 1, CURRENT_TIMESTAMP);
 
 -- 講義3の学習目標投入
 INSERT INTO lecture_goals (id, lecture_id, goal_description, sort_order, created_by, created_at, updated_by, updated_at) VALUES
@@ -1047,7 +1076,8 @@ INSERT INTO lectures (day_id, lecture_number, title, description, goals, content
 (54, 54, '修了テストと振り返り', '最終評価と学習振り返り', '["修了テスト","学習振り返り","今後の計画"]', '["修了テスト","振り返り","評価","今後計画","修了式"]', '["修了テスト実施","結果分析","学習成果振り返り","スキル評価","今後の学習計画","キャリア相談","修了証授与","実践演習","ネットワーキング","継続学習リソース"]', 180, 1, 1);
 
 
-SELECT setval('lecture_chapters_id_seq',   (SELECT MAX(id) FROM lecture_chapters));
+SELECT setval('chapters_id_seq', (SELECT MAX(id) FROM chapters));
+SELECT setval('lecture_chapter_links_id_seq', (SELECT MAX(id) FROM lecture_chapter_links));
 SELECT setval('lecture_goals_id_seq',      (SELECT MAX(id) FROM lecture_goals));
 SELECT setval('chapter_content_blocks_id_seq', (SELECT MAX(id) FROM chapter_content_blocks));
 
