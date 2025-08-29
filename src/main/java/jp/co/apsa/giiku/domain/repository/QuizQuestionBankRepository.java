@@ -27,11 +27,11 @@ public interface QuizQuestionBankRepository extends JpaRepository<QuizQuestionBa
     List<QuizQuestionBank> findByChapterIdOrderByQuestionNumber(@Param("chapterId") Long chapterId);
 
     /**
-     * 指定された講義IDのクイズ問題をチャプター順・問題番号順に取得します。
+     * 指定された講義IDの有効なクイズ問題をチャプター順・問題番号順に取得します。
      *
      * @param lectureId 講義ID
      * @return クイズ問題一覧
      */
-    @Query("SELECT q FROM QuizQuestionBank q JOIN LectureChapterLink l ON q.chapter = l.chapter WHERE l.lectureId = :lectureId ORDER BY l.sortOrder, q.questionNumber")
+    @Query("SELECT q FROM QuizQuestionBank q JOIN LectureChapterLink l ON q.chapter.id = l.chapter.id WHERE l.lectureId = :lectureId AND q.isActive = true ORDER BY l.sortOrder, q.questionNumber")
     List<QuizQuestionBank> findByLectureIdOrderByChapterAndQuestionNumber(@Param("lectureId") Long lectureId);
 }
