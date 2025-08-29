@@ -61,12 +61,12 @@ public interface QuestionBankRepository extends JpaRepository<QuestionBank, Long
     List<QuestionBank> findByChapterIdOrderByQuestionNumber(@Param("chapterId") Long chapterId);
 
     /**
-     * 講義IDで検索し、チャプターの並び順と問題番号の昇順で取得します。
+     * 講義IDで有効な問題を検索し、チャプターの並び順と問題番号の昇順で取得します。
      *
      * @param lectureId 講義ID
-     * @return 該当する問題一覧
+     * @return 該当する有効な問題一覧
      */
-    @Query("SELECT q FROM QuestionBank q JOIN LectureChapterLink l ON q.chapter = l.chapter WHERE l.lectureId = :lectureId ORDER BY l.sortOrder, q.questionNumber")
+    @Query("SELECT q FROM QuestionBank q JOIN LectureChapterLink l ON q.chapter.id = l.chapter.id WHERE l.lectureId = :lectureId AND q.isActive = true ORDER BY l.sortOrder, q.questionNumber")
     List<QuestionBank> findByLectureIdOrderByChapterAndQuestionNumber(@Param("lectureId") Long lectureId);
 
     /**
