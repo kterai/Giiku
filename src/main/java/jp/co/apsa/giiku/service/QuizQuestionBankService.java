@@ -32,4 +32,18 @@ public class QuizQuestionBankService {
     public List<QuizQuestionBank> findByChapterId(Long chapterId) {
         return quizQuestionBankRepository.findByChapterIdOrderByQuestionNumber(chapterId);
     }
+
+    /**
+     * 講義IDでクイズ問題を取得します。
+     *
+     * @param lectureId 講義ID
+     * @return クイズ問題一覧
+     */
+    @Transactional(readOnly = true)
+    public List<QuizQuestionBank> findByLectureId(Long lectureId) {
+        if (lectureId == null) {
+            throw new IllegalArgumentException("講義IDは必須です");
+        }
+        return quizQuestionBankRepository.findByLectureIdOrderByChapterAndQuestionNumber(lectureId);
+    }
 }

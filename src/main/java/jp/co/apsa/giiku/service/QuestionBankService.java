@@ -128,6 +128,20 @@ public class QuestionBankService {
         return questionBankRepository.findByChapterIdOrderByQuestionNumber(chapterId);
     }
 
+    /**
+     * 講義IDで問題を取得します。
+     *
+     * @param lectureId 講義ID
+     * @return 問題一覧
+     */
+    @Transactional(readOnly = true)
+    public List<QuestionBank> findByLectureId(Long lectureId) {
+        if (lectureId == null) {
+            throw new IllegalArgumentException("講義IDは必須です");
+        }
+        return questionBankRepository.findByLectureIdOrderByChapterAndQuestionNumber(lectureId);
+    }
+
     @Transactional(readOnly = true)
     public long countAll() {
         return questionBankRepository.count();
