@@ -123,15 +123,22 @@ public class LectureViewController extends AbstractController {
         }
         model.addAttribute("chapterContentBlocks", chapterContentBlocks);
 
-        // 理解度テストと演習問題をチャプター単位で取得
-        List<QuizQuestionBank> quizQuestions = new ArrayList<>();
-        List<QuestionBank> exercises = new ArrayList<>();
-        for (Chapter chapter : chapters) {
-            quizQuestions.addAll(quizQuestionBankService.findByChapterId(chapter.getId()));
-            exercises.addAll(questionBankService.findByChapterIdOrderByQuestionNumber(chapter.getId()));
+        // 理解度テストと演習問題を講義IDから取得しチャプターごとに格納
+        List<QuizQuestionBank> quizQuestions = quizQuestionBankService.findByLectureId(lecture.getId());
+        Map<Long, List<QuizQuestionBank>> quizQuestionsByChapter = new HashMap<>();
+        for (QuizQuestionBank quiz : quizQuestions) {
+            Long chapterId = quiz.getChapter().getId();
+            quizQuestionsByChapter.computeIfAbsent(chapterId, k -> new ArrayList<>()).add(quiz);
         }
-        model.addAttribute("quizQuestions", quizQuestions);
-        model.addAttribute("exercises", exercises);
+        model.addAttribute("quizQuestionsByChapter", quizQuestionsByChapter);
+
+        List<QuestionBank> exercises = questionBankService.findByLectureId(lecture.getId());
+        Map<Long, List<QuestionBank>> exercisesByChapter = new HashMap<>();
+        for (QuestionBank exercise : exercises) {
+            Long chapterId = exercise.getChapter().getId();
+            exercisesByChapter.computeIfAbsent(chapterId, k -> new ArrayList<>()).add(exercise);
+        }
+        model.addAttribute("exercisesByChapter", exercisesByChapter);
 
         model.addAttribute("additionalResources", parseJsonField(getAdditionalResourcesJson(lecture), List.class));
         
