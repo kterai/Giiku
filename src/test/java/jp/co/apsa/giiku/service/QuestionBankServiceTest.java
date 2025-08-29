@@ -60,6 +60,11 @@ public class QuestionBankServiceTest {
         ch2.setTitle("Ch2");
         ch2 = chapterRepository.saveAndFlush(ch2);
 
+        Chapter ch3 = new Chapter();
+        ch3.setChapterNumber(3);
+        ch3.setTitle("Ch3");
+        ch3 = chapterRepository.saveAndFlush(ch3);
+
         LectureChapterLink link1 = new LectureChapterLink();
         link1.setLectureId(1L);
         link1.setChapter(ch1);
@@ -98,6 +103,15 @@ public class QuestionBankServiceTest {
         q3.setDifficultyLevel("easy");
         q3.setIsActive(false);
         questionBankRepository.save(q3);
+
+        QuestionBank q4 = new QuestionBank();
+        q4.setChapter(ch3);
+        q4.setQuestionNumber(1);
+        q4.setQuestionType("multiple_choice");
+        q4.setQuestionText("Q4");
+        q4.setDifficultyLevel("easy");
+        q4.setIsActive(true);
+        questionBankRepository.save(q4);
 
         List<LectureChapterLink> links = lectureChapterLinkRepository.findByLectureIdOrderBySortOrder(1L);
         assertEquals(2, links.size());
