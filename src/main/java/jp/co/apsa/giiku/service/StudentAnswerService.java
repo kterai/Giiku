@@ -65,4 +65,15 @@ public class StudentAnswerService {
     public List<StudentAnswer> getAnswers(Long quizId, Long studentId) {
         return studentAnswerRepository.findByQuizIdAndStudentId(quizId, studentId);
     }
+
+    /**
+     * 質問IDで回答一覧を取得
+     *
+     * @param questionId 質問ID
+     * @return 回答一覧
+     */
+    @Transactional(readOnly = true)
+    public List<StudentAnswer> getAnswersByQuestionId(Long questionId) {
+        return studentAnswerRepository.findByQuestionId(questionId);
+    }
 }

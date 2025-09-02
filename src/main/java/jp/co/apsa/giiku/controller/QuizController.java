@@ -5,6 +5,9 @@ import jp.co.apsa.giiku.service.QuizService;
 import jp.co.apsa.giiku.service.StudentAnswerService;
 import jp.co.apsa.giiku.domain.entity.QuizQuestionBank;
 import jp.co.apsa.giiku.domain.repository.QuizQuestionBankRepository;
+import jp.co.apsa.giiku.domain.entity.StudentAnswer;
+import jp.co.apsa.giiku.domain.entity.User;
+import jp.co.apsa.giiku.domain.repository.UserRepository;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +23,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.HashMap;
 
 /**
  * クイズコントローラー
@@ -49,6 +54,9 @@ public class QuizController extends AbstractController {
 
     @Autowired
     private QuizQuestionBankRepository quizQuestionBankRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     // ===== CRUD操作 =====
 
@@ -339,6 +347,39 @@ public class QuizController extends AbstractController {
             return ResponseEntity.ok(quizzes);
         } catch (Exception e) {
             logger.error("完了クイズ取得エラー: studentId={}", studentId, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
+     * 質問IDで学生回答を取得
+     *
+     * @param questionId 質問ID
+     * @return 学生名、回答内容、正誤の一覧
+     */
+    @GetMapping("/questions/{questionId}/answers")
+    public ResponseEntity<List<Map<String, Object>>> getAnswersByQuestion(@PathVariable Long questionId) {
+        try {
+            logger.debug("回答一覧取得リクエスト: questionId={}", questionId);
+            List<StudentAnswer> answers = studentAnswerService.getAnswersByQuestionId(questionId);
+            String correctAnswer = quizQuestionBankRepository.findById(questionId)
+                    .map(QuizQuestionBank::getCorrectAnswer)
+                    .orElse("");
+            List<Map<String, Object>> result = answers.stream()
+                    .map(a -> {
+                        String name = userRepository.findById(a.getStudentId())
+                                .map(User::getName)
+                                .orElse("不明");
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("studentName", name);
+                        map.put("answerText", a.getAnswerText());
+                        map.put("correct", correctAnswer.equals(a.getAnswerText()));
+                        return map;
+                    })
+                    .collect(Collectors.toList());
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            logger.error("回答一覧取得エラー: questionId={}", questionId, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

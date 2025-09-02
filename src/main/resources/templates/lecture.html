@@ -40,6 +40,25 @@
 
         <div class="container px-4 py-4">
             <input type="hidden" id="studentId" th:value="${studentId}">
+            <section id="quiz-answer-monitor" sec:authorize="hasRole('INSTRUCTOR')"
+                     class="bg-white rounded shadow p-4 mb-4"
+                     th:attr="data-question-id=${questionId}">
+                <h2 class="fw-bold text-primary mb-4">
+                    <i class="fas fa-users me-2"></i>回答モニタ
+                </h2>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>学生名</th>
+                                <th>回答</th>
+                                <th>正誤</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
             <!-- 学習目標セクション -->
             <section class="bg-white rounded shadow p-4 mb-4" th:if="${goals != null and !goals.isEmpty()}">
                 <h2 class="fw-bold text-primary mb-4">
@@ -292,6 +311,7 @@
     <script th:src="@{/webjars/prismjs/1.29.0/components/prism-java.min.js}"></script>
     <script th:src="@{/webjars/prismjs/1.29.0/components/prism-sql.min.js}"></script>
     <script th:src="@{/js/lecture-quiz.js}"></script>
+    <script th:src="@{/js/quiz-answer-monitor.js}"></script>
 </section>
 </body>
 </html>
