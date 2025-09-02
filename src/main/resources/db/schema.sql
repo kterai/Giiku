@@ -1195,6 +1195,28 @@ COMMENT ON COLUMN quiz_submissions.created_at IS '作成日時（レコード作
 COMMENT ON COLUMN quiz_submissions.updated_by IS '更新者（レコード更新したユーザーID）';
 COMMENT ON COLUMN quiz_submissions.updated_at IS '更新日時（レコード更新時刻）';
 
+-- Student Answers (individual responses per question)
+CREATE TABLE student_answers (
+    id BIGSERIAL PRIMARY KEY,
+    question_id BIGINT NOT NULL,
+    quiz_id BIGINT NOT NULL,
+    student_id BIGINT NOT NULL,
+    answer_text TEXT NOT NULL,
+    submitted_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_student_answers_question FOREIGN KEY (question_id) REFERENCES quiz_question_bank(id),
+    CONSTRAINT fk_student_answers_quiz FOREIGN KEY (quiz_id) REFERENCES quiz(id),
+    CONSTRAINT fk_student_answers_student FOREIGN KEY (student_id) REFERENCES users(id)
+);
+
+CREATE UNIQUE INDEX idx_quiz_question_student ON student_answers(quiz_id, question_id, student_id);
+
+COMMENT ON TABLE student_answers IS '学生回答（クイズの各設問に対する回答を管理）';
+COMMENT ON COLUMN student_answers.question_id IS '質問ID（quiz_question_bank.id）';
+COMMENT ON COLUMN student_answers.quiz_id IS 'クイズID（quiz.id）';
+COMMENT ON COLUMN student_answers.student_id IS '学生ID（users.id）';
+COMMENT ON COLUMN student_answers.answer_text IS '回答内容';
+COMMENT ON COLUMN student_answers.submitted_at IS '回答日時';
+
 -- Mock Test Submissions (student mock test attempts)
 CREATE TABLE mock_test_submissions (
     id BIGSERIAL PRIMARY KEY,
