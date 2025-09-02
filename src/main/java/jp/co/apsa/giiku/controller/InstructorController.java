@@ -10,6 +10,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
@@ -29,7 +30,7 @@ import java.util.Optional;
  * @version 1.0
  * @since 2025
  */
-@RestController
+@Controller
 @RequestMapping("/api/lms/instructors")
 @Validated
 public class InstructorController {
@@ -38,6 +39,7 @@ public class InstructorController {
     private InstructorService instructorService;
 
     /** 講師一覧取得 */
+    @ResponseBody
     @GetMapping
     public ResponseEntity<Page<Instructor>> getAllInstructors(
             @PageableDefault(size = 20) Pageable pageable) {
@@ -50,6 +52,7 @@ public class InstructorController {
     }
 
     /** 講師詳細取得 */
+    @ResponseBody
     @GetMapping("/{id}")
     public ResponseEntity<Instructor> getInstructor(@PathVariable @NotNull @Min(1) Long id) {
         try {
@@ -63,6 +66,7 @@ public class InstructorController {
     }
 
     /** 講師作成 */
+    @ResponseBody
     @PostMapping
     public ResponseEntity<Instructor> createInstructor(@Valid @RequestBody Instructor instructor) {
         try {
@@ -76,6 +80,7 @@ public class InstructorController {
     }
 
     /** 講師更新 */
+    @ResponseBody
     @PutMapping("/{id}")
     public ResponseEntity<Instructor> updateInstructor(
             @PathVariable @NotNull @Min(1) Long id,
@@ -92,6 +97,7 @@ public class InstructorController {
     }
 
     /** 評価追加 */
+    @ResponseBody
     @PostMapping("/{id}/rating")
     public ResponseEntity<Map<String, String>> addRating(
             @PathVariable @NotNull @Min(1) Long id,
@@ -106,6 +112,16 @@ public class InstructorController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    /**
+     * 回答モニタ画面への遷移ハンドラ。
+     *
+     * @return 回答モニタテンプレート
+     */
+    @GetMapping("/monitor")
+    public String answerMonitor() {
+        return "admin/answer_monitor";
     }
 
     // リクエストクラス
