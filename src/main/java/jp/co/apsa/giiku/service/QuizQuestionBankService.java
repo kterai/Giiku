@@ -1,6 +1,8 @@
 package jp.co.apsa.giiku.service;
 
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +20,8 @@ import jp.co.apsa.giiku.domain.repository.QuizQuestionBankRepository;
 @Service
 @Transactional
 public class QuizQuestionBankService {
+
+    private static final Logger logger = LoggerFactory.getLogger(QuizQuestionBankService.class);
 
     @Autowired
     private QuizQuestionBankRepository quizQuestionBankRepository;
@@ -44,6 +48,9 @@ public class QuizQuestionBankService {
         if (lectureId == null) {
             throw new IllegalArgumentException("講義IDは必須です");
         }
-        return quizQuestionBankRepository.findByLectureIdOrderByChapterAndQuestionNumber(lectureId);
+        logger.debug("Fetching quiz questions for lectureId={}", lectureId);
+        List<QuizQuestionBank> result = quizQuestionBankRepository.findByLectureIdOrderByChapterAndQuestionNumber(lectureId);
+        logger.debug("Retrieved {} quiz questions for lectureId={}", result.size(), lectureId);
+        return result;
     }
 }

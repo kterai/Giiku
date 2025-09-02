@@ -2,6 +2,8 @@ package jp.co.apsa.giiku.controller;
 
 import jp.co.apsa.giiku.domain.entity.QuestionBank;
 import jp.co.apsa.giiku.service.QuestionBankService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +28,8 @@ import java.util.Optional;
 @RequestMapping("/api/question-banks")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class QuestionBankController extends AbstractController {
+
+    private static final Logger logger = LoggerFactory.getLogger(QuestionBankController.class);
 
     @Autowired
     private QuestionBankService questionBankService;
@@ -91,7 +95,9 @@ public class QuestionBankController extends AbstractController {
     /** 講義IDで問題を取得 */
     @GetMapping("/lecture/{lectureId}")
     public ResponseEntity<List<QuestionBank>> getByLecture(@PathVariable Long lectureId) {
+        logger.debug("Fetching questions via API for lectureId={}", lectureId);
         List<QuestionBank> questions = questionBankService.findByLectureId(lectureId);
+        logger.debug("Returning {} questions for lectureId={}", questions.size(), lectureId);
         return ResponseEntity.ok(questions);
     }
 }
