@@ -3,6 +3,8 @@ package jp.co.apsa.giiku.controller;
 import jp.co.apsa.giiku.domain.entity.Quiz;
 import jp.co.apsa.giiku.service.QuizService;
 import jp.co.apsa.giiku.service.StudentAnswerService;
+import jp.co.apsa.giiku.domain.entity.QuizQuestionBank;
+import jp.co.apsa.giiku.domain.repository.QuizQuestionBankRepository;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -44,6 +46,9 @@ public class QuizController extends AbstractController {
 
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
+
+    @Autowired
+    private QuizQuestionBankRepository quizQuestionBankRepository;
 
     // ===== CRUD操作 =====
 
@@ -172,6 +177,40 @@ public class QuizController extends AbstractController {
             return ResponseEntity.ok(quiz);
         } catch (Exception e) {
             logger.error("クイズ回答保存エラー: id={}", id, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    /**
+     * 個別のクイズ回答を受け付け判定します。
+     *
+     * @param questionId 質問ID
+     * @param payload    回答情報（quizId, studentId, answer）
+     * @return 判定結果
+     */
+    @PostMapping("/questions/{questionId}/answer")
+    public ResponseEntity<Map<String, Object>> answerQuestion(@PathVariable Long questionId,
+                                                              @RequestBody Map<String, String> payload) {
+        try {
+            Long quizId = payload.get("quizId") != null ? Long.parseLong(payload.get("quizId")) : null;
+            Long studentId = payload.get("studentId") != null ? Long.parseLong(payload.get("studentId")) : null;
+            String answer = payload.get("answer");
+
+            QuizQuestionBank question = quizQuestionBankRepository.findById(questionId)
+                    .orElseThrow();
+
+            boolean correct = question.getCorrectAnswer() != null
+                    && question.getCorrectAnswer().trim().equalsIgnoreCase(answer != null ? answer.trim() : "");
+
+            studentAnswerService.saveAnswer(quizId, questionId, studentId, answer);
+
+            Map<String, Object> response = Map.of(
+                    "correct", correct,
+                    "explanation", question.getExplanation()
+            );
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            logger.error("クイズ回答処理エラー: questionId={}", questionId, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
