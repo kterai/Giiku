@@ -1,7 +1,10 @@
 package jp.co.apsa.giiku.controller;
 
 import jp.co.apsa.giiku.domain.entity.QuestionBank;
+import jp.co.apsa.giiku.dto.ExerciseAnswer;
 import jp.co.apsa.giiku.service.QuestionBankService;
+import jp.co.apsa.giiku.service.StudentAnswerService;
+import jp.co.apsa.giiku.service.LectureGradeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,12 @@ public class QuestionBankController extends AbstractController {
 
     @Autowired
     private QuestionBankService questionBankService;
+
+    @Autowired
+    private StudentAnswerService studentAnswerService;
+
+    @Autowired
+    private LectureGradeService lectureGradeService;
 
     /** 問題一覧をページング形式で取得 */
     @GetMapping
@@ -99,5 +108,23 @@ public class QuestionBankController extends AbstractController {
         List<QuestionBank> questions = questionBankService.findByLectureId(lectureId);
         logger.debug("Returning {} questions for lectureId={}", questions.size(), lectureId);
         return ResponseEntity.ok(questions);
+    }
+
+    /**
+     * 演習問題の回答を保存
+     *
+     * @param id 問題ID
+     * @param exerciseAnswer 回答情報
+     * @return レスポンス
+     */
+    @PostMapping("/{id}/answer")
+    public ResponseEntity<Void> saveExerciseAnswer(@PathVariable Long id,
+                                                   @RequestBody ExerciseAnswer exerciseAnswer) {
+        logger.debug("Saving exercise answer: questionId={} studentId={}", id, exerciseAnswer.getStudentId());
+        studentAnswerService.saveExerciseAnswer(id, exerciseAnswer.getStudentId(), exerciseAnswer.getAnswerText());
+        if (exerciseAnswer.getLectureId() != null && exerciseAnswer.getCorrect() != null) {
+            lectureGradeService.updateExerciseStats(exerciseAnswer.getLectureId(), exerciseAnswer.getCorrect());
+        }
+        return ResponseEntity.ok().build();
     }
 }
