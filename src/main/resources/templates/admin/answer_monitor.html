@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{_layouts/admin}">
+<head>
+    <title>回答モニタ</title>
+</head>
+<body>
+<div layout:fragment="pageheader">
+    <h2>回答モニタ</h2>
+</div>
+<section layout:fragment="content">
+    <div class="mb-3">
+        <label for="quiz-id" class="form-label">クイズID</label>
+        <div class="input-group">
+            <input type="text" id="quiz-id" class="form-control" placeholder="Quiz ID">
+            <button id="connect-btn" class="btn btn-primary">接続</button>
+        </div>
+    </div>
+    <ul id="answers" class="list-group"></ul>
+</section>
+<script src="/webjars/sockjs-client/sockjs.min.js" th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js" th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
+<script src="../static/js/answer-monitor.js" th:src="@{/js/answer-monitor.js}"></script>
+</body>
+</html>
