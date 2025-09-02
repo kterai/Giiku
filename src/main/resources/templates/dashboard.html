@@ -410,7 +410,35 @@
     </div>
 </section>
 
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">クイズ回答送信</h2>
+        <form id="answer-form" class="row g-3">
+            <div class="col-md-4">
+                <label for="quiz-id" class="form-label">クイズID</label>
+                <input type="number" class="form-control" id="quiz-id" required>
+            </div>
+            <div class="col-md-4">
+                <label for="question-id" class="form-label">問題ID</label>
+                <input type="number" class="form-control" id="question-id" required>
+            </div>
+            <div class="col-md-4">
+                <label for="answer-text" class="form-label">回答</label>
+                <input type="text" class="form-control" id="answer-text" required>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">送信</button>
+                <span id="answer-status" class="ms-3"></span>
+            </div>
+        </form>
+        <ul id="answer-feed" class="list-group mt-3"></ul>
+    </div>
+</section>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js" th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js" th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
+<script src="../static/js/dashboard-answer.js" th:src="@{/js/dashboard-answer.js}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const ctx = document.getElementById('heroChart');
