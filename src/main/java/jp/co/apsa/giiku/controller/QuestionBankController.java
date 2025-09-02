@@ -5,6 +5,7 @@ import jp.co.apsa.giiku.dto.ExerciseAnswer;
 import jp.co.apsa.giiku.service.QuestionBankService;
 import jp.co.apsa.giiku.service.StudentAnswerService;
 import jp.co.apsa.giiku.service.LectureGradeService;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,9 @@ public class QuestionBankController extends AbstractController {
 
     @Autowired
     private LectureGradeService lectureGradeService;
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     /** 問題一覧をページング形式で取得 */
     @GetMapping
@@ -125,6 +129,7 @@ public class QuestionBankController extends AbstractController {
         if (exerciseAnswer.getLectureId() != null && exerciseAnswer.getCorrect() != null) {
             lectureGradeService.updateExerciseStats(exerciseAnswer.getLectureId(), exerciseAnswer.getCorrect());
         }
+        messagingTemplate.convertAndSend("/topic/exercise-answers/" + id, exerciseAnswer);
         return ResponseEntity.ok().build();
     }
 }
