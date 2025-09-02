@@ -43,6 +43,18 @@ public class StudentAnswerService {
     }
 
     /**
+     * 演習回答を保存
+     *
+     * @param questionId 質問ID
+     * @param studentId 学生ID
+     * @param answerText 回答内容
+     * @return 保存された回答
+     */
+    public StudentAnswer saveExerciseAnswer(Long questionId, Long studentId, String answerText) {
+        return saveAnswer(0L, questionId, studentId, answerText);
+    }
+
+    /**
      * クイズIDと学生IDで回答を取得
      *
      * @param quizId クイズID

@@ -70,5 +70,29 @@ public class LectureGradeService {
     public void delete(Long id) {
         lectureGradeRepository.deleteById(id);
     }
+
+    /**
+     * 演習回答結果を更新
+     *
+     * @param lectureId 講義ID
+     * @param correct 正解かどうか
+     */
+    public void updateExerciseStats(Long lectureId, boolean correct) {
+        LectureGrade grade = lectureGradeRepository.findByLectureId(lectureId)
+                .orElseGet(() -> {
+                    LectureGrade g = new LectureGrade();
+                    g.setLectureId(lectureId);
+                    g.setExerciseScore(0);
+                    g.setExerciseMaxScore(0);
+                    return g;
+                });
+        Integer maxScore = grade.getExerciseMaxScore() == null ? 0 : grade.getExerciseMaxScore();
+        grade.setExerciseMaxScore(maxScore + 1);
+        if (correct) {
+            Integer score = grade.getExerciseScore() == null ? 0 : grade.getExerciseScore();
+            grade.setExerciseScore(score + 1);
+        }
+        lectureGradeRepository.save(grade);
+    }
 }
 
