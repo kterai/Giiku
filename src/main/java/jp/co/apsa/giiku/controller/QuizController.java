@@ -2,6 +2,7 @@ package jp.co.apsa.giiku.controller;
 
 import jp.co.apsa.giiku.domain.entity.Quiz;
 import jp.co.apsa.giiku.service.QuizService;
+import jp.co.apsa.giiku.service.StudentAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,6 +37,9 @@ public class QuizController extends AbstractController {
 
     @Autowired
     private QuizService quizService;
+
+    @Autowired
+    private StudentAnswerService studentAnswerService;
 
     // ===== CRUD操作 =====
 
@@ -144,12 +148,22 @@ public class QuizController extends AbstractController {
      * @return 更新されたクイズ
      */
     @PostMapping("/{id}/answer")
-    public ResponseEntity<Quiz> saveAnswer(@PathVariable Long id, 
+    public ResponseEntity<Quiz> saveAnswer(@PathVariable Long id,
                                           @RequestBody Map<String, Object> answers) {
         try {
             logger.debug("クイズ回答保存リクエスト: id={}", id);
-            Quiz updatedQuiz = quizService.saveAnswers(id, answers);
-            return ResponseEntity.ok(updatedQuiz);
+            Quiz quiz = quizService.findById(id).orElseThrow();
+            Long studentId = quiz.getStudentId();
+
+            if (answers != null) {
+                for (Map.Entry<String, Object> entry : answers.entrySet()) {
+                    Long questionId = Long.parseLong(entry.getKey());
+                    String answerText = entry.getValue() != null ? entry.getValue().toString() : null;
+                    studentAnswerService.saveAnswer(id, questionId, studentId, answerText);
+                }
+            }
+
+            return ResponseEntity.ok(quiz);
         } catch (Exception e) {
             logger.error("クイズ回答保存エラー: id={}", id, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
