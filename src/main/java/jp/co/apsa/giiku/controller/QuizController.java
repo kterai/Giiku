@@ -3,6 +3,7 @@ package jp.co.apsa.giiku.controller;
 import jp.co.apsa.giiku.domain.entity.Quiz;
 import jp.co.apsa.giiku.service.QuizService;
 import jp.co.apsa.giiku.service.StudentAnswerService;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +41,9 @@ public class QuizController extends AbstractController {
 
     @Autowired
     private StudentAnswerService studentAnswerService;
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     // ===== CRUD操作 =====
 
@@ -162,6 +166,8 @@ public class QuizController extends AbstractController {
                     studentAnswerService.saveAnswer(id, questionId, studentId, answerText);
                 }
             }
+
+            messagingTemplate.convertAndSend("/topic/answers/" + id, answers);
 
             return ResponseEntity.ok(quiz);
         } catch (Exception e) {
