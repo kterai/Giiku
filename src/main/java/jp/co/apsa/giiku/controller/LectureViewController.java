@@ -125,6 +125,7 @@ public class LectureViewController extends AbstractController {
 
         // 理解度テストと演習問題を講義IDから取得しチャプターごとに格納
         List<QuizQuestionBank> quizQuestions = quizQuestionBankService.findByLectureId(lecture.getId());
+        logger.debug("Fetched {} quiz questions for lectureId={}", quizQuestions.size(), lecture.getId());
         Map<Long, List<QuizQuestionBank>> quizQuestionsByChapter = new HashMap<>();
         for (QuizQuestionBank quiz : quizQuestions) {
             Long chapterId = quiz.getChapter().getId();
@@ -133,6 +134,7 @@ public class LectureViewController extends AbstractController {
         model.addAttribute("quizQuestionsByChapter", quizQuestionsByChapter);
 
         List<QuestionBank> exercises = questionBankService.findByLectureId(lecture.getId());
+        logger.debug("Fetched {} exercise questions for lectureId={}", exercises.size(), lecture.getId());
         Map<Long, List<QuestionBank>> exercisesByChapter = new HashMap<>();
         for (QuestionBank exercise : exercises) {
             Long chapterId = exercise.getChapter().getId();

@@ -2,6 +2,8 @@ package jp.co.apsa.giiku.service;
 
 import jp.co.apsa.giiku.domain.entity.QuestionBank;
 import jp.co.apsa.giiku.domain.repository.QuestionBankRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +27,8 @@ import com.github.dozermapper.core.Mapper;
 @Service
 @Transactional
 public class QuestionBankService {
+
+    private static final Logger logger = LoggerFactory.getLogger(QuestionBankService.class);
 
     @Autowired
     private QuestionBankRepository questionBankRepository;
@@ -139,7 +143,10 @@ public class QuestionBankService {
         if (lectureId == null) {
             throw new IllegalArgumentException("講義IDは必須です");
         }
-        return questionBankRepository.findByLectureIdOrderByChapterAndQuestionNumber(lectureId);
+        logger.debug("Fetching exercise questions for lectureId={}", lectureId);
+        List<QuestionBank> result = questionBankRepository.findByLectureIdOrderByChapterAndQuestionNumber(lectureId);
+        logger.debug("Retrieved {} exercise questions for lectureId={}", result.size(), lectureId);
+        return result;
     }
 
     @Transactional(readOnly = true)
