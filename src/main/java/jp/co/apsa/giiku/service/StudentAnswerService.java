@@ -74,6 +74,6 @@ public class StudentAnswerService {
      */
     @Transactional(readOnly = true)
     public List<StudentAnswer> getAnswersByQuestionId(Long questionId) {
-        return studentAnswerRepository.findByQuestionId(questionId);
+        return studentAnswerRepository.findAllByQuestionId(questionId);
     }
 }

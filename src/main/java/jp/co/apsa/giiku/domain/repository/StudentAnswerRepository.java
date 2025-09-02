@@ -30,5 +30,5 @@ public interface StudentAnswerRepository extends JpaRepository<StudentAnswer, Lo
      * @param questionId 質問ID
      * @return 回答一覧
      */
-    List<StudentAnswer> findByQuestionId(Long questionId);
+    List<StudentAnswer> findAllByQuestionId(Long questionId);
 }
