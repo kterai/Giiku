@@ -192,6 +192,13 @@
                     <div th:each="exercise, exStat : ${exercisesByChapter[chapter.id]}" class="border rounded p-4 mb-4">
                         <h4 class="fw-bold text-primary mb-3" th:text="${'演習問題' + exercise.questionNumber}">演習問題タイトル</h4>
                         <p class="mb-3" th:utext="${exercise.questionText}">問題説明</p>
+                        <div class="mb-3">
+                            <textarea class="form-control" th:id="|exercise-input-${exercise.id}|" rows="3" placeholder="回答を入力してください"></textarea>
+                        </div>
+                        <button class="btn btn-success" th:onclick="|submitExerciseAnswer(${exercise.id}, ${lecture.id}, document.getElementById('exercise-input-${exercise.id}').value)|">
+                            <i class="fas fa-paper-plane me-1"></i>送信
+                        </button>
+                        <div th:id="|exercise-result-${exercise.id}|" class="mt-2"></div>
                         <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')"
                                 th:onclick="'toggleAnswer(\'exercise-answer' + ${exStat.count} + '\')'"
                                 class="btn btn-primary d-flex align-items-center gap-2">
@@ -311,6 +318,7 @@
     <script th:src="@{/webjars/prismjs/1.29.0/components/prism-java.min.js}"></script>
     <script th:src="@{/webjars/prismjs/1.29.0/components/prism-sql.min.js}"></script>
     <script th:src="@{/js/lecture-quiz.js}"></script>
+    <script th:src='@{/js/lecture-exercise.js}'></script>
     <script th:src="@{/js/quiz-answer-monitor.js}"></script>
 </section>
 </body>
