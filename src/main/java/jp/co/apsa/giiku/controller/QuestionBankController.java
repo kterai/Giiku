@@ -5,6 +5,9 @@ import jp.co.apsa.giiku.dto.ExerciseAnswer;
 import jp.co.apsa.giiku.service.QuestionBankService;
 import jp.co.apsa.giiku.service.StudentAnswerService;
 import jp.co.apsa.giiku.service.LectureGradeService;
+import jp.co.apsa.giiku.domain.entity.StudentAnswer;
+import jp.co.apsa.giiku.domain.entity.User;
+import jp.co.apsa.giiku.domain.repository.UserRepository;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.stream.Collectors;
 import java.util.Optional;
 
 /**
@@ -46,6 +52,9 @@ public class QuestionBankController extends AbstractController {
 
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
+
+    @Autowired
+    private UserRepository userRepository;
 
     /** 問題一覧をページング形式で取得 */
     @GetMapping
@@ -131,5 +140,28 @@ public class QuestionBankController extends AbstractController {
         }
         messagingTemplate.convertAndSend("/topic/exercise-answers/" + id, exerciseAnswer);
         return ResponseEntity.ok().build();
+    }
+
+    /**
+     * 質問ID別の学生回答一覧を取得
+     *
+     * @param id 質問ID
+     * @return 学生名と回答内容の一覧
+     */
+    @GetMapping("/{id}/answers")
+    public ResponseEntity<List<Map<String, String>>> getExerciseAnswers(@PathVariable Long id) {
+        List<StudentAnswer> answers = studentAnswerService.getAnswersByQuestionId(id);
+        List<Map<String, String>> result = answers.stream()
+                .map(a -> {
+                    String name = userRepository.findById(a.getStudentId())
+                            .map(User::getName)
+                            .orElse("不明");
+                    Map<String, String> map = new HashMap<>();
+                    map.put("studentName", name);
+                    map.put("answerText", a.getAnswerText());
+                    return map;
+                })
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(result);
     }
 }

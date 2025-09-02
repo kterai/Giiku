@@ -59,6 +59,21 @@
                     </table>
                 </div>
             </section>
+            <section id="exercise-answer-monitor" sec:authorize="hasRole('INSTRUCTOR')"
+                     class="bg-white rounded shadow p-4 mb-4"
+                     th:attr="data-question-id=${questionId}">
+                <h2 class="fw-bold text-primary mb-4">
+                    <i class="fas fa-user-check me-2"></i>演習回答一覧
+                </h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <ul id="exercise-student-list" class="list-group"></ul>
+                    </div>
+                    <div class="col-md-8">
+                        <div id="exercise-answer-display" class="border rounded p-3">受講者を選択してください</div>
+                    </div>
+                </div>
+            </section>
             <!-- 学習目標セクション -->
             <section class="bg-white rounded shadow p-4 mb-4" th:if="${goals != null and !goals.isEmpty()}">
                 <h2 class="fw-bold text-primary mb-4">
@@ -320,6 +335,7 @@
     <script th:src="@{/js/lecture-quiz.js}"></script>
     <script th:src='@{/js/lecture-exercise.js}'></script>
     <script th:src="@{/js/quiz-answer-monitor.js}"></script>
+    <script th:src="@{/js/exercise-answer-monitor.js}"></script>
 </section>
 </body>
 </html>
