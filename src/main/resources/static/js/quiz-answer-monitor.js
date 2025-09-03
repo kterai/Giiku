@@ -21,10 +21,19 @@ function refreshQuizAnswerMonitor(questionId) {
             tbody.innerHTML = '';
             data.forEach(row => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${row.studentName}</td>
-                    <td>${row.answerText ?? ''}</td>
-                    <td>${row.correct ? '○' : '×'}</td>`;
+
+                const studentTd = document.createElement('td');
+                studentTd.textContent = row.studentName;
+                tr.appendChild(studentTd);
+
+                const answerTd = document.createElement('td');
+                answerTd.textContent = row.answerText ?? '';
+                tr.appendChild(answerTd);
+
+                const correctTd = document.createElement('td');
+                correctTd.textContent = row.correct ? '○' : '×';
+                tr.appendChild(correctTd);
+
                 tbody.appendChild(tr);
             });
         })
