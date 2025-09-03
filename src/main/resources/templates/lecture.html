@@ -167,7 +167,7 @@
                             </button>
                             <div th:id="'quiz-answer' + ${quizStat.count}" class="answer-content">
                                 <h4 class="fw-semibold mb-2">正解：<span class="text-danger" th:text="${quiz.correctAnswer}">1</span></h4>
-                                <p th:if="${quiz.explanation}" class="mt-0" th:utext="${quiz.explanation}">解説文</p>
+                                <p th:if="${quiz.explanation}" class="mt-0" th:text="${quiz.explanation}">解説文</p>
                             </div>
                         </div>
                         <div class="quiz-answer-monitor mt-3" sec:authorize="hasRole('INSTRUCTOR')"
@@ -201,7 +201,7 @@
                     <h3 class="fw-semibold mb-3" th:text="${chapter.chapterNumber + '. ' + chapter.title}"></h3>
                     <div th:each="exercise, exStat : ${exercisesByChapter[chapter.id]}" class="border rounded p-4 mb-4">
                         <h4 class="fw-bold text-primary mb-3" th:text="${'演習問題' + exercise.questionNumber}">演習問題タイトル</h4>
-                        <p class="mb-3" th:utext="${exercise.questionText}">問題説明</p>
+                        <p class="mb-3" th:text="${exercise.questionText}">問題説明</p>
                         <div class="mb-3">
                             <textarea class="form-control" th:id="|exercise-input-${exercise.id}|" rows="3" placeholder="回答を入力してください"></textarea>
                         </div>
@@ -219,8 +219,8 @@
                              th:id="'exercise-answer' + ${exStat.count}"
                              class="answer-content">
                             <h4 class="fw-semibold mb-2">回答例：</h4>
-                            <p th:utext="${exercise.correctAnswer}">回答</p>
-                            <p th:if="${exercise.explanation}" th:utext="${exercise.explanation}">解説</p>
+                            <p th:text="${exercise.correctAnswer}">回答</p>
+                            <p th:if="${exercise.explanation}" th:text="${exercise.explanation}">解説</p>
                         </div>
                         <div class="exercise-answer-monitor mt-3" sec:authorize="hasRole('INSTRUCTOR')"
                              th:attr="data-question-id=${exercise.id}">

@@ -35,6 +35,8 @@ import jp.co.apsa.giiku.service.WeekService;
 import jp.co.apsa.giiku.service.QuizQuestionBankService;
 import jp.co.apsa.giiku.service.QuestionBankService;
 import jp.co.apsa.giiku.domain.entity.QuestionBank;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Safelist;
 
 /**
  * 講義詳細ページを表示するコントローラー。
@@ -120,6 +122,11 @@ public class LectureViewController extends AbstractController {
         Map<Long, List<LectureContentBlock>> chapterContentBlocks = new HashMap<>();
         for (Chapter chapter : chapters) {
             List<LectureContentBlock> blocks = lectureContentBlockService.findByChapterIdOrderBySortOrder(chapter.getId());
+            for (LectureContentBlock block : blocks) {
+                if (block.getContent() != null) {
+                    block.setContent(Jsoup.clean(block.getContent(), Safelist.basic()));
+                }
+            }
             chapterContentBlocks.put(chapter.getId(), blocks);
         }
         model.addAttribute("chapterContentBlocks", chapterContentBlocks);
