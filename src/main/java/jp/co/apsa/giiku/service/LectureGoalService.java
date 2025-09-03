@@ -9,6 +9,13 @@ import java.util.List;
 import jp.co.apsa.giiku.domain.entity.LectureGoal;
 import jp.co.apsa.giiku.domain.repository.LectureGoalRepository;
 
+/**
+ * 講義目標に関するサービスクラス.
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
 @Service
 @Transactional
 public class LectureGoalService {

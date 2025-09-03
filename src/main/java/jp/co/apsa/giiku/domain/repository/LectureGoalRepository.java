@@ -7,6 +7,13 @@ import java.util.List;
 
 import jp.co.apsa.giiku.domain.entity.LectureGoal;
 
+/**
+ * 講義目標のリポジトリインターフェース.
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
 @Repository
 public interface LectureGoalRepository extends JpaRepository<LectureGoal, Long> {
     
