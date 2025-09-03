@@ -225,10 +225,9 @@ public class QuizController extends AbstractController {
 
             studentAnswerService.saveAnswer(quizId, questionId, studentId, answer);
 
-            Map<String, Object> response = Map.of(
-                    "correct", correct,
-                    "explanation", question.getExplanation()
-            );
+            Map<String, Object> response = new HashMap<>();
+            response.put("correct", correct);
+            response.put("explanation", question.getExplanation());
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             logger.error("クイズ回答処理エラー: questionId={}", questionId, e);
