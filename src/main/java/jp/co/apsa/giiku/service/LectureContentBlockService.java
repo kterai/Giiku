@@ -9,6 +9,13 @@ import java.util.List;
 import jp.co.apsa.giiku.domain.entity.LectureContentBlock;
 import jp.co.apsa.giiku.domain.repository.LectureContentBlockRepository;
 
+/**
+ * 講義コンテンツブロックに関するサービスクラス.
+ *
+ * @author 株式会社アプサ
+ * @version 1.0
+ * @since 2025
+ */
 @Service
 @Transactional
 public class LectureContentBlockService {
