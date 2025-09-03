@@ -49,6 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        if (!answerText) {
+            statusEl.textContent = '回答を入力してください。';
+            statusEl.classList.remove('text-success', 'text-danger');
+            statusEl.classList.add('text-danger');
+            return;
+        }
+
         try {
             const csrfToken = getCsrfToken();
             const headers = { 'Content-Type': 'application/json' };
