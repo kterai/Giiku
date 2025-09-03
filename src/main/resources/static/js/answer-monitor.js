@@ -8,18 +8,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const connectBtn = document.getElementById('connect-btn');
     const quizIdInput = document.getElementById('quiz-id');
     const answersList = document.getElementById('answers');
+    const statusEl = document.getElementById('monitor-status') || (() => {
+        const el = document.createElement('div');
+        el.id = 'monitor-status';
+        connectBtn.insertAdjacentElement('afterend', el);
+        return el;
+    })();
     let stompClient = null;
 
     connectBtn.addEventListener('click', () => {
         const quizId = quizIdInput.value.trim();
         if (!quizId) {
-            alert('クイズIDを入力してください');
+            statusEl.textContent = 'クイズIDを入力してください';
+            statusEl.classList.remove('text-success', 'text-danger');
+            statusEl.classList.add('text-danger');
             return;
         }
+
+        statusEl.textContent = '';
+        statusEl.classList.remove('text-success', 'text-danger');
 
         const socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
         stompClient.connect({}, () => {
+            statusEl.textContent = '接続しました';
+            statusEl.classList.add('text-success');
             stompClient.subscribe(`/topic/answers/${quizId}`, (message) => {
                 const payload = JSON.parse(message.body);
                 renderAnswers(payload);
