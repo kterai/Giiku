@@ -41,7 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function renderAnswers(answers) {
-        answersList.innerHTML = '';
+        while (answersList.firstChild) {
+            answersList.removeChild(answersList.firstChild);
+        }
         Object.keys(answers).forEach(questionId => {
             const li = document.createElement('li');
             li.classList.add('list-group-item');
