@@ -67,3 +67,21 @@ document.querySelectorAll('.quiz-submit-btn').forEach(button => {
         submitQuizAnswer(quizSessionId, questionId);
     });
 });
+
+document.querySelectorAll('.show-answer-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const targetId = button.dataset.targetId;
+        if (typeof window.showAnswer === 'function') {
+            window.showAnswer(targetId);
+        }
+    });
+});
+
+document.querySelectorAll('.toggle-answer-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const targetId = button.dataset.targetId;
+        if (typeof window.toggleAnswer === 'function') {
+            window.toggleAnswer(targetId);
+        }
+    });
+});
