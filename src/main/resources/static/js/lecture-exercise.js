@@ -2,6 +2,13 @@ async function submitExerciseAnswer(questionId, lectureId, answerText) {
     const studentInput = document.getElementById('studentId');
     const studentId = studentInput ? studentInput.value : null;
     const resultEl = document.getElementById(`exercise-result-${questionId}`);
+    if (!answerText || answerText.trim() === '') {
+        if (resultEl) {
+            resultEl.textContent = '回答を入力してください';
+            resultEl.className = 'mt-2 text-danger';
+        }
+        return;
+    }
     try {
         const response = await fetch(`/api/question-banks/${questionId}/answer`, {
             method: 'POST',
