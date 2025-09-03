@@ -38,7 +38,18 @@ public class StudentAnswerService {
         answer.setQuestionId(questionId);
         answer.setStudentId(studentId);
         answer.setAnswerText(answerText);
-        answer.setSubmittedAt(LocalDateTime.now());
+
+        studentAnswerRepository
+                .findByQuizIdAndQuestionIdAndStudentId(quizId, questionId, studentId)
+                .ifPresent(existing -> {
+                    answer.setId(existing.getId());
+                    answer.setSubmittedAt(LocalDateTime.now());
+                });
+
+        if (answer.getSubmittedAt() == null) {
+            answer.setSubmittedAt(LocalDateTime.now());
+        }
+
         return studentAnswerRepository.save(answer);
     }
 

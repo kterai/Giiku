@@ -1,6 +1,7 @@
 package jp.co.apsa.giiku.domain.repository;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import jp.co.apsa.giiku.domain.entity.StudentAnswer;
@@ -14,6 +15,16 @@ import jp.co.apsa.giiku.domain.entity.StudentAnswer;
  */
 @Repository
 public interface StudentAnswerRepository extends JpaRepository<StudentAnswer, Long> {
+
+    /**
+     * クイズID、質問ID、学生IDで回答を取得
+     *
+     * @param quizId クイズID
+     * @param questionId 質問ID
+     * @param studentId 学生ID
+     * @return 回答
+     */
+    Optional<StudentAnswer> findByQuizIdAndQuestionIdAndStudentId(Long quizId, Long questionId, Long studentId);
 
     /**
      * クイズIDと学生IDで回答を取得
