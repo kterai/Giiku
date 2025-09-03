@@ -438,7 +438,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/webjars/sockjs-client/sockjs.min.js" th:src="@{/webjars/sockjs-client/sockjs.min.js}"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js" th:src="@{/webjars/stomp-websocket/stomp.min.js}"></script>
-<script src="../static/js/dashboard-answer.js" th:src="@{/js/dashboard-answer.js}"></script>
+<script src="../static/js/dashboard-answer.js" th:src="@{/js/dashboard-answer.js}" type="module"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const ctx = document.getElementById('heroChart');
