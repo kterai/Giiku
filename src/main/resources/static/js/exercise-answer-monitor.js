@@ -16,6 +16,10 @@ export function refreshExerciseAnswerMonitor(questionId) {
             if (!response.ok) {
                 throw new Error('HTTP error');
             }
+            const contentType = response.headers.get('content-type') || '';
+            if (!contentType.includes('application/json')) {
+                throw new Error('Invalid content type');
+            }
             return response.json();
         })
         .then(data => {
