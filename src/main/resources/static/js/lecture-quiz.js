@@ -13,7 +13,8 @@ async function submitQuizAnswer(quizId, questionId) {
         return;
     }
 
-    const answer = Array.from(selectedOptions).map(opt => opt.value).join(',');
+    // 選択肢を配列化し、複数選択（チェックボックス）でも回答を送信可能にする
+    const answer = Array.from(selectedOptions).map(option => option.value).join(',');
 
     try {
         const response = await fetch(`/api/quizzes/questions/${questionId}/answer`, {
