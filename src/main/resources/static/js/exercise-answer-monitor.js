@@ -28,7 +28,7 @@ function refreshExerciseAnswerMonitor(questionId) {
                 li.addEventListener('click', () => {
                     display.textContent = row.answerText && row.answerText.trim() !== ''
                         ? row.answerText
-                        : '受講者を選択してください';
+                        : '回答なし';
                 });
                 list.appendChild(li);
             });
