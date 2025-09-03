@@ -27,6 +27,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * クイズコントローラー
@@ -220,8 +223,21 @@ public class QuizController extends AbstractController {
                 return ResponseEntity.notFound().build();
             }
 
-            boolean correct = question.getCorrectAnswer() != null
-                    && question.getCorrectAnswer().trim().equalsIgnoreCase(answer != null ? answer.trim() : "");
+            Set<String> correctSet = question.getCorrectAnswer() == null ? new TreeSet<>()
+                    : Arrays.stream(question.getCorrectAnswer().split(","))
+                    .map(String::trim)
+                    .map(String::toLowerCase)
+                    .filter(s -> !s.isEmpty())
+                    .collect(Collectors.toCollection(TreeSet::new));
+
+            Set<String> answerSet = answer == null ? new TreeSet<>()
+                    : Arrays.stream(answer.split(","))
+                    .map(String::trim)
+                    .map(String::toLowerCase)
+                    .filter(s -> !s.isEmpty())
+                    .collect(Collectors.toCollection(TreeSet::new));
+
+            boolean correct = !correctSet.isEmpty() && correctSet.equals(answerSet);
 
             studentAnswerService.saveAnswer(quizId, questionId, studentId, answer);
 
