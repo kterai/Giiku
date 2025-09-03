@@ -39,6 +39,10 @@ async function submitQuizAnswer(quizId, questionId) {
         }
         refreshQuizAnswerMonitor(questionId);
     } catch (error) {
+        if (resultEl) {
+            resultEl.textContent = '送信に失敗しました';
+            resultEl.className = 'text-danger';
+        }
         console.error('Failed to submit answer', error);
     }
 }
