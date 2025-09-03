@@ -161,8 +161,8 @@
                             <div th:id="'quiz-result-' + ${quiz.id}" class="mt-2"></div>
                         </div>
                         <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')">
-                            <button th:onclick="'showAnswer(\'quiz-answer' + ${quizStat.count} + '\')'"
-                                    class="btn btn-primary d-flex align-items-center gap-2 mt-2">
+                            <button class="btn btn-primary d-flex align-items-center gap-2 mt-2 show-answer-btn"
+                                    th:attr="data-target-id=|quiz-answer${quizStat.count}|">
                                 <i class="fas fa-eye"></i>
                                 <span class="answer-toggle-label">回答を表示</span>
                             </button>
@@ -212,8 +212,8 @@
                         </button>
                         <div th:id="|exercise-result-${exercise.id}|" class="mt-2"></div>
                         <button sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')"
-                                th:onclick="'toggleAnswer(\'exercise-answer' + ${exStat.count} + '\')'"
-                                class="btn btn-primary d-flex align-items-center gap-2">
+                                class="btn btn-primary d-flex align-items-center gap-2 toggle-answer-btn"
+                                th:attr="data-target-id=|exercise-answer${exStat.count}|">
                             <i class="fas fa-eye"></i>
                             <span class="answer-toggle-label">回答例を表示</span>
                         </button>
@@ -291,7 +291,7 @@
                 const isShown = answerElement.classList.toggle('show');
 
                 // ボタンテキストを変更
-                const button = document.querySelector(`[onclick*="${answerId}"]`);
+                const button = document.querySelector(`[data-target-id="${answerId}"]`);
                 if (button) {
                     const icon = button.querySelector('i');
                     const label = button.querySelector('.answer-toggle-label');
@@ -314,7 +314,7 @@
                 const isShown = answerElement.classList.toggle('show');
 
                 // ボタンテキストを変更
-                const button = document.querySelector(`[onclick*="${answerId}"]`);
+                const button = document.querySelector(`[data-target-id="${answerId}"]`);
                 if (button) {
                     const icon = button.querySelector('i');
                     const label = button.querySelector('.answer-toggle-label');
