@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         feedEl.innerHTML = '';
         Object.keys(answers).forEach(questionId => {
             const li = document.createElement('li');
-            li.className = 'list-group-item';
+            li.classList.add('list-group-item');
             li.textContent = `Q${questionId}: ${answers[questionId]}`;
             feedEl.appendChild(li);
         });
@@ -44,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!quizId || !questionId) {
             statusEl.textContent = 'クイズIDと問題IDを入力してください。';
-            statusEl.className = 'text-danger';
+            statusEl.classList.remove('text-success', 'text-danger');
+            statusEl.classList.add('text-danger');
             return;
         }
 
@@ -62,17 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 statusEl.textContent = '送信が完了しました。';
-                statusEl.className = 'text-success';
+                statusEl.classList.remove('text-success', 'text-danger');
+                statusEl.classList.add('text-success');
                 if (!stompClient) {
                     connect(quizId);
                 }
             } else {
                 statusEl.textContent = '送信に失敗しました。';
-                statusEl.className = 'text-danger';
+                statusEl.classList.remove('text-success', 'text-danger');
+                statusEl.classList.add('text-danger');
             }
         } catch (error) {
             statusEl.textContent = '送信中にエラーが発生しました。';
-            statusEl.className = 'text-danger';
+            statusEl.classList.remove('text-success', 'text-danger');
+            statusEl.classList.add('text-danger');
         }
     });
 });

@@ -7,7 +7,8 @@ async function submitExerciseAnswer(questionId, lectureId, answerText) {
     if (!answerText || answerText.trim() === '') {
         if (resultEl) {
             resultEl.textContent = '回答を入力してください';
-            resultEl.className = 'mt-2 text-danger';
+            resultEl.classList.remove('text-success', 'text-danger');
+            resultEl.classList.add('text-danger');
         }
         return;
     }
@@ -27,14 +28,16 @@ async function submitExerciseAnswer(questionId, lectureId, answerText) {
         }
         if (resultEl) {
             resultEl.textContent = '回答を送信しました';
-            resultEl.className = 'mt-2 text-success';
+            resultEl.classList.remove('text-success', 'text-danger');
+            resultEl.classList.add('text-success');
         }
         refreshExerciseAnswerMonitor(questionId);
     } catch (error) {
         console.error('Failed to submit exercise answer', error);
         if (resultEl) {
             resultEl.textContent = '送信に失敗しました';
-            resultEl.className = 'mt-2 text-danger';
+            resultEl.classList.remove('text-success', 'text-danger');
+            resultEl.classList.add('text-danger');
         }
     }
 }
