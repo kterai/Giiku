@@ -12,7 +12,12 @@ function refreshQuizAnswerMonitor(questionId) {
     }
 
     fetch(`/api/quizzes/questions/${questionId}/answers`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('HTTP error');
+            }
+            return response.json();
+        })
         .then(data => {
             const tbody = monitor.querySelector('tbody');
             if (!tbody) {
@@ -37,7 +42,13 @@ function refreshQuizAnswerMonitor(questionId) {
                 tbody.appendChild(tr);
             });
         })
-        .catch(err => console.error('回答取得エラー', err));
+        .catch(err => {
+            console.error('回答取得エラー', err);
+            const tbody = monitor.querySelector('tbody');
+            if (tbody) {
+                tbody.innerHTML = '<tr><td colspan="3">取得に失敗しました</td></tr>';
+            }
+        });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
