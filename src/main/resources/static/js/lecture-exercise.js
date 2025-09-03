@@ -4,6 +4,14 @@ async function submitExerciseAnswer(questionId, lectureId, answerText) {
     const studentInput = document.getElementById('studentId');
     const studentId = studentInput ? studentInput.value : null;
     const resultEl = document.getElementById(`exercise-result-${questionId}`);
+    if (!studentId) {
+        if (resultEl) {
+            resultEl.textContent = '受講者IDを取得できませんでした。';
+            resultEl.classList.remove('text-success', 'text-danger');
+            resultEl.classList.add('text-danger');
+        }
+        return;
+    }
     if (!answerText || answerText.trim() === '') {
         if (resultEl) {
             resultEl.textContent = '回答を入力してください';

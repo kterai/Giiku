@@ -7,6 +7,15 @@ async function submitQuizAnswer(quizId, questionId) {
     const selectedOptions = document.querySelectorAll(`input[name="quiz-${questionId}"]:checked`);
     const resultEl = document.getElementById(`quiz-result-${questionId}`);
 
+    if (!studentId) {
+        if (resultEl) {
+            resultEl.textContent = '受講者IDを取得できませんでした。';
+            resultEl.classList.remove('text-success', 'text-danger');
+            resultEl.classList.add('text-danger');
+        }
+        return;
+    }
+
     if (!selectedOptions.length) {
         if (resultEl) {
             resultEl.textContent = '回答を選択してください。';
