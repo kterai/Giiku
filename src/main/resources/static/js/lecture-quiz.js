@@ -29,6 +29,7 @@ async function submitQuizAnswer(quizId, questionId) {
             resultEl.textContent = result.correct ? `正解！ ${result.explanation ?? ''}` : `不正解。${result.explanation ?? ''}`;
             resultEl.className = result.correct ? 'text-success' : 'text-danger';
         }
+        refreshQuizAnswerMonitor(questionId);
     } catch (error) {
         console.error('Failed to submit answer', error);
     }
