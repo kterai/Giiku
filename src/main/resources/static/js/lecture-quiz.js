@@ -1,6 +1,20 @@
-async function submitQuizAnswer(quizId, questionId, answer) {
+async function submitQuizAnswer(quizId, questionId) {
     const studentInput = document.getElementById('studentId');
     const studentId = studentInput ? studentInput.value : null;
+
+    const selectedOptions = document.querySelectorAll(`input[name="quiz-${questionId}"]:checked`);
+    const resultEl = document.getElementById(`quiz-result-${questionId}`);
+
+    if (!selectedOptions.length) {
+        if (resultEl) {
+            resultEl.textContent = '回答を選択してください。';
+            resultEl.className = 'text-danger';
+        }
+        return;
+    }
+
+    const answer = Array.from(selectedOptions).map(opt => opt.value).join(',');
+
     try {
         const response = await fetch(`/api/quizzes/questions/${questionId}/answer`, {
             method: 'POST',
@@ -11,7 +25,6 @@ async function submitQuizAnswer(quizId, questionId, answer) {
             throw new Error('Network response was not ok');
         }
         const result = await response.json();
-        const resultEl = document.getElementById(`quiz-result-${questionId}`);
         if (resultEl) {
             resultEl.textContent = result.correct ? `正解！ ${result.explanation ?? ''}` : `不正解。${result.explanation ?? ''}`;
             resultEl.className = result.correct ? 'text-success' : 'text-danger';

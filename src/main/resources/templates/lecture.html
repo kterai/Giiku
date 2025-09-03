@@ -170,16 +170,27 @@
                     <div th:each="quiz, quizStat : ${quizQuestionsByChapter[chapter.id]}" class="mb-4">
                         <h4 class="fw-semibold mb-2" th:text="${quiz.questionNumber + '. ' + quiz.questionText}">問題文</h4>
                         <ol class="quiz-options ms-3">
-                            <li th:if="${quiz.optionA}" th:text="${#strings.substringAfter(quiz.optionA, '. ')}">選択肢A</li>
-                            <li th:if="${quiz.optionB}" th:text="${#strings.substringAfter(quiz.optionB, '. ')}">選択肢B</li>
-                            <li th:if="${quiz.optionC}" th:text="${#strings.substringAfter(quiz.optionC, '. ')}">選択肢C</li>
-                            <li th:if="${quiz.optionD}" th:text="${#strings.substringAfter(quiz.optionD, '. ')}">選択肢D</li>
-                            <li th:if="${quiz.optionE}" th:text="${#strings.substringAfter(quiz.optionE, '. ')}">選択肢E</li>
-                            <li th:if="${quiz.optionF}" th:text="${#strings.substringAfter(quiz.optionF, '. ')}">選択肢F</li>
+                            <li th:if="${quiz.optionA}">
+                                <label><input type="radio" th:name="'quiz-' + ${quiz.id}" value="A"><span th:text="${#strings.substringAfter(quiz.optionA, '. ')}">選択肢A</span></label>
+                            </li>
+                            <li th:if="${quiz.optionB}">
+                                <label><input type="radio" th:name="'quiz-' + ${quiz.id}" value="B"><span th:text="${#strings.substringAfter(quiz.optionB, '. ')}">選択肢B</span></label>
+                            </li>
+                            <li th:if="${quiz.optionC}">
+                                <label><input type="radio" th:name="'quiz-' + ${quiz.id}" value="C"><span th:text="${#strings.substringAfter(quiz.optionC, '. ')}">選択肢C</span></label>
+                            </li>
+                            <li th:if="${quiz.optionD}">
+                                <label><input type="radio" th:name="'quiz-' + ${quiz.id}" value="D"><span th:text="${#strings.substringAfter(quiz.optionD, '. ')}">選択肢D</span></label>
+                            </li>
+                            <li th:if="${quiz.optionE}">
+                                <label><input type="radio" th:name="'quiz-' + ${quiz.id}" value="E"><span th:text="${#strings.substringAfter(quiz.optionE, '. ')}">選択肢E</span></label>
+                            </li>
+                            <li th:if="${quiz.optionF}">
+                                <label><input type="radio" th:name="'quiz-' + ${quiz.id}" value="F"><span th:text="${#strings.substringAfter(quiz.optionF, '. ')}">選択肢F</span></label>
+                            </li>
                         </ol>
                         <div class="mt-2">
-                            <input type="text" th:id="'quiz-input-' + ${quiz.id}" class="form-control mb-2" placeholder="回答を入力">
-                            <button class="btn btn-success" th:onclick="'submitQuizAnswer(' + ${lecture.id} + ',' + ${quiz.id} + ', document.getElementById(\'quiz-input-' + ${quiz.id} + '\').value)'">回答送信</button>
+                            <button class="btn btn-success" th:onclick="'submitQuizAnswer(' + ${lecture.id} + ',' + ${quiz.id} + ')'">回答送信</button>
                             <div th:id="'quiz-result-' + ${quiz.id}" class="mt-2"></div>
                         </div>
                         <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')">
