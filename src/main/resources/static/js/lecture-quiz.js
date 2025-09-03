@@ -7,7 +7,7 @@ function getCsrfToken() {
     return match ? decodeURIComponent(match[1]) : null;
 }
 
-async function submitQuizAnswer(questionId) {
+async function submitQuizAnswer(quizId, questionId) {
     const studentInput = document.getElementById('studentId');
     const studentId = studentInput ? studentInput.value : null;
 
@@ -34,7 +34,7 @@ async function submitQuizAnswer(questionId) {
         const response = await fetch(`/api/quizzes/questions/${questionId}/answer`, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify({ studentId, answer })
+            body: JSON.stringify({ quizId, studentId, answer })
         });
         if (!response.ok) {
             throw new Error('Network response was not ok');
