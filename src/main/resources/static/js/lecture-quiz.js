@@ -1,3 +1,12 @@
+function getCsrfToken() {
+    const meta = document.querySelector('meta[name="_csrf"]');
+    if (meta) {
+        return meta.getAttribute('content');
+    }
+    const match = document.cookie.match(/XSRF-TOKEN=([^;]+)/);
+    return match ? decodeURIComponent(match[1]) : null;
+}
+
 async function submitQuizAnswer(questionId) {
     const studentInput = document.getElementById('studentId');
     const studentId = studentInput ? studentInput.value : null;
@@ -17,9 +26,14 @@ async function submitQuizAnswer(questionId) {
     const answer = Array.from(selectedOptions).map(option => option.value).join(',');
 
     try {
+        const csrfToken = getCsrfToken();
+        const headers = { 'Content-Type': 'application/json' };
+        if (csrfToken) {
+            headers['X-CSRF-TOKEN'] = csrfToken;
+        }
         const response = await fetch(`/api/quizzes/questions/${questionId}/answer`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: headers,
             body: JSON.stringify({ studentId, answer })
         });
         if (!response.ok) {

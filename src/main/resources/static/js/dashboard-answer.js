@@ -4,6 +4,15 @@
  * 作成日: 2025-09-03
  */
 
+function getCsrfToken() {
+    const meta = document.querySelector('meta[name="_csrf"]');
+    if (meta) {
+        return meta.getAttribute('content');
+    }
+    const match = document.cookie.match(/XSRF-TOKEN=([^;]+)/);
+    return match ? decodeURIComponent(match[1]) : null;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('answer-form');
     const quizIdInput = document.getElementById('quiz-id');
@@ -47,9 +56,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
+            const csrfToken = getCsrfToken();
+            const headers = { 'Content-Type': 'application/json' };
+            if (csrfToken) {
+                headers['X-CSRF-TOKEN'] = csrfToken;
+            }
             const response = await fetch(`/api/quizzes/${quizId}/answer`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: headers,
                 body: JSON.stringify({ [questionId]: answerText })
             });
 
