@@ -4,14 +4,7 @@
  * 作成日: 2025-09-03
  */
 
-function getCsrfToken() {
-    const meta = document.querySelector('meta[name="_csrf"]');
-    if (meta) {
-        return meta.getAttribute('content');
-    }
-    const match = document.cookie.match(/XSRF-TOKEN=([^;]+)/);
-    return match ? decodeURIComponent(match[1]) : null;
-}
+import { getCsrfToken } from './csrf.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('answer-form');
