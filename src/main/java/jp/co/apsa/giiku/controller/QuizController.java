@@ -17,8 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.validation.BindingResult;
 
 import jakarta.validation.Valid;
+import jp.co.apsa.giiku.dto.QuizAnswerRequest;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -193,16 +195,21 @@ public class QuizController extends AbstractController {
      * 個別のクイズ回答を受け付け判定します。
      *
      * @param questionId 質問ID
-     * @param payload    回答情報（quizId, studentId, answer）
+     * @param request    回答情報（quizId, studentId, answer）
      * @return 判定結果
      */
     @PostMapping("/questions/{questionId}/answer")
     public ResponseEntity<Map<String, Object>> answerQuestion(@PathVariable Long questionId,
-                                                              @RequestBody Map<String, String> payload) {
+                                                              @Valid @RequestBody QuizAnswerRequest request,
+                                                              BindingResult bindingResult) {
         try {
-            Long quizId = payload.get("quizId") != null ? Long.parseLong(payload.get("quizId")) : null;
-            Long studentId = payload.get("studentId") != null ? Long.parseLong(payload.get("studentId")) : null;
-            String answer = payload.get("answer");
+            if (bindingResult.hasErrors()) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            Long quizId = request.getQuizId();
+            Long studentId = request.getStudentId();
+            String answer = request.getAnswer();
 
             QuizQuestionBank question = quizQuestionBankRepository.findById(questionId)
                     .orElseThrow();
