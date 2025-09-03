@@ -18,8 +18,8 @@ public class AppConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns("*")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedOriginPatterns("https://example.com") // 必要なオリジンを列挙
+                .allowedMethods("GET","POST","PUT","DELETE","OPTIONS")
                 .allowCredentials(true);
     }
 }
