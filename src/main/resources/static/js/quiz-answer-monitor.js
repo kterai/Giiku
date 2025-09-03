@@ -23,7 +23,9 @@ export function refreshQuizAnswerMonitor(questionId) {
             if (!tbody) {
                 return;
             }
-            tbody.innerHTML = '';
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
             data.forEach(row => {
                 const tr = document.createElement('tr');
 
@@ -46,7 +48,15 @@ export function refreshQuizAnswerMonitor(questionId) {
             console.error('回答取得エラー', err);
             const tbody = monitor.querySelector('tbody');
             if (tbody) {
-                tbody.innerHTML = '<tr><td colspan="3">取得に失敗しました</td></tr>';
+                while (tbody.firstChild) {
+                    tbody.removeChild(tbody.firstChild);
+                }
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 3;
+                cell.textContent = '取得に失敗しました';
+                row.appendChild(cell);
+                tbody.appendChild(row);
             }
         });
 }
