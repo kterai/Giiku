@@ -12,7 +12,12 @@ function refreshExerciseAnswerMonitor(questionId) {
     }
 
     fetch(`/api/question-banks/${questionId}/answers`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('HTTP error');
+            }
+            return response.json();
+        })
         .then(data => {
             const list = monitor.querySelector('.exercise-student-list');
             const display = monitor.querySelector('.exercise-answer-display');
@@ -33,7 +38,13 @@ function refreshExerciseAnswerMonitor(questionId) {
                 list.appendChild(li);
             });
         })
-        .catch(err => console.error('回答取得エラー', err));
+        .catch(err => {
+            console.error('回答取得エラー', err);
+            const display = monitor.querySelector('.exercise-answer-display');
+            if (display) {
+                display.textContent = '取得に失敗しました';
+            }
+        });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
