@@ -20,13 +20,15 @@ function refreshExerciseAnswerMonitor(questionId) {
                 return;
             }
             list.innerHTML = '';
-            display.textContent = '';
+            display.textContent = '受講者を選択してください';
             data.forEach(row => {
                 const li = document.createElement('li');
                 li.className = 'list-group-item list-group-item-action';
                 li.textContent = row.studentName;
                 li.addEventListener('click', () => {
-                    display.textContent = row.answerText ?? '';
+                    display.textContent = row.answerText && row.answerText.trim() !== ''
+                        ? row.answerText
+                        : '受講者を選択してください';
                 });
                 list.appendChild(li);
             });
