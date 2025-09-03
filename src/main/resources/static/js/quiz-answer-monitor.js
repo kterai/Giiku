@@ -5,7 +5,7 @@
  * 作成日: 2025-09-02
  */
 
-function refreshQuizAnswerMonitor(questionId) {
+export function refreshQuizAnswerMonitor(questionId) {
     const monitor = document.querySelector(`.quiz-answer-monitor[data-question-id="${questionId}"]`);
     if (!monitor) {
         return;

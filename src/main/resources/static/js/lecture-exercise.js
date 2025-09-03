@@ -1,4 +1,5 @@
 import { getCsrfToken } from './csrf.js';
+import { refreshExerciseAnswerMonitor } from './exercise-answer-monitor.js';
 
 async function submitExerciseAnswer(questionId, lectureId, answerText) {
     const studentInput = document.getElementById('studentId');
