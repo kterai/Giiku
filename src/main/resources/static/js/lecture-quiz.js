@@ -1,4 +1,4 @@
-async function submitQuizAnswer(quizId, questionId) {
+async function submitQuizAnswer(questionId) {
     const studentInput = document.getElementById('studentId');
     const studentId = studentInput ? studentInput.value : null;
 
@@ -19,7 +19,7 @@ async function submitQuizAnswer(quizId, questionId) {
         const response = await fetch(`/api/quizzes/questions/${questionId}/answer`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ quizId: quizId, studentId: studentId, answer: answer })
+            body: JSON.stringify({ studentId: studentId, answer: answer })
         });
         if (!response.ok) {
             throw new Error('Network response was not ok');
