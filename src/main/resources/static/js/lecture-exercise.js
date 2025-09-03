@@ -50,3 +50,13 @@ async function submitExerciseAnswer(questionId, lectureId, answerText) {
         }
     }
 }
+
+document.querySelectorAll('.exercise-submit-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const questionId = button.dataset.questionId;
+        const lectureId = button.dataset.lectureId;
+        const input = document.getElementById(`exercise-input-${questionId}`);
+        const answerText = input ? input.value : '';
+        submitExerciseAnswer(questionId, lectureId, answerText);
+    });
+});
