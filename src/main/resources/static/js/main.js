@@ -111,7 +111,12 @@ function initSearch() {
     }
     
     if (searchTerm.length < 2) {
-      document.getElementById('search-results').innerHTML = '';
+      const resultsElement = document.getElementById('search-results');
+      if (resultsElement) {
+        while (resultsElement.firstChild) {
+          resultsElement.removeChild(resultsElement.firstChild);
+        }
+      }
       return;
     }
     
@@ -135,15 +140,30 @@ function initSearch() {
     
     // 結果の表示
     const resultsElement = document.getElementById('search-results');
+    while (resultsElement.firstChild) {
+      resultsElement.removeChild(resultsElement.firstChild);
+    }
+
     if (results.length > 0) {
-      let html = '<ul>';
+      const ul = document.createElement('ul');
       results.forEach(result => {
-        html += `<li><a href="${result.url}">${result.title}</a><p>${result.excerpt}</p></li>`;
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = result.url;
+        link.textContent = result.title;
+
+        const p = document.createElement('p');
+        p.textContent = result.excerpt;
+
+        li.appendChild(link);
+        li.appendChild(p);
+        ul.appendChild(li);
       });
-      html += '</ul>';
-      resultsElement.innerHTML = html;
+      resultsElement.appendChild(ul);
     } else {
-      resultsElement.innerHTML = '<p>検索結果が見つかりませんでした。</p>';
+      const p = document.createElement('p');
+      p.textContent = '検索結果が見つかりませんでした。';
+      resultsElement.appendChild(p);
     }
   });
   
@@ -153,7 +173,9 @@ function initSearch() {
     const searchInput = document.getElementById('search-input');
     
     if (searchResults && !searchResults.contains(event.target) && event.target !== searchInput) {
-      searchResults.innerHTML = '';
+      while (searchResults.firstChild) {
+        searchResults.removeChild(searchResults.firstChild);
+      }
     }
   });
 }
