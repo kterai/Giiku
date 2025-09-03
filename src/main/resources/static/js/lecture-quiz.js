@@ -10,7 +10,8 @@ async function submitQuizAnswer(quizId, questionId) {
     if (!selectedOptions.length) {
         if (resultEl) {
             resultEl.textContent = '回答を選択してください。';
-            resultEl.className = 'text-danger';
+            resultEl.classList.remove('text-success', 'text-danger');
+            resultEl.classList.add('text-danger');
         }
         return;
     }
@@ -35,13 +36,15 @@ async function submitQuizAnswer(quizId, questionId) {
         const result = await response.json();
         if (resultEl) {
             resultEl.textContent = result.correct ? `正解！ ${result.explanation ?? ''}` : `不正解。${result.explanation ?? ''}`;
-            resultEl.className = result.correct ? 'text-success' : 'text-danger';
+            resultEl.classList.remove('text-success', 'text-danger');
+            resultEl.classList.add(result.correct ? 'text-success' : 'text-danger');
         }
         refreshQuizAnswerMonitor(questionId);
     } catch (error) {
         if (resultEl) {
             resultEl.textContent = '送信に失敗しました';
-            resultEl.className = 'text-danger';
+            resultEl.classList.remove('text-success', 'text-danger');
+            resultEl.classList.add('text-danger');
         }
         console.error('Failed to submit answer', error);
     }
