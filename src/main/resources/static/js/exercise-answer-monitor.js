@@ -28,6 +28,14 @@ export function refreshExerciseAnswerMonitor(questionId) {
                 list.removeChild(list.firstChild);
             }
             display.textContent = '受講者を選択してください';
+            if (data.length === 0) {
+                const li = document.createElement('li');
+                li.classList.add('list-group-item');
+                li.textContent = '回答なし';
+                list.appendChild(li);
+                display.textContent = '回答なし';
+                return;
+            }
             data.forEach(row => {
                 const li = document.createElement('li');
                 li.classList.add('list-group-item', 'list-group-item-action');

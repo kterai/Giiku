@@ -26,6 +26,15 @@ export function refreshQuizAnswerMonitor(questionId) {
             while (tbody.firstChild) {
                 tbody.removeChild(tbody.firstChild);
             }
+            if (data.length === 0) {
+                const row = document.createElement('tr');
+                const cell = document.createElement('td');
+                cell.colSpan = 3;
+                cell.textContent = '回答なし';
+                row.appendChild(cell);
+                tbody.appendChild(row);
+                return;
+            }
             data.forEach(row => {
                 const tr = document.createElement('tr');
 
