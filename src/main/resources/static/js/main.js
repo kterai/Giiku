@@ -106,7 +106,7 @@ function initSearch() {
     if (!searchResults) {
       const resultsContainer = document.createElement('div');
       resultsContainer.id = 'search-results';
-      resultsContainer.className = 'search-results';
+      resultsContainer.classList.add('search-results');
       this.parentNode.appendChild(resultsContainer);
     }
     
@@ -397,7 +397,7 @@ function showAlert(message, type = 'info', duration = 3000) {
   }
   
   const alert = document.createElement('div');
-  alert.className = `alert alert-${type}`;
+  alert.classList.add('alert', `alert-${type}`);
   alert.textContent = message;
   
   document.getElementById('alert-container').appendChild(alert);

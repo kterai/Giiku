@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         answersList.innerHTML = '';
         Object.keys(answers).forEach(questionId => {
             const li = document.createElement('li');
-            li.className = 'list-group-item';
+            li.classList.add('list-group-item');
             li.textContent = `Q${questionId}: ${answers[questionId]}`;
             answersList.appendChild(li);
         });
