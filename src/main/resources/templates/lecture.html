@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${lecture.title}">Lecture</title>
-    <link rel="stylesheet" th:href="@{/webjars/prismjs/1.29.0/themes/prism-tomorrow.min.css}">
+    <link rel="stylesheet" th:href="@{/webjars/prismjs/themes/prism-tomorrow.css}">
 </head>
 <body class="bg-light text-dark">
 
@@ -340,9 +340,9 @@
     </script>
 
     <!-- Syntax Highlighting -->
-    <script th:src="@{/webjars/prismjs/1.29.0/prism.min.js}"></script>
-    <script th:src="@{/webjars/prismjs/1.29.0/components/prism-java.min.js}"></script>
-    <script th:src="@{/webjars/prismjs/1.29.0/components/prism-sql.min.js}"></script>
+    <script th:src="@{/webjars/prismjs/prism.js}"></script>
+    <script th:src="@{/webjars/prismjs/components/prism-java.js}"></script>
+    <script th:src="@{/webjars/prismjs/components/prism-sql.js}"></script>
     <script th:src="@{/js/lecture-quiz.js}" type="module"></script>
     <script th:src='@{/js/lecture-exercise.js}' type="module"></script>
     <script th:src="@{/js/quiz-answer-monitor.js}" type="module"></script>
