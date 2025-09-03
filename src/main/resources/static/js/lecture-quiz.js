@@ -59,3 +59,11 @@ async function submitQuizAnswer(quizId, questionId) {
         console.error('Failed to submit answer', error);
     }
 }
+
+document.querySelectorAll('.quiz-submit-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const quizId = button.dataset.quizId;
+        const questionId = button.dataset.questionId;
+        submitQuizAnswer(quizId, questionId);
+    });
+});
