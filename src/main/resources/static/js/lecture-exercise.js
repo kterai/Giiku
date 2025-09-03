@@ -15,6 +15,7 @@ async function submitExerciseAnswer(questionId, lectureId, answerText) {
             resultEl.textContent = '回答を送信しました';
             resultEl.className = 'mt-2 text-success';
         }
+        refreshExerciseAnswerMonitor(questionId);
     } catch (error) {
         console.error('Failed to submit exercise answer', error);
         if (resultEl) {
