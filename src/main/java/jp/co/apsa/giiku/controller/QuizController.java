@@ -171,7 +171,10 @@ public class QuizController extends AbstractController {
                                           @RequestBody Map<String, Object> answers) {
         try {
             logger.debug("クイズ回答保存リクエスト: id={}", id);
-            Quiz quiz = quizService.findById(id).orElseThrow();
+            Quiz quiz = quizService.findById(id).orElse(null);
+            if (quiz == null) {
+                return ResponseEntity.notFound().build();
+            }
             Long studentId = quiz.getStudentId();
 
             if (answers != null) {
@@ -212,7 +215,10 @@ public class QuizController extends AbstractController {
             String answer = request.getAnswer();
 
             QuizQuestionBank question = quizQuestionBankRepository.findById(questionId)
-                    .orElseThrow();
+                    .orElse(null);
+            if (question == null) {
+                return ResponseEntity.notFound().build();
+            }
 
             boolean correct = question.getCorrectAnswer() != null
                     && question.getCorrectAnswer().trim().equalsIgnoreCase(answer != null ? answer.trim() : "");
