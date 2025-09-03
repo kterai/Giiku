@@ -27,7 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderFeed(answers) {
-        feedEl.innerHTML = '';
+        while (feedEl.firstChild) {
+            feedEl.removeChild(feedEl.firstChild);
+        }
         Object.keys(answers).forEach(questionId => {
             const li = document.createElement('li');
             li.classList.add('list-group-item');

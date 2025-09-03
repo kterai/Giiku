@@ -24,7 +24,9 @@ export function refreshExerciseAnswerMonitor(questionId) {
             if (!list || !display) {
                 return;
             }
-            list.innerHTML = '';
+            while (list.firstChild) {
+                list.removeChild(list.firstChild);
+            }
             display.textContent = '受講者を選択してください';
             data.forEach(row => {
                 const li = document.createElement('li');
