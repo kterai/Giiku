@@ -11,6 +11,7 @@ async function submitExerciseAnswer(questionId, lectureId, answerText) {
             resultEl.classList.remove('text-success', 'text-danger');
             resultEl.classList.add('text-danger');
         }
+        refreshExerciseAnswerMonitor(questionId);
         return;
     }
     if (!answerText || answerText.trim() === '') {
@@ -19,6 +20,7 @@ async function submitExerciseAnswer(questionId, lectureId, answerText) {
             resultEl.classList.remove('text-success', 'text-danger');
             resultEl.classList.add('text-danger');
         }
+        refreshExerciseAnswerMonitor(questionId);
         return;
     }
     try {
@@ -40,7 +42,6 @@ async function submitExerciseAnswer(questionId, lectureId, answerText) {
             resultEl.classList.remove('text-success', 'text-danger');
             resultEl.classList.add('text-success');
         }
-        refreshExerciseAnswerMonitor(questionId);
     } catch (error) {
         console.error('Failed to submit exercise answer', error);
         if (resultEl) {
@@ -48,6 +49,8 @@ async function submitExerciseAnswer(questionId, lectureId, answerText) {
             resultEl.classList.remove('text-success', 'text-danger');
             resultEl.classList.add('text-danger');
         }
+    } finally {
+        refreshExerciseAnswerMonitor(questionId);
     }
 }
 
