@@ -11,18 +11,24 @@ export function refreshQuizAnswerMonitor(questionId) {
         return;
     }
 
-    fetch(`/api/quizzes/questions/${questionId}/answers`)
+    fetch(`/api/quizzes/questions/${questionId}/answers`, {
+        headers: { 'Accept': 'application/json' }
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error('HTTP error');
             }
             const contentType = response.headers.get('content-type') || '';
             if (!contentType.includes('application/json')) {
-                throw new Error('Invalid content type');
+                monitor.textContent = 'セッションが切れました';
+                return null;
             }
             return response.json();
         })
         .then(data => {
+            if (!data) {
+                return;
+            }
             const tbody = monitor.querySelector('tbody');
             if (!tbody) {
                 return;
