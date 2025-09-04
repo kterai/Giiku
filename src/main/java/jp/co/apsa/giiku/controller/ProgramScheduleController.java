@@ -31,7 +31,6 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
 public class ProgramScheduleController {
 
     private static final Logger logger = LoggerFactory.getLogger(ProgramScheduleController.class);
