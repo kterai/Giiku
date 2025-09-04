@@ -1,7 +1,7 @@
 import { getCsrfToken } from './csrf.js';
 import { refreshQuizAnswerMonitor } from './quiz-answer-monitor.js';
 
-async function submitQuizAnswer(quizSessionId, questionId) {
+async function submitQuizAnswer(quizId, questionId) {
     const studentInput = document.getElementById('studentId');
     const studentId = studentInput ? studentInput.value : null;
 
@@ -38,7 +38,7 @@ async function submitQuizAnswer(quizSessionId, questionId) {
         const response = await fetch(`/api/quizzes/questions/${questionId}/answer`, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify({ quizId: quizSessionId, studentId, answer })
+            body: JSON.stringify({ quizId, studentId, answer })
         });
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -62,9 +62,9 @@ async function submitQuizAnswer(quizSessionId, questionId) {
 
 document.querySelectorAll('.quiz-submit-btn').forEach(button => {
     button.addEventListener('click', () => {
-        const quizSessionId = button.dataset.quizId;
+        const quizId = button.dataset.quizId;
         const questionId = button.dataset.questionId;
-        submitQuizAnswer(quizSessionId, questionId);
+        submitQuizAnswer(quizId, questionId);
     });
 });
 
