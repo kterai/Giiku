@@ -157,7 +157,7 @@
                         </ol>
                         <div class="mt-2">
                             <button class="btn btn-success quiz-submit-btn"
-                                    th:attr="data-quiz-id=${quiz.id},data-question-id=${quiz.id}">回答送信</button>
+                                    th:data-quiz-id="${quiz.id}" th:data-question-id="${quiz.id}">回答送信</button>
                             <div th:id="'quiz-result-' + ${quiz.id}" class="mt-2"></div>
                         </div>
                         <div sec:authorize="hasAnyRole('ADMIN','INSTRUCTOR')">
