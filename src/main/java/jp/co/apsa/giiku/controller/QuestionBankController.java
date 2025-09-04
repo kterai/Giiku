@@ -36,7 +36,6 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api/question-banks")
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class QuestionBankController extends AbstractController {
 
     private static final Logger logger = LoggerFactory.getLogger(QuestionBankController.class);

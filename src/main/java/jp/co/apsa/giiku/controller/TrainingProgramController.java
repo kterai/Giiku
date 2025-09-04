@@ -32,7 +32,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/training-programs")
 @Validated
-@CrossOrigin(origins = "*")
 public class TrainingProgramController extends AbstractController {
 
     private static final Logger logger = LoggerFactory.getLogger(TrainingProgramController.class);

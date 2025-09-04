@@ -35,7 +35,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/daily-schedules")
 @Validated
-@CrossOrigin(origins = "*")
 public class DailyScheduleController extends AbstractController {
 
     private static final Logger logger = LoggerFactory.getLogger(DailyScheduleController.class);

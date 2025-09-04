@@ -33,7 +33,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/mock-tests")
 @Validated
-@CrossOrigin(origins = "*")
 public class MockTestController extends AbstractController {
 
     private static final Logger logger = LoggerFactory.getLogger(MockTestController.class);
