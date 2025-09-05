@@ -286,52 +286,6 @@
 
     <!-- JavaScript -->
     <script>
-        function showAnswer(answerId) {
-            const answerElement = document.getElementById(answerId);
-            if (answerElement) {
-                const isShown = answerElement.classList.toggle('show');
-
-                // ボタンテキストを変更
-                const button = document.querySelector(`[data-target-id="${answerId}"]`);
-                if (button) {
-                    const icon = button.querySelector('i');
-                    const label = button.querySelector('.answer-toggle-label');
-                    if (icon && label) {
-                        if (isShown) {
-                            icon.className = 'fas fa-eye-slash';
-                            label.textContent = '回答を非表示';
-                        } else {
-                            icon.className = 'fas fa-eye';
-                            label.textContent = '回答を表示';
-                        }
-                    }
-                }
-            }
-        }
-
-        function toggleAnswer(answerId) {
-            const answerElement = document.getElementById(answerId);
-            if (answerElement) {
-                const isShown = answerElement.classList.toggle('show');
-
-                // ボタンテキストを変更
-                const button = document.querySelector(`[data-target-id="${answerId}"]`);
-                if (button) {
-                    const icon = button.querySelector('i');
-                    const label = button.querySelector('.answer-toggle-label');
-                    if (icon && label) {
-                        if (isShown) {
-                            icon.className = 'fas fa-eye-slash';
-                            label.textContent = '回答例を非表示';
-                        } else {
-                            icon.className = 'fas fa-eye';
-                            label.textContent = '回答例を表示';
-                        }
-                    }
-                }
-            }
-        }
-
         // コードブロックの構文ハイライト
         document.addEventListener('DOMContentLoaded', function() {
             if (typeof Prism !== 'undefined') {
@@ -344,6 +298,7 @@
     <script th:src="@{/webjars/prismjs/prism.js}"></script>
     <script th:src="@{/webjars/prismjs/components/prism-java.js}"></script>
     <script th:src="@{/webjars/prismjs/components/prism-sql.js}"></script>
+    <script type="module" th:src="@{/js/answer-toggle.js}"></script>
     <script th:src="@{/js/lecture-quiz.js}" type="module"></script>
     <script th:src='@{/js/lecture-exercise.js}' type="module"></script>
 </section>

@@ -1,5 +1,6 @@
 import { getCsrfToken } from './csrf.js';
 import { refreshQuizAnswerMonitor } from './quiz-answer-monitor.js';
+import { showAnswer, toggleAnswer } from './answer-toggle.js';
 
 async function submitQuizAnswer(quizId, questionId) {
     const studentInput = document.getElementById('studentId');
@@ -71,17 +72,13 @@ document.querySelectorAll('.quiz-submit-btn').forEach(button => {
 document.querySelectorAll('.show-answer-btn').forEach(button => {
     button.addEventListener('click', () => {
         const targetId = button.dataset.targetId;
-        if (typeof window.showAnswer === 'function') {
-            window.showAnswer(targetId);
-        }
+        showAnswer(targetId);
     });
 });
 
 document.querySelectorAll('.toggle-answer-btn').forEach(button => {
     button.addEventListener('click', () => {
         const targetId = button.dataset.targetId;
-        if (typeof window.toggleAnswer === 'function') {
-            window.toggleAnswer(targetId);
-        }
+        toggleAnswer(targetId);
     });
 });
