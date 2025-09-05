@@ -392,6 +392,14 @@ public class QuizController extends AbstractController {
             String correctAnswer = quizQuestionBankRepository.findById(questionId)
                     .map(QuizQuestionBank::getCorrectAnswer)
                     .orElse("");
+
+            Set<String> correctSet = correctAnswer == null ? new TreeSet<>()
+                    : Arrays.stream(correctAnswer.split(","))
+                    .map(String::trim)
+                    .map(String::toLowerCase)
+                    .filter(s -> !s.isEmpty())
+                    .collect(Collectors.toCollection(TreeSet::new));
+
             List<Map<String, Object>> result = answers.stream()
                     .map(a -> {
                         String name = userRepository.findById(a.getStudentId())
@@ -400,7 +408,16 @@ public class QuizController extends AbstractController {
                         Map<String, Object> map = new HashMap<>();
                         map.put("studentName", name);
                         map.put("answerText", a.getAnswerText());
-                        map.put("correct", correctAnswer.equals(a.getAnswerText()));
+
+                        Set<String> answerSet = a.getAnswerText() == null ? new TreeSet<>()
+                                : Arrays.stream(a.getAnswerText().split(","))
+                                .map(String::trim)
+                                .map(String::toLowerCase)
+                                .filter(s -> !s.isEmpty())
+                                .collect(Collectors.toCollection(TreeSet::new));
+
+                        boolean correct = !correctSet.isEmpty() && correctSet.equals(answerSet);
+                        map.put("correct", correct);
                         return map;
                     })
                     .collect(Collectors.toList());
