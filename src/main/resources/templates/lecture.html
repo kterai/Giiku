@@ -135,24 +135,11 @@
                     <h3 class="fw-semibold mb-3" th:text="${chapter.chapterNumber + '. ' + chapter.title}"></h3>
                     <div th:each="quiz, quizStat : ${quizQuestionsByChapter[chapter.id]}" class="mb-4">
                         <h4 class="fw-semibold mb-2" th:text="${quiz.questionNumber + '. ' + quiz.questionText}">問題文</h4>
-                        <ol class="quiz-options ms-3">
-                            <li th:if="${quiz.optionA}">
-                                <label><input th:attr="type=${quiz.questionType == 'MULTI' ? 'checkbox' : 'radio'}" th:name="'quiz-' + ${quiz.id}" value="A"><span th:text="${#strings.substringAfter(quiz.optionA, '. ')}">選択肢A</span></label>
-                            </li>
-                            <li th:if="${quiz.optionB}">
-                                <label><input th:attr="type=${quiz.questionType == 'MULTI' ? 'checkbox' : 'radio'}" th:name="'quiz-' + ${quiz.id}" value="B"><span th:text="${#strings.substringAfter(quiz.optionB, '. ')}">選択肢B</span></label>
-                            </li>
-                            <li th:if="${quiz.optionC}">
-                                <label><input th:attr="type=${quiz.questionType == 'MULTI' ? 'checkbox' : 'radio'}" th:name="'quiz-' + ${quiz.id}" value="C"><span th:text="${#strings.substringAfter(quiz.optionC, '. ')}">選択肢C</span></label>
-                            </li>
-                            <li th:if="${quiz.optionD}">
-                                <label><input th:attr="type=${quiz.questionType == 'MULTI' ? 'checkbox' : 'radio'}" th:name="'quiz-' + ${quiz.id}" value="D"><span th:text="${#strings.substringAfter(quiz.optionD, '. ')}">選択肢D</span></label>
-                            </li>
-                            <li th:if="${quiz.optionE}">
-                                <label><input th:attr="type=${quiz.questionType == 'MULTI' ? 'checkbox' : 'radio'}" th:name="'quiz-' + ${quiz.id}" value="E"><span th:text="${#strings.substringAfter(quiz.optionE, '. ')}">選択肢E</span></label>
-                            </li>
-                            <li th:if="${quiz.optionF}">
-                                <label><input th:attr="type=${quiz.questionType == 'MULTI' ? 'checkbox' : 'radio'}" th:name="'quiz-' + ${quiz.id}" value="F"><span th:text="${#strings.substringAfter(quiz.optionF, '. ')}">選択肢F</span></label>
+                        <ol class="quiz-options list-unstyled" th:each="choice, stat : ${quiz.choiceList}">
+                            <li class="d-flex align-items-center">
+                                <input class="me-2" th:attr="name=${'quiz-' + quiz.id}, value=${choice}, type=${quiz.questionType == 'MULTI' ? 'checkbox' : 'radio'}" />
+                                <span class="me-2" th:text="${stat.count + '.'}"></span>
+                                <span th:text="${choice}"></span>
                             </li>
                         </ol>
                         <div class="mt-2">
