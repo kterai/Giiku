@@ -135,10 +135,9 @@
                     <h3 class="fw-semibold mb-3" th:text="${chapter.chapterNumber + '. ' + chapter.title}"></h3>
                     <div th:each="quiz, quizStat : ${quizQuestionsByChapter[chapter.id]}" class="mb-4">
                         <h4 class="fw-semibold mb-2" th:text="${quiz.questionNumber + '. ' + quiz.questionText}">問題文</h4>
-                        <ol class="quiz-options list-unstyled">
-                            <li class="d-flex align-items-center" th:each="choice, stat : ${quiz.choiceList}">
+                        <ol class="quiz-options">
+                            <li class="d-flex align-items-center" th:each="choice : ${quiz.choiceList}">
                                 <input class="me-2" th:attr="name=${'quiz-' + quiz.id}, value=${choice}, type=${quiz.questionType == 'MULTI' ? 'checkbox' : 'radio'}" />
-                                <span class="me-2" th:text="${stat.count + '.'}"></span>
                                 <span th:text="${choice}"></span>
                             </li>
                         </ol>
