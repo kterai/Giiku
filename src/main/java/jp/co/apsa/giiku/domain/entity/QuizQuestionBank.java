@@ -2,6 +2,9 @@ package jp.co.apsa.giiku.domain.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * クイズ問題バンクエンティティ
@@ -213,6 +216,17 @@ public class QuizQuestionBank {
     /** setOptionF メソッド */
     public void setOptionF(String optionF) {
         this.optionF = optionF;
+    }
+
+    /**
+     * 選択肢のリストを取得する。
+     *
+     * @return optionA～optionF から null / 空文字を除外したリスト
+     */
+    public List<String> getChoiceList() {
+        return Arrays.asList(optionA, optionB, optionC, optionD, optionE, optionF).stream()
+                .filter(option -> option != null && !option.isEmpty())
+                .collect(Collectors.toList());
     }
 
     /** getCorrectAnswer メソッド */
