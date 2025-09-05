@@ -102,7 +102,6 @@ public class LectureViewController extends AbstractController {
         setTitle(model, lecture.getTitle());
         model.addAttribute("pageTitle", lecture.getTitle());
         model.addAttribute("lecture", lecture);
-        model.addAttribute("quizSessionId", lecture.getId());
         // 以前は回答モニタ用のquestionIdをモデルに追加していたが現在は不要
 
         // 正規化されたテーブルからデータを取得
